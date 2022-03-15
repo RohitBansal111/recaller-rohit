@@ -1,0 +1,15 @@
+.btn-medium{
+    padding: 8px 20px !important;
+    height: auto;
+    min-height: 40px;
+    cursor: pointer !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+.btn-primary{
+    background-color: $Theme-primary;
+    color: $Theme-white;
+}   
+.btn{
+    border: none !important;
+}

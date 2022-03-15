@@ -1,0 +1,31 @@
+.normal-modal{
+    .modal-dialog{
+        min-width: 590px;
+        .modal-content{
+            .modal-header{
+                justify-content: center;
+                .modal-title{
+                    font-size: 22px;
+                }
+                .btn-close{
+                    position: absolute;
+                    right: 20px;
+                }
+            }
+            .modal-footer{
+                display: flex;
+                justify-content: center;
+                border: none;
+                .btn{
+                    width: auto;
+                    padding: 10px 20px;
+                    height: auto;
+                    margin: 10px;
+                    &:hover{
+                        border: none !important;
+                    }
+                }
+            }
+        }
+    }
+}
