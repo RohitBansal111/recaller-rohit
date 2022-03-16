@@ -19,6 +19,8 @@ import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { visuallyHidden } from '@mui/utils';
+import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -208,7 +210,7 @@ const EnhancedTableToolbar = (props) => {
             component="button"
             className="btn table-light-btn"
           >
-            Send Message
+            <MessageOutlinedIcon />Send Message
           </Typography>
           <Typography
             sx={{ flex: '1 1 100%' }}
@@ -216,7 +218,7 @@ const EnhancedTableToolbar = (props) => {
             component="button"
             className="btn table-light-btn"
           >
-            More
+            <MoreHorizOutlinedIcon /> More
           </Typography>
       </div>
 

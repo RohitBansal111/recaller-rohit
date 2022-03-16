@@ -1,0 +1,87 @@
+.wizard-container {
+  .card-wizard {
+    box-shadow: none !important;
+    border: none;
+    .wizard-navigation {
+      .nav-item {
+        cursor: pointer;
+      }
+    }
+    .tab-content {
+      padding: 0px !important;
+      min-height: 320px !important;
+    }
+    .card-footer {
+      background-color: transparent;
+      border: none;
+      .btn-next {
+        padding: 8px 32px !important;
+        height: auto;
+        min-height: 40px;
+        cursor: pointer !important;
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        background-color: #ff6138 !important;
+        color: #fff !important;
+        text-transform: capitalize;
+        box-shadow: none !important;
+        border: none !important;
+        font-family: 'Poppins', sans-serif !important;
+      }
+    }
+    .wizard-main-content {
+      .wizard-steps-bar {
+        padding: 0px;
+        li {
+          color: #333;
+          font-size: 14px;
+          font-weight: 400;
+          margin-bottom: 0;
+        }
+      }
+      .upload-drag-section {
+        border: 2px dashed #bbb;
+        border-radius: 5px;
+        background: #fff;
+        padding: 40px;
+        text-align: center;
+        font-size: 18px;
+        color: #777;
+        margin-bottom: 0px;
+        .material-icons {
+          font-size: 50px;
+        }
+        h3 {
+          color: #777;
+          font-size: 18px;
+          font-weight: 500;
+        }
+        h4 {
+          color: #777;
+          font-size: 15px;
+          font-weight: 500;
+        }
+        .select-file {
+          position: relative;
+          color: $Theme-primary;
+          cursor: pointer;
+          span {
+            color: $Theme-primary;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: underline;
+          }
+          input {
+            position: absolute;
+            top: 0px;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 99;
+            max-width: 90px;
+            left: 40%;
+          }
+        }
+      }
+    }
+  }
+}

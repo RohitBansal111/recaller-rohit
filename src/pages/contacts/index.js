@@ -1,18 +1,21 @@
-/* eslint-disable no-useless-escape */
 import React, { useState } from 'react'
-// eslint-disable-next-line no-unused-vars
 import { Dropdown } from 'react-bootstrap'
 import EnhancedTable from '../../components/contacts/data-table'
+import FilterTabs from '../../components/contacts/Filtertabs'
 import ContactModal from '../../models/contactModel'
+import UploadSpreadsheetModal from '../../models/uploadSpreadsheetModal'
 
 
 const Contacts = () => {
   const [show, setShow] = useState(false);
+  const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
   const [errors, setErrors] = useState({});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleUploadShow = () => setUploadModal(true);
+  const handleUploadClose = () => setUploadModal(false);
   const isValid = ()=>{
     // console.log('email')
     const regex =
@@ -49,6 +52,9 @@ const Contacts = () => {
       console.log(addContact,'contact')
     }
   }
+  const handleProceed = () => {
+    
+  }
   const onChange = (e) => {
     const {name,value} = e.target
     setAddContact(prevTime => {
@@ -69,25 +75,35 @@ const Contacts = () => {
                   Add Contact
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Upload Spreadsheet</Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={handleUploadShow}>Upload Spreadsheet</Dropdown.Item>
                   <Dropdown.Item href="#" onClick={handleShow}>Manual Entry</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
           </div>
           <div className='filter-by-option'>
             <h3>Filter By:</h3>
+            <FilterTabs />
           </div>
           <div className='contact-data-table-main'>
               <EnhancedTable />
           </div>
 
           <ContactModal 
-          show={show} 
-          handleClose={handleClose} 
-          handleShow={handleShow}
-          handleSubmit={handleSubmit}
-          onChange={onChange}
-          errors={errors}/>
+            show={show} 
+            handleClose={handleClose} 
+            handleShow={handleShow}
+            handleSubmit={handleSubmit}
+            onChange={onChange}
+            errors={errors}/>
+            
+            <UploadSpreadsheetModal
+              uploadModal={uploadModal} 
+              handleUploadClose={handleUploadClose} 
+              handleUploadShow={handleUploadShow}
+              handleProceed={handleProceed}
+              onChange={onChange}
+              errors={errors}
+            />
           </>
   )
 }

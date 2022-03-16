@@ -43,35 +43,46 @@ ul {
 .modal-open .modal {
   background-color: #0000007d;
 }
-
+.listBreak {
+  border-color: #eeeeee;
+  margin-bottom: 0px;
+  margin-left: 40px;
+  margin-top: 0px;
+  border: 0;
+}
 
 // Layout
-.page-wrapper{
+.page-wrapper {
   display: flex;
   justify-content: space-between;
-  .page-sidebar{
+  .page-sidebar {
     // background-image: linear-gradient(60deg,#3429d1 0%,#af59f9 100%)!important;
-    background-color: #43566B!important;
+    background-color: #43566b !important;
     width: 320px;
     min-height: 100vh;
   }
-  .main-content{
+  .main-content {
     width: 100%;
     max-width: calc(100vw - 320px);
-    .page-header{
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    overflow-y: overlay;
+    background-image: url('./../assets/images/dashboard-backdrop.svg');
+    .page-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 20px;
       padding-bottom: 20px;
       border-bottom: 1px solid lightgrey;
-      h1{
+      h1 {
         font-size: 24px;
         font-weight: 600;
       }
-      .dropdown{
+      .dropdown {
         position: relative;
-        .dropdown-menu{
+        .dropdown-menu {
           inset: initial !important;
           transform: none !important;
           background-color: #fff;
@@ -83,14 +94,14 @@ ul {
           min-width: 200px !important;
           border: none;
           padding: 0px;
-          .dropdown-item{
+          .dropdown-item {
             display: block;
             width: 100%;
             padding: 9px 10px;
             border-bottom: 1px solid lightgray;
             box-sizing: border-box;
             font-size: 15px;
-            &:last-child{
+            &:last-child {
               border-bottom: none !important;
             }
           }
@@ -101,7 +112,7 @@ ul {
 }
 
 // material Design table
-.MuiTableHead-root{
+.MuiTableHead-root {
   background-color: lightblue;
 }
 

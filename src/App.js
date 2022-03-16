@@ -5,6 +5,8 @@ import Contacts from './pages/contacts';
 import Dashboard from './pages/dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/layout'
+import "react-bootstrap-wizard/dist/react-wizard.scss"
+import 'material-icons/iconfont/material-icons.css';
 
 function App() {
   return (

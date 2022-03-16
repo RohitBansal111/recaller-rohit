@@ -1,0 +1,18 @@
+.create-filter {
+  background-color: #f1f1f1;
+  padding: 20px;
+  .select-property-filter {
+    .filter-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .MuiFormControl-root {
+        max-width: 40%;
+      }
+      .clear-button {
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+}

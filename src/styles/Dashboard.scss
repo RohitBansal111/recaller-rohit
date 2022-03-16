@@ -1,66 +1,238 @@
-.filter-by-option{
-    h3{
-        border-bottom: 1px solid lightgrey;
-        padding: 10px 20px;
-        font-size: 18px;
-        font-weight: 500;
+.filter-by-option {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  h3 {
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 500;
+    height: 50px;
+    display: flex;
+    margin-bottom: 0px;
+    align-items: center;
+    white-space: nowrap;
+    position: absolute;
+  }
+  .filter-tabs {
+    width: 100%;
+    .nav-tabs {
+      margin: 0px !important;
+      height: 50px;
+      box-sizing: border-box;
+      padding-left: 125px;
+      border-bottom: 1px solid lightgrey;
+      .nav-item {
+        height: 50px;
+        .nav-link {
+          color: #bbb;
+          font-size: 14px;
+          font-weight: 500;
+          height: 50px;
+          &.active {
+            color: #333;
+            font-weight: 500;
+            border: none;
+            background-color: transparent;
+            border-bottom: 2px #ff6138 solid;
+          }
+          &:hover {
+            border: none;
+          }
+          &:focus-visible {
+            outline: 0px !important;
+          }
+        }
+      }
     }
+  }
 }
-.contact-data-table-main{
+.contact-data-table-main {
+  padding: 20px;
+  .tableFilter-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .table-filter-left {
+    display: flex;
+    align-items: center;
+  }
+  .table-light-btn {
+    white-space: nowrap;
+    color: #bababa;
+    border: 2px solid #bababa !important;
+    height: 45px;
+    border-radius: 20px;
+    padding: 7px 23px;
+    font-size: 16px !important;
+    margin-right: 12px;
+    svg {
+      width: 21px;
+      margin-right: 5px;
+    }
+  }
+  .selected-items {
+    width: auto;
+    font-size: 14px;
+    border: 2px solid #3b99fc;
+    border-radius: 24px;
+    padding: 9px 20px;
+    text-transform: capitalize;
+    max-width: 140px;
+    text-align: center;
+    font-weight: 600;
+    color: #3b99fc;
+    cursor: pointer;
+    height: 45px;
+    min-width: 130px;
+    margin-right: 10px;
+  }
+  .table-filter-search {
+    position: relative;
+    min-width: 350px;
+    .form-control {
+      border-radius: 20px;
+      border: 2px solid #eee;
+      font-size: 14px;
+      height: 45px;
+      padding-left: 45px;
+      overflow: hidden;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    svg {
+      position: absolute;
+      left: 15px;
+      top: 12px;
+      fill: #bbb;
+    }
+  }
+}
+
+// Dshboard Main
+.dashboard-content {
+  margin: auto;
+  max-width: 960px;
+  width: 95%;
+  padding: 50px 0px;
+  .dashboard-header {
+    text-align: center;
+    h1 {
+      font-size: 30px;
+      color: #333;
+      font-weight: 500;
+      line-height: 45px;
+      margin: 0;
+      span {
+        font-size: 24px;
+        font-weight: 400 !important;
+        display: block;
+      }
+    }
+  }
+}
+.dashboard-performance-card {
+  margin: 30px 0px;
+  @include flexCenterBetween;
+  .performance-card-item {
+    flex: 0 0 31%;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 10px 10px -10px #bbb;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: center;
+    margin: 5px;
     padding: 20px;
-    .tableFilter-toolbar{
-        display: flex;
-        justify-content: space-between;
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+      color: #777;
+      margin-bottom: 10px;
+      text-align: center;
     }
-    .table-filter-left{
-        display: flex;
-        align-items: center;
+    .card-media {
+      img {
+        width: 90px;
+      }
     }
-    .table-light-btn{
-        white-space: nowrap;
-        color: #BABABA;
-        border: 2px solid #BABABA !important;
-        height: 45px;
-        border-radius: 20px;
-        padding: 7px 23px;
-        font-size: 16px !important;
-        margin-right: 12px;
+  }
+}
+
+.dashboard-multi-tabs {
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  .activity-tabs {
+    .nav-tabs {
+      background: none;
+      border-bottom: 1px solid #eee;
+      height: 50px;
+      margin-bottom: 0px !important;
+      .nav-item {
+        &:focus-visible {
+          outline: 0px !important;
+        }
+        button {
+          color: #bbb;
+          font-size: 14px;
+          font-weight: 500;
+          height: 50px;
+          &.active {
+            color: #333;
+            font-weight: 500;
+            border: none;
+            background-color: transparent;
+            border-bottom: 2px #ff6138 solid;
+          }
+          &:hover {
+            border: none;
+          }
+          &:focus-visible {
+            outline: 0px !important;
+          }
+        }
+      }
     }
-    .selected-items{
-        width: auto;
+    .tab-content {
+      min-height: 400px;
+    }
+  }
+}
+.card-listingtabs {
+  margin: 0px;
+  padding: 0px;
+  li {
+    display: flex;
+    padding: 15px 17px;
+    cursor: pointer;
+    &:hover {
+      background: #f0f8ff;
+    }
+    .card-tab-media {
+      padding-left: 35px;
+      img {
+        border-radius: 30px;
+        height: 50px;
+        width: 50px;
+      }
+    }
+    .card-tav-content {
+      margin-left: 15px;
+      p {
         font-size: 14px;
-        border: 2px solid #3b99fc;
-        border-radius: 24px;
-        padding: 9px 20px;
-        text-transform: capitalize;
-        max-width: 140px;
-        text-align: center;
-        font-weight: 600;
-        color: #3b99fc;
-        cursor: pointer;
-        height: 45px;
-        min-width: 130px;
-        margin-right: 10px;
+        font-weight: 400;
+        color: #333;
+        line-height: 17px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
     }
-    .table-filter-search{
-        position: relative;
-        min-width: 350px;
-        .form-control{
-            border-radius: 20px;
-            border: 2px solid #eee;
-            font-size: 14px;
-            height: 45px;
-            padding-left: 45px;
-            overflow: hidden;
-            &:focus{
-                box-shadow: none;
-            }
-        }
-        svg{
-            position: absolute;
-            left: 15px;
-            top: 12px;
-            fill: #bbb;
-        }
-    }
+  }
 }

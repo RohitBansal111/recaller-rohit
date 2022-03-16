@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 import HomeIcon from '../../assets/svg-icons/home';
+import ContactIcon from '../../assets/svg-icons/contact';
 import Logo from '../../assets/images/logo.png';
 
 
@@ -13,7 +14,7 @@ const SideNavMenu = [
   },
   {
     path : "/contacts",
-    menuIcon : <HomeIcon />,
+    menuIcon : <ContactIcon />,
     menuTitle : "Contacts"
   },
   {
