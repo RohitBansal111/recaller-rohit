@@ -1,9 +1,12 @@
+/* eslint-disable no-useless-escape */
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Dropdown } from 'react-bootstrap'
 import EnhancedTable from '../../components/contacts/data-table'
 import FilterTabs from '../../components/contacts/Filtertabs'
 import ContactModal from '../../models/contactModel'
 import UploadSpreadsheetModal from '../../models/uploadSpreadsheetModal'
+import {  toast } from 'react-toastify';
 
 const Contacts = () => {
   const [show, setShow] = useState(false);
@@ -45,11 +48,24 @@ const Contacts = () => {
     return formData;
 
   }
-  const handleSubmit = () => {
-    if(isValid())
-    {
-      console.log(addContact,'contact')
-    }
+  const handleSubmit = async() => {
+    
+    if(isValid()){
+      await axios.post(`${process.env.REACT_APP_API_URL}/contact/create`,addContact).then((res) => {
+        if(res && res.data && res.data.status === 200)
+        {
+          setShow(false);
+          setAddContact({});
+          toast.success("Contact saved!");
+        }
+        else{
+          toast.error(res.data.message);
+        }
+        
+      }).catch((err) => {
+        console.log(err , "errrrr");
+      })
+    } 
   }
   const onChange = (e) => {
     const {name,value} = e.target
