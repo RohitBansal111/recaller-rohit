@@ -1,33 +1,33 @@
-import * as React from 'react';
-import useState from 'react'
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import SearchIcon from '@mui/icons-material/Search';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { visuallyHidden } from '@mui/utils';
-import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import HelpIcon from '@mui/icons-material/Help';
-import { Dropdown } from 'react-bootstrap'
-import SendMessageModal from '../../models/sendMessageModal';
-import DeleteContactModal from '../../models/deleteContactModal';
-import LogNoteModal from '../../models/LogNoteModal';
-
+import * as React from "react";
+import useState from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import SearchIcon from "@mui/icons-material/Search";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { visuallyHidden } from "@mui/utils";
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import HelpIcon from "@mui/icons-material/Help";
+import { Dropdown } from "react-bootstrap";
+import SendMessageModal from "../../models/sendMessageModal";
+import DeleteContactModal from "../../models/deleteContactModal";
+import LogNoteModal from "../../models/LogNoteModal";
+import moment from "moment";
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -40,19 +40,19 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+  createData("Cupcake", 305, 3.7, 67, 4.3),
+  createData("Donut", 452, 25.0, 51, 4.9),
+  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData("Honeycomb", 408, 3.2, 87, 6.5),
+  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+  createData("Jelly Bean", 375, 0.0, 94, 0.0),
+  createData("KitKat", 518, 26.0, 65, 7.0),
+  createData("Lollipop", 392, 0.2, 98, 0.0),
+  createData("Marshmallow", 318, 0, 81, 2.0),
+  createData("Nougat", 360, 19.0, 9, 37.0),
+  createData("Oreo", 437, 18.0, 63, 4.0),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -66,7 +66,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -87,40 +87,39 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
+    id: "name",
     numeric: false,
     disablePadding: true,
-    label: 'Name',
+    label: "Name",
   },
   {
-    id: 'email',
+    id: "email",
     numeric: true,
     disablePadding: false,
-    label: 'Primary Email',
+    label: "Primary Email",
   },
   {
-    id: 'fat',
+    id: "fat",
     numeric: true,
     disablePadding: false,
-    label: 'Primary Phone',
+    label: "Primary Phone",
   },
   {
-    id: 'last-activity',
+    id: "last-activity",
     numeric: true,
     disablePadding: false,
-    label: 'Last Activity Date',
+    label: "Last Activity Date",
   },
   {
-    id: 'joined-date',
+    id: "joined-date",
     numeric: true,
     disablePadding: false,
-    label: 'Joined Date',
+    label: "Joined Date",
   },
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -135,26 +134,26 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              "aria-label": "select all desserts",
             }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -169,7 +168,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
@@ -177,26 +176,25 @@ EnhancedTableHead.propTypes = {
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
 
-  const [showLogModal, setShowLogModal] = React.useState(false)
-  const [showSendMSGModal, setShowSendMSGModal] = React.useState(false)
-  const [showDeleteContactModal, setshowDeleteContactModal] = React.useState(false)
+  const [showLogModal, setShowLogModal] = React.useState(false);
+  const [showSendMSGModal, setShowSendMSGModal] = React.useState(false);
+  const [showDeleteContactModal, setshowDeleteContactModal] = React.useState(false);
 
-  const handleDeleteContact = () => setshowDeleteContactModal(true)
+  const handleDeleteContact = () => setshowDeleteContactModal(true);
   const handleSendDeleteContact = () => setshowDeleteContactModal(false);
   const handleCloseDeleteModal = () => setshowDeleteContactModal(false);
 
   const handleShowSendMessageModal = () => setShowSendMSGModal(true);
   const handleSendMessage = () => setShowSendMSGModal(false);
   const handleCloseSendModal = () => setShowSendMSGModal(false);
-   
-  const handleLogNoteShow = () => setShowLogModal(true)
-  const handleLogNote = () => setShowLogModal(false)
-  const handleCloseNoteModal = () => setShowLogModal(false)
-  
+
+  const handleLogNoteShow = () => setShowLogModal(true);
+  const handleLogNote = () => setShowLogModal(false);
+  const handleCloseNoteModal = () => setShowLogModal(false);
 
   return (
     <Toolbar
-    className="tableFilter-toolbar"
+      className="tableFilter-toolbar"
       sx={{
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
@@ -206,10 +204,10 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-      <div className='table-filter-left'>
+      <div className="table-filter-left">
         {numSelected > 0 ? (
           <Typography
-            sx={{ flex: '1 1 100%' }}
+            sx={{ flex: "1 1 100%" }}
             color="inherit"
             variant="subtitle1"
             component="div"
@@ -219,7 +217,7 @@ const EnhancedTableToolbar = (props) => {
           </Typography>
         ) : (
           <Typography
-            sx={{ flex: '1 1 100%' }}
+            sx={{ flex: "1 1 100%" }}
             variant="h6"
             id="tableTitle"
             component="div"
@@ -229,43 +227,53 @@ const EnhancedTableToolbar = (props) => {
           </Typography>
         )}
         <Typography
-            sx={{ flex: '1 1 100%' }}
-            variant="h6"
-            component="button"
-            className="btn table-light-btn"
-            onClick={handleShowSendMessageModal}
-          >
-            <MessageOutlinedIcon />Send Message
-          </Typography>
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic" className='btn table-light-btn'>
-              <MoreHorizOutlinedIcon /> More
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={handleLogNoteShow}> Log Note </Dropdown.Item>
-              <Dropdown.Item onClick={handleDeleteContact}> Delete Contacts </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Tooltip title="Please select contacts from the list below to use available actions">
-            <IconButton>
-              <HelpIcon />
-            </IconButton>
-          </Tooltip>
-          <SendMessageModal
-            showSendMSGModal={showSendMSGModal} 
-            handleSendMessage={handleSendMessage}
-            handleCloseSendModal={handleCloseSendModal}
-          />
-          <DeleteContactModal
-            showDeleteContactModal={showDeleteContactModal}
-            handleDeleteContact={handleDeleteContact}
-            handleCloseDeleteModal={handleCloseDeleteModal}
-          />
-          <LogNoteModal
-              showLogModal={showLogModal} 
-              handleLogNote={handleLogNote}
-              handleCloseNoteModal={handleCloseNoteModal}
-          />
+          sx={{ flex: "1 1 100%" }}
+          variant="h6"
+          component="button"
+          className="btn table-light-btn"
+          onClick={handleShowSendMessageModal}
+        >
+          <MessageOutlinedIcon />
+          Send Message
+        </Typography>
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic" className="btn table-light-btn">
+            <MoreHorizOutlinedIcon /> More
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={handleLogNoteShow}> Log Note </Dropdown.Item>
+            <Dropdown.Item onClick={handleDeleteContact}> Delete Contacts </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Tooltip title="Please select contacts from the list below to use available actions">
+          <IconButton>
+            <HelpIcon />
+          </IconButton>
+        </Tooltip>
+        <SendMessageModal
+          showSendMSGModal={showSendMSGModal}
+          handleSendMessage={handleSendMessage}
+          handleCloseSendModal={handleCloseSendModal}
+        />
+        <DeleteContactModal
+          showDeleteContactModal={showDeleteContactModal}
+          handleDeleteContact={handleDeleteContact}
+          handleCloseDeleteModal={handleCloseDeleteModal}
+        />
+        <LogNoteModal
+          showLogModal={showLogModal}
+          handleLogNote={handleLogNote}
+          handleCloseNoteModal={handleCloseNoteModal}
+        />
+
+        {/* <Typography
+          sx={{ flex: "1 1 100%" }}
+          variant="h6"
+          component="button"
+          className="btn table-light-btn"
+        >
+          <MoreHorizOutlinedIcon /> More
+        </Typography> */}
       </div>
 
       {numSelected > 0 ? (
@@ -277,7 +285,11 @@ const EnhancedTableToolbar = (props) => {
       ) : (
         <Tooltip title="Filter list">
           <div className="table-filter-search">
-            <input type="text" className='form-control' placeholder='search by Name, Email or Phone' />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="search by Name, Email or Phone"
+            />
             <SearchIcon />
           </div>
         </Tooltip>
@@ -290,23 +302,31 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+export default function EnhancedTable(props) {
+  const { rowsData } = props;
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("name");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  console.log(order, "oooooo");
+  console.log(orderBy, "ooooobbbbbb");
+  console.log(selected, "ssssssss");
+  console.log(page, "ppppppp");
+  console.log(dense, "dddddddddd");
+  console.log(rowsPerPage, "rrrrrrrr");
+
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rowsData && rowsData.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -326,10 +346,9 @@ export default function EnhancedTable() {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -350,17 +369,20 @@ export default function EnhancedTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length) : 0;
+
+  console.log(rowsData && rowsData.length, "llllll");
+  console.log(rowsData, "rowsData");
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -368,51 +390,52 @@ export default function EnhancedTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={rowsData && rowsData.length}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+              {rowsData &&
+                rowsData.length > 0 &&
+                stableSort(rowsData, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.name);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row.name)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.name}
+                        selected={isItemSelected}
                       >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                          {row && row.name}
+                        </TableCell>
+                        <TableCell align="right">{row && row.email}</TableCell>
+                        <TableCell align="right">{row && row.phone}</TableCell>
+                        <TableCell align="right">
+                          {moment(row && row.updatedAt).format("DD/MM/YYYY")}
+                        </TableCell>
+                        <TableCell align="right">
+                          {moment(row && row.createdAt).format("DD/MM/YYYY")}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
@@ -428,7 +451,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={rowsData && rowsData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
