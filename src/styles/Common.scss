@@ -87,18 +87,22 @@ ul {
       }
       .dropdown {
         position: relative;
+        button {
+          border-radius: 30px;
+        }
         .dropdown-menu {
           inset: initial !important;
           transform: none !important;
           background-color: #fff;
-          box-shadow: 0px 0px 4px #cecdcd;
           border-radius: 3px;
           right: 0px !important;
           max-width: 200px;
           top: 100% !important;
           min-width: 200px !important;
-          border: none;
           padding: 0px;
+          box-shadow: 0 0.66875rem 2.3875rem rgba(31, 10, 6, 0.03);
+          padding: 0px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
           .dropdown-item {
             display: block;
             width: 100%;

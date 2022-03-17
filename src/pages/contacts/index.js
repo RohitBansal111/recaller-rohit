@@ -5,7 +5,6 @@ import FilterTabs from '../../components/contacts/Filtertabs'
 import ContactModal from '../../models/contactModel'
 import UploadSpreadsheetModal from '../../models/uploadSpreadsheetModal'
 
-
 const Contacts = () => {
   const [show, setShow] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
@@ -16,8 +15,8 @@ const Contacts = () => {
   const handleShow = () => setShow(true);
   const handleUploadShow = () => setUploadModal(true);
   const handleUploadClose = () => setUploadModal(false);
+
   const isValid = ()=>{
-    // console.log('email')
     const regex =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let formData = true;
@@ -51,9 +50,6 @@ const Contacts = () => {
     {
       console.log(addContact,'contact')
     }
-  }
-  const handleProceed = () => {
-    
   }
   const onChange = (e) => {
     const {name,value} = e.target
@@ -100,10 +96,11 @@ const Contacts = () => {
               uploadModal={uploadModal} 
               handleUploadClose={handleUploadClose} 
               handleUploadShow={handleUploadShow}
-              handleProceed={handleProceed}
               onChange={onChange}
               errors={errors}
             />
+
+            
           </>
   )
 }

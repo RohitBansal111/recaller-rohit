@@ -51,6 +51,11 @@ const SideNavMenu = [
     path : "/settings",
     menuIcon : <HomeIcon />,
     menuTitle : "Settings"
+  },
+  {
+    path : "/recallr-AI",
+    menuIcon : <HomeIcon />,
+    menuTitle : "RecallrAI"
   }
 ]
 

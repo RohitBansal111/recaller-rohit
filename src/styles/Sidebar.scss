@@ -31,6 +31,9 @@
         padding-left: 25px;
         border-radius: 35px;
         text-decoration: none;
+        &:hover {
+          background-color: #f7f7f7;
+        }
         span {
           color: $Icon-color;
           font-size: 16px;

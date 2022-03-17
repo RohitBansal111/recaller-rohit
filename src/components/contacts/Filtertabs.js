@@ -2,7 +2,7 @@ import React from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import CreateNewFilter from './Create-new-filter'
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const FilterTabs = () => {
   return (
@@ -15,7 +15,7 @@ const FilterTabs = () => {
         >
           <Tab eventKey="all" title="All(234)">
           </Tab>
-          <Tab eventKey="filter" title="New Filter">
+          <Tab eventKey="filter" title={<span><AddCircleOutlineIcon /> New Filter (984)  </span>}>
               <CreateNewFilter />
           </Tab>
         </Tabs>

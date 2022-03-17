@@ -1,6 +1,8 @@
 import React from 'react'
 import ActivityTabs from '../../components/home/tabs'
 import OnlineReviewIcon from './../../assets/svg/icon-placeholder-online-reviews.svg'
+import AnalyticsIcon from './../../assets/svg/icon-placeholder-analytics.svg'
+import PerformanceIcon from './../../assets/svg/icon-placeholder-performance.svg'
 
 
 const Dashboard = () => {
@@ -20,13 +22,13 @@ const Dashboard = () => {
             <div className="performance-card-item">
                 <h3>Analytics</h3>
                 <div className="card-media">
-                    <img src={OnlineReviewIcon} alt="Analytics" />
+                    <img src={AnalyticsIcon} alt="Analytics" />
                 </div>
             </div>
             <div className="performance-card-item">
                 <h3>Performance</h3>
                 <div className="card-media">
-                    <img src={OnlineReviewIcon} alt="Performance" />
+                    <img src={PerformanceIcon} alt="Performance" />
                 </div>
             </div>
         </div>

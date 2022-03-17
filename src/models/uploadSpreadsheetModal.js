@@ -4,7 +4,7 @@ import ReactWizard from 'react-bootstrap-wizard';
 import ConfirmUploadStep3 from '../components/contacts/wizard-form/ConfirmUploadStep3';
 import PreparationStep1 from '../components/contacts/wizard-form/preparationStep1';
 import PropertiesStep2 from '../components/contacts/wizard-form/PropertiesStep2';
-
+import PropTypes from 'prop-types';
 
 var steps = [
   {
@@ -28,6 +28,14 @@ var steps = [
   }
 ];
 
+ReactWizard.defaultProps = {
+  validate: false,
+  previousButtonText: "Previous",
+  finishButtonText: "Finish",
+  nextButtonText: "Proceed",
+  color: "primary",
+  progressbar: false
+};
 const UploadSpreadsheetModal = (props) => {
   const finishButtonClick = (allStates) => {
     console.log(allStates);
@@ -44,6 +52,8 @@ const UploadSpreadsheetModal = (props) => {
                 navSteps
                 headerTextCenter
                 color="primary"
+                nextButtonText ="Proceed"
+                previousButtonText = "Dismiss"
                 finishButtonClick={finishButtonClick}
               />
             </Modal.Body>

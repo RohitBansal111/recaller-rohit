@@ -12,7 +12,7 @@ const PreparationStep1 = () => {
         </ul>
         <div className="upload-drag-section">
             <div className="text-center">
-              <i class="material-icons">cloud_upload</i>
+              <i className="material-icons">cloud_upload</i>
               <h3>Drag and drop a CSV file here to upload</h3>
               <h4>Or</h4>
               <div className='select-file'>

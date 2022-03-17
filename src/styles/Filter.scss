@@ -8,11 +8,56 @@
       align-items: center;
       .MuiFormControl-root {
         max-width: 40%;
+        flex: 0 0 31%;
+        display: flex;
+        justify-content: space-between;
       }
       .clear-button {
         border: none;
+        color: $Active-color;
         cursor: pointer;
       }
     }
+    .filter-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      button {
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        color: #999;
+        outline: 0;
+        text-decoration: none;
+        text-decoration: underline;
+        svg {
+          width: 20px;
+          margin-right: 2px;
+        }
+      }
+      .addRole-action {
+        button {
+          color: $Active-color;
+        }
+      }
+      .filter-clear-save {
+        .cancel-action {
+          color: $Active-color;
+        }
+        .save-action {
+          color: $Theme-secondary;
+        }
+      }
+    }
   }
+}
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  background-color: #f1f1f1;
+  padding-right: 6px;
+}
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #6b61ff;
+  border-width: 2px;
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import useState from 'react'
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -21,6 +22,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { visuallyHidden } from '@mui/utils';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import HelpIcon from '@mui/icons-material/Help';
+import { Dropdown } from 'react-bootstrap'
+import SendMessageModal from '../../models/sendMessageModal';
+import DeleteContactModal from '../../models/deleteContactModal';
+import LogNoteModal from '../../models/LogNoteModal';
+
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -170,6 +177,23 @@ EnhancedTableHead.propTypes = {
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
 
+  const [showLogModal, setShowLogModal] = React.useState(false)
+  const [showSendMSGModal, setShowSendMSGModal] = React.useState(false)
+  const [showDeleteContactModal, setshowDeleteContactModal] = React.useState(false)
+
+  const handleDeleteContact = () => setshowDeleteContactModal(true)
+  const handleSendDeleteContact = () => setshowDeleteContactModal(false);
+  const handleCloseDeleteModal = () => setshowDeleteContactModal(false);
+
+  const handleShowSendMessageModal = () => setShowSendMSGModal(true);
+  const handleSendMessage = () => setShowSendMSGModal(false);
+  const handleCloseSendModal = () => setShowSendMSGModal(false);
+   
+  const handleLogNoteShow = () => setShowLogModal(true)
+  const handleLogNote = () => setShowLogModal(false)
+  const handleCloseNoteModal = () => setShowLogModal(false)
+  
+
   return (
     <Toolbar
     className="tableFilter-toolbar"
@@ -209,17 +233,39 @@ const EnhancedTableToolbar = (props) => {
             variant="h6"
             component="button"
             className="btn table-light-btn"
+            onClick={handleShowSendMessageModal}
           >
             <MessageOutlinedIcon />Send Message
           </Typography>
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            variant="h6"
-            component="button"
-            className="btn table-light-btn"
-          >
-            <MoreHorizOutlinedIcon /> More
-          </Typography>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic" className='btn table-light-btn'>
+              <MoreHorizOutlinedIcon /> More
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleLogNoteShow}> Log Note </Dropdown.Item>
+              <Dropdown.Item onClick={handleDeleteContact}> Delete Contacts </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Tooltip title="Please select contacts from the list below to use available actions">
+            <IconButton>
+              <HelpIcon />
+            </IconButton>
+          </Tooltip>
+          <SendMessageModal
+            showSendMSGModal={showSendMSGModal} 
+            handleSendMessage={handleSendMessage}
+            handleCloseSendModal={handleCloseSendModal}
+          />
+          <DeleteContactModal
+            showDeleteContactModal={showDeleteContactModal}
+            handleDeleteContact={handleDeleteContact}
+            handleCloseDeleteModal={handleCloseDeleteModal}
+          />
+          <LogNoteModal
+              showLogModal={showLogModal} 
+              handleLogNote={handleLogNote}
+              handleCloseNoteModal={handleCloseNoteModal}
+          />
       </div>
 
       {numSelected > 0 ? (
