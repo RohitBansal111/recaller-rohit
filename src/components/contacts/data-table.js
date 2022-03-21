@@ -29,32 +29,6 @@ import DeleteContactModal from "../../models/deleteContactModal";
 import LogNoteModal from "../../models/LogNoteModal";
 import moment from "moment";
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -175,14 +149,8 @@ EnhancedTableHead.propTypes = {
 
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
-
   const [showLogModal, setShowLogModal] = React.useState(false);
   const [showSendMSGModal, setShowSendMSGModal] = React.useState(false);
-  const [showDeleteContactModal, setshowDeleteContactModal] = React.useState(false);
-
-  const handleDeleteContact = () => setshowDeleteContactModal(true);
-  const handleSendDeleteContact = () => setshowDeleteContactModal(false);
-  const handleCloseDeleteModal = () => setshowDeleteContactModal(false);
 
   const handleShowSendMessageModal = () => setShowSendMSGModal(true);
   const handleSendMessage = () => setShowSendMSGModal(false);
@@ -191,7 +159,6 @@ const EnhancedTableToolbar = (props) => {
   const handleLogNoteShow = () => setShowLogModal(true);
   const handleLogNote = () => setShowLogModal(false);
   const handleCloseNoteModal = () => setShowLogModal(false);
-
   return (
     <Toolbar
       className="tableFilter-toolbar"
@@ -230,21 +197,40 @@ const EnhancedTableToolbar = (props) => {
           sx={{ flex: "1 1 100%" }}
           variant="h6"
           component="button"
-          className="btn table-light-btn"
+          className={
+            numSelected > 0 ? "btn table-light-btn delActive" : "btn table-light-btn disabled"
+          }
           onClick={handleShowSendMessageModal}
         >
           <MessageOutlinedIcon />
           Send Message
         </Typography>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic" className="btn table-light-btn">
+        {numSelected === 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            component="button"
+            className="btn table-light-btn disabled"
+          >
             <MoreHorizOutlinedIcon /> More
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={handleLogNoteShow}> Log Note </Dropdown.Item>
-            <Dropdown.Item onClick={handleDeleteContact}> Delete Contacts </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+          </Typography>
+        ) : (
+          <Dropdown itemSelector="button:not(:disabled)">
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              className={
+                numSelected > 0 ? "btn table-light-btn delActive" : "btn table-light-btn disabled"
+              }
+            >
+              <MoreHorizOutlinedIcon /> More
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleLogNoteShow}> Log Note </Dropdown.Item>
+              <Dropdown.Item onClick={props.handleDeleteContact}> Delete Contacts </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
         <Tooltip title="Please select contacts from the list below to use available actions">
           <IconButton>
             <HelpIcon />
@@ -256,44 +242,30 @@ const EnhancedTableToolbar = (props) => {
           handleCloseSendModal={handleCloseSendModal}
         />
         <DeleteContactModal
-          showDeleteContactModal={showDeleteContactModal}
-          handleDeleteContact={handleDeleteContact}
-          handleCloseDeleteModal={handleCloseDeleteModal}
+          showDeleteContactModal={props.showDeleteContactModal}
+          handleDeleteContact={props.handleContactDeleteV}
+          handleCloseDeleteModal={props.handleCloseDeleteModal}
+          selectedItems={numSelected}
         />
         <LogNoteModal
           showLogModal={showLogModal}
           handleLogNote={handleLogNote}
           handleCloseNoteModal={handleCloseNoteModal}
         />
-
-        {/* <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          component="button"
-          className="btn table-light-btn"
-        >
-          <MoreHorizOutlinedIcon /> More
-        </Typography> */}
       </div>
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <div className="table-filter-search">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="search by Name, Email or Phone"
-            />
-            <SearchIcon />
-          </div>
-        </Tooltip>
-      )}
+      <Tooltip title="Filter list">
+        <div className="table-filter-search">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="search by Name, Email or Phone"
+            onChange={props.handleSearchChange}
+            value={props.value}
+          />
+          {props.value && <SearchIcon />}
+        </div>
+      </Tooltip>
     </Toolbar>
   );
 };
@@ -304,142 +276,98 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable(props) {
   const { rowsData } = props;
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  console.log(order, "oooooo");
-  console.log(orderBy, "ooooobbbbbb");
-  console.log(selected, "ssssssss");
-  console.log(page, "ppppppp");
-  console.log(dense, "dddddddddd");
-  console.log(rowsPerPage, "rrrrrrrr");
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rowsData && rowsData.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+  const loadContacts = () => {
+    let filtered = [];
+    filtered =
+      rowsData &&
+      rowsData.filter(
+        (contact) =>
+          contact.name.toLowerCase().startsWith(props.value.toLowerCase()) ||
+          contact.name.toLowerCase().startsWith(props.value.toLowerCase())
       );
-    }
-    setSelected(newSelected);
+
+    const contactData =
+      filtered &&
+      filtered.length > 0 &&
+      stableSort(filtered, getComparator(props.order, props.orderBy))
+        .slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage)
+
+        .map((row, index) => {
+          const isItemSelected = props.isSelected(row._id);
+          const labelId = `enhanced-table-checkbox-${index}`;
+
+          return (
+            <TableRow
+              hover
+              onClick={(event) => props.handleClick(event, row._id)}
+              role="checkbox"
+              aria-checked={isItemSelected}
+              tabIndex={-1}
+              key={row.name}
+              selected={isItemSelected}
+            >
+              <TableCell padding="checkbox">
+                <Checkbox
+                  color="primary"
+                  checked={isItemSelected}
+                  inputProps={{
+                    "aria-labelledby": labelId,
+                  }}
+                />
+              </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row && row.name}
+              </TableCell>
+              <TableCell align="right">{row && row.email}</TableCell>
+              <TableCell align="right">{row && row.phone}</TableCell>
+              <TableCell align="right">
+                {moment(row && row.updatedAt).format("DD/MM/YYYY")}
+              </TableCell>
+              <TableCell align="right">
+                {moment(row && row.createdAt).format("DD/MM/YYYY")}
+              </TableCell>
+            </TableRow>
+          );
+        });
+    return contactData;
   };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length) : 0;
-
-  console.log(rowsData && rowsData.length, "llllll");
-  console.log(rowsData, "rowsData");
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={props.selected.length}
+          showDeleteContactModal={props.showDeleteContactModal}
+          handleContactDeleteV={props.handleContactDeleteV}
+          handleDeleteContact={props.handleDeleteContact}
+          handleCloseDeleteModal={props.handleCloseDeleteModal}
+          handleSearchChange={props.handleSearchChange}
+          value={props.value}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
+            size={props.dense ? "small" : "medium"}
           >
             <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
+              numSelected={props.selected.length}
+              order={props.order}
+              orderBy={props.orderBy}
+              onSelectAllClick={props.handleSelectAllClick}
+              onRequestSort={props.handleRequestSort}
               rowCount={rowsData && rowsData.length}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-              {rowsData &&
-                rowsData.length > 0 &&
-                stableSort(rowsData, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.name);
-                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                        hover
-                        onClick={(event) => handleClick(event, row.name)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.name}
-                        selected={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            color="primary"
-                            checked={isItemSelected}
-                            inputProps={{
-                              "aria-labelledby": labelId,
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell component="th" id={labelId} scope="row" padding="none">
-                          {row && row.name}
-                        </TableCell>
-                        <TableCell align="right">{row && row.email}</TableCell>
-                        <TableCell align="right">{row && row.phone}</TableCell>
-                        <TableCell align="right">
-                          {moment(row && row.updatedAt).format("DD/MM/YYYY")}
-                        </TableCell>
-                        <TableCell align="right">
-                          {moment(row && row.createdAt).format("DD/MM/YYYY")}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              {emptyRows > 0 && (
+              {loadContacts()}
+              {props.emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (props.dense ? 33 : 53) * props.emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -452,10 +380,10 @@ export default function EnhancedTable(props) {
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rowsData && rowsData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPage={props.rowsPerPage}
+          page={props.page}
+          onPageChange={props.handleChangePage}
+          onRowsPerPageChange={props.handleChangeRowsPerPage}
         />
       </Paper>
     </Box>

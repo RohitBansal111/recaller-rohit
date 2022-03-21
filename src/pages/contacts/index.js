@@ -5,7 +5,7 @@ import EnhancedTable from "../../components/contacts/data-table";
 import FilterTabs from "../../components/contacts/Filtertabs";
 import ContactModal from "../../models/contactModel";
 import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
-import { createApi, getContactApi } from "../../api/contact";
+import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
 
 const Contacts = () => {
@@ -13,12 +13,20 @@ const Contacts = () => {
   const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
   const [errors, setErrors] = useState({});
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleUploadShow = () => setUploadModal(true);
   const handleUploadClose = () => setUploadModal(false);
   const [rowsData, setRowsData] = React.useState();
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("name");
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [searchState, setSearchState] = React.useState("");
 
   const isValid = () => {
     // console.log('email')
@@ -85,6 +93,67 @@ const Contacts = () => {
     });
     setErrors({});
   };
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelecteds = rowsData && rowsData.map((n) => n._id);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  };
+
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+    setSelected(newSelected);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
+
+  const isSelected = (id) => selected.indexOf(id) !== -1;
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length) : 0;
+
+  const handleContactDeleteV = () => {
+    const data = { contacts: JSON.stringify(selected) };
+    deleteApi(data);
+    getData();
+    setIsOpenDelete(false);
+  };
+
   return (
     <>
       <div className="page-header">
@@ -112,7 +181,28 @@ const Contacts = () => {
         <FilterTabs />
       </div>
       <div className="contact-data-table-main">
-        <EnhancedTable rowsData={rowsData} />
+        <EnhancedTable
+          rowsData={rowsData}
+          handleContactDeleteV={handleContactDeleteV}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleChangePage={handleChangePage}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          dense={dense}
+          emptyRows={emptyRows}
+          handleClick={handleClick}
+          isSelected={isSelected}
+          order={order}
+          orderBy={orderBy}
+          handleRequestSort={handleRequestSort}
+          handleSelectAllClick={handleSelectAllClick}
+          selected={selected}
+          handleCloseDeleteModal={() => setIsOpenDelete(false)}
+          handleDeleteContact={() => setIsOpenDelete(true)}
+          showDeleteContactModal={isOpenDelete}
+          value={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
+        />
       </div>
 
       <ContactModal
