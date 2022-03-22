@@ -73,19 +73,19 @@ const headCells = [
     label: "Primary Email",
   },
   {
-    id: "fat",
+    id: "phone",
     numeric: true,
     disablePadding: false,
     label: "Primary Phone",
   },
   {
-    id: "last-activity",
+    id: "updatedAt",
     numeric: true,
     disablePadding: false,
     label: "Last Activity Date",
   },
   {
-    id: "joined-date",
+    id: "createdAt",
     numeric: true,
     disablePadding: false,
     label: "Joined Date",

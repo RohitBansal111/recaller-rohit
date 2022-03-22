@@ -152,6 +152,7 @@ const Contacts = () => {
     deleteApi(data);
     getData();
     setIsOpenDelete(false);
+    setSelected([]);
   };
 
   return (
