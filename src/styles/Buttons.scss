@@ -1,15 +1,18 @@
-.btn-medium{
-    padding: 8px 20px !important;
-    height: auto;
-    min-height: 40px;
-    cursor: pointer !important;
-    font-size: 15px !important;
-    font-weight: 500 !important;
+.btn-medium {
+  padding: 8px 20px !important;
+  height: auto;
+  min-height: 40px;
+  cursor: pointer !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
 }
-.btn-primary{
-    background-color: $Theme-primary;
-    color: $Theme-white;
-}   
-.btn{
-    border: none !important;
+.btn-primary {
+  background-color: $Theme-primary;
+  color: $Theme-white;
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+}
+.btn {
+  border: none !important;
 }

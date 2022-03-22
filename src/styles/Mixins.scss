@@ -9,6 +9,11 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+@mixin flexCenterStart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 @mixin flexCenterBetween {
   display: flex;
   justify-content: space-between;

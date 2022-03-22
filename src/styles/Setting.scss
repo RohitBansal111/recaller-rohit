@@ -1,0 +1,49 @@
+.setting-page-main {
+  padding: 30px 20px;
+  .setting-card-listing {
+    ul {
+      padding-left: 0px;
+      @include flexStartBetween;
+      flex-wrap: wrap;
+      li {
+        flex: 0 0 47%;
+        background-color: $Theme-white;
+        padding: 20px;
+        border-radius: 4px;
+        border: 1px solid #eae9e9;
+        position: relative;
+        @include flexCenterBetween;
+        cursor: pointer;
+        margin-bottom: 20px;
+        &:hover {
+          border-color: $Active-lightColor;
+        }
+        .button-box-text {
+          h3 {
+            display: inline-block;
+            color: $HeadingColor;
+            font-weight: 500;
+            margin: 0 0 5px;
+            font-size: 20px;
+          }
+          p {
+            color: #777;
+            font-size: 14px;
+            margin: 0;
+            font-weight: 400;
+          }
+        }
+        .button-box-arrow {
+          color: #777;
+          font-size: 48px;
+          font-weight: 400;
+          line-height: 35px;
+          svg {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+}

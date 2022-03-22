@@ -129,3 +129,42 @@ span.spanError {
   color: #ff0000;
   font-size: 14px;
 }
+
+.content-page-layout {
+  .coming-soon {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+  .MuiBox-root {
+    .MuiTabs-flexContainer {
+      .MuiButtonBase-root {
+        font-weight: 600;
+        font-size: 16px;
+        font-family: 'Poppins', sans-serif !important;
+        text-transform: capitalize;
+        &.Mui-selected {
+          color: $Active-color;
+        }
+      }
+    }
+    .MuiTabs-indicator {
+      background-color: $Active-color;
+    }
+    .tab-content {
+      background-color: $Body-color;
+      padding: 30px 20px;
+    }
+  }
+}
+.content-center-box {
+  width: 70%;
+  margin: auto;
+  max-width: 800px;
+}
