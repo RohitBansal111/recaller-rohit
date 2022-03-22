@@ -30,7 +30,7 @@ const CreateNewFilter = (props) => {
                 <MenuItem value={30}>Duplicates</MenuItem>
               </Select>
             </FormControl>
-            {props.properties && props.addRolesRows && (
+            {props.properties && (
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Rules</InputLabel>
                 <Select
