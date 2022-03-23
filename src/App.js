@@ -18,6 +18,9 @@ import Auth from "./pages/Auth";
 import { loginAction } from "../src/redux/actions/loginAction";
 import { useDispatch } from "react-redux";
 import "bootstrap/dist/js/bootstrap.js";
+import "./styles/Main.scss";
+import MyAccount from "./pages/admin/account";
+import LocalMessages from "./pages/settings/localMessage";
 
 const user = localStorage.getItem("token");
 
@@ -41,14 +44,16 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route exact path="/auth/:token" element={<Auth />} />
           <Route exact path="/" element={<Dashboard />} />
+          <Route exact path="/auth/:token" element={<Auth />} />
           <Route exact path="/contacts" element={<Contacts />} />
           <Route exact path="/recallr-AI" element={<RecallrAI />} />
           <Route exact path="/settings" element={<Setting />} />
+          <Route exact path="/settings/local-messages" element={<LocalMessages />} />
           <Route exact path="/text" element={<TextPage />} />
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/voice" element={<Voice />} />
+          <Route exact path="/admin/account" element={<MyAccount />} />
         </Routes>
       </Layout>
       <ToastContainer />

@@ -16,3 +16,10 @@
 .btn {
   border: none !important;
 }
+.btn-cancel{
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+  color: $HeadingColor;
+  background-color: $CommonBorder;
+}

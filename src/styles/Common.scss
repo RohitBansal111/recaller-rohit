@@ -82,6 +82,17 @@ ul {
       padding-bottom: 20px;
       border-bottom: rgba(0, 0, 0, 0.04) solid 1px;
       background: rgba(0, 0, 0, 0.01);
+      &.subheading-bar{
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 20px;
+        h1{
+          margin-bottom: 0px;
+        }
+        p{
+          color: #6c757d !important;
+        }
+      }
       h1 {
         font-size: 24px;
         font-weight: 600;
@@ -167,5 +178,5 @@ span.spanError {
 .content-center-box {
   width: 70%;
   margin: auto;
-  max-width: 800px;
+  max-width: 600px;
 }
