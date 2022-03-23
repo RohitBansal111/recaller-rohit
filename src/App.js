@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Contacts from './pages/contacts';
 import Dashboard from './pages/dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import Layout from './components/layout'
 import "react-bootstrap-wizard/dist/react-wizard.scss"
 import 'material-icons/iconfont/material-icons.css';

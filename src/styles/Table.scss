@@ -1,0 +1,15 @@
+.common-data-table {
+  .rdt_Table {
+    .rdt_TableHeadRow {
+      background-color: $Active-color;
+      .rdt_TableCol_Sortable {
+        color: $Theme-white;
+        opacity: 1;
+        font-size: 14px;
+        span {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
