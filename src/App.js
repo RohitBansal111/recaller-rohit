@@ -1,8 +1,6 @@
 import './styles/Main.scss';
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Contacts from './pages/contacts';
-import Dashboard from './pages/dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/layout'
 import "react-bootstrap-wizard/dist/react-wizard.scss"
@@ -14,6 +12,9 @@ import Setting from './pages/settings';
 import TextPage from './pages/text';
 import Search from './pages/search';
 import Voice from './pages/voice';
+import Contacts from './pages/contacts';
+import Dashboard from './pages/dashboard';
+import Auth from './pages/Auth';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Router>
         <Layout>
           <Routes>
+            <Route exact path="/auth/:token" element={<Auth/>} />
             <Route exact path="/" element={<Dashboard/>} />
             <Route exact path="/contacts" element={<Contacts/>} />
             <Route exact path="/recallr-AI" element={<RecallrAI/>} />
