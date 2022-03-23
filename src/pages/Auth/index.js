@@ -1,37 +1,36 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react'
-import { useParams,useNavigate} from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { loginApi } from "../../api/user";
 import { toast } from "react-toastify";
-
+import { loginAction } from "../../redux/actions/loginAction";
+import { useDispatch } from "react-redux";
 
 const Auth = () => {
-let navigate = useNavigate();
-const {token} = useParams();
-console.log(token,'token');
-useEffect(() => {
+  let navigate = useNavigate();
+  const { token } = useParams();
+  const dispatch = useDispatch();
+  console.log(token, "token");
+  useEffect(() => {
     localStorage.clear();
     login();
-},[]);
-const login = async() =>{
+  }, []);
+  const login = async () => {
     const data = {
-        token:token
-    }
+      token: token,
+    };
     let res = await loginApi(data);
-    console.log(res,'sssssssssssssssss')
     if (res && res.data && res.data.status === 200) {
-        toast.success("Login successful!");
-        localStorage.setItem('token',res.data.data.jwt);
-        localStorage.setItem('userData',JSON.stringify(res.data.data));
-        navigate(`/`);
-      } else {
-        toast.error(res.data.message);
-      }
-}
-  return (
-    <>
-    </>
-  )
-}
+      toast.success("Login successful!");
+      dispatch(loginAction(res.data.data));
+      localStorage.setItem("token", res.data.data.jwt);
+      localStorage.setItem("userData", JSON.stringify(res.data.data));
+      navigate(`/`);
+    } else {
+      toast.error(res.data.message);
+    }
+  };
+  return <></>;
+};
 
-export default Auth
+export default Auth;
