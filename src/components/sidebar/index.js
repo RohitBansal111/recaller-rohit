@@ -1,8 +1,13 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import HomeIcon from "../../assets/svg-icons/home";
 import ContactIcon from "../../assets/svg-icons/contact";
 import Logo from "../../assets/images/logo.png";
+import SettingIcon from "../../assets/svg-icons/settingIcon";
+import VoiceIcon from '../../assets/svg-icons/voiceIcon'
+import TextIcon from '../../assets/svg-icons/textIcon'
+import SearchIcon from '../../assets/svg-icons/searchIcon'
+import ProfileIcon from '../../assets/svg-icons/profileIcon'
 
 const SideNavMenu = [
   {
@@ -17,56 +22,33 @@ const SideNavMenu = [
   },
   {
     path: "/text",
-    menuIcon: <HomeIcon />,
+    menuIcon: <TextIcon />,
     menuTitle: "Text",
   },
   {
     path: "/voice",
-    menuIcon: <HomeIcon />,
+    menuIcon: <VoiceIcon />,
     menuTitle: "Voice",
   },
   {
     path: "/search",
-    menuIcon: <HomeIcon />,
+    menuIcon: <SearchIcon />,
     menuTitle: "Search",
   },
-  // {
-  //   path : "/local-site",
-  //   menuIcon : <HomeIcon />,
-  //   menuTitle : "Local Site"
-  // },
-  // {
-  //   path : "/local-seo",
-  //   menuIcon : <HomeIcon />,
-  //   menuTitle : "Local SEO"
-  // },
-  // {
-  //   path : "/local-ads",
-  //   menuIcon : <HomeIcon />,
-  //   menuTitle : "Local Ads"
-  // },
   {
     path: "/settings",
-    menuIcon: <HomeIcon />,
+    menuIcon: <SettingIcon />,
     menuTitle: "Settings",
   },
   {
     path: "/recallr-AI",
-    menuIcon: <HomeIcon />,
+    menuIcon: <ContactIcon />,
     menuTitle: "RecallrAI",
   },
 ];
 
 const Sidebar = () => {
   const location = useLocation();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   return (
     <div className="inner-sidebar">
       <div className="brand-logo">
@@ -84,6 +66,15 @@ const Sidebar = () => {
           );
         })}
       </ul>
+      <div className="user-profile-btn">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <ProfileIcon /> User Name
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><Link class="dropdown-item" to="/">My Account</Link></li>
+          <li><Link class="dropdown-item" to="/">Logout</Link></li>
+        </ul>
+      </div>
     </div>
   );
 };

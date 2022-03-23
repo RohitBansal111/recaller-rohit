@@ -17,6 +17,7 @@ import Voice from "./pages/voice";
 import Auth from "./pages/Auth";
 import { loginAction } from "../src/redux/actions/loginAction";
 import { useDispatch } from "react-redux";
+import "bootstrap/dist/js/bootstrap.js";
 
 const user = localStorage.getItem("token");
 

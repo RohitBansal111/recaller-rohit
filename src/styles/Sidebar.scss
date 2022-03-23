@@ -63,30 +63,36 @@
     }
   }
   .user-profile-btn {
-    padding: 15px 20px 15px 55px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.01);
-    border: none;
-    border-top: rgba(0, 0, 0, 0.04) solid 1px;
     position: absolute;
     bottom: 0px;
     left: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    &:hover {
-      background-color: $Active-lightColor;
+    width: 100%;
+    .btn {
+      padding: 15px 20px 15px 55px;
+      width: 100%;
+      background-color: $Active-color;
+      color: $Theme-white;
+      border: none;
+      border-top: rgba(0, 0, 0, 0.04) solid 1px;
+      display: flex;
+      border-radius: 0px !important;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
       .sidenav-menu-item-icon {
-        fill: $Active-color;
+        fill: $Theme-white;
       }
-      span {
-        color: $Active-color;
-      }
-      .nav-chevron-right {
-        svg {
-          fill: $Active-color;
+      &:hover {
+        border: none !important;
+        border-top: rgba(0, 0, 0, 0.04) solid 1px;
+        span {
+          color: $Active-color;
         }
+      }
+      &::after {
+        transform: rotate(-90deg);
+        position: absolute;
+        right: 20px;
       }
     }
     .sidenav-menu-item-icon {
@@ -99,6 +105,11 @@
       color: $Icon-color;
       font-size: 16px;
       font-weight: 500;
+    }
+    .dropdown-menu {
+      left: 100% !important;
+      bottom: 0px !important;
+      transform: translate(0px, 0px) !important;
     }
   }
 }
