@@ -5,7 +5,7 @@ const SettingCards = [
     {
         title: "Autoresponder",
         description: "View and configure your autoresponder settings",
-        path: '/'
+        path: '/settings/local-messages/autoresponder'
     },
     {
         title: "Opt-In / Opt-Out",
