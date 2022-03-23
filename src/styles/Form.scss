@@ -32,4 +32,18 @@
       flex: 0 0 47%;
     }
   }
+  .btn-groups{
+    display: flex;
+    margin: 15px 0px;
+    justify-content: center;
+  }
+}
+
+.account-form{
+  margin: 30px 0px;
+  background-color: #fff;
+  padding: 35px;
+  .btn-cancel{
+    margin-right: 10px;
+  }
 }

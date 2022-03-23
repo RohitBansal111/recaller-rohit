@@ -7,7 +7,9 @@ import SettingIcon from "../../assets/svg-icons/settingIcon";
 import VoiceIcon from '../../assets/svg-icons/voiceIcon'
 import TextIcon from '../../assets/svg-icons/textIcon'
 import SearchIcon from '../../assets/svg-icons/searchIcon'
-import ProfileIcon from '../../assets/svg-icons/profileIcon'
+import ProfileIcon from '../../assets/svg-icons/profileIcon';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const SideNavMenu = [
   {
@@ -71,8 +73,8 @@ const Sidebar = () => {
           <ProfileIcon /> User Name
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><Link class="dropdown-item" to="/">My Account</Link></li>
-          <li><Link class="dropdown-item" to="/">Logout</Link></li>
+          <li><Link class="dropdown-item" to="/admin/account"> <AccountBoxIcon /> My Account</Link></li>
+          <li><Link class="dropdown-item" to="/"> <ExitToAppIcon />  Logout</Link></li>
         </ul>
       </div>
     </div>

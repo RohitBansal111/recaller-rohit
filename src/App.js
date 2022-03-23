@@ -15,6 +15,9 @@ import Setting from './pages/settings';
 import TextPage from './pages/text';
 import Search from './pages/search';
 import Voice from './pages/voice';
+import MyAccount from './pages/admin/account';
+import LocalMessages from './pages/settings/localMessage';
+
 
 
 function App() {
@@ -26,9 +29,11 @@ function App() {
             <Route exact path="/contacts" element={<Contacts/>} />
             <Route exact path="/recallr-AI" element={<RecallrAI/>} />
             <Route exact path="/settings" element={<Setting/>} />
+            <Route exact path="/settings/local-messages" element={<LocalMessages/>} />
             <Route exact path="/text" element={<TextPage/>} />
             <Route exact path="/search" element={<Search/>} />
             <Route exact path="/voice" element={<Voice/>} />
+            <Route exact path="/admin/account" element={<MyAccount/>} />
           </Routes>
         </Layout>
         <ToastContainer />

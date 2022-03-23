@@ -107,9 +107,18 @@
       font-weight: 500;
     }
     .dropdown-menu {
-      left: 100% !important;
-      bottom: 0px !important;
+      left: 103% !important;
+      bottom: 5px !important;
+      padding: 15px 4px;
+      background-color: $Active-color;
       transform: translate(0px, 0px) !important;
+    }
+    .dropdown-item{
+      color: $Theme-white;
+      padding: 7px 15px;
+      &:hover{
+        background-color: transparent;
+      }
     }
   }
 }
