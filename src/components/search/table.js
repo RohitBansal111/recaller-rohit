@@ -27,13 +27,31 @@ const columns = [
 
 const data = [
   {
-    productname: 1,
+    productname: 'New Product Hyper',
     productSKU: 'Beetlejuice',
     productCompany: '1988',
     recallr: 'nonbe'
   },
   {
-    productname: 2,
+    productname: 'Super Market Package',
+    productSKU: 'Beetlejuice2',
+    productCompany: '1989',
+    recallr: 'nonbe23'
+  },
+  {
+    productname: 'Super Market Package',
+    productSKU: 'Beetlejuice2',
+    productCompany: '1989',
+    recallr: 'nonbe23'
+  },
+  {
+    productname: 'Super Market Package',
+    productSKU: 'Beetlejuice2',
+    productCompany: '1989',
+    recallr: 'nonbe23'
+  },
+  {
+    productname: 'Super Market Package',
     productSKU: 'Beetlejuice2',
     productCompany: '1989',
     recallr: 'nonbe23'
