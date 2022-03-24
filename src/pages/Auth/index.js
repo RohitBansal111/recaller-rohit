@@ -10,7 +10,6 @@ const Auth = () => {
   let navigate = useNavigate();
   const { token } = useParams();
   const dispatch = useDispatch();
-  console.log(token, "token");
   useEffect(() => {
     localStorage.clear();
     login();

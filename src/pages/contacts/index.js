@@ -29,11 +29,9 @@ const Contacts = () => {
   const [searchState, setSearchState] = React.useState("");
 
   const isValid = () => {
-    // console.log('email')
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let formData = true;
-    // console.log( !regex.addContact.email,'sss')
     switch (true) {
       case !addContact.name:
         setErrors({ name: "Name field is required!" });
@@ -135,10 +133,6 @@ const Contacts = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;

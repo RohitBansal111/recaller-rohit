@@ -22,6 +22,7 @@ import "./styles/Main.scss";
 import MyAccount from "./pages/admin/account";
 import LocalMessages from "./pages/settings/localMessage";
 import Autoresponder from "./pages/settings/localMessage/autoresponder";
+import { userDetailApi } from "./api/user";
 
 const user = localStorage.getItem("token");
 
@@ -34,13 +35,20 @@ const user = localStorage.getItem("token");
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
 
-    if (user) {
-      dispatch(loginAction(userData));
-    }
+  useEffect(() => {
+    userDetail();
   }, []);
+
+  const userDetail = async () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (user && userData) {
+      const res = await userDetailApi(userData.id);
+      if (res && res.data && res.data.status === 200) {
+        dispatch(loginAction(res.data.data));
+      }
+    }
+  };
   return (
     <Router>
       <Layout>
