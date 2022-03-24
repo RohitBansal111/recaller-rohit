@@ -13,3 +13,34 @@
     }
   }
 }
+.tags-data-table{
+  .rdt_TableBody{
+    .rdt_TableRow{
+      .rdt_TableCell{
+        &:first-child{
+          div{
+            border: 1px solid $Active-lightColor;
+            padding: 5px 10px;
+            border-radius: 21px;
+            color: $Active-color;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .table-action{
+      svg{
+        fill: #a0a0a0;
+        margin: 0px 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// Apex Chart
+.apexcharts-canvas{
+  .apexcharts-legend{
+    width: 100% !important;
+  }
+}

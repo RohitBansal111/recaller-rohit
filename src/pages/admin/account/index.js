@@ -11,23 +11,23 @@ const MyAccount = () => {
                 <form className="main-form">
                     <div className="field-group flex2">
                         <label>First Name</label>
-                        <input type="text" class="form-control" placeholder='Enter first name' />
+                        <input type="text" className="form-control" placeholder='Enter first name' />
                     </div>
                     <div className="field-group flex2">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder='Enter last name' />
+                        <input type="text" className="form-control" placeholder='Enter last name' />
                     </div>
                     <div className="field-group flexFull">
                         <label>User Name</label>
-                        <input type="text" class="form-control" placeholder='Enter username' />
+                        <input type="text" className="form-control" placeholder='Enter username' />
                     </div>
                     <div className="field-group flexFull">
                         <label>Email Address</label>
-                        <input type="text" class="form-control" placeholder='Enter email address' />
+                        <input type="text" className="form-control" placeholder='Enter email address' />
                     </div>
                     <div className="field-group flexFull">
                         <label>Phone</label>
-                        <input type="text" class="form-control" placeholder='Enter phone number' />
+                        <input type="text" className="form-control" placeholder='Enter phone number' />
                     </div>
                     <div className="field-group btn-groups flexFull">
                         <button type="button" className="btn btn-cancel">Cancel</button>

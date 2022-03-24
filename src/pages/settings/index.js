@@ -20,13 +20,13 @@ const Setting = () => {
                     {
                         SettingCards.map((item,index) => {
                             return(
-                                <li>
+                                <li key={index}>
                                     <Link to={item.path}>
                                         <div className="button-box-text">
                                             <h3>{item.title}</h3>
                                             <p> {item.description} </p>
                                         </div>
-                                        <span class="button-box-arrow">
+                                        <span className="button-box-arrow">
                                             <ChevronRightIcon />
                                         </span>
                                     </Link>

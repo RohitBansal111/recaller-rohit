@@ -97,3 +97,42 @@
     }
   }
 }
+.setting-page-main{
+  .card-body{
+    padding: 50px 20px;
+    .sms-progressbar{
+      .MuiLinearProgress-root{
+        height: 25px;
+        border-radius: 5px;
+        background-color: #ccc;
+        .MuiLinearProgress-bar{
+          background-color: $Active-color;
+        }
+      }
+    }
+  }
+}
+.common-card-ui{
+  background-color: $Theme-white;
+  .card-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $Theme-white;
+    padding: 15px;
+    h3{
+      font-size: 18px;
+      margin: 0px;
+    }
+    p{
+      font-size: 16px;
+      color: #6c757d !important;
+      margin: 0px;
+    }
+  }
+  .card-body{
+    .content-body{
+
+    }
+  }
+}

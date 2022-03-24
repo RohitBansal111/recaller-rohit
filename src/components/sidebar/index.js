@@ -69,12 +69,12 @@ const Sidebar = () => {
         })}
       </ul>
       <div className="user-profile-btn">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           <ProfileIcon /> User Name
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><Link class="dropdown-item" to="/admin/account"> <AccountBoxIcon /> My Account</Link></li>
-          <li><Link class="dropdown-item" to="/"> <ExitToAppIcon />  Logout</Link></li>
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><Link className="dropdown-item" to="/admin/account"> <AccountBoxIcon /> My Account</Link></li>
+          <li><Link className="dropdown-item" to="/"> <ExitToAppIcon />  Logout</Link></li>
         </ul>
       </div>
     </div>
