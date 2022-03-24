@@ -21,6 +21,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./styles/Main.scss";
 import MyAccount from "./pages/admin/account";
 import LocalMessages from "./pages/settings/localMessage";
+import Autoresponder from "./pages/settings/localMessage/autoresponder";
 
 const user = localStorage.getItem("token");
 
@@ -50,6 +51,7 @@ function App() {
           <Route exact path="/recallr-AI" element={<RecallrAI />} />
           <Route exact path="/settings" element={<Setting />} />
           <Route exact path="/settings/local-messages" element={<LocalMessages />} />
+          <Route exact path="/settings/local-messages/autoresponder" element={<Autoresponder />} />
           <Route exact path="/text" element={<TextPage />} />
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/voice" element={<Voice />} />
