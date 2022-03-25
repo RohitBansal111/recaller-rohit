@@ -1,14 +1,13 @@
 import { LOGIN_ACTION } from "../types/types";
 
 const initialState = {
-  userData: {},
+  userData: "",
 };
 
 const LoginReducer = (state = initialState, action) => {
-  console.log(state, "aaaaaaaaaaa");
   switch (action.type) {
     case LOGIN_ACTION:
-      return { ...state, userData: action };
+      return { ...state, userData: action.payload };
     default:
       return state;
   }

@@ -4,12 +4,13 @@ import HomeIcon from "../../assets/svg-icons/home";
 import ContactIcon from "../../assets/svg-icons/contact";
 import Logo from "../../assets/images/logo.png";
 import SettingIcon from "../../assets/svg-icons/settingIcon";
-import VoiceIcon from '../../assets/svg-icons/voiceIcon'
-import TextIcon from '../../assets/svg-icons/textIcon'
-import SearchIcon from '../../assets/svg-icons/searchIcon'
-import ProfileIcon from '../../assets/svg-icons/profileIcon';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import VoiceIcon from "../../assets/svg-icons/voiceIcon";
+import TextIcon from "../../assets/svg-icons/textIcon";
+import SearchIcon from "../../assets/svg-icons/searchIcon";
+import ProfileIcon from "../../assets/svg-icons/profileIcon";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import { useSelector } from "react-redux";
 
 const SideNavMenu = [
   {
@@ -50,7 +51,9 @@ const SideNavMenu = [
 ];
 
 const Sidebar = () => {
+  const userDataa = useSelector((state) => state.Login.userData);
   const location = useLocation();
+
   return (
     <div className="inner-sidebar">
       <div className="brand-logo">
@@ -69,12 +72,29 @@ const Sidebar = () => {
         })}
       </ul>
       <div className="user-profile-btn">
-        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <ProfileIcon /> User Name
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <ProfileIcon />
+          {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'User Name'}
         </button>
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><Link className="dropdown-item" to="/admin/account"> <AccountBoxIcon /> My Account</Link></li>
-          <li><Link className="dropdown-item" to="/"> <ExitToAppIcon />  Logout</Link></li>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <Link class="dropdown-item" to="/admin/account">
+              {" "}
+              <AccountBoxIcon /> My Account
+            </Link>
+          </li>
+          <li>
+            <Link class="dropdown-item" to="/">
+              {" "}
+              <ExitToAppIcon /> Logout
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

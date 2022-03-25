@@ -33,13 +33,21 @@ const user = localStorage.getItem("token");
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
 
-    if (user) {
-      dispatch(loginAction(userData));
+  useEffect(() => {
+    userDetail();
+  }, []);
+
+  const userDetail = async () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (user && userData) {
+      // eslint-disable-next-line no-undef
+      const res = await userDetailApi(userData.id);
+      if (res && res.data && res.data.status === 200) {
+        dispatch(loginAction(res.data.data));
+      }
     }
-  }, [dispatch]);
+  };
   return (
     <Router>
       <Layout>
