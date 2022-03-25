@@ -27,6 +27,7 @@ import ConversationTags from "./pages/settings/localMessage/tags";
 import OPTInOut from "./pages/settings/localMessage/optInOut";
 import ScheduledMessages from "./pages/settings/localMessage/scheduled-messages";
 import Import from "./pages/contacts";
+import { userDetailApi } from "./api/user";
 
 
 const user = localStorage.getItem("token");

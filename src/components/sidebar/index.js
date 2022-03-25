@@ -82,7 +82,7 @@ const Sidebar = () => {
           aria-expanded="false"
         >
           <ProfileIcon />
-          {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'User Name'}
+          {userDataa && userDataa.firstName + " " + userDataa.lastName}
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
