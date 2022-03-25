@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import HomeIcon from "../../assets/svg-icons/home";
-import ContactIcon from "../../assets/svg-icons/contact";
+import ImportIcon from "../../assets/svg-icons/importIcon";
 import Logo from "../../assets/images/logo.png";
 import SettingIcon from "../../assets/svg-icons/settingIcon";
 import VoiceIcon from "../../assets/svg-icons/voiceIcon";
@@ -21,9 +21,9 @@ const SideNavMenu = [
     menuTitle: "Dashboard",
   },
   {
-    path: "/contacts",
-    menuIcon: <ContactIcon />,
-    menuTitle: "Contacts",
+    path: "/import",
+    menuIcon: <ImportIcon />,
+    menuTitle: "Import",
   },
   {
     path: "/text",

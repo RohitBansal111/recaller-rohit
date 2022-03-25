@@ -1,7 +1,6 @@
 import "./styles/Main.scss";
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Contacts from "./pages/contacts";
 import Dashboard from "./pages/dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./components/layout";
@@ -27,6 +26,7 @@ import Usage from "./pages/settings/localMessage/usage";
 import ConversationTags from "./pages/settings/localMessage/tags";
 import OPTInOut from "./pages/settings/localMessage/optInOut";
 import ScheduledMessages from "./pages/settings/localMessage/scheduled-messages";
+import Import from "./pages/contacts";
 
 
 const user = localStorage.getItem("token");
@@ -54,7 +54,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/auth/:token" element={<Auth />} />
-          <Route exact path="/contacts" element={<Contacts />} />
+          <Route exact path="/import" element={<Import />} />
           <Route exact path="/recallr-AI" element={<RecallrAI />} />
           <Route exact path="/settings" element={<Setting />} />
           <Route exact path="/settings/local-messages" element={<LocalMessages />} />

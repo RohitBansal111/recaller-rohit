@@ -65,13 +65,13 @@
 }
 
 .MuiTableHead-root{
-  background-color: $Active-color;
+  background-color: $TableColor;
   .MuiTableCell-root{
-    color: $Theme-white;
+    color: $HeadingColor;
     .MuiButtonBase-root{
-      color: $Theme-white;
+      color: $HeadingColor;
       .MuiSvgIcon-root{
-        fill: $Theme-white;
+        fill: $HeadingColor;
       }
     }
   }

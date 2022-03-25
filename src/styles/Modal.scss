@@ -43,6 +43,20 @@
       }
     }
   }
+  .MuiBox-root{
+    .MuiStepper-horizontal{
+      position: relative;
+      .MuiStep-horizontal{
+        position: absolute;
+        .MuiStepLabel-root{
+          
+        }
+        .MuiStepContent-root{
+          
+        }
+      }
+    }
+  }
 }
 
 // React responsive modal
