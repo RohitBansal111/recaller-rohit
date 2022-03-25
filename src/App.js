@@ -1,11 +1,11 @@
 import "./styles/Main.scss";
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
-import Contacts from "./pages/contacts";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./components/layout";
 import "react-bootstrap-wizard/dist/react-wizard.scss";
+import 'react-responsive-modal/styles.css';
 import "material-icons/iconfont/material-icons.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,17 +21,15 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./styles/Main.scss";
 import MyAccount from "./pages/admin/account";
 import LocalMessages from "./pages/settings/localMessage";
-import Autoresponder from "./pages/settings/localMessage/autoresponder";
-import { userDetailApi } from "./api/user";
+import AutoResponder from "./pages/settings/localMessage/autoresponder";
+import Usage from "./pages/settings/localMessage/usage";
+import ConversationTags from "./pages/settings/localMessage/tags";
+import OPTInOut from "./pages/settings/localMessage/optInOut";
+import ScheduledMessages from "./pages/settings/localMessage/scheduled-messages";
+import Import from "./pages/contacts";
+
 
 const user = localStorage.getItem("token");
-
-// const IsNotAuthenticated = ({ children }) => {
-//   if (!user) {
-//     return <Navigate to="/login" />;
-//   }
-//   return children;
-// };
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +41,7 @@ function App() {
   const userDetail = async () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (user && userData) {
+      // eslint-disable-next-line no-undef
       const res = await userDetailApi(userData.id);
       if (res && res.data && res.data.status === 200) {
         dispatch(loginAction(res.data.data));
@@ -55,15 +54,19 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/auth/:token" element={<Auth />} />
-          <Route exact path="/contacts" element={<Contacts />} />
+          <Route exact path="/import" element={<Import />} />
           <Route exact path="/recallr-AI" element={<RecallrAI />} />
           <Route exact path="/settings" element={<Setting />} />
           <Route exact path="/settings/local-messages" element={<LocalMessages />} />
-          <Route exact path="/settings/local-messages/autoresponder" element={<Autoresponder />} />
           <Route exact path="/text" element={<TextPage />} />
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/voice" element={<Voice />} />
           <Route exact path="/admin/account" element={<MyAccount />} />
+          <Route exact path="/settings/local-messages/autoresponder" element={<AutoResponder />} />
+          <Route exact path="/settings/local-messages/usage" element={<Usage />} />
+          <Route exact path="/settings/local-messages/conversation-tags" element={<ConversationTags />} />
+          <Route exact path="/settings/local-messages/opt-in-out" element={<OPTInOut />} />
+          <Route exact path="/settings/local-messages/scheduled-messages" element={<ScheduledMessages />} />
         </Routes>
       </Layout>
       <ToastContainer />

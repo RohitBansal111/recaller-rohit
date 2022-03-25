@@ -8,7 +8,7 @@ import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
 
-const Contacts = () => {
+const Import = () => {
   const [show, setShow] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
@@ -152,14 +152,14 @@ const Contacts = () => {
   return (
     <>
       <div className="page-header">
-        <h1>Local Contacts</h1>
+        <h1>Imported Contacts</h1>
         <Dropdown>
           <Dropdown.Toggle
             variant="success"
             id="dropdown-basic"
             className="btn btn-medium btn-primary"
           >
-            Add Contact
+            Add Contacts
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item href="#" onClick={handleUploadShow}>
@@ -221,4 +221,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Import;

@@ -89,7 +89,7 @@ const MyAccount = () => {
               <input
                 name="firstName"
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Enter first name"
                 value={addUser && addUser.firstName}
                 onChange={handleChange}
@@ -101,7 +101,7 @@ const MyAccount = () => {
               <input
                 name="lastName"
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Enter last name"
                 value={addUser && addUser.lastName}
                 onChange={handleChange}
@@ -113,7 +113,7 @@ const MyAccount = () => {
               <input
                 name="email"
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Enter email address"
                 disabled
                 value={addUser && addUser.email}
@@ -125,7 +125,7 @@ const MyAccount = () => {
               <input
                 name="phone"
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Enter phone number"
                 value={addUser && addUser.phone}
                 onChange={handleChange}

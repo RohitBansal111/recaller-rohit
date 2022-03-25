@@ -10,7 +10,7 @@ const ActivityCardContent = () => {
             <img src={CardMedia1} alt="Card Media 1" />
           </div>
           <div className="card-tav-content">
-              <p> Welcome to your Activity Feed! All of your updates and highlights will be shown here </p>
+              <p> Welcome to your Recallr Activity Feed </p>
           </div>
         </li>
         <hr className='listBreak'/>
@@ -19,7 +19,7 @@ const ActivityCardContent = () => {
             <img src={CardMedia2} alt="Card Media 2" />
           </div>
           <div className="card-tav-content">
-              <p> Learn more about LocalMessages by visiting our Help Centre </p>
+              <p> Visit our Help Centre </p>
           </div>
         </li>
     </ul>

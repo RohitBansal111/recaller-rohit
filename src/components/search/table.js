@@ -61,12 +61,6 @@ const data = [
 export default function SearchDataTable() {
   return (
     <div className="search-data-table common-data-table" style={{ height: 500, width: '100%' }}>
-      {/* <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[4]}
-      /> */}
       <DataTable columns={columns} data={data} pagination />
     </div>
   );

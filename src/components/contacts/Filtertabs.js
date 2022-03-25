@@ -8,18 +8,11 @@ const FilterTabs = () => {
   const [properties, setProperties] = useState("");
   const [rules, setRules] = useState("");
   const [daysAgo, setDaysAgo] = useState("");
-  // const [addRows, setAddRows] = useState([{ properties: "" }]);
-  // const handleAddRoles = (e) => {
-  //   console.log(e);
-  //   const rowArray = [...addRows];
-  //   rowArray.push({ properties: "" });
-  //   setAddRows(rowArray);
-  // };
   const handleCancel = (e) => {
-    console.log(e);
+    // console.log(e);
   };
   const onHandleSave = (e) => {
-    console.log(e);
+    // console.log(e);
   };
   const handlePropertiesChange = (event) => {
     setProperties(event.target.value);

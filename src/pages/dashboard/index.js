@@ -10,11 +10,11 @@ const Dashboard = () => {
   return (
     <div className="dashboard-content">
         <div className="dashboard-header">
-            <h1>Welcome To Your OneLocal Dashboard <span>Natures Harvest-Apparel</span></h1>
+            <h1>Welcome To Your Recallr Dashboard <span> {"Company Name"} </span></h1>
         </div>
         <div className="dashboard-performance-card">
             <div className="performance-card-item">
-                <h3>Online Reviews</h3>
+                <h3>Sentiment</h3>
                 <div className="card-media">
                     <img src={OnlineReviewIcon} alt="Online Reviews" />
                 </div>

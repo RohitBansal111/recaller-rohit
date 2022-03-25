@@ -88,7 +88,7 @@ const headCells = [
     id: "createdAt",
     numeric: true,
     disablePadding: false,
-    label: "Joined Date",
+    label: "Import Date",
   },
 ];
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import HomeIcon from "../../assets/svg-icons/home";
-import ContactIcon from "../../assets/svg-icons/contact";
+import ImportIcon from "../../assets/svg-icons/importIcon";
 import Logo from "../../assets/images/logo.png";
 import SettingIcon from "../../assets/svg-icons/settingIcon";
 import VoiceIcon from "../../assets/svg-icons/voiceIcon";
@@ -11,6 +11,8 @@ import ProfileIcon from "../../assets/svg-icons/profileIcon";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
+import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
+
 
 const SideNavMenu = [
   {
@@ -19,9 +21,9 @@ const SideNavMenu = [
     menuTitle: "Dashboard",
   },
   {
-    path: "/contacts",
-    menuIcon: <ContactIcon />,
-    menuTitle: "Contacts",
+    path: "/import",
+    menuIcon: <ImportIcon />,
+    menuTitle: "Import",
   },
   {
     path: "/text",
@@ -39,15 +41,15 @@ const SideNavMenu = [
     menuTitle: "Search",
   },
   {
+    path: "/recallr-AI",
+    menuIcon: <RecallrAIICon />,
+    menuTitle: "RecallrAI",
+  },
+  {
     path: "/settings",
     menuIcon: <SettingIcon />,
     menuTitle: "Settings",
-  },
-  {
-    path: "/recallr-AI",
-    menuIcon: <ContactIcon />,
-    menuTitle: "RecallrAI",
-  },
+  }
 ];
 
 const Sidebar = () => {
@@ -73,24 +75,24 @@ const Sidebar = () => {
       </ul>
       <div className="user-profile-btn">
         <button
-          class="btn btn-secondary dropdown-toggle"
+          className="btn btn-secondary dropdown-toggle"
           type="button"
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           <ProfileIcon />
-          {userDataa && userDataa.firstName + " " + userDataa.lastName}
+          {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'User Name'}
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
-            <Link class="dropdown-item" to="/admin/account">
+            <Link className="dropdown-item" to="/admin/account">
               {" "}
               <AccountBoxIcon /> My Account
             </Link>
           </li>
           <li>
-            <Link class="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/">
               {" "}
               <ExitToAppIcon /> Logout
             </Link>

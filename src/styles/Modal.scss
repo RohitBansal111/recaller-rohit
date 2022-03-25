@@ -43,4 +43,39 @@
       }
     }
   }
+  .MuiBox-root{
+    .MuiStepper-horizontal{
+      position: relative;
+      .MuiStep-horizontal{
+        position: absolute;
+        .MuiStepLabel-root{
+          
+        }
+        .MuiStepContent-root{
+          
+        }
+      }
+    }
+  }
+}
+
+// React responsive modal
+
+.react-responsive-modal-modal{
+  margin: 0px !important;
+  min-width: 680px !important;
+  padding: 0px !important;
+  border-radius: 5px;
+  .modal-header{
+    h3{
+      font-size: 20px;
+      margin: 0px;
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  .modal-body{
+    padding: 30px;
+  }
 }

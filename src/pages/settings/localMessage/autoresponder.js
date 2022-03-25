@@ -15,8 +15,10 @@ const Autoresponder = () => {
   return (
       <div className="content-page-layout">
         <div className="page-header subheading-bar">
-            <h1>Settings</h1>
-            <p>Setting / Local Messages / Autoresponder</p>
+            <div className="header-text">
+                <h1>Settings</h1>
+                <p>Setting / Local Messages / Autoresponder</p>
+            </div>
         </div>
         <div className="setting-message-container">
             <div className="setting-inner-container">
