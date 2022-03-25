@@ -228,16 +228,19 @@
           font-weight: 500;
           height: 50px;
           &.active {
-            color: #333;
+            color: $Active-color;
             font-weight: 500;
             border: none;
             background-color: transparent;
-            border-bottom: 2px #ff6138 solid;
+            border-bottom: 2px solid $Active-color;
           }
-          &:hover {
-            border: none;
+          &:focus{
+            border: 1px solid transparent; 
           }
-          &:focus-visible {
+          &:hover { 
+            border: 1px solid transparent; 
+          } 
+          &:focus-visible { 
             outline: 0px !important;
           }
         }

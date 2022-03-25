@@ -41,15 +41,15 @@ const SideNavMenu = [
     menuTitle: "Search",
   },
   {
-    path: "/settings",
-    menuIcon: <SettingIcon />,
-    menuTitle: "Settings",
-  },
-  {
     path: "/recallr-AI",
     menuIcon: <RecallrAIICon />,
     menuTitle: "RecallrAI",
   },
+  {
+    path: "/settings",
+    menuIcon: <SettingIcon />,
+    menuTitle: "Settings",
+  }
 ];
 
 const Sidebar = () => {
