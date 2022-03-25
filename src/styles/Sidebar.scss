@@ -48,6 +48,9 @@
             .sidenav-menu-item-icon {
               fill: $Active-color;
             }
+            svg{
+              fill: $Active-color;
+            }
           }
         }
       }
@@ -55,6 +58,11 @@
         margin-right: 13px;
         display: flex;
         .sidenav-menu-item-icon {
+          fill: $Icon-color;
+          width: 20px;
+          height: 20px;
+        }
+        svg{
           fill: $Icon-color;
           width: 20px;
           height: 20px;

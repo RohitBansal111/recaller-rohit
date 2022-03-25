@@ -29,14 +29,14 @@
           font-weight: 500;
           height: 50px;
           &.active {
-            color: $Theme-secondary;
+            color: $Active-color;
             font-weight: 500;
             border: none;
             background-color: transparent;
-            border-bottom: 2px solid $Theme-secondary;
+            border-bottom: 2px solid $Active-color;
           }
           &:hover {
-            border: none;
+            border: 1px solid transparent;
           }
           &:focus-visible {
             outline: 0px !important;
@@ -45,6 +45,42 @@
       }
     }
   }
+}
+.MuiFormControl-root{
+  .MuiInputLabel-formControl{
+    top: -6px;
+  }
+  .MuiInputBase-root{
+    .MuiSelect-select{
+      width: 100%;
+      height: 40px;
+      border: 1px solid #bbb;
+      font-size: 14px;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.MuiTableHead-root{
+  background-color: $Active-color;
+  .MuiTableCell-root{
+    color: $Theme-white;
+    .MuiButtonBase-root{
+      color: $Theme-white;
+      .MuiSvgIcon-root{
+        fill: $Theme-white;
+      }
+    }
+  }
+}
+.MuiTablePagination-selectLabel{
+  margin: 0px;
+}
+.MuiTablePagination-displayedRows{
+  margin: 0px;
 }
 .contact-data-table-main {
   padding: 20px;
@@ -80,14 +116,14 @@
   .selected-items {
     width: auto;
     font-size: 14px;
-    border: 2px solid #3b99fc;
+    border: 2px solid $Active-color;
     border-radius: 24px;
     padding: 9px 20px;
     text-transform: capitalize;
     max-width: 140px;
     text-align: center;
     font-weight: 600;
-    color: #3b99fc;
+    color: $Active-color;
     cursor: pointer;
     height: 45px;
     min-width: 130px;

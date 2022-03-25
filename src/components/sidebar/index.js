@@ -11,6 +11,8 @@ import ProfileIcon from "../../assets/svg-icons/profileIcon";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
+import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
+
 
 const SideNavMenu = [
   {
@@ -45,7 +47,7 @@ const SideNavMenu = [
   },
   {
     path: "/recallr-AI",
-    menuIcon: <ContactIcon />,
+    menuIcon: <RecallrAIICon />,
     menuTitle: "RecallrAI",
   },
 ];
@@ -73,7 +75,7 @@ const Sidebar = () => {
       </ul>
       <div className="user-profile-btn">
         <button
-          class="btn btn-secondary dropdown-toggle"
+          className="btn btn-secondary dropdown-toggle"
           type="button"
           id="dropdownMenuButton1"
           data-bs-toggle="dropdown"
@@ -82,15 +84,15 @@ const Sidebar = () => {
           <ProfileIcon />
           {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'User Name'}
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
-            <Link class="dropdown-item" to="/admin/account">
+            <Link className="dropdown-item" to="/admin/account">
               {" "}
               <AccountBoxIcon /> My Account
             </Link>
           </li>
           <li>
-            <Link class="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/">
               {" "}
               <ExitToAppIcon /> Logout
             </Link>
