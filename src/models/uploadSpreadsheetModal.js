@@ -22,10 +22,10 @@ const UploadSpreadsheetModal = (props) => {
             <div className="spreadsheet-header">
               <div id="progress-bar-container">
                 <ul>
-                  <li className={step === 1 || 2 ? "step active" : "step"}>
+                  <li className={step === 1 || step === 2 || step === 3 ? "step active" : "step"}>
                     <div className="step-inner">Preparation</div>
                   </li>
-                  <li className={step == 2 || 3 ? "step active" : "step"}>
+                  <li className={step == 2 || step === 3 ? "step active" : "step"}>
                     <div className="step-inner">Properties</div>
                   </li>
                   <li className={step === 3 ? "step active" : "step"}>
