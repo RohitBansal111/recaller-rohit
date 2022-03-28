@@ -5,7 +5,7 @@ import Preparation from "../components/contacts/wizard-form/Preparation";
 import Properties from "../components/contacts/wizard-form/Properties";
 
 const UploadSpreadsheetModal = (props) => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [dynamicLineSteps, setDynamicLineSteps] = useState('onethirdPart')
   if(step === 2){
     setDynamicLineSteps('halfPart');
@@ -39,7 +39,7 @@ const UploadSpreadsheetModal = (props) => {
                   </li>
                 </ul>
                 <div id="line">
-                  <div id="line-progress"></div>
+                  <div id="line-progress" className={dynamicLineSteps}></div>
                 </div>
               </div>
             </div>
