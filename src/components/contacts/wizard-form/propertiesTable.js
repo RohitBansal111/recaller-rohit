@@ -5,7 +5,6 @@ const columns = [
   {
       name: 'Include',
       selector: row => row.include,
-      sortable: true,
   },
   {
     name: 'Column Name',
@@ -26,31 +25,31 @@ const data = [
     include: <input type="checkbox" />,
     columnName: 'Lorum Ipsum',
     firstValue: 'User Name',
-    mapTo: <select><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
+    mapTo: <select className='form-control'><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
   },
   {
     include: <input type="checkbox" />,
     columnName: 'Lorum Ipsum',
     firstValue: 'User Name',
-    mapTo: <select><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
+    mapTo: <select className='form-control'><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
   },
   {
     include: <input type="checkbox" />,
     columnName: 'Lorum Ipsum',
     firstValue: 'User Name',
-    mapTo: <select><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
+    mapTo: <select className='form-control'><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
   },
   {
     include: <input type="checkbox" />,
     columnName: 'Lorum Ipsum',
     firstValue: 'User Name',
-    mapTo: <select><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
+    mapTo: <select className='form-control'><option>First Name</option><option>Last Name</option><option>Primary Phone</option></select>,
   }
 ]
 
 const PropertiesTable = () => {
   return (
-    <div className="SchedulemapTo-data-table common-data-table" style={{ height: 'auto', width: '100%' }}>
+    <div className="Spreadsheet-data-table common-data-table" style={{ height: 'auto', width: '100%' }}>
       <DataTable
        columns={columns} 
        data={data} 

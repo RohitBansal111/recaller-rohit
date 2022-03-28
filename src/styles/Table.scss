@@ -11,6 +11,11 @@
         }
       }
     }
+    .rdt_TableBody{
+      .form-control{
+        font-size: 14px;
+      }
+    }
   }
 }
 .tags-data-table{
@@ -33,6 +38,28 @@
         fill: #a0a0a0;
         margin: 0px 10px;
         cursor: pointer;
+      }
+    }
+  }
+}
+.Spreadsheet-data-table{
+  .rdt_TableHead{
+    .rdt_TableHeadRow{
+      .rdt_TableCol{
+        &:first-child{
+          max-width: 50px;
+          min-width: 90px;
+        }
+      }
+    }
+  }
+  .rdt_TableBody{
+    .rdt_TableRow{
+      .rdt_TableCell{
+        &:first-child{
+          max-width: 50px;
+          min-width: 90px;
+        }
       }
     }
   }

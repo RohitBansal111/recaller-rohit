@@ -53,7 +53,7 @@ const Properties = ({ step, setStep }) => {
             </div>
           </div>
         </div>
-        <div className="field-group flexFull text-center mt-3">
+        <div className="field-group flexFull text-center mt-3 mb-0">
           <button
             type="button"
             className="btn btn-cancel me-3"

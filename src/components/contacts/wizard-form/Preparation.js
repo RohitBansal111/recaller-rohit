@@ -42,7 +42,7 @@ console.log(csvData,"csvData");
       </ul>
       <div className="main-form">
         <div
-          className="field-group upload-drag-section text-center"
+          className={csvFile ? "field-group upload-drag-section text-center fileAdded" : "field-group upload-drag-section text-center"}
           {...getRootProps()}
         >
           <i className="material-icons">cloud_upload</i>
@@ -62,7 +62,7 @@ console.log(csvData,"csvData");
             ></input>
           </div>
         </div>
-        <div className="field-group flexFull text-center mt-3">
+        <div className="field-group flexFull text-center mt-3 mb-0">
           <button
             type="button"
             className="btn btn-cancel me-3"

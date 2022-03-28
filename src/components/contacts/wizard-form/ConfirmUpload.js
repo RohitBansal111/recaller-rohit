@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 
 const ConfirmUpload = ({ step, setStep }) => {
+  const [addNote, setAddNote] = useState(false);
+  const handleAddNote = () => {
+    setAddNote(true)
+  }
   const finishStep = () => {
     setStep(step + 1);
   };
@@ -17,14 +21,22 @@ const ConfirmUpload = ({ step, setStep }) => {
       <p>You can also configure some additional options below:</p>
       <div className="main-form">
         <div className="field-group flexFull note-form-control">
-          <div className="add-note-bttn">
-            <button> <AddIcon /> Add Note</button>
-          </div>
-          <label>Notes</label>
-          <textarea type="text" className="form-control"></textarea>
+          {
+            !addNote &&
+            <div className="add-note-bttn">
+              <button onClick={handleAddNote}> <AddIcon /> Add Note</button>
+            </div>
+          }
+          {
+            addNote && 
+            <>
+            <label>Notes</label>
+            <textarea type="text" className="form-control"></textarea>
+            </>
+          }
           <h3>That's it! You can submit the upload when ready.</h3>
         </div>
-        <div className="field-group flexFull text-center mt-3">
+        <div className="field-group flexFull text-center mt-3 mb-0">
           <button
             type="button"
             className="btn btn-cancel me-3"
