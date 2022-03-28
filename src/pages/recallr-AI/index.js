@@ -4,7 +4,7 @@ const RecallrAI = () => {
   return (
       <div className="content-page-layout">
           <div className="coming-soon">
-              <img src={ComingSoon} alt="coming sonn" />
+              <img src={ComingSoon} alt="coming soon" />
           </div>
       </div>
   )
