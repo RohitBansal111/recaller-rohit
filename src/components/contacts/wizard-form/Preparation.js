@@ -22,7 +22,11 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
       </ul>
       <div className="main-form">
         <div
-          className="field-group upload-drag-section text-center"
+          className={
+            props.isFilePicked && props.csvFile
+              ? "field-group upload-drag-section text-center activeDrop"
+              : "field-group upload-drag-section text-center"
+          }
           {...props.getRootProps}
         >
           <i className="material-icons">cloud_upload</i>
@@ -31,9 +35,13 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
               ? " Ready To Upload"
               : "Drag and drop a CSV file here to upload"}
           </h3>
-          <h4>{props.csvFile ? props.csvFile : "Or"}</h4>
+          <h4>{props.isFilePicked && props.csvFile ? props.csvFile : "Or"}</h4>
           <div className="select-file">
-            <span>{props.csvFile ? "Change file" : "Select a file"}</span>
+            <span>
+              {props.isFilePicked && props.csvFile
+                ? "Change file"
+                : "Select a file"}
+            </span>
             <input
               name="file"
               type="file"
@@ -51,7 +59,12 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
             {" "}
             Dismiss{" "}
           </button>
-          <button type="button" className="btn btn-primary" onClick={nextStep}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={props.csvFile ? false : true}
+            onClick={nextStep}
+          >
             {" "}
             Proceed{" "}
           </button>

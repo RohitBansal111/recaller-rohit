@@ -5,15 +5,17 @@ import Preparation from "../components/contacts/wizard-form/Preparation";
 import Properties from "../components/contacts/wizard-form/Properties";
 import Papa from "papaparse";
 import { useDropzone } from "react-dropzone";
+import { toast } from "react-toastify";
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
   const [csvFile, setCsvFile] = useState(null);
   const [csvData, setCsvData] = useState("");
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
   console.log(csvData, "csvData");
 
   const onDrop = useCallback((acceptedFiles) => {
-    setCsvFile(acceptedFiles[0].name);
     var formData = new FormData();
     formData.append("file", acceptedFiles[0].name);
     formData.get("file");
@@ -24,6 +26,13 @@ const UploadSpreadsheetModal = (props) => {
         setCsvData(results.data);
       },
     });
+    if (acceptedFiles[0].type !== "text/csv") {
+      toast.error("Sorry, thats not a valid CSV file");
+      setIsFilePicked(false);
+    } else {
+      setCsvFile(acceptedFiles[0].name);
+      setIsFilePicked(true);
+    }
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -86,12 +95,11 @@ const UploadSpreadsheetModal = (props) => {
                   getInputProps={getInputProps()}
                   getRootProps={getRootProps()}
                   csvFile={csvFile}
+                  isFilePicked={isFilePicked}
                 />
               )}
-              {step === 2 && csvData && (
-                <Properties step={step} setStep={setStep} 
-                // tableData={csvData} 
-                />
+              {step === 2 && (
+                <Properties step={step} setStep={setStep} tableData={csvData} />
               )}
               {step === 3 && (
                 <ConfirmUpload

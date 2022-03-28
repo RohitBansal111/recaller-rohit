@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import PropertiesTable from "./propertiesTable";
 
-
-const Properties = ({ step, setStep },props) => {
+const Properties = ({ step, setStep, ...props }) => {
   const [selectedValue, setSelectedValue] = useState("");
-  console.log(selectedValue, "selectedValue");
+  
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -16,6 +15,9 @@ const Properties = ({ step, setStep },props) => {
     setSelectedValue(e.target.value);
   };
 
+  console.log(selectedValue, "selectedValue");
+
+
   return (
     <div className="wizard-main-content">
       <p>
@@ -24,9 +26,10 @@ const Properties = ({ step, setStep },props) => {
         or you can unselect them to exclude them from the upload.
       </p>
       <div className="properties-table">
-          <PropertiesTable 
-          // tableData={props.tableData}
-          />
+        <PropertiesTable
+          tableData={props.tableData}
+          handleChange={handleChange}
+        />
       </div>
       <div className="main-form">
         <h2>Logic For Existing Customers</h2>

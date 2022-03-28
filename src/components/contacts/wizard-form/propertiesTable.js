@@ -21,46 +21,46 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    // include: <input type="checkbox" />,
-    columnName: "Lorum Ipsum",
-    firstValue: "User Name",
-    mapTo: (
-      <select>
-        <option>First Name</option>
-        <option>Last Name</option>
-        <option>Primary Phone</option>
-      </select>
-    ),
-  },
-  {
-    // include: <input type="checkbox" />,
-    columnName: "Lorum Ipsum",
-    firstValue: "User Name",
-    mapTo: (
-      <select>
-        <option>First Name</option>
-        <option>Last Name</option>
-        <option>Primary Phone</option>
-      </select>
-    ),
-  },
-  {
-    // include: <input type="checkbox" />,
-    columnName: "Lorum Ipsum",
-    firstValue: "User Name",
-    mapTo: (
-      <select>
-        <option>First Name</option>
-        <option>Last Name</option>
-        <option>Primary Phone</option>
-      </select>
-    ),
-  },
-];
-
 const PropertiesTable = (props) => {
+  const data = [
+    {
+      // include: <input type="checkbox" />,
+      columnName: "Name",
+      firstValue: props.tableData[0]?.name,
+      mapTo: (
+        <select onChange={props.handleChange}>
+          <option>First Name</option>
+          <option>Last Name</option>
+          <option>Primary Phone</option>
+        </select>
+      ),
+    },
+    {
+      // include: <input type="checkbox" />,
+      columnName: "Phone",
+      firstValue: props.tableData[0]?.phone,
+      mapTo: (
+        <select onChange={props.handleChange}>
+          <option>First Name</option>
+          <option>Last Name</option>
+          <option>Primary Phone</option>
+        </select>
+      ),
+    },
+    {
+      // include: <input type="checkbox" />,
+      columnName: "Email",
+      firstValue: props.tableData[0]?.email,
+      mapTo: (
+        <select onChange={props.handleChange}>
+          <option>First Name</option>
+          <option>Last Name</option>
+          <option>Primary Phone</option>
+        </select>
+      ),
+    },
+  ];
+
   return (
     <div
       className="SchedulemapTo-data-table common-data-table"
