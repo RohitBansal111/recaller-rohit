@@ -1,9 +1,10 @@
+import CustomizationImage from './../../assets/images/customization-Image.svg';
 
 const MessengerPage = () => {
     return (
         <div className="content-page-layout">
-          <div className="page-header">
-              <h1> Messenger </h1>
+          <div className="page-header coming-soon">
+            <img src={CustomizationImage} alt="coming soon" />
           </div>
         </div>
     )
