@@ -22,13 +22,8 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
       </ul>
       <div className="main-form">
         <div
-<<<<<<< HEAD
-          className={csvFile ? "field-group upload-drag-section text-center fileAdded" : "field-group upload-drag-section text-center"}
-          {...getRootProps()}
-=======
           className="field-group upload-drag-section text-center"
           {...props.getRootProps}
->>>>>>> b5cc85b7bdb4acad6fcc5b24754d992d4b6dbd30
         >
           <i className="material-icons">cloud_upload</i>
           <h3>
