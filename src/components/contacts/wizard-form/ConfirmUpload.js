@@ -1,5 +1,5 @@
 import React from "react";
-
+import AddIcon from '@mui/icons-material/Add';
 
 const ConfirmUpload = ({ step, setStep }) => {
   const finishStep = () => {
@@ -11,29 +11,18 @@ const ConfirmUpload = ({ step, setStep }) => {
 
   return (
     <div className="wizard-main-content">
-      <ul className="wizard-steps-bar">
-        <li>1. Create a New Spreadsheet</li>
-        <li>2. Add column labels to your first row</li>
-        <li>3. Add your contacts below the first row.</li>
-        <li>
-          4. Done? Save your spreadsheet as a CSV file type and upload it below
-        </li>
-      </ul>
+      <h2>Almost There!</h2>
+      <p>We added the following tag to your upload so that you can filter for them later:</p>
+      <p className="fileInfo">Upload: data.csv (2022-03-28 15:36)</p>
+      <p>You can also configure some additional options below:</p>
       <div className="main-form">
-        <div
-          className="field-group upload-drag-section text-center"
-        >
-          <i className="material-icons">cloud_upload</i>
-          <h3>Drag and drop a CSV file here to upload</h3>
-          <h4>Or</h4>
-          <div className="select-file">
-            <span>Select a file</span>
-            <input
-              type="file"
-              name="file"
-              accept=".csv"
-            ></input>
+        <div className="field-group flexFull note-form-control">
+          <div className="add-note-bttn">
+            <button> <AddIcon /> Add Note</button>
           </div>
+          <label>Notes</label>
+          <textarea type="text" className="form-control"></textarea>
+          <h3>That's it! You can submit the upload when ready.</h3>
         </div>
         <div className="field-group flexFull text-center mt-3">
           <button

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import PropertiesTable from "./propertiesTable";
+
 
 const Properties = ({ step, setStep }) => {
   const [selectedValue, setSelectedValue] = useState("");
@@ -21,6 +23,9 @@ const Properties = ({ step, setStep }) => {
         LocalContacts property if they were not automatically mapped correctly
         or you can unselect them to exclude them from the upload.
       </p>
+      <div className="properties-table">
+          <PropertiesTable />
+      </div>
       <div className="main-form">
         <h2>Logic For Existing Customers</h2>
         <div className="field-group">
