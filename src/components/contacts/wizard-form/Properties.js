@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropertiesTable from "./propertiesTable";
 
 
-const Properties = ({ step, setStep }) => {
+const Properties = ({ step, setStep },props) => {
   const [selectedValue, setSelectedValue] = useState("");
   console.log(selectedValue, "selectedValue");
   const nextStep = () => {
@@ -24,7 +24,9 @@ const Properties = ({ step, setStep }) => {
         or you can unselect them to exclude them from the upload.
       </p>
       <div className="properties-table">
-          <PropertiesTable />
+          <PropertiesTable 
+          // tableData={props.tableData}
+          />
       </div>
       <div className="main-form">
         <h2>Logic For Existing Customers</h2>

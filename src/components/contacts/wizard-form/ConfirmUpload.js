@@ -1,7 +1,7 @@
 import React from "react";
 import AddIcon from '@mui/icons-material/Add';
 
-const ConfirmUpload = ({ step, setStep }) => {
+const ConfirmUpload = ({ step, setStep ,...props}) => {
   const finishStep = () => {
     setStep(step + 1);
   };
@@ -13,7 +13,7 @@ const ConfirmUpload = ({ step, setStep }) => {
     <div className="wizard-main-content">
       <h2>Almost There!</h2>
       <p>We added the following tag to your upload so that you can filter for them later:</p>
-      <p className="fileInfo">Upload: data.csv (2022-03-28 15:36)</p>
+      <p className="fileInfo">Upload: {props.fileName} ({props.fileCreatedAt})</p>
       <p>You can also configure some additional options below:</p>
       <div className="main-form">
         <div className="field-group flexFull note-form-control">
