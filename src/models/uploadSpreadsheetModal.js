@@ -1,12 +1,33 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
 import Properties from "../components/contacts/wizard-form/Properties";
+import Papa from "papaparse";
+import { useDropzone } from "react-dropzone";
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
-  const [dynamicLineSteps, setDynamicLineSteps] = useState('onethirdPart')
+  const [csvFile, setCsvFile] = useState(null);
+  const [csvData, setCsvData] = useState("");
+  console.log(csvData, "csvData");
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setCsvFile(acceptedFiles[0].name);
+    var formData = new FormData();
+    formData.append("file", acceptedFiles[0].name);
+    formData.get("file");
+    Papa.parse(acceptedFiles[0], {
+      header: true,
+      skipEmptyLines: true,
+      complete: function (results) {
+        setCsvData(results.data);
+      },
+    });
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
   return (
     <>
       <Modal
@@ -22,10 +43,20 @@ const UploadSpreadsheetModal = (props) => {
             <div className="spreadsheet-header">
               <div id="progress-bar-container">
                 <ul>
-                  <li className={step === 1 || step === 2 || step === 3 ? "step active" : "step"}>
+                  <li
+                    className={
+                      step === 1 || step === 2 || step === 3
+                        ? "step active"
+                        : "step"
+                    }
+                  >
                     <div className="step-inner">Preparation</div>
                   </li>
-                  <li className={step === 2 || step === 3 ? "step active" : "step"}>
+                  <li
+                    className={
+                      step === 2 || step === 3 ? "step active" : "step"
+                    }
+                  >
                     <div className="step-inner">Properties</div>
                   </li>
                   <li className={step === 3 ? "step active" : "step"}>
@@ -33,7 +64,16 @@ const UploadSpreadsheetModal = (props) => {
                   </li>
                 </ul>
                 <div id="line">
-                  <div id="line-progress" className={step === 1 ? 'onethirdPart' : step === 2 ? 'halfPart' : 'fullBarPart'}></div>
+                  <div
+                    id="line-progress"
+                    className={
+                      step === 1
+                        ? "onethirdPart"
+                        : step === 2
+                        ? "halfPart"
+                        : "fullBarPart"
+                    }
+                  ></div>
                 </div>
               </div>
             </div>
@@ -43,10 +83,24 @@ const UploadSpreadsheetModal = (props) => {
                   step={step}
                   closeModal={props.handleUploadClose}
                   setStep={setStep}
+                  getInputProps={getInputProps()}
+                  getRootProps={getRootProps()}
+                  csvFile={csvFile}
                 />
               )}
-              {step === 2 && <Properties step={step} setStep={setStep} />}
-              {step === 3 && <ConfirmUpload step={step} setStep={setStep} />}
+              {step === 2 && csvData && (
+                <Properties step={step} setStep={setStep} 
+                // tableData={csvData} 
+                />
+              )}
+              {step === 3 && (
+                <ConfirmUpload
+                  step={step}
+                  setStep={setStep}
+                  fileName={csvFile}
+                  fileCreatedAt={csvFile}
+                />
+              )}
             </div>
           </div>
         </Modal.Body>

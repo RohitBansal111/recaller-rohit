@@ -2,33 +2,13 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Papa from "papaparse";
 
-const Preparation = ({ closeModal, step, setStep }) => {
-  const [csvFile, setCsvFile] = useState(null);
-  const [csvData, setCsvData] = useState("");
-console.log(csvData,"csvData");
+const Preparation = ({ closeModal, step, setStep, ...props }) => {
   const nextStep = () => {
     setStep(step + 1);
   };
   const onClose = () => {
     closeModal(false);
   };
-
-  const onDrop = useCallback((acceptedFiles) => {
-    setCsvFile(acceptedFiles[0].name);
-    var formData = new FormData();
-    formData.append("file", acceptedFiles[0].name);
-    const username = formData.get("file");
-    console.log(username, "username");
-    Papa.parse(acceptedFiles[0], {
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        setCsvData(results.data);
-      },
-    });
-  }, []);
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <div className="wizard-main-content">
@@ -42,23 +22,28 @@ console.log(csvData,"csvData");
       </ul>
       <div className="main-form">
         <div
+<<<<<<< HEAD
           className={csvFile ? "field-group upload-drag-section text-center fileAdded" : "field-group upload-drag-section text-center"}
           {...getRootProps()}
+=======
+          className="field-group upload-drag-section text-center"
+          {...props.getRootProps}
+>>>>>>> b5cc85b7bdb4acad6fcc5b24754d992d4b6dbd30
         >
           <i className="material-icons">cloud_upload</i>
           <h3>
-            {csvFile
+            {props.csvFile
               ? " Ready To Upload"
               : "Drag and drop a CSV file here to upload"}
           </h3>
-          <h4>{csvFile ? csvFile : "Or"}</h4>
+          <h4>{props.csvFile ? props.csvFile : "Or"}</h4>
           <div className="select-file">
-            <span>{csvFile ? "Change file" : "Select a file"}</span>
+            <span>{props.csvFile ? "Change file" : "Select a file"}</span>
             <input
               name="file"
               type="file"
               accept=".csv"
-              {...getInputProps()}
+              {...props.getInputProps}
             ></input>
           </div>
         </div>
