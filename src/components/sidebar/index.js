@@ -8,11 +8,12 @@ import VoiceIcon from "../../assets/svg-icons/voiceIcon";
 import TextIcon from "../../assets/svg-icons/textIcon";
 import SearchIcon from "../../assets/svg-icons/searchIcon";
 import ProfileIcon from "../../assets/svg-icons/profileIcon";
+import MessengerIcon from "../../assets/svg-icons/messengerIcon";
+import WhatsAppIcon from "../../assets/svg-icons/whatsAppIcon";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
 import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
-
 
 const SideNavMenu = [
   {
@@ -34,6 +35,16 @@ const SideNavMenu = [
     path: "/voice",
     menuIcon: <VoiceIcon />,
     menuTitle: "Voice",
+  },
+  {
+    path: "/messenger",
+    menuIcon: <MessengerIcon />,
+    menuTitle: "Messenger",
+  },
+  {
+    path: "/whats-app",
+    menuIcon: <WhatsAppIcon />,
+    menuTitle: "Whatsapp",
   },
   {
     path: "/search",
@@ -82,7 +93,7 @@ const Sidebar = () => {
           aria-expanded="false"
         >
           <ProfileIcon />
-          {userDataa && userDataa.firstName + " " + userDataa.lastName}
+          {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'user name'}
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>

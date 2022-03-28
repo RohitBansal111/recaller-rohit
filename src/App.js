@@ -20,6 +20,8 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./styles/Main.scss";
 import MyAccount from "./pages/admin/account";
 import LocalMessages from "./pages/settings/localMessage";
+import Messenger from './pages/messenger';
+import WhatsApp from './pages/whatsApp';
 import AutoResponder from "./pages/settings/localMessage/autoresponder";
 import Usage from "./pages/settings/localMessage/usage";
 import ConversationTags from "./pages/settings/localMessage/tags";
@@ -61,6 +63,8 @@ function App() {
           <Route exact path="/text" element={<TextPage />} />
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/voice" element={<Voice />} />
+          <Route exact path="/messenger" element={<Messenger />} />
+          <Route exact path="/whats-app" element={<WhatsApp />} />
           <Route exact path="/admin/account" element={<MyAccount />} />
           <Route exact path="/settings/local-messages/autoresponder" element={<AutoResponder />} />
           <Route exact path="/settings/local-messages/usage" element={<Usage />} />
