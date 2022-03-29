@@ -1,22 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import PropertiesTable from "./propertiesTable";
 
 const Properties = ({ step, setStep, ...props }) => {
-  const [selectedValue, setSelectedValue] = useState("");
-  
-  const nextStep = () => {
-    setStep(step + 1);
-  };
+  const [selectedName, setSelectedName] = useState("name");
+  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [selectedPhone, setSelectedPhone] = useState(null);
+  const [selectMapValue, setSelectMapValue] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [errorsSelectMap, setSelectMapErrors] = useState({});
+
+  const [selectedRadioValue, setSelectedRadioValue] = useState("");
+
   const backStep = () => {
     setStep(step - 1);
   };
 
-  const handleChange = (e) => {
-    setSelectedValue(e.target.value);
+  const onRadioChange = (e) => {
+    console.log(e.target.value);
+    setSelectedRadioValue(e.target.value);
   };
 
-  console.log(selectedValue, "selectedValue");
+  const handleSubmit = () => {
+    if (
+      selectedName &&
+      (selectedName === selectedPhone || selectedName === selectedEmail)
+    ) {
+      return toast.error("Cannot map multiple columns to the same property ");
+    } else if (
+      selectedPhone &&
+      (selectedPhone === selectedName || selectedPhone === selectedEmail)
+    ) {
+      return toast.error("Cannot map multiple columns to the same property ");
+    } else if (
+      selectedEmail &&
+      (selectedEmail === selectedName || selectedEmail === selectedPhone)
+    ) {
+      return toast.error("Cannot map multiple columns to the same property ");
+    } else if (selectedPhone && selectedPhone === null) {
+      return setErrors({ error: "please fill out this field" });
+    } else if (selectedEmail === null) {
+      return setErrors({ error: "please fill out this field" });
+    } else if (selectedEmail && selectMapValue === null) {
+      return setSelectMapErrors({
+        error:
+          "Please fill out this field. Options are available once required fields are mapped above.",
+      });
+    } else {
+      return setStep(step + 1);
+    }
+  };
 
+  const handleSelectChange = (e) => {
+    setSelectMapValue(e.target.value);
+    setSelectMapErrors({});
+  };
+
+  const handleNameChange = (e) => {
+    setSelectedName(e.target.value);
+  };
+  const handleEmailChange = (e) => {
+    setSelectedEmail(e.target.value);
+    setErrors({});
+  };
+  const handlePhoneChange = (e) => {
+    setSelectedPhone(e.target.value);
+    setErrors({});
+  };
 
   return (
     <div className="wizard-main-content">
@@ -28,7 +78,13 @@ const Properties = ({ step, setStep, ...props }) => {
       <div className="properties-table">
         <PropertiesTable
           tableData={props.tableData}
-          handleChange={handleChange}
+          handleNameChange={handleNameChange}
+          handlePhoneChange={handlePhoneChange}
+          handleEmailChange={handleEmailChange}
+          selectedEmail={selectedEmail}
+          selectedName={selectedName}
+          selectedPhone={selectedPhone}
+          errors={errors.error}
         />
       </div>
       <div className="main-form">
@@ -37,23 +93,41 @@ const Properties = ({ step, setStep, ...props }) => {
           <label>
             1. Choose which mapped property to match with existing contacts
           </label>
-          <select className="form-control" onChange={handleChange}>
+          <select className="form-control" onChange={handleSelectChange}>
             <option value="" selected>
               Selected map property
             </option>
-            <option value="phone">Phone</option>
-            <option value="email">Email</option>
+            {selectedPhone && (
+              <option value={selectedPhone}>
+                {selectedPhone.charAt(0).toUpperCase() + selectedPhone.slice(1)}
+              </option>
+            )}
+            {selectedEmail && (
+              <option value={selectedEmail}>
+                {selectedEmail.charAt(0).toUpperCase() + selectedEmail.slice(1)}
+              </option>
+            )}
           </select>
+          <span className="spanError">{errorsSelectMap.error}</span>
         </div>
         <div className="field-group">
           <label>2. What would you like to do with existing contacts?</label>
           <div className="multi-checkbox">
             <div className="checkbox-box">
-              <input name="contacts" type="radio" />
+              <input
+                name="contacts"
+                type="radio"
+                onChange={onRadioChange}
+              ></input>
               <label>Update Existing Contacts</label>
             </div>
             <div className="checkbox-box">
-              <input name="contacts" type="radio" />
+              <input
+                name="contacts"
+                type="radio"
+                checked={true}
+                onChange={onRadioChange}
+              ></input>
               <label>Skip</label>
             </div>
           </div>
@@ -67,9 +141,12 @@ const Properties = ({ step, setStep, ...props }) => {
             {" "}
             Back{" "}
           </button>
-          <button type="button" className="btn btn-primary" onClick={nextStep}>
-            {" "}
-            Proceed{" "}
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleSubmit}
+          >
+            Proceed
           </button>
         </div>
       </div>

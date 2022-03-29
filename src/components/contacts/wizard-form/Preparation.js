@@ -1,6 +1,4 @@
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import Papa from "papaparse";
+import React from "react";
 
 const Preparation = ({ closeModal, step, setStep, ...props }) => {
   const nextStep = () => {

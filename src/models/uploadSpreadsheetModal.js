@@ -13,8 +13,6 @@ const UploadSpreadsheetModal = (props) => {
   const [csvData, setCsvData] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
 
-  console.log(csvData, "csvData");
-
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
     formData.append("file", acceptedFiles[0].name);
@@ -35,6 +33,16 @@ const UploadSpreadsheetModal = (props) => {
     }
   }, []);
 
+  const handleCsvState = () => {
+    setCsvFile(null);
+  };
+
+  const handleClose = () => {
+    setStep(1);
+    setCsvFile(null);
+    props.handleUploadClose();
+  };
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
@@ -42,7 +50,7 @@ const UploadSpreadsheetModal = (props) => {
       <Modal
         className="normal-modal"
         show={props.uploadModal}
-        onHide={props.handleUploadClose}
+        onHide={handleClose}
       >
         <Modal.Header closeButton>
           <Modal.Title>Add From Spreadsheet</Modal.Title>
@@ -106,7 +114,8 @@ const UploadSpreadsheetModal = (props) => {
                   step={step}
                   setStep={setStep}
                   fileName={csvFile}
-                  fileCreatedAt={csvFile}
+                  handleFinish={props.handleFinish}
+                  handleCsvState={handleCsvState}
                 />
               )}
             </div>

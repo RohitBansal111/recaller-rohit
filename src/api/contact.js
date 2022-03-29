@@ -41,11 +41,11 @@ const getContactApi = async () => {
   }
 };
 
-const uploadCsvApi = async (fileData) => {
+const uploadCsvApi = async (data) => {
   try {
     const result = await axios.post(
       `${process.env.REACT_APP_API_URL}/contact/insert`,
-      fileData
+      data
     );
     if (result) {
       return result;
@@ -55,4 +55,4 @@ const uploadCsvApi = async (fileData) => {
   }
 };
 
-export { createApi, deleteApi, getContactApi ,uploadCsvApi};
+export { createApi, deleteApi, getContactApi, uploadCsvApi };

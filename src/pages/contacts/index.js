@@ -139,7 +139,9 @@ const Import = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length) : 0;
+    page > 0
+      ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length)
+      : 0;
 
   const handleContactDeleteV = () => {
     const data = { contacts: JSON.stringify(selected) };
@@ -148,6 +150,10 @@ const Import = () => {
     setIsOpenDelete(false);
     setSelected([]);
   };
+
+  const handleFinish = () => {
+    setUploadModal(false)
+  }
 
   return (
     <>
@@ -216,6 +222,7 @@ const Import = () => {
         handleProceed={handleProceed}
         onChange={onChange}
         errors={errors}
+        handleFinish={handleFinish}
       />
     </>
   );

@@ -2,11 +2,6 @@ import * as React from "react";
 import DataTable from "react-data-table-component";
 
 const columns = [
-  // {
-  //     name: 'Include',
-  //     selector: row => row.include,
-  //     sortable: true,
-  // },
   {
     name: "Column Name",
     selector: (row) => row.columnName,
@@ -24,39 +19,50 @@ const columns = [
 const PropertiesTable = (props) => {
   const data = [
     {
-      // include: <input type="checkbox" />,
       columnName: "Name",
       firstValue: props.tableData[0]?.name,
       mapTo: (
-        <select onChange={props.handleChange}>
-          <option>First Name</option>
-          <option>Last Name</option>
-          <option>Primary Phone</option>
-        </select>
+          <select value={props.selectedName} onChange={props.handleNameChange}>
+            <option value={"name"}> Name</option>
+            <option value={"phone"}>Primary Phone</option>
+            <option value={"email"}>Primary Email</option>
+          </select>
       ),
     },
     {
-      // include: <input type="checkbox" />,
       columnName: "Phone",
       firstValue: props.tableData[0]?.phone,
       mapTo: (
-        <select onChange={props.handleChange}>
-          <option>First Name</option>
-          <option>Last Name</option>
-          <option>Primary Phone</option>
-        </select>
+        <>
+          <select
+            value={props.selectedPhone}
+            onChange={props.handlePhoneChange}
+          >
+            <option value=""></option>
+            <option value={"name"}> Name</option>
+            <option value={"phone"}>Primary Phone</option>
+            <option value={"email"}>Primary Email</option>
+          </select>
+          <span className="spanError">{props.errors}</span>
+        </>
       ),
     },
     {
-      // include: <input type="checkbox" />,
       columnName: "Email",
       firstValue: props.tableData[0]?.email,
       mapTo: (
-        <select onChange={props.handleChange}>
-          <option>First Name</option>
-          <option>Last Name</option>
-          <option>Primary Phone</option>
-        </select>
+        <>
+          <select
+            value={props.selectedEmail}
+            onChange={props.handleEmailChange}
+          >
+            <option value={""}></option>
+            <option value={"name"}> Name</option>
+            <option value={"phone"}>Primary Phone</option>
+            <option value={"email"}>Primary Email</option>
+          </select>
+          <span className="spanError">{props.errors}</span>
+        </>
       ),
     },
   ];
