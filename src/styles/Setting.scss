@@ -81,6 +81,26 @@
             font-size: 21px;
           }
         }
+        .autoresponder-input-field{
+          .main-form{
+            display: block;
+            label{
+              color: $labelColor;
+              font-size: 14px;
+            }
+            .field-group{
+              display: flex;
+              align-items: center;
+              margin-top: 3px;
+              .btn-icon{
+                cursor: pointer;
+                svg{
+                  fill: $Icon-color;
+                }
+              }
+            }
+          }
+        }
       }
     }
     .auto-reply-business-hour{

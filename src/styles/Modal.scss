@@ -78,5 +78,12 @@
   }
   .modal-body{
     padding: 30px;
+    .timeZone{
+      svg{
+        fill: $Icon-color;
+        font-size: 27px;
+        padding-left: 10px;
+      }
+    }
   }
 }

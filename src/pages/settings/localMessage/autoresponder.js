@@ -4,13 +4,41 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import BusinessHourModal from '../../../components/settings/businessHourModal';
 
 
 const Autoresponder = () => {
-    const [addIncomeSet, setAddIncomeSet] = useState(false)
-    const AddIncomeSMS = () => {
-        setAddIncomeSet(true)
+    const [businessHourModal, setBusinessHourModal] = useState(false);
+    const [addIncomeDuringSet, setAddIncomeDuringSet] = useState(false)
+    const [addWidgetDuringSet, setAddWidgetDuringSet] = useState(false)
+    const [addIncomeOutsideSet, setAddIncomeOutsideSet] = useState(false)
+    const [addWidgetOutsideSet, setAddWidgetOutsideSet] = useState(false)
+    const AddIncomeDuringSMS = () => {
+        setAddIncomeDuringSet(true);
     }
+    const AddWidgetDuringSMS = () => {
+        setAddWidgetDuringSet(true);
+    }
+    const AddIncomeOutsideSMS = () => {
+        setAddIncomeOutsideSet(true)
+    }
+    const AddWidgetOutsideSMS = () => {
+        setAddWidgetOutsideSet(true)
+    }
+    const addBusinessHourModal = () => {
+        setBusinessHourModal(true)
+    }
+    const handleModalClose = () => {
+        setBusinessHourModal(false)
+    }
+    const handleModalShow = () => {
+
+    }
+    const handleProceed = () => {
+
+    }
+
     
   return (
       <div className="content-page-layout">
@@ -26,7 +54,7 @@ const Autoresponder = () => {
                     <h3>Business Hours</h3>
                     <div className="addAuto-response-bar">
                         <div className="auto-response-list">
-                            <button type="button" className="btn btn-autoReply"> <AddIcon /> Add Business hour </button>
+                            <button type="button" className="btn btn-autoReply" onClick={addBusinessHourModal} > <AddIcon /> Add Business hour </button>
                         </div>
                     </div>
                 </div>
@@ -42,8 +70,34 @@ const Autoresponder = () => {
                     </div>
                     <div className="addAuto-response-bar">
                         <div className="auto-response-list">
-                            <button type="button" className="btn btn-autoReply" onClick={AddIncomeSMS}> <AddIcon /> Add Incoming SMS Auto-Response</button>
-                            <button type="button" className="btn btn-autoReply"> <AddIcon /> Add Widget Auto-Response </button>
+                            {
+                                !addIncomeDuringSet ?
+                                    <button type="button" className="btn btn-autoReply" onClick={AddIncomeDuringSMS}> <AddIcon /> Add Incoming SMS Auto-Response</button>
+                                : 
+                                <div className="autoresponder-input-field">
+                                    <div className="main-form">
+                                        <label>Incoming SMS Auto-Response</label>
+                                        <div className="field-group">
+                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            {
+                                !addWidgetDuringSet ?
+                                    <button type="button" className="btn btn-autoReply" onClick={AddWidgetDuringSMS}> <AddIcon /> Add Widget Auto-Response </button>
+                                :
+                                <div className="autoresponder-input-field">
+                                    <div className="main-form">
+                                        <label>Widget Auto-Response</label>
+                                        <div className="field-group">
+                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -59,12 +113,44 @@ const Autoresponder = () => {
                     </div>
                     <div className="addAuto-response-bar">
                         <div className="auto-response-list">
-                            <button type="button" className="btn btn-autoReply"> <AddIcon /> Add Incoming SMS Auto-Response</button>
-                            <button type="button" className="btn btn-autoReply"> <AddIcon /> Add Widget Auto-Response </button>
+                            {
+                                !addIncomeOutsideSet ?
+                                    <button type="button" className="btn btn-autoReply" onClick={AddIncomeOutsideSMS}> <AddIcon /> Add Incoming SMS Auto-Response</button>
+                                :
+                                <div className="autoresponder-input-field">
+                                    <div className="main-form">
+                                        <label>Widget Auto-Response</label>
+                                        <div className="field-group">
+                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            {
+                                !addWidgetOutsideSet ?
+                                    <button type="button" className="btn btn-autoReply" onClick={AddWidgetOutsideSMS}> <AddIcon /> Add Widget Auto-Response </button>
+                                :
+                                <div className="autoresponder-input-field">
+                                    <div className="main-form">
+                                        <label>Widget Auto-Response</label>
+                                        <div className="field-group">
+                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
+            <BusinessHourModal 
+                businessHourModal={businessHourModal}
+                handleModalClose={handleModalClose}
+                handleModalShow={handleModalShow}
+                handleProceed={handleProceed}
+            />
         </div>
       </div>
   )
