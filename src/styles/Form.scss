@@ -4,6 +4,20 @@
   flex-wrap: wrap;
   .field-group {
     margin-bottom: 15px;
+    svg{
+      fill: $Icon-color;
+      cursor: pointer;
+    }
+    .active-text{
+      color: $Active-color;
+      padding: 0px;
+      margin-top: 5px;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      svg{
+        fill: $Active-color;
+      };
+    }
     label {
       font-size: 14px;
       font-weight: 500;
@@ -30,6 +44,12 @@
     }
     &.flex2 {
       flex: 0 0 47%;
+    }
+    &.flexOne{
+      flex: 1;
+    }
+    &.flexOneFour{
+      margin-bottom: 0px;
     }
   }
   .btn-groups{
