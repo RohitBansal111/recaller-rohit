@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import PropertiesTable from "./propertiesTable";
@@ -7,9 +8,10 @@ const Properties = ({ step, setStep, ...props }) => {
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedPhone, setSelectedPhone] = useState(null);
   const [selectMapValue, setSelectMapValue] = useState(null);
+  const [mapArray, setMapArray] = useState("");
   const [errors, setErrors] = useState({});
   const [errorsSelectMap, setSelectMapErrors] = useState({});
-
+  console.log("mapArray", mapArray);
   const [selectedRadioValue, setSelectedRadioValue] = useState("");
 
   const backStep = () => {
@@ -21,7 +23,21 @@ const Properties = ({ step, setStep, ...props }) => {
     setSelectedRadioValue(e.target.value);
   };
 
+  const checkKeyValue = () => {
+    const arr = [];
+    props.tableData.map((item) => {
+      const obj = {
+        [selectedName]: item.name,
+        [selectedPhone]: item.phone,
+        [selectedEmail]: item.email,
+      };
+      arr.push(obj);
+    });
+    setMapArray(arr);
+  };
+
   const handleSubmit = () => {
+    checkKeyValue();
     if (
       selectedName &&
       (selectedName === selectedPhone || selectedName === selectedEmail)
