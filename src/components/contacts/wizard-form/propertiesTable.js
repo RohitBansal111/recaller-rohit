@@ -22,11 +22,11 @@ const PropertiesTable = (props) => {
       columnName: "Name",
       firstValue: props.tableData[0]?.name,
       mapTo: (
-          <select value={props.selectedName} onChange={props.handleNameChange}>
-            <option value={"name"}> Name</option>
-            <option value={"phone"}>Primary Phone</option>
-            <option value={"email"}>Primary Email</option>
-          </select>
+        <select value={props.selectedName} onChange={props.handleNameChange}>
+          <option value={"name"}> Name</option>
+          <option value={"phone"}>Primary Phone</option>
+          <option value={"email"}>Primary Email</option>
+        </select>
       ),
     },
     {
@@ -38,12 +38,12 @@ const PropertiesTable = (props) => {
             value={props.selectedPhone}
             onChange={props.handlePhoneChange}
           >
-            <option value=""></option>
+            <option value="" selected></option>
             <option value={"name"}> Name</option>
             <option value={"phone"}>Primary Phone</option>
             <option value={"email"}>Primary Email</option>
           </select>
-          <span className="spanError">{props.errors}</span>
+          <span className="spanError">{props.errors.selectedPhone}</span>
         </>
       ),
     },
@@ -56,12 +56,12 @@ const PropertiesTable = (props) => {
             value={props.selectedEmail}
             onChange={props.handleEmailChange}
           >
-            <option value={""}></option>
+            <option value="" selected></option>
             <option value={"name"}> Name</option>
             <option value={"phone"}>Primary Phone</option>
             <option value={"email"}>Primary Email</option>
           </select>
-          <span className="spanError">{props.errors}</span>
+          <span className="spanError">{props.errors.selectedEmail}</span>
         </>
       ),
     },

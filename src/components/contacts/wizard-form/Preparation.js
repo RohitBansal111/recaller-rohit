@@ -1,9 +1,7 @@
 import React from "react";
 
 const Preparation = ({ closeModal, step, setStep, ...props }) => {
-  const nextStep = () => {
-    setStep(step + 1);
-  };
+  
   const onClose = () => {
     closeModal(false);
   };
@@ -61,7 +59,7 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
             type="button"
             className="btn btn-primary"
             disabled={props.csvFile ? false : true}
-            onClick={nextStep}
+            onClick={props.nextStep}
           >
             {" "}
             Proceed{" "}

@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import { addMultipleContact } from "../../../api/contact";
 
 const ConfirmUpload = ({ step, setStep, ...props }) => {
   const [addNote, setAddNote] = useState(false);
   const handleAddNote = () => {
     setAddNote(true);
   };
-  const finishStep = () => {
+  const finishStep = async () => {
     setStep(1);
-    props.handleFinish()
+    props.handleFinish();
     props.handleCsvState();
+    const obj = {
+      contacts: JSON.stringify(props.data),
+      contactType: props.contactType,
+      contactProperty: props.contactProperty,
+    };
+    await addMultipleContact(obj);
   };
   const backStep = () => {
     setStep(step - 1);

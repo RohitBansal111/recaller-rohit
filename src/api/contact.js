@@ -41,10 +41,10 @@ const getContactApi = async () => {
   }
 };
 
-const uploadCsvApi = async (data) => {
+const addMultipleContact = async (data) => {
   try {
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/contact/insert`,
+      `${process.env.REACT_APP_API_URL}/contact/create-multiple`,
       data
     );
     if (result) {
@@ -55,4 +55,4 @@ const uploadCsvApi = async (data) => {
   }
 };
 
-export { createApi, deleteApi, getContactApi, uploadCsvApi };
+export { createApi, deleteApi, getContactApi, addMultipleContact };
