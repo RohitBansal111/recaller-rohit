@@ -6,6 +6,7 @@ import Properties from "../components/contacts/wizard-form/Properties";
 import Papa from "papaparse";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
+import { addMultipleContact } from "../api/contact";
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
@@ -13,13 +14,14 @@ const UploadSpreadsheetModal = (props) => {
   const [csvData, setCsvData] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
-  const [selectMapValue, setSelectMapValue] = useState(null);
+  const [selectProperty, setSelectProperty] = useState(null);
   const [selectedName, setSelectedName] = useState("name");
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedPhone, setSelectedPhone] = useState(null);
   const [mapArray, setMapArray] = useState("");
   const [errors, setErrors] = useState({});
   const [errorsSelectMap, setSelectMapErrors] = useState({});
+  const [addNote, setAddNote] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
@@ -41,10 +43,6 @@ const UploadSpreadsheetModal = (props) => {
     }
   }, []);
 
-  const handleCsvState = () => {
-    setCsvFile(null);
-  };
-
   const onRadioChange = (e) => {
     setSelectedType(e.target.value);
   };
@@ -59,7 +57,7 @@ const UploadSpreadsheetModal = (props) => {
   };
 
   const handleSelectChange = (e) => {
-    setSelectMapValue(e.target.value);
+    setSelectProperty(e.target.value);
     setSelectMapErrors({});
   };
 
@@ -102,7 +100,7 @@ const UploadSpreadsheetModal = (props) => {
         setErrors({ selectedEmail: "please fill out this field" });
         formData = false;
         break;
-      case selectedEmail && selectMapValue === null:
+      case selectedEmail && selectProperty === null:
         setSelectMapErrors({
           selectMapErrors:
             "Please fill out this field. Options are available once required fields are mapped above.",
@@ -143,6 +141,24 @@ const UploadSpreadsheetModal = (props) => {
 
   const backStep = () => {
     setStep(step - 1);
+  };
+
+  const handleAddNote = () => {
+    setAddNote(true);
+  };
+  const finishStep = async () => {
+    setStep(1);
+    props.handleFinish();
+    setCsvFile(null);
+    setSelectedPhone(null);
+    setSelectedEmail(null);
+    setSelectedName(null);
+    const obj = {
+      contacts: JSON.stringify(csvData),
+      contactType: selectedType,
+      contactProperty: selectProperty,
+    };
+    await addMultipleContact(obj);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -232,12 +248,10 @@ const UploadSpreadsheetModal = (props) => {
                   step={step}
                   setStep={setStep}
                   fileName={csvFile}
-                  handleFinish={props.handleFinish}
-                  handleCsvState={handleCsvState}
-                  data={csvData}
-                  contactType={selectedType}
-                  contactProperty={selectMapValue}
                   backStep={backStep}
+                  finishStep={finishStep}
+                  addNote={addNote}
+                  handleAddNote={handleAddNote}
                 />
               )}
             </div>
