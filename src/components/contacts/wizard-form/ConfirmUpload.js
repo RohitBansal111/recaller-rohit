@@ -18,9 +18,9 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
     };
     await addMultipleContact(obj);
   };
-  const backStep = () => {
-    setStep(step - 1);
-  };
+  // const backStep = () => {
+  //   setStep(step - 1);
+  // };
 
   return (
     <div className="wizard-main-content">
@@ -53,7 +53,7 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
           <button
             type="button"
             className="btn btn-cancel me-3"
-            onClick={backStep}
+            onClick={props.backStep}
           >
             {" "}
             Back{" "}

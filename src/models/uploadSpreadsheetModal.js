@@ -141,6 +141,10 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
   };
 
+  const backStep = () => {
+    setStep(step - 1);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
@@ -233,6 +237,7 @@ const UploadSpreadsheetModal = (props) => {
                   data={csvData}
                   contactType={selectedType}
                   contactProperty={selectMapValue}
+                  backStep={backStep}
                 />
               )}
             </div>
