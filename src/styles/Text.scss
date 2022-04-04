@@ -1,0 +1,240 @@
+.text-main-section{
+    min-height: calc(100vh - 80px);
+    height: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    .nav-tabs{
+        margin-bottom: 0px !important;
+    }
+}
+.chatbox-warpper{
+    height: calc(100% - 130px);
+    .inner-chatbox-area{
+        display: flex;
+        justify-content: space-between;
+        background-color: $Theme-white;
+        height: 100%;
+        .chat-user-list{
+            flex: 0 0 25%;
+            height: 100%;
+            .chat-list-filter{
+                height: 100%;
+                .main-form{
+                    padding: 5px 10px;
+                    border-bottom: 1px solid lightgray;
+                    height: 70px;
+                    .field-group{
+                        margin: 10px 0px;
+                    }
+                }
+                .user-list-main{
+                    padding-left: 0px;
+                    margin: 10px 0px;
+                    height: 100%;
+                    overflow: auto;
+                    li{
+                        padding: 7px 10px;
+                        border-top: 1px solid #dedede;
+                        &:first-child{
+                            border-top: none;
+                        }
+                        cursor: pointer;
+                        &:hover{
+                            background-color: #eeeeee;
+                        }
+                        h5{
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            font-size: 15px;
+                            margin-bottom: 3px;
+                            font-weight: 500;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            vertical-align: middle;
+                            white-space: nowrap;
+                            span{
+                                color: #777;
+                                font-size: 12px;
+                                font-weight: 500;
+                                margin-left: 5px;
+                            }
+                        }
+                        p{
+                            font-size: 13px;
+                            color: $labelColor;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+            }
+        }
+        .chat-discussion-area{
+            flex: 0 0 45%;
+            border-left: 1px solid lightgray;
+            border-right: 1px solid lightgray;
+            height: 100%;
+            .all-discuss-section{
+                height: 100%;
+                position: relative;
+                .chat-header{
+                    height: 70px;
+                    padding: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: 1px solid lightgray;
+                    box-sizing: border-box;
+                    h4{
+                        text-align: center;
+                        font-size: 20px;
+                        color: $HeadingColor;
+                        margin-bottom: 0px;
+                    }
+                    .header-action{
+                        svg{
+                            font-size: 24px;
+                            cursor: pointer;
+                            &:first-child{
+                                margin-right: 30px;
+                            }
+                        }
+                    }
+                }
+                .chat-now{
+                    background-color: #f2f2f2;
+                }
+                .chat-text-editor{
+                    border: 1px solid lightgrey;
+                    min-height: 160px;
+                    border-radius: 5px;
+                    position: absolute;
+                    bottom: 15px;
+                    width: 94%;
+                    margin: auto;
+                    left: 3%;
+                    .chat-textarea{
+                        width: 100%;
+                        textarea{
+                            width: 100%;
+                            border: none;
+                            padding: 10px;
+                            font-size: 14px;
+                            outline: 0px;
+                            min-height: 70px;
+                            &:focus{
+                                outline: 0px;
+                            }
+                        }
+                        .btn-groups{
+                            justify-content: flex-end;
+                            margin-top: 0px;
+                            .btn{
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .chat-compassion-area{
+            flex: 0 0 30%;
+            .user-compassion-details{
+                padding: 15px;
+                border-bottom: 1px solid lightgray;
+                .user-name-head{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    h4{
+                        font-size: 17px;
+                    }
+                    svg{
+                        font-size: 20px;
+                        cursor: pointer;
+                    }
+                }
+                .personal-info{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    margin-top: 25px;
+                    padding-left: 0px;
+                    li{
+                        h5{
+                            font-size: 16px;
+                            font-weight: 500;
+                            margin-bottom: 5px;
+                            color: $HeadingColor;
+                        }
+                        p{
+                            font-size: 13px;
+                            color: $labelColor;
+                        }
+                        .btn-links{
+                            font-size: 15px;
+                            border: none;
+                            background-color: transparent;
+                            color: $labelColor;
+                            font-weight: 600;
+                            padding: 0px;
+                            &:first-child{
+                                margin-right: 13px;
+                            }
+                            &:hover{
+                                color: $Active-color;
+                            }
+                        }
+                        &:last-child{
+                            display: flex;
+                            flex: 0 0 100%;
+                        }
+                    }
+                }
+            }
+            .monthly-balance-box{
+                background-color: #2baffd;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 3px;
+                h4{
+                    text-align: center;
+                    font-size: 20px;
+                    color: $Theme-white;
+                    margin-bottom: 25px;
+                }
+                ul{
+                    display: flex;
+                    padding: 0px;
+                    justify-content: space-between;
+                }
+                li{
+                    flex: 1;
+                    color: $Theme-white;
+                    font-weight: 500;
+                    font-size: 15px;
+                }
+            }
+            .conversation-tags{
+                padding: 20px;
+                h4{
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: $labelColor;
+                    margin-bottom: 25px;
+                }
+                .btn-addd-tag{
+                    color: $labelColor;
+                    border: 1px solid $labelColor;
+                    border-radius: 30px;
+                    font-size: 13px !important;
+                    font-weight: 500 !important;
+                    svg{
+                        font-size: 17px;
+                    }
+                }
+                
+            }
+        }
+    }
+}

@@ -33,6 +33,7 @@
       font-size: 14px;
       border-radius: 5px;
       padding: 10px;
+      box-sizing: border-box;
       &:focus {
         box-shadow: none;
         outline: 0px;
@@ -50,6 +51,20 @@
     }
     &.flexOneFour{
       margin-bottom: 0px;
+    }
+  }
+  .searchField{
+    position: relative;
+    .form-control{
+      padding-left: 40px;
+      box-sizing: border-box;
+    }
+    .search-field{
+      svg{
+        position: absolute;
+        top: 9px;
+        left: 10px;
+      }
     }
   }
   .btn-groups{

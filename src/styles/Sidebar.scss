@@ -13,6 +13,7 @@
     padding: 20px;
     border-bottom: rgba(0, 0, 0, 0.04) solid 1px;
     background: rgba(0, 0, 0, 0.01);
+    box-sizing: border-box;
     img {
       width: 170px;
     }
@@ -83,7 +84,7 @@
     .btn {
       padding: 15px 20px 15px 55px;
       width: 100%;
-      background-color: $Active-color;
+      background-color: $Theme-dark;
       color: $Theme-white;
       border: none;
       border-top: rgba(0, 0, 0, 0.04) solid 1px;

@@ -155,9 +155,10 @@
 // Dshboard Main
 .dashboard-content {
   margin: auto;
-  max-width: 960px;
-  width: 95%;
-  padding: 50px 0px;
+  width: 100%;
+  padding: 50px 70px;
+  overflow: auto;
+  height: 100%;
   .dashboard-header {
     text-align: center;
     h1 {
@@ -190,6 +191,7 @@
     justify-content: center;
     margin: 5px;
     padding: 20px;
+    box-sizing: border-box;
     h3 {
       font-size: 16px;
       font-weight: 500;
@@ -214,39 +216,6 @@
   margin-right: 5px;
   margin-left: 5px;
   .activity-tabs {
-    .nav-tabs {
-      background: none;
-      border-bottom: 1px solid #eee;
-      height: 50px;
-      margin-bottom: 0px !important;
-      .nav-item {
-        &:focus-visible {
-          outline: 0px !important;
-        }
-        button {
-          color: #bbb;
-          font-size: 14px;
-          font-weight: 500;
-          height: 50px;
-          &.active {
-            color: $Active-color;
-            font-weight: 500;
-            border: none;
-            background-color: transparent;
-            border-bottom: 2px solid $Active-color;
-          }
-          &:focus{
-            border: 1px solid transparent; 
-          }
-          &:hover { 
-            border: 1px solid transparent; 
-          } 
-          &:focus-visible { 
-            outline: 0px !important;
-          }
-        }
-      }
-    }
     .tab-content {
       min-height: 400px;
     }

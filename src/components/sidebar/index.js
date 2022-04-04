@@ -24,7 +24,7 @@ const SideNavMenu = [
   {
     path: "/import",
     menuIcon: <ImportIcon />,
-    menuTitle: "Import",
+    menuTitle: "Contacts",
   },
   {
     path: "/text",

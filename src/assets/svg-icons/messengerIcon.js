@@ -2,7 +2,7 @@ import React from 'react'
 
 const MessengerIcon = () => {
   return (
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="511px" height="511px" viewBox="0 0 511 511" enable-background="new 0 0 511 511">
 <path fill="#626A6D" d="M96.171,511.001c-7.446,0-14.861-2.051-21.466-6.137c-12.136-7.497-19.376-20.491-19.376-34.76v-59.883
 	C12.596,356.081-5.872,288.471,3.286,219.091C17.968,107.777,109.458,16.542,220.81,2.167
