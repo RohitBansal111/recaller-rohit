@@ -1,20 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 const ConfirmUpload = ({ step, setStep, ...props }) => {
-  const [addNote, setAddNote] = useState(false);
-  const handleAddNote = () => {
-    setAddNote(true);
-  };
-  const finishStep = () => {
-    setStep(1);
-    props.handleFinish()
-    props.handleCsvState();
-  };
-  const backStep = () => {
-    setStep(step - 1);
-  };
-
   return (
     <div className="wizard-main-content">
       <h2>Almost There!</h2>
@@ -26,15 +13,15 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
       <p>You can also configure some additional options below:</p>
       <div className="main-form">
         <div className="field-group flexFull note-form-control">
-          {!addNote && (
+          {!props.addNote && (
             <div className="add-note-bttn">
-              <button onClick={handleAddNote}>
+              <button onClick={props.handleAddNote}>
                 {" "}
                 <AddIcon /> Add Note
               </button>
             </div>
           )}
-          {addNote && (
+          {props.addNote && (
             <>
               <label>Notes</label>
               <textarea type="text" className="form-control"></textarea>
@@ -46,7 +33,7 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
           <button
             type="button"
             className="btn btn-cancel me-3"
-            onClick={backStep}
+            onClick={props.backStep}
           >
             {" "}
             Back{" "}
@@ -54,7 +41,7 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={finishStep}
+            onClick={props.finishStep}
           >
             {" "}
             Finish{" "}

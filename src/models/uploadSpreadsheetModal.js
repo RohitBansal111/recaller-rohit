@@ -6,12 +6,22 @@ import Properties from "../components/contacts/wizard-form/Properties";
 import Papa from "papaparse";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
+import { addMultipleContact } from "../api/contact";
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
   const [csvFile, setCsvFile] = useState(null);
   const [csvData, setCsvData] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectProperty, setSelectProperty] = useState(null);
+  const [selectedName, setSelectedName] = useState("name");
+  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [selectedPhone, setSelectedPhone] = useState(null);
+  const [mapArray, setMapArray] = useState("");
+  const [errors, setErrors] = useState({});
+  const [errorsSelectMap, setSelectMapErrors] = useState({});
+  const [addNote, setAddNote] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
@@ -33,14 +43,122 @@ const UploadSpreadsheetModal = (props) => {
     }
   }, []);
 
-  const handleCsvState = () => {
-    setCsvFile(null);
+  const onRadioChange = (e) => {
+    setSelectedType(e.target.value);
   };
 
   const handleClose = () => {
     setStep(1);
     setCsvFile(null);
+    setSelectedPhone(null);
+    setSelectedEmail(null);
+    setSelectedName(null);
     props.handleUploadClose();
+  };
+
+  const handleSelectChange = (e) => {
+    setSelectProperty(e.target.value);
+    setSelectMapErrors({});
+  };
+
+  const handleCsvdataCheck = () => {
+    const arr = [];
+    csvData.map((item) => {
+      const obj = {
+        [selectedName]: item.name,
+        [selectedPhone]: item.phone,
+        [selectedEmail]: item.email,
+      };
+      return arr.push(obj);
+    });
+    setMapArray(arr);
+  };
+
+  const isValid = () => {
+    let formData = true;
+    switch (true) {
+      case selectedName &&
+        (selectedName === selectedPhone || selectedName === selectedEmail):
+        toast.error("Cannot map multiple columns to the same property ");
+        formData = false;
+        break;
+      case selectedPhone &&
+        (selectedPhone === selectedName || selectedPhone === selectedEmail):
+        toast.error("Cannot map multiple columns to the same property ");
+        formData = false;
+        break;
+      case selectedEmail &&
+        (selectedEmail === selectedName || selectedEmail === selectedPhone):
+        toast.error("Cannot map multiple columns to the same property ");
+        formData = false;
+        break;
+      case !selectedPhone:
+        setErrors({ selectedPhone: "please fill out this field" });
+        formData = false;
+        break;
+      case !selectedEmail:
+        setErrors({ selectedEmail: "please fill out this field" });
+        formData = false;
+        break;
+      case selectedEmail && selectProperty === null:
+        setSelectMapErrors({
+          selectMapErrors:
+            "Please fill out this field. Options are available once required fields are mapped above.",
+        });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const handleSubmit = () => {
+    handleCsvdataCheck();
+    if (isValid()) {
+      setStep(step + 1);
+    }
+  };
+
+  const handleNameChange = (e) => {
+    setSelectedName(e.target.value);
+  };
+  const handleEmailChange = (e) => {
+    setSelectedEmail(e.target.value);
+    setErrors({});
+  };
+  const handlePhoneChange = (e) => {
+    setSelectedPhone(e.target.value);
+    setErrors({});
+  };
+
+  const nextStep = () => {
+    setStep(step + 1);
+    setSelectedPhone(null);
+    setSelectedEmail(null);
+    setSelectedName(null);
+  };
+
+  const backStep = () => {
+    setStep(step - 1);
+  };
+
+  const handleAddNote = () => {
+    setAddNote(true);
+  };
+  const finishStep = async () => {
+    setStep(1);
+    props.handleFinish();
+    setCsvFile(null);
+    setSelectedPhone(null);
+    setSelectedEmail(null);
+    setSelectedName(null);
+    const obj = {
+      contacts: JSON.stringify(csvData),
+      contactType: selectedType,
+      contactProperty: selectProperty,
+    };
+    await addMultipleContact(obj);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -104,18 +222,36 @@ const UploadSpreadsheetModal = (props) => {
                   getRootProps={getRootProps()}
                   csvFile={csvFile}
                   isFilePicked={isFilePicked}
+                  nextStep={nextStep}
                 />
               )}
               {step === 2 && (
-                <Properties step={step} setStep={setStep} tableData={csvData} />
+                <Properties
+                  step={step}
+                  setStep={setStep}
+                  tableData={csvData}
+                  onRadioChange={onRadioChange}
+                  handleSelectChange={handleSelectChange}
+                  handleNameChange={handleNameChange}
+                  handlePhoneChange={handlePhoneChange}
+                  handleEmailChange={handleEmailChange}
+                  selectedEmail={selectedEmail}
+                  selectedName={selectedName}
+                  selectedPhone={selectedPhone}
+                  errors={errors}
+                  errorsSelectMap={errorsSelectMap}
+                  handleSubmit={handleSubmit}
+                />
               )}
               {step === 3 && (
                 <ConfirmUpload
                   step={step}
                   setStep={setStep}
                   fileName={csvFile}
-                  handleFinish={props.handleFinish}
-                  handleCsvState={handleCsvState}
+                  backStep={backStep}
+                  finishStep={finishStep}
+                  addNote={addNote}
+                  handleAddNote={handleAddNote}
                 />
               )}
             </div>
