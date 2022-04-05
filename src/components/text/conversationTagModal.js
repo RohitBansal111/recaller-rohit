@@ -13,7 +13,7 @@ const ConversationTagModal = ({open, handleCloseManageModal}) => {
       <>
         <Modal open={open} onClose={handleCloseManageModal} center>
             <div className="modal-header">
-                <h3>Conversation Tags</h3>
+                <h3>Campaign Tags</h3>
             </div>
             <div className="modal-body">
                 <form className="main-form">

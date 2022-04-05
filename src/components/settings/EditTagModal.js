@@ -5,7 +5,7 @@ const EditTagModal = ({open, handleCloseETModal}) => {
   return (
         <Modal open={open} onClose={handleCloseETModal} center>
             <div className="modal-header">
-                <h3>Edit Conversation Tag</h3>
+                <h3>Edit Tag</h3>
             </div>
             <div className="modal-body">
                 <form className="main-form">
@@ -20,12 +20,9 @@ const EditTagModal = ({open, handleCloseETModal}) => {
                     </div>
                     <div className="field-group flex2">
                         <label>Color</label>
-                        <input
-                            type="color"
-                            className="form-control"
-                            placeholder="Enter Contact Name"
-                            name="name"
-                        />
+                        <select className="form-control">
+                            <option><input type="color" /></option>
+                        </select>
                     </div>
                     <div className="field-group flexFull text-center mt-3">
                         <button type="button" className="btn btn-cancel me-3" onClick={() => handleCloseETModal()} > Dismiss </button>

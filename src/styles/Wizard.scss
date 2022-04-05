@@ -12,7 +12,7 @@
     color: #777;
   }
   .fileInfo{
-    background-color: $Theme-primary;
+    background-color: $AddSubmitButton-color;
     padding: 5px 15px;
     border-radius: 30px;
     color: $Theme-white;
@@ -49,13 +49,13 @@
     color: #777;
     width: 100%;
     &.fileAdded{
-      border: 2px solid $Theme-primary;
+      border: 2px solid $AddSubmitButton-color;
       background-color: #e7f5e9;
       .material-icons{
-        color: $Theme-primary;
+        color: $AddSubmitButton-color;
       }
       h3{
-        color: $Theme-primary;
+        color: $AddSubmitButton-color;
       }
       .select-file{
         span{
@@ -78,10 +78,10 @@
     }
     .select-file {
       position: relative;
-      color: $Theme-primary;
+      color: $AddSubmitButton-color;
       cursor: pointer;
       span {
-        color: $Theme-primary;
+        color: $AddSubmitButton-color;
         font-size: 14px;
         font-weight: 500;
         text-decoration: underline;

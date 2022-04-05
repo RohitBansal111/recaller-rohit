@@ -37,7 +37,7 @@
       &:focus {
         box-shadow: none;
         outline: 0px;
-        border: 1px solid $Theme-primary;
+        border: 1px solid $AddSubmitButton-color;
       }
     }
     &.flexFull {
@@ -55,6 +55,7 @@
   }
   .tagsField{
     ul{
+      padding-left: 0px;
       li{
         display: flex;
         align-items: center;
