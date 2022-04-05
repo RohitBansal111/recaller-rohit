@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
@@ -6,7 +6,7 @@ import Properties from "../components/contacts/wizard-form/Properties";
 import Papa from "papaparse";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
-import { addMultipleContact, getContactApi } from "../api/contact";
+import { addMultipleContact } from "../api/contact";
 import AddTag from "../components/contacts/wizard-form/addTag";
 
 const UploadSpreadsheetModal = (props) => {
@@ -15,7 +15,7 @@ const UploadSpreadsheetModal = (props) => {
   const [csvData, setCsvData] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedType, setSelectedType] = useState("skip");
-  const [selectProperty, setSelectProperty] = useState("");
+  const [selectProperty, setSelectProperty] = useState(null);
   const [selectedName, setSelectedName] = useState("name");
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedPhone, setSelectedPhone] = useState(null);
@@ -35,6 +35,8 @@ const UploadSpreadsheetModal = (props) => {
         setCsvData(results.data);
       },
     });
+    console.log(csvData, "formData");
+
     if (acceptedFiles[0].type !== "text/csv") {
       toast.error("Sorry, thats not a valid CSV file");
       setIsFilePicked(false);
@@ -165,7 +167,6 @@ const UploadSpreadsheetModal = (props) => {
       toast.success(res.data.message);
       props.getData();
     }
-   
   };
 
   const handleCloseModal = () => {
