@@ -53,6 +53,7 @@ const Properties = ({ step, setStep, ...props }) => {
               <input
                 name="type"
                 type="radio"
+                value={"update"}
                 onChange={props.onRadioChange}
               ></input>
               <label>Update Existing Contacts</label>
@@ -61,7 +62,8 @@ const Properties = ({ step, setStep, ...props }) => {
               <input
                 name="type"
                 type="radio"
-                checked={true}
+                value={"skip"}
+                checked="skip"
                 onChange={props.onRadioChange}
               ></input>
               <label>Skip</label>
