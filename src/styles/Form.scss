@@ -53,6 +53,32 @@
       margin-bottom: 0px;
     }
   }
+  .tagsField{
+    ul{
+      li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid lightgray !important;
+        color: grey;
+        font-weight: 500;
+        font-size: 14px;
+        span{
+          svg{
+            margin-right: 5px;
+            font-size: 20px;
+          }
+        }
+        .tags-actions{
+          svg{
+            margin-left: 15px;
+          }
+        }
+      }
+    }
+  }
   .searchField{
     position: relative;
     .form-control{

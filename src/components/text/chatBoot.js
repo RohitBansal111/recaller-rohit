@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NotificationBar from '../notification-bar'
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
@@ -7,8 +7,14 @@ import DoneIcon from '@material-ui/icons/Done';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import ConversationTagModal from './conversationTagModal';
 
 const ChatBoot = () => {
+    const [openManageTagModal, setOpenManageTagModal] = useState(false);
+
+    const handleManageTag = () => { setOpenManageTagModal(true) }
+    const handleCloseManageModal = () => { setOpenManageTagModal(false) }
   return (
     <div className='chatbox-warpper'>
         <NotificationBar />
@@ -163,7 +169,20 @@ const ChatBoot = () => {
                 </div>
                 <div className='conversation-tags'>
                     <h4>Conversation Tags</h4>
-                    <button type='button' className='btn btn-addd-tag'> <AddIcon /> Add Tags</button>
+                    <div class="dropdown">
+                        <button class="btn btn-addd-tag dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <AddIcon /> Add Tags
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><LocalOfferIcon /> Good Customer</li>
+                            <li><LocalOfferIcon /> New Customer</li>
+                            <li><button type="button" onClick={handleManageTag} className='btn link-bttn'>Manage Tags</button></li>
+                        </ul>
+                        <ConversationTagModal 
+                            open={openManageTagModal} 
+                            handleCloseManageModal={handleCloseManageModal}
+                        />
+                        </div>
                 </div>
                 <div className='monthly-balance-box'>
                     <h4>Monthly Balance</h4>
