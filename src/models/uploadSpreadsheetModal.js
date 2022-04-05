@@ -7,6 +7,8 @@ import Papa from "papaparse";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { addMultipleContact } from "../api/contact";
+import AddTag from "../components/contacts/wizard-form/addTag";
+
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
@@ -180,7 +182,7 @@ const UploadSpreadsheetModal = (props) => {
                 <ul>
                   <li
                     className={
-                      step === 1 || step === 2 || step === 3
+                      step === 1 || step === 2 || step === 3 || step === 4
                         ? "step active"
                         : "step"
                     }
@@ -189,12 +191,20 @@ const UploadSpreadsheetModal = (props) => {
                   </li>
                   <li
                     className={
-                      step === 2 || step === 3 ? "step active" : "step"
+                      step === 2 || step === 3 || step === 4  ? "step active" : "step"
                     }
                   >
                     <div className="step-inner">Properties</div>
                   </li>
-                  <li className={step === 3 ? "step active" : "step"}>
+                    <li
+                    className={
+                      step === 3 || step === 4 ? "step active" : "step"
+                    }
+                  >
+                    <div className="step-inner">Add Tag</div>
+                  </li>
+                    
+                  <li className={step === 4 ? "step active" : "step"}>
                     <div className="step-inner">Confirm & Upload</div>
                   </li>
                 </ul>
@@ -206,6 +216,8 @@ const UploadSpreadsheetModal = (props) => {
                         ? "onethirdPart"
                         : step === 2
                         ? "halfPart"
+                        : step === 3
+                        ? "oneForthPart"
                         : "fullBarPart"
                     }
                   ></div>
@@ -243,7 +255,16 @@ const UploadSpreadsheetModal = (props) => {
                   handleSubmit={handleSubmit}
                 />
               )}
-              {step === 3 && (
+              { step === 3 && (
+                <AddTag 
+                  step={step}
+                  setStep={setStep}
+                  nextStep={nextStep}
+                  closeModal={props.handleUploadClose}
+                />
+              )
+              }
+              {step === 4 && (
                 <ConfirmUpload
                   step={step}
                   setStep={setStep}

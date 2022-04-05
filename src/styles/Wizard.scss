@@ -125,7 +125,7 @@
     li{
       list-style: none;
       float: left;
-      width: 33%;
+      width: 25%;
       text-align: center;
       color: #aaa;
       text-transform: uppercase;
@@ -175,12 +175,12 @@
     }
   }
   #line{
-    width: 80%;
+    width: 90%;
     margin: auto;
     background-color: $Active-lightColor;
     height: 6px;
     position: absolute;
-    left: 10%;
+    left: 5%;
     top: 57px;
     z-index: 1;
     border-radius: 50px;
@@ -201,8 +201,75 @@
     .halfPart{
       width: 50%;
     }
+    .oneForthPart{
+      width: 65%;
+    }
     .fullBarPart{
       width: 100%;
+    }
+  }
+}
+.add-tag-contact{
+  .main-form{
+    display: block;
+    .field-group{
+      .react-tags-wrapper{
+        position: relative;
+        margin-bottom: 100px;
+        .ReactTags__selected{
+          position: absolute;
+          top: 100%;
+          margin: 10px 0px;
+          display: flex;
+          flex-wrap: wrap;
+          .tag-wrapper{
+            background-color: rgba(54, 179, 126, 0.1);
+            border-radius: 2px;
+            display: flex;
+            margin: 2px;
+            min-width: 0px;
+            box-sizing: border-box;
+            border-radius: 2px;
+            color: rgb(54, 179, 126);
+            font-size: 85%;
+            overflow: hidden;
+            padding: 3px 3px 3px 6px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            box-sizing: border-box;
+            .ReactTags__remove{
+              align-items: center;
+              border-radius: 2px;
+              display: flex;
+              padding-left: 4px;
+              padding-right: 4px;
+              box-sizing: border-box;
+              color: #36b37e;
+              border: none;
+              background-color: transparent;
+              width: 23px;
+              font-size: 14px;
+              justify-content: center;
+            }
+          }
+        }
+        .ReactTags__tagInput{
+          .ReactTags__tagInputField{
+            width: 100%;
+            height: 40px;
+            border: 1px solid #bbb;
+            font-size: 14px;
+            border-radius: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+            &:focus {
+              box-shadow: none;
+              outline: 0px;
+              border: 1px solid $AddSubmitButton-color;
+            }
+          }
+        }
+      }
     }
   }
 }
