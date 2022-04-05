@@ -13,7 +13,7 @@ const UploadSpreadsheetModal = (props) => {
   const [csvFile, setCsvFile] = useState(null);
   const [csvData, setCsvData] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState("skip");
   const [selectProperty, setSelectProperty] = useState(null);
   const [selectedName, setSelectedName] = useState("name");
   const [selectedEmail, setSelectedEmail] = useState(null);
@@ -44,7 +44,7 @@ const UploadSpreadsheetModal = (props) => {
   }, []);
 
   const onRadioChange = (e) => {
-    setSelectedType(e.target.value);
+    setSelectedType(e.currentTarget.value);
   };
 
   const handleClose = () => {
