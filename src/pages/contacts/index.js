@@ -143,17 +143,20 @@ const Import = () => {
       ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length)
       : 0;
 
-  const handleContactDeleteV = () => {
+  const handleContactDeleteV = async () => {
     const data = { contacts: JSON.stringify(selected) };
-    deleteApi(data);
-    getData();
-    setIsOpenDelete(false);
-    setSelected([]);
+    const res = await deleteApi(data);
+    if (res && res.data && res.data.status === 200) {
+      getData();
+      setIsOpenDelete(false);
+      setSelected([]);
+    }
   };
 
   const handleFinish = () => {
-    setUploadModal(false)
-  }
+    setUploadModal(false);
+    getData();
+  };
 
   return (
     <>
@@ -223,6 +226,7 @@ const Import = () => {
         onChange={onChange}
         errors={errors}
         handleFinish={handleFinish}
+        getData={getData}
       />
     </>
   );

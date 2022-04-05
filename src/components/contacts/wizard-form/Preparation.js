@@ -1,10 +1,6 @@
 import React from "react";
 
 const Preparation = ({ closeModal, step, setStep, ...props }) => {
-  
-  const onClose = () => {
-    closeModal(false);
-  };
 
   return (
     <div className="wizard-main-content">
@@ -50,7 +46,7 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
           <button
             type="button"
             className="btn btn-cancel me-3"
-            onClick={onClose}
+            onClick={props.onClose}
           >
             {" "}
             Dismiss{" "}
