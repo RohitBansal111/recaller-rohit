@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
@@ -6,9 +6,8 @@ import Properties from "../components/contacts/wizard-form/Properties";
 import Papa from "papaparse";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
-import { addMultipleContact } from "../api/contact";
+import { addMultipleContact, getContactApi } from "../api/contact";
 import AddTag from "../components/contacts/wizard-form/addTag";
-
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
@@ -16,7 +15,7 @@ const UploadSpreadsheetModal = (props) => {
   const [csvData, setCsvData] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedType, setSelectedType] = useState("skip");
-  const [selectProperty, setSelectProperty] = useState(null);
+  const [selectProperty, setSelectProperty] = useState("");
   const [selectedName, setSelectedName] = useState("name");
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedPhone, setSelectedPhone] = useState(null);
@@ -148,6 +147,7 @@ const UploadSpreadsheetModal = (props) => {
   const handleAddNote = () => {
     setAddNote(true);
   };
+
   const finishStep = async () => {
     setStep(1);
     props.handleFinish();
@@ -160,7 +160,20 @@ const UploadSpreadsheetModal = (props) => {
       contactType: selectedType,
       contactProperty: selectProperty,
     };
-    await addMultipleContact(obj);
+    let res = await addMultipleContact(obj);
+    if (res && res.data && res.data.status === 200) {
+      toast.success(res.data.message);
+      props.getData();
+    }
+   
+  };
+
+  const handleCloseModal = () => {
+    props.handleUploadClose();
+    setCsvFile(null);
+    setSelectedPhone(null);
+    setSelectedEmail(null);
+    setSelectedName(null);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -228,7 +241,7 @@ const UploadSpreadsheetModal = (props) => {
               {step === 1 && (
                 <Preparation
                   step={step}
-                  closeModal={props.handleUploadClose}
+                  onClose={handleCloseModal}
                   setStep={setStep}
                   getInputProps={getInputProps()}
                   getRootProps={getRootProps()}
