@@ -18,7 +18,7 @@ const options = [
   ]
   const animatedComponents = makeAnimated();
 
-const AddTag = ({nextStep, onClose}) => {
+const AddTag = ({nextStep, ...props}) => {
   return (
     <div className="wizard-main-content">
         <div className='add-tag-contact'>
@@ -39,7 +39,7 @@ const AddTag = ({nextStep, onClose}) => {
                     <button
                         type="button"
                         className="btn btn-cancel me-3"
-                        onClick={onClose}
+                        onClick={props.onClose}
                     >
                         {" "}
                         Dismiss{" "}

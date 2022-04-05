@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
@@ -117,8 +117,8 @@ const UploadSpreadsheetModal = (props) => {
   };
 
   const handleSubmit = () => {
-    handleCsvdataCheck();
     if (isValid()) {
+      handleCsvdataCheck();
       setStep(step + 1);
     }
   };
@@ -137,9 +137,6 @@ const UploadSpreadsheetModal = (props) => {
 
   const nextStep = () => {
     setStep(step + 1);
-    setSelectedPhone(null);
-    setSelectedEmail(null);
-    setSelectedName(null);
   };
 
   const backStep = () => {
@@ -267,6 +264,8 @@ const UploadSpreadsheetModal = (props) => {
                   errors={errors}
                   errorsSelectMap={errorsSelectMap}
                   handleSubmit={handleSubmit}
+                  selectProperty={selectProperty}
+                  selectedType={selectedType}
                 />
               )}
               { step === 3 && (
@@ -275,6 +274,7 @@ const UploadSpreadsheetModal = (props) => {
                   setStep={setStep}
                   nextStep={nextStep}
                   closeModal={props.handleUploadClose}
+                  onClose={backStep}
                 />
               )
               }

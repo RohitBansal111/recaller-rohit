@@ -35,6 +35,7 @@ const Properties = ({ step, setStep, ...props }) => {
             className="form-control"
             name="property"
             onChange={props.handleSelectChange}
+            value={props.selectProperty}
           >
             <option value="" selected>
               Selected map property
@@ -54,6 +55,7 @@ const Properties = ({ step, setStep, ...props }) => {
                 name="type"
                 type="radio"
                 value={"update"}
+                checked={props.selectedType == "update" ? true : false}
                 onChange={props.onRadioChange}
               ></input>
               <label>Update Existing Contacts</label>
@@ -63,7 +65,7 @@ const Properties = ({ step, setStep, ...props }) => {
                 name="type"
                 type="radio"
                 value={"skip"}
-                checked="skip"
+                checked={props.selectedType == "skip" ? true : false}
                 onChange={props.onRadioChange}
               ></input>
               <label>Skip</label>
