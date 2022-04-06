@@ -4,7 +4,7 @@ import Tabs from "react-bootstrap/Tabs";
 import CreateNewFilter from "./Create-new-filter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-const FilterTabs = () => {
+const FilterTabs = (props) => {
   const [properties, setProperties] = useState("");
   const [rules, setRules] = useState("");
   const [daysAgo, setDaysAgo] = useState("");
@@ -19,13 +19,18 @@ const FilterTabs = () => {
   };
   return (
     <div className="filter-tabs">
-      <Tabs defaultActiveKey="all" transition={false} id="noanim-tab-example" className="mb-3">
-        <Tab eventKey="all" title="All(234)"></Tab>
+      <Tabs
+        defaultActiveKey="all"
+        transition={false}
+        id="noanim-tab-example"
+        className="mb-3"
+      >
+        <Tab eventKey="all" title={`All( ${props.totalRecords})`}></Tab>
         <Tab
           eventKey="filter"
           title={
             <span>
-              <AddCircleOutlineIcon /> New Filter (984){" "}
+              <AddCircleOutlineIcon /> New Filter ({props.totalRecords}){" "}
             </span>
           }
         >

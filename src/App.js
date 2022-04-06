@@ -56,7 +56,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/auth/:token" element={<Auth />} />
-          <Route exact path="/import" element={<Import />} />
+          <Route exact path="/contacts" element={<Import />} />
           <Route exact path="/recallr-AI" element={<RecallrAI />} />
           <Route exact path="/settings" element={<Setting />} />
           <Route exact path="/settings/local-messages" element={<LocalMessages />} />

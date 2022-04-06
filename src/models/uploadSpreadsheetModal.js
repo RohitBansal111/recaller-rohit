@@ -8,6 +8,7 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { addMultipleContact } from "../api/contact";
 import AddTag from "../components/contacts/wizard-form/addTag";
+import { getTags } from "../api/tag";
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
@@ -20,6 +21,7 @@ const UploadSpreadsheetModal = (props) => {
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [selectedPhone, setSelectedPhone] = useState(null);
   const [mapArray, setMapArray] = useState("");
+  
   const [errors, setErrors] = useState({});
   const [errorsSelectMap, setSelectMapErrors] = useState({});
   const [addNote, setAddNote] = useState(false);
@@ -35,7 +37,6 @@ const UploadSpreadsheetModal = (props) => {
         setCsvData(results.data);
       },
     });
-    console.log(csvData, "formData");
 
     if (acceptedFiles[0].type !== "text/csv") {
       toast.error("Sorry, thats not a valid CSV file");
@@ -56,6 +57,9 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedPhone(null);
     setSelectedEmail(null);
     setSelectedName(null);
+    setSelectedType("skip");
+    setSelectProperty(null);
+    props.setSelectTags()
     props.handleUploadClose();
   };
 
@@ -116,11 +120,17 @@ const UploadSpreadsheetModal = (props) => {
     return formData;
   };
 
+
+
   const handleSubmit = () => {
     if (isValid()) {
       handleCsvdataCheck();
       setStep(step + 1);
     }
+  };
+  const handleTagSubmit = () => {
+    props.tagValidation()
+    setStep(step + 1);
   };
 
   const handleNameChange = (e) => {
@@ -154,6 +164,9 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedPhone(null);
     setSelectedEmail(null);
     setSelectedName(null);
+    setSelectedType("skip");
+    setSelectProperty(null);
+    props.setSelectTags()
     const obj = {
       contacts: JSON.stringify(csvData),
       contactType: selectedType,
@@ -172,7 +185,12 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedPhone(null);
     setSelectedEmail(null);
     setSelectedName(null);
+    setSelectedType("skip");
+    setSelectProperty(null);
+    props.setSelectTags()
   };
+
+ 
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
@@ -202,19 +220,21 @@ const UploadSpreadsheetModal = (props) => {
                   </li>
                   <li
                     className={
-                      step === 2 || step === 3 || step === 4  ? "step active" : "step"
+                      step === 2 || step === 3 || step === 4
+                        ? "step active"
+                        : "step"
                     }
                   >
                     <div className="step-inner">Properties</div>
                   </li>
-                    <li
+                  <li
                     className={
                       step === 3 || step === 4 ? "step active" : "step"
                     }
                   >
                     <div className="step-inner">Add Tag</div>
                   </li>
-                    
+
                   <li className={step === 4 ? "step active" : "step"}>
                     <div className="step-inner">Confirm & Upload</div>
                   </li>
@@ -268,16 +288,19 @@ const UploadSpreadsheetModal = (props) => {
                   selectedType={selectedType}
                 />
               )}
-              { step === 3 && (
-                <AddTag 
+              {step === 3 && (
+                <AddTag
                   step={step}
                   setStep={setStep}
-                  nextStep={nextStep}
                   closeModal={props.handleUploadClose}
                   onClose={backStep}
+                  options={props.addTags}
+                  addTagsErrors={errors}
+                  handleChange={props.handleChange}
+                  selectTags={props.selectTags}
+                  nextStep={handleTagSubmit}
                 />
-              )
-              }
+              )}
               {step === 4 && (
                 <ConfirmUpload
                   step={step}

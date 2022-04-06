@@ -22,7 +22,7 @@ const SideNavMenu = [
     menuTitle: "Dashboard",
   },
   {
-    path: "/import",
+    path: "/contacts",
     menuIcon: <ImportIcon />,
     menuTitle: "Contacts",
   },

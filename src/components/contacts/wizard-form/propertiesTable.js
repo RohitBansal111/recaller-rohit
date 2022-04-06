@@ -38,12 +38,12 @@ const PropertiesTable = (props) => {
             value={props.selectedPhone}
             onChange={props.handlePhoneChange}
           >
-            <option value="" selected></option>
             <option value={"name"}> Name</option>
-            <option value={"phone"}>Primary Phone</option>
+            <option value={"phone"} selected>
+              Primary Phone
+            </option>
             <option value={"email"}>Primary Email</option>
           </select>
-          <span className="spanError">{props.errors.selectedPhone}</span>
         </>
       ),
     },
@@ -56,12 +56,12 @@ const PropertiesTable = (props) => {
             value={props.selectedEmail}
             onChange={props.handleEmailChange}
           >
-            <option value="" selected></option>
             <option value={"name"}> Name</option>
             <option value={"phone"}>Primary Phone</option>
-            <option value={"email"}>Primary Email</option>
+            <option value={"email"} selected>
+              Primary Email
+            </option>
           </select>
-          <span className="spanError">{props.errors.selectedEmail}</span>
         </>
       ),
     },

@@ -7,6 +7,7 @@ import ContactModal from "../../models/contactModel";
 import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
+import { getTags } from "../../api/tag";
 
 const Import = () => {
   const [show, setShow] = useState(false);
@@ -27,6 +28,8 @@ const Import = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [searchState, setSearchState] = React.useState("");
+  const [addTags, setAddTags] = useState();
+  const [selectTags, setSelectTags] = useState(null);
 
   const isValid = () => {
     const regex =
@@ -55,12 +58,29 @@ const Import = () => {
     }
     return formData;
   };
+
+  const tagValidation = () => {
+    let tagData = true;
+    switch (true) {
+      case !selectTags:
+        toast.warning(
+          "You won’t be able to generate a custom campaign report without the tag. "
+        );
+        tagData = false;
+        break;
+      default:
+        tagData = true;
+    }
+    return tagData;
+  };
+
   const handleSubmit = async () => {
     if (isValid()) {
       let res = await createApi(addContact);
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
+        tagValidation();
         toast.success("Contact saved!");
         getData();
       } else {
@@ -78,6 +98,7 @@ const Import = () => {
 
   useEffect(() => {
     getData();
+    getContactTags();
   }, []);
 
   const handleProceed = () => {};
@@ -158,6 +179,21 @@ const Import = () => {
     getData();
   };
 
+  const getContactTags = async () => {
+    let res = await getTags();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return { value: item._id, label: item.name };
+      });
+      setAddTags(data);
+    }
+  };
+
+  const handleTagChange = (value) => {
+    setSelectTags(value);
+    setErrors({});
+  };
+
   return (
     <>
       <div className="page-header">
@@ -182,7 +218,7 @@ const Import = () => {
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
-        <FilterTabs />
+        <FilterTabs totalRecords={rowsData && rowsData.length} />
       </div>
       <div className="contact-data-table-main">
         <EnhancedTable
@@ -216,6 +252,9 @@ const Import = () => {
         handleSubmit={handleSubmit}
         onChange={onChange}
         errors={errors}
+        addTags={addTags}
+        selectTags={selectTags}
+        handleChange={handleTagChange}
       />
 
       <UploadSpreadsheetModal
@@ -227,6 +266,11 @@ const Import = () => {
         errors={errors}
         handleFinish={handleFinish}
         getData={getData}
+        addTags={addTags}
+        selectTags={selectTags}
+        tagValidation={tagValidation}
+        handleChange={handleTagChange}
+        setSelectTags={setSelectTags}
       />
     </>
   );

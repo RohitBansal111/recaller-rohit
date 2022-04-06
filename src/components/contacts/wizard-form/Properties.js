@@ -22,7 +22,7 @@ const Properties = ({ step, setStep, ...props }) => {
           selectedEmail={props.selectedEmail}
           selectedName={props.selectedName}
           selectedPhone={props.selectedPhone}
-          errors={props.errors}
+          // errors={props.errors}
         />
       </div>
       <div className="main-form">
