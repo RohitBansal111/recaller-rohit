@@ -13,7 +13,7 @@ const NotificationBar = () => {
         notification &&
         <div className='notification-bar'>
             <InfoIcon />
-            <span>Click here to enable desktop notifications for OneLocal.</span>
+            <span>Click here to enable desktop notifications for Recallr.</span>
             <ClearIcon onClick={handleHideNotification} />
         </div>
       }

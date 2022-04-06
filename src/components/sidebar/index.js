@@ -42,6 +42,11 @@ const SideNavMenu = [
     menuTitle: "Messenger",
   },
   {
+    path: "/email",
+    menuIcon: <MessengerIcon />,
+    menuTitle: "Email",
+  },
+  {
     path: "/whats-app",
     menuIcon: <WhatsAppIcon />,
     menuTitle: "Whatsapp",
