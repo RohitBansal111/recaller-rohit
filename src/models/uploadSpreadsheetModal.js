@@ -172,7 +172,7 @@ const UploadSpreadsheetModal = (props) => {
       contacts: JSON.stringify(csvData),
       contactType: selectedType,
       contactProperty: selectProperty,
-      selectTags: props.selectTags,
+      tag: props.selectTags && props.selectTags.value,
       note: noteData,
     };
     let res = await addMultipleContact(obj);
