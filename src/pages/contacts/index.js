@@ -16,7 +16,10 @@ const Import = () => {
   const [errors, setErrors] = useState({});
   const [isOpenDelete, setIsOpenDelete] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setSelectTags(null);
+  };
   const handleShow = () => setShow(true);
   const handleUploadShow = () => setUploadModal(true);
   const handleUploadClose = () => setUploadModal(false);
