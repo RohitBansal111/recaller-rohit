@@ -18,13 +18,14 @@ const UploadSpreadsheetModal = (props) => {
   const [selectedType, setSelectedType] = useState("skip");
   const [selectProperty, setSelectProperty] = useState(null);
   const [selectedName, setSelectedName] = useState("name");
-  const [selectedEmail, setSelectedEmail] = useState(null);
-  const [selectedPhone, setSelectedPhone] = useState(null);
+  const [selectedEmail, setSelectedEmail] = useState("email");
+  const [selectedPhone, setSelectedPhone] = useState("phone");
   const [mapArray, setMapArray] = useState("");
-  
+
   const [errors, setErrors] = useState({});
   const [errorsSelectMap, setSelectMapErrors] = useState({});
   const [addNote, setAddNote] = useState(false);
+  const [noteData, setNoteData] = useState("");
 
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
@@ -59,7 +60,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
     setSelectedType("skip");
     setSelectProperty(null);
-    props.setSelectTags()
+    props.setSelectTags();
     props.handleUploadClose();
   };
 
@@ -120,8 +121,6 @@ const UploadSpreadsheetModal = (props) => {
     return formData;
   };
 
-
-
   const handleSubmit = () => {
     if (isValid()) {
       handleCsvdataCheck();
@@ -129,7 +128,7 @@ const UploadSpreadsheetModal = (props) => {
     }
   };
   const handleTagSubmit = () => {
-    props.tagValidation()
+    props.tagValidation();
     setStep(step + 1);
   };
 
@@ -166,11 +165,13 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
     setSelectedType("skip");
     setSelectProperty(null);
-    props.setSelectTags()
+    props.setSelectTags();
     const obj = {
       contacts: JSON.stringify(csvData),
       contactType: selectedType,
       contactProperty: selectProperty,
+      selectTags: props.selectTags,
+      note: noteData,
     };
     let res = await addMultipleContact(obj);
     if (res && res.data && res.data.status === 200) {
@@ -187,10 +188,12 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
     setSelectedType("skip");
     setSelectProperty(null);
-    props.setSelectTags()
+    props.setSelectTags();
   };
 
- 
+  const handleNoteChange = (e) => {
+    setNoteData(e.target.value);
+  };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
@@ -310,6 +313,8 @@ const UploadSpreadsheetModal = (props) => {
                   finishStep={finishStep}
                   addNote={addNote}
                   handleAddNote={handleAddNote}
+                  noteData={noteData}
+                  handleNoteChange={handleNoteChange}
                 />
               )}
             </div>

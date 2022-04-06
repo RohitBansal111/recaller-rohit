@@ -24,7 +24,12 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
           {props.addNote && (
             <>
               <label>Notes</label>
-              <textarea type="text" className="form-control"></textarea>
+              <textarea
+                type="text"
+                onChange={props.handleNoteChange}
+                value={props.noteData}
+                className="form-control"
+              ></textarea>
             </>
           )}
           <h3>That's it! You can submit the upload when ready.</h3>
