@@ -76,6 +76,9 @@ const Import = () => {
 
   const handleSubmit = async () => {
     if (isValid()) {
+      if (selectTags) {
+        addContact.tag = selectTags.value;
+      }
       let res = await createApi(addContact);
       if (res && res.data && res.data.status === 200) {
         setShow(false);
