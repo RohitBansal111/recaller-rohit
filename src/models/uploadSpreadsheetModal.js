@@ -60,6 +60,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
     setSelectedType("skip");
     setSelectProperty(null);
+    setNoteData("")
     props.setSelectTags();
     props.handleUploadClose();
   };
@@ -165,6 +166,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
     setSelectedType("skip");
     setSelectProperty(null);
+    setNoteData("")
     props.setSelectTags();
     const obj = {
       contacts: JSON.stringify(csvData),
@@ -188,6 +190,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedName(null);
     setSelectedType("skip");
     setSelectProperty(null);
+    setNoteData("")
     props.setSelectTags();
   };
 

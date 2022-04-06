@@ -39,7 +39,9 @@ const PropertiesTable = (props) => {
             onChange={props.handlePhoneChange}
           >
             <option value={"name"}> Name</option>
-            <option value={"phone"}>Primary Phone</option>
+            <option value={"phone"} selected>
+              Primary Phone
+            </option>
             <option value={"email"}>Primary Email</option>
           </select>
         </>
@@ -56,7 +58,9 @@ const PropertiesTable = (props) => {
           >
             <option value={"name"}> Name</option>
             <option value={"phone"}>Primary Phone</option>
-            <option value={"email"}>Primary Email</option>
+            <option value={"email"} selected>
+              Primary Email
+            </option>
           </select>
         </>
       ),
