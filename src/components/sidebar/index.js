@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import HomeIcon from "../../assets/svg-icons/home";
 import ImportIcon from "../../assets/svg-icons/importIcon";
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/logo.svg";
 import SettingIcon from "../../assets/svg-icons/settingIcon";
 import VoiceIcon from "../../assets/svg-icons/voiceIcon";
 import TextIcon from "../../assets/svg-icons/textIcon";
@@ -14,6 +14,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
 import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
+import EmailIcon from "../../assets/svg-icons/emailIcon";
 
 const SideNavMenu = [
   {
@@ -32,6 +33,11 @@ const SideNavMenu = [
     menuTitle: "Text",
   },
   {
+    path: "/email",
+    menuIcon: <EmailIcon />,
+    menuTitle: "Email",
+  },
+  {
     path: "/voice",
     menuIcon: <VoiceIcon />,
     menuTitle: "Voice",
@@ -40,11 +46,6 @@ const SideNavMenu = [
     path: "/messenger",
     menuIcon: <MessengerIcon />,
     menuTitle: "Messenger",
-  },
-  {
-    path: "/email",
-    menuIcon: <MessengerIcon />,
-    menuTitle: "Email",
   },
   {
     path: "/whats-app",

@@ -12,7 +12,7 @@ const Setting = () => {
   return (
       <div className="content-page-layout">
         <div className="page-header">
-            <h1>Settings</h1>
+            {/* <h1>Settings</h1> */}
         </div>
         <div className="setting-page-main">
             <div className="setting-card-listing">
