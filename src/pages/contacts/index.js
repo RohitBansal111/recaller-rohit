@@ -160,8 +160,8 @@ const Import = () => {
 
   return (
     <>
-      <div className="page-header">
-        <h1>Imported Contacts</h1>
+      <div className="page-header justify-flex-end">
+        {/* <h1>Imported Contacts</h1> */}
         <Dropdown>
           <Dropdown.Toggle
             variant="success"

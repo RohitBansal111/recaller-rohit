@@ -17,7 +17,7 @@ const ChatBoot = () => {
     const handleCloseManageModal = () => { setOpenManageTagModal(false) }
   return (
     <div className='chatbox-warpper'>
-        <NotificationBar />
+        {/* <NotificationBar /> */}
         <div className='inner-chatbox-area'>
             <div className='chat-user-list'>
                 <div className='chat-list-filter'>

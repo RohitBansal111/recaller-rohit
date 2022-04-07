@@ -8,7 +8,7 @@
     }
 }
 .chatbox-warpper{
-    height: calc(100% - 130px);
+    height: calc(100% - 80px);
     .inner-chatbox-area{
         display: flex;
         justify-content: space-between;
@@ -81,7 +81,7 @@
             flex: 0 0 45%;
             border-left: 1px solid lightgray;
             border-right: 1px solid lightgray;
-            height: 82vh;
+            height: 88vh;
             background-color: $Theme-white;
             .all-discuss-section{
                 height: 100%;
@@ -205,7 +205,7 @@
             .monthly-balance-box{
                 background-color: $Theme-ternary;
                 padding: 20px;
-                margin: 20px;
+                margin: 20px 0px;
                 border-radius: 3px;
                 h4{
                     text-align: center;
