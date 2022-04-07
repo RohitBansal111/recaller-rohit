@@ -93,7 +93,14 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -167,7 +174,10 @@ const EnhancedTableToolbar = (props) => {
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
           bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            alpha(
+              theme.palette.primary.main,
+              theme.palette.action.activatedOpacity
+            ),
         }),
       }}
     >
@@ -198,7 +208,9 @@ const EnhancedTableToolbar = (props) => {
           variant="h6"
           component="button"
           className={
-            numSelected > 0 ? "btn table-light-btn delActive" : "btn table-light-btn disabled"
+            numSelected > 0
+              ? "btn table-light-btn delActive"
+              : "btn table-light-btn disabled"
           }
           onClick={handleShowSendMessageModal}
         >
@@ -220,14 +232,22 @@ const EnhancedTableToolbar = (props) => {
               variant="success"
               id="dropdown-basic"
               className={
-                numSelected > 0 ? "btn table-light-btn delActive" : "btn table-light-btn disabled"
+                numSelected > 0
+                  ? "btn table-light-btn delActive"
+                  : "btn table-light-btn disabled"
               }
             >
               <MoreHorizOutlinedIcon /> More
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={handleLogNoteShow}> Log Note </Dropdown.Item>
-              <Dropdown.Item onClick={props.handleDeleteContact}> Delete Contacts </Dropdown.Item>
+              <Dropdown.Item onClick={handleLogNoteShow}>
+                {" "}
+                Log Note{" "}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={props.handleDeleteContact}>
+                {" "}
+                Delete Contacts{" "}
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         )}
@@ -291,7 +311,10 @@ export default function EnhancedTable(props) {
       filtered &&
       filtered.length > 0 &&
       stableSort(filtered, getComparator(props.order, props.orderBy))
-        .slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage)
+        .slice(
+          props.page * props.rowsPerPage,
+          props.page * props.rowsPerPage + props.rowsPerPage
+        )
 
         .map((row, index) => {
           const isItemSelected = props.isSelected(row._id);
@@ -379,7 +402,7 @@ export default function EnhancedTable(props) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rowsData && rowsData.length}
+          count={rowsData ? rowsData.length : 0}
           rowsPerPage={props.rowsPerPage}
           page={props.page}
           onPageChange={props.handleChangePage}
