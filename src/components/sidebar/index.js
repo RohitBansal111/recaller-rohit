@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import HomeIcon from "../../assets/svg-icons/home";
 import ImportIcon from "../../assets/svg-icons/importIcon";
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/logo.svg";
 import SettingIcon from "../../assets/svg-icons/settingIcon";
 import VoiceIcon from "../../assets/svg-icons/voiceIcon";
 import TextIcon from "../../assets/svg-icons/textIcon";
@@ -14,7 +14,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
 import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
-
+import EmailIcon from "../../assets/svg-icons/emailIcon";
 
 const SideNavMenu = [
   {
@@ -33,6 +33,11 @@ const SideNavMenu = [
     menuTitle: "Text",
   },
   {
+    path: "/email",
+    menuIcon: <EmailIcon />,
+    menuTitle: "Email",
+  },
+  {
     path: "/voice",
     menuIcon: <VoiceIcon />,
     menuTitle: "Voice",
@@ -41,11 +46,6 @@ const SideNavMenu = [
     path: "/messenger",
     menuIcon: <MessengerIcon />,
     menuTitle: "Messenger",
-  },
-  {
-    path: "/email",
-    menuIcon: <MessengerIcon />,
-    menuTitle: "Email",
   },
   {
     path: "/whats-app",
@@ -66,19 +66,25 @@ const SideNavMenu = [
     path: "/settings",
     menuIcon: <SettingIcon />,
     menuTitle: "Settings",
-  }
+  },
 ];
 
 const Sidebar = () => {
   const userDataa = useSelector((state) => state.Login.userData);
   const location = useLocation();
-  console.log(location.pathname)
-  if(location.pathname === '/login'){
+  const navigate = useNavigate();
+  console.log(location.pathname);
+  if (location.pathname === "/login") {
     return null;
   }
 
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
-    <div className='page-sidebar'>
+    <div className="page-sidebar">
       <div className="inner-sidebar">
         <div className="brand-logo">
           <img src={Logo} alt="Recallr" />
@@ -87,7 +93,10 @@ const Sidebar = () => {
           {SideNavMenu.map((item, index) => {
             return (
               <li key={index}>
-                <NavLink className={location === location.path ? "active" : ""} to={item.path}>
+                <NavLink
+                  className={location === location.path ? "active" : ""}
+                  to={item.path}
+                >
                   <div className="media-avtar">{item.menuIcon}</div>
                   <span> {item.menuTitle} </span>
                 </NavLink>
@@ -104,7 +113,9 @@ const Sidebar = () => {
             aria-expanded="false"
           >
             <ProfileIcon />
-            {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'user name'}
+            {userDataa
+              ? userDataa.firstName + " " + userDataa.lastName
+              : "user name"}
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
@@ -114,10 +125,10 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link className="dropdown-item" to="/login">
+              <button className="dropdown-item" onClick={handleLogout}>
                 {" "}
                 <ExitToAppIcon /> Logout
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

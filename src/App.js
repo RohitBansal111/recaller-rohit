@@ -1,10 +1,15 @@
 import "./styles/Main.scss";
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./components/layout";
-import 'react-responsive-modal/styles.css';
+import "react-responsive-modal/styles.css";
 import "material-icons/iconfont/material-icons.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,8 +25,8 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./styles/Main.scss";
 import MyAccount from "./pages/admin/account";
 import LocalMessages from "./pages/settings/localMessage";
-import Messenger from './pages/messenger';
-import WhatsApp from './pages/whatsApp';
+import Messenger from "./pages/messenger";
+import WhatsApp from "./pages/whatsApp";
 import AutoResponder from "./pages/settings/localMessage/autoresponder";
 import Usage from "./pages/settings/localMessage/usage";
 import ConversationTags from "./pages/settings/localMessage/tags";
@@ -31,10 +36,25 @@ import Import from "./pages/contacts";
 import { userDetailApi } from "./api/user";
 import Login from "./pages/login";
 import ForgotPassword from "./pages/forgot-password";
+import ResetPassword from "./pages/reset-password";
 
-const user = localStorage.getItem("token");
+const isAuthenticated = (component) => {
+  const user = localStorage.getItem("token");
+  if (!user) {
+    return <Navigate to={{ pathname: "/login" }} />;
+  }
+  return component;
+};
 
-function App({component: Component, ...rest}) {
+const isNotAuthenticated = (component) => {
+  const user = localStorage.getItem("token");
+  if (user) {
+    return <Navigate to={{ pathname: "/" }} />;
+  }
+  return component;
+};
+
+function App({ component: Component, ...rest }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,6 +62,7 @@ function App({component: Component, ...rest}) {
   }, []);
 
   const userDetail = async () => {
+    const user = localStorage.getItem("token");
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (user && userData) {
       // eslint-disable-next-line no-undef
@@ -55,28 +76,83 @@ function App({component: Component, ...rest}) {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} /> 
-        <Route path="/forgot-password" element={<ForgotPassword />} /> 
+        <Route path="/login" element={isNotAuthenticated(<Login />)} />
+        <Route
+          path="/forgot-password"
+          element={isNotAuthenticated(<ForgotPassword />)}
+        />
+        <Route
+          path="/reset-password/:userId/:pwToken"
+          element={isNotAuthenticated(<ResetPassword />)}
+        />
       </Routes>
       <Layout>
         <Routes>
-          <Route exact path="/" element={<Dashboard />} />
-          <Route exact path="/auth/:token" element={<Auth />} />
-          <Route exact path="/contacts" element={<Import />} />
-          <Route exact path="/recallr-AI" element={<RecallrAI />} />
-          <Route exact path="/settings" element={<Setting />} />
-          <Route exact path="/settings/local-messages" element={<LocalMessages />} />
-          <Route exact path="/text" element={<TextPage />} />
-          <Route exact path="/search" element={<Search />} />
-          <Route exact path="/voice" element={<Voice />} />
-          <Route exact path="/messenger" element={<Messenger />} />
-          <Route exact path="/whats-app" element={<WhatsApp />} />
-          <Route exact path="/admin/account" element={<MyAccount />} />
-          <Route exact path="/settings/local-messages/autoresponder" element={<AutoResponder />} />
-          <Route exact path="/settings/local-messages/usage" element={<Usage />} />
-          <Route exact path="/settings/local-messages/conversation-tags" element={<ConversationTags />} />
-          <Route exact path="/settings/local-messages/opt-in-out" element={<OPTInOut />} />
-          <Route exact path="/settings/local-messages/scheduled-messages" element={<ScheduledMessages />} />
+          <Route exact path="/" element={isAuthenticated(<Dashboard />)} />
+          <Route
+            exact
+            path="/auth/:token"
+            element={isAuthenticated(<Auth />)}
+          />
+          <Route exact path="/contacts" element={isAuthenticated(<Import />)} />
+          <Route
+            exact
+            path="/recallr-AI"
+            element={isAuthenticated(<RecallrAI />)}
+          />
+          <Route
+            exact
+            path="/settings"
+            element={isAuthenticated(<Setting />)}
+          />
+          <Route
+            exact
+            path="/settings/local-messages"
+            element={isAuthenticated(<LocalMessages />)}
+          />
+          <Route exact path="/text" element={isAuthenticated(<TextPage />)} />
+          <Route exact path="/search" element={isAuthenticated(<Search />)} />
+          <Route exact path="/voice" element={isAuthenticated(<Voice />)} />
+          <Route
+            exact
+            path="/messenger"
+            element={isAuthenticated(<Messenger />)}
+          />
+          <Route
+            exact
+            path="/whats-app"
+            element={isAuthenticated(<WhatsApp />)}
+          />
+          <Route
+            exact
+            path="/admin/account"
+            element={isAuthenticated(<MyAccount />)}
+          />
+          <Route
+            exact
+            path="/settings/local-messages/autoresponder"
+            element={isAuthenticated(<AutoResponder />)}
+          />
+          <Route
+            exact
+            path="/settings/local-messages/usage"
+            element={isAuthenticated(<Usage />)}
+          />
+          <Route
+            exact
+            path="/settings/local-messages/conversation-tags"
+            element={isAuthenticated(<ConversationTags />)}
+          />
+          <Route
+            exact
+            path="/settings/local-messages/opt-in-out"
+            element={isAuthenticated(<OPTInOut />)}
+          />
+          <Route
+            exact
+            path="/settings/local-messages/scheduled-messages"
+            element={isAuthenticated(<ScheduledMessages />)}
+          />
         </Routes>
       </Layout>
       <ToastContainer />

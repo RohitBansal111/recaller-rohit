@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { loginApi } from "../../api/user";
+import { loginTokenApi } from "../../api/user";
 import { toast } from "react-toastify";
 import { loginAction } from "../../redux/actions/loginAction";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ const Auth = () => {
     const data = {
       token: token,
     };
-    let res = await loginApi(data);
+    let res = await loginTokenApi(data);
     if (res && res.data && res.data.status === 200) {
       toast.success("Login successful!");
       dispatch(loginAction(res.data.data));

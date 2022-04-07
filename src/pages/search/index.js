@@ -4,7 +4,7 @@ const Search = () => {
   return (
     <div className="content-page-layout">
       <div className="page-header">
-        <h1>Search</h1>
+        {/* <h1>Search</h1> */}
       </div>
       <div className="search-main-section">
         <div className="search-filter">
