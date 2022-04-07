@@ -224,7 +224,7 @@ const Import = () => {
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
-        <FilterTabs totalRecords={rowsData && rowsData.length} />
+        <FilterTabs totalRecords={rowsData ? rowsData.length : 0} />
       </div>
       <div className="contact-data-table-main">
         <EnhancedTable
