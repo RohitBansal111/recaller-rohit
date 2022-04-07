@@ -29,11 +29,12 @@ import OPTInOut from "./pages/settings/localMessage/optInOut";
 import ScheduledMessages from "./pages/settings/localMessage/scheduled-messages";
 import Import from "./pages/contacts";
 import { userDetailApi } from "./api/user";
-
+import Login from "./pages/login";
+import ForgotPassword from "./pages/forgot-password";
 
 const user = localStorage.getItem("token");
 
-function App() {
+function App({component: Component, ...rest}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,8 +51,13 @@ function App() {
       }
     }
   };
+
   return (
     <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} /> 
+        <Route path="/forgot-password" element={<ForgotPassword />} /> 
+      </Routes>
       <Layout>
         <Routes>
           <Route exact path="/" element={<Dashboard />} />

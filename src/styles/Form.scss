@@ -109,3 +109,38 @@
     margin-right: 10px;
   }
 }
+
+.form-page-layout{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .center-form-box{
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 7px 10px #eeecec;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 7px 10px #eeecec;
+    width: 45%;
+    min-width: 600px;
+    @include Phone{
+      width: 95%;
+      min-width: 95%;
+    }
+    h2{
+      font-size: 26px;
+      font-weight: 700;
+      margin: 30px 0px;
+    }
+    .main-form{
+      .field-group{
+        .link-router{
+          color: $Active-color;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

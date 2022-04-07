@@ -15,6 +15,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
 import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
 
+
 const SideNavMenu = [
   {
     path: "/",
@@ -42,6 +43,11 @@ const SideNavMenu = [
     menuTitle: "Messenger",
   },
   {
+    path: "/email",
+    menuIcon: <MessengerIcon />,
+    menuTitle: "Email",
+  },
+  {
     path: "/whats-app",
     menuIcon: <WhatsAppIcon />,
     menuTitle: "Whatsapp",
@@ -66,49 +72,55 @@ const SideNavMenu = [
 const Sidebar = () => {
   const userDataa = useSelector((state) => state.Login.userData);
   const location = useLocation();
+  console.log(location.pathname)
+  if(location.pathname === '/login'){
+    return null;
+  }
 
   return (
-    <div className="inner-sidebar">
-      <div className="brand-logo">
-        <img src={Logo} alt="Recallr" />
-      </div>
-      <ul className="sidebar-menu">
-        {SideNavMenu.map((item, index) => {
-          return (
-            <li key={index}>
-              <NavLink className={location === location.path ? "active" : ""} to={item.path}>
-                <div className="media-avtar">{item.menuIcon}</div>
-                <span> {item.menuTitle} </span>
-              </NavLink>
-            </li>
-          );
-        })}
-      </ul>
-      <div className="user-profile-btn">
-        <button
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton1"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <ProfileIcon />
-          {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'user name'}
-        </button>
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li>
-            <Link className="dropdown-item" to="/admin/account">
-              {" "}
-              <AccountBoxIcon /> My Account
-            </Link>
-          </li>
-          <li>
-            <Link className="dropdown-item" to="/">
-              {" "}
-              <ExitToAppIcon /> Logout
-            </Link>
-          </li>
+    <div className='page-sidebar'>
+      <div className="inner-sidebar">
+        <div className="brand-logo">
+          <img src={Logo} alt="Recallr" />
+        </div>
+        <ul className="sidebar-menu">
+          {SideNavMenu.map((item, index) => {
+            return (
+              <li key={index}>
+                <NavLink className={location === location.path ? "active" : ""} to={item.path}>
+                  <div className="media-avtar">{item.menuIcon}</div>
+                  <span> {item.menuTitle} </span>
+                </NavLink>
+              </li>
+            );
+          })}
         </ul>
+        <div className="user-profile-btn">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <ProfileIcon />
+            {userDataa ? userDataa.firstName + " " + userDataa.lastName : 'user name'}
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <Link className="dropdown-item" to="/admin/account">
+                {" "}
+                <AccountBoxIcon /> My Account
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" to="/login">
+                {" "}
+                <ExitToAppIcon /> Logout
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

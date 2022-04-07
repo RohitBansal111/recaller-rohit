@@ -119,8 +119,8 @@ const ChatBoot = () => {
                                         <textarea placeholder='Type your message...'></textarea>
                                     </div>
                                     <div className="field-group btn-groups flexFull">
-                                        <button type="button" className="btn btn-primary">Send & Close</button>
-                                        <button type="button" className="btn btn-primary">Send</button>
+                                        <button type="button" className="btn-primary-outline">Send & Close</button>
+                                        <button type="button" className="btn-primary-outline">Send</button>
                                     </div>
                                 </form>
                             </div>
@@ -132,8 +132,8 @@ const ChatBoot = () => {
                                         <textarea placeholder='Type your note, only you and your teammates will see it.'></textarea>
                                     </div>
                                     <div className="field-group btn-groups flexFull">
-                                        <button type="button" className="btn btn-primary">Send & Close</button>
-                                        <button type="button" className="btn btn-primary">Send</button>
+                                        <button type="button" className="btn-primary-outline">Send & Close</button>
+                                        <button type="button" className="btn-primary-outline">Send</button>
                                     </div>
                                 </form>
                             </div>

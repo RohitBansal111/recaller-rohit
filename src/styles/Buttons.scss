@@ -13,6 +13,14 @@
   padding: 10px 25px !important;
   border-radius: 20px !important;
 }
+.btn-primary-outline {
+  background-color: $Theme-white;
+  color: $AddSubmitButton-color;
+  border: 1px solid $AddSubmitButton-color;
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+}
 .btn {
   border: none !important;
 }
