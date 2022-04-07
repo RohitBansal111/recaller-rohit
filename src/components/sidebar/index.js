@@ -73,7 +73,6 @@ const Sidebar = () => {
   const userDataa = useSelector((state) => state.Login.userData);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location.pathname);
   if (location.pathname === "/login") {
     return null;
   }

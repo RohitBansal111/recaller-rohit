@@ -12,7 +12,6 @@ const loginTokenApi = async (data) => {
 };
 
 const userLoginApi = async (data) => {
-  console.log(data, "data");
   try {
     const result = await axios.post(`/user/loginuser`, data);
     if (result) {

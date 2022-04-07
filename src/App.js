@@ -38,20 +38,20 @@ import Login from "./pages/login";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 
-const isAuthenticated = (component) => {
+const IsAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
   if (!user) {
-    return <Navigate to={{ pathname: "/login" }} />;
+    return <Navigate to={"/login"} />;
   }
-  return component;
+  return children;
 };
 
-const isNotAuthenticated = (component) => {
+const IsNotAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
   if (user) {
-    return <Navigate to={{ pathname: "/" }} />;
+    return <Navigate to={"/"} />;
   }
-  return component;
+  return children;
 };
 
 function App({ component: Component, ...rest }) {
@@ -76,82 +76,185 @@ function App({ component: Component, ...rest }) {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={isNotAuthenticated(<Login />)} />
+        <Route
+          path="/login"
+          element={
+            <IsNotAuthenticated>
+              <Login />
+            </IsNotAuthenticated>
+          }
+        />
         <Route
           path="/forgot-password"
-          element={isNotAuthenticated(<ForgotPassword />)}
+          element={
+            <IsNotAuthenticated>
+              (<ForgotPassword />)
+            </IsNotAuthenticated>
+          }
         />
         <Route
           path="/reset-password/:userId/:pwToken"
-          element={isNotAuthenticated(<ResetPassword />)}
+          element={
+            <IsNotAuthenticated>
+              (<ResetPassword />)
+            </IsNotAuthenticated>
+          }
         />
       </Routes>
       <Layout>
         <Routes>
-          <Route exact path="/" element={isAuthenticated(<Dashboard />)} />
+          <Route
+            exact
+            path="/"
+            element={
+              <IsAuthenticated>
+                <Dashboard />
+              </IsAuthenticated>
+            }
+          />
           <Route
             exact
             path="/auth/:token"
-            element={isAuthenticated(<Auth />)}
+            element={
+              <IsAuthenticated>
+                (<Auth />)
+              </IsAuthenticated>
+            }
           />
-          <Route exact path="/contacts" element={isAuthenticated(<Import />)} />
+          <Route
+            exact
+            path="/contacts"
+            element={
+              <IsAuthenticated>
+                (<Import />)
+              </IsAuthenticated>
+            }
+          />
           <Route
             exact
             path="/recallr-AI"
-            element={isAuthenticated(<RecallrAI />)}
+            element={
+              <IsAuthenticated>
+                (<RecallrAI />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings"
-            element={isAuthenticated(<Setting />)}
+            element={
+              <IsAuthenticated>
+                (<Setting />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings/local-messages"
-            element={isAuthenticated(<LocalMessages />)}
+            element={
+              <IsAuthenticated>
+                (<LocalMessages />)
+              </IsAuthenticated>
+            }
           />
-          <Route exact path="/text" element={isAuthenticated(<TextPage />)} />
-          <Route exact path="/search" element={isAuthenticated(<Search />)} />
-          <Route exact path="/voice" element={isAuthenticated(<Voice />)} />
+          <Route
+            exact
+            path="/text"
+            element={
+              <IsAuthenticated>
+                (<TextPage />)
+              </IsAuthenticated>
+            }
+          />
+          <Route
+            exact
+            path="/search"
+            element={
+              <IsAuthenticated>
+                (<Search />)
+              </IsAuthenticated>
+            }
+          />
+          <Route
+            exact
+            path="/voice"
+            element={
+              <IsAuthenticated>
+                (<Voice />)
+              </IsAuthenticated>
+            }
+          />
           <Route
             exact
             path="/messenger"
-            element={isAuthenticated(<Messenger />)}
+            element={
+              <IsAuthenticated>
+                (<Messenger />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/whats-app"
-            element={isAuthenticated(<WhatsApp />)}
+            element={
+              <IsAuthenticated>
+                (<WhatsApp />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/admin/account"
-            element={isAuthenticated(<MyAccount />)}
+            element={
+              <IsAuthenticated>
+                (<MyAccount />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings/local-messages/autoresponder"
-            element={isAuthenticated(<AutoResponder />)}
+            element={
+              <IsAuthenticated>
+                (<AutoResponder />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings/local-messages/usage"
-            element={isAuthenticated(<Usage />)}
+            element={
+              <IsAuthenticated>
+                (<Usage />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings/local-messages/conversation-tags"
-            element={isAuthenticated(<ConversationTags />)}
+            element={
+              <IsAuthenticated>
+                (<ConversationTags />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings/local-messages/opt-in-out"
-            element={isAuthenticated(<OPTInOut />)}
+            element={
+              <IsAuthenticated>
+                (<OPTInOut />)
+              </IsAuthenticated>
+            }
           />
           <Route
             exact
             path="/settings/local-messages/scheduled-messages"
-            element={isAuthenticated(<ScheduledMessages />)}
+            element={
+              <IsAuthenticated>
+                (<ScheduledMessages />)
+              </IsAuthenticated>
+            }
           />
         </Routes>
       </Layout>
