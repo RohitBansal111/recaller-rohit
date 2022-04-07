@@ -1,11 +1,8 @@
-import axios from "axios";
+import axios from "../helper/config";
 
 const loginTokenApi = async (data) => {
   try {
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/user/login`,
-      data
-    );
+    const result = await axios.post(`/user/login`, data);
     if (result) {
       return result;
     }
@@ -17,10 +14,7 @@ const loginTokenApi = async (data) => {
 const userLoginApi = async (data) => {
   console.log(data, "data");
   try {
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/user/loginuser`,
-      data
-    );
+    const result = await axios.post(`/user/loginuser`, data);
     if (result) {
       return result;
     }
@@ -31,9 +25,7 @@ const userLoginApi = async (data) => {
 
 const userDetailApi = async (id) => {
   try {
-    const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/user/${id}`
-    );
+    const result = await axios.get(`/user/${id}`);
     if (result) {
       return result;
     }
@@ -44,10 +36,7 @@ const userDetailApi = async (id) => {
 
 const userUpdateApi = async (id, data) => {
   try {
-    const result = await axios.put(
-      `${process.env.REACT_APP_API_URL}/user/${id}`,
-      data
-    );
+    const result = await axios.put(`/user/${id}`, data);
     if (result) {
       return result;
     }
@@ -58,10 +47,7 @@ const userUpdateApi = async (id, data) => {
 
 const resetPasswordApi = async (data) => {
   try {
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/user/reset-password`,
-      data
-    );
+    const result = await axios.post(`/user/reset-password`, data);
     if (result) {
       return result;
     }
@@ -72,10 +58,7 @@ const resetPasswordApi = async (data) => {
 
 const forgetPasswordApi = async (data) => {
   try {
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/user/forgot-password`,
-      data
-    );
+    const result = await axios.post(`/user/forgot-password`, data);
     if (result) {
       return result;
     }
