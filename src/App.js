@@ -88,7 +88,7 @@ function App({ component: Component, ...rest }) {
           path="/forgot-password"
           element={
             <IsNotAuthenticated>
-              (<ForgotPassword />)
+              <ForgotPassword />
             </IsNotAuthenticated>
           }
         />
@@ -96,7 +96,7 @@ function App({ component: Component, ...rest }) {
           path="/reset-password/:userId/:pwToken"
           element={
             <IsNotAuthenticated>
-              (<ResetPassword />)
+              <ResetPassword />
             </IsNotAuthenticated>
           }
         />
@@ -117,7 +117,7 @@ function App({ component: Component, ...rest }) {
             path="/auth/:token"
             element={
               <IsAuthenticated>
-                (<Auth />)
+                <Auth />
               </IsAuthenticated>
             }
           />
@@ -126,7 +126,7 @@ function App({ component: Component, ...rest }) {
             path="/contacts"
             element={
               <IsAuthenticated>
-                (<Import />)
+                <Import />
               </IsAuthenticated>
             }
           />
@@ -135,7 +135,7 @@ function App({ component: Component, ...rest }) {
             path="/recallr-AI"
             element={
               <IsAuthenticated>
-                (<RecallrAI />)
+                <RecallrAI />
               </IsAuthenticated>
             }
           />
@@ -144,7 +144,7 @@ function App({ component: Component, ...rest }) {
             path="/settings"
             element={
               <IsAuthenticated>
-                (<Setting />)
+                <Setting />
               </IsAuthenticated>
             }
           />
@@ -153,7 +153,7 @@ function App({ component: Component, ...rest }) {
             path="/settings/local-messages"
             element={
               <IsAuthenticated>
-                (<LocalMessages />)
+                <LocalMessages />
               </IsAuthenticated>
             }
           />
@@ -162,7 +162,7 @@ function App({ component: Component, ...rest }) {
             path="/text"
             element={
               <IsAuthenticated>
-                (<TextPage />)
+                <TextPage />
               </IsAuthenticated>
             }
           />
@@ -171,7 +171,7 @@ function App({ component: Component, ...rest }) {
             path="/search"
             element={
               <IsAuthenticated>
-                (<Search />)
+                <Search />
               </IsAuthenticated>
             }
           />
@@ -180,7 +180,7 @@ function App({ component: Component, ...rest }) {
             path="/voice"
             element={
               <IsAuthenticated>
-                (<Voice />)
+                <Voice />
               </IsAuthenticated>
             }
           />
@@ -189,7 +189,7 @@ function App({ component: Component, ...rest }) {
             path="/messenger"
             element={
               <IsAuthenticated>
-                (<Messenger />)
+                <Messenger />
               </IsAuthenticated>
             }
           />
@@ -198,7 +198,7 @@ function App({ component: Component, ...rest }) {
             path="/whats-app"
             element={
               <IsAuthenticated>
-                (<WhatsApp />)
+                <WhatsApp />
               </IsAuthenticated>
             }
           />
@@ -207,7 +207,7 @@ function App({ component: Component, ...rest }) {
             path="/admin/account"
             element={
               <IsAuthenticated>
-                (<MyAccount />)
+                <MyAccount />
               </IsAuthenticated>
             }
           />
@@ -216,7 +216,7 @@ function App({ component: Component, ...rest }) {
             path="/settings/local-messages/autoresponder"
             element={
               <IsAuthenticated>
-                (<AutoResponder />)
+                <AutoResponder />
               </IsAuthenticated>
             }
           />
@@ -225,7 +225,7 @@ function App({ component: Component, ...rest }) {
             path="/settings/local-messages/usage"
             element={
               <IsAuthenticated>
-                (<Usage />)
+                <Usage />
               </IsAuthenticated>
             }
           />
@@ -234,7 +234,7 @@ function App({ component: Component, ...rest }) {
             path="/settings/local-messages/conversation-tags"
             element={
               <IsAuthenticated>
-                (<ConversationTags />)
+                <ConversationTags />
               </IsAuthenticated>
             }
           />
@@ -243,7 +243,7 @@ function App({ component: Component, ...rest }) {
             path="/settings/local-messages/opt-in-out"
             element={
               <IsAuthenticated>
-                (<OPTInOut />)
+                <OPTInOut />
               </IsAuthenticated>
             }
           />
@@ -252,7 +252,7 @@ function App({ component: Component, ...rest }) {
             path="/settings/local-messages/scheduled-messages"
             element={
               <IsAuthenticated>
-                (<ScheduledMessages />)
+                <ScheduledMessages />
               </IsAuthenticated>
             }
           />
