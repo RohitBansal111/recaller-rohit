@@ -83,11 +83,13 @@ const Import = () => {
         addContact.tag = selectTags.value;
       }
       let res = await createApi(addContact);
+      console.log(res, "rrrffffffffff");
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
         tagValidation();
         toast.success("Contact saved!");
+        setSelectTags(null);
         getData();
       } else {
         toast.error(res.data.message);
@@ -182,7 +184,6 @@ const Import = () => {
 
   const handleFinish = () => {
     setUploadModal(false);
-    getData();
   };
 
   const getContactTags = async () => {
