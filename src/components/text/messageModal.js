@@ -1,8 +1,50 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal';
-import SearchIcon from '@material-ui/icons/Search';
+import { WithContext as ReactTags } from 'react-tag-input';
+
+const CONTACTS = ["new","new 2"]
+const suggestions = CONTACTS.map(contact => {
+    return {
+      id: contact,
+      text: contact
+    };
+  });
+  
+  const KeyCodes = {
+    comma: 188,
+    enter: 13
+  };
+  
+  const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const MessageModal = ({open, handleCloseMessageModal}) => {
+    const [tags, setTags] = React.useState([
+        { id: 'Thailand', text: 'Thailand' },
+        { id: 'India', text: 'India' },
+        { id: 'Vietnam', text: 'Vietnam' },
+        { id: 'Turkey', text: 'Turkey' }
+      ]);
+    
+      const handleDelete = i => {
+        setTags(tags.filter((tag, index) => index !== i));
+      };
+    
+      const handleAddition = tag => {
+        setTags([...tags, tag]);
+      };
+      const handleDrag = (tag, currPos, newPos) => {
+        const newTags = tags.slice();
+    
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+    
+        // re-render
+        setTags(newTags);
+      };
+    
+      const handleTagClick = index => {
+        console.log('The tag at index ' + index + ' was clicked');
+      };
   return (
         <Modal open={open} onClose={handleCloseMessageModal} center>
             <div className="modal-header">
@@ -11,15 +53,18 @@ const MessageModal = ({open, handleCloseMessageModal}) => {
             <div className="modal-body">
                 <form className="main-form">
                     <div className="field-group flexFull searchField">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter customer name, phone or conversation tag"
-                            name="name"
+                        <label>Enter Contact Name</label>
+                        <ReactTags
+                            tags={tags}
+                            suggestions={suggestions}
+                            delimiters={delimiters}
+                            handleDelete={handleDelete}
+                            handleAddition={handleAddition}
+                            handleDrag={handleDrag}
+                            handleTagClick={handleTagClick}
+                            inputFieldPosition="bottom"
+                            autocomplete
                         />
-                        <div className='search-field'>
-                            <SearchIcon />
-                        </div>
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

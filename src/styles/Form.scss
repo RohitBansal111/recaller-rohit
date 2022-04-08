@@ -53,6 +53,86 @@
       margin-bottom: 0px;
     }
   }
+  .react-tags-wrapper{
+    position: relative;
+    margin-bottom: 30px;
+    .ReactTags__suggestions{
+      position: absolute;
+      width: 100%;
+      top: 100%;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      background-color: $Theme-white;
+      box-shadow: 2px 3px 5px #d4d4d4;
+
+      ul{
+        padding: 0px;
+        margin: 0px;
+        li{
+          padding: 8px 10px;
+          display: block;
+          &:hover{
+            background-color: rgb(246, 246, 246);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .ReactTags__selected{
+      position: absolute;
+      top: 100%;
+      margin-bottom: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      .tag-wrapper{
+        background-color: rgba(54, 179, 126, 0.1);
+        border-radius: 2px;
+        display: flex;
+        margin: 2px;
+        min-width: 0px;
+        box-sizing: border-box;
+        border-radius: 2px;
+        color: rgb(54, 179, 126);
+        font-size: 85%;
+        overflow: hidden;
+        padding: 3px 3px 3px 6px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        box-sizing: border-box;
+        .ReactTags__remove{
+          align-items: center;
+          border-radius: 2px;
+          display: flex;
+          padding-left: 4px;
+          padding-right: 4px;
+          box-sizing: border-box;
+          color: #36b37e;
+          border: none;
+          background-color: transparent;
+          width: 23px;
+          font-size: 14px;
+          justify-content: center;
+        }
+      }
+    }
+    .ReactTags__tagInput{
+      position: relative;
+      .ReactTags__tagInputField{
+        width: 100%;
+        height: 40px;
+        border: 1px solid #bbb;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 10px;
+        box-sizing: border-box;
+        &:focus {
+          box-shadow: none;
+          outline: 0px;
+          border: 1px solid $AddSubmitButton-color;
+        }
+      }
+    }
+  }
   .tagsField{
     ul{
       padding-left: 0px;
