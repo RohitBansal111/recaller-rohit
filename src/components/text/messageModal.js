@@ -1,46 +1,46 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal';
-import { WithContext as ReactTags } from 'react-tag-input';
+// import { WithContext as ReactTags } from 'react-tag-input';
 
-const CONTACTS = ["new","new 2"]
-const suggestions = CONTACTS.map(contact => {
-    return {
-      id: contact,
-      text: contact
-    };
-  });
+// const CONTACTS = ["new","new 2"]
+// const suggestions = CONTACTS.map(contact => {
+//     return {
+//       id: contact,
+//       text: contact
+//     };
+//   });
   
-  const KeyCodes = {
-    comma: 188,
-    enter: 13
-  };
+//   const KeyCodes = {
+//     comma: 188,
+//     enter: 13
+//   };
   
-  const delimiters = [KeyCodes.comma, KeyCodes.enter];
+//   const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const MessageModal = ({open, handleCloseMessageModal}) => {
-    const [tags, setTags] = React.useState([
-        { id: 'Thailand', text: 'Thailand' },
-        { id: 'India', text: 'India' },
-        { id: 'Vietnam', text: 'Vietnam' },
-        { id: 'Turkey', text: 'Turkey' }
-      ]);
+    // const [tags, setTags] = React.useState([
+    //     { id: 'Thailand', text: 'Thailand' },
+    //     { id: 'India', text: 'India' },
+    //     { id: 'Vietnam', text: 'Vietnam' },
+    //     { id: 'Turkey', text: 'Turkey' }
+    //   ]);
     
-      const handleDelete = i => {
-        setTags(tags.filter((tag, index) => index !== i));
-      };
+    //   const handleDelete = i => {
+    //     setTags(tags.filter((tag, index) => index !== i));
+    //   };
     
-      const handleAddition = tag => {
-        setTags([...tags, tag]);
-      };
-      const handleDrag = (tag, currPos, newPos) => {
-        const newTags = tags.slice();
+    //   const handleAddition = tag => {
+    //     setTags([...tags, tag]);
+    //   };
+    //   const handleDrag = (tag, currPos, newPos) => {
+    //     const newTags = tags.slice();
     
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
+    //     newTags.splice(currPos, 1);
+    //     newTags.splice(newPos, 0, tag);
     
-        // re-render
-        setTags(newTags);
-      };
+    //     // re-render
+    //     setTags(newTags);
+    //   };
     
       const handleTagClick = index => {
         console.log('The tag at index ' + index + ' was clicked');
@@ -52,9 +52,9 @@ const MessageModal = ({open, handleCloseMessageModal}) => {
             </div>
             <div className="modal-body">
                 <form className="main-form">
-                    <div className="field-group flexFull searchField">
+                    <div className="field-group flexFull">
                         <label>Enter Contact Name</label>
-                        <ReactTags
+                        {/* <ReactTags
                             tags={tags}
                             suggestions={suggestions}
                             delimiters={delimiters}
@@ -64,6 +64,12 @@ const MessageModal = ({open, handleCloseMessageModal}) => {
                             handleTagClick={handleTagClick}
                             inputFieldPosition="bottom"
                             autocomplete
+                        /> */}
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="search here"
+                            name="name"
                         />
                     </div>
                     <div className="field-group flexFull">
