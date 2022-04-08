@@ -163,7 +163,7 @@ const ChatBoot = () => {
                         </li>
                         <li>
                             <button type="button" className='btn-links'>Edit Contact</button>
-                            <button type="button" className='btn-links'> View in LocalContacts</button>
+                            <button type="button" className='btn-links'> View in Contacts</button>
                         </li>
                     </ul>
                 </div>
