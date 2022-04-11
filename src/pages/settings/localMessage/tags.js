@@ -60,6 +60,8 @@ const ConversationTags = () => {
       setOpenCreateTagModal(false);
       setaddTags({});
       getTags();
+    } else {
+      toast.error(res.data.massage);
     }
   };
 
