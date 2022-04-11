@@ -7,7 +7,7 @@ import ContactModal from "../../models/contactModel";
 import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
-import { getTags } from "../../api/tag";
+import { getTagsApi } from "../../api/tag";
 
 const Import = () => {
   const [show, setShow] = useState(false);
@@ -83,7 +83,6 @@ const Import = () => {
         addContact.tag = selectTags.value;
       }
       let res = await createApi(addContact);
-      console.log(res, "rrrffffffffff");
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
@@ -187,7 +186,7 @@ const Import = () => {
   };
 
   const getContactTags = async () => {
-    let res = await getTags();
+    let res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
       let data = res.data.data.map(function (item) {
         return { value: item._id, label: item.name };

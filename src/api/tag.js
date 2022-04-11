@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const addTags = async (data) => {
+const addTagsApi = async (data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
@@ -16,7 +16,7 @@ const addTags = async (data) => {
   }
 };
 
-const getTags = async () => {
+const getTagsApi = async () => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
@@ -24,7 +24,6 @@ const getTags = async () => {
       `${process.env.REACT_APP_API_URL}/tag/getdata`
     );
     if (result) {
-      console.log(result, "ggggg");
       return result;
     }
   } catch (err) {
@@ -32,4 +31,36 @@ const getTags = async () => {
   }
 };
 
-export { getTags, addTags };
+const updateTagsApi = async (id, data) => {
+  try {
+    const AUTH_TOKEN = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/tag/updatedata/${id}`,
+      data
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
+
+const deleteTagApi = async (id, data) => {
+  try {
+    const AUTH_TOKEN = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.delete(
+      `${process.env.REACT_APP_API_URL}/tag/delete/${id}`,
+      data
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
+
+export { getTagsApi, addTagsApi, updateTagsApi, deleteTagApi };
