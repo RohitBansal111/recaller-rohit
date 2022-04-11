@@ -13,7 +13,7 @@ const ConversationTags = () => {
         <div className="page-header subheading-bar">
             <div className="header-text">
                 <h1>Settings</h1>
-                <p>Setting / Local Messages / Conversation Tags</p>
+                <p>Setting / Text / Conversation Tags</p>
             </div>
             <div className="header-action">
                 <button type="button" className="btn btn-primary" onClick={openCTModal}>Create Tag</button>

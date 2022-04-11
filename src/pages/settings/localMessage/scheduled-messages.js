@@ -6,7 +6,7 @@ const ScheduledMessages = () => {
           <div className="page-header subheading-bar">
               <div className="header-text">
                   <h1>Settings</h1>
-                  <p>Setting / Local Messages / Scheduled Messages</p>
+                  <p>Setting / Text / Scheduled Messages</p>
               </div>
           </div>
           <div className="setting-page-main">

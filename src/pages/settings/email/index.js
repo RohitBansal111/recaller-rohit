@@ -1,49 +1,22 @@
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
-import Switch from '@mui/material/Switch';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const SettingCards = [
     {
-        title: "Autoresponder",
-        description: "View and configure your autoresponder settings",
-        path: '/settings/text/autoresponder'
-    },
-    {
-        title: "Opt-In / Opt-Out",
-        description: "View and configure your Opt-In and Opt-Out settings",
-        path: '/settings/text/opt-in-out'
-    },
-    {
-        title: "Scheduled Messages",
-        description: "View and manage your Scheduled Messages",
-        path: '/settings/text/scheduled-messages'
-    },
-    {
-        title: "Tags",
-        description: "View and manage your Conversation Tags",
-        path: '/settings/text/conversation-tags'
-    },
-    {
-        title: "Usage",
-        description: "View your Text usage",
-        path: '/settings/text/usage'
-    },
-    {
-        title: "Notification",
-        description: "Enable Desktop Notifications  Yes / No",
-        path: '/settings/text/',
-        extraField:  <Switch {...label} />
+        title: "Email Sender",
+        description: "View and configure your email sender settings",
+        path: '/settings/email/email-sender'
     }
 ]
-const LocalMessages = () => {
+const EmailSetting = () => {
   return (
       <div className="content-page-layout">
         <div className="page-header subheading-bar">
             <div className="header-text">
                 <h1>Settings</h1>
-                <p>Setting / Text</p>
+                <p>Setting / Email</p>
             </div>
         </div>
         <div className="setting-page-main">
@@ -82,4 +55,4 @@ const LocalMessages = () => {
   )
 }
 
-export default LocalMessages 
+export default EmailSetting 

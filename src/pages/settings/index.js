@@ -3,9 +3,14 @@ import { Link } from 'react-router-dom';
 
 const SettingCards = [
     {
-        title: "LocalMessages",
-        description: "View your LocalMessages account settings",
-        path : "/settings/local-messages"
+        title: "Text",
+        description: "View your text account settings",
+        path : "/settings/text"
+    },
+    {
+        title: "Email",
+        description: "View your email account settings",
+        path : "/settings/email"
     }
 ]
 const Setting = () => {

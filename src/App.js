@@ -37,6 +37,11 @@ import { userDetailApi } from "./api/user";
 import Login from "./pages/login";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
+import EmailPage from "./pages/email";
+import EmailSetting from "./pages/settings/email";
+import EmailSender from "./pages/settings/email/email-sender";
+
+
 
 const IsAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
@@ -150,7 +155,7 @@ function App({ component: Component, ...rest }) {
           />
           <Route
             exact
-            path="/settings/local-messages"
+            path="/settings/text"
             element={
               <IsAuthenticated>
                 <LocalMessages />
@@ -163,6 +168,15 @@ function App({ component: Component, ...rest }) {
             element={
               <IsAuthenticated>
                 <TextPage />
+              </IsAuthenticated>
+            }
+          />
+          <Route
+            exact
+            path="/email"
+            element={
+              <IsAuthenticated>
+                <EmailPage />
               </IsAuthenticated>
             }
           />
@@ -213,7 +227,7 @@ function App({ component: Component, ...rest }) {
           />
           <Route
             exact
-            path="/settings/local-messages/autoresponder"
+            path="/settings/text/autoresponder"
             element={
               <IsAuthenticated>
                 <AutoResponder />
@@ -222,7 +236,7 @@ function App({ component: Component, ...rest }) {
           />
           <Route
             exact
-            path="/settings/local-messages/usage"
+            path="/settings/text/usage"
             element={
               <IsAuthenticated>
                 <Usage />
@@ -231,7 +245,7 @@ function App({ component: Component, ...rest }) {
           />
           <Route
             exact
-            path="/settings/local-messages/conversation-tags"
+            path="/settings/text/conversation-tags"
             element={
               <IsAuthenticated>
                 <ConversationTags />
@@ -240,7 +254,7 @@ function App({ component: Component, ...rest }) {
           />
           <Route
             exact
-            path="/settings/local-messages/opt-in-out"
+            path="/settings/text/opt-in-out"
             element={
               <IsAuthenticated>
                 <OPTInOut />
@@ -249,10 +263,28 @@ function App({ component: Component, ...rest }) {
           />
           <Route
             exact
-            path="/settings/local-messages/scheduled-messages"
+            path="/settings/text/scheduled-messages"
             element={
               <IsAuthenticated>
                 <ScheduledMessages />
+              </IsAuthenticated>
+            }
+          />
+          <Route
+            exact
+            path="/settings/email"
+            element={
+              <IsAuthenticated>
+                <EmailSetting />
+              </IsAuthenticated>
+            }
+          />
+           <Route
+            exact
+            path="/settings/email/email-sender"
+            element={
+              <IsAuthenticated>
+                <EmailSender />
               </IsAuthenticated>
             }
           />

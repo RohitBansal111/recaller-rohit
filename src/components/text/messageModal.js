@@ -54,17 +54,6 @@ const MessageModal = ({open, handleCloseMessageModal}) => {
                 <form className="main-form">
                     <div className="field-group flexFull">
                         <label>Enter Contact Name</label>
-                        {/* <ReactTags
-                            tags={tags}
-                            suggestions={suggestions}
-                            delimiters={delimiters}
-                            handleDelete={handleDelete}
-                            handleAddition={handleAddition}
-                            handleDrag={handleDrag}
-                            handleTagClick={handleTagClick}
-                            inputFieldPosition="bottom"
-                            autocomplete
-                        /> */}
                         <input
                             type="text"
                             className="form-control"

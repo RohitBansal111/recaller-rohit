@@ -250,3 +250,55 @@ span.spanError {
     display: block;
   }
 }
+.email-main-section{
+  height: 100%;
+  .chatbox-warpper{
+    .inner-chatbox-area{
+      padding: 0px;
+      .chat-user-list{
+        flex: 0 0 35%;
+        background-color: transparent !important;
+      }
+    }
+  }
+}
+.email-sender-content{
+  background-color: #fff;
+  padding: 20px;
+    h2{
+      font-size: 23px;
+      font-weight: 500;
+      color: $HeadingColor;
+    }
+    p{
+      color: $labelColor;
+      font-size: 15px;
+      a{
+        color: $Active-color;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    }
+    h4{
+      color: $Icon-color;
+      font-weight: 600;
+      font-size: 21px;
+      margin-top: 25px;
+    }
+    ul{
+      li{
+        color: $labelColor;
+        font-size: 15px;
+      }
+    }
+}
+.modal-para{
+  color: $labelColor;
+  font-size: 15px;
+  text-align: center;
+  a{
+    color: $Active-color;
+    font-weight: 600;
+    text-decoration: none;
+  }
+}

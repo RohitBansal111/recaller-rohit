@@ -6,7 +6,7 @@ const OPTInOut = () => {
         <div className="page-header subheading-bar">
             <div className="header-text">
                 <h1>Settings</h1>
-                <p>Setting / Local Messages / Opt-In-Out</p>
+                <p>Setting / Text / Opt-In-Out</p>
             </div>
         </div>
         <div className="setting-page-main">
