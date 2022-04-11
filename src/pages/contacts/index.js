@@ -7,7 +7,7 @@ import ContactModal from "../../models/contactModel";
 import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
-import { getTags } from "../../api/tag";
+import { getTagsApi } from "../../api/tag";
 
 const Import = () => {
   const [show, setShow] = useState(false);
@@ -88,6 +88,7 @@ const Import = () => {
         setAddContact({});
         tagValidation();
         toast.success("Contact saved!");
+        setSelectTags(null);
         getData();
       } else {
         toast.error(res.data.message);
@@ -182,11 +183,10 @@ const Import = () => {
 
   const handleFinish = () => {
     setUploadModal(false);
-    getData();
   };
 
   const getContactTags = async () => {
-    let res = await getTags();
+    let res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
       let data = res.data.data.map(function (item) {
         return { value: item._id, label: item.name };

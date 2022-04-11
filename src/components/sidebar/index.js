@@ -12,9 +12,10 @@ import MessengerIcon from "../../assets/svg-icons/messengerIcon";
 import WhatsAppIcon from "../../assets/svg-icons/whatsAppIcon";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
 import EmailIcon from "../../assets/svg-icons/emailIcon";
+import { loginAction } from "../../redux/actions/loginAction";
 
 const SideNavMenu = [
   {
@@ -73,12 +74,14 @@ const Sidebar = () => {
   const userDataa = useSelector((state) => state.Login.userData);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   if (location.pathname === "/login") {
     return null;
   }
 
   const handleLogout = () => {
     localStorage.clear();
+    dispatch(loginAction({}));
     navigate("/login");
   };
 

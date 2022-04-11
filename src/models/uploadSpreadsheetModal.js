@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
@@ -8,7 +8,6 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { addMultipleContact } from "../api/contact";
 import AddTag from "../components/contacts/wizard-form/addTag";
-import { getTags } from "../api/tag";
 
 const UploadSpreadsheetModal = (props) => {
   const [step, setStep] = useState(1);
@@ -55,13 +54,13 @@ const UploadSpreadsheetModal = (props) => {
   const handleClose = () => {
     setStep(1);
     setCsvFile(null);
-    setSelectedPhone(null);
-    setSelectedEmail(null);
-    setSelectedName(null);
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedName("name");
     setSelectedType("skip");
     setSelectProperty(null);
-    setNoteData("")
-    props.setSelectTags();
+    setNoteData("");
+    props.setSelectTags(null);
     props.handleUploadClose();
   };
 
@@ -122,7 +121,7 @@ const UploadSpreadsheetModal = (props) => {
     return formData;
   };
 
-  const handleSubmit = () => {
+  const handleClick = (e) => {
     if (isValid()) {
       handleCsvdataCheck();
       setStep(step + 1);
@@ -161,13 +160,13 @@ const UploadSpreadsheetModal = (props) => {
     setStep(1);
     props.handleFinish();
     setCsvFile(null);
-    setSelectedPhone(null);
-    setSelectedEmail(null);
-    setSelectedName(null);
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedName("name");
     setSelectedType("skip");
     setSelectProperty(null);
-    setNoteData("")
-    props.setSelectTags();
+    setNoteData("");
+    props.setSelectTags(null);
     const obj = {
       contacts: JSON.stringify(csvData),
       contactType: selectedType,
@@ -176,6 +175,8 @@ const UploadSpreadsheetModal = (props) => {
       note: noteData,
     };
     let res = await addMultipleContact(obj);
+    console.log(res, "oooooooooooo");
+
     if (res && res.data && res.data.status === 200) {
       toast.success(res.data.message);
       props.getData();
@@ -185,13 +186,13 @@ const UploadSpreadsheetModal = (props) => {
   const handleCloseModal = () => {
     props.handleUploadClose();
     setCsvFile(null);
-    setSelectedPhone(null);
-    setSelectedEmail(null);
-    setSelectedName(null);
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedName("name");
     setSelectedType("skip");
     setSelectProperty(null);
-    setNoteData("")
-    props.setSelectTags();
+    setNoteData("");
+    props.setSelectTags(null);
   };
 
   const handleNoteChange = (e) => {
@@ -289,7 +290,7 @@ const UploadSpreadsheetModal = (props) => {
                   selectedPhone={selectedPhone}
                   errors={errors}
                   errorsSelectMap={errorsSelectMap}
-                  handleSubmit={handleSubmit}
+                  handleClick={handleClick}
                   selectProperty={selectProperty}
                   selectedType={selectedType}
                 />
@@ -304,7 +305,7 @@ const UploadSpreadsheetModal = (props) => {
                   addTagsErrors={errors}
                   handleChange={props.handleChange}
                   selectTags={props.selectTags}
-                  nextStep={handleTagSubmit}
+                  handleSubmit={handleTagSubmit}
                 />
               )}
               {step === 4 && (
