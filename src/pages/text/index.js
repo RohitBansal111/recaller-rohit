@@ -8,7 +8,7 @@ const TextPage = () => {
   const handleNewMessage = () => { setOpenMessageModal(true) }
   const handleCloseMessageModal = () => { setOpenMessageModal(false) }
   return (
-      <div className="content-page-layout">
+      <div className="content-page-layout text-page-content">
         <div className="page-header justify-flex-end">
             <button type="button" className="btn btn-medium btn-primary" onClick={handleNewMessage}>New Message</button>
         </div> 

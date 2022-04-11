@@ -1,5 +1,5 @@
 .text-main-section{
-    max-height: calc(100vh - 80px);
+    // max-height: calc(100vh - 80px);
     height: 100%;
     overflow: hidden;
     background-color: $Theme-white;
@@ -40,6 +40,7 @@
                     margin: 10px 0px;
                     height: 100%;
                     overflow: auto;
+                    max-height: calc(100vh - 190px);
                     li{
                         padding: 10px 10px;
                         border-top: 1px solid #dedede;
@@ -81,7 +82,7 @@
             flex: 0 0 45%;
             border-left: 1px solid lightgray;
             border-right: 1px solid lightgray;
-            height: 88vh;
+            // height: 88vh;
             background-color: $Theme-white;
             .all-discuss-section{
                 height: 100%;

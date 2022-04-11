@@ -74,6 +74,9 @@ ul {
     width: 100%;
     overflow: hidden;
     background-color: #f5f5f5;
+    .text-page-content{
+      overflow: hidden;
+    }
     .page-header {
       display: flex;
       align-items: center;
