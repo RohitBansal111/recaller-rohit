@@ -12,10 +12,9 @@ const ConversationTags = () => {
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
   const [tags, setTags] = useState([]);
-  const [tagsData, setTagsData] = useState({});
   const [deleteTags, setDeleteTags] = useState({});
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openEditTagModal, setOpenEditTagModal] = useState(false);
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
 
@@ -28,9 +27,8 @@ const ConversationTags = () => {
     setPage(0);
   };
 
-  const handleEditClick = (id) => {
-    const data = tags.find((item) => item._id === id);
-    setTagsData(data);
+  const handleEditClick = (item) => {
+    setaddTags(item);
     setOpenEditTagModal(true);
   };
   const handleCloseETModal = () => {
@@ -73,11 +71,11 @@ const ConversationTags = () => {
   };
 
   const handleEditChange = (e) => {
-    setTagsData({ ...tagsData, [e.target.name]: e.target.value });
+    setaddTags({ ...addTags, [e.target.name]: e.target.value });
   };
 
   const handleEdit = async () => {
-    let res = await updateTagsApi(tagsData._id, tagsData);
+    let res = await updateTagsApi(addTags._id, addTags);
     if (res && res.data && res.data.status === 200) {
       toast.success("Tags Edit Successfully");
       setOpenEditTagModal(false);
@@ -85,9 +83,8 @@ const ConversationTags = () => {
     }
   };
 
-  const handleDelModal = (id) => {
-    const data = tags.find((item) => item._id === id);
-    setDeleteTags(data);
+  const handleDelModal = (item) => {
+    setDeleteTags(item);
     setOpenDelTagModal(true);
   };
 
@@ -128,7 +125,7 @@ const ConversationTags = () => {
           openEditTagModal={openEditTagModal}
           handleCloseETModal={handleCloseETModal}
           handleEdit={handleEdit}
-          tagsData={tagsData}
+          editTags={addTags}
           handleChange={handleEditChange}
           handleChangePage={handleChangePage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}

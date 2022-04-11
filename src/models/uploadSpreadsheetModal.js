@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";

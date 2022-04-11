@@ -40,11 +40,11 @@ const ConversationTagsTable = (props) => {
                         {" "}
                         <EditIcon
                           titleAccess="Edit"
-                          onClick={() => props.handleEditClick(item._id)}
+                          onClick={() => props.handleEditClick(item)}
                         />
                         <DeleteIcon
                           titleAccess="Delete"
-                          onClick={() => props.handleDelModal(item._id)}
+                          onClick={() => props.handleDelModal(item)}
                         />
                       </div>
                     ),
@@ -72,7 +72,7 @@ const ConversationTagsTable = (props) => {
         handleCloseETModal={props.handleCloseETModal}
         handleChange={props.handleChange}
         handleEdit={props.handleEdit}
-        editTags={props.tagsData}
+        editTags={props.editTags}
       />
     </div>
   );
