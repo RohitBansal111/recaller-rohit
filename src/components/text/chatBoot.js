@@ -173,6 +173,14 @@ const ChatBoot = () => {
                         <button class="btn btn-addd-tag dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <AddIcon /> Add Tags
                         </button>
+                        <div className='dynamic-tags'>
+                            <ul>
+                                <li style={{borderColor:'red', color: 'red'}}>Good Customer <span className='remove-tag' style={{color: 'red'}}>✕</span></li>
+                                <li style={{borderColor:'blue', color: 'blue'}}>New Customer <span className='remove-tag' style={{color: 'blue'}}>✕</span></li>
+                                <li style={{borderColor:'green', color: 'green'}}>Good Customer <span className='remove-tag' style={{color: 'green'}}>✕</span></li>
+                                <li style={{borderColor:'#ee00ff', color: '#ee00ff'}}>New Customer <span className='remove-tag' style={{color: '#ee00ff'}}>✕</span></li>
+                            </ul>
+                        </div>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><LocalOfferIcon /> Good Customer</li>
                             <li><LocalOfferIcon /> New Customer</li>
