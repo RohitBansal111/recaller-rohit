@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditTagModal from "./EditTagModal";
 import TablePagination from "@mui/material/TablePagination";
 import DeleteTagsModal from "../../models/deleteTagsModal";
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const ConversationTagsTable = (props) => {
   return (
@@ -41,7 +42,7 @@ const ConversationTagsTable = (props) => {
                     <span
                       style={{ borderColor: item.color, color: item.color }}
                     >
-                      {item.name}
+                     <LocalOfferIcon /> {item.name}
                     </span>
                   </TableCell>
                   <TableCell align="right">
