@@ -147,6 +147,10 @@
         font-weight: 500;
         font-size: 14px;
         span{
+          border-width: 1px;
+          border-style: solid;
+          padding: 5px 15px;
+          border-radius: 30px;
           svg{
             margin-right: 5px;
             font-size: 20px;

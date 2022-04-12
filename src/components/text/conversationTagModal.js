@@ -17,17 +17,17 @@ const ConversationTagModal = ({open, handleCloseManageModal}) => {
             </div>
             <div className="modal-body">
                 <form className="main-form">
-                    <div className="field-group flexFull tagsField">
+                    <div className="w-100 flexFull tagsField">
                         <ul>
                             <li>
-                                <span> <LocalOfferIcon /> Good Customer</span>
+                                <span style={{borderColor: 'green', color: 'green'}}> <LocalOfferIcon style={{fill:'green !important'}} /> Good Customer</span>
                                 <div className='tags-actions'>
                                     <EditIcon onClick={handleEditTag} />
                                     <DeleteIcon />
                                 </div>
                             </li>
                             <li>
-                                <span> <LocalOfferIcon /> New Customer</span>
+                            <span style={{borderColor: 'blue', color: 'blue'}}> <LocalOfferIcon style={{fill:'blue !important'}} /> New Customer</span>
                                 <div className='tags-actions'>
                                     <EditIcon onClick={handleEditTag} />
                                     <DeleteIcon />
