@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditTagModal from "./EditTagModal";
-import { TablePagination } from "@mui/material";
+import TablePagination from "@mui/material/TablePagination";
 import DeleteTagsModal from "../../models/deleteTagsModal";
 
 const columns = [
@@ -13,7 +13,7 @@ const columns = [
   },
   {
     name: "Actions",
-    selector: (row) => row.productAction,
+    selector: (row) => row.action,
   },
 ];
 
@@ -35,7 +35,7 @@ const ConversationTagsTable = (props) => {
                 .map((item) => {
                   return {
                     tags: item.name,
-                    productAction: (
+                    action: (
                       <div className="table-action">
                         {" "}
                         <EditIcon
@@ -54,19 +54,19 @@ const ConversationTagsTable = (props) => {
         }
       />
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={props.tags ? props.tags.length : 0}
-        rowsPerPage={props.rowsPerPage}
-        page={props.page}
-        onPageChange={props.handleChangePage}
-        onRowsPerPageChange={props.handleChangeRowsPerPage}
+       rowsPerPageOptions={[5, 10, 25]}
+       component="div"
+       count={props.tags ? props.tags.length : 0}
+       rowsPerPage={props.rowsPerPage}
+       page={props.page}
+       onPageChange={props.handleChangePage}
+       onRowsPerPageChange={props.handleChangeRowsPerPage}
       />
-        <DeleteTagsModal
-          showDeleteTagModal={props.showDeleteTagModal}
-          handleDeleteTagsData={props.handleDeleteTags}
-          handleCloseDeleteModal={props.handleCloseDeleteModal}
-        />
+      <DeleteTagsModal
+        showDeleteTagModal={props.showDeleteTagModal}
+        handleDeleteTagsData={props.handleDeleteTags}
+        handleCloseDeleteModal={props.handleCloseDeleteModal}
+      />
       <EditTagModal
         open={props.openEditTagModal}
         handleCloseETModal={props.handleCloseETModal}

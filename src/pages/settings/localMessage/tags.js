@@ -17,8 +17,8 @@ const ConversationTags = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openEditTagModal, setOpenEditTagModal] = useState(false);
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
-
-  const handleChangePage = (newPage) => {
+  
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
@@ -121,7 +121,6 @@ const ConversationTags = () => {
       </div>
       <div className="setting-page-main">
         <ConversationTagsTable
-          data={addTags}
           tags={tags}
           handleEditClick={handleEditClick}
           openEditTagModal={openEditTagModal}
