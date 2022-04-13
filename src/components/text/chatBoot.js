@@ -319,10 +319,10 @@ const ChatBoot = (props) => {
             <h4>Monthly Balance</h4>
             <ul>
               <li>
-                <b>Credit used</b> $1900
+                <b>Credit used</b><span>$1900</span> 
               </li>
               <li>
-                <b>Credit balance</b> $75000
+                <b>Credit balance</b><span>$75000</span> 
               </li>
             </ul>
           </div>

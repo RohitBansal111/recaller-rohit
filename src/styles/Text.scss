@@ -6,7 +6,7 @@
     .nav-tabs{
         margin-bottom: 0px !important;
         position: relative;
-        background-color: #f6f6f6;
+        background-color: $Theme-white;
     }
 }
 .chatbox-warpper{
@@ -42,7 +42,7 @@
                     margin: 10px 0px;
                     height: 100%;
                     overflow: auto;
-                    max-height: calc(100vh - 190px);
+                    max-height: calc(100vh - 170px);
                     li{
                         padding: 10px 10px;
                         border-top: 1px solid #dedede;
@@ -128,6 +128,7 @@
                     left: 3%;
                     .chat-textarea{
                         width: 100%;
+                        background-color: $Theme-white;
                         textarea{
                             width: 100%;
                             border: none;
@@ -228,6 +229,9 @@
                     color: $Theme-white;
                     font-weight: 500;
                     font-size: 15px;
+                    span{
+                        display: block;
+                    }
                 }
             }
             .conversation-tags{
@@ -261,7 +265,7 @@
                         width: 100%;
                         padding: 9px 10px;
                         box-sizing: border-box;
-                        font-size: 15px;
+                        font-size: 13px;
                         border: 1px solid lightgrey;
                         border-radius: 30px;
                         margin-bottom: 10px;
@@ -283,7 +287,7 @@
                         }
                         svg{
                             margin-right: 5px;
-                            font-size: 20px;
+                            font-size: 17px;
                             color: dimgrey;
                         }
                     }
@@ -318,7 +322,7 @@
     max-height: calc(100vh - 355px);
     min-height: calc(100vh - 355px);
     overflow: auto;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     ul{
         padding: 10px;
         li{
@@ -329,7 +333,7 @@
             border-radius: 6px;
             margin-bottom: 10px;
             padding: 10px;
-            font-size: 14px;
+            font-size: 13px;
             &.client{
                 border-color: #dedede;
                 background-color: $Theme-white;
