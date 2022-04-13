@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import NotificationBar from '../notification-bar'
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
@@ -9,6 +8,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import ConversationTagModal from './conversationTagModal';
+import TextChat from './textChat';
 
 const ChatBoot = () => {
     const [openManageTagModal, setOpenManageTagModal] = useState(false);
@@ -108,7 +108,7 @@ const ChatBoot = () => {
                         </div>
                     </div>
                     <div className='chat-now'>
-
+                        <TextChat />
                     </div>
                     <div className='chat-text-editor'>
                     <Tabs defaultActiveKey="all" transition={false} id="noanim-tab-example" className="mb-3">
