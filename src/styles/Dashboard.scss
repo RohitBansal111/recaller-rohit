@@ -23,8 +23,43 @@
       border-bottom: 1px solid lightgrey;
       .nav-item {
         height: 50px;
+        button{
+          display: flex;
+          align-items: center;
+          &:hover{
+            isolation: inherit;
+          }
+        }
+        .dropdown{
+          .filter-dropdown{
+            background-color: transparent !important;
+            padding: 12px !important;
+            color: #0000008a !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            height: 50px;
+          }
+          .dropdown-menu{
+            min-width: 200px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+            z-index: 103;
+            border: 1px solid #ddd;
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            padding: 10px;
+            a{
+              font-size: 15px;
+              color: grey;
+              padding: 5px 10px;
+            }
+          }
+        }
         .nav-link {
-          color: #bbb;
+          color: #0000008a;
           font-size: 14px;
           font-weight: 500;
           height: 50px;
@@ -83,7 +118,7 @@
   margin: 0px;
 }
 .contact-data-table-main {
-  padding: 20px;
+  padding: 0px;
   .tableFilter-toolbar {
     display: flex;
     justify-content: space-between;

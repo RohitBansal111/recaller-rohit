@@ -78,7 +78,7 @@ const Autoresponder = () => {
                                     <div className="main-form">
                                         <label>Incoming SMS Auto-Response</label>
                                         <div className="field-group">
-                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <input type="text" className="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
                                             <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@ const Autoresponder = () => {
                                     <div className="main-form">
                                         <label>Widget Auto-Response</label>
                                         <div className="field-group">
-                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <input type="text" className="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
                                             <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@ const Autoresponder = () => {
                                     <div className="main-form">
                                         <label>Widget Auto-Response</label>
                                         <div className="field-group">
-                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <input type="text" className="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
                                             <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@ const Autoresponder = () => {
                                     <div className="main-form">
                                         <label>Widget Auto-Response</label>
                                         <div className="field-group">
-                                            <input type="text" class="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
+                                            <input type="text" className="form-control" value="Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can." />
                                             <button type="buton" className="btn btn-icon"> <DeleteIcon /> </button>
                                         </div>
                                     </div>
