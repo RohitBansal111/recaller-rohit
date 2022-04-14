@@ -17,7 +17,7 @@ const ConversationTags = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openEditTagModal, setOpenEditTagModal] = useState(false);
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
-  
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

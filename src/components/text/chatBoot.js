@@ -241,7 +241,7 @@ const ChatBoot = (props) => {
               <div className="dynamic-tags">
                 <ul>
                   {props.newAray
-                    ? props.newAray.map((item) => (
+                    ? props.newAray.map((item, index) => (
                         <li
                           style={{
                             borderColor: item.selectedColor,
@@ -252,7 +252,7 @@ const ChatBoot = (props) => {
                           <span
                             className="remove-tag"
                             style={{ color: props.selectedColor }}
-                            onClick={() => props.handleSelectDel(item)}
+                            onClick={() => props.handleSelectDel(item, index)}
                           >
                             ✕
                           </span>
@@ -266,12 +266,14 @@ const ChatBoot = (props) => {
                 aria-labelledby="dropdownMenuButton1"
                 style={{ overflowY: "scroll", height: " 220px" }}
               >
-                {props.tags
-                  ? props.tags.map((item) => (
+                {props.conversationTags
+                  ? props.conversationTags.map((item, index) => (
                       <li>
                         <span
                           style={{ borderColor: item.color, color: item.color }}
-                          onClick={() => props.handleSelectedTagItems(item)}
+                          onClick={() =>
+                            props.handleSelectedTagItems(item, index)
+                          }
                         >
                           {" "}
                           <LocalOfferIcon

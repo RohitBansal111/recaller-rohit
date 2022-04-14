@@ -26,6 +26,7 @@ const TextPage = () => {
   const [deleteTags, setDeleteTags] = useState({});
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [conversationTags, setConversationTags] = useState();
 
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
@@ -70,6 +71,7 @@ const TextPage = () => {
     const res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
+      setConversationTags(res.data.data);
     }
   };
 
@@ -107,19 +109,32 @@ const TextPage = () => {
     }
   };
 
-  const handleSelectedTagItems = (item) => {
+  const handleSelectedTagItems = (item, index) => {
     const obj = {
       selectedId: item._id,
       selectedName: item.name,
       selectedColor: item.color,
     };
     setSelectedTags((oldArray) => [...oldArray, obj]);
+
+    const newArrayState = conversationTags.filter((value, theIndex) => {
+      return index !== theIndex;
+    });
+    setConversationTags(newArrayState);
   };
 
-  const handleSelectDel = (item) => {
-    let data = [...selectedTags];
-    data.splice(item, 1);
-    setSelectedTags(data);
+  const handleSelectDel = (item, index) => {
+    if (conversationTags) {
+      let data = [...selectedTags];
+      data.splice(data.indexOf(item), 1);
+      setSelectedTags(data);
+      console.log([item], "selectedTags");
+    } else {
+      var arr = [];
+      arr.push(item);
+      console.log(arr, "arr");
+      setConversationTags(arr);
+    }
   };
   return (
     <div className="content-page-layout text-page-content">
@@ -157,6 +172,7 @@ const TextPage = () => {
           handleSelectedTagItems={handleSelectedTagItems}
           newAray={selectedTags}
           handleSelectDel={handleSelectDel}
+          conversationTags={conversationTags}
         />
       </div>
       <MessageModal
