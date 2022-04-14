@@ -61,7 +61,7 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
+    id: "firstName",
     numeric: false,
     disablePadding: true,
     label: "Name",
@@ -300,11 +300,12 @@ export default function EnhancedTable(props) {
   const loadContacts = () => {
     let filtered = [];
     filtered =
-      rowsData &&
+      rowsData 
+      &&
       rowsData.filter(
         (contact) =>
-          contact.name.toLowerCase().startsWith(props.value.toLowerCase()) ||
-          contact.name.toLowerCase().startsWith(props.value.toLowerCase())
+          contact.firstName.toLowerCase().startsWith(props.value.toLowerCase()) ||
+          contact.firstName.toLowerCase().startsWith(props.value.toLowerCase())
       );
 
     const contactData =
@@ -327,7 +328,7 @@ export default function EnhancedTable(props) {
               role="checkbox"
               aria-checked={isItemSelected}
               tabIndex={-1}
-              key={row.name}
+              key={row.firstName}
               selected={isItemSelected}
             >
               <TableCell padding="checkbox">
@@ -340,7 +341,7 @@ export default function EnhancedTable(props) {
                 />
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row && row.name}
+                {row && row.firstName}
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>

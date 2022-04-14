@@ -16,7 +16,9 @@ const UploadSpreadsheetModal = (props) => {
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedType, setSelectedType] = useState("skip");
   const [selectProperty, setSelectProperty] = useState(null);
-  const [selectedName, setSelectedName] = useState("name");
+  const [selectedFirstName, setSelectedFirstName] = useState("firstName");
+  const [selectedLastName, setSelectedLastName] = useState("lastName");
+
   const [selectedEmail, setSelectedEmail] = useState("email");
   const [selectedPhone, setSelectedPhone] = useState("phone");
   const [mapArray, setMapArray] = useState("");
@@ -56,7 +58,8 @@ const UploadSpreadsheetModal = (props) => {
     setCsvFile(null);
     setSelectedPhone("phone");
     setSelectedEmail("email");
-    setSelectedName("name");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
     setNoteData("");
@@ -73,7 +76,8 @@ const UploadSpreadsheetModal = (props) => {
     const arr = [];
     csvData.map((item) => {
       const obj = {
-        [selectedName]: item.name,
+        [selectedFirstName]: item.firstName,
+        [selectedLastName]: item.lastName,
         [selectedPhone]: item.phone,
         [selectedEmail]: item.email,
       };
@@ -85,18 +89,31 @@ const UploadSpreadsheetModal = (props) => {
   const isValid = () => {
     let formData = true;
     switch (true) {
-      case selectedName &&
-        (selectedName === selectedPhone || selectedName === selectedEmail):
+      case selectedFirstName &&
+        (selectedFirstName === selectedPhone ||
+          selectedFirstName === selectedLastName ||
+          selectedFirstName === selectedEmail):
+        toast.error("Cannot map multiple columns to the same property ");
+        formData = false;
+        break;
+      case selectedLastName &&
+        (selectedLastName === selectedFirstName ||
+          selectedLastName === selectedPhone ||
+          selectedFirstName === selectedEmail):
         toast.error("Cannot map multiple columns to the same property ");
         formData = false;
         break;
       case selectedPhone &&
-        (selectedPhone === selectedName || selectedPhone === selectedEmail):
+        (selectedPhone === selectedFirstName ||
+          selectedPhone === selectedLastName ||
+          selectedPhone === selectedEmail):
         toast.error("Cannot map multiple columns to the same property ");
         formData = false;
         break;
       case selectedEmail &&
-        (selectedEmail === selectedName || selectedEmail === selectedPhone):
+        (selectedEmail === selectedFirstName ||
+          selectedEmail === selectedLastName ||
+          selectedEmail === selectedPhone):
         toast.error("Cannot map multiple columns to the same property ");
         formData = false;
         break;
@@ -132,9 +149,14 @@ const UploadSpreadsheetModal = (props) => {
     setStep(step + 1);
   };
 
-  const handleNameChange = (e) => {
-    setSelectedName(e.target.value);
+  const handleFirstNameChange = (e) => {
+    setSelectedFirstName(e.target.value);
   };
+
+  const handleLastNameChange = (e) => {
+    setSelectedLastName(e.target.value);
+  };
+
   const handleEmailChange = (e) => {
     setSelectedEmail(e.target.value);
     setErrors({});
@@ -162,7 +184,8 @@ const UploadSpreadsheetModal = (props) => {
     setCsvFile(null);
     setSelectedPhone("phone");
     setSelectedEmail("email");
-    setSelectedName("name");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
     setNoteData("");
@@ -175,8 +198,6 @@ const UploadSpreadsheetModal = (props) => {
       note: noteData,
     };
     let res = await addMultipleContact(obj);
-    console.log(res, "oooooooooooo");
-
     if (res && res.data && res.data.status === 200) {
       toast.success(res.data.message);
       props.getData();
@@ -188,7 +209,8 @@ const UploadSpreadsheetModal = (props) => {
     setCsvFile(null);
     setSelectedPhone("phone");
     setSelectedEmail("email");
-    setSelectedName("name");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
     setNoteData("");
@@ -282,11 +304,13 @@ const UploadSpreadsheetModal = (props) => {
                   tableData={csvData}
                   onRadioChange={onRadioChange}
                   handleSelectChange={handleSelectChange}
-                  handleNameChange={handleNameChange}
+                  handleFirstNameChange={handleFirstNameChange}
+                  handleLastNameChange={handleLastNameChange}
                   handlePhoneChange={handlePhoneChange}
                   handleEmailChange={handleEmailChange}
                   selectedEmail={selectedEmail}
-                  selectedName={selectedName}
+                  selectedFirstName={selectedFirstName}
+                  selectedLastName={selectedLastName}
                   selectedPhone={selectedPhone}
                   errors={errors}
                   errorsSelectMap={errorsSelectMap}

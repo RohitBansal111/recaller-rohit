@@ -10,7 +10,6 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./conversationTagModal";
 import TextChat from "./textChat";
 
-
 const ChatBoot = (props) => {
   return (
     <div className="chatbox-warpper">
@@ -149,7 +148,7 @@ const ChatBoot = (props) => {
               </div>
             </div>
             <div className="chat-now">
-                <TextChat />
+              <TextChat />
             </div>
             <div className="chat-text-editor">
               <Tabs
@@ -241,18 +240,18 @@ const ChatBoot = (props) => {
               <div className="dynamic-tags">
                 <ul>
                   {props.newAray
-                    ? props.newAray.map((item, index) => (
+                    ? props.newAray.map((item) => (
                         <li
                           style={{
-                            borderColor: item.selectedColor,
-                            color: props.selectedColor,
+                            borderColor: item.color,
+                            color: item.color,
                           }}
                         >
-                          {item.selectedName}{" "}
+                          {item.name}{" "}
                           <span
                             className="remove-tag"
-                            style={{ color: props.selectedColor }}
-                            onClick={() => props.handleSelectDel(item, index)}
+                            style={{ color: item.color }}
+                            onClick={() => props.handleSelectDel(item)}
                           >
                             ✕
                           </span>
@@ -321,10 +320,12 @@ const ChatBoot = (props) => {
             <h4>Monthly Balance</h4>
             <ul>
               <li>
-                <b>Credit used</b><span>$1900</span> 
+                <b>Credit used</b>
+                <span>$1900</span>
               </li>
               <li>
-                <b>Credit balance</b><span>$75000</span> 
+                <b>Credit balance</b>
+                <span>$75000</span>
               </li>
             </ul>
           </div>

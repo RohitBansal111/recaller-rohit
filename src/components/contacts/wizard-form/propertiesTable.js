@@ -19,11 +19,30 @@ const columns = [
 const PropertiesTable = (props) => {
   const data = [
     {
-      columnName: "Name",
-      firstValue: props.tableData[0]?.name,
+      columnName: "First Name",
+      firstValue: props.tableData[0]?.firstName,
       mapTo: (
-        <select value={props.selectedName} onChange={props.handleNameChange}>
-          <option value={"name"}> Name</option>
+        <select
+          value={props.selectedFirstName}
+          onChange={props.handleFirstNameChange}
+        >
+          <option value={"firstName"}> First Name</option>
+          <option value={"lastName"}> Last Name</option>
+          <option value={"phone"}>Primary Phone</option>
+          <option value={"email"}>Primary Email</option>
+        </select>
+      ),
+    },
+    {
+      columnName: "Last Name",
+      firstValue: props.tableData[0]?.lastName,
+      mapTo: (
+        <select
+          value={props.selectedLastName}
+          onChange={props.handleLastNameChange}
+        >
+          <option value={"firstName"}> First Name</option>
+          <option value={"lastName"}> Last Name</option>
           <option value={"phone"}>Primary Phone</option>
           <option value={"email"}>Primary Email</option>
         </select>
@@ -38,7 +57,8 @@ const PropertiesTable = (props) => {
             value={props.selectedPhone}
             onChange={props.handlePhoneChange}
           >
-            <option value={"name"}> Name</option>
+            <option value={"firstName"}> First Name</option>
+            <option value={"lastName"}> Last Name</option>
             <option value={"phone"} selected>
               Primary Phone
             </option>
@@ -56,7 +76,8 @@ const PropertiesTable = (props) => {
             value={props.selectedEmail}
             onChange={props.handleEmailChange}
           >
-            <option value={"name"}> Name</option>
+            <option value={"firstName"}> First Name</option>
+            <option value={"lastName"}> Last Name</option>
             <option value={"phone"}>Primary Phone</option>
             <option value={"email"} selected>
               Primary Email
