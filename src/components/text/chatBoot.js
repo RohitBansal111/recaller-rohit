@@ -274,10 +274,7 @@ const ChatBoot = (props) => {
                             props.handleSelectedTagItems(item, index)
                           }
                         >
-                          {" "}
-                          <LocalOfferIcon
-                            style={{ fill: "green !important" }}
-                          />{" "}
+                          <LocalOfferIcon style={{ fill: item.color }} />
                           {item.name}
                         </span>
                       </li>

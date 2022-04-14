@@ -25,27 +25,35 @@ const FilterTabs = (props) => {
         id="noanim-tab-example"
         className="mb-3"
       >
-        <Tab eventKey="all" title={
-          <Dropdown>
-            <Dropdown.Toggle
-              id="dropdown-basic"
-              className="btn btn-medium btn-primary filter-dropdown"
-            >
-              {`All( ${props.totalRecords})`}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#">All (3456)</Dropdown.Item>
-              <Dropdown.Item href="#"> Alberta Clients (322) </Dropdown.Item>
-              <Dropdown.Item href="#"> BC Clients (322) </Dropdown.Item>
-              <Dropdown.Item href="#"> Monitoba Clients (322) </Dropdown.Item>
-              <Dropdown.Item href="#"> Alberta Clients (322) </Dropdown.Item>
-              <Dropdown.Item href="#"> BC Clients (322) </Dropdown.Item>
-              <Dropdown.Item href="#"> Monitoba Clients (322) </Dropdown.Item>
-              <Dropdown.Item href="#"> Cimona Clients (322) </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          }>
-        </Tab>
+        <Tab
+          eventKey="all"
+          title={
+            <Dropdown>
+              <Dropdown.Toggle
+                id="dropdown-basic"
+                className="btn btn-medium btn-primary filter-dropdown"
+              >
+                {`All( ${props.totalRecords})`}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={props.handleAllTagsData}>
+                  {`All(${props.totalRecords})`}
+                </Dropdown.Item>
+                {props.tags
+                  ? props.tags.map((item) => (
+                      <>
+                        <Dropdown.Item
+                          onClick={() => props.handleTagsClick(item)}
+                        >
+                          {item.label}
+                        </Dropdown.Item>
+                      </>
+                    ))
+                  : []}
+              </Dropdown.Menu>
+            </Dropdown>
+          }
+        ></Tab>
         <Tab
           eventKey="filter"
           title={

@@ -13,7 +13,6 @@ const Import = () => {
   const [show, setShow] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
-  console.log(addContact);
   const [errors, setErrors] = useState({});
   const [isOpenDelete, setIsOpenDelete] = useState(false);
 
@@ -32,8 +31,9 @@ const Import = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [searchState, setSearchState] = React.useState("");
-  const [addTags, setAddTags] = useState();
+  const [addTags, setAddTags] = useState([]);
   const [selectTags, setSelectTags] = useState(null);
+  const [filterByTags, setFilterByTags] = useState([]);
 
   const isValid = () => {
     const regex =
@@ -98,8 +98,6 @@ const Import = () => {
       } else {
         toast.error(res.data.message);
       }
-    }else{
-      toast.error("Invalid Data")
     }
   };
 
@@ -115,7 +113,6 @@ const Import = () => {
     getContactTags();
   }, []);
 
-  const handleProceed = () => { };
   const onChange = (e) => {
     const { name, value } = e.target;
     setAddContact((prevTime) => {
@@ -207,6 +204,15 @@ const Import = () => {
     setErrors({});
   };
 
+  const handleTagsClick = (item) => {
+    const data = rowsData && rowsData.filter((val) => val.tagId == item.value);
+    setFilterByTags(data);
+  };
+
+  const handleAllTagsData = () => {
+    setFilterByTags([]);
+  };
+
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -231,7 +237,12 @@ const Import = () => {
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
-        <FilterTabs totalRecords={rowsData ? rowsData.length : 0} />
+        <FilterTabs
+          totalRecords={rowsData ? rowsData.length : 0}
+          tags={addTags}
+          handleTagsClick={handleTagsClick}
+          handleAllTagsData={handleAllTagsData}
+        />
       </div>
       <div className="contact-data-table-main">
         <EnhancedTable
@@ -255,6 +266,7 @@ const Import = () => {
           showDeleteContactModal={isOpenDelete}
           value={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
+          filterTagsData={filterByTags}
         />
       </div>
 
@@ -274,7 +286,7 @@ const Import = () => {
         uploadModal={uploadModal}
         handleUploadClose={handleUploadClose}
         handleUploadShow={handleUploadShow}
-        handleProceed={handleProceed}
+        // handleProceed={handleProceed}
         onChange={onChange}
         errors={errors}
         handleFinish={handleFinish}

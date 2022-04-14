@@ -300,11 +300,12 @@ export default function EnhancedTable(props) {
   const loadContacts = () => {
     let filtered = [];
     filtered =
-      rowsData 
-      &&
+      rowsData &&
       rowsData.filter(
         (contact) =>
-          contact.firstName.toLowerCase().startsWith(props.value.toLowerCase()) ||
+          contact.firstName
+            .toLowerCase()
+            .startsWith(props.value.toLowerCase()) ||
           contact.firstName.toLowerCase().startsWith(props.value.toLowerCase())
       );
 
@@ -341,7 +342,7 @@ export default function EnhancedTable(props) {
                 />
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row && row.firstName}
+                {row && row.firstName + " " + row.lastName}
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>
@@ -355,6 +356,67 @@ export default function EnhancedTable(props) {
           );
         });
     return contactData;
+  };
+
+  const loadTagsData = () => {
+    let filtered = [];
+    filtered =
+      props.filterTagsData &&
+      props.filterTagsData.filter(
+        (contact) =>
+          contact.firstName
+            .toLowerCase()
+            .startsWith(props.value.toLowerCase()) ||
+          contact.firstName.toLowerCase().startsWith(props.value.toLowerCase())
+      );
+
+    const filteredTagsData =
+      filtered &&
+      filtered.length > 0 &&
+      stableSort(filtered, getComparator(props.order, props.orderBy))
+        .slice(
+          props.page * props.rowsPerPage,
+          props.page * props.rowsPerPage + props.rowsPerPage
+        )
+
+        .map((row, index) => {
+          const isItemSelected = props.isSelected(row._id);
+          const labelId = `enhanced-table-checkbox-${index}`;
+
+          return (
+            <TableRow
+              hover
+              onClick={(event) => props.handleClick(event, row._id)}
+              role="checkbox"
+              aria-checked={isItemSelected}
+              tabIndex={-1}
+              key={row.firstName}
+              selected={isItemSelected}
+            >
+              <TableCell padding="checkbox">
+                <Checkbox
+                  color="primary"
+                  checked={isItemSelected}
+                  inputProps={{
+                    "aria-labelledby": labelId,
+                  }}
+                />
+              </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row && row.firstName + " " + row.lastName}
+              </TableCell>
+              <TableCell align="right">{row && row.email}</TableCell>
+              <TableCell align="right">{row && row.phone}</TableCell>
+              <TableCell align="right">
+                {moment(row && row.updatedAt).format("DD/MM/YYYY")}
+              </TableCell>
+              <TableCell align="right">
+                {moment(row && row.createdAt).format("DD/MM/YYYY")}
+              </TableCell>
+            </TableRow>
+          );
+        });
+    return filteredTagsData;
   };
 
   return (
@@ -384,10 +446,9 @@ export default function EnhancedTable(props) {
               rowCount={rowsData && rowsData.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
-
-              {loadContacts()}
+              {props.filterTagsData.length > 0
+                ? loadTagsData()
+                : loadContacts()}
               {props.emptyRows > 0 && (
                 <TableRow
                   style={{
