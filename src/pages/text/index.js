@@ -26,7 +26,7 @@ const TextPage = () => {
   const [deleteTags, setDeleteTags] = useState({});
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [conversationTags, setConversationTags] = useState();
+  const [conversationTags, setConversationTags] = useState([]);
 
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
@@ -110,32 +110,21 @@ const TextPage = () => {
   };
 
   const handleSelectedTagItems = (item, index) => {
-    const obj = {
-      selectedId: item._id,
-      selectedName: item.name,
-      selectedColor: item.color,
-    };
-    setSelectedTags((oldArray) => [...oldArray, obj]);
-
+    setSelectedTags((oldArray) => [...oldArray, item]);
     const newArrayState = conversationTags.filter((value, theIndex) => {
       return index !== theIndex;
     });
     setConversationTags(newArrayState);
   };
 
-  const handleSelectDel = (item, index) => {
-    if (conversationTags) {
-      let data = [...selectedTags];
-      data.splice(data.indexOf(item), 1);
-      setSelectedTags(data);
-      console.log([item], "selectedTags");
-    } else {
-      var arr = [];
-      arr.push(item);
-      console.log(arr, "arr");
-      setConversationTags(arr);
-    }
+  const handleSelectDel = (item) => {
+    let data = [...selectedTags];
+    data.splice(data.indexOf(item), 1);
+    setSelectedTags(data);
+    conversationTags.push(item);
+    setConversationTags(conversationTags);
   };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
