@@ -16,12 +16,14 @@ const Properties = ({ step, setStep, ...props }) => {
       <div className="properties-table">
         <PropertiesTable
           tableData={props.tableData}
-          handleNameChange={props.handleNameChange}
+          handleFirstNameChange={props.handleFirstNameChange}
+          handleLastNameChange={props.handleLastNameChange}
           handlePhoneChange={props.handlePhoneChange}
           handleEmailChange={props.handleEmailChange}
           selectedEmail={props.selectedEmail}
-          selectedName={props.selectedName}
+          selectedFirstName={props.selectedFirstName}
           selectedPhone={props.selectedPhone}
+          selectedLastName={props.selectedLastName}
           // errors={props.errors}
         />
       </div>

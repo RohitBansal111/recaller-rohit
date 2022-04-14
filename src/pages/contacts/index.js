@@ -13,6 +13,7 @@ const Import = () => {
   const [show, setShow] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
+  console.log(addContact);
   const [errors, setErrors] = useState({});
   const [isOpenDelete, setIsOpenDelete] = useState(false);
 
@@ -39,8 +40,12 @@ const Import = () => {
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let formData = true;
     switch (true) {
-      case !addContact.name:
-        setErrors({ name: "Name field is required!" });
+      case !addContact.firstName:
+        setErrors({ firstName: "First Name field is required!" });
+        formData = false;
+        break;
+      case !addContact.lastName:
+        setErrors({ lastName: "Last Name field is required!" });
         formData = false;
         break;
       case !addContact.phone:
@@ -93,6 +98,8 @@ const Import = () => {
       } else {
         toast.error(res.data.message);
       }
+    }else{
+      toast.error("Invalid Data")
     }
   };
 
@@ -108,7 +115,7 @@ const Import = () => {
     getContactTags();
   }, []);
 
-  const handleProceed = () => {};
+  const handleProceed = () => { };
   const onChange = (e) => {
     const { name, value } = e.target;
     setAddContact((prevTime) => {

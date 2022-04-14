@@ -18,16 +18,27 @@ const ContactModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <form className="main-form">
-            <div className="field-group flexFull">
-              <label>Name</label>
+            <div className="field-group flex2">
+              <label>First Name</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter Contact Name"
-                name="name"
+                placeholder="Enter First Name"
+                name="firstName"
                 onChange={props.onChange}
               />
-              <span className="spanError">{props.errors.name}</span>
+              <span className="spanError">{props.errors.firstName}</span>
+            </div>
+            <div className="field-group flex2">
+            <label>Last Name</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Last Name"
+                name="lastName"
+                onChange={props.onChange}
+              />
+              <span className="spanError">{props.errors.lastName}</span>
             </div>
             <div className="field-group flex2">
               <label>Phone</label>
@@ -40,6 +51,7 @@ const ContactModal = (props) => {
               />
               <span className="spanError">{props.errors.phone}</span>
             </div>
+          
             <div className="field-group flex2">
               <label>Email</label>
               <input
