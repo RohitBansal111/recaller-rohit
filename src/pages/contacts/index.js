@@ -132,7 +132,7 @@ const Import = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rowsData && rowsData.map((n) => n._id);
+      const newSelecteds = rowsData && rowsData.map((n) => n.contactid);
       setSelected(newSelecteds);
       return;
     }
