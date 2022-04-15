@@ -319,13 +319,13 @@ export default function EnhancedTable(props) {
         )
 
         .map((row, index) => {
-          const isItemSelected = props.isSelected(row._id);
+          const isItemSelected = props.isSelected(row.contactid);
           const labelId = `enhanced-table-checkbox-${index}`;
 
           return (
             <TableRow
               hover
-              onClick={(event) => props.handleClick(event, row._id)}
+              onClick={(event) => props.handleClick(event, row.contactid)}
               role="checkbox"
               aria-checked={isItemSelected}
               tabIndex={-1}
