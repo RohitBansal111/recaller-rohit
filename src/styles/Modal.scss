@@ -32,11 +32,14 @@
         border: none;
         .btn {
           width: auto;
-          padding: 10px 20px;
+          padding: 10px 20px !important;
           height: auto;
           margin: 10px;
-          border-radius: 30px;
+          border-radius: 30px !important;
           min-width: 120px;
+          font-weight: 600 !important;
+          font-family: 'Poppins', sans-serif !important;
+          text-transform: capitalize;
           &:hover {
             border: none !important;
           }

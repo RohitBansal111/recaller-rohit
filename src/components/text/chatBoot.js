@@ -15,7 +15,6 @@ import MicIcon from '@material-ui/icons/Mic';
 
 const ChatBoot = (props) => {
   const location = useLocation();
-  console.log(location.pathname)
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -154,6 +153,7 @@ const ChatBoot = (props) => {
             </div>
             <div className="chat-now">
               {location.pathname === '/text' && <TextChat />}
+              {location.pathname === '/email' && <TextChat />}
               {location.pathname === '/voice' && <VoiceRecordingChat />}
             </div>
             {location.pathname === '/voice' && 
@@ -162,7 +162,7 @@ const ChatBoot = (props) => {
                   <button type="button" className="btn btn-primary"> <MicIcon className="mr-2" /> Press & Recording</button>
               </div>
             }
-            {location.pathname === '/text' &&
+            {location.pathname === '/text' || location.pathname === '/email' ?
             <div className="chat-text-editor">
               <Tabs
                 defaultActiveKey="all"
@@ -206,7 +206,7 @@ const ChatBoot = (props) => {
                 </Tab>
               </Tabs>
             </div>
-            }
+            : ''}
           </div>
         </div>
         <div className="chat-compassion-area">

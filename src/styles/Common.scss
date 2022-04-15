@@ -56,6 +56,20 @@ ul {
   border: 0;
 }
 
+// Data not found
+.data-notFound{
+  @include flexAllCenter;
+  min-height: 400px;
+  @include Phone{
+    min-height: 200px;
+  }
+}
+.MuiLoadingButton-loadingIndicator{
+  position: relative;
+  left: 0px;
+  margin-right: 5px;
+}
+
 // Layout
 .page-wrapper {
   display: flex;
