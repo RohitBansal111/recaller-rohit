@@ -20,6 +20,7 @@ const Import = () => {
     setShow(false);
     setSelectTags(null);
   };
+  const [loading, setLoading] = useState(false)
   const handleShow = () => setShow(true);
   const handleUploadShow = () => setUploadModal(true);
   const handleUploadClose = () => setUploadModal(false);
@@ -83,6 +84,7 @@ const Import = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true)
     if (isValid()) {
       if (selectTags) {
         addContact.tag = selectTags.value;
@@ -97,6 +99,7 @@ const Import = () => {
         getData();
       } else {
         toast.error(res.data.message);
+       
       }
     }
   };
@@ -272,6 +275,7 @@ const Import = () => {
 
       <ContactModal
         show={show}
+        loading={loading}
         handleClose={handleClose}
         handleShow={handleShow}
         handleSubmit={handleSubmit}

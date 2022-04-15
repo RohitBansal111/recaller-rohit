@@ -2,10 +2,12 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const animatedComponents = makeAnimated();
 
 const ContactModal = (props) => {
+  console.log(props.loading)
   return (
     <>
       <Modal
@@ -79,13 +81,13 @@ const ContactModal = (props) => {
             </div>
           </form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer> 
           <Button variant="secondary" onClick={props.handleClose}>
             Dismiss
-          </Button>
-          <Button variant="primary" onClick={props.handleSubmit}>
+          </Button> 
+          <LoadingButton loadingPosition="start" loading={props.loading} onClick={props.handleSubmit} className="btn btn-primary" variant="contained" >
             Add Contact
-          </Button>
+          </LoadingButton>
         </Modal.Footer>
       </Modal>
     </>

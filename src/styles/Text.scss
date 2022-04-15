@@ -323,6 +323,39 @@
     min-height: calc(100vh - 355px);
     overflow: auto;
     padding-bottom: 10px;
+    &.voice-chat-screen{
+        max-height: calc(100vh - 205px);
+        min-height: calc(100vh - 205px);
+        ul{
+            li{
+                width: 70%;
+                display: flex;
+                align-items: center;
+                .avtar{
+                    img{
+                        width: 35px;
+                        height: 35px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                }
+                svg{
+                    margin: 0px 8px;
+                    font-size: 33px;
+                    color: #c3bfbf;
+                    cursor: pointer;
+                }
+                .background-recording{
+                    background-image: url('./../assets/images/sound-recording.png');
+                    width: 100%;
+                    height: 29px;
+                    object-fit: contain;
+                    background-repeat: repeat;
+                    background-size: contain;
+                }
+            }
+        }
+    }
     ul{
         padding: 10px;
         li{
@@ -343,6 +376,24 @@
                 border-color: #cddfea;
                 margin-left: auto;
             }
+        }
+    }
+}
+.voice-recorder-box{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $Theme-white;
+    h4{
+        @include flexAllCenter;
+        font-size: 18px;
+        span{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: red;
+            margin-right: 6px;
         }
     }
 }

@@ -9,8 +9,12 @@ import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./conversationTagModal";
 import TextChat from "./textChat";
+import VoiceRecordingChat from "../voice/voice-recording-chat";
+import { useLocation } from "react-router-dom";
+import MicIcon from '@material-ui/icons/Mic';
 
 const ChatBoot = (props) => {
+  const location = useLocation();
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -148,8 +152,17 @@ const ChatBoot = (props) => {
               </div>
             </div>
             <div className="chat-now">
-              <TextChat />
+              {location.pathname === '/text' && <TextChat />}
+              {location.pathname === '/email' && <TextChat />}
+              {location.pathname === '/voice' && <VoiceRecordingChat />}
             </div>
+            {location.pathname === '/voice' && 
+              <div className="voice-recorder-box">
+                  <h4><span></span>  0.04</h4>
+                  <button type="button" className="btn btn-primary"> <MicIcon className="mr-2" /> Press & Recording</button>
+              </div>
+            }
+            {location.pathname === '/text' || location.pathname === '/email' ?
             <div className="chat-text-editor">
               <Tabs
                 defaultActiveKey="all"
@@ -193,6 +206,7 @@ const ChatBoot = (props) => {
                 </Tab>
               </Tabs>
             </div>
+            : ''}
           </div>
         </div>
         <div className="chat-compassion-area">

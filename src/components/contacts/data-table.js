@@ -28,6 +28,7 @@ import SendMessageModal from "../../models/sendMessageModal";
 import DeleteContactModal from "../../models/deleteContactModal";
 import LogNoteModal from "../../models/LogNoteModal";
 import moment from "moment";
+import LoaderPic from './../../assets/images/loader.gif'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -421,54 +422,63 @@ export default function EnhancedTable(props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar
-          numSelected={props.selected.length}
-          showDeleteContactModal={props.showDeleteContactModal}
-          handleContactDeleteV={props.handleContactDeleteV}
-          handleDeleteContact={props.handleDeleteContact}
-          handleCloseDeleteModal={props.handleCloseDeleteModal}
-          handleSearchChange={props.handleSearchChange}
-          value={props.value}
-        />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={props.dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={props.selected.length}
-              order={props.order}
-              orderBy={props.orderBy}
-              onSelectAllClick={props.handleSelectAllClick}
-              onRequestSort={props.handleRequestSort}
-              rowCount={rowsData && rowsData.length}
-            />
-            <TableBody>
-              {props.filterTagsData.length > 0
-                ? loadTagsData()
-                : loadContacts()}
-              {props.emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (props.dense ? 33 : 53) * props.emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rowsData ? rowsData.length : 0}
-          rowsPerPage={props.rowsPerPage}
-          page={props.page}
-          onPageChange={props.handleChangePage}
-          onRowsPerPageChange={props.handleChangeRowsPerPage}
-        />
+        {!rowsData &&
+          <div className="data-notFound">
+              <img src={LoaderPic} alt="not found" />
+          </div>
+        }
+        {rowsData && 
+        <>
+          <EnhancedTableToolbar
+            numSelected={props.selected.length}
+            showDeleteContactModal={props.showDeleteContactModal}
+            handleContactDeleteV={props.handleContactDeleteV}
+            handleDeleteContact={props.handleDeleteContact}
+            handleCloseDeleteModal={props.handleCloseDeleteModal}
+            handleSearchChange={props.handleSearchChange}
+            value={props.value}
+          />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={props.dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={props.selected.length}
+                order={props.order}
+                orderBy={props.orderBy}
+                onSelectAllClick={props.handleSelectAllClick}
+                onRequestSort={props.handleRequestSort}
+                rowCount={rowsData && rowsData.length}
+              />
+              <TableBody>
+                {props.filterTagsData.length > 0
+                  ? loadTagsData()
+                  : loadContacts()}
+                {props.emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (props.dense ? 33 : 53) * props.emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rowsData ? rowsData.length : 0}
+            rowsPerPage={props.rowsPerPage}
+            page={props.page}
+            onPageChange={props.handleChangePage}
+            onRowsPerPageChange={props.handleChangeRowsPerPage}
+          />
+          </>
+        }
       </Paper>
     </Box>
   );
