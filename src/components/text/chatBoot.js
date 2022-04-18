@@ -11,9 +11,10 @@ import ConversationTagModal from "./conversationTagModal";
 import TextChat from "./textChat";
 import VoiceRecordingChat from "../voice/voice-recording-chat";
 import { useLocation } from "react-router-dom";
-import MicIcon from '@material-ui/icons/Mic';
+import MicIcon from "@material-ui/icons/Mic";
 
 const ChatBoot = (props) => {
+  console.log(props.sendMessage, "props.sendMessage");
   const location = useLocation();
   return (
     <div className="chatbox-warpper">
@@ -152,61 +153,83 @@ const ChatBoot = (props) => {
               </div>
             </div>
             <div className="chat-now">
-              {location.pathname === '/text' && <TextChat />}
-              {location.pathname === '/email' && <TextChat />}
-              {location.pathname === '/voice' && <VoiceRecordingChat />}
+              {location.pathname === "/text" && (
+                <TextChat messageData={props.messageData} />
+              )}
+              {location.pathname === "/email" && (
+                <TextChat messageData={props.messageData} />
+              )}
+              {location.pathname === "/voice" && <VoiceRecordingChat />}
             </div>
-            {location.pathname === '/voice' && 
+            {location.pathname === "/voice" && (
               <div className="voice-recorder-box">
-                  <h4><span></span>  0.04</h4>
-                  <button type="button" className="btn btn-primary"> <MicIcon className="mr-2" /> Press & Recording</button>
+                <h4>
+                  <span></span> 0.04
+                </h4>
+                <button type="button" className="btn btn-primary">
+                  <MicIcon className="mr-2" /> Press & Recording
+                </button>
               </div>
-            }
-            {location.pathname === '/text' || location.pathname === '/email' ?
-            <div className="chat-text-editor">
-              <Tabs
-                defaultActiveKey="all"
-                transition={false}
-                id="noanim-tab-example"
-                className="mb-3"
-              >
-                <Tab eventKey="all" title="Message">
-                  <div className="chat-textarea">
-                    <form className="main-form">
-                      <div className="field-group flexFull">
-                        <textarea placeholder="Type your message..."></textarea>
-                      </div>
-                      <div className="field-group btn-groups flexFull">
-                        <button type="button" className="btn-primary-outline">
-                          Send & Close
-                        </button>
-                        <button type="button" className="btn-primary-outline">
-                          Send
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </Tab>
-                <Tab eventKey="filter" title="Internal Note">
-                  <div className="chat-textarea">
-                    <form className="main-form">
-                      <div className="field-group flexFull">
-                        <textarea placeholder="Type your note, only you and your teammates will see it."></textarea>
-                      </div>
-                      <div className="field-group btn-groups flexFull">
-                        <button type="button" className="btn-primary-outline">
-                          Send & Close
-                        </button>
-                        <button type="button" className="btn-primary-outline">
-                          Send
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </Tab>
-              </Tabs>
-            </div>
-            : ''}
+            )}
+            {location.pathname === "/text" || location.pathname === "/email" ? (
+              <div className="chat-text-editor">
+                <Tabs
+                  defaultActiveKey="all"
+                  transition={false}
+                  id="noanim-tab-example"
+                  className="mb-3"
+                >
+                  <Tab eventKey="all" title="Message">
+                    <div className="chat-textarea">
+                      <form className="main-form">
+                        <div className="field-group flexFull">
+                          <textarea
+                            placeholder="Type your message..."
+                            name="sendMessage"
+                            value={props.sendMessage}
+                            onChange={props.onHandleChange}
+                          >
+                            {props.sendMessage}
+                          </textarea>
+                        </div>
+                        <div className="field-group btn-groups flexFull">
+                          <button
+                            type="button"
+                            className="btn-primary-outline"
+                            disabled={!props.sendMessage ? true : false}
+                            onClick={props.onHandleClick}
+                          >
+                            Send
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </Tab>
+                  <Tab eventKey="filter" title="Internal Note">
+                    <div className="chat-textarea">
+                      <form className="main-form">
+                        <div className="field-group flexFull">
+                          <textarea
+                            placeholder="Type your note, only you and your teammates will see it."
+                            name="sendInternalMessage"
+                          ></textarea>
+                        </div>
+                        <div className="field-group btn-groups flexFull">
+                          <button type="button" className="btn-primary-outline">
+                            Send & Close
+                          </button>
+                          <button type="button" className="btn-primary-outline">
+                            Send
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </Tab>
+                </Tabs>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="chat-compassion-area">

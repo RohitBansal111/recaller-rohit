@@ -27,6 +27,8 @@ const TextPage = () => {
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [conversationTags, setConversationTags] = useState([]);
+  const [sendMessage, setSendMessage] = useState("");
+  const [messageData, setMessageData] = useState([]);
 
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
@@ -125,6 +127,16 @@ const TextPage = () => {
     setConversationTags(conversationTags);
   };
 
+  const onHandleChange = (e) => {
+    setSendMessage(e.target.value);
+  };
+  const onHandleClick = () => {
+    const obj = {
+      sendMessage: sendMessage,
+    };
+    setMessageData([...messageData, obj]);
+    setSendMessage("");
+  };
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -162,6 +174,10 @@ const TextPage = () => {
           newAray={selectedTags}
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
+          onHandleChange={onHandleChange}
+          sendMessage={sendMessage}
+          onHandleClick={onHandleClick}
+          messageData={messageData}
         />
       </div>
       <MessageModal

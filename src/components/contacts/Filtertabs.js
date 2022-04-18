@@ -8,6 +8,8 @@ const FilterTabs = (props) => {
   const [properties, setProperties] = useState("");
   const [rules, setRules] = useState("");
   const [daysAgo, setDaysAgo] = useState("");
+  const [value, setValue] = useState("");
+
   const handleCancel = (e) => {
     // console.log(e);
   };
@@ -17,6 +19,11 @@ const FilterTabs = (props) => {
   const handlePropertiesChange = (event) => {
     setProperties(event.target.value);
   };
+
+  const handleSelect = (e) => {
+    setValue(e);
+  };
+
   return (
     <div className="filter-tabs">
       <Tabs
@@ -26,14 +33,14 @@ const FilterTabs = (props) => {
         className="mb-3"
       >
         <Tab
-          eventKey="all"
+          eventKey={"all"}
           title={
-            <Dropdown>
+            <Dropdown onSelect={handleSelect}>
               <Dropdown.Toggle
                 id="dropdown-basic"
                 className="btn btn-medium btn-primary filter-dropdown"
               >
-                {`All( ${props.totalRecords})`}
+                {value ? `${value}` : `All( ${props.totalRecords})`}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item onClick={props.handleAllTagsData}>
@@ -43,6 +50,7 @@ const FilterTabs = (props) => {
                   ? props.tags.map((item) => (
                       <>
                         <Dropdown.Item
+                          eventKey={item.label}
                           onClick={() => props.handleTagsClick(item)}
                         >
                           {item.label}

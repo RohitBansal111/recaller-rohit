@@ -7,7 +7,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 const animatedComponents = makeAnimated();
 
 const ContactModal = (props) => {
-  console.log(props.loading)
   return (
     <>
       <Modal
