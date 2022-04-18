@@ -1,5 +1,13 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal';
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
+
+const options = [
+  { value: 'john.carter@gmail.comn', label: 'john.carter@gmail.comn' },
+  { value: 'angelia.baith@gmail.com', label: 'angelia.baith@gmail.com'},
+  { value: 'vihan.honki@gmail.com', label: 'vihan.honki@gmail.com' }
+]
 
 const EmailModal = ({open, handleCloseMessageModal}) => {
   return (
@@ -11,12 +19,7 @@ const EmailModal = ({open, handleCloseMessageModal}) => {
                 <form className="main-form">
                     <div className="field-group flexFull">
                         <label>Enter Contact Email</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter here"
-                            name="name"
-                        />
+                        <Select options={options} isMulti />
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

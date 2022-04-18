@@ -1,50 +1,16 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal';
-// import { WithContext as ReactTags } from 'react-tag-input';
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 
-// const CONTACTS = ["new","new 2"]
-// const suggestions = CONTACTS.map(contact => {
-//     return {
-//       id: contact,
-//       text: contact
-//     };
-//   });
-  
-//   const KeyCodes = {
-//     comma: 188,
-//     enter: 13
-//   };
-  
-//   const delimiters = [KeyCodes.comma, KeyCodes.enter];
+const options = [
+  { value: 'John Carter', label: 'John Carter' },
+  { value: 'Anglina Baith', label: 'Anglina Baith' },
+  { value: 'Vihaan Honki', label: 'Vihaan Honki' }
+]
 
 const MessageModal = ({open, handleCloseMessageModal}) => {
-    // const [tags, setTags] = React.useState([
-    //     { id: 'Thailand', text: 'Thailand' },
-    //     { id: 'India', text: 'India' },
-    //     { id: 'Vietnam', text: 'Vietnam' },
-    //     { id: 'Turkey', text: 'Turkey' }
-    //   ]);
     
-    //   const handleDelete = i => {
-    //     setTags(tags.filter((tag, index) => index !== i));
-    //   };
-    
-    //   const handleAddition = tag => {
-    //     setTags([...tags, tag]);
-    //   };
-    //   const handleDrag = (tag, currPos, newPos) => {
-    //     const newTags = tags.slice();
-    
-    //     newTags.splice(currPos, 1);
-    //     newTags.splice(newPos, 0, tag);
-    
-    //     // re-render
-    //     setTags(newTags);
-    //   };
-    
-      const handleTagClick = index => {
-        console.log('The tag at index ' + index + ' was clicked');
-      };
   return (
         <Modal open={open} onClose={handleCloseMessageModal} center>
             <div className="modal-header">
@@ -54,12 +20,7 @@ const MessageModal = ({open, handleCloseMessageModal}) => {
                 <form className="main-form">
                     <div className="field-group flexFull">
                         <label>Enter Contact Name</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="search here"
-                            name="name"
-                        />
+                        <Select options={options} isMulti />
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

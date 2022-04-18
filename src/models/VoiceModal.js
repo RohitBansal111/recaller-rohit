@@ -1,5 +1,13 @@
 import React from 'react'
 import { Modal } from 'react-responsive-modal';
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
+
+const options = [
+  { value: 'Voice One', label: 'Voice One' },
+  { value: 'Voice Two', label: 'Voice Two'},
+  { value: 'Voice Three', label: 'Voice Three' }
+]
 
 const VoiceModal = ({open, handleCloseMessageModal}) => {
   return (
@@ -11,12 +19,7 @@ const VoiceModal = ({open, handleCloseMessageModal}) => {
                 <form className="main-form">
                     <div className="field-group flexFull">
                         <label>Enter Contact Email</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter here"
-                            name="name"
-                        />
+                        <Select options={options} isMulti />
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

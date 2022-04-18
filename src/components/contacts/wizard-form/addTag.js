@@ -12,8 +12,7 @@ const AddTag = ({ ...props }) => {
           <div className="field-group">
             <label> Select Tag </label>
             <Select
-              // defaultValue={[props.options[2], props.options[3]]}
-              isMulti={false}
+              isMulti
               name="colors"
               components={animatedComponents}
               options={props.options}
