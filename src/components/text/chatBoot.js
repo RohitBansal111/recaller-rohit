@@ -14,7 +14,6 @@ import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
 
 const ChatBoot = (props) => {
-  console.log(props.sendMessage, "props.sendMessage");
   const location = useLocation();
   return (
     <div className="chatbox-warpper">
@@ -35,6 +34,11 @@ const ChatBoot = (props) => {
               </div>
             </form>
             <ul className="user-list-main">
+              {/* {
+                props.massages.map((item) => (
+                  <></>
+                ))
+              } */}
               <li>
                 <h5>
                   {" "}

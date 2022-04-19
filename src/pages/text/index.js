@@ -8,16 +8,11 @@ import {
   updateTagsApi,
 } from "../../api/tag";
 import { toast } from "react-toastify";
+import { getContactApi } from ".././../api/contact";
+import { getMessageApi, sendMessageApi } from "../../api/textMessage";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
-  const handleNewMessage = () => {
-    setOpenMessageModal(true);
-  };
-  const handleCloseMessageModal = () => {
-    setOpenMessageModal(false);
-  };
-
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
@@ -29,6 +24,19 @@ const TextPage = () => {
   const [conversationTags, setConversationTags] = useState([]);
   const [sendMessage, setSendMessage] = useState("");
   const [messageData, setMessageData] = useState([]);
+  const [rowsData, setRowsData] = useState();
+  const [sendNewMessage, setSendNewMessage] = useState("");
+  const [selected, setSelected] = useState([]);
+  const [messages, setMessages] = useState();
+
+  const handleNewMessage = () => {
+    setOpenMessageModal(true);
+  };
+  const handleCloseMessageModal = () => {
+    setOpenMessageModal(false);
+    setSelected([]);
+    setSendNewMessage("");
+  };
 
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
@@ -55,6 +63,8 @@ const TextPage = () => {
 
   useEffect(() => {
     getTags();
+    getData();
+    getMessage();
   }, []);
 
   const handleClick = async () => {
@@ -137,6 +147,50 @@ const TextPage = () => {
     setMessageData([...messageData, obj]);
     setSendMessage("");
   };
+
+  const getData = async () => {
+    let res = await getContactApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return {
+          value: item.contactid,
+          label: item.firstName + " " + item.lastName,
+        };
+      });
+      setRowsData(data);
+    }
+  };
+
+  const handleNewMChange = (e) => {
+    setSendNewMessage(e.target.value);
+  };
+
+  const handleSendClick = async () => {
+    let contactid = selected.map((item) => item.value);
+    const obj = {
+      contactid: contactid,
+      message: sendNewMessage,
+    };
+    let res = await sendMessageApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      toast.success("New Message sent Successfully");
+      setOpenMessageModal(false);
+      setSelected([]);
+      setSendNewMessage("");
+    }
+  };
+
+  const handleSelectChange = (values) => {
+    setSelected(values);
+  };
+
+  const getMessage = async () => {
+    const res = await getMessageApi();
+    if (res && res.data && res.data.status === 200) {
+      setMessages(res.data.data);
+    }
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -183,6 +237,12 @@ const TextPage = () => {
       <MessageModal
         open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
+        options={rowsData}
+        handleSendClick={handleSendClick}
+        sendNewMessage={sendNewMessage}
+        handleNewMChange={handleNewMChange}
+        handleSelectChange={handleSelectChange}
+        selected={selected}
       />
     </div>
   );
