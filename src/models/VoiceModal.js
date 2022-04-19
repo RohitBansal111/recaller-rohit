@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Modal } from 'react-responsive-modal';
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
+import NewVoiceSelectTag from '../components/voice/newVoiceSelectTags';
 
 const options = [
   { value: 'Voice One', label: 'Voice One' },
@@ -10,6 +9,10 @@ const options = [
 ]
 
 const VoiceModal = ({open, handleCloseMessageModal}) => {
+    const [selected, setSelected] = useState([]);
+    const handleSelectChange = (values) => {
+        setSelected(values);
+    };
   return (
         <Modal open={open} onClose={handleCloseMessageModal} center>
             <div className="modal-header">
@@ -18,8 +21,13 @@ const VoiceModal = ({open, handleCloseMessageModal}) => {
             <div className="modal-body">
                 <form className="main-form">
                     <div className="field-group flexFull">
-                        <label>Enter Contact Email</label>
-                        <Select options={options} isMulti />
+                        <label>Enter Contact Voice</label>
+                        <NewVoiceSelectTag
+                            onChange={handleSelectChange}
+                            isMulti
+                            options={options}
+                            value={selected}
+                        />
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

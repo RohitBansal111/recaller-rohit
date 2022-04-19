@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Modal } from 'react-responsive-modal';
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
+import NewMessageSelectTag from './newMessageSelectTag';
+
 
 const options = [
   { value: 'John Carter', label: 'John Carter' },
@@ -10,6 +10,10 @@ const options = [
 ]
 
 const MessageModal = ({open, handleCloseMessageModal}) => {
+    const [selected, setSelected] = useState([]);
+    const handleSelectChange = (values) => {
+        setSelected(values);
+    };
     
   return (
         <Modal open={open} onClose={handleCloseMessageModal} center>
@@ -20,7 +24,12 @@ const MessageModal = ({open, handleCloseMessageModal}) => {
                 <form className="main-form">
                     <div className="field-group flexFull">
                         <label>Enter Contact Name</label>
-                        <Select options={options} isMulti />
+                        <NewMessageSelectTag
+                            onChange={handleSelectChange}
+                            isMulti
+                            options={options} 
+                            value={selected}
+                        />
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

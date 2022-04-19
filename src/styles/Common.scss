@@ -316,3 +316,18 @@ span.spanError {
     text-decoration: none;
   }
 }
+
+// select Tags
+.select-tags-styles{
+  display: flex;
+  flex-direction: column;
+  >div{
+    &:first-child{
+      order: 2;
+      margin-top: 5px;
+    }
+    &:last-child{
+      order: 1;
+    }
+  }
+}

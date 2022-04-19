@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Modal } from 'react-responsive-modal';
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
+import NewEmailSelectTag from '../components/email/newEmailSelectTag';
 
 const options = [
   { value: 'john.carter@gmail.comn', label: 'john.carter@gmail.comn' },
@@ -10,6 +9,10 @@ const options = [
 ]
 
 const EmailModal = ({open, handleCloseMessageModal}) => {
+    const [selected, setSelected] = useState([]);
+    const handleSelectChange = (values) => {
+        setSelected(values);
+    };
   return (
         <Modal open={open} onClose={handleCloseMessageModal} center>
             <div className="modal-header">
@@ -19,7 +22,12 @@ const EmailModal = ({open, handleCloseMessageModal}) => {
                 <form className="main-form">
                     <div className="field-group flexFull">
                         <label>Enter Contact Email</label>
-                        <Select options={options} isMulti />
+                        <NewEmailSelectTag
+                            onChange={handleSelectChange}
+                            isMulti
+                            options={options}
+                            value={selected}
+                        />
                     </div>
                     <div className="field-group flexFull">
                         <label>Message</label>

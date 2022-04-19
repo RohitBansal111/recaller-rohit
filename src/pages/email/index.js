@@ -6,8 +6,6 @@ import EmailModal from "../../models/EmailModal";
 
 const EmailPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
- 
-
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
