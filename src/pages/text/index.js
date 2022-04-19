@@ -24,18 +24,36 @@ const TextPage = () => {
   const [conversationTags, setConversationTags] = useState([]);
   const [sendMessage, setSendMessage] = useState("");
   const [messageData, setMessageData] = useState([]);
-  const [rowsData, setRowsData] = useState();
+  const [rowsData, setRowsData] = useState([]);
   const [sendNewMessage, setSendNewMessage] = useState("");
   const [selected, setSelected] = useState([]);
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState([]);
+  const [preview, setPreview] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setPreview(false);
+    setErrors({});
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setSelected([]);
     setSendNewMessage("");
+    setErrors({});
+  };
+
+  const isValid = () => {
+    let formData = true;
+    switch (true) {
+      case selected.length == 0:
+        setErrors({ selected: "Please Select a Contact" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
   };
 
   const handleCloseETModal = () => {
@@ -155,6 +173,7 @@ const TextPage = () => {
         return {
           value: item.contactid,
           label: item.firstName + " " + item.lastName,
+          phone: item.phone,
         };
       });
       setRowsData(data);
@@ -163,25 +182,29 @@ const TextPage = () => {
 
   const handleNewMChange = (e) => {
     setSendNewMessage(e.target.value);
+    setErrors({});
   };
 
   const handleSendClick = async () => {
-    let contactid = selected.map((item) => item.value);
-    const obj = {
-      contactid: contactid,
-      message: sendNewMessage,
-    };
-    let res = await sendMessageApi(obj);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("New Message sent Successfully");
-      setOpenMessageModal(false);
-      setSelected([]);
-      setSendNewMessage("");
+    if (isValid()) {
+      let contactid = selected.map((item) => item.value);
+      const obj = {
+        contactid: contactid,
+        message: sendNewMessage,
+      };
+      let res = await sendMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setOpenMessageModal(false);
+        setSelected([]);
+        setSendNewMessage("");
+      }
     }
   };
 
   const handleSelectChange = (values) => {
     setSelected(values);
+    setErrors({});
   };
 
   const getMessage = async () => {
@@ -190,7 +213,16 @@ const TextPage = () => {
       setMessages(res.data.data);
     }
   };
+  console.log(messages, "eeeeeeeeMMMM");
+  const handlePreview = () => {
+    setOpenMessageModal(true);
+    setPreview(true);
+  };
 
+  const handleBackMessageModal = () => {
+    setOpenMessageModal(true);
+    setPreview(false);
+  };
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -243,6 +275,10 @@ const TextPage = () => {
         handleNewMChange={handleNewMChange}
         handleSelectChange={handleSelectChange}
         selected={selected}
+        handlePreview={handlePreview}
+        preview={preview}
+        handleBackMessageModal={handleBackMessageModal}
+        errors={errors}
       />
     </div>
   );

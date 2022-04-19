@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -34,11 +34,6 @@ const ChatBoot = (props) => {
               </div>
             </form>
             <ul className="user-list-main">
-              {/* {
-                props.massages.map((item) => (
-                  <></>
-                ))
-              } */}
               <li>
                 <h5>
                   {" "}

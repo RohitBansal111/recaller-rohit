@@ -24,7 +24,7 @@ const Import = () => {
   const handleShow = () => setShow(true);
   const handleUploadShow = () => setUploadModal(true);
   const handleUploadClose = () => setUploadModal(false);
-  const [rowsData, setRowsData] = React.useState();
+  const [rowsData, setRowsData] = React.useState([]);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("name");
   const [selected, setSelected] = React.useState([]);
