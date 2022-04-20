@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { addTagsApi, deleteTagApi, getTagsApi, updateTagsApi } from "../../api/tag";
+import {
+  addTagsApi,
+  deleteTagApi,
+  getTagsApi,
+  updateTagsApi,
+} from "../../api/tag";
 import ChatBoot from "../../components/text/chatBoot";
 import EmailModal from "../../models/EmailModal";
 
@@ -14,35 +19,57 @@ const EmailPage = () => {
   const [deleteTags, setDeleteTags] = useState({});
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [conversationTags, setConversationTags] = useState();
+  const [conversationTags, setConversationTags] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  const isValid = () => {
+    let formData = true;
+    switch (true) {
+      case !addTags.name:
+        setErrors({ name: "Please Enter a Tag Name" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setErrors({})
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
+    setErrors({})
   };
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
+    setErrors({})
   };
   const handleManageTag = () => {
     setOpenManageTagModal(true);
+    setErrors({})
   };
   const handleCloseManageModal = () => {
     setOpenManageTagModal(false);
+    setErrors({})
   };
   const handleCMModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
+    setErrors({})
   };
 
   const handleCloseCTModal = () => {
     setOpenCreateTagModal(false);
     setaddTags({});
+    setErrors({})
   };
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
+    setErrors({})
   };
 
   useEffect(() => {
@@ -50,17 +77,18 @@ const EmailPage = () => {
   }, []);
 
   const handleClick = async () => {
-    let res = await addTagsApi(addTags);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("Tags Added Successfully");
-      setOpenCreateTagModal(false);
-      setaddTags({});
-      getTags();
-    } else {
-      toast.error(res.data.massage);
+    if (isValid()) {
+      let res = await addTagsApi(addTags);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Tags Added Successfully");
+        setOpenCreateTagModal(false);
+        setaddTags({});
+        getTags();
+      } else {
+        toast.error(res.data.massage);
+      }
     }
   };
-
   const getTags = async () => {
     const res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
@@ -131,7 +159,6 @@ const EmailPage = () => {
     }
   };
 
-
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -169,6 +196,7 @@ const EmailPage = () => {
           newAray={selectedTags}
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
+          errors={errors}
         />
       </div>
       <EmailModal

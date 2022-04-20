@@ -19,6 +19,7 @@ const CreateTagModal = ({ open, handleCloseCTModal, ...props }) => {
               value={props.addTags.name}
               onChange={props.handleChange}
             />
+            <span className="spanError">{props.errors.name}</span>
           </div>
           <div className="field-group flex2">
             <label>Color</label>

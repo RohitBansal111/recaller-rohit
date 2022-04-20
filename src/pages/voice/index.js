@@ -19,36 +19,57 @@ const Voice = () => {
   const [deleteTags, setDeleteTags] = useState({});
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [conversationTags, setConversationTags] = useState();
+  const [conversationTags, setConversationTags] = useState([]);
+  const [errors, setErrors] = useState({});
 
+  const isValid = () => {
+    let formData = true;
+    switch (true) {
+      case !addTags.name:
+        setErrors({ name: "Please Enter a Tag Name" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setErrors({})
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
+    setErrors({});
   };
 
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
+    setErrors({});
   };
   const handleManageTag = () => {
     setOpenManageTagModal(true);
+    setErrors({});
   };
   const handleCloseManageModal = () => {
     setOpenManageTagModal(false);
+    setErrors({});
   };
   const handleCMModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
+    setErrors({});
   };
 
   const handleCloseCTModal = () => {
     setOpenCreateTagModal(false);
     setaddTags({});
+    setErrors({});
   };
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
+    setErrors({})
   };
 
   useEffect(() => {
@@ -56,14 +77,15 @@ const Voice = () => {
   }, []);
 
   const handleClick = async () => {
-    let res = await addTagsApi(addTags);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("Tags Added Successfully");
-      setOpenCreateTagModal(false);
-      setaddTags({});
-      getTags();
-    } else {
-      toast.error(res.data.massage);
+    if (isValid()) {
+      let res = await addTagsApi(addTags);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Tags Added Successfully");
+        setOpenCreateTagModal(false);
+        setaddTags({});
+        getTags();
+        setErrors({})
+      } 
     }
   };
 
@@ -173,6 +195,7 @@ const Voice = () => {
           newAray={selectedTags}
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
+          errors={errors}
         />
       </div>
       <VoiceModal

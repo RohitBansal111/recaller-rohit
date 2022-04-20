@@ -17,6 +17,20 @@ const ConversationTags = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openEditTagModal, setOpenEditTagModal] = useState(false);
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const isValid = () => {
+    let formData = true;
+    switch (true) {
+      case !addTags.name:
+        setErrors({ name: "Please Enter a Tag Name" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -39,14 +53,17 @@ const ConversationTags = () => {
   const openCTModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
+    setErrors({})
   };
   const handleCloseCTModal = () => {
     setOpenCreateTagModal(false);
     setaddTags({});
+    setErrors({})
   };
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
+    setErrors({})
   };
 
   useEffect(() => {
@@ -54,14 +71,16 @@ const ConversationTags = () => {
   }, []);
 
   const handleClick = async () => {
-    let res = await addTagsApi(addTags);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("Tags Added Successfully");
-      setOpenCreateTagModal(false);
-      setaddTags({});
-      getTags();
-    } else {
-      toast.error(res.data.massage);
+    if (isValid()) {
+      let res = await addTagsApi(addTags);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Tags Added Successfully");
+        setOpenCreateTagModal(false);
+        setaddTags({});
+        getTags();
+      } else {
+        toast.error(res.data.massage);
+      }
     }
   };
 
@@ -144,6 +163,7 @@ const ConversationTags = () => {
         handleChange={handleChange}
         handleClick={handleClick}
         addTags={addTags}
+        errors={errors}
       />
     </div>
   );

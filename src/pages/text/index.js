@@ -30,7 +30,6 @@ const TextPage = () => {
   const [messages, setMessages] = useState([]);
   const [preview, setPreview] = useState(false);
   const [errors, setErrors] = useState({});
-
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setPreview(false);
@@ -41,6 +40,19 @@ const TextPage = () => {
     setSelected([]);
     setSendNewMessage("");
     setErrors({});
+  };
+
+  const isTagValid = () => {
+    let formData = true;
+    switch (true) {
+      case !addTags.name:
+        setErrors({ name: "Please Enter a Tag Name" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
   };
 
   const isValid = () => {
@@ -58,25 +70,31 @@ const TextPage = () => {
 
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
+    setErrors({});
   };
   const handleManageTag = () => {
     setOpenManageTagModal(true);
+    setErrors({});
   };
   const handleCloseManageModal = () => {
     setOpenManageTagModal(false);
+    setErrors({});
   };
   const handleCMModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
+    setErrors({});
   };
 
   const handleCloseCTModal = () => {
     setOpenCreateTagModal(false);
     setaddTags({});
+    setErrors({});
   };
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
+    setErrors({});
   };
 
   useEffect(() => {
@@ -86,14 +104,16 @@ const TextPage = () => {
   }, []);
 
   const handleClick = async () => {
-    let res = await addTagsApi(addTags);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("Tags Added Successfully");
-      setOpenCreateTagModal(false);
-      setaddTags({});
-      getTags();
-    } else {
-      toast.error(res.data.massage);
+    if (isTagValid()) {
+      console.log(addTags,"addTags");
+      // let res = await addTagsApi(addTags);
+      // if (res && res.data && res.data.status === 200) {
+      //   toast.success("Tags Added Successfully");
+      //   setOpenCreateTagModal(false);
+      //   setaddTags({});
+      //   getTags();
+      //   setErrors({});
+      // }
     }
   };
 
@@ -199,6 +219,7 @@ const TextPage = () => {
         setSelected([]);
         setSendNewMessage("");
       }
+      getMessage();
     }
   };
 
@@ -209,11 +230,11 @@ const TextPage = () => {
 
   const getMessage = async () => {
     const res = await getMessageApi();
+    console.log(res, "messages");
     if (res && res.data && res.data.status === 200) {
       setMessages(res.data.data);
     }
   };
-  console.log(messages, "eeeeeeeeMMMM");
   const handlePreview = () => {
     setOpenMessageModal(true);
     setPreview(true);
@@ -264,6 +285,8 @@ const TextPage = () => {
           sendMessage={sendMessage}
           onHandleClick={onHandleClick}
           messageData={messageData}
+          errors={errors}
+          contactMessageList={messages}
         />
       </div>
       <MessageModal

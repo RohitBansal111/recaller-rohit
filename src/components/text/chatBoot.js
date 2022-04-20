@@ -12,9 +12,22 @@ import TextChat from "./textChat";
 import VoiceRecordingChat from "../voice/voice-recording-chat";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
+import moment from "moment";
 
 const ChatBoot = (props) => {
   const location = useLocation();
+
+  var formats = {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: '[Last] dddd',
+    sameElse: 'DD/MM/YYYY'
+}
+
+var date = new Date()
+
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -34,56 +47,23 @@ const ChatBoot = (props) => {
               </div>
             </form>
             <ul className="user-list-main">
-              <li>
-                <h5>
-                  {" "}
-                  Mad Dab Labs dispo <span>8:45 PM</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Hutebox <span>Yesterday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Khusleaf <span>Monday</span>
-                </h5>
-                <p>Hi sorry contact us after </p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Smoking Buddha <span>Saturday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  The Amazing Haze <span>Wednesday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Mad Dab Labs dispo <span>8:45 PM</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Hutebox <span>Yesterday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
+              {props.contactMessageList
+                ? props.contactMessageList.map((item) => (
+                    <li>
+                      <h5>
+                        {item.contact &&
+                          item.contact.firstName +
+                            "" +
+                            item.contact.lastName}
+                        <span>
+                          {moment(item.createdAt).calendar(formats)}
+                        </span>
+                      </h5>
+                      <p>{item.message.slice(0, 30).concat("...")}</p>
+                    </li>
+                  ))
+                : []}
+                <li>
                 <h5>
                   {" "}
                   Khusleaf <span>Monday</span>
@@ -93,51 +73,9 @@ const ChatBoot = (props) => {
               <li>
                 <h5>
                   {" "}
-                  Smoking Buddha <span>Saturday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  The Amazing Haze <span>Wednesday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Mad Dab Labs dispo <span>8:45 PM</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Hutebox <span>Yesterday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Khusleaf <span>Monday</span>
+                  Girad <span>Monday</span>
                 </h5>
                 <p>Hi sorry contact us after </p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Smoking Buddha <span>Saturday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  The Amazing Haze <span>Wednesday</span>
-                </h5>
-                <p>Weed a gram aoora back order for</p>
               </li>
             </ul>
           </div>
@@ -153,7 +91,9 @@ const ChatBoot = (props) => {
             </div>
             <div className="chat-now">
               {location.pathname === "/text" && (
-                <TextChat messageData={props.messageData} />
+                <TextChat
+                  messageData={props.messageData}
+                />
               )}
               {location.pathname === "/email" && (
                 <TextChat messageData={props.messageData} />
@@ -316,6 +256,7 @@ const ChatBoot = (props) => {
                       </li>
                     ))
                   : []}
+                  
                 <li>
                   <button
                     type="button"
@@ -346,6 +287,7 @@ const ChatBoot = (props) => {
                 showDeleteTagModal={props.openDelTagModal}
                 handleDeleteTags={props.handleDeleteTags}
                 handleCloseDeleteModal={props.handleCloseDeleteModal}
+                errors={props.errors}
               />
             </div>
           </div>

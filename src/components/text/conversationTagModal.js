@@ -79,6 +79,7 @@ const ConversationTagModal = ({ open, handleCloseManageModal, ...props }) => {
         addTags={props.addTags}
         handleChange={props.handleChange}
         handleClick={props.handleClick}
+        errors={props.errors}
       />
       <DeleteTagsModal
         showDeleteTagModal={props.showDeleteTagModal}
