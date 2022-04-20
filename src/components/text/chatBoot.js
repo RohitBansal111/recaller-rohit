@@ -18,15 +18,13 @@ const ChatBoot = (props) => {
   const location = useLocation();
 
   var formats = {
-    sameDay: '[Today]',
-    nextDay: '[Tomorrow]',
-    nextWeek: 'dddd',
-    lastDay: '[Yesterday]',
-    lastWeek: '[Last] dddd',
-    sameElse: 'DD/MM/YYYY'
-}
-
-var date = new Date()
+    sameDay: "[Today]",
+    nextDay: "[Tomorrow]",
+    nextWeek: "dddd",
+    lastDay: "[Yesterday]",
+    lastWeek: "[Last] dddd",
+    sameElse: "DD/MM/YYYY",
+  };
 
   return (
     <div className="chatbox-warpper">
@@ -52,18 +50,14 @@ var date = new Date()
                     <li>
                       <h5>
                         {item.contact &&
-                          item.contact.firstName +
-                            "" +
-                            item.contact.lastName}
-                        <span>
-                          {moment(item.createdAt).calendar(formats)}
-                        </span>
+                          item.contact.firstName + " " + item.contact.lastName}
+                        <span>{moment(item.createdAt).calendar(formats)}</span>
                       </h5>
                       <p>{item.message.slice(0, 30).concat("...")}</p>
                     </li>
                   ))
                 : []}
-                <li>
+              <li>
                 <h5>
                   {" "}
                   Khusleaf <span>Monday</span>
@@ -91,9 +85,7 @@ var date = new Date()
             </div>
             <div className="chat-now">
               {location.pathname === "/text" && (
-                <TextChat
-                  messageData={props.messageData}
-                />
+                <TextChat messageData={props.messageData} />
               )}
               {location.pathname === "/email" && (
                 <TextChat messageData={props.messageData} />
@@ -256,7 +248,7 @@ var date = new Date()
                       </li>
                     ))
                   : []}
-                  
+
                 <li>
                   <button
                     type="button"
