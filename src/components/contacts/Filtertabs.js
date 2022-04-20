@@ -5,25 +5,6 @@ import CreateNewFilter from "./Create-new-filter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Dropdown } from "react-bootstrap";
 const FilterTabs = (props) => {
-  const [properties, setProperties] = useState("");
-  const [rules, setRules] = useState("");
-  const [daysAgo, setDaysAgo] = useState("");
-  const [value, setValue] = useState("");
-
-  const handleCancel = (e) => {
-    // console.log(e);
-  };
-  const onHandleSave = (e) => {
-    // console.log(e);
-  };
-  const handlePropertiesChange = (event) => {
-    setProperties(event.target.value);
-  };
-
-  const handleSelect = (e) => {
-    setValue(e);
-  };
-
   return (
     <div className="filter-tabs">
       <Tabs
@@ -35,12 +16,12 @@ const FilterTabs = (props) => {
         <Tab
           eventKey={"all"}
           title={
-            <Dropdown onSelect={handleSelect}>
+            <Dropdown onSelect={props.handleSelect}>
               <Dropdown.Toggle
                 id="dropdown-basic"
                 className="btn btn-medium btn-primary filter-dropdown"
               >
-                {value ? `${value}` : `All( ${props.totalRecords})`}
+                {props.value ? `${props.value}` : `All( ${props.totalRecords})`}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item onClick={props.handleAllTagsData}>
@@ -71,14 +52,17 @@ const FilterTabs = (props) => {
           }
         >
           <CreateNewFilter
-            handlePropertiesChange={handlePropertiesChange}
-            handleRulesChange={(event) => setRules(event.target.value)}
-            handleDaysAgoChange={(event) => setDaysAgo(event.target.value)}
-            properties={properties}
-            rules={rules}
-            daysAgo={daysAgo}
-            onCancel={handleCancel}
-            onHandleSave={onHandleSave}
+            handlePropertiesChange={props.handlePropertiesChange}
+            handleRulesChange={(event) => props.setRules(event.target.value)}
+            handleDaysAgoChange={(event) =>
+              props.setDaysAgo(event.target.value)
+            }
+            properties={props.properties}
+            rules={props.rules}
+            daysAgo={props.daysAgo}
+            onCancel={props.handleFilterCancel}
+            onHandleSave={props.onHandleSave}
+            handleClear={props.handleClear}
           />
         </Tab>
       </Tabs>

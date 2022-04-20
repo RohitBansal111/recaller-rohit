@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const animatedComponents = makeAnimated();
 
@@ -26,17 +26,19 @@ const ContactModal = (props) => {
                 className="form-control"
                 placeholder="Enter First Name"
                 name="firstName"
+                value={props.addContactData.firstName}
                 onChange={props.onChange}
               />
               <span className="spanError">{props.errors.firstName}</span>
             </div>
             <div className="field-group flex2">
-            <label>Last Name</label>
+              <label>Last Name</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Enter Last Name"
                 name="lastName"
+                value={props.addContactData.lastName}
                 onChange={props.onChange}
               />
               <span className="spanError">{props.errors.lastName}</span>
@@ -48,11 +50,12 @@ const ContactModal = (props) => {
                 className="form-control"
                 placeholder="Enter Phone"
                 name="phone"
+                value={props.addContactData.phone}
                 onChange={props.onChange}
               />
               <span className="spanError">{props.errors.phone}</span>
             </div>
-          
+
             <div className="field-group flex2">
               <label>Email</label>
               <input
@@ -60,14 +63,14 @@ const ContactModal = (props) => {
                 className="form-control"
                 placeholder="Enter Email"
                 name="email"
+                value={props.addContactData.email}
                 onChange={props.onChange}
               />
               <span className="spanError">{props.errors.email}</span>
             </div>
             <div className="field-group flexFull">
-              <label> Select Tag </label>
+              <label> Create Campaign </label>
               <Select
-                // defaultValue={[props.options[2], props.options[3]]}
                 isMulti={false}
                 name="colors"
                 components={animatedComponents}
@@ -80,11 +83,17 @@ const ContactModal = (props) => {
             </div>
           </form>
         </Modal.Body>
-        <Modal.Footer> 
+        <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>
             Dismiss
-          </Button> 
-          <LoadingButton loadingPosition="start" loading={props.loading} onClick={props.handleSubmit} className="btn btn-primary" variant="contained" >
+          </Button>
+          <LoadingButton
+            loadingPosition="center"
+            loading={props.loading}
+            onClick={props.handleSubmit}
+            className="btn btn-primary"
+            variant="contained"
+          >
             Add Contact
           </LoadingButton>
         </Modal.Footer>

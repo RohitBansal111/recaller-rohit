@@ -26,7 +26,7 @@ const UploadSpreadsheetModal = (props) => {
   const [errors, setErrors] = useState({});
   const [errorsSelectMap, setSelectMapErrors] = useState({});
   const [addNote, setAddNote] = useState(false);
-  const [noteData, setNoteData] = useState("");
+  const [noteData, setNoteData] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
@@ -62,7 +62,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
-    setNoteData("");
+    setNoteData(null);
     props.setSelectTags(null);
     props.handleUploadClose();
   };
@@ -176,6 +176,7 @@ const UploadSpreadsheetModal = (props) => {
 
   const handleAddNote = () => {
     setAddNote(true);
+    setNoteData(null)
   };
 
   const finishStep = async () => {
@@ -188,7 +189,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
-    setNoteData("");
+    setNoteData(null);
     props.setSelectTags(null);
     const obj = {
       contacts: JSON.stringify(csvData),
@@ -213,7 +214,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
-    setNoteData("");
+    setNoteData(null);
     props.setSelectTags(null);
   };
 

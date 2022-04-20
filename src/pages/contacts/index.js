@@ -15,15 +15,7 @@ const Import = () => {
   const [addContact, setAddContact] = useState({});
   const [errors, setErrors] = useState({});
   const [isOpenDelete, setIsOpenDelete] = useState(false);
-
-  const handleClose = () => {
-    setShow(false);
-    setSelectTags(null);
-  };
-  const [loading, setLoading] = useState(false)
-  const handleShow = () => setShow(true);
-  const handleUploadShow = () => setUploadModal(true);
-  const handleUploadClose = () => setUploadModal(false);
+  const [loading, setLoading] = useState(false);
   const [rowsData, setRowsData] = React.useState([]);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("name");
@@ -35,10 +27,37 @@ const Import = () => {
   const [addTags, setAddTags] = useState([]);
   const [selectTags, setSelectTags] = useState(null);
   const [filterByTags, setFilterByTags] = useState([]);
+  const [properties, setProperties] = useState("");
+  const [rules, setRules] = useState("");
+  const [daysAgo, setDaysAgo] = useState("");
+  const [value, setValue] = useState("");
+
+  const handleClose = () => {
+    setShow(false);
+    setSelectTags(null);
+    setAddContact({});
+    setErrors({});
+    setLoading(false);
+  };
+
+  const handleUploadShow = () => {
+    setUploadModal(true);
+  };
+  const handleUploadClose = () => {
+    setUploadModal(false);
+  };
+
+  const handleShow = () => {
+    setShow(true);
+    setAddContact({});
+    setErrors({});
+    setLoading(false);
+  };
 
   const isValid = () => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneRegex = /^[+0]{0,2}(91)?[0-9]{10}$/;
     let formData = true;
     switch (true) {
       case !addContact.firstName:
@@ -52,6 +71,10 @@ const Import = () => {
       case !addContact.phone:
         setErrors({ phone: "Phone field is required!" });
 
+        formData = false;
+        break;
+      case addContact.phone && !phoneRegex.test(addContact.phone):
+        setErrors({ phone: "Please enter valid Valid Phone Number!" });
         formData = false;
         break;
       case !addContact.email:
@@ -84,8 +107,8 @@ const Import = () => {
   };
 
   const handleSubmit = async () => {
-    setLoading(true)
     if (isValid()) {
+      setLoading(true);
       if (selectTags) {
         addContact.tag = selectTags.value;
       }
@@ -96,10 +119,10 @@ const Import = () => {
         tagValidation();
         toast.success("Contact saved!");
         setSelectTags(null);
+        setErrors({});
         getData();
       } else {
         toast.error(res.data.message);
-       
       }
     }
   };
@@ -125,6 +148,7 @@ const Import = () => {
       };
     });
     setErrors({});
+    setLoading(false);
   };
 
   const handleRequestSort = (event, property) => {
@@ -216,6 +240,23 @@ const Import = () => {
     setFilterByTags([]);
   };
 
+  const handleFilterCancel = () => {};
+
+  const onHandleSave = (e) => {};
+  const handlePropertiesChange = (event) => {
+    setProperties(event.target.value);
+  };
+
+  const handleSelect = (e) => {
+    setValue(e);
+  };
+
+  const handleClear = () => {
+    setProperties("");
+    setRules("");
+    setDaysAgo("");
+  };
+
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -245,6 +286,17 @@ const Import = () => {
           tags={addTags}
           handleTagsClick={handleTagsClick}
           handleAllTagsData={handleAllTagsData}
+          handleFilterCancel={handleFilterCancel}
+          handlePropertiesChange={handlePropertiesChange}
+          setRules={setRules}
+          setDaysAgo={setDaysAgo}
+          properties={properties}
+          rules={rules}
+          daysAgo={daysAgo}
+          onHandleSave={onHandleSave}
+          handleClear={handleClear}
+          handleSelect={handleSelect}
+          value={value}
         />
       </div>
       <div className="contact-data-table-main">
@@ -284,6 +336,7 @@ const Import = () => {
         addTags={addTags}
         selectTags={selectTags}
         handleChange={handleTagChange}
+        addContactData={addContact}
       />
 
       <UploadSpreadsheetModal

@@ -69,16 +69,11 @@ const CreateNewFilter = (props) => {
               </FormControl>
             )}
 
-            <button type="button" className="clear-button">
+            <button type="button" className="clear-button" onClick={props.handleClear}>
               <ClearIcon />
             </button>
           </div>
           <div className="filter-bottom">
-            <div className="addRole-action">
-              <button type="button" onClick={props.addRoles}>
-                <AddIcon /> Add Role
-              </button>
-            </div>
             <div className="filter-clear-save">
               <button type="button" className="cancel-action" onClick={props.onCancel}>
                 <ClearIcon />

@@ -10,9 +10,8 @@ const AddTag = ({ ...props }) => {
       <div className="add-tag-contact">
         <div className="main-form">
           <div className="field-group">
-            <label> Select Tag </label>
+            <label> Create Campaign </label>
             <Select
-              isMulti
               name="colors"
               components={animatedComponents}
               options={props.options}
