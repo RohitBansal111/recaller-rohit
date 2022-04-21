@@ -6,7 +6,7 @@ import {
   getTagsApi,
   updateTagsApi,
 } from "../../api/tag";
-import ChatBoot from "../../components/text/chatBoot";
+import VoiceChatBoot from "../../components/voice/voiceChatBoot";
 import VoiceModal from "../../models/VoiceModal";
 
 const Voice = () => {
@@ -170,7 +170,7 @@ const Voice = () => {
         </button>
       </div>
       <div className="text-main-section">
-        <ChatBoot
+        <VoiceChatBoot
           openManageTagModal={openManageTagModal}
           openCreateTagModal={openCreateTagModal}
           onClick={handleManageTag}
