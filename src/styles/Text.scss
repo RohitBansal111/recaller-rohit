@@ -326,10 +326,13 @@
     min-height: calc(100vh - 355px);
     overflow: auto;
     padding-bottom: 10px;
+    display: flex;
+    align-items: flex-end;
     &.voice-chat-screen{
         max-height: calc(100vh - 205px);
         min-height: calc(100vh - 205px);
         ul{
+            margin-bottom: 0px;
             li{
                 width: 70%;
                 display: flex;
@@ -362,6 +365,7 @@
     }
     ul{
         padding: 10px;
+        margin-bottom: 0px;
         li{
             width: 80%;
             border-width: 1px;
