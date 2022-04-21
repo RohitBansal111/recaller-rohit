@@ -26,6 +26,39 @@ const ChatBoot = (props) => {
     sameElse: "DD/MM/YYYY",
   };
 
+  console.log(props.searchValue, "ssssssssssss");
+  const userMessageList = () => {
+    let filtered = [];
+    filtered =
+      props.contactMessageList &&
+      props.contactMessageList.filter(
+        (val) =>
+          val.contact.firstName +
+            " " +
+            val.contact.lastName
+              .toLowerCase()
+              .startsWith(props.searchValue.toLowerCase()) ||
+          val.contact.firstName +
+            " " +
+            val.contact.lastName
+              .toLowerCase()
+              .startsWith(props.searchValue.toLowerCase())
+      );
+    const chatList = filtered.map((item) => {
+      return (
+        <li onClick={() => props.openChatClick(item._id)}>
+          <h5>
+            {item.contact &&
+              item.contact.firstName + " " + item.contact.lastName}
+            <span>{moment(item.createdAt).format("MM:HH")}</span>
+          </h5>
+          <p>{item.message.slice(0, 30).concat("...")}</p>
+        </li>
+      );
+    });
+    return chatList;
+  };
+
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -35,49 +68,33 @@ const ChatBoot = (props) => {
               <div className="field-group flexFull searchField">
                 <input
                   type="text"
-                  className="form-control"
-                  placeholder="Enter customer name, phone or conversation tag"
                   name="name"
+                  className="form-control"
+                  placeholder="Enter customer name"
+                  onChange={props.handleSearchChange}
+                  value={props.searchValue}
                 />
                 <div className="search-field">
-                  <SearchIcon />
+                  {props.searchValue && <SearchIcon />}
                 </div>
               </div>
             </form>
-            <ul className="user-list-main">
-              {props.contactMessageList
-                ? props.contactMessageList.map((item) => (
-                    <li>
-                      <h5>
-                        {item.contact &&
-                          item.contact.firstName + " " + item.contact.lastName}
-                        <span>{moment(item.createdAt).calendar(formats)}</span>
-                      </h5>
-                      <p>{item.message.slice(0, 30).concat("...")}</p>
-                    </li>
-                  ))
-                : []}
-              <li>
-                <h5>
-                  {" "}
-                  Khusleaf <span>Monday</span>
-                </h5>
-                <p>Hi sorry contact us after </p>
-              </li>
-              <li>
-                <h5>
-                  {" "}
-                  Girad <span>Monday</span>
-                </h5>
-                <p>Hi sorry contact us after </p>
-              </li>
-            </ul>
+            <ul className="user-list-main">{userMessageList()}</ul>
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-              <h4>White Rabbit Delivery</h4>
+              {props.chatData ? (
+                props.chatData.map((item) => (
+                  <h4>
+                    {item.contact &&
+                      item.contact.firstName + " " + item.contact.lastName}
+                  </h4>
+                ))
+              ) : (
+                <h4>Test</h4>
+              )}
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
@@ -85,7 +102,10 @@ const ChatBoot = (props) => {
             </div>
             <div className="chat-now">
               {location.pathname === "/text" && (
-                <TextChat messageData={props.messageData} />
+                <TextChat
+                  messageData={props.messageData}
+                  chatData={props.chatData}
+                />
               )}
               {location.pathname === "/email" && (
                 <TextChat messageData={props.messageData} />

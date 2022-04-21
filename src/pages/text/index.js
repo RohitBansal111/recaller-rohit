@@ -9,7 +9,11 @@ import {
 } from "../../api/tag";
 import { toast } from "react-toastify";
 import { getContactApi } from ".././../api/contact";
-import { getMessageApi, sendMessageApi } from "../../api/textMessage";
+import {
+  getMessageApi,
+  getUserWithMessage,
+  sendMessageApi,
+} from "../../api/textMessage";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -30,6 +34,9 @@ const TextPage = () => {
   const [messages, setMessages] = useState([]);
   const [preview, setPreview] = useState(false);
   const [errors, setErrors] = useState({});
+  const [chatMessages, setChatMesssages] = useState([]);
+  const [searchState, setSearchState] = useState("");
+
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setPreview(false);
@@ -105,15 +112,14 @@ const TextPage = () => {
 
   const handleClick = async () => {
     if (isTagValid()) {
-      console.log(addTags,"addTags");
-      // let res = await addTagsApi(addTags);
-      // if (res && res.data && res.data.status === 200) {
-      //   toast.success("Tags Added Successfully");
-      //   setOpenCreateTagModal(false);
-      //   setaddTags({});
-      //   getTags();
-      //   setErrors({});
-      // }
+      let res = await addTagsApi(addTags);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Tags Added Successfully");
+        setOpenCreateTagModal(false);
+        setaddTags({});
+        getTags();
+        setErrors({});
+      }
     }
   };
 
@@ -194,6 +200,7 @@ const TextPage = () => {
           value: item.contactid,
           label: item.firstName + " " + item.lastName,
           phone: item.phone,
+          id: item._id,
         };
       });
       setRowsData(data);
@@ -229,8 +236,7 @@ const TextPage = () => {
   };
 
   const getMessage = async () => {
-    const res = await getMessageApi();
-    console.log(res, "messages");
+    const res = await getUserWithMessage();
     if (res && res.data && res.data.status === 200) {
       setMessages(res.data.data);
     }
@@ -244,6 +250,15 @@ const TextPage = () => {
     setOpenMessageModal(true);
     setPreview(false);
   };
+
+  const openChatClick = async (id) => {
+    const res = await getMessageApi(id);
+    if (res && res.data && res.data.status === 200) {
+      setChatMesssages(res.data.data);
+    }
+  };
+
+  console.log(chatMessages, "chatMessages");
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -287,6 +302,10 @@ const TextPage = () => {
           messageData={messageData}
           errors={errors}
           contactMessageList={messages}
+          openChatClick={openChatClick}
+          chatData={chatMessages}
+          searchValue={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
         />
       </div>
       <MessageModal
