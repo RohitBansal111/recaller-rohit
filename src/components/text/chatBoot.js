@@ -45,6 +45,9 @@ const ChatBoot = (props) => {
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
+          <div className="chat-tag">
+            <p style={{borderColor: 'green', color: 'green'}}><LocalOfferIcon style={{color: 'green'}} /> Good Customer </p>
+          </div>
         </li>
       );
     });
@@ -94,16 +97,6 @@ const ChatBoot = (props) => {
             <div className="chat-now">
               <TextChat chatData={props.chatData} />
             </div>
-            {location.pathname === "/voice" && (
-              <div className="voice-recorder-box">
-                <h4>
-                  <span></span> 0.04
-                </h4>
-                <button type="button" className="btn btn-primary">
-                  <MicIcon className="mr-2" /> Press & Recording
-                </button>
-              </div>
-            )}
             <div className="chat-text-editor">
               <Tabs
                 defaultActiveKey="all"
@@ -239,9 +232,9 @@ const ChatBoot = (props) => {
               >
                 {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
-                      <li>
+                      <li style={{borderColor: item.color}}>
                         <span
-                          style={{ borderColor: item.color, color: item.color }}
+                          style={{ color: item.color }}
                           onClick={() =>
                             props.handleSelectedTagItems(item, index)
                           }

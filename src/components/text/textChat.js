@@ -10,9 +10,9 @@ const TextChat = (props) => {
           ? props.chatData.map((item) => (
               <li>
                 <div className={item.sender==1?"user chat-ui-box":"client chat-ui-box"}>
-                  {item.message}  <p><b>Dev Test</b></p>
+                  {item.message}  
                 </div>
-                <span>5:56 AM</span>
+                <span><b>NH</b> 5:56 AM</span>
               </li>
             ))
           : []}
