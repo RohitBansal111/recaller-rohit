@@ -269,7 +269,6 @@ const TextPage = () => {
     
   };
 
-  console.log(chatMessages, "chatMessages");
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -313,7 +312,7 @@ const TextPage = () => {
           onHandleClick={onHandleClick}
           messageData={messageData}
           errors={errors}
-          contactMessageList={messages}
+          userMessageList={messages}
           openChatClick={openChatClick}
           chatData={chatMessages}
           searchValue={searchState}
