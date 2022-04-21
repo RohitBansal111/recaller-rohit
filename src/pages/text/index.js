@@ -36,6 +36,7 @@ const TextPage = () => {
   const [errors, setErrors] = useState({});
   const [chatMessages, setChatMesssages] = useState([]);
   const [searchState, setSearchState] = useState("");
+  const [selecteduser, setSelecteduser] = useState("");
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
@@ -252,10 +253,13 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id) => {
+    
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
     }
+    const selecteduser = messages.find(c => c._id == id);
+    setSelecteduser(selecteduser);
   };
 
   console.log(chatMessages, "chatMessages");
@@ -272,6 +276,7 @@ const TextPage = () => {
       </div>
       <div className="text-main-section">
         <ChatBoot
+         selecteduser={selecteduser}
           openManageTagModal={openManageTagModal}
           openCreateTagModal={openCreateTagModal}
           onClick={handleManageTag}

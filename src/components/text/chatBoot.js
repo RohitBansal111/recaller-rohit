@@ -85,16 +85,7 @@ const ChatBoot = (props) => {
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-              {props.chatData ? (
-                props.chatData.map((item) => (
-                  <h4>
-                    {item.contact &&
-                      item.contact.firstName + " " + item.contact.lastName}
-                  </h4>
-                ))
-              ) : (
-                <h4>Test</h4>
-              )}
+                <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
