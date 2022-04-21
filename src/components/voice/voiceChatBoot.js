@@ -77,13 +77,18 @@ const VoiceChatBoot = (props) => {
                 </div>
               </div>
             </form>
-            {/* <ul className="user-list-main">{userMessageList()}</ul> */}
+            <ul class="user-list-main" id="chatBox">
+              <li class="active">
+                <h5>Dev Test<span>Today 10 00</span></h5>
+                <p>demo chat...</p>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                {/* <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4> */}
+                <h4>Main DFDF</h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
