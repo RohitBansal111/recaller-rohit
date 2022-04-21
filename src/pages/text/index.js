@@ -109,6 +109,7 @@ const TextPage = () => {
     getTags();
     getData();
     getMessage();
+    
   }, []);
 
   const handleClick = async () => {
@@ -240,6 +241,8 @@ const TextPage = () => {
     const res = await getUserWithMessage();
     if (res && res.data && res.data.status === 200) {
       setMessages(res.data.data);
+      setSelecteduser(res.data.data[0]);
+      openChatClick(res.data.data[0]._id,false)
     }
   };
   const handlePreview = () => {
@@ -252,14 +255,18 @@ const TextPage = () => {
     setPreview(false);
   };
 
-  const openChatClick = async (id) => {
+  const openChatClick = async (id,check) => {
     
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
     }
-    const selecteduser = messages.find(c => c._id == id);
+    if(check) {
+      const selecteduser = messages.find(c => c._id == id);
     setSelecteduser(selecteduser);
+    }
+    
+    
   };
 
   console.log(chatMessages, "chatMessages");

@@ -26,7 +26,7 @@ const ChatBoot = (props) => {
     sameElse: "DD/MM/YYYY",
   };
 
-  console.log(props.searchValue, "ssssssssssss");
+  console.log(props.selecteduser, "selecteduser",);
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -44,13 +44,13 @@ const ChatBoot = (props) => {
               .toLowerCase()
               .startsWith(props.searchValue.toLowerCase())
       );
-    const chatList = filtered.map((item) => {
+    const chatList = filtered.map((item,index) => {
       return (
-        <li onClick={() => props.openChatClick(item._id)}>
+        <li className={props.selecteduser && props.selecteduser._id == item._id?"active":''} onClick={() => props.openChatClick(item._id,true)}>
           <h5>
             {item.contact &&
               item.contact.firstName + " " + item.contact.lastName}
-            <span>{moment(item.createdAt).format("MM:HH")}</span>
+            <span>{item.createdAt}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
         </li>
@@ -79,7 +79,7 @@ const ChatBoot = (props) => {
                 </div>
               </div>
             </form>
-            <ul className="user-list-main">{userMessageList()}</ul>
+            <ul className="user-list-main" id="chatBox">{userMessageList()}</ul>
           </div>
         </div>
         <div className="chat-discussion-area">
