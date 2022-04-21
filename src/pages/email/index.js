@@ -6,7 +6,7 @@ import {
   getTagsApi,
   updateTagsApi,
 } from "../../api/tag";
-import ChatBoot from "../../components/text/chatBoot";
+import EmailChatBoot from "../../components/email/emailChatBoot";
 import EmailModal from "../../models/EmailModal";
 
 const EmailPage = () => {
@@ -171,7 +171,7 @@ const EmailPage = () => {
         </button>
       </div>
       <div className="text-main-section">
-        <ChatBoot
+        <EmailChatBoot
           openManageTagModal={openManageTagModal}
           openCreateTagModal={openCreateTagModal}
           onClick={handleManageTag}

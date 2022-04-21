@@ -8,13 +8,13 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./../conversationTagModal";
-import TextChat from "./textChat";
+import TextChat from "./../text/textChat";
 import VoiceRecordingChat from "../voice/voice-recording-chat";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
 import moment from "moment";
 
-const ChatBoot = (props) => {
+const EmailChatBoot = (props) => {
   const location = useLocation();
 
   var formats = {
@@ -75,27 +75,24 @@ const ChatBoot = (props) => {
                   value={props.searchValue}
                 />
                 <div className="search-field">
-                  {props.searchValue && <SearchIcon />}
+                  {/* {props.searchValue && <SearchIcon />} */}
                 </div>
               </div>
             </form>
-            <ul className="user-list-main">{userMessageList()}</ul>
+            {/* <ul className="user-list-main">{userMessageList()}</ul> */}
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4>
+                {/* <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4> */}
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
               </div>
             </div>
             <div className="chat-now">
-                <TextChat
-                  messageData={props.messageData}
-                  chatData={props.chatData}
-                />
+                <TextChat messageData={props.messageData} />
             </div>
             {location.pathname === "/voice" && (
               <div className="voice-recorder-box">
@@ -107,61 +104,65 @@ const ChatBoot = (props) => {
                 </button>
               </div>
             )}
-           <div className="chat-text-editor">
-              <Tabs
-                defaultActiveKey="all"
-                transition={false}
-                id="noanim-tab-example"
-                className="mb-3"
-              >
-                <Tab eventKey="all" title="Message">
-                  <div className="chat-textarea">
-                    <form className="main-form">
-                      <div className="field-group flexFull">
-                        <textarea
-                          placeholder="Type your message..."
-                          name="sendMessage"
-                          value={props.sendMessage}
-                          onChange={props.onHandleChange}
-                        >
-                          {props.sendMessage}
-                        </textarea>
-                      </div>
-                      <div className="field-group btn-groups flexFull">
-                        <button
-                          type="button"
-                          className="btn-primary-outline"
-                          disabled={!props.sendMessage ? true : false}
-                          onClick={props.onHandleClick}
-                        >
-                          Send
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </Tab>
-                <Tab eventKey="filter" title="Internal Note">
-                  <div className="chat-textarea">
-                    <form className="main-form">
-                      <div className="field-group flexFull">
-                        <textarea
-                          placeholder="Type your note, only you and your teammates will see it."
-                          name="sendInternalMessage"
-                        ></textarea>
-                      </div>
-                      <div className="field-group btn-groups flexFull">
-                        <button type="button" className="btn-primary-outline">
-                          Send & Close
-                        </button>
-                        <button type="button" className="btn-primary-outline">
-                          Send
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </Tab>
-              </Tabs>
-            </div>
+            {location.pathname === "/text" || location.pathname === "/email" ? (
+              <div className="chat-text-editor">
+                <Tabs
+                  defaultActiveKey="all"
+                  transition={false}
+                  id="noanim-tab-example"
+                  className="mb-3"
+                >
+                  <Tab eventKey="all" title="Message">
+                    <div className="chat-textarea">
+                      <form className="main-form">
+                        <div className="field-group flexFull">
+                          <textarea
+                            placeholder="Type your message..."
+                            name="sendMessage"
+                            value={props.sendMessage}
+                            onChange={props.onHandleChange}
+                          >
+                            {props.sendMessage}
+                          </textarea>
+                        </div>
+                        <div className="field-group btn-groups flexFull">
+                          <button
+                            type="button"
+                            className="btn-primary-outline"
+                            disabled={!props.sendMessage ? true : false}
+                            onClick={props.onHandleClick}
+                          >
+                            Send
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </Tab>
+                  <Tab eventKey="filter" title="Internal Note">
+                    <div className="chat-textarea">
+                      <form className="main-form">
+                        <div className="field-group flexFull">
+                          <textarea
+                            placeholder="Type your note, only you and your teammates will see it."
+                            name="sendInternalMessage"
+                          ></textarea>
+                        </div>
+                        <div className="field-group btn-groups flexFull">
+                          <button type="button" className="btn-primary-outline">
+                            Send & Close
+                          </button>
+                          <button type="button" className="btn-primary-outline">
+                            Send
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </Tab>
+                </Tabs>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="chat-compassion-area">
@@ -208,7 +209,7 @@ const ChatBoot = (props) => {
               </button>
               <div className="dynamic-tags">
                 <ul>
-                  {props.newAray
+                  {/* {props.newAray
                     ? props.newAray.map((item) => (
                         <li
                           style={{
@@ -226,7 +227,7 @@ const ChatBoot = (props) => {
                           </span>
                         </li>
                       ))
-                    : []}
+                    : []} */}
                 </ul>
               </div>
               <ul
@@ -234,7 +235,7 @@ const ChatBoot = (props) => {
                 aria-labelledby="dropdownMenuButton1"
                 style={{ overflowY: "scroll", height: " 220px" }}
               >
-                {props.conversationTags
+                {/* {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
                       <li>
                         <span
@@ -248,19 +249,19 @@ const ChatBoot = (props) => {
                         </span>
                       </li>
                     ))
-                  : []}
+                  : []} */}
 
                 <li>
                   <button
                     type="button"
-                    onClick={props.onClick}
+                    // onClick={props.onClick}
                     className="btn link-bttn"
                   >
                     Manage Tags
                   </button>
                 </li>
               </ul>
-              <ConversationTagModal
+              {/* <ConversationTagModal
                 open={props.openManageTagModal}
                 handleCloseManageModal={props.handleCloseManageModal}
                 openCTM={props.openCreateTagModal}
@@ -281,7 +282,7 @@ const ChatBoot = (props) => {
                 handleDeleteTags={props.handleDeleteTags}
                 handleCloseDeleteModal={props.handleCloseDeleteModal}
                 errors={props.errors}
-              />
+              /> */}
             </div>
           </div>
           <div className="monthly-balance-box">
@@ -303,4 +304,4 @@ const ChatBoot = (props) => {
   );
 };
 
-export default ChatBoot;
+export default EmailChatBoot;
