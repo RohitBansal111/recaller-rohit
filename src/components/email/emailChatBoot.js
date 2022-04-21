@@ -6,13 +6,11 @@ import DoneIcon from "@material-ui/icons/Done";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import LocalOfferIcon from "@material-ui/icons/LocalOffer";
-import ConversationTagModal from "./../conversationTagModal";
-import TextChat from "./../text/textChat";
-import VoiceRecordingChat from "../voice/voice-recording-chat";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
-import moment from "moment";
+import moment from "moment"
+import EmailChatText from "./emailChatText";
+
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -79,20 +77,25 @@ const EmailChatBoot = (props) => {
                 </div>
               </div>
             </form>
-            {/* <ul className="user-list-main">{userMessageList()}</ul> */}
+            <ul class="user-list-main" id="chatBox">
+              <li class="active">
+                <h5>Dev Test<span>Today 10 00</span></h5>
+                <p>demo chat...</p>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                {/* <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4> */}
+                <h4>Demo Heading</h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
               </div>
             </div>
             <div className="chat-now">
-                <TextChat messageData={props.messageData} />
+                <EmailChatText />
             </div>
             {location.pathname === "/voice" && (
               <div className="voice-recorder-box">
