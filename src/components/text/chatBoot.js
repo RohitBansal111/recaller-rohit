@@ -44,7 +44,8 @@ const ChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
+          <p>{item.message}</p>
+          {/* <p>{item.message.slice(0, 30).concat("...")}</p> */}
         </li>
       );
     });
