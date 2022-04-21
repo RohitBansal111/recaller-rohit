@@ -4,15 +4,15 @@ const EmailChatText = () => {
   return (
     <ScrollToBottom className="middle-chat-screen">
         <ul>
-          <li class="user">demo chat</li>
-          <li class="user">testtesttesttest</li>
-          <li class="client">hello</li>
-          <li class="user">hello test</li>
-          <li class="user">test</li>
-          <li class="client">test demo</li>
-          <li class="user">test</li>
-          <li class="user">test</li>
-          <li class="user">test new</li>
+          <li class="user">demo chat <p><b>Dev Test</b></p></li>
+          <li class="user">testtesttesttest <p><b>Dev Test</b></p></li>
+          <li class="client">hello <p><b>Dev Test</b></p></li>
+          <li class="user">hello test <p><b>Dev Test</b></p></li>
+          <li class="user">test <p><b>Dev Test</b></p></li>
+          <li class="client">test demo <p><b>Dev Test</b></p></li>
+          <li class="user">test <p><b>Dev Test</b></p></li>
+          <li class="user">test <p><b>Dev Test</b></p></li>
+          <li class="user">test new <p><b>Dev Test</b></p></li>
         </ul>
     </ScrollToBottom>
   );
