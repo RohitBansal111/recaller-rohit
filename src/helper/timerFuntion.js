@@ -55,7 +55,7 @@ export function timeAgo(dateParam) {
   } else if (seconds < 60) {
     return `${seconds} seconds ago`;
   } else if (seconds < 90) {
-    return "about a minute ago";
+    return "1 minute ago";
   } else if (minutes < 60) {
     return `${minutes} minutes ago`;
   } else if (isToday) {

@@ -27,8 +27,7 @@ const TextPage = () => {
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [conversationTags, setConversationTags] = useState([]);
-  // const [sendMessage, setSendMessage] = useState("");
-  const [messageData, setMessageData] = useState([]);
+  const [sendMessage, setSendMessage] = useState("");
   const [rowsData, setRowsData] = useState([]);
   const [sendNewMessage, setSendNewMessage] = useState("");
   const [selected, setSelected] = useState([]);
@@ -184,20 +183,17 @@ const TextPage = () => {
   };
 
   const onHandleChange = (e) => {
-    setSendNewMessage(e.target.value);
+    setSendMessage(e.target.value);
   };
   const onHandleClick = async () => {
     const obj = {
-      message: sendNewMessage,
+      message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
     };
-    let res = await sendSingleMessageApi(obj);
+    const res = await sendSingleMessageApi(obj);
+
     if (res && res.data && res.data.status === 200) {
-      toast.success(" Message sent Successfully");
-      setMessages([...messageData, obj]);
-      setOpenMessageModal(false);
-      setSelected([]);
-      setSendNewMessage("");
+      setSendMessage("");
     }
     getMessage();
   };
@@ -312,7 +308,7 @@ const TextPage = () => {
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
           onHandleChange={onHandleChange}
-          sendNewMessage={sendNewMessage}
+          sendMessage={sendMessage}
           onHandleClick={onHandleClick}
           errors={errors}
           userMessageList={messages}

@@ -110,18 +110,18 @@ const ChatBoot = (props) => {
                       <div className="field-group flexFull">
                         <textarea
                           placeholder="Type your message..."
-                          name="sendNewMessage"
-                          value={props.sendNewMessage}
+                          name="sendMessage"
+                          value={props.sendMessage}
                           onChange={props.onHandleChange}
                         >
-                          {props.sendNewMessage}
+                          {props.sendMessage}
                         </textarea>
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <button
                           type="button"
                           className="btn-primary-outline"
-                          disabled={!props.sendNewMessage ? true : false}
+                          disabled={!props.sendMessage ? true : false}
                           onClick={props.onHandleClick}
                         >
                           Send
