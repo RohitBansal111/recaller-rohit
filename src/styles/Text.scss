@@ -79,6 +79,23 @@
                             color: $labelColor;
                             margin-bottom: 0px;
                         }
+                        .chat-tag{
+                            margin-top: 10px;
+                            margin-bottom: 5px;
+                            p{
+                                margin-bottom: 10px;
+                                margin-right: 5px;
+                                padding: 5px 10px;
+                                border-radius: 20px;
+                                font-size: 13px;
+                                border-width: 1px;
+                                border-style: solid;
+                                display: inline;
+                                svg{
+                                    font-size: 13px;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -249,7 +266,7 @@
                 }
                 .btn-addd-tag{
                     color: $labelColor;
-                    border: 1px solid $labelColor;
+                    border: 1px solid $labelColor !important;
                     border-radius: 30px;
                     font-size: 13px !important;
                     font-weight: 500 !important;
@@ -340,10 +357,17 @@
             margin-bottom: 0px;
             width: 100%;
             li{
-                width: 70%;
+                width: 100%;
                 display: flex;
-                align-items: center;
                 word-break: break-word;
+                &.voice-chat-list{
+                    flex-direction: column;
+                    align-items: flex-start;
+                    .chat-ui-box{
+                        display: flex;
+                        align-items: center;
+                    }
+                }
                 .avtar{
                     img{
                         width: 35px;
