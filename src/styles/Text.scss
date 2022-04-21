@@ -119,6 +119,8 @@
                 }
                 .chat-now{
                     background-color: #f2f2f2;
+                    display: flex;
+                    align-items: flex-end;
                 }
                 .chat-text-editor{
                     border: 1px solid lightgrey;
@@ -322,17 +324,20 @@
     }
 }
 .middle-chat-screen{
-    max-height: calc(100vh - 355px);
-    min-height: calc(100vh - 355px);
-    overflow: auto;
-    padding-bottom: 10px;
+    height: 100%;
     display: flex;
     align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-height: calc(100vh - 355px);
+    min-height: calc(100vh - 355px);
     &.voice-chat-screen{
         max-height: calc(100vh - 205px);
         min-height: calc(100vh - 205px);
+        width: 100%;
         ul{
             margin-bottom: 0px;
+            width: 100%;
             li{
                 width: 70%;
                 display: flex;
@@ -366,6 +371,10 @@
     ul{
         padding: 10px;
         margin-bottom: 0px;
+        height: 100%;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: auto;
         li{
             width: 80%;
             border-width: 1px;

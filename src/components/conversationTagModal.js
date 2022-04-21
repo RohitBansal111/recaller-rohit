@@ -3,9 +3,9 @@ import { Modal } from "react-responsive-modal";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
-import EditTagModal from "../settings/EditTagModal";
-import CreateTagModal from "../../components/settings/createTagModal";
-import DeleteTagsModal from "../../models/deleteTagsModal";
+import EditTagModal from "./settings/EditTagModal";
+import CreateTagModal from "./settings/createTagModal";
+import DeleteTagsModal from "./../models/deleteTagsModal";
 
 const ConversationTagModal = ({ open, handleCloseManageModal, ...props }) => {
   return (

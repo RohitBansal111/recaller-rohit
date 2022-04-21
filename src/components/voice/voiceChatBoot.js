@@ -8,13 +8,13 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./../conversationTagModal";
-import TextChat from "./textChat";
+import TextChat from "./../text/textChat";
 import VoiceRecordingChat from "../voice/voice-recording-chat";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
 import moment from "moment";
 
-const ChatBoot = (props) => {
+const VoiceChatBoot = (props) => {
   const location = useLocation();
 
   var formats = {
@@ -25,28 +25,30 @@ const ChatBoot = (props) => {
     lastWeek: "[Last] dddd",
     sameElse: "DD/MM/YYYY",
   };
-
-  console.log(props.selecteduser, "selecteduser",);
   const userMessageList = () => {
     let filtered = [];
     filtered =
-      props.userMessageList &&
-      props.userMessageList.filter(
+      props.contactMessageList &&
+      props.contactMessageList.filter(
         (val) =>
-          val.contact.firstName
+          val.contact.firstName +
+            " " +
+            val.contact.lastName
               .toLowerCase()
               .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.lastName
+          val.contact.firstName +
+            " " +
+            val.contact.lastName
               .toLowerCase()
               .startsWith(props.searchValue.toLowerCase())
       );
-    const chatList = filtered.map((item,index) => {
+    const chatList = filtered.map((item) => {
       return (
-        <li className={props.selecteduser && props.selecteduser._id == item._id?"active":''} onClick={() => props.openChatClick(item._id,true)}>
+        <li onClick={() => props.openChatClick(item._id)}>
           <h5>
             {item.contact &&
               item.contact.firstName + " " + item.contact.lastName}
-            <span>{item.createdAt}</span>
+            <span>{moment(item.createdAt).format("MM:HH")}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
         </li>
@@ -67,102 +69,36 @@ const ChatBoot = (props) => {
                   name="name"
                   className="form-control"
                   placeholder="Enter customer name"
-                  value={props.searchValue}
                   onChange={props.handleSearchChange}
+                  value={props.searchValue}
                 />
                 <div className="search-field">
-                  {props.searchValue && <SearchIcon />}
+                  {/* {props.searchValue && <SearchIcon />} */}
                 </div>
               </div>
             </form>
-            <ul className="user-list-main" id="chatBox">{userMessageList()}</ul>
+            {/* <ul className="user-list-main">{userMessageList()}</ul> */}
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-              <h4>
-                {props.selecteduser
-                  ? props.selecteduser.contact.firstName +
-                    " " +
-                    props.selecteduser.contact.lastName
-                  : ""}
-              </h4>
+                {/* <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4> */}
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
               </div>
             </div>
             <div className="chat-now">
-                <TextChat
-                  messageData={props.messageData}
-                  chatData={props.chatData}
-                />
+              <VoiceRecordingChat />
             </div>
-            {location.pathname === "/voice" && (
-              <div className="voice-recorder-box">
-                <h4>
-                  <span></span> 0.04
-                </h4>
-                <button type="button" className="btn btn-primary">
-                  <MicIcon className="mr-2" /> Press & Recording
-                </button>
-              </div>
-            )}
-           <div className="chat-text-editor">
-              <Tabs
-                defaultActiveKey="all"
-                transition={false}
-                id="noanim-tab-example"
-                className="mb-3"
-              >
-                <Tab eventKey="all" title="Message">
-                  <div className="chat-textarea">
-                    <form className="main-form">
-                      <div className="field-group flexFull">
-                        <textarea
-                          placeholder="Type your message..."
-                          name="sendMessage"
-                          value={props.sendMessage}
-                          onChange={props.onHandleChange}
-                        >
-                          {props.sendMessage}
-                        </textarea>
-                      </div>
-                      <div className="field-group btn-groups flexFull">
-                        <button
-                          type="button"
-                          className="btn-primary-outline"
-                          disabled={!props.sendMessage ? true : false}
-                          onClick={props.onHandleClick}
-                        >
-                          Send
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </Tab>
-                <Tab eventKey="filter" title="Internal Note">
-                  <div className="chat-textarea">
-                    <form className="main-form">
-                      <div className="field-group flexFull">
-                        <textarea
-                          placeholder="Type your note, only you and your teammates will see it."
-                          name="sendInternalMessage"
-                        ></textarea>
-                      </div>
-                      <div className="field-group btn-groups flexFull">
-                        <button type="button" className="btn-primary-outline">
-                          Send & Close
-                        </button>
-                        <button type="button" className="btn-primary-outline">
-                          Send
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </Tab>
-              </Tabs>
+            <div className="voice-recorder-box">
+              <h4>
+                <span></span> 0.04
+              </h4>
+              <button type="button" className="btn btn-primary">
+                <MicIcon className="mr-2" /> Press & Recording
+              </button>
             </div>
           </div>
         </div>
@@ -209,7 +145,7 @@ const ChatBoot = (props) => {
                 <AddIcon /> Add Tags
               </button>
               <div className="dynamic-tags">
-                <ul>
+                {/* <ul>
                   {props.newAray
                     ? props.newAray.map((item) => (
                         <li
@@ -229,14 +165,14 @@ const ChatBoot = (props) => {
                         </li>
                       ))
                     : []}
-                </ul>
+                </ul> */}
               </div>
               <ul
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
                 style={{ overflowY: "scroll", height: " 220px" }}
               >
-                {props.conversationTags
+                {/* {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
                       <li>
                         <span
@@ -250,7 +186,7 @@ const ChatBoot = (props) => {
                         </span>
                       </li>
                     ))
-                  : []}
+                  : []} */}
 
                 <li>
                   <button
@@ -305,4 +241,4 @@ const ChatBoot = (props) => {
   );
 };
 
-export default ChatBoot;
+export default VoiceChatBoot;
