@@ -1,5 +1,6 @@
 import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import { timeAgo } from "../../helper/timerFuntion";
 const TextChat = (props) => {
   console.log(props.chatData);
   return (
@@ -16,7 +17,7 @@ const TextChat = (props) => {
                   {item.message}
                 </div>
                 <span>
-                  <b>NH</b> 5:56 AM
+                  <b>NH</b> {timeAgo(item.createdAt)}
                 </span>
               </li>
             ))

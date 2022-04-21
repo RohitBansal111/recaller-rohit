@@ -19,13 +19,14 @@ function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
   const year = date.getFullYear();
   const hours = date.getHours();
   let minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'pm' : 'am';
 
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
 
   if (prefomattedDate) {
-    return `${prefomattedDate} ${hours} ${minutes}`;
+    return ` ${hours} : ${minutes} ${ampm}`;
   }
 
   if (hideYear) {
