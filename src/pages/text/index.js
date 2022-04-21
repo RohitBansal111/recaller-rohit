@@ -31,7 +31,7 @@ const TextPage = () => {
   const [rowsData, setRowsData] = useState([]);
   const [sendNewMessage, setSendNewMessage] = useState("");
   const [selected, setSelected] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [preview, setPreview] = useState(false);
   const [errors, setErrors] = useState({});
   const [chatMessages, setChatMesssages] = useState([]);
@@ -239,7 +239,7 @@ const TextPage = () => {
   const getMessage = async () => {
     const res = await getUserWithMessage();
     if (res && res.data && res.data.status === 200) {
-      setMessages(res.data.data);
+      setUserList(res.data.data);
     }
   };
   const handlePreview = () => {
@@ -253,12 +253,11 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id) => {
-    
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
     }
-    const selecteduser = messages.find(c => c._id == id);
+    const selecteduser = userList.find(c => c._id == id);
     setSelecteduser(selecteduser);
   };
 
@@ -305,7 +304,7 @@ const TextPage = () => {
           onHandleClick={onHandleClick}
           messageData={messageData}
           errors={errors}
-          contactMessageList={messages}
+          userMessageList={userList}
           openChatClick={openChatClick}
           chatData={chatMessages}
           searchValue={searchState}

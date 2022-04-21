@@ -28,17 +28,13 @@ const ChatBoot = (props) => {
   const userMessageList = () => {
     let filtered = [];
     filtered =
-      props.contactMessageList &&
-      props.contactMessageList.filter(
+      props.userMessageList &&
+      props.userMessageList.filter(
         (val) =>
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
+          val.contact.firstName
               .toLowerCase()
               .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
+          val.contact.lastName
               .toLowerCase()
               .startsWith(props.searchValue.toLowerCase())
       );
@@ -69,8 +65,8 @@ const ChatBoot = (props) => {
                   name="name"
                   className="form-control"
                   placeholder="Enter customer name"
-                  onChange={props.handleSearchChange}
                   value={props.searchValue}
+                  onChange={props.handleSearchChange}
                 />
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
