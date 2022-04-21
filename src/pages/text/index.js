@@ -262,7 +262,6 @@ const TextPage = () => {
     setSelecteduser(selecteduser);
   };
 
-  console.log(chatMessages, "chatMessages");
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">

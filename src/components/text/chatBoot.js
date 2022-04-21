@@ -25,8 +25,6 @@ const ChatBoot = (props) => {
     lastWeek: "[Last] dddd",
     sameElse: "DD/MM/YYYY",
   };
-
-  console.log(props.searchValue, "ssssssssssss");
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -50,7 +48,7 @@ const ChatBoot = (props) => {
           <h5>
             {item.contact &&
               item.contact.firstName + " " + item.contact.lastName}
-            <span>{moment(item.createdAt).format("MM:HH")}</span>
+            <span>{item.createdAt}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
         </li>
@@ -85,7 +83,13 @@ const ChatBoot = (props) => {
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4>
+              <h4>
+                {props.selecteduser
+                  ? props.selecteduser.contact.firstName +
+                    " " +
+                    props.selecteduser.contact.lastName
+                  : ""}
+              </h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
