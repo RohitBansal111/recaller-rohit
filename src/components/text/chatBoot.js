@@ -11,45 +11,38 @@ import ConversationTagModal from "./../conversationTagModal";
 import TextChat from "./textChat";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
-import moment from "moment";
+import { timeAgo } from "../../helper/timerFuntion";
 
 const ChatBoot = (props) => {
   const location = useLocation();
 
-  var formats = {
-    sameDay: "[Today]",
-    nextDay: "[Tomorrow]",
-    nextWeek: "dddd",
-    lastDay: "[Yesterday]",
-    lastWeek: "[Last] dddd",
-    sameElse: "DD/MM/YYYY",
-  };
-
-  console.log(props.searchValue, "ssssssssssss");
   const userMessageList = () => {
     let filtered = [];
     filtered =
-      props.contactMessageList &&
-      props.contactMessageList.filter(
+      props.userMessageList &&
+      props.userMessageList.filter(
         (val) =>
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
-              .toLowerCase()
-              .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
-              .toLowerCase()
-              .startsWith(props.searchValue.toLowerCase())
+          val.contact.firstName
+            .toLowerCase()
+            .startsWith(props.searchValue.toLowerCase()) ||
+          val.contact.lastName
+            .toLowerCase()
+            .startsWith(props.searchValue.toLowerCase())
       );
-    const chatList = filtered.map((item) => {
+    const chatList = filtered.map((item, index) => {
       return (
-        <li onClick={() => props.openChatClick(item._id)}>
+        <li
+          className={
+            props.selecteduser && props.selecteduser._id == item._id
+              ? "active"
+              : ""
+          }
+          onClick={() => props.openChatClick(item._id, true)}
+        >
           <h5>
             {item.contact &&
               item.contact.firstName + " " + item.contact.lastName}
-            <span>{moment(item.createdAt).format("MM:HH")}</span>
+            <span>{timeAgo(item.createdAt)}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
         </li>
@@ -70,21 +63,29 @@ const ChatBoot = (props) => {
                   name="name"
                   className="form-control"
                   placeholder="Enter customer name"
-                  onChange={props.handleSearchChange}
                   value={props.searchValue}
+                  onChange={props.handleSearchChange}
                 />
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
                 </div>
               </div>
             </form>
-            <ul className="user-list-main">{userMessageList()}</ul>
+            <ul className="user-list-main" id="chatBox">
+              {userMessageList()}
+            </ul>
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                <h4>{props.selecteduser ? props.selecteduser.contact.firstName+' '+props.selecteduser.contact.lastName:''}</h4>
+              <h4>
+                {props.selecteduser
+                  ? props.selecteduser.contact.firstName +
+                    " " +
+                    props.selecteduser.contact.lastName
+                  : ""}
+              </h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
@@ -166,13 +167,19 @@ const ChatBoot = (props) => {
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">
-              <h4>White Rabbit Delivery</h4>
+              <h4>
+                {props.selecteduser
+                  ? props.selecteduser.contact.firstName +
+                    " " +
+                    props.selecteduser.contact.lastName
+                  : ""}
+              </h4>
               <EditIcon />
             </div>
             <ul className="personal-info">
               <li>
                 <h5>Phone Number</h5>
-                <p>(289) 556-6684</p>
+                <p>{props.selecteduser && props.selecteduser.contact.phone}</p>
               </li>
               <li>
                 <h5>Subscription</h5>
@@ -180,7 +187,7 @@ const ChatBoot = (props) => {
               </li>
               <li>
                 <h5>Email</h5>
-                <p>Whiterabbitdel@gmail.com</p>
+                <p>{props.selecteduser && props.selecteduser.contact.email}</p>
               </li>
               <li>
                 <button type="button" className="btn-links">
