@@ -9,7 +9,6 @@ import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./../conversationTagModal";
 import TextChat from "./textChat";
-import VoiceRecordingChat from "../voice/voice-recording-chat";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
 import moment from "moment";
