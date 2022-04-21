@@ -46,7 +46,14 @@ const ChatBoot = (props) => {
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
           <div className="chat-tag">
-            <p style={{borderColor: 'green', color: 'green'}}><LocalOfferIcon style={{color: 'green'}} /> Good Customer </p>
+            {props.newAray
+              ? props.newAray.map((item) => (
+                  <p style={{ borderColor: item.color, color: item.color }}>
+                    <LocalOfferIcon style={{ color: item.color }} />
+                    {item.name}
+                  </p>
+                ))
+              : ""}
           </div>
         </li>
       );
@@ -232,7 +239,7 @@ const ChatBoot = (props) => {
               >
                 {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
-                      <li style={{borderColor: item.color}}>
+                      <li style={{ borderColor: item.color }}>
                         <span
                           style={{ color: item.color }}
                           onClick={() =>
