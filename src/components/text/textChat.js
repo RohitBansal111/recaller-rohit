@@ -1,13 +1,19 @@
 import React from "react";
 import ScrollToBottom from 'react-scroll-to-bottom';
 const TextChat = (props) => {
+  console.log(props.chatData)
   return (
     <ScrollToBottom className="middle-chat-screen">
       <ul>
         
         {props.chatData
           ? props.chatData.map((item) => (
-              <li className={item.sender==1?"user":"client"}>{item.message}</li>
+              <li>
+                <div className={item.sender==1?"user chat-ui-box":"client chat-ui-box"}>
+                  {item.message}  <p><b>Dev Test</b></p>
+                </div>
+                <span>5:56 AM</span>
+              </li>
             ))
           : []}
         {/* {props.messageData

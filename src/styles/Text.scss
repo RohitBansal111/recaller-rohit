@@ -377,23 +377,49 @@
         justify-content: flex-end;
         overflow: auto;
         li{
-            width: 80%;
-            border-width: 1px;
-            border-style: solid;
+            width: 100%;
             color: #333;
-            border-radius: 6px;
             margin-bottom: 10px;
-            padding: 10px;
             font-size: 13px;
             word-break: break-word;
-            &.client{
-                border-color: #dedede;
-                background-color: $Theme-white;
+            .chat-ui-box{
+                width: 80%;
+                padding: 10px;
+                border-radius: 6px;
+                border-width: 1px;
+                border-style: solid;
+                &.client{
+                    border-color: #dedede;
+                    background-color: $Theme-white;
+                    &+span{
+                        text-align: left;
+                        padding-left: 4px;
+                    }
+                }
+                &.user{
+                    background-color: #edf8fe;
+                    border-color: #cddfea;
+                    margin-left: auto;
+                    &+span{
+                        text-align: right;
+                        padding-right: 4px;
+                    }
+                }
             }
-            &.user{
-                background-color: #edf8fe;
-                border-color: #cddfea;
-                margin-left: auto;
+            p{
+                margin-bottom: 0px;
+                font-size: 12px;
+                margin-top: 8px;
+                b{
+                    font-weight: 600 !important;
+                }
+            }
+            span{
+                display: block;
+                width: 100%;
+                font-size: 11px;
+                color: grey;
+                font-weight: 500;
             }
         }
     }
