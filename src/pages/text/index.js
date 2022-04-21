@@ -13,6 +13,7 @@ import {
   getMessageApi,
   getUserWithMessage,
   sendMessageApi,
+  sendSingleMessageApi,
 } from "../../api/textMessage";
 
 const TextPage = () => {
@@ -26,7 +27,7 @@ const TextPage = () => {
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [conversationTags, setConversationTags] = useState([]);
-  const [sendMessage, setSendMessage] = useState("");
+  // const [sendMessage, setSendMessage] = useState("");
   const [messageData, setMessageData] = useState([]);
   const [rowsData, setRowsData] = useState([]);
   const [sendNewMessage, setSendNewMessage] = useState("");
@@ -109,7 +110,6 @@ const TextPage = () => {
     getTags();
     getData();
     getMessage();
-    
   }, []);
 
   const handleClick = async () => {
@@ -184,14 +184,22 @@ const TextPage = () => {
   };
 
   const onHandleChange = (e) => {
-    setSendMessage(e.target.value);
+    setSendNewMessage(e.target.value);
   };
-  const onHandleClick = () => {
+  const onHandleClick = async () => {
     const obj = {
-      sendMessage: sendMessage,
+      message: sendNewMessage,
+      contactid: selecteduser.contact && selecteduser.contact.contactid,
     };
-    setMessageData([...messageData, obj]);
-    setSendMessage("");
+    let res = await sendSingleMessageApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      toast.success(" Message sent Successfully");
+      setMessages([...messageData, obj]);
+      setOpenMessageModal(false);
+      setSelected([]);
+      setSendNewMessage("");
+    }
+    getMessage();
   };
 
   const getData = async () => {
@@ -242,7 +250,7 @@ const TextPage = () => {
     if (res && res.data && res.data.status === 200) {
       setMessages(res.data.data);
       setSelecteduser(res.data.data[0]);
-      openChatClick(res.data.data[0]._id,false)
+      openChatClick(res.data.data[0]._id, false);
     }
   };
   const handlePreview = () => {
@@ -255,20 +263,16 @@ const TextPage = () => {
     setPreview(false);
   };
 
-  const openChatClick = async (id,check) => {
-    
+  const openChatClick = async (id, check) => {
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
     }
-    if(check) {
-      const selecteduser = messages.find(c => c._id == id);
-    setSelecteduser(selecteduser);
+    if (check) {
+      const selecteduser = messages.find((c) => c._id == id);
+      setSelecteduser(selecteduser);
     }
-    
-    
   };
-
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -282,7 +286,7 @@ const TextPage = () => {
       </div>
       <div className="text-main-section">
         <ChatBoot
-         selecteduser={selecteduser}
+          selecteduser={selecteduser}
           openManageTagModal={openManageTagModal}
           openCreateTagModal={openCreateTagModal}
           onClick={handleManageTag}
@@ -308,9 +312,8 @@ const TextPage = () => {
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
           onHandleChange={onHandleChange}
-          sendMessage={sendMessage}
+          sendNewMessage={sendNewMessage}
           onHandleClick={onHandleClick}
-          messageData={messageData}
           errors={errors}
           userMessageList={messages}
           openChatClick={openChatClick}

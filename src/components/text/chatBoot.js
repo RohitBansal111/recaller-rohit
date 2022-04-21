@@ -44,8 +44,7 @@ const ChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message}</p>
-          {/* <p>{item.message.slice(0, 30).concat("...")}</p> */}
+          <p>{item.message.slice(0, 30).concat("...")}</p>
         </li>
       );
     });
@@ -93,10 +92,7 @@ const ChatBoot = (props) => {
               </div>
             </div>
             <div className="chat-now">
-                <TextChat
-                  messageData={props.messageData}
-                  chatData={props.chatData}
-                />
+              <TextChat chatData={props.chatData} />
             </div>
             {location.pathname === "/voice" && (
               <div className="voice-recorder-box">
@@ -108,7 +104,7 @@ const ChatBoot = (props) => {
                 </button>
               </div>
             )}
-           <div className="chat-text-editor">
+            <div className="chat-text-editor">
               <Tabs
                 defaultActiveKey="all"
                 transition={false}
@@ -121,18 +117,18 @@ const ChatBoot = (props) => {
                       <div className="field-group flexFull">
                         <textarea
                           placeholder="Type your message..."
-                          name="sendMessage"
-                          value={props.sendMessage}
+                          name="sendNewMessage"
+                          value={props.sendNewMessage}
                           onChange={props.onHandleChange}
                         >
-                          {props.sendMessage}
+                          {props.sendNewMessage}
                         </textarea>
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <button
                           type="button"
                           className="btn-primary-outline"
-                          disabled={!props.sendMessage ? true : false}
+                          disabled={!props.sendNewMessage ? true : false}
                           onClick={props.onHandleClick}
                         >
                           Send
