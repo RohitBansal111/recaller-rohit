@@ -15,7 +15,10 @@ import EditContactModal from "../../models/editContactModal";
 
 const ChatBoot = (props) => {
   const [openContactModal, setOpenContactModal] = useState(false);
+  const [editUserName, setEditUserName] = useState(false)
   const location = useLocation();
+
+  const handleEditUserName = () => { setEditUserName(true)}
 
   const userMessageList = () => {
     let filtered = [];
@@ -168,14 +171,29 @@ const ChatBoot = (props) => {
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">
-              <h4>
-                {props.selecteduser
+              {
+                !editUserName &&
+                <>
+                  <h4>
+                    {props.selecteduser
+                      ? props.selecteduser.contact.firstName +
+                        " " +
+                        props.selecteduser.contact.lastName
+                      : ""}
+                  </h4>
+                  <EditIcon onClick={handleEditUserName} />
+                </>
+              }
+              
+              
+              {
+                editUserName &&
+                <input type="text" value={props.selecteduser
                   ? props.selecteduser.contact.firstName +
                     " " +
                     props.selecteduser.contact.lastName
-                  : ""}
-              </h4>
-              <EditIcon />
+                  : ""} className="user-edit-field" />
+              }
             </div>
             <ul className="personal-info">
               <li>
