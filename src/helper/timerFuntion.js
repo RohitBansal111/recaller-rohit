@@ -19,14 +19,15 @@ function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
   const year = date.getFullYear();
   const hours = date.getHours();
   let minutes = date.getMinutes();
-  const ampm = hours >= 12 ? 'pm' : 'am';
+  const ampm = hours >= 12 ? "pm" : "am";
 
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
 
   if (prefomattedDate) {
-    return ` ${hours} : ${minutes} ${ampm}`;
+    return `${prefomattedDate}`;
+    //  ${hours} : ${minutes} ${ampm}
   }
 
   if (hideYear) {
@@ -59,9 +60,11 @@ export function timeAgo(dateParam) {
     return "1 minute ago";
   } else if (minutes < 60) {
     return `${minutes} minutes ago`;
-  } else if (isToday) {
-    return getFormattedDate(date, "Today");
-  } else if (isYesterday) {
+  }
+  // else if (isToday) {
+  //   return getFormattedDate(date, "Today");
+  // }
+  else if (isYesterday) {
     return getFormattedDate(date, "Yesterday");
   } else if (isThisYear) {
     return getFormattedDate(date, false, true);

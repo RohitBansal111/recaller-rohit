@@ -14,7 +14,7 @@ const TextChat = (props) => {
                     item.sender == 1 ? "user chat-ui-box" : "client chat-ui-box"
                   }
                 >
-                  {item.message}
+                  <pre>{item.message}</pre>
                 </div>
                 <span>
                   <b>NH</b> {timeAgo(item.createdAt)}
