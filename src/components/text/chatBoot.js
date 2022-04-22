@@ -188,11 +188,16 @@ const ChatBoot = (props) => {
               
               {
                 editUserName &&
-                <input type="text" value={props.selecteduser
-                  ? props.selecteduser.contact.firstName +
-                    " " +
-                    props.selecteduser.contact.lastName
-                  : ""} className="user-edit-field" />
+               <>
+               <div className="multi-inputs">
+                  <input type="text" value={props.selecteduser
+                    ? props.selecteduser.contact.firstName :
+                      " " } className="user-edit-field" />
+                  <input type="text" value={props.selecteduser
+                      ? props.selecteduser.contact.lastName :
+                        " "} className="user-edit-field" />
+               </div>
+               </>
               }
             </div>
             <ul className="personal-info">
