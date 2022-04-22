@@ -14,13 +14,6 @@ import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
 
 const ChatBoot = (props) => {
-  const [openContactModal, setOpenContactModal] = useState(false);
-  const [editUserName, setEditUserName] = useState(false);
-  const location = useLocation();
-
-  const handleEditUserName = () => {
-    setEditUserName(true);
-  };
 
   const userMessageList = () => {
     let filtered = [];
