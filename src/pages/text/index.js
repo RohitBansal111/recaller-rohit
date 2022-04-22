@@ -8,7 +8,11 @@ import {
   updateTagsApi,
 } from "../../api/tag";
 import { toast } from "react-toastify";
-import { addTagsToListApi, getContactApi } from ".././../api/contact";
+import {
+  addTagsToListApi,
+  getContactApi,
+  updateContactApi,
+} from ".././../api/contact";
 import {
   getMessageApi,
   getUserWithMessage,
@@ -37,6 +41,11 @@ const TextPage = () => {
   const [chatMessages, setChatMesssages] = useState([]);
   const [searchState, setSearchState] = useState("");
   const [selecteduser, setSelecteduser] = useState("");
+  const [openContactModal, setOpenContactModal] = useState(false);
+  const [contactData, setContactData] = useState([]);
+  const [editContact, setEditContact] = useState({});
+  const [editCName, setEditCName] = useState({});
+  const [editContactName, setEditContactName] = useState(false);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
@@ -217,6 +226,7 @@ const TextPage = () => {
         };
       });
       setRowsData(data);
+      setContactData(res.data.data);
     }
   };
 
@@ -276,6 +286,42 @@ const TextPage = () => {
       setSelecteduser(selecteduser);
     }
   };
+
+  const handleContactEditModal = (id) => {
+    const val = contactData.find((item) => item._id == id);
+    setEditContact(val);
+    setOpenContactModal(true);
+  };
+  const handleCloseContactModal = () => {
+    setOpenContactModal(false);
+  };
+
+  const handleEditContactChange = (e) => {
+    setEditContact({ ...editContact, [e.target.name]: e.target.value });
+  };
+
+  const handleConDataEdit = async () => {
+    console.log(editContact, "editContact");
+    // const res = await updateContactApi(editContact._id, editContact);
+    // if (res && res.data && res.data.status === 200) {
+    //   setOpenContactModal(false);
+    //   getData();
+    // }
+  };
+
+  const handleUserNameEdit = (e) => {
+    setEditCName({ ...editCName, [e.target.name]: e.target.value });
+  };
+
+  const handleEditUserName = (id) => {
+    const val = contactData.find((item) => item._id == id);
+    const obj = {
+      firstName: val.firstName,
+      lastName: val.lastName,
+    };
+    setEditCName(obj);
+    setEditContactName(true);
+  };
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -323,6 +369,16 @@ const TextPage = () => {
           chatData={chatMessages}
           searchValue={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
+          handleContactEditModal={handleContactEditModal}
+          handleCloseContactModal={handleCloseContactModal}
+          openContactModal={openContactModal}
+          editContact={editContact}
+          handleEditContactChange={handleEditContactChange}
+          handleConDataEdit={handleConDataEdit}
+          editCName={editCName}
+          handleUserNameEdit={handleUserNameEdit}
+          handleEditUserName={handleEditUserName}
+          editContactName={editContactName}
         />
       </div>
       <MessageModal

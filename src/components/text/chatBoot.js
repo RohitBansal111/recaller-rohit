@@ -15,10 +15,12 @@ import EditContactModal from "../../models/editContactModal";
 
 const ChatBoot = (props) => {
   const [openContactModal, setOpenContactModal] = useState(false);
-  const [editUserName, setEditUserName] = useState(false)
+  const [editUserName, setEditUserName] = useState(false);
   const location = useLocation();
 
-  const handleEditUserName = () => { setEditUserName(true)}
+  const handleEditUserName = () => {
+    setEditUserName(true);
+  };
 
   const userMessageList = () => {
     let filtered = [];
@@ -50,7 +52,9 @@ const ChatBoot = (props) => {
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
           <div className="chat-tag">
-            {props.selecteduser && props.selecteduser._id == item.contact._id && props.newAray
+            {props.selecteduser &&
+            props.selecteduser._id == item.contact._id &&
+            props.newAray
               ? props.newAray.map((item) => (
                   <p style={{ borderColor: item.color, color: item.color }}>
                     <LocalOfferIcon style={{ color: item.color }} />
@@ -64,9 +68,6 @@ const ChatBoot = (props) => {
     });
     return chatList;
   };
-
-  const handleContactModal = () => { setOpenContactModal(true)}
-  const handleCloseContactModal = () => { setOpenContactModal(false)}
 
   return (
     <div className="chatbox-warpper">
@@ -171,8 +172,7 @@ const ChatBoot = (props) => {
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">
-              {
-                !editUserName &&
+              {!props.editContactName && (
                 <>
                   <h4>
                     {props.selecteduser
@@ -181,24 +181,34 @@ const ChatBoot = (props) => {
                         props.selecteduser.contact.lastName
                       : ""}
                   </h4>
-                  <EditIcon onClick={handleEditUserName} />
+                  <EditIcon
+                    onClick={() =>
+                      props.handleEditUserName(props.selecteduser.contact._id)
+                    }
+                  />
                 </>
-              }
-              
-              
-              {
-                editUserName &&
-               <>
-               <div className="multi-inputs">
-                  <input type="text" value={props.selecteduser
-                    ? props.selecteduser.contact.firstName :
-                      " " } className="user-edit-field" />
-                  <input type="text" value={props.selecteduser
-                      ? props.selecteduser.contact.lastName :
-                        " "} className="user-edit-field" />
-               </div>
-               </>
-              }
+              )}
+
+              {props.editContactName && (
+                <>
+                  <div className="multi-inputs">
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={props.editCName.firstName}
+                      className="user-edit-field"
+                      onChange={props.handleEditUserName}
+                    />
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={props.editCName.lastName}
+                      className="user-edit-field"
+                      onChange={props.handleEditUserName}
+                    />
+                  </div>
+                </>
+              )}
             </div>
             <ul className="personal-info">
               <li>
@@ -214,17 +224,24 @@ const ChatBoot = (props) => {
                 <p>{props.selecteduser && props.selecteduser.contact.email}</p>
               </li>
               <li>
-                <button type="button" onClick={handleContactModal} className="btn-links">
+                <button
+                  type="button"
+                  onClick={() =>
+                    props.handleContactEditModal(
+                      props.selecteduser && props.selecteduser.contact._id
+                    )
+                  }
+                  className="btn-links"
+                >
                   Edit Contact
                 </button>
                 <EditContactModal
-                  open={openContactModal}
-                  handleCloseContactModal={handleCloseContactModal}
+                  open={props.openContactModal}
+                  handleCloseContactModal={props.handleCloseContactModal}
+                  editContact={props.editContact}
+                  handleEditContactChange={props.handleEditContactChange}
+                  handleConDataEdit={props.handleConDataEdit}
                 />
-                {/* <button type="button" className="btn-links">
-                  {" "}
-                  View in Contacts
-                </button> */}
               </li>
             </ul>
           </div>
@@ -266,7 +283,7 @@ const ChatBoot = (props) => {
               <ul
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
-                style={{ overflowY: "scroll" , height: " 220px" }}
+                style={{ overflowY: "scroll", height: " 220px" }}
               >
                 {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
