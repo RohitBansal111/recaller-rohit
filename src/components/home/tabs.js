@@ -10,7 +10,7 @@ const ActivityTabs = () => {
         <Tab eventKey="activity" title="Activity Feed">
           <ActivityCardContent />
         </Tab>
-        <Tab eventKey="updates" title="Campaign Reporting">
+        <Tab eventKey="updates" title="List of Campaigns">
           <ActivityCardContent />
         </Tab>
         <Tab eventKey="highlight" title="Highlights">
