@@ -7,7 +7,7 @@ import ContactModal from "../../models/contactModel";
 import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
-import { getTagsApi } from "../../api/tag";
+import { getCompaignApi } from "../../api/compaign";
 
 const Import = () => {
   const [show, setShow] = useState(false);
@@ -24,9 +24,9 @@ const Import = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [searchState, setSearchState] = React.useState("");
-  const [addTags, setAddTags] = useState([]);
-  const [selectTags, setSelectTags] = useState(null);
-  const [filterByTags, setFilterByTags] = useState([]);
+  const [compaign, setCompaigns] = useState([]);
+  const [selectComgaigns, setSelectCompaign] = useState(null);
+  const [filterByCompaigns, setFilterByCompaigns] = useState([]);
   const [properties, setProperties] = useState("");
   const [rules, setRules] = useState("");
   const [daysAgo, setDaysAgo] = useState("");
@@ -34,7 +34,7 @@ const Import = () => {
 
   const handleClose = () => {
     setShow(false);
-    setSelectTags(null);
+    setSelectCompaign(null);
     setAddContact({});
     setErrors({});
     setLoading(false);
@@ -91,34 +91,34 @@ const Import = () => {
     return formData;
   };
 
-  const tagValidation = () => {
-    let tagData = true;
+  const compaignValidatin = () => {
+    let compaignData = true;
     switch (true) {
-      case !selectTags:
+      case !selectComgaigns:
         toast.warning(
           "You won’t be able to generate a custom campaign report without the tag. "
         );
-        tagData = false;
+        compaignData = false;
         break;
       default:
-        tagData = true;
+        compaignData = true;
     }
-    return tagData;
+    return compaignData;
   };
 
   const handleSubmit = async () => {
     if (isValid()) {
       setLoading(true);
-      if (selectTags) {
-        addContact.tag = selectTags.value;
+      if (selectComgaigns) {
+        addContact.compaign = selectComgaigns.value;
       }
       let res = await createApi(addContact);
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
-        tagValidation();
+        compaignValidatin();
         toast.success("Contact saved!");
-        setSelectTags(null);
+        setSelectCompaign(null);
         setErrors({});
         getData();
       } else {
@@ -136,7 +136,7 @@ const Import = () => {
 
   useEffect(() => {
     getData();
-    getContactTags();
+    getContactCompaign();
   }, []);
 
   const onChange = (e) => {
@@ -216,28 +216,29 @@ const Import = () => {
     setUploadModal(false);
   };
 
-  const getContactTags = async () => {
-    let res = await getTagsApi();
+  const getContactCompaign = async () => {
+    let res = await getCompaignApi();
     if (res && res.data && res.data.status === 200) {
       let data = res.data.data.map(function (item) {
         return { value: item._id, label: item.name };
       });
-      setAddTags(data);
+      setCompaigns(data);
     }
   };
 
   const handleTagChange = (value) => {
-    setSelectTags(value);
+    setSelectCompaign(value);
     setErrors({});
   };
 
   const handleTagsClick = (item) => {
-    const data = rowsData && rowsData.filter((val) => val.tagId == item.value);
-    setFilterByTags(data);
+    const data =
+      rowsData && rowsData.filter((val) => val.compaignId == item.value);
+    setFilterByCompaigns(data);
   };
 
   const handleAllTagsData = () => {
-    setFilterByTags([]);
+    setFilterByCompaigns([]);
   };
 
   const handleFilterCancel = () => {};
@@ -283,7 +284,7 @@ const Import = () => {
         <h3>Filter By:</h3>
         <FilterTabs
           totalRecords={rowsData ? rowsData.length : 0}
-          tags={addTags}
+          compaign={compaign}
           handleTagsClick={handleTagsClick}
           handleAllTagsData={handleAllTagsData}
           handleFilterCancel={handleFilterCancel}
@@ -321,7 +322,7 @@ const Import = () => {
           showDeleteContactModal={isOpenDelete}
           value={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
-          filterTagsData={filterByTags}
+          filterByCompaigns={filterByCompaigns}
         />
       </div>
 
@@ -333,8 +334,8 @@ const Import = () => {
         handleSubmit={handleSubmit}
         onChange={onChange}
         errors={errors}
-        addTags={addTags}
-        selectTags={selectTags}
+        addTags={compaign}
+        selectTags={selectComgaigns}
         handleChange={handleTagChange}
         addContactData={addContact}
       />
@@ -348,11 +349,11 @@ const Import = () => {
         errors={errors}
         handleFinish={handleFinish}
         getData={getData}
-        addTags={addTags}
-        selectTags={selectTags}
-        tagValidation={tagValidation}
+        addTags={compaign}
+        selectTags={selectComgaigns}
+        tagValidation={compaignValidatin}
         handleChange={handleTagChange}
-        setSelectTags={setSelectTags}
+        setSelectTags={setSelectCompaign}
       />
     </>
   );

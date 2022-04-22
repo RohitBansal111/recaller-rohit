@@ -27,8 +27,8 @@ const FilterTabs = (props) => {
                 <Dropdown.Item onClick={props.handleAllTagsData}>
                   {`All(${props.totalRecords})`}
                 </Dropdown.Item>
-                {props.tags
-                  ? props.tags.map((item) => (
+                {props.compaign
+                  ? props.compaign.map((item) => (
                       <>
                         <Dropdown.Item
                           eventKey={item.label}

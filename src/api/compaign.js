@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const createApi = async (data) => {
+const addCompaignApi = async (data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/contact/create`,
+      `${process.env.REACT_APP_API_URL}/compaign/insert`,
       data
     );
     if (result) {
@@ -16,44 +16,12 @@ const createApi = async (data) => {
   }
 };
 
-const deleteApi = async (data) => {
-  try {
-    const AUTH_TOKEN = localStorage.getItem("token");
-    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/contact/delete`,
-      data
-    );
-    if (result) {
-      return result;
-    }
-  } catch (err) {
-    return { data: err.response.data };
-  }
-};
-
-const addTagsToListApi = async (data) => {
-  try {
-    const AUTH_TOKEN = localStorage.getItem("token");
-    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/contact/tag/add`,
-      data
-    );
-    if (result) {
-      return result;
-    }
-  } catch (err) {
-    return { data: err.response.data };
-  }
-};
-
-const getContactApi = async () => {
+const getCompaignApi = async () => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/contact/getcontactdata`
+      `${process.env.REACT_APP_API_URL}/compaign/get`
     );
     if (result) {
       return result;
@@ -63,12 +31,12 @@ const getContactApi = async () => {
   }
 };
 
-const addMultipleContact = async (data) => {
+const updateCompaignApi = async (id, data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/contact/create-multiple`,
+      `${process.env.REACT_APP_API_URL}/compaign/update/${id}`,
       data
     );
     if (result) {
@@ -79,4 +47,20 @@ const addMultipleContact = async (data) => {
   }
 };
 
-export { createApi, deleteApi, getContactApi, addMultipleContact,addTagsToListApi };
+const deleteCompaignApi = async (id, data) => {
+  try {
+    const AUTH_TOKEN = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.delete(
+      `${process.env.REACT_APP_API_URL}/compaign/delete/${id}`,
+      data
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
+
+export { getCompaignApi, addCompaignApi, updateCompaignApi, deleteCompaignApi };

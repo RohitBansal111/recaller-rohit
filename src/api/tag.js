@@ -16,13 +16,13 @@ const addTagsApi = async (data) => {
   }
 };
 
+
+
 const getTagsApi = async () => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-    const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/tag/get`
-    );
+    const result = await axios.get(`${process.env.REACT_APP_API_URL}/tag/get`);
     if (result) {
       return result;
     }
@@ -63,4 +63,9 @@ const deleteTagApi = async (id, data) => {
   }
 };
 
-export { getTagsApi, addTagsApi, updateTagsApi, deleteTagApi };
+export {
+  getTagsApi,
+  addTagsApi,
+  updateTagsApi,
+  deleteTagApi,
+};

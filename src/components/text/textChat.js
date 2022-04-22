@@ -2,7 +2,6 @@ import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { timeAgo } from "../../helper/timerFuntion";
 const TextChat = (props) => {
-  console.log(props.chatData);
   return (
     <ScrollToBottom className="middle-chat-screen">
       <ul>
