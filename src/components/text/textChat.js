@@ -22,10 +22,17 @@ const TextChat = (props) => {
                   </div>
                   <span>
                     <b>
-                      {userData.firstName.charAt(0) +
-                        "" +
-                        userData.lastName.charAt(0) +
-                        " "}
+                      {item.sender === 1 && "user chat-ui-box"
+                        ? userData.firstName.charAt(0) +
+                          "" +
+                          userData.lastName.charAt(0) +
+                          " "
+                        : "" || (item.sender === 2 && "client chat-ui-box")
+                        ? props.contactName.contact.firstName +
+                          " " +
+                          props.contactName.contact.lastName +
+                          " "
+                        : ""}
                     </b>
                     {timeAgo(item.createdAt)}
                   </span>

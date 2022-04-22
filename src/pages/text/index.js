@@ -379,6 +379,7 @@ const TextPage = () => {
           handleUserNameEdit={handleUserNameEdit}
           handleEditUserName={handleEditUserName}
           editContactName={editContactName}
+          contactName={selecteduser}
         />
       </div>
       <MessageModal
