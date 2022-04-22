@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -10,10 +10,11 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./../conversationTagModal";
 import TextChat from "./textChat";
 import { useLocation } from "react-router-dom";
-import MicIcon from "@material-ui/icons/Mic";
 import { timeAgo } from "../../helper/timerFuntion";
+import EditContactModal from "../../models/editContactModal";
 
 const ChatBoot = (props) => {
+  const [openContactModal, setOpenContactModal] = useState(false);
   const location = useLocation();
 
   const userMessageList = () => {
@@ -60,6 +61,9 @@ const ChatBoot = (props) => {
     });
     return chatList;
   };
+
+  const handleContactModal = () => { setOpenContactModal(true)}
+  const handleCloseContactModal = () => { setOpenContactModal(false)}
 
   return (
     <div className="chatbox-warpper">
@@ -187,13 +191,17 @@ const ChatBoot = (props) => {
                 <p>{props.selecteduser && props.selecteduser.contact.email}</p>
               </li>
               <li>
-                <button type="button" className="btn-links">
+                <button type="button" onClick={handleContactModal} className="btn-links">
                   Edit Contact
                 </button>
-                <button type="button" className="btn-links">
+                <EditContactModal
+                  open={openContactModal}
+                  handleCloseContactModal={handleCloseContactModal}
+                />
+                {/* <button type="button" className="btn-links">
                   {" "}
                   View in Contacts
-                </button>
+                </button> */}
               </li>
             </ul>
           </div>
@@ -235,7 +243,7 @@ const ChatBoot = (props) => {
               <ul
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
-                style={{ overflowY: "scroll", height: " 220px" }}
+                style={{ overflowY: "scroll" , height: " 220px" }}
               >
                 {props.conversationTags
                   ? props.conversationTags.map((item, index) => (

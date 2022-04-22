@@ -130,10 +130,10 @@ const VoiceChatBoot = (props) => {
                 <button type="button" className="btn-links">
                   Edit Contact
                 </button>
-                <button type="button" className="btn-links">
+                {/* <button type="button" className="btn-links">
                   {" "}
                   View in Contacts
-                </button>
+                </button> */}
               </li>
             </ul>
           </div>

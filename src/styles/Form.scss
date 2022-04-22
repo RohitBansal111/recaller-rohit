@@ -4,6 +4,10 @@
   flex-wrap: wrap;
   .field-group {
     margin-bottom: 15px;
+    .foem-field-inner{
+      display: flex;
+      align-items: center;
+    }
     svg{
       fill: $Icon-color;
       cursor: pointer;
