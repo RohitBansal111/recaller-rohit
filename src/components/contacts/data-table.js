@@ -28,7 +28,7 @@ import SendMessageModal from "../../models/sendMessageModal";
 import DeleteContactModal from "../../models/deleteContactModal";
 import LogNoteModal from "../../models/LogNoteModal";
 import moment from "moment";
-import LoaderPic from './../../assets/images/loader.gif'
+import LoaderPic from "./../../assets/images/loader.gif";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -301,14 +301,25 @@ export default function EnhancedTable(props) {
   const loadContacts = () => {
     let filtered = [];
     filtered =
-      rowsData &&
-      rowsData.filter(
-        (contact) =>
-          contact.firstName
-            .toLowerCase()
-            .startsWith(props.value.toLowerCase()) ||
-          contact.firstName.toLowerCase().startsWith(props.value.toLowerCase())
-      );
+      props.filterByCompaigns.length > 0
+        ? props.filterByCompaigns.filter(
+            (contact) =>
+              contact.firstName
+                .toLowerCase()
+                .startsWith(props.value.toLowerCase()) ||
+              contact.firstName
+                .toLowerCase()
+                .startsWith(props.value.toLowerCase())
+          )
+        : rowsData.filter(
+            (contact) =>
+              contact.firstName
+                .toLowerCase()
+                .startsWith(props.value.toLowerCase()) ||
+              contact.firstName
+                .toLowerCase()
+                .startsWith(props.value.toLowerCase())
+          );
 
     const contactData =
       filtered &&
@@ -358,127 +369,64 @@ export default function EnhancedTable(props) {
     return contactData;
   };
 
-  const loadTagsData = () => {
-    let filtered = [];
-    filtered =
-      props.filterTagsData &&
-      props.filterTagsData.filter(
-        (contact) =>
-          contact.firstName
-            .toLowerCase()
-            .startsWith(props.value.toLowerCase()) ||
-          contact.firstName.toLowerCase().startsWith(props.value.toLowerCase())
-      );
-
-    const filteredTagsData =
-      filtered &&
-      filtered.length > 0 &&
-      stableSort(filtered, getComparator(props.order, props.orderBy))
-        .slice(
-          props.page * props.rowsPerPage,
-          props.page * props.rowsPerPage + props.rowsPerPage
-        )
-
-        .map((row, index) => {
-          const isItemSelected = props.isSelected(row._id);
-          const labelId = `enhanced-table-checkbox-${index}`;
-
-          return (
-            <TableRow
-              hover
-              onClick={(event) => props.handleClick(event, row._id)}
-              role="checkbox"
-              aria-checked={isItemSelected}
-              tabIndex={-1}
-              key={row.firstName}
-              selected={isItemSelected}
-            >
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={isItemSelected}
-                  inputProps={{
-                    "aria-labelledby": labelId,
-                  }}
-                />
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row && row.firstName + " " + row.lastName}
-              </TableCell>
-              <TableCell align="right">{row && row.email}</TableCell>
-              <TableCell align="right">{row && row.phone}</TableCell>
-              <TableCell align="right">
-                {moment(row && row.updatedAt).format("DD/MM/YYYY")}
-              </TableCell>
-              <TableCell align="right">
-                {moment(row && row.createdAt).format("DD/MM/YYYY")}
-              </TableCell>
-            </TableRow>
-          );
-        });
-    return filteredTagsData;
-  };
-
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        {!rowsData &&
+        {!rowsData && (
           <div className="data-notFound">
-              <img src={LoaderPic} alt="not found" />
+            <img src={LoaderPic} alt="not found" />
           </div>
-        }
-        {rowsData && 
-        <>
-          <EnhancedTableToolbar
-            numSelected={props.selected.length}
-            showDeleteContactModal={props.showDeleteContactModal}
-            handleContactDeleteV={props.handleContactDeleteV}
-            handleDeleteContact={props.handleDeleteContact}
-            handleCloseDeleteModal={props.handleCloseDeleteModal}
-            handleSearchChange={props.handleSearchChange}
-            value={props.value}
-          />
-          <TableContainer>
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size={props.dense ? "small" : "medium"}
-            >
-              <EnhancedTableHead
-                numSelected={props.selected.length}
-                order={props.order}
-                orderBy={props.orderBy}
-                onSelectAllClick={props.handleSelectAllClick}
-                onRequestSort={props.handleRequestSort}
-                rowCount={rowsData && rowsData.length}
-              />
-              <TableBody>
-                {props.filterTagsData.length > 0
-                  ? loadTagsData()
-                  : loadContacts()}
-                {props.emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: (props.dense ? 33 : 53) * props.emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={rowsData ? rowsData.length : 0}
-            rowsPerPage={props.rowsPerPage}
-            page={props.page}
-            onPageChange={props.handleChangePage}
-            onRowsPerPageChange={props.handleChangeRowsPerPage}
-          />
+        )}
+        {rowsData && (
+          <>
+            <EnhancedTableToolbar
+              numSelected={props.selected.length}
+              showDeleteContactModal={props.showDeleteContactModal}
+              handleContactDeleteV={props.handleContactDeleteV}
+              handleDeleteContact={props.handleDeleteContact}
+              handleCloseDeleteModal={props.handleCloseDeleteModal}
+              handleSearchChange={props.handleSearchChange}
+              value={props.value}
+            />
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={props.dense ? "small" : "medium"}
+              >
+                <EnhancedTableHead
+                  numSelected={props.selected.length}
+                  order={props.order}
+                  orderBy={props.orderBy}
+                  onSelectAllClick={props.handleSelectAllClick}
+                  onRequestSort={props.handleRequestSort}
+                  rowCount={rowsData && rowsData.length}
+                />
+                <TableBody>
+                  {loadContacts()}
+                  {props.emptyRows > 0 && (
+                    <TableRow
+                      style={{
+                        height: (props.dense ? 33 : 53) * props.emptyRows,
+                      }}
+                    >
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rowsData ? rowsData.length : 0}
+              rowsPerPage={props.rowsPerPage}
+              page={props.page}
+              onPageChange={props.handleChangePage}
+              onRowsPerPageChange={props.handleChangeRowsPerPage}
+            />
           </>
-        }
+        )}
       </Paper>
     </Box>
   );

@@ -8,7 +8,7 @@ import {
   updateTagsApi,
 } from "../../api/tag";
 import { toast } from "react-toastify";
-import { getContactApi } from ".././../api/contact";
+import { addTagsToListApi, getContactApi } from ".././../api/contact";
 import {
   getMessageApi,
   getUserWithMessage,
@@ -166,12 +166,19 @@ const TextPage = () => {
     }
   };
 
-  const handleSelectedTagItems = (item, index) => {
+  const handleSelectedTagItems = async (item, index) => {
     setSelectedTags((oldArray) => [...oldArray, item]);
     const newArrayState = conversationTags.filter((value, theIndex) => {
       return index !== theIndex;
     });
-    setConversationTags(newArrayState);
+    const obj = {
+      tags: newArrayState,
+      contactId: selecteduser.contact && selecteduser.contact.contactid,
+    };
+    const res = await addTagsToListApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      setConversationTags(newArrayState);
+    }
   };
 
   const handleSelectDel = (item) => {
