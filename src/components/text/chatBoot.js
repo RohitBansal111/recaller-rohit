@@ -260,6 +260,7 @@ const ChatBoot = (props) => {
                             borderColor: item.color,
                             color: item.color,
                           }}
+                          
                         >
                           {item.name}{" "}
                           <span
@@ -281,12 +282,12 @@ const ChatBoot = (props) => {
               >
                 {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
-                      <li style={{ borderColor: item.color }}>
+                      <li style={{ borderColor: item.color }} onClick={() =>
+                        props.handleSelectedTagItems(item, index)
+                      }>
                         <span
                           style={{ color: item.color }}
-                          onClick={() =>
-                            props.handleSelectedTagItems(item, index)
-                          }
+                          
                         >
                           <LocalOfferIcon style={{ fill: item.color }} />
                           {item.name}

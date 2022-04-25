@@ -141,25 +141,20 @@ const TextPage = () => {
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
       setConversationTags(res.data.data);
-      console.log(res.data.data,'filterTag.length',filterTag)
+      console.log('newArrayStatefilterTag.length',filterTag)
       if(filterTag && filterTag.length > 0 ){
-      const resData1 = res.data.data.filter((value, theIndex) => {
-        console.log(value ,'newArrayState!=1')
-  
-       return filterTag.find((item, theIndex) => {
-          console.log(item._id ,'newArrayState!=', value._id,item._id != value._id)
-          return item._id != value._id;
-        });
-      });
-      console.log(resData1.length,'resData1.newArrayState',filterTag.length)
+      const resData1 = res.data.data.filter(value =>  filterTag.filter(item => item._id == value._id).length==0);
       if(resData1.length == res.data.data.length){
+        console.log(resData1,'resData1newArrayState',resData1.length == res.data.data.length);
+
         setConversationTags([]);
       }
       else{
-        console.log(resData1,'resData1');
+        console.log(resData1,'resData1newArrayState133');
         setConversationTags(resData1);
       }
     }
+    
     }
   };
 
@@ -218,11 +213,14 @@ const TextPage = () => {
   };
 
   const handleSelectDel = async(item) => {
+    let conversationdata = conversationTags;
     let data = [...selectedTags];
     data.splice(data.indexOf(item), 1);
     setSelectedTags(data);
-    conversationTags.push(item);
-    setConversationTags(conversationTags);
+    console.log(conversationdata,'hello');
+    conversationdata.push(item);
+    console.log(conversationdata,'hello1');
+    setConversationTags(conversationdata);
     const obj = {
       tags: item._id,
       contactId: selecteduser.contact && selecteduser.contact._id,
@@ -232,10 +230,7 @@ const TextPage = () => {
       getMessage(true,true);
     }
   };
-  const getTagsData = () => {
-    const obj = messages.find(x => x.contact._id == selecteduser._id);
-    setSelectedTags(obj.contact.tags);
-  }
+
 
   const onHandleChange = (e) => {
     setSendMessage(e.target.value);
@@ -336,11 +331,9 @@ const TextPage = () => {
       setSelectedTags(selecteduser.contact.tags)
       console.log(selecteduser.contact.tags.length,'length',tags)
       if(selecteduser.contact.tags && selecteduser.contact.tags.length > 0 ){
-        const resData1 = tags.filter((value, theIndex) => {
-         return selecteduser.contact.tags.find((item, theIndex) => {
-            return item._id != value._id;
-          });
-        });
+        
+        const resData1 = tags.filter(value =>  selecteduser.contact.tags.filter(item => item._id == value._id).length==0);
+
             if(resData1.length == tags.length){
               setConversationTags([]);
             }
