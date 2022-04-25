@@ -193,14 +193,14 @@ const ChatBoot = (props) => {
                       name="firstName"
                       value={props.editCName.firstName}
                       className="user-edit-field"
-                      onChange={props.handleEditUserName}
+                      onChange={props.handleUserNameEdit}
                     />
                     <input
                       type="text"
                       name="lastName"
                       value={props.editCName.lastName}
                       className="user-edit-field"
-                      onChange={props.handleEditUserName}
+                      onChange={props.handleUserNameEdit}
                     />
                   </div>
                 </>
