@@ -45,10 +45,8 @@ const ChatBoot = (props) => {
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
           <div className="chat-tag">
-            {props.selecteduser &&
-            props.selecteduser._id == item.contact._id &&
-            props.newAray
-              ? props.newAray.map((item) => (
+            {item.contact.tags.length>0
+              ? item.contact.tags.map((item) => (
                   <p style={{ borderColor: item.color, color: item.color }}>
                     <LocalOfferIcon style={{ color: item.color }} />
                     {item.name}

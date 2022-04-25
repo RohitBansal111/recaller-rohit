@@ -119,6 +119,7 @@ const TextPage = () => {
     getTags();
     getData();
     getMessage();
+
   }, []);
 
   const handleClick = async () => {
@@ -134,11 +135,31 @@ const TextPage = () => {
     }
   };
 
-  const getTags = async () => {
+  const getTags = async (filterTag = []) => {
     const res = await getTagsApi();
+    
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
       setConversationTags(res.data.data);
+      console.log(res.data.data,'filterTag.length',filterTag)
+      if(filterTag && filterTag.length > 0 ){
+      const resData1 = res.data.data.filter((value, theIndex) => {
+        console.log(value ,'newArrayState!=1')
+  
+       return filterTag.find((item, theIndex) => {
+          console.log(item._id ,'newArrayState!=', value._id,item._id != value._id)
+          return item._id != value._id;
+        });
+      });
+      console.log(resData1.length,'resData1.newArrayState',filterTag.length)
+      if(resData1.length == res.data.data.length){
+        setConversationTags([]);
+      }
+      else{
+        console.log(resData1,'resData1');
+        setConversationTags(resData1);
+      }
+    }
     }
   };
 
@@ -178,8 +199,12 @@ const TextPage = () => {
 
   const handleSelectedTagItems = async (item, index) => {
     setSelectedTags((oldArray) => [...oldArray, item]);
-    const newArrayState = conversationTags.filter((value, theIndex) => {
-      return index !== theIndex;
+    // console.log(item,'hellooooooooooooooooooo',selecteduser);
+    // const obj = messages.find(x => x.contact._id == selecteduser._id);
+    // console.log(obj,'hellooooooooooooooooooo1111');
+
+    const newArrayState = tags.filter((value, theIndex) => {
+      return index != theIndex;
     });
     setConversationTags(newArrayState);
     const obj = {
@@ -188,6 +213,7 @@ const TextPage = () => {
     };
     const res = await addTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
+      getMessage(true,true);
     }
   };
 
@@ -203,8 +229,13 @@ const TextPage = () => {
     };
     const res = await removeTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
+      getMessage(true,true);
     }
   };
+  const getTagsData = () => {
+    const obj = messages.find(x => x.contact._id == selecteduser._id);
+    setSelectedTags(obj.contact.tags);
+  }
 
   const onHandleChange = (e) => {
     setSendMessage(e.target.value);
@@ -266,14 +297,23 @@ const TextPage = () => {
     setErrors({});
   };
 
-  const getMessage = async () => {
+  const getMessage = async (check = true, tagsCheck=false) => {
     const res = await getUserWithMessage();
     if (res && res.data && res.data.status === 200) {
+
       setMessages(res.data.data);
-      setSelecteduser(res.data.data[0]);
-      openChatClick(res.data.data[0]._id, false);
+      if(!tagsCheck){
+        setSelecteduser(res.data.data[0]);
+        openChatClick(res.data.data[0]._id, false);
+        setSelectedTags(res.data.data[0].contact.tags)
+      }
+      
+      if(check){
+        getTags(res.data.data[0].contact.tags)
+      }
     }
   };
+
   const handlePreview = () => {
     setOpenMessageModal(true);
     setPreview(true);
@@ -291,7 +331,26 @@ const TextPage = () => {
     }
     if (check) {
       const selecteduser = messages.find((c) => c._id == id);
+      console.log(selecteduser)
       setSelecteduser(selecteduser);
+      setSelectedTags(selecteduser.contact.tags)
+      console.log(selecteduser.contact.tags.length,'length',tags)
+      if(selecteduser.contact.tags && selecteduser.contact.tags.length > 0 ){
+        const resData1 = tags.filter((value, theIndex) => {
+         return selecteduser.contact.tags.find((item, theIndex) => {
+            return item._id != value._id;
+          });
+        });
+            if(resData1.length == tags.length){
+              setConversationTags([]);
+            }
+            else{
+              setConversationTags(resData1);
+            }
+      }
+      else{
+        setConversationTags(tags);
+      }
     }
   };
 
