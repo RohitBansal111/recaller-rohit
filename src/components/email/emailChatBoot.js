@@ -8,28 +8,19 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
-import moment from "moment"
+import moment from "moment";
 import EmailChatText from "./emailChatText";
-
+import { timeAgo } from "../../helper/timerFuntion";
+import EditContactModal from "../../models/editContactModal";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
 
-  var formats = {
-    sameDay: "[Today]",
-    nextDay: "[Tomorrow]",
-    nextWeek: "dddd",
-    lastDay: "[Yesterday]",
-    lastWeek: "[Last] dddd",
-    sameElse: "DD/MM/YYYY",
-  };
-
-  console.log(props.searchValue, "ssssssssssss");
-  const userMessageList = () => {
+  const userEmailMessageList = () => {
     let filtered = [];
     filtered =
-      props.contactMessageList &&
-      props.contactMessageList.filter(
+      props.emailMessageList &&
+      props.emailMessageList.filter(
         (val) =>
           val.contact.firstName +
             " " +
@@ -44,11 +35,18 @@ const EmailChatBoot = (props) => {
       );
     const chatList = filtered.map((item) => {
       return (
-        <li onClick={() => props.openChatClick(item._id)}>
+        <li
+          className={
+            props.selecteduser && props.selecteduser._id == item._id
+              ? "active"
+              : ""
+          }
+          onClick={() => props.openChatClick(item._id, true)}
+        >
           <h5>
             {item.contact &&
               item.contact.firstName + " " + item.contact.lastName}
-            <span>{moment(item.createdAt).format("MM:HH")}</span>
+            <span>{timeAgo(item.createdAt)}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
         </li>
@@ -73,29 +71,36 @@ const EmailChatBoot = (props) => {
                   value={props.searchValue}
                 />
                 <div className="search-field">
-                  {/* {props.searchValue && <SearchIcon />} */}
+                  {props.searchValue && <SearchIcon />}
                 </div>
               </div>
             </form>
             <ul class="user-list-main" id="chatBox">
-              <li class="active">
-                <h5>Dev Test<span>Today 10 00</span></h5>
-                <p>demo chat...</p>
-              </li>
+              {userEmailMessageList()}
             </ul>
           </div>
         </div>
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                <h4>Demo Heading</h4>
+              <h4>
+                {" "}
+                {props.selecteduser
+                  ? props.selecteduser.contact.firstName +
+                    " " +
+                    props.selecteduser.contact.lastName
+                  : ""}
+              </h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
               </div>
             </div>
             <div className="chat-now">
-                <EmailChatText />
+              <EmailChatText
+                emailChatData={props.emailChatData}
+                contactName={props.contactName}
+              />
             </div>
             {location.pathname === "/voice" && (
               <div className="voice-recorder-box">
@@ -171,13 +176,52 @@ const EmailChatBoot = (props) => {
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">
-              <h4>White Rabbit Delivery</h4>
-              <EditIcon />
+              {!props.editContactName && (
+                <>
+                  <h4>
+                    {props.selecteduser
+                      ? props.selecteduser.contact.firstName +
+                        " " +
+                        props.selecteduser.contact.lastName
+                      : ""}
+                  </h4>
+                  <EditIcon
+                    onClick={() =>
+                      props.handleEditUserName(props.selecteduser.contact._id)
+                    }
+                  />
+                </>
+              )}
+
+              {props.editContactName && (
+                <>
+                  <div className="multi-inputs">
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={props.editCName.firstName}
+                      className="user-edit-field"
+                      onChange={props.handleUserNameEdit}
+                    />
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={props.editCName.lastName}
+                      className="user-edit-field"
+                      onChange={props.handleUserNameEdit}
+                    />
+                  </div>
+                </>
+              )}
             </div>
             <ul className="personal-info">
               <li>
                 <h5>Phone Number</h5>
-                <p>(289) 556-6684</p>
+                <p>
+                  {props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.phone}
+                </p>
               </li>
               <li>
                 <h5>Subscription</h5>
@@ -185,16 +229,31 @@ const EmailChatBoot = (props) => {
               </li>
               <li>
                 <h5>Email</h5>
-                <p>Whiterabbitdel@gmail.com</p>
+                <p>
+                  {props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.email}
+                </p>
               </li>
               <li>
-                <button type="button" className="btn-links">
+                <button
+                  type="button"
+                  onClick={() =>
+                    props.handleContactEditModal(
+                      props.selecteduser && props.selecteduser.contact._id
+                    )
+                  }
+                  className="btn-links"
+                >
                   Edit Contact
                 </button>
-                {/* <button type="button" className="btn-links">
-                  {" "}
-                  View in Contacts
-                </button> */}
+                <EditContactModal
+                  open={props.openContactModal}
+                  handleCloseContactModal={props.handleCloseContactModal}
+                  editContact={props.editContact}
+                  handleEditContactChange={props.handleEditContactChange}
+                  handleConDataEdit={props.handleConDataEdit}
+                />
               </li>
             </ul>
           </div>

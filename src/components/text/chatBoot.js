@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -9,7 +9,6 @@ import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./../conversationTagModal";
 import TextChat from "./textChat";
-import { useLocation } from "react-router-dom";
 import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
 

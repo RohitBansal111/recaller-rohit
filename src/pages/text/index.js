@@ -12,7 +12,7 @@ import {
   addTagsToListApi,
   getContactApi,
   updateContactApi,
-  removeTagsToListApi
+  removeTagsToListApi,
 } from ".././../api/contact";
 import {
   getMessageApi,
@@ -119,7 +119,6 @@ const TextPage = () => {
     getTags();
     getData();
     getMessage();
-
   }, []);
 
   const handleClick = async () => {
@@ -137,7 +136,7 @@ const TextPage = () => {
 
   const getTags = async (filterTag = []) => {
     const res = await getTagsApi();
-    
+
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
       setConversationTags(res.data.data);
@@ -208,7 +207,7 @@ const TextPage = () => {
     };
     const res = await addTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      getMessage(true,true);
+      getMessage(true, true);
     }
   };
 
@@ -227,10 +226,9 @@ const TextPage = () => {
     };
     const res = await removeTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      getMessage(true,true);
+      getMessage(true, true);
     }
   };
-
 
   const onHandleChange = (e) => {
     setSendMessage(e.target.value);
@@ -292,19 +290,18 @@ const TextPage = () => {
     setErrors({});
   };
 
-  const getMessage = async (check = true, tagsCheck=false) => {
+  const getMessage = async (check = true, tagsCheck = false) => {
     const res = await getUserWithMessage();
     if (res && res.data && res.data.status === 200) {
-
       setMessages(res.data.data);
-      if(!tagsCheck){
+      if (!tagsCheck) {
         setSelecteduser(res.data.data[0]);
         openChatClick(res.data.data[0]._id, false);
-        setSelectedTags(res.data.data[0].contact.tags)
+        setSelectedTags(res.data.data[0].contact.tags);
       }
-      
-      if(check){
-        getTags(res.data.data[0].contact.tags)
+
+      if (check) {
+        getTags(res.data.data[0].contact.tags);
       }
     }
   };
@@ -326,7 +323,7 @@ const TextPage = () => {
     }
     if (check) {
       const selecteduser = messages.find((c) => c._id == id);
-      console.log(selecteduser)
+      console.log(selecteduser);
       setSelecteduser(selecteduser);
       setSelectedTags(selecteduser.contact.tags)
       console.log(selecteduser.contact.tags.length,'length',tags)
@@ -364,7 +361,7 @@ const TextPage = () => {
     console.log(editContact, "editContact");
     // const res = await updateContactApi(editContact._id, editContact);
     // if (res && res.data && res.data.status === 200) {
-    //   setOpenContactModal(false);
+    setOpenContactModal(false);
     //   getData();
     // }
   };
