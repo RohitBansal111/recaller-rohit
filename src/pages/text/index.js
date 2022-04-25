@@ -12,6 +12,7 @@ import {
   addTagsToListApi,
   getContactApi,
   updateContactApi,
+  removeTagsToListApi
 } from ".././../api/contact";
 import {
   getMessageApi,
@@ -180,22 +181,29 @@ const TextPage = () => {
     const newArrayState = conversationTags.filter((value, theIndex) => {
       return index !== theIndex;
     });
+    setConversationTags(newArrayState);
     const obj = {
-      tags: newArrayState,
-      contactId: selecteduser.contact && selecteduser.contact.contactid,
+      tags: item._id,
+      contactId: selecteduser.contact && selecteduser.contact._id,
     };
     const res = await addTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      setConversationTags(newArrayState);
     }
   };
 
-  const handleSelectDel = (item) => {
+  const handleSelectDel = async(item) => {
     let data = [...selectedTags];
     data.splice(data.indexOf(item), 1);
     setSelectedTags(data);
     conversationTags.push(item);
     setConversationTags(conversationTags);
+    const obj = {
+      tags: item._id,
+      contactId: selecteduser.contact && selecteduser.contact._id,
+    };
+    const res = await removeTagsToListApi(obj);
+    if (res && res.data && res.data.status === 200) {
+    }
   };
 
   const onHandleChange = (e) => {
