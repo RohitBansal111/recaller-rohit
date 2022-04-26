@@ -194,13 +194,11 @@ const TextPage = () => {
 
   const handleSelectedTagItems = async (item, index) => {
     setSelectedTags((oldArray) => [...oldArray, item]);
-    // console.log(item,'hellooooooooooooooooooo',selecteduser);
-    // const obj = messages.find(x => x.contact._id == selecteduser._id);
-    // console.log(obj,'hellooooooooooooooooooo1111');
 
     const newArrayState = tags.filter((value, theIndex) => {
       return index != theIndex;
     });
+    console.log(newArrayState,'1222')
     setConversationTags(newArrayState);
     const obj = {
       tags: item._id,
@@ -208,9 +206,10 @@ const TextPage = () => {
     };
     const res = await addTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      getMessage(true,true);
+      getMessage(false,true);
     }
   };
+  console.log(conversationTags,'12223')
 
   const handleSelectDel = async(item) => {
     let conversationdata = conversationTags;
@@ -227,7 +226,7 @@ const TextPage = () => {
     };
     const res = await removeTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      getMessage(true,true);
+      getMessage(false,true);
     }
   };
 
@@ -305,6 +304,14 @@ const TextPage = () => {
       
       if(check){
         getTags(res.data.data[0].contact.tags)
+      }
+      else{
+        console.log(res.data.data,'selecteduser',selecteduser)
+       const objTag = res.data.data.find((item => item.contact._id == selecteduser._id))
+       console.log('selecteduser111111',objTag)
+       getTags(objTag.contact.tags)
+
+        
       }
     }
   };
