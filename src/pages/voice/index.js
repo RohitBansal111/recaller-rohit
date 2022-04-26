@@ -8,6 +8,7 @@ import {
 } from "../../api/tag";
 import VoiceChatBoot from "../../components/voice/voiceChatBoot";
 import VoiceModal from "../../models/VoiceModal";
+import { useReactMediaRecorder } from "react-media-recorder";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -21,6 +22,11 @@ const Voice = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [conversationTags, setConversationTags] = useState([]);
   const [errors, setErrors] = useState({});
+  const [selected, setSelected] = useState([]);
+  const [second, setSecond] = useState("00");
+  const [minute, setMinute] = useState("00");
+  const [isActive, setIsActive] = useState(false);
+  const [counter, setCounter] = useState(0);
 
   const isValid = () => {
     let formData = true;
@@ -36,7 +42,7 @@ const Voice = () => {
   };
   const handleNewMessage = () => {
     setOpenMessageModal(true);
-    setErrors({})
+    setErrors({});
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -69,7 +75,7 @@ const Voice = () => {
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
-    setErrors({})
+    setErrors({});
   };
 
   useEffect(() => {
@@ -84,8 +90,8 @@ const Voice = () => {
         setOpenCreateTagModal(false);
         setaddTags({});
         getTags();
-        setErrors({})
-      } 
+        setErrors({});
+      }
     }
   };
 
@@ -158,6 +164,53 @@ const Voice = () => {
       setConversationTags(arr);
     }
   };
+
+  const handleSelectChange = (values) => {
+    setSelected(values);
+  };
+
+  useEffect(() => {
+    let intervalId;
+
+    if (isActive) {
+      intervalId = setInterval(() => {
+        const secondCounter = counter % 60;
+        const minuteCounter = Math.floor(counter / 60);
+        let computedSecond =
+          String(secondCounter).length === 1
+            ? `0${secondCounter}`
+            : secondCounter;
+        let computedMinute =
+          String(minuteCounter).length === 1
+            ? `0${minuteCounter}`
+            : minuteCounter;
+
+        setSecond(computedSecond);
+        setMinute(computedMinute);
+
+        setCounter((counter) => counter + 1);
+      }, 650);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [isActive, counter]);
+
+  function stopTimer() {
+    setIsActive(false);
+    setCounter(0);
+    setSecond("00");
+    setMinute("00");
+  }
+
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    {
+      video: false,
+      audio: true,
+      echoCancellation: true,
+    }
+  );
+  console.log("deed", mediaBlobUrl);
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -196,11 +249,20 @@ const Voice = () => {
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
           errors={errors}
+          minute={minute}
+          second={second}
+          startRecording={startRecording}
+          isActive={isActive}
+          stopRecording={stopRecording}
+          setIsActive={setIsActive}
+          stopTimer={stopTimer}
         />
       </div>
       <VoiceModal
         open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
+        handleSelectChange={handleSelectChange}
+        selected={selected}
       />
     </div>
   );

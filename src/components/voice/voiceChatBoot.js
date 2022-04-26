@@ -79,7 +79,9 @@ const VoiceChatBoot = (props) => {
             </form>
             <ul class="user-list-main" id="chatBox">
               <li class="active">
-                <h5>Dev Test<span>Today 10 00</span></h5>
+                <h5>
+                  Dev Test<span>Today 10 00</span>
+                </h5>
                 <p>demo chat...</p>
               </li>
             </ul>
@@ -88,7 +90,7 @@ const VoiceChatBoot = (props) => {
         <div className="chat-discussion-area">
           <div className="all-discuss-section">
             <div className="chat-header">
-                <h4>Main DFDF</h4>
+              <h4>Main DFDF</h4>
               <div className="header-action">
                 <DoneIcon />
                 <MoreVertIcon />
@@ -99,10 +101,23 @@ const VoiceChatBoot = (props) => {
             </div>
             <div className="voice-recorder-box">
               <h4>
-                <span></span> 0.04
+                <span></span> {props.minute}:{props.second}
+                <p onClick={props.stopTimer}>{props.second > 0 ? " x" : ""}</p>
               </h4>
-              <button type="button" className="btn btn-primary">
-                <MicIcon className="mr-2" /> Press & Recording
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  if (!props.isActive) {
+                    props.startRecording();
+                  } else {
+                    props.stopRecording();
+                  }
+                  props.setIsActive(!props.isActive);
+                }}
+              >
+                <MicIcon className="mr-2" />
+                {props.second > 0 ? "send" : "Press & Recording"}
               </button>
             </div>
           </div>
