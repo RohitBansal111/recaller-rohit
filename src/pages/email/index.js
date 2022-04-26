@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { getContactApi } from "../../api/contact";
+import {
+  getEmailMessageApi,
+  getUserWithEmailMessage,
+  sendEmailMessageApi,
+} from "../../api/emailMessage";
 import {
   addTagsApi,
   deleteTagApi,
@@ -21,6 +27,19 @@ const EmailPage = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [conversationTags, setConversationTags] = useState([]);
   const [errors, setErrors] = useState({});
+  const [selected, setSelected] = useState([]);
+  const [preview, setPreview] = useState(false);
+  const [emailMessage, setEmailMessage] = useState("");
+  const [emailMessageList, setEmailMessageList] = useState([]);
+  const [rowsData, setRowsData] = useState([]);
+  const [selecteduser, setSelecteduser] = useState("");
+  const [emailChatMessages, setEmailChatMesssages] = useState([]);
+  const [editContactName, setEditContactName] = useState(false);
+  const [editCName, setEditCName] = useState({});
+  const [contactData, setContactData] = useState([]);
+  const [editContact, setEditContact] = useState({});
+  const [openContactModal, setOpenContactModal] = useState(false);
+  const [searchState, setSearchState] = useState("");
 
   const isValid = () => {
     let formData = true;
@@ -37,43 +56,48 @@ const EmailPage = () => {
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
-    setErrors({})
+    setErrors({});
+    setEmailMessage("");
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
-    setErrors({})
+    setErrors({});
+    setEmailMessage("");
+    setSelected([]);
   };
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
-    setErrors({})
+    setErrors({});
   };
   const handleManageTag = () => {
     setOpenManageTagModal(true);
-    setErrors({})
+    setErrors({});
   };
   const handleCloseManageModal = () => {
     setOpenManageTagModal(false);
-    setErrors({})
+    setErrors({});
   };
   const handleCMModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
-    setErrors({})
+    setErrors({});
   };
 
   const handleCloseCTModal = () => {
     setOpenCreateTagModal(false);
     setaddTags({});
-    setErrors({})
+    setErrors({});
   };
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
-    setErrors({})
+    setErrors({});
   };
 
   useEffect(() => {
     getTags();
+    getEmailMessage();
+    getData();
   }, []);
 
   const handleClick = async () => {
@@ -159,6 +183,131 @@ const EmailPage = () => {
     }
   };
 
+  const handleSelectChange = (values) => {
+    setSelected(values);
+    setErrors({});
+  };
+
+  const handleMessageChange = (e) => {
+    setEmailMessage(e.target.value);
+    setErrors({});
+  };
+
+  const isSelectValid = () => {
+    let formData = true;
+    switch (true) {
+      case selected.length == 0:
+        setErrors({ selected: "Please Select an email address" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const sendMessageClick = async () => {
+    if (isSelectValid()) {
+      let contactid = selected.map((item) => item.value);
+      const obj = {
+        contactid: contactid,
+        message: emailMessage,
+      };
+      let res = await sendEmailMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setOpenMessageModal(false);
+        setSelected([]);
+        setEmailMessage("");
+      }
+      getEmailMessage();
+    }
+  };
+
+  const handleBackMessageModal = () => {
+    setOpenMessageModal(true);
+    setPreview(false);
+  };
+
+  const handlePreview = () => {
+    setOpenMessageModal(true);
+    setPreview(true);
+  };
+
+  const getData = async () => {
+    let res = await getContactApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return {
+          value: item.contactid,
+          label: item.firstName + " " + item.lastName,
+          phone: item.phone,
+          id: item._id,
+        };
+      });
+      setRowsData(data);
+      setContactData(res.data.data);
+
+    }
+  };
+
+  const getEmailMessage = async () => {
+    let res = await getUserWithEmailMessage();
+    if (res && res.data && res.data.status === 200) {
+      setEmailMessageList(res.data.data);
+      setSelecteduser(res.data.data[0]);
+      openChatClick(res.data.data[0]._id, false);
+    }
+  };
+  const openChatClick = async (id, check) => {
+    const res = await getEmailMessageApi(id);
+    if (res && res.data && res.data.status === 200) {
+      setEmailChatMesssages(res.data.data);
+    }
+    if (check) {
+      const selecteduser = emailMessageList.find((c) => c._id == id);
+      setSelecteduser(selecteduser);
+    }
+  };
+
+  const handleContactEditModal = (id) => {
+    const val = contactData.find((item) => item._id == id);
+    setEditContact(val);
+    setOpenContactModal(true);
+  };
+
+  const handleEditUserName = (id) => {
+    const val = contactData.find((item) => item._id == id);
+    const obj = {
+      firstName: val.firstName,
+      lastName: val.lastName,
+    };
+    setEditCName(obj);
+    setEditContactName(true);
+  };
+
+  const handleEditContactChange = (e) => {
+    setEditContact({ ...editContact, [e.target.name]: e.target.value });
+  };
+
+  const handleUserNameEdit = (e) => {
+    setEditCName({ ...editCName, [e.target.name]: e.target.value });
+  };
+
+  const handleConDataEdit = async () => {
+    console.log(editContact, "editContact");
+    // const res = await updateContactApi(editContact._id, editContact);
+    // if (res && res.data && res.data.status === 200) {
+      setOpenContactModal(false);
+    //   getData();
+    // }
+  };
+
+  const handleCloseContactModal = () => {
+    setOpenContactModal(false);
+  };
+
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -197,11 +346,38 @@ const EmailPage = () => {
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
           errors={errors}
+          emailMessageList={emailMessageList}
+          openChatClick={openChatClick}
+          selecteduser={selecteduser}
+          emailChatData={emailChatMessages}
+          contactName={selecteduser}
+          editContactName={editContactName}
+          handleEditUserName={handleEditUserName}
+          editCName={editCName}
+          openContactModal={openContactModal}
+          handleCloseContactModal={handleCloseContactModal}
+          editContact={editContact}
+          handleEditContactChange={handleEditContactChange}
+          handleConDataEdit={handleConDataEdit}
+          handleContactEditModal={handleContactEditModal}
+          searchValue={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
+          handleUserNameEdit={handleUserNameEdit}
         />
       </div>
       <EmailModal
         open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
+        selected={selected}
+        options={rowsData}
+        handleSelectChange={handleSelectChange}
+        errors={errors}
+        emailMessage={emailMessage}
+        preview={preview}
+        handlePreview={handlePreview}
+        handleMessageChange={handleMessageChange}
+        sendMessageClick={sendMessageClick}
+        handleBackMessageModal={handleBackMessageModal}
       />
     </div>
   );
