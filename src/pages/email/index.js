@@ -10,6 +10,7 @@ import {
   getEmailMessageApi,
   getUserWithEmailMessage,
   sendEmailMessageApi,
+  sendSingleEmailMessageApi,
 } from "../../api/emailMessage";
 import {
   addTagsApi,
@@ -49,6 +50,7 @@ const EmailPage = () => {
     useState("opted-in");
   const [selectPhoneSubscription, setSelectPhoneSubscription] =
     useState("opted-in");
+  const [sendEmailMessage, setSendEmailMessage] = useState("");
 
   const isValid = () => {
     let formData = true;
@@ -68,24 +70,29 @@ const EmailPage = () => {
     setErrors({});
     setEmailMessage("");
   };
+
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setErrors({});
     setEmailMessage("");
     setSelected([]);
   };
+
   const handleCloseETModal = () => {
     setOpenEditTagModal(false);
     setErrors({});
   };
+
   const handleManageTag = () => {
     setOpenManageTagModal(true);
     setErrors({});
   };
+
   const handleCloseManageModal = () => {
     setOpenManageTagModal(false);
     setErrors({});
   };
+
   const handleCMModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
@@ -122,6 +129,7 @@ const EmailPage = () => {
       }
     }
   };
+
   const getTags = async (filterTag = []) => {
     const res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
@@ -148,6 +156,7 @@ const EmailPage = () => {
   const handleEditChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
   };
+
   const handleEditClick = (item) => {
     setaddTags(item);
     setOpenEditTagModal(true);
@@ -211,6 +220,7 @@ const EmailPage = () => {
       getEmailMessage(false, true);
     }
   };
+
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
@@ -305,6 +315,7 @@ const EmailPage = () => {
       }
     }
   };
+
   const openChatClick = async (id, check) => {
     const res = await getEmailMessageApi(id);
     if (res && res.data && res.data.status === 200) {
@@ -332,6 +343,23 @@ const EmailPage = () => {
     }
   };
 
+  const onHandleChange = (e) => {
+    setSendEmailMessage(e.target.value);
+  };
+
+  const onHandleClick = async () => {
+    const obj = {
+      message: sendEmailMessage,
+      contactid: selecteduser.contact && selecteduser.contact.contactid,
+    };
+    const res = await sendSingleEmailMessageApi(obj);
+
+    if (res && res.data && res.data.status === 200) {
+      setSendEmailMessage("");
+    }
+    getEmailMessage();
+  };
+
   const handleContactEditModal = (id) => {
     const val = contactData.find((item) => item._id == id);
     setEditContact(val);
@@ -355,6 +383,7 @@ const EmailPage = () => {
   const handleUserNameEdit = (e) => {
     setEditCName({ ...editCName, [e.target.name]: e.target.value });
   };
+
   const handleEmailSubSelectChange = (e) => {
     setSelectEmailSubscription(e.target.value);
   };
@@ -362,6 +391,7 @@ const EmailPage = () => {
   const handlePhoneSubSelectChange = (e) => {
     setSelectPhoneSubscription(e.target.value);
   };
+
   const handleConDataEdit = async () => {
     const editData = {
       firstName: editContact.firstName,
@@ -424,6 +454,9 @@ const EmailPage = () => {
           selecteduser={selecteduser}
           emailChatData={emailChatMessages}
           contactName={selecteduser}
+          sendEmailMessage={sendEmailMessage}
+          onHandleChange={onHandleChange}
+          onHandleClick={onHandleClick}
           editContactName={editContactName}
           handleEditUserName={handleEditUserName}
           editCName={editCName}
@@ -436,10 +469,10 @@ const EmailPage = () => {
           searchValue={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
           handleUserNameEdit={handleUserNameEdit}
-          handleEmailSubSelectChange={handleEmailSubSelectChange}
-          handlePhoneSubSelectChange={handlePhoneSubSelectChange}
           selectEmailSubscription={selectEmailSubscription}
           selectPhoneSubscription={selectPhoneSubscription}
+          handleEmailSubSelectChange={handleEmailSubSelectChange}
+          handlePhoneSubSelectChange={handlePhoneSubSelectChange}
         />
       </div>
       <EmailModal

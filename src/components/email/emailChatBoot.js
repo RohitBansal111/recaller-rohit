@@ -134,18 +134,18 @@ const EmailChatBoot = (props) => {
                         <div className="field-group flexFull">
                           <textarea
                             placeholder="Type your message..."
-                            name="sendMessage"
-                            value={props.sendMessage}
+                            name="sendEmailMessage"
+                            value={props.sendEmailMessage}
                             onChange={props.onHandleChange}
                           >
-                            {props.sendMessage}
+                            {props.sendEmailMessage}
                           </textarea>
                         </div>
                         <div className="field-group btn-groups flexFull">
                           <button
                             type="button"
                             className="btn-primary-outline"
-                            disabled={!props.sendMessage ? true : false}
+                            disabled={!props.sendEmailMessage ? true : false}
                             onClick={props.onHandleClick}
                           >
                             Send

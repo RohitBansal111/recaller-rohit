@@ -5,7 +5,7 @@ const sendEmailMessageApi = async (data) => {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/message/insert`,
+      `${process.env.REACT_APP_API_URL}/email/insert`,
       data
     );
     if (result) {
@@ -21,7 +21,7 @@ const sendSingleEmailMessageApi = async (data) => {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/message/single`,
+      `${process.env.REACT_APP_API_URL}/email/single`,
       data
     );
     if (result) {
@@ -37,7 +37,7 @@ const getUserWithEmailMessage = async () => {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/message/user`
+      `${process.env.REACT_APP_API_URL}/email/user`
     );
     if (result) {
       return result;
@@ -52,7 +52,7 @@ const getEmailMessageApi = async (id, data) => {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/message/contact/${id}`,
+      `${process.env.REACT_APP_API_URL}/email/contact/${id}`,
       data
     );
     if (result) {
