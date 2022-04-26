@@ -99,8 +99,8 @@ const updateContactApi = async (id, data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-    const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/contact//update/${id}`,
+    const result = await axios.put(
+      `${process.env.REACT_APP_API_URL}/contact/update/${id}`,
       data
     );
     if (result) {
@@ -118,5 +118,5 @@ export {
   addMultipleContact,
   addTagsToListApi,
   updateContactApi,
-  removeTagsToListApi
+  removeTagsToListApi,
 };

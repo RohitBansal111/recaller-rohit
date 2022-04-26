@@ -4,6 +4,7 @@ import {
   addTagsToListApi,
   getContactApi,
   removeTagsToListApi,
+  updateContactApi,
 } from "../../api/contact";
 import {
   getEmailMessageApi,
@@ -44,6 +45,10 @@ const EmailPage = () => {
   const [editContact, setEditContact] = useState({});
   const [openContactModal, setOpenContactModal] = useState(false);
   const [searchState, setSearchState] = useState("");
+  const [selectEmailSubscription, setSelectEmailSubscription] =
+    useState("opted-in");
+  const [selectPhoneSubscription, setSelectPhoneSubscription] =
+    useState("opted-in");
 
   const isValid = () => {
     let formData = true;
@@ -351,14 +356,26 @@ const EmailPage = () => {
   const handleUserNameEdit = (e) => {
     setEditCName({ ...editCName, [e.target.name]: e.target.value });
   };
+  const handleEmailSubSelectChange = (e) => {
+    setSelectEmailSubscription(e.target.value);
+  };
 
+  const handlePhoneSubSelectChange = (e) => {
+    setSelectPhoneSubscription(e.target.value);
+  };
   const handleConDataEdit = async () => {
-    console.log(editContact, "editContact");
-    // const res = await updateContactApi(editContact._id, editContact);
-    // if (res && res.data && res.data.status === 200) {
-    setOpenContactModal(false);
-    //   getData();
-    // }
+    const editData = {
+      firstName: editContact.firstName,
+      lastName: editContact.lastName,
+      phoneSubs: selectPhoneSubscription,
+      emailSubs: selectEmailSubscription,
+    };
+    const res = await updateContactApi(editContact._id, editData);
+    if (res && res.data && res.data.status === 200) {
+      setOpenContactModal(false);
+    }
+    getData();
+    getEmailMessage();
   };
 
   const handleCloseContactModal = () => {
@@ -420,6 +437,10 @@ const EmailPage = () => {
           searchValue={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
           handleUserNameEdit={handleUserNameEdit}
+          handleEmailSubSelectChange={handleEmailSubSelectChange}
+          handlePhoneSubSelectChange={handlePhoneSubSelectChange}
+          selectEmailSubscription={selectEmailSubscription}
+          selectPhoneSubscription={selectPhoneSubscription}
         />
       </div>
       <EmailModal

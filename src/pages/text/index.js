@@ -47,6 +47,10 @@ const TextPage = () => {
   const [editContact, setEditContact] = useState({});
   const [editCName, setEditCName] = useState({});
   const [editContactName, setEditContactName] = useState(false);
+  const [selectEmailSubscription, setSelectEmailSubscription] =
+    useState("opted-in");
+  const [selectPhoneSubscription, setSelectPhoneSubscription] =
+    useState("opted-in");
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
@@ -140,20 +144,17 @@ const TextPage = () => {
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
       setConversationTags(res.data.data);
-      console.log('newArrayStatefilterTag.length',filterTag)
-      if(filterTag && filterTag.length > 0 ){
-      const resData1 = res.data.data.filter(value =>  filterTag.filter(item => item._id == value._id).length==0);
-      if(resData1.length == res.data.data.length){
-        console.log(resData1,'resData1newArrayState',resData1.length == res.data.data.length);
-
-        setConversationTags([]);
+      if (filterTag && filterTag.length > 0) {
+        const resData1 = res.data.data.filter(
+          (value) =>
+            filterTag.filter((item) => item._id == value._id).length == 0
+        );
+        if (resData1.length == res.data.data.length) {
+          setConversationTags([]);
+        } else {
+          setConversationTags(resData1);
+        }
       }
-      else{
-        console.log(resData1,'resData1newArrayState133');
-        setConversationTags(resData1);
-      }
-    }
-    
     }
   };
 
@@ -204,11 +205,11 @@ const TextPage = () => {
     };
     const res = await addTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      getMessage(false,true);
+      getMessage(false, true);
     }
   };
 
-  const handleSelectDel = async(item) => {
+  const handleSelectDel = async (item) => {
     let conversationdata = conversationTags;
     let data = [...selectedTags];
     data.splice(data.indexOf(item), 1);
@@ -221,7 +222,7 @@ const TextPage = () => {
     };
     const res = await removeTagsToListApi(obj);
     if (res && res.data && res.data.status === 200) {
-      getMessage(false,true);
+      getMessage(false, true);
     }
   };
 
@@ -297,14 +298,11 @@ const TextPage = () => {
 
       if (check) {
         getTags(res.data.data[0].contact.tags);
-      }
-      else{
-        console.log(res.data.data,'selecteduser',selecteduser)
-       const objTag = res.data.data.find((item => item.contact._id == selecteduser._id))
-       console.log('selecteduser111111',objTag)
-       getTags(objTag.contact.tags)
-
-        
+      } else {
+        const objTag = res.data.data.find(
+          (item) => item.contact._id == selecteduser._id
+        );
+        getTags(objTag.contact.tags);
       }
     }
   };
@@ -326,22 +324,21 @@ const TextPage = () => {
     }
     if (check) {
       const selecteduser = messages.find((c) => c._id == id);
-      console.log(selecteduser);
       setSelecteduser(selecteduser);
-      setSelectedTags(selecteduser.contact.tags)
-      console.log(selecteduser.contact.tags.length,'length',tags)
-      if(selecteduser.contact.tags && selecteduser.contact.tags.length > 0 ){
-        
-        const resData1 = tags.filter(value =>  selecteduser.contact.tags.filter(item => item._id == value._id).length==0);
+      setSelectedTags(selecteduser.contact.tags);
+      if (selecteduser.contact.tags && selecteduser.contact.tags.length > 0) {
+        const resData1 = tags.filter(
+          (value) =>
+            selecteduser.contact.tags.filter((item) => item._id == value._id)
+              .length == 0
+        );
 
-            if(resData1.length == tags.length){
-              setConversationTags([]);
-            }
-            else{
-              setConversationTags(resData1);
-            }
-      }
-      else{
+        if (resData1.length == tags.length) {
+          setConversationTags([]);
+        } else {
+          setConversationTags(resData1);
+        }
+      } else {
         setConversationTags(tags);
       }
     }
@@ -360,15 +357,6 @@ const TextPage = () => {
     setEditContact({ ...editContact, [e.target.name]: e.target.value });
   };
 
-  const handleConDataEdit = async () => {
-    console.log(editContact, "editContact");
-    // const res = await updateContactApi(editContact._id, editContact);
-    // if (res && res.data && res.data.status === 200) {
-    setOpenContactModal(false);
-    //   getData();
-    // }
-  };
-
   const handleUserNameEdit = (e) => {
     setEditCName({ ...editCName, [e.target.name]: e.target.value });
   };
@@ -382,6 +370,30 @@ const TextPage = () => {
     setEditCName(obj);
     setEditContactName(true);
   };
+
+  const handleEmailSubSelectChange = (e) => {
+    setSelectEmailSubscription(e.target.value);
+  };
+
+  const handlePhoneSubSelectChange = (e) => {
+    setSelectPhoneSubscription(e.target.value);
+  };
+
+  const handleConDataEdit = async () => {
+    const editData = {
+      firstName: editContact.firstName,
+      lastName: editContact.lastName,
+      phoneSubs: selectPhoneSubscription,
+      emailSubs: selectEmailSubscription,
+    };
+    const res = await updateContactApi(editContact._id, editData);
+    if (res && res.data && res.data.status === 200) {
+      setOpenContactModal(false);
+    }
+    getData();
+getMessage()
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -440,6 +452,10 @@ const TextPage = () => {
           handleEditUserName={handleEditUserName}
           editContactName={editContactName}
           contactName={selecteduser}
+          handleEmailSubSelectChange={handleEmailSubSelectChange}
+          handlePhoneSubSelectChange={handlePhoneSubSelectChange}
+          selectEmailSubscription={selectEmailSubscription}
+          selectPhoneSubscription={selectPhoneSubscription}
         />
       </div>
       <MessageModal

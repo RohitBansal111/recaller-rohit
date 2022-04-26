@@ -4,58 +4,45 @@ import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import DoneIcon from "@material-ui/icons/Done";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
+// import Tab from "react-bootstrap/Tab";
+// import Tabs from "react-bootstrap/Tabs";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "./../conversationTagModal";
-import TextChat from "./../text/textChat";
 import VoiceRecordingChat from "../voice/voice-recording-chat";
-import { useLocation } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
-import moment from "moment";
 
 const VoiceChatBoot = (props) => {
-  const location = useLocation();
-
-  var formats = {
-    sameDay: "[Today]",
-    nextDay: "[Tomorrow]",
-    nextWeek: "dddd",
-    lastDay: "[Yesterday]",
-    lastWeek: "[Last] dddd",
-    sameElse: "DD/MM/YYYY",
-  };
-  const userMessageList = () => {
-    let filtered = [];
-    filtered =
-      props.contactMessageList &&
-      props.contactMessageList.filter(
-        (val) =>
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
-              .toLowerCase()
-              .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
-              .toLowerCase()
-              .startsWith(props.searchValue.toLowerCase())
-      );
-    const chatList = filtered.map((item) => {
-      return (
-        <li onClick={() => props.openChatClick(item._id)}>
-          <h5>
-            {item.contact &&
-              item.contact.firstName + " " + item.contact.lastName}
-            <span>{moment(item.createdAt).format("MM:HH")}</span>
-          </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
-        </li>
-      );
-    });
-    return chatList;
-  };
+  // const userMessageList = () => {
+  //   let filtered = [];
+  //   filtered =
+  //     props.contactMessageList &&
+  //     props.contactMessageList.filter(
+  //       (val) =>
+  //         val.contact.firstName +
+  //           " " +
+  //           val.contact.lastName
+  //             .toLowerCase()
+  //             .startsWith(props.searchValue.toLowerCase()) ||
+  //         val.contact.firstName +
+  //           " " +
+  //           val.contact.lastName
+  //             .toLowerCase()
+  //             .startsWith(props.searchValue.toLowerCase())
+  //     );
+  //   const chatList = filtered.map((item) => {
+  //     return (
+  //       <li onClick={() => props.openChatClick(item._id)}>
+  //         <h5>
+  //           {item.contact &&
+  //             item.contact.firstName + " " + item.contact.lastName}
+  //           <span>{moment(item.createdAt).format("MM:HH")}</span>
+  //         </h5>
+  //         <p>{item.message.slice(0, 30).concat("...")}</p>
+  //       </li>
+  //     );
+  //   });
+  //   return chatList;
+  // };
 
   return (
     <div className="chatbox-warpper">
@@ -73,7 +60,7 @@ const VoiceChatBoot = (props) => {
                   value={props.searchValue}
                 />
                 <div className="search-field">
-                  {/* {props.searchValue && <SearchIcon />} */}
+                  {props.searchValue && <SearchIcon />}
                 </div>
               </div>
             </form>

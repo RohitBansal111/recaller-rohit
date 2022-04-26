@@ -209,7 +209,12 @@ const ChatBoot = (props) => {
               </li>
               <li>
                 <h5>Subscription</h5>
-                <p>Opted In</p>
+                <p>
+                  {props.selectPhoneSubscription &&
+                  props.selectEmailSubscription == "opted-in"
+                    ? "Opted In"
+                    : "Opted Out"}
+                </p>
               </li>
               <li>
                 <h5>Email</h5>
@@ -233,6 +238,10 @@ const ChatBoot = (props) => {
                   editContact={props.editContact}
                   handleEditContactChange={props.handleEditContactChange}
                   handleConDataEdit={props.handleConDataEdit}
+                  selectEmailSubscription={props.selectEmailSubscription}
+                  handleEmailSubSelectChange={props.handleEmailSubSelectChange}
+                  selectPhoneSubscription={props.selectPhoneSubscription}
+                  handlePhoneSubSelectChange={props.handlePhoneSubSelectChange}
                 />
               </li>
             </ul>

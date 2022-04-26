@@ -47,11 +47,17 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
           <div className="field-group flex2">
             <label>Subscription</label>
             <div className="foem-field-inner">
-              <select className="form-control">
-                <option>subscription</option>
-                <option disabled>select subscription</option>
+              <select
+                className="form-control"
+                name="subscription"
+                value={props.selectEmailSubscription}
+                onChange={props.handleEmailSubSelectChange}
+              >
+                <option value={"opted-in"} selected>
+                  Opted In
+                </option>
+                <option value={"opted-out"}>Opted Out</option>
               </select>
-              <DeleteIcon />
             </div>
           </div>
           <div className="field-group flex2">
@@ -69,11 +75,16 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
           <div className="field-group flex2">
             <label>Subscription</label>
             <div className="foem-field-inner">
-              <select className="form-control">
-                <option>subscription</option>
-                <option disabled>select subscription</option>
+              <select
+                className="form-control"
+                value={props.selectPhoneSubscription}
+                onChange={props.handlePhoneSubSelectChange}
+              >
+                <option value={"opted-in"} selected>
+                  Opted In
+                </option>
+                <option value={"opted-out"}>Opted Out</option>
               </select>
-              <DeleteIcon />
             </div>
           </div>
           <div className="field-group flexFull text-center mt-5">
