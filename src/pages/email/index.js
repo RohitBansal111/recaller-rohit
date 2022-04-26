@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { getContactApi } from "../../api/contact";
+import {
+  addTagsToListApi,
+  getContactApi,
+  removeTagsToListApi,
+} from "../../api/contact";
 import {
   getEmailMessageApi,
   getUserWithEmailMessage,
@@ -113,11 +117,26 @@ const EmailPage = () => {
       }
     }
   };
-  const getTags = async () => {
+  const getTags = async (filterTag = []) => {
     const res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
       setConversationTags(res.data.data);
+    }
+    if (res && res.data && res.data.status === 200) {
+      setTags(res.data.data);
+      setConversationTags(res.data.data);
+      if (filterTag && filterTag.length > 0) {
+        const resData1 = res.data.data.filter(
+          (value) =>
+            filterTag.filter((item) => item._id == value._id).length == 0
+        );
+        if (resData1.length == res.data.data.length) {
+          setConversationTags([]);
+        } else {
+          setConversationTags(resData1);
+        }
+      }
     }
   };
 
@@ -155,34 +174,39 @@ const EmailPage = () => {
     }
   };
 
-  const handleSelectedTagItems = (item, index) => {
-    const obj = {
-      selectedId: item._id,
-      selectedName: item.name,
-      selectedColor: item.color,
-    };
-    setSelectedTags((oldArray) => [...oldArray, obj]);
+  const handleSelectedTagItems = async (item, index) => {
+    setSelectedTags((oldArray) => [...oldArray, item]);
 
-    const newArrayState = conversationTags.filter((value, theIndex) => {
-      return index !== theIndex;
+    const newArrayState = tags.filter((value, theIndex) => {
+      return index != theIndex;
     });
     setConversationTags(newArrayState);
-  };
-
-  const handleSelectDel = (item, index) => {
-    if (conversationTags) {
-      let data = [...selectedTags];
-      data.splice(data.indexOf(item), 1);
-      setSelectedTags(data);
-      console.log([item], "selectedTags");
-    } else {
-      var arr = [];
-      arr.push(item);
-      console.log(arr, "arr");
-      setConversationTags(arr);
+    const obj = {
+      tags: item._id,
+      contactId: selecteduser.contact && selecteduser.contact._id,
+    };
+    const res = await addTagsToListApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      getEmailMessage(false, true);
     }
   };
 
+  const handleSelectDel = async (item) => {
+    let conversationdata = conversationTags;
+    let data = [...selectedTags];
+    data.splice(data.indexOf(item), 1);
+    setSelectedTags(data);
+    conversationdata.push(item);
+    setConversationTags(conversationdata);
+    const obj = {
+      tags: item._id,
+      contactId: selecteduser.contact && selecteduser.contact._id,
+    };
+    const res = await removeTagsToListApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      getEmailMessage(false, true);
+    }
+  };
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
@@ -247,16 +271,34 @@ const EmailPage = () => {
       });
       setRowsData(data);
       setContactData(res.data.data);
-
     }
   };
 
-  const getEmailMessage = async () => {
+  const getEmailMessage = async (check = true, tagsCheck = false) => {
     let res = await getUserWithEmailMessage();
     if (res && res.data && res.data.status === 200) {
       setEmailMessageList(res.data.data);
-      setSelecteduser(res.data.data[0]);
-      openChatClick(res.data.data[0]._id, false);
+      if (!tagsCheck) {
+        setSelecteduser(res.data.data[0]);
+        openChatClick(res.data.data[0]._id, false);
+        setSelectedTags(res.data.data[0].contact.tags);
+      }
+      if (check) {
+        getTags(res.data.data[0].contact.tags);
+      }
+      if (!tagsCheck) {
+        setSelecteduser(res.data.data[0]);
+        openChatClick(res.data.data[0]._id, false);
+        setSelectedTags(res.data.data[0].contact.tags);
+      }
+      if (check) {
+        getTags(res.data.data[0].contact.tags);
+      } else {
+        const objTag = res.data.data.find(
+          (item) => item.contact._id == selecteduser._id
+        );
+        getTags(objTag.contact.tags);
+      }
     }
   };
   const openChatClick = async (id, check) => {
@@ -267,6 +309,22 @@ const EmailPage = () => {
     if (check) {
       const selecteduser = emailMessageList.find((c) => c._id == id);
       setSelecteduser(selecteduser);
+      setSelectedTags(selecteduser.contact.tags);
+      if (selecteduser.contact.tags && selecteduser.contact.tags.length > 0) {
+        const resData1 = tags.filter(
+          (value) =>
+            selecteduser.contact.tags.filter((item) => item._id == value._id)
+              .length == 0
+        );
+
+        if (resData1.length == tags.length) {
+          setConversationTags([]);
+        } else {
+          setConversationTags(resData1);
+        }
+      } else {
+        setConversationTags(tags);
+      }
     }
   };
 
@@ -298,7 +356,7 @@ const EmailPage = () => {
     console.log(editContact, "editContact");
     // const res = await updateContactApi(editContact._id, editContact);
     // if (res && res.data && res.data.status === 200) {
-      setOpenContactModal(false);
+    setOpenContactModal(false);
     //   getData();
     // }
   };
@@ -306,7 +364,6 @@ const EmailPage = () => {
   const handleCloseContactModal = () => {
     setOpenContactModal(false);
   };
-
 
   return (
     <div className="content-page-layout text-page-content">

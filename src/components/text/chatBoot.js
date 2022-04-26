@@ -13,7 +13,6 @@ import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
 
 const ChatBoot = (props) => {
-
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -44,7 +43,7 @@ const ChatBoot = (props) => {
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
           <div className="chat-tag">
-            {item.contact.tags.length>0
+            {item.contact.tags.length > 0
               ? item.contact.tags.map((item) => (
                   <p style={{ borderColor: item.color, color: item.color }}>
                     <LocalOfferIcon style={{ color: item.color }} />
@@ -259,7 +258,6 @@ const ChatBoot = (props) => {
                             borderColor: item.color,
                             color: item.color,
                           }}
-                          
                         >
                           {item.name}{" "}
                           <span
@@ -281,13 +279,13 @@ const ChatBoot = (props) => {
               >
                 {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
-                      <li style={{ borderColor: item.color }} onClick={() =>
-                        props.handleSelectedTagItems(item, index)
-                      }>
-                        <span
-                          style={{ color: item.color }}
-                          
-                        >
+                      <li
+                        style={{ borderColor: item.color }}
+                        onClick={() =>
+                          props.handleSelectedTagItems(item, index)
+                        }
+                      >
+                        <span style={{ color: item.color }}>
                           <LocalOfferIcon style={{ fill: item.color }} />
                           {item.name}
                         </span>

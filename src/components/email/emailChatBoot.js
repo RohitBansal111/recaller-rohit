@@ -12,6 +12,8 @@ import moment from "moment";
 import EmailChatText from "./emailChatText";
 import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import ConversationTagModal from "../conversationTagModal";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -22,16 +24,12 @@ const EmailChatBoot = (props) => {
       props.emailMessageList &&
       props.emailMessageList.filter(
         (val) =>
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
-              .toLowerCase()
-              .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.firstName +
-            " " +
-            val.contact.lastName
-              .toLowerCase()
-              .startsWith(props.searchValue.toLowerCase())
+          val.contact.firstName
+            .toLowerCase()
+            .startsWith(props.searchValue.toLowerCase()) ||
+          val.contact.lastName
+            .toLowerCase()
+            .startsWith(props.searchValue.toLowerCase())
       );
     const chatList = filtered.map((item) => {
       return (
@@ -49,6 +47,16 @@ const EmailChatBoot = (props) => {
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
           <p>{item.message.slice(0, 30).concat("...")}</p>
+          <div className="chat-tag">
+            {item.contact.tags.length > 0
+              ? item.contact.tags.map((item) => (
+                  <p style={{ borderColor: item.color, color: item.color }}>
+                    <LocalOfferIcon style={{ color: item.color }} />
+                    {item.name}
+                  </p>
+                ))
+              : ""}
+          </div>
         </li>
       );
     });
@@ -67,8 +75,8 @@ const EmailChatBoot = (props) => {
                   name="name"
                   className="form-control"
                   placeholder="Enter customer name"
-                  onChange={props.handleSearchChange}
                   value={props.searchValue}
+                  onChange={props.handleSearchChange}
                 />
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
@@ -271,7 +279,7 @@ const EmailChatBoot = (props) => {
               </button>
               <div className="dynamic-tags">
                 <ul>
-                  {/* {props.newAray
+                  {props.newAray
                     ? props.newAray.map((item) => (
                         <li
                           style={{
@@ -289,7 +297,7 @@ const EmailChatBoot = (props) => {
                           </span>
                         </li>
                       ))
-                    : []} */}
+                    : []}
                 </ul>
               </div>
               <ul
@@ -297,33 +305,33 @@ const EmailChatBoot = (props) => {
                 aria-labelledby="dropdownMenuButton1"
                 style={{ overflowY: "scroll", height: " 220px" }}
               >
-                {/* {props.conversationTags
+                {props.conversationTags
                   ? props.conversationTags.map((item, index) => (
-                      <li>
-                        <span
-                          style={{ borderColor: item.color, color: item.color }}
-                          onClick={() =>
-                            props.handleSelectedTagItems(item, index)
-                          }
-                        >
+                      <li
+                        style={{ borderColor: item.color }}
+                        onClick={() =>
+                          props.handleSelectedTagItems(item, index)
+                        }
+                      >
+                        <span style={{ color: item.color }}>
                           <LocalOfferIcon style={{ fill: item.color }} />
                           {item.name}
                         </span>
                       </li>
                     ))
-                  : []} */}
+                  : []}
 
                 <li>
                   <button
                     type="button"
-                    // onClick={props.onClick}
+                    onClick={props.onClick}
                     className="btn link-bttn"
                   >
                     Manage Tags
                   </button>
                 </li>
               </ul>
-              {/* <ConversationTagModal
+              <ConversationTagModal
                 open={props.openManageTagModal}
                 handleCloseManageModal={props.handleCloseManageModal}
                 openCTM={props.openCreateTagModal}
@@ -344,7 +352,7 @@ const EmailChatBoot = (props) => {
                 handleDeleteTags={props.handleDeleteTags}
                 handleCloseDeleteModal={props.handleCloseDeleteModal}
                 errors={props.errors}
-              /> */}
+              />
             </div>
           </div>
           <div className="monthly-balance-box">

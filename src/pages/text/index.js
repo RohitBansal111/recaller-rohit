@@ -197,7 +197,6 @@ const TextPage = () => {
     const newArrayState = tags.filter((value, theIndex) => {
       return index != theIndex;
     });
-    console.log(newArrayState,'1222')
     setConversationTags(newArrayState);
     const obj = {
       tags: item._id,
@@ -214,9 +213,7 @@ const TextPage = () => {
     let data = [...selectedTags];
     data.splice(data.indexOf(item), 1);
     setSelectedTags(data);
-    console.log(conversationdata,'hello');
     conversationdata.push(item);
-    console.log(conversationdata,'hello1');
     setConversationTags(conversationdata);
     const obj = {
       tags: item._id,
