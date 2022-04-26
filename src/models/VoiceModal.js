@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "react-responsive-modal";
 import NewVoiceSelectTag from "../components/voice/newVoiceSelectTags";
+import MicIcon from "@material-ui/icons/Mic";
 
 const options = [
   { value: "Voice One", label: "Voice One" },
@@ -18,21 +19,18 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
         <form className="main-form">
           <div className="field-group flexFull">
             <label>Enter Contact Voice</label>
-            <NewVoiceSelectTag
-              onChange={props.handleSelectChange}
-              isMulti
-              options={options}
-              value={props.selected}
-            />
+            <NewVoiceSelectTag options={options} />
           </div>
           <div className="field-group flexFull">
-            <label>Message</label>
-            <textarea
-              type="text"
-              className="form-control"
-              placeholder="Type your message"
-              name="name"
-            />
+            <label>Voice Recording</label>
+            <div class="voice-recorder-box">
+              <div class="recording-left">
+                <span></span> <h4>00:00</h4>
+            </div>
+            <button type="button" class="btn btn-primary">
+              <MicIcon className="mr-2" /> Press & Recording
+            </button>
+          </div>
           </div>
           <div className="field-group flexFull text-center mt-3">
             <button

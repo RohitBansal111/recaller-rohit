@@ -1,8 +1,8 @@
 import React from "react";
-import ClientProfile from "./../../assets/images/user-profile.jpeg";
-import UserProfile from "./../../assets/images/user-profile2.webp";
+import ReactAudioPlayer from 'react-audio-player';
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import ScrollToBottom from "react-scroll-to-bottom";
+import Recording1 from './../../assets/recording/1.mp3'
 
 const VoiceRecordingChat = (props) => {
   return (
@@ -10,11 +10,11 @@ const VoiceRecordingChat = (props) => {
       <ul>
         <li className="voice-chat-list">
           <div className="chat-ui-box client">
-            <div className="avtar">
-              <img src={ClientProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              volume= '0'
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -22,11 +22,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box user">
-            <div className="avtar">
-              <img src={UserProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -34,11 +33,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box client">
-            <div className="avtar">
-              <img src={ClientProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording" ></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -46,11 +44,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box user">
-            <div className="avtar">
-              <img src={UserProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -58,11 +55,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box client">
-            <div className="avtar">
-              <img src={ClientProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -70,11 +66,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box user">
-            <div className="avtar">
-              <img src={UserProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -82,11 +77,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box client">
-            <div className="avtar">
-              <img src={ClientProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM
@@ -94,11 +88,10 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box user">
-            <div className="avtar">
-              <img src={UserProfile} alt="avtar" />
-            </div>
-            <PlayArrowIcon />
-            <div className="background-recording"></div>
+            <ReactAudioPlayer
+              src={Recording1}
+              controls
+            />
           </div>
           <span>
             <b>NH</b> 5:56 AM

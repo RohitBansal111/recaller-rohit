@@ -406,6 +406,16 @@
                     .chat-ui-box{
                         display: flex;
                         align-items: center;
+                        padding: 0px;
+                        border: none;
+                        background-color: transparent !important;
+                        width: 100%;
+                        .react-audio-player{
+                            background-color: #fff;
+                        }
+                        &.user{
+                            justify-content: flex-end;
+                        }
                     }
                 }
                 .avtar{
@@ -493,14 +503,18 @@
     }
 }
 .voice-recorder-box{
-    padding: 10px;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: $Theme-white;
-    h4{
+    .recording-left{
         @include flexAllCenter;
-        font-size: 18px;
+        h4{
+            font-size: 18px;
+            margin-bottom: 0px;
+            min-width: 65px;
+        }
         span{
             width: 6px;
             height: 6px;
@@ -508,5 +522,18 @@
             background-color: red;
             margin-right: 6px;
         }
+    }
+    .remove-recording-action{
+        background-color: #d82626;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        color: #fff;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 20px;
     }
 }
