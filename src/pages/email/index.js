@@ -181,7 +181,6 @@ const EmailPage = () => {
 
   const handleSelectedTagItems = async (item, index) => {
     setSelectedTags((oldArray) => [...oldArray, item]);
-
     const newArrayState = tags.filter((value, theIndex) => {
       return index != theIndex;
     });
