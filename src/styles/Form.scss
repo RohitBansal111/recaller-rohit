@@ -4,6 +4,18 @@
   flex-wrap: wrap;
   .field-group {
     margin-bottom: 15px;
+    .voice-recorder-box{
+      border: 2px dashed #27dcbf;
+      border-radius: 5px;
+      background-color: #27dcbf26 !important;
+      padding: 10px 10px 10px 20px;
+      .btn{
+        svg{
+          fill: $Theme-white;
+          font-size: 20px;
+        }
+      }
+    }
     .foem-field-inner{
       display: flex;
       align-items: center;

@@ -87,10 +87,11 @@ const VoiceChatBoot = (props) => {
               <VoiceRecordingChat />
             </div>
             <div className="voice-recorder-box">
-              <h4>
-                <span></span> {props.minute}:{props.second}
-                <p onClick={props.stopTimer}>{props.second > 0 ? " x" : ""}</p>
-              </h4>
+              <div className="recording-left">
+                <span></span> <h4>{props.minute}:{props.second}</h4>
+                {props.second > 0 ?
+                <button type="button" className="remove-recording-action" onClick={props.stopTimer}> × </button> : ""}
+              </div>
               <button
                 type="button"
                 className="btn btn-primary"
