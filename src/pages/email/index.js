@@ -364,7 +364,7 @@ const EmailPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendEmailMessage("");
-      setLoading(false)
+      setLoading(false);
     }
     getEmailMessage();
   };
@@ -411,9 +411,12 @@ const EmailPage = () => {
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
       setOpenContactModal(false);
+      getEmailMessage(false, true);
+      selecteduser.contact.firstName = editContact.firstName;
+      selecteduser.contact.lastName = editContact.lastName;
+      setSelecteduser(selecteduser);
     }
     getData();
-    getEmailMessage();
   };
 
   const handleCloseContactModal = () => {

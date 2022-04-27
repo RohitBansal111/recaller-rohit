@@ -126,17 +126,17 @@ const ChatBoot = (props) => {
                         </textarea>
                       </div>
                       <div className="field-group btn-groups flexFull">
-                      <LoadingButton
-                            type="button"
-                            loadingPosition="center"
-                            loading={props.loading}
-                            disabled={!props.sendMessage ? true : false}
-                            onClick={props.onHandleClick}
-                            className="btn-primary-outline"
-                            variant="outlined"
-                          >
-                            Send
-                          </LoadingButton>
+                        <LoadingButton
+                          type="button"
+                          loadingPosition="center"
+                          loading={props.loading}
+                          disabled={!props.sendMessage ? true : false}
+                          onClick={props.onHandleClick}
+                          className="btn-primary-outline"
+                          variant="outlined"
+                        >
+                          Send
+                        </LoadingButton>
                       </div>
                     </form>
                   </div>

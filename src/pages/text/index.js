@@ -51,21 +51,20 @@ const TextPage = () => {
     useState("opted-in");
   const [selectPhoneSubscription, setSelectPhoneSubscription] =
     useState("opted-in");
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setPreview(false);
     setErrors({});
-    setLoading(false)
-
+    setLoading(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setSelected([]);
     setSendNewMessage("");
     setErrors({});
-    setLoading(false)
+    setLoading(false);
   };
 
   const isTagValid = () => {
@@ -232,10 +231,10 @@ const TextPage = () => {
 
   const onHandleChange = (e) => {
     setSendMessage(e.target.value);
-    setLoading(false)
+    setLoading(false);
   };
   const onHandleClick = async () => {
-    setLoading(true)
+    setLoading(true);
     const obj = {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
@@ -244,7 +243,7 @@ const TextPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendMessage("");
-      setLoading(false)
+      setLoading(false);
     }
     getMessage();
   };
@@ -268,12 +267,12 @@ const TextPage = () => {
   const handleNewMChange = (e) => {
     setSendNewMessage(e.target.value);
     setErrors({});
-    setLoading(false)
+    setLoading(false);
   };
 
   const handleSendClick = async () => {
     if (isValid()) {
-      setLoading(true)
+      setLoading(true);
       let contactid = selected.map((item) => item.value);
       const obj = {
         contactid: contactid,
@@ -285,7 +284,7 @@ const TextPage = () => {
         setOpenMessageModal(false);
         setSelected([]);
         setSendNewMessage("");
-        setLoading(false)
+        setLoading(false);
       }
       getMessage();
     }
@@ -294,7 +293,7 @@ const TextPage = () => {
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
-    setLoading(false)
+    setLoading(false);
   };
 
   const getMessage = async (check = true, tagsCheck = false) => {
@@ -400,9 +399,12 @@ const TextPage = () => {
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
       setOpenContactModal(false);
+      getMessage(false, true);
+      selecteduser.contact.firstName = editContact.firstName;
+      selecteduser.contact.lastName = editContact.lastName;
+      setSelecteduser(selecteduser);
     }
     getData();
-getMessage()
   };
 
   return (
