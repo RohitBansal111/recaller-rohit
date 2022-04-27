@@ -51,6 +51,7 @@ const EmailPage = () => {
   const [selectPhoneSubscription, setSelectPhoneSubscription] =
     useState("opted-in");
   const [sendEmailMessage, setSendEmailMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const isValid = () => {
     let formData = true;
@@ -69,6 +70,7 @@ const EmailPage = () => {
     setOpenMessageModal(true);
     setErrors({});
     setEmailMessage("");
+    setLoading(false);
   };
 
   const handleCloseMessageModal = () => {
@@ -76,6 +78,7 @@ const EmailPage = () => {
     setErrors({});
     setEmailMessage("");
     setSelected([]);
+    setLoading(false);
   };
 
   const handleCloseETModal = () => {
@@ -222,11 +225,13 @@ const EmailPage = () => {
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
+    setLoading(false);
   };
 
   const handleMessageChange = (e) => {
     setEmailMessage(e.target.value);
     setErrors({});
+    setLoading(false);
   };
 
   const isSelectValid = () => {
@@ -244,6 +249,7 @@ const EmailPage = () => {
 
   const sendMessageClick = async () => {
     if (isSelectValid()) {
+      setLoading(true);
       let contactid = selected.map((item) => item.value);
       const obj = {
         contactid: contactid,
@@ -255,6 +261,7 @@ const EmailPage = () => {
         setOpenMessageModal(false);
         setSelected([]);
         setEmailMessage("");
+        setLoading(false);
       }
       getEmailMessage();
     }
@@ -343,9 +350,11 @@ const EmailPage = () => {
 
   const onHandleChange = (e) => {
     setSendEmailMessage(e.target.value);
+    setLoading(false);
   };
 
   const onHandleClick = async () => {
+    setLoading(true);
     const obj = {
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
@@ -354,6 +363,7 @@ const EmailPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendEmailMessage("");
+      setLoading(false)
     }
     getEmailMessage();
   };
@@ -471,6 +481,7 @@ const EmailPage = () => {
           selectPhoneSubscription={selectPhoneSubscription}
           handleEmailSubSelectChange={handleEmailSubSelectChange}
           handlePhoneSubSelectChange={handlePhoneSubSelectChange}
+          loading={loading}
         />
       </div>
       <EmailModal
@@ -486,6 +497,7 @@ const EmailPage = () => {
         handleMessageChange={handleMessageChange}
         sendMessageClick={sendMessageClick}
         handleBackMessageModal={handleBackMessageModal}
+        loading={loading}
       />
     </div>
   );

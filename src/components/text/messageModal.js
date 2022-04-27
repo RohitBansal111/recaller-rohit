@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Paper } from "@mui/material";
 import React from "react";
 import { Modal } from "react-responsive-modal";
@@ -59,13 +60,16 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             >
               Back
             </button>
-            <button
+            <LoadingButton
               type="button"
-              className="btn btn-primary"
+              loadingPosition="center"
+              loading={props.loading}
               onClick={props.handleSendClick}
+              className="btn btn-primary"
+              variant="contained"
             >
               Send
-            </button>
+            </LoadingButton>
           </div>
         </div>
       ) : (
@@ -114,14 +118,17 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               ) : (
                 ""
               )}
-              <button
+              <LoadingButton
                 type="button"
-                className="btn btn-primary"
+                loadingPosition="center"
+                loading={props.loading}
                 disabled={!props.sendNewMessage ? true : false}
                 onClick={props.handleSendClick}
+                className="btn btn-primary"
+                variant="contained"
               >
                 Send
-              </button>
+              </LoadingButton>
             </div>
           </form>
         </div>

@@ -11,6 +11,7 @@ import ConversationTagModal from "./../conversationTagModal";
 import TextChat from "./textChat";
 import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -125,14 +126,17 @@ const ChatBoot = (props) => {
                         </textarea>
                       </div>
                       <div className="field-group btn-groups flexFull">
-                        <button
-                          type="button"
-                          className="btn-primary-outline"
-                          disabled={!props.sendMessage ? true : false}
-                          onClick={props.onHandleClick}
-                        >
-                          Send
-                        </button>
+                      <LoadingButton
+                            type="button"
+                            loadingPosition="center"
+                            loading={props.loading}
+                            disabled={!props.sendMessage ? true : false}
+                            onClick={props.onHandleClick}
+                            className="btn-primary-outline"
+                            variant="outlined"
+                          >
+                            Send
+                          </LoadingButton>
                       </div>
                     </form>
                   </div>

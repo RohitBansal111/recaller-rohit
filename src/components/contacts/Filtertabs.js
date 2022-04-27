@@ -21,7 +21,7 @@ const FilterTabs = (props) => {
                 id="dropdown-basic"
                 className="btn btn-medium btn-primary filter-dropdown"
               >
-                {props.value ? `${props.value}` : `All( ${props.totalRecords})`}
+                {props.value ? `${props.value}` : `All(${props.totalRecords})`}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item onClick={props.handleAllTagsData}>

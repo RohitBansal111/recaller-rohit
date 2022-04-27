@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState } from "react";
 import { Modal } from "react-responsive-modal";
 import NewEmailSelectTag from "../components/email/newEmailSelectTag";
@@ -63,13 +64,16 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             >
               Back
             </button>
-            <button
+            <LoadingButton
               type="button"
-              className="btn btn-primary"
+              loadingPosition="center"
+              loading={props.loading}
               onClick={props.sendMessageClick}
+              className="btn btn-primary"
+              variant="contained"
             >
               Send
-            </button>
+            </LoadingButton>
           </div>
         </div>
       ) : (
@@ -117,14 +121,17 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
               ) : (
                 ""
               )}
-              <button
+              <LoadingButton
                 type="button"
-                className="btn btn-primary"
+                loadingPosition="center"
+                loading={props.loading}
                 disabled={!props.emailMessage ? true : false}
                 onClick={props.sendMessageClick}
+                className="btn btn-primary"
+                variant="contained"
               >
-                Save
-              </button>
+                Send
+              </LoadingButton>
             </div>
           </form>
         </div>

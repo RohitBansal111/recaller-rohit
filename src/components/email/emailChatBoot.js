@@ -14,6 +14,7 @@ import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "../conversationTagModal";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -142,14 +143,17 @@ const EmailChatBoot = (props) => {
                           </textarea>
                         </div>
                         <div className="field-group btn-groups flexFull">
-                          <button
+                          <LoadingButton
                             type="button"
-                            className="btn-primary-outline"
+                            loadingPosition="center"
+                            loading={props.loading}
                             disabled={!props.sendEmailMessage ? true : false}
                             onClick={props.onHandleClick}
+                            className="btn-primary-outline"
+                            variant="outlined"
                           >
                             Send
-                          </button>
+                          </LoadingButton>
                         </div>
                       </form>
                     </div>

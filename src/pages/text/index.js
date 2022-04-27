@@ -51,17 +51,21 @@ const TextPage = () => {
     useState("opted-in");
   const [selectPhoneSubscription, setSelectPhoneSubscription] =
     useState("opted-in");
+    const [loading, setLoading] = useState(false);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setPreview(false);
     setErrors({});
+    setLoading(false)
+
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setSelected([]);
     setSendNewMessage("");
     setErrors({});
+    setLoading(false)
   };
 
   const isTagValid = () => {
@@ -228,8 +232,10 @@ const TextPage = () => {
 
   const onHandleChange = (e) => {
     setSendMessage(e.target.value);
+    setLoading(false)
   };
   const onHandleClick = async () => {
+    setLoading(true)
     const obj = {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
@@ -238,6 +244,7 @@ const TextPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendMessage("");
+      setLoading(false)
     }
     getMessage();
   };
@@ -261,10 +268,12 @@ const TextPage = () => {
   const handleNewMChange = (e) => {
     setSendNewMessage(e.target.value);
     setErrors({});
+    setLoading(false)
   };
 
   const handleSendClick = async () => {
     if (isValid()) {
+      setLoading(true)
       let contactid = selected.map((item) => item.value);
       const obj = {
         contactid: contactid,
@@ -276,6 +285,7 @@ const TextPage = () => {
         setOpenMessageModal(false);
         setSelected([]);
         setSendNewMessage("");
+        setLoading(false)
       }
       getMessage();
     }
@@ -284,6 +294,7 @@ const TextPage = () => {
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
+    setLoading(false)
   };
 
   const getMessage = async (check = true, tagsCheck = false) => {
@@ -456,6 +467,7 @@ getMessage()
           handlePhoneSubSelectChange={handlePhoneSubSelectChange}
           selectEmailSubscription={selectEmailSubscription}
           selectPhoneSubscription={selectPhoneSubscription}
+          loading={loading}
         />
       </div>
       <MessageModal
@@ -471,6 +483,7 @@ getMessage()
         preview={preview}
         handleBackMessageModal={handleBackMessageModal}
         errors={errors}
+        loading={loading}
       />
     </div>
   );

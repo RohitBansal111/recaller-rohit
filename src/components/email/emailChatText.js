@@ -22,7 +22,7 @@ const EmailChatText = (props) => {
                   </div>
                   <span>
                     <b>
-                      {/* {item.sender === 1 && "user chat-ui-box"
+                      {item.sender === 1 && "user chat-ui-box"
                         ? userData.firstName.charAt(0) +
                           "" +
                           userData.lastName.charAt(0) +
@@ -32,7 +32,7 @@ const EmailChatText = (props) => {
                           " " +
                           props.contactName.contact.lastName +
                           " "
-                        : ""} */}
+                        : ""}
                     </b>
                     {timeAgo(item.createdAt)}
                   </span>
