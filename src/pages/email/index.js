@@ -129,7 +129,6 @@ const EmailPage = () => {
       }
     }
   };
-
   const getTags = async (filterTag = []) => {
     const res = await getTagsApi();
     if (res && res.data && res.data.status === 200) {
@@ -220,7 +219,6 @@ const EmailPage = () => {
       getEmailMessage(false, true);
     }
   };
-
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});

@@ -23,8 +23,8 @@ function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
   const ampm = hours >= 12 ? "pm" : "am";
   hours = hours % 12;
   hours = hours ? hours : 12;
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  
+  minutes = minutes < 10 ? +minutes : minutes;
+
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
