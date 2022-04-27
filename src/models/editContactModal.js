@@ -49,13 +49,11 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             <div className="foem-field-inner">
               <select
                 className="form-control"
-                name="subscription"
-                value={props.selectEmailSubscription}
-                onChange={props.handleEmailSubSelectChange}
+                name="emailSubs"
+                value={props.editContact.emailSubs}
+                onChange={props.handleEditContactChange}
               >
-                <option value={"opted-in"} selected>
-                  Opted In
-                </option>
+                <option value={"opted-in"}>Opted In</option>
                 <option value={"opted-out"}>Opted Out</option>
               </select>
             </div>
@@ -77,12 +75,11 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             <div className="foem-field-inner">
               <select
                 className="form-control"
-                value={props.selectPhoneSubscription}
-                onChange={props.handlePhoneSubSelectChange}
+                name="phoneSubs"
+                value={props.editContact.phoneSubs}
+                onChange={props.handleEditContactChange}
               >
-                <option value={"opted-in"} selected>
-                  Opted In
-                </option>
+                <option value={"opted-in"}>Opted In</option>
                 <option value={"opted-out"}>Opted Out</option>
               </select>
             </div>

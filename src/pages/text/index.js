@@ -47,10 +47,6 @@ const TextPage = () => {
   const [editContact, setEditContact] = useState({});
   const [editCName, setEditCName] = useState({});
   const [editContactName, setEditContactName] = useState(false);
-  const [selectEmailSubscription, setSelectEmailSubscription] =
-    useState("opted-in");
-  const [selectPhoneSubscription, setSelectPhoneSubscription] =
-    useState("opted-in");
   const [loading, setLoading] = useState(false);
 
   const handleNewMessage = () => {
@@ -381,20 +377,12 @@ const TextPage = () => {
     setEditContactName(true);
   };
 
-  const handleEmailSubSelectChange = (e) => {
-    setSelectEmailSubscription(e.target.value);
-  };
-
-  const handlePhoneSubSelectChange = (e) => {
-    setSelectPhoneSubscription(e.target.value);
-  };
-
   const handleConDataEdit = async () => {
     const editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
-      phoneSubs: selectPhoneSubscription,
-      emailSubs: selectEmailSubscription,
+      phoneSubs: editContact.phoneSubs,
+      emailSubs: editContact.emailSubs,
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
@@ -402,6 +390,9 @@ const TextPage = () => {
       getMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
       selecteduser.contact.lastName = editContact.lastName;
+      selecteduser.contact.phoneSubs = editContact.phoneSubs;
+      selecteduser.contact.emailSubs = editContact.emailSubs;
+
       setSelecteduser(selecteduser);
     }
     getData();
@@ -465,10 +456,6 @@ const TextPage = () => {
           handleEditUserName={handleEditUserName}
           editContactName={editContactName}
           contactName={selecteduser}
-          handleEmailSubSelectChange={handleEmailSubSelectChange}
-          handlePhoneSubSelectChange={handlePhoneSubSelectChange}
-          selectEmailSubscription={selectEmailSubscription}
-          selectPhoneSubscription={selectPhoneSubscription}
           loading={loading}
         />
       </div>

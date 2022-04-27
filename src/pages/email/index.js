@@ -46,10 +46,6 @@ const EmailPage = () => {
   const [editContact, setEditContact] = useState({});
   const [openContactModal, setOpenContactModal] = useState(false);
   const [searchState, setSearchState] = useState("");
-  const [selectEmailSubscription, setSelectEmailSubscription] =
-    useState("opted-in");
-  const [selectPhoneSubscription, setSelectPhoneSubscription] =
-    useState("opted-in");
   const [sendEmailMessage, setSendEmailMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -393,20 +389,12 @@ const EmailPage = () => {
     setEditCName({ ...editCName, [e.target.name]: e.target.value });
   };
 
-  const handleEmailSubSelectChange = (e) => {
-    setSelectEmailSubscription(e.target.value);
-  };
-
-  const handlePhoneSubSelectChange = (e) => {
-    setSelectPhoneSubscription(e.target.value);
-  };
-
   const handleConDataEdit = async () => {
     const editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
-      phoneSubs: selectPhoneSubscription,
-      emailSubs: selectEmailSubscription,
+      phoneSubs: editContact.phoneSubs,
+      emailSubs: editContact.emailSubs,
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
@@ -414,6 +402,8 @@ const EmailPage = () => {
       getEmailMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
       selecteduser.contact.lastName = editContact.lastName;
+      selecteduser.contact.phoneSubs = editContact.phoneSubs;
+      selecteduser.contact.emailSubs = editContact.emailSubs;
       setSelecteduser(selecteduser);
     }
     getData();
@@ -481,10 +471,6 @@ const EmailPage = () => {
           searchValue={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
           handleUserNameEdit={handleUserNameEdit}
-          selectEmailSubscription={selectEmailSubscription}
-          selectPhoneSubscription={selectPhoneSubscription}
-          handleEmailSubSelectChange={handleEmailSubSelectChange}
-          handlePhoneSubSelectChange={handlePhoneSubSelectChange}
           loading={loading}
         />
       </div>

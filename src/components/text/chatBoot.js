@@ -2,7 +2,7 @@ import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
-import BlockIcon from '@material-ui/icons/Block';
+import BlockIcon from "@material-ui/icons/Block";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -12,8 +12,9 @@ import TextChat from "./textChat";
 import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
 import LoadingButton from "@mui/lab/LoadingButton";
-import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
-import WifiOffIcon from '@material-ui/icons/WifiOff';
+import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
+import WifiOffIcon from "@material-ui/icons/WifiOff";
+import WifiIcon from "@material-ui/icons/Wifi";
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -110,9 +111,32 @@ const ChatBoot = (props) => {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton2"
                 >
-                  <li> <NotificationsOffIcon /> Mute</li>
-                  <li> <WifiOffIcon /> Opt-Out</li>
-                  <li> <BlockIcon /> Block</li>
+                  <li>
+                    {" "}
+                    <NotificationsOffIcon /> Mute
+                  </li>
+                  <li>
+                    {" "}
+                    <WifiOffIcon />
+                    {(props.selecteduser &&
+                      props.selecteduser.contact &&
+                      props.selecteduser.contact.emailSubs == "opted-in") &&
+                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
+                      <WifiIcon />
+                    ) : (
+                      <WifiOffIcon />
+                    )}
+                    {(props.selecteduser &&
+                      props.selecteduser.contact &&
+                      props.selecteduser.contact.emailSubs == "opted-in") &&
+                    props.selecteduser.contact.phoneSubs == "opted-in"
+                      ? "Opted In"
+                      : "Opted Out"}
+                  </li>
+                  <li>
+                    {" "}
+                    <BlockIcon /> Block
+                  </li>
                 </ul>
               </div>
             </div>
@@ -231,8 +255,10 @@ const ChatBoot = (props) => {
               <li>
                 <h5>Subscription</h5>
                 <p>
-                  {props.selectPhoneSubscription &&
-                  props.selectEmailSubscription == "opted-in"
+                  {(props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.emailSubs == "opted-in") &&
+                  props.selecteduser.contact.phoneSubs == "opted-in"
                     ? "Opted In"
                     : "Opted Out"}
                 </p>
@@ -259,10 +285,6 @@ const ChatBoot = (props) => {
                   editContact={props.editContact}
                   handleEditContactChange={props.handleEditContactChange}
                   handleConDataEdit={props.handleConDataEdit}
-                  selectEmailSubscription={props.selectEmailSubscription}
-                  handleEmailSubSelectChange={props.handleEmailSubSelectChange}
-                  selectPhoneSubscription={props.selectPhoneSubscription}
-                  handlePhoneSubSelectChange={props.handlePhoneSubSelectChange}
                 />
               </li>
             </ul>
