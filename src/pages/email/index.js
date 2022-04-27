@@ -69,6 +69,7 @@ const EmailPage = () => {
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setErrors({});
+    setPreview(false);
     setEmailMessage("");
     setLoading(false);
   };
