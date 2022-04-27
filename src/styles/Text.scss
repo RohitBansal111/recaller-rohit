@@ -128,11 +128,36 @@
                         margin-bottom: 0px;
                     }
                     .header-action{
+                        position: relative;
                         svg{
                             font-size: 24px;
                             cursor: pointer;
-                            &:first-child{
-                                margin-right: 30px;
+                        }
+                        .btn-more-option{
+                            &:after{
+                                display: none;
+                            }
+                        }
+                        .dropdown-menu{
+                            transform: none !important;
+                            right: 0px !important;
+                            top: 100% !important;
+                            left: auto !important;
+                            box-shadow: 3px 0px 8px #c9c9c9;
+                            border: none;
+                            li{
+                                color: grey;
+                                font-size: 14px;
+                                padding: 3px 10px;
+                                cursor: pointer;
+                                &:hover{
+                                    background-color: lightgray;
+                                    color: $Active-color;
+                                }
+                                svg{
+                                    font-size: 18px;
+                                    margin-right: 4px;
+                                }
                             }
                         }
                     }
