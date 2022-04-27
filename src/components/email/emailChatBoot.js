@@ -15,6 +15,9 @@ import EditContactModal from "../../models/editContactModal";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import ConversationTagModal from "../conversationTagModal";
 import LoadingButton from "@mui/lab/LoadingButton";
+import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
+import WifiOffIcon from '@material-ui/icons/WifiOff';
+import BlockIcon from '@material-ui/icons/Block';
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -101,8 +104,23 @@ const EmailChatBoot = (props) => {
                   : ""}
               </h4>
               <div className="header-action">
-                <DoneIcon />
-                <MoreVertIcon />
+                <button
+                  className="btn btn-more-option dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <MoreVertIcon />
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton2"
+                >
+                  <li> <NotificationsOffIcon /> Mute</li>
+                  <li> <WifiOffIcon /> Opt-Out</li>
+                  <li> <BlockIcon /> Block</li>
+                </ul>
               </div>
             </div>
             <div className="chat-now">
