@@ -2,7 +2,7 @@ import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
-import DoneIcon from "@material-ui/icons/Done";
+import BlockIcon from '@material-ui/icons/Block';
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -12,6 +12,8 @@ import TextChat from "./textChat";
 import { timeAgo } from "../../helper/timerFuntion";
 import EditContactModal from "../../models/editContactModal";
 import LoadingButton from "@mui/lab/LoadingButton";
+import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
+import WifiOffIcon from '@material-ui/icons/WifiOff';
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -95,8 +97,23 @@ const ChatBoot = (props) => {
                   : ""}
               </h4>
               <div className="header-action">
-                <DoneIcon />
-                <MoreVertIcon />
+                <button
+                  className="btn btn-more-option dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <MoreVertIcon />
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton2"
+                >
+                  <li> <NotificationsOffIcon /> Mute</li>
+                  <li> <WifiOffIcon /> Opt-Out</li>
+                  <li> <BlockIcon /> Block</li>
+                </ul>
               </div>
             </div>
             <div className="chat-now">
