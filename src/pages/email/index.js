@@ -413,6 +413,29 @@ const EmailPage = () => {
     setOpenContactModal(false);
   };
 
+  const handleMute = () => {};
+
+  const handleOptOut = async () => {
+    const editData = {
+      firstName: selecteduser.contact.firstName,
+      lastName: selecteduser.contact.lastName,
+      phoneSubs:
+        selecteduser.contact.phoneSubs == "opted-in" ? "opted-out" : "opted-in",
+      emailSubs:
+        selecteduser.contact.emailSubs == "opted-in" ? "opted-out" : "opted-in",
+    };
+    const res = await updateContactApi(selecteduser._id, editData);
+    if (res && res.data && res.data.status === 200) {
+      getEmailMessage(false, true);
+      selecteduser.contact.phoneSubs = editContact.phoneSubs;
+      selecteduser.contact.emailSubs = editContact.emailSubs;
+      setSelecteduser(selecteduser);
+    }
+    getData();
+  };
+
+  const handleBlock = () => {};
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -472,6 +495,9 @@ const EmailPage = () => {
           handleSearchChange={(e) => setSearchState(e.target.value)}
           handleUserNameEdit={handleUserNameEdit}
           loading={loading}
+          handleBlock={handleBlock}
+          handleOptOut={handleOptOut}
+          handleMute={handleMute}
         />
       </div>
       <EmailModal

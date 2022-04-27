@@ -111,29 +111,24 @@ const ChatBoot = (props) => {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton2"
                 >
-                  <li>
+                  <li onClick={props.handleMute}>
                     {" "}
                     <NotificationsOffIcon /> Mute
                   </li>
-                  <li>
-                    {" "}
-                    <WifiOffIcon />
-                    {(props.selecteduser &&
-                      props.selecteduser.contact &&
-                      props.selecteduser.contact.emailSubs == "opted-in") &&
-                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
+                  <li onClick={props.handleOptOut}>
+                    {props.selecteduser &&
+                    props.selecteduser.contact.emailSubs == "opted-in" ? (
                       <WifiIcon />
                     ) : (
                       <WifiOffIcon />
                     )}
-                    {(props.selecteduser &&
-                      props.selecteduser.contact &&
-                      props.selecteduser.contact.emailSubs == "opted-in") &&
+                    {props.selecteduser &&
+                    props.selecteduser.contact.emailSubs == "opted-in" &&
                     props.selecteduser.contact.phoneSubs == "opted-in"
                       ? "Opted In"
                       : "Opted Out"}
                   </li>
-                  <li>
+                  <li onClick={props.handleBlock}>
                     {" "}
                     <BlockIcon /> Block
                   </li>
@@ -255,9 +250,9 @@ const ChatBoot = (props) => {
               <li>
                 <h5>Subscription</h5>
                 <p>
-                  {(props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.emailSubs == "opted-in") &&
+                  {props.selecteduser &&
+                  props.selecteduser.contact &&
+                  props.selecteduser.contact.emailSubs == "opted-in" &&
                   props.selecteduser.contact.phoneSubs == "opted-in"
                     ? "Opted In"
                     : "Opted Out"}

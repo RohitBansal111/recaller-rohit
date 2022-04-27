@@ -118,12 +118,13 @@ const EmailChatBoot = (props) => {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton2"
                 >
-                  <li>
+                  <li onClick={props.handleMute}>
                     {" "}
                     <NotificationsOffIcon /> Mute
                   </li>
-                  <li>
+                  <li onClick={props.handleOptOut}>
                     {props.selecteduser &&
+                    props.selecteduser.contact &&
                     props.selecteduser.contact.emailSubs == "opted-in" &&
                     props.selecteduser.contact.phoneSubs == "opted-in" ? (
                       <WifiIcon />
@@ -131,12 +132,13 @@ const EmailChatBoot = (props) => {
                       <WifiOffIcon />
                     )}
                     {props.selecteduser &&
+                    props.selecteduser.contact &&
                     props.selecteduser.contact.emailSubs == "opted-in" &&
                     props.selecteduser.contact.phoneSubs == "opted-in"
                       ? "Opted In"
                       : "Opted Out"}
                   </li>
-                  <li>
+                  <li onClick={props.handleBlock}>
                     {" "}
                     <BlockIcon /> Block
                   </li>
