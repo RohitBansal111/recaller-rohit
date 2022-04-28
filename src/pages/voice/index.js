@@ -9,6 +9,17 @@ import {
 import VoiceChatBoot from "../../components/voice/voiceChatBoot";
 import VoiceModal from "../../models/VoiceModal";
 import { useReactMediaRecorder } from "react-media-recorder";
+import {
+  addTagsToListApi,
+  getContactApi,
+  removeTagsToListApi,
+  updateContactApi,
+} from "../../api/contact";
+import {
+  getUserWithVoiceMessage,
+  getVoiceMessageApi,
+  sendVoiceMessageApi,
+} from "../../api/voiceMessage";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -27,12 +38,37 @@ const Voice = () => {
   const [minute, setMinute] = useState("00");
   const [isActive, setIsActive] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [rowsData, setRowsData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [sendNewVoice, setSendNewVoice] = useState("");
+  const [voiceMessage, setVoiceMessages] = useState([]);
+  const [selecteduser, setSelecteduser] = useState("");
+  const [chatMessages, setChatMesssages] = useState([]);
+  const [contactData, setContactData] = useState([]);
+  const [editContact, setEditContact] = useState({});
+  const [openContactModal, setOpenContactModal] = useState(false);
+  const [editContactName, setEditContactName] = useState(false);
+  const [editCName, setEditCName] = useState({});
+  const [searchState, setSearchState] = useState("");
 
   const isValid = () => {
     let formData = true;
     switch (true) {
       case !addTags.name:
         setErrors({ name: "Please Enter a Tag Name" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const isSelectValid = () => {
+    let formData = true;
+    switch (true) {
+      case selected.length == 0:
+        setErrors({ selected: "Please Select a Contact" });
         formData = false;
         break;
       default:
@@ -80,6 +116,8 @@ const Voice = () => {
 
   useEffect(() => {
     getTags();
+    getData();
+    getVoiceMessage();
   }, []);
 
   const handleClick = async () => {
@@ -95,11 +133,23 @@ const Voice = () => {
     }
   };
 
-  const getTags = async () => {
+  const getTags = async (filterTag = []) => {
     const res = await getTagsApi();
+
     if (res && res.data && res.data.status === 200) {
       setTags(res.data.data);
       setConversationTags(res.data.data);
+      if (filterTag && filterTag.length > 0) {
+        const resData1 = res.data.data.filter(
+          (value) =>
+            filterTag.filter((item) => item._id == value._id).length == 0
+        );
+        if (resData1.length == res.data.data.length) {
+          setConversationTags([]);
+        } else {
+          setConversationTags(resData1);
+        }
+      }
     }
   };
 
@@ -137,31 +187,37 @@ const Voice = () => {
     }
   };
 
-  const handleSelectedTagItems = (item, index) => {
-    const obj = {
-      selectedId: item._id,
-      selectedName: item.name,
-      selectedColor: item.color,
-    };
-    setSelectedTags((oldArray) => [...oldArray, obj]);
+  const handleSelectedTagItems = async (item, index) => {
+    setSelectedTags((oldArray) => [...oldArray, item]);
 
-    const newArrayState = conversationTags.filter((value, theIndex) => {
-      return index !== theIndex;
+    const newArrayState = tags.filter((value, theIndex) => {
+      return index != theIndex;
     });
     setConversationTags(newArrayState);
+    const obj = {
+      tags: item._id,
+      contactId: selecteduser.contact && selecteduser.contact._id,
+    };
+    const res = await addTagsToListApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      getVoiceMessage(false, true);
+    }
   };
 
-  const handleSelectDel = (item, index) => {
-    if (conversationTags) {
-      let data = [...selectedTags];
-      data.splice(data.indexOf(item), 1);
-      setSelectedTags(data);
-      console.log([item], "selectedTags");
-    } else {
-      var arr = [];
-      arr.push(item);
-      console.log(arr, "arr");
-      setConversationTags(arr);
+  const handleSelectDel = async (item) => {
+    let conversationdata = conversationTags;
+    let data = [...selectedTags];
+    data.splice(data.indexOf(item), 1);
+    setSelectedTags(data);
+    conversationdata.push(item);
+    setConversationTags(conversationdata);
+    const obj = {
+      tags: item._id,
+      contactId: selecteduser.contact && selecteduser.contact._id,
+    };
+    const res = await removeTagsToListApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      getVoiceMessage(false, true);
     }
   };
 
@@ -209,7 +265,155 @@ const Voice = () => {
       echoCancellation: true,
     }
   );
-  console.log("deed", mediaBlobUrl);
+
+  const getData = async () => {
+    let res = await getContactApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return {
+          value: item.contactid,
+          label: item.firstName + " " + item.lastName,
+          phone: item.phone,
+          id: item._id,
+        };
+      });
+      setRowsData(data);
+      setContactData(res.data.data);
+    }
+  };
+
+  const handleSendClick = async () => {
+    if (isSelectValid()) {
+      setLoading(true);
+      let contactid = selected.map((item) => item.value);
+      const obj = {
+        contactid: contactid,
+        message: sendNewVoice,
+      };
+      let res = await sendVoiceMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Voice Message sent Successfully");
+        setOpenMessageModal(false);
+        setSelected([]);
+        setSendNewVoice("");
+        setLoading(false);
+      }
+      getVoiceMessage();
+    }
+  };
+
+  const getVoiceMessage = async (check = true, tagsCheck = false) => {
+    const res = await getUserWithVoiceMessage();
+    if (res && res.data && res.data.status === 200) {
+      setVoiceMessages(res.data.data);
+      if (!tagsCheck) {
+        setSelecteduser(res.data.data[0]);
+        openChatClick(res.data.data[0]._id, false);
+        setSelectedTags(res.data.data[0].contact.tags);
+      }
+
+      if (check) {
+        getTags(res.data.data[0].contact.tags);
+      } else {
+        const objTag = res.data.data.find(
+          (item) => item.contact._id == selecteduser._id
+        );
+        getTags(objTag.contact.tags);
+      }
+    }
+  };
+
+  const openChatClick = async (id, check) => {
+    const res = await getVoiceMessageApi(id);
+    if (res && res.data && res.data.status === 200) {
+      setChatMesssages(res.data.data);
+    }
+    if (check) {
+      const selecteduser = voiceMessage.find((c) => c._id == id);
+      setSelecteduser(selecteduser);
+      setSelectedTags(selecteduser.contact.tags);
+      if (selecteduser.contact.tags && selecteduser.contact.tags.length > 0) {
+        const resData1 = tags.filter(
+          (value) =>
+            selecteduser.contact.tags.filter((item) => item._id == value._id)
+              .length == 0
+        );
+
+        if (resData1.length == tags.length) {
+          setConversationTags([]);
+        } else {
+          setConversationTags(resData1);
+        }
+      } else {
+        setConversationTags(tags);
+      }
+    }
+  };
+
+  const handleContactEditModal = (id) => {
+    const val = contactData.find((item) => item._id == id);
+    setEditContact(val);
+    setOpenContactModal(true);
+  };
+
+  const handleCloseContactModal = () => {
+    setOpenContactModal(false);
+  };
+
+  const handleEditContactChange = (e) => {
+    setEditContact({ ...editContact, [e.target.name]: e.target.value });
+  };
+
+  const handleConDataEdit = async () => {
+    const editData = {
+      firstName: editContact.firstName,
+      lastName: editContact.lastName,
+      phoneSubs: editContact.phoneSubs,
+      emailSubs: editContact.emailSubs,
+    };
+    const res = await updateContactApi(editContact._id, editData);
+    if (res && res.data && res.data.status === 200) {
+      setOpenContactModal(false);
+      getVoiceMessage(false, true);
+      selecteduser.contact.firstName = editContact.firstName;
+      selecteduser.contact.lastName = editContact.lastName;
+      selecteduser.contact.phoneSubs = editContact.phoneSubs;
+      selecteduser.contact.emailSubs = editContact.emailSubs;
+
+      setSelecteduser(selecteduser);
+    }
+    getData();
+  };
+
+  const handleEditUserName = (id) => {
+    const val = contactData.find((item) => item._id == id);
+    const obj = {
+      firstName: val.firstName,
+      lastName: val.lastName,
+    };
+    setEditCName(obj);
+    setEditContactName(true);
+  };
+
+  const handleUserNameEdit = (e) => {
+    setEditCName({ ...editCName, [e.target.name]: e.target.value });
+  };
+
+  const handleOptOut = async (type) => {
+    const editData = {
+      firstName: selecteduser.contact.firstName,
+      lastName: selecteduser.contact.lastName,
+      phoneSubs: type,
+      emailSubs: selecteduser.contact.emailSubs,
+    };
+    const res = await updateContactApi(selecteduser._id, editData);
+    if (res && res.data && res.data.status === 200) {
+      getVoiceMessage(false, true);
+      selecteduser.contact.phoneSubs = type;
+      setSelecteduser(selecteduser);
+    }
+    getData();
+  };
 
   return (
     <div className="content-page-layout text-page-content">
@@ -249,6 +453,8 @@ const Voice = () => {
           handleSelectDel={handleSelectDel}
           conversationTags={conversationTags}
           errors={errors}
+          searchValue={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
           minute={minute}
           second={second}
           startRecording={startRecording}
@@ -256,6 +462,21 @@ const Voice = () => {
           stopRecording={stopRecording}
           setIsActive={setIsActive}
           stopTimer={stopTimer}
+          contactVoiceList={voiceMessage}
+          voiceChatData={chatMessages}
+          openChatClick={openChatClick}
+          selecteduser={selecteduser}
+          openContactModal={openContactModal}
+          handleConDataEdit={handleConDataEdit}
+          handleEditContactChange={handleEditContactChange}
+          handleCloseContactModal={handleCloseContactModal}
+          handleContactEditModal={handleContactEditModal}
+          editContact={editContact}
+          editContactName={editContactName}
+          editCName={editCName}
+          handleEditUserName={handleEditUserName}
+          handleUserNameEdit={handleUserNameEdit}
+          handleOptOut={handleOptOut}
         />
       </div>
       <VoiceModal
@@ -263,6 +484,9 @@ const Voice = () => {
         handleCloseMessageModal={handleCloseMessageModal}
         handleSelectChange={handleSelectChange}
         selected={selected}
+        options={rowsData}
+        handleSendClick={handleSendClick}
+        loading={loading}
       />
     </div>
   );
