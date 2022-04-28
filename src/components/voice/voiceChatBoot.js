@@ -143,7 +143,10 @@ const VoiceChatBoot = (props) => {
               </div>
             </div>
             <div className="chat-now">
-              <VoiceRecordingChat voiceChatData={props.voiceChatData} />
+              <VoiceRecordingChat
+                voiceChatData={props.voiceChatData}
+                divRef={props.divRef}
+              />
             </div>
             <div className="voice-recorder-box">
               <div className="recording-left">

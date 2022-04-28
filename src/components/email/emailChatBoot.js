@@ -155,6 +155,7 @@ const EmailChatBoot = (props) => {
               <EmailChatText
                 emailChatData={props.emailChatData}
                 contactName={props.contactName}
+                divRef={props.divRef}
               />
             </div>
             {location.pathname === "/voice" && (

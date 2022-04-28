@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import {
   addTagsApi,
@@ -50,6 +50,7 @@ const Voice = () => {
   const [editContactName, setEditContactName] = useState(false);
   const [editCName, setEditCName] = useState({});
   const [searchState, setSearchState] = useState("");
+  const divRef = useRef(null);
 
   const isValid = () => {
     let formData = true;
@@ -223,6 +224,14 @@ const Voice = () => {
 
   const handleSelectChange = (values) => {
     setSelected(values);
+  };
+
+  const scrollToBottom = (e) => {
+    divRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
   };
 
   useEffect(() => {
@@ -477,6 +486,7 @@ const Voice = () => {
           handleEditUserName={handleEditUserName}
           handleUserNameEdit={handleUserNameEdit}
           handleOptOut={handleOptOut}
+          divRef={divRef}
         />
       </div>
       <VoiceModal

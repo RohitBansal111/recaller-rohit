@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import {
   addTagsToListApi,
@@ -48,6 +48,7 @@ const EmailPage = () => {
   const [searchState, setSearchState] = useState("");
   const [sendEmailMessage, setSendEmailMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const divRef = useRef(null);
 
   const isValid = () => {
     let formData = true;
@@ -350,6 +351,15 @@ const EmailPage = () => {
     setLoading(false);
   };
 
+  const scrollToBottom = (e) => {
+    const scroll = divRef.current.scrollHeight - divRef.current.clientHeight;
+    divRef.current.scrollIntoView(0, scroll, { block: "end" });
+  };
+
+  useEffect(() => {
+    scrollToBottom()
+  },[emailChatMessages])
+
   const onHandleClick = async () => {
     setLoading(true);
     const obj = {
@@ -360,6 +370,7 @@ const EmailPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendEmailMessage("");
+      scrollToBottom();
       setLoading(false);
     }
     getEmailMessage();
@@ -495,6 +506,7 @@ const EmailPage = () => {
           handleBlock={handleBlock}
           handleOptOut={handleOptOut}
           handleMute={handleMute}
+          divRef={divRef}
         />
       </div>
       <EmailModal

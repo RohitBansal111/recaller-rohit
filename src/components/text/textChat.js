@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { timeAgo } from "../../helper/timerFuntion";
 const TextChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
+  
   return (
     <ScrollToBottom className="middle-chat-screen">
-      <ul>
+      <ul ref={props.divRef}>
         {props.chatData
           ? props.chatData.map((item) => (
               <>

@@ -6,7 +6,7 @@ const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
   return (
     <ScrollToBottom className="middle-chat-screen">
-      <ul>
+      <ul ref={props.divRef}>
         {props.emailChatData
           ? props.emailChatData.map((item) => (
               <>

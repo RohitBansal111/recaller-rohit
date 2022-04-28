@@ -11,7 +11,7 @@ const VoiceRecordingChat = (props) => {
 
   return (
     <ScrollToBottom className="middle-chat-screen voice-chat-screen">
-      <ul>
+      <ul ref={props.divRef}>
         <li className="voice-chat-list">
           <div className="chat-ui-box client">
             <ReactAudioPlayer src={Recording1} volume="0" controls />

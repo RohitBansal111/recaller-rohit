@@ -148,6 +148,7 @@ const ChatBoot = (props) => {
               <TextChat
                 chatData={props.chatData}
                 contactName={props.contactName}
+                divRef={props.divRef}
               />
             </div>
             <div className="chat-text-editor">

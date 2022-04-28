@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MessageModal from "../../components/text/messageModal";
 import ChatBoot from "../../components/text/chatBoot";
 import {
@@ -48,6 +48,7 @@ const TextPage = () => {
   const [editCName, setEditCName] = useState({});
   const [editContactName, setEditContactName] = useState(false);
   const [loading, setLoading] = useState(false);
+  const divRef = useRef(null);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
@@ -229,6 +230,18 @@ const TextPage = () => {
     setSendMessage(e.target.value);
     setLoading(false);
   };
+  const scrollToBottom = (e) => {
+    divRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom()
+  },[chatMessages])
+
   const onHandleClick = async () => {
     setLoading(true);
     const obj = {
@@ -239,6 +252,7 @@ const TextPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendMessage("");
+      scrollToBottom();
       setLoading(false);
     }
     getMessage();
@@ -474,6 +488,7 @@ const TextPage = () => {
           contactName={selecteduser}
           loading={loading}
           handleOptOut={handleOptOut}
+          divRef={divRef}
         />
       </div>
       <MessageModal
