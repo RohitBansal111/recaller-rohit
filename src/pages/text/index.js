@@ -398,20 +398,17 @@ const TextPage = () => {
     getData();
   };
 
-  const handleOptOut = async () => {
+  const handleOptOut = async (type) => {
     const editData = {
       firstName: selecteduser.contact.firstName,
       lastName: selecteduser.contact.lastName,
-      phoneSubs:
-        selecteduser.contact.phoneSubs == "opted-in" ? "opted-out" : "opted-in",
-      emailSubs:
-        selecteduser.contact.emailSubs == "opted-in" ? "opted-out" : "opted-in",
+      phoneSubs: type,
+      emailSubs: selecteduser.contact.emailSubs,
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
       getMessage(false, true);
-      selecteduser.contact.phoneSubs = editContact.phoneSubs;
-      selecteduser.contact.emailSubs = editContact.emailSubs;
+      selecteduser.contact.phoneSubs = type;
       setSelecteduser(selecteduser);
     }
     getData();

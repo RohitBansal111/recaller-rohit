@@ -115,18 +115,27 @@ const ChatBoot = (props) => {
                     {" "}
                     <NotificationsOffIcon /> Mute
                   </li>
-                  <li onClick={props.handleOptOut}>
+                  <li
+                    onClick={() =>
+                      props.handleOptOut(
+                        props.selecteduser.contact.phoneSubs == "opted-in"
+                          ? "opted-out"
+                          : "opted-in"
+                      )
+                    }
+                  >
                     {props.selecteduser &&
-                    props.selecteduser.contact.emailSubs == "opted-in" ? (
-                      <WifiIcon />
-                    ) : (
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
                       <WifiOffIcon />
+                    ) : (
+                      <WifiIcon />
                     )}
                     {props.selecteduser &&
-                    props.selecteduser.contact.emailSubs == "opted-in" &&
+                    props.selecteduser.contact &&
                     props.selecteduser.contact.phoneSubs == "opted-in"
-                      ? "Opted In"
-                      : "Opted Out"}
+                      ? "Opted Out"
+                      : "Opted In"}
                   </li>
                   <li onClick={props.handleBlock}>
                     {" "}
@@ -252,7 +261,6 @@ const ChatBoot = (props) => {
                 <p>
                   {props.selecteduser &&
                   props.selecteduser.contact &&
-                  props.selecteduser.contact.emailSubs == "opted-in" &&
                   props.selecteduser.contact.phoneSubs == "opted-in"
                     ? "Opted In"
                     : "Opted Out"}

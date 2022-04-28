@@ -122,21 +122,27 @@ const EmailChatBoot = (props) => {
                     {" "}
                     <NotificationsOffIcon /> Mute
                   </li>
-                  <li onClick={props.handleOptOut}>
+                  <li
+                    onClick={() =>
+                      props.handleOptOut(
+                        props.selecteduser.contact.emailSubs == "opted-in"
+                          ? "opted-out"
+                          : "opted-in"
+                      )
+                    }
+                  >
                     {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.emailSubs == "opted-in" &&
-                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
-                      <WifiIcon />
-                    ) : (
+                    props.selecteduser.contact.emailSubs == "opted-in" ? (
                       <WifiOffIcon />
+                    ) : (
+                      <WifiIcon />
                     )}
                     {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.emailSubs == "opted-in" &&
-                    props.selecteduser.contact.phoneSubs == "opted-in"
-                      ? "Opted In"
-                      : "Opted Out"}
+                    props.selecteduser.contact.emailSubs == "opted-in"
+                      ? "Opted Out"
+                      : "Opted In"}
                   </li>
                   <li onClick={props.handleBlock}>
                     {" "}
@@ -280,8 +286,7 @@ const EmailChatBoot = (props) => {
                 <p>
                   {props.selecteduser &&
                   props.selecteduser.contact &&
-                  props.selecteduser.contact.emailSubs == "opted-in" &&
-                  props.selecteduser.contact.phoneSubs == "opted-in"
+                  props.selecteduser.contact.emailSubs == "opted-in"
                     ? "Opted In"
                     : "Opted Out"}
                 </p>

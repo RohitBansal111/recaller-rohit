@@ -415,20 +415,17 @@ const EmailPage = () => {
 
   const handleMute = () => {};
 
-  const handleOptOut = async () => {
+  const handleOptOut = async (type) => {
     const editData = {
       firstName: selecteduser.contact.firstName,
       lastName: selecteduser.contact.lastName,
-      phoneSubs:
-        selecteduser.contact.phoneSubs == "opted-in" ? "opted-out" : "opted-in",
-      emailSubs:
-        selecteduser.contact.emailSubs == "opted-in" ? "opted-out" : "opted-in",
+      phoneSubs: selecteduser.contact.phoneSubs,
+      emailSubs: type,
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
       getEmailMessage(false, true);
-      selecteduser.contact.phoneSubs = editContact.phoneSubs;
-      selecteduser.contact.emailSubs = editContact.emailSubs;
+      selecteduser.contact.emailSubs = type;
       setSelecteduser(selecteduser);
     }
     getData();
