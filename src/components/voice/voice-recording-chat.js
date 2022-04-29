@@ -5,6 +5,8 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import Recording1 from "./../../assets/recording/1.mp3";
 import { timeAgo } from "../../helper/timerFuntion";
 import { useSelector } from "react-redux";
+import LoaderIcon from "../../assets/svg-icons/loaderIcon";
+
 
 const VoiceRecordingChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
@@ -22,6 +24,9 @@ const VoiceRecordingChat = (props) => {
         </li>
         <li className="voice-chat-list">
           <div className="chat-ui-box user">
+            <div className="voice-sending-chat">
+              <LoaderIcon />
+            </div>
             <ReactAudioPlayer src={Recording1} controls />
           </div>
           <span></span>
@@ -37,7 +42,10 @@ const VoiceRecordingChat = (props) => {
                       // : "client chat-ui-box"
                     }
                   >
-                    <ReactAudioPlayer src={Recording1} controls />
+                    <div className="voice-sending-chat">
+                      <LoaderIcon />
+                    </div>
+                    <ReactAudioPlayer className="sendingg" src={Recording1} controls />
                   </div>
                   <span>
                     <b>

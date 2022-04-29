@@ -451,9 +451,20 @@
                                 z-index: 99999;
                                 background-color: #fff;
                             }
+                            &.sendingg{
+                                opacity: 0.5;
+                            }
                         }
                         &.user{
                             justify-content: flex-end;
+                            .voice-sending-chat{
+                                svg{
+                                width: 45px;
+                                    path{
+                                        fill: grey;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
