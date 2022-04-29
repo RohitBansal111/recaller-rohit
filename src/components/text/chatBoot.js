@@ -147,7 +147,7 @@ const ChatBoot = (props) => {
             <div className="chat-now">
               <TextChat
                 chatData={props.chatData}
-                contactName={props.contactName}
+                selecteduser={props.selecteduser}
                 divRef={props.divRef}
               />
             </div>

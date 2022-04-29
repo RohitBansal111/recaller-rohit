@@ -154,7 +154,7 @@ const EmailChatBoot = (props) => {
             <div className="chat-now">
               <EmailChatText
                 emailChatData={props.emailChatData}
-                contactName={props.contactName}
+                selecteduser={props.selecteduser}
                 divRef={props.divRef}
               />
             </div>

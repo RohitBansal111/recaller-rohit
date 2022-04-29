@@ -116,7 +116,7 @@ const VoiceChatBoot = (props) => {
                   <li
                     onClick={() =>
                       props.handleOptOut(
-                        props.selecteduser.contact.phoneSubs == "opted-in"
+                        props.selecteduser.contact.voiceSubs == "opted-in"
                           ? "opted-out"
                           : "opted-in"
                       )
@@ -124,14 +124,14 @@ const VoiceChatBoot = (props) => {
                   >
                     {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
+                    props.selecteduser.contact.voiceSubs == "opted-in" ? (
                       <WifiOffIcon />
                     ) : (
                       <WifiIcon />
                     )}
                     {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phoneSubs == "opted-in"
+                    props.selecteduser.contact.voiceSubs == "opted-in"
                       ? "Opted Out"
                       : "Opted In"}
                   </li>
@@ -145,6 +145,7 @@ const VoiceChatBoot = (props) => {
             <div className="chat-now">
               <VoiceRecordingChat
                 voiceChatData={props.voiceChatData}
+                selecteduser={props.selecteduser}
                 divRef={props.divRef}
               />
             </div>
@@ -236,7 +237,7 @@ const VoiceChatBoot = (props) => {
                 <p>
                   {props.selecteduser &&
                   props.selecteduser.contact &&
-                  props.selecteduser.contact.phoneSubs == "opted-in"
+                  props.selecteduser.contact.voiceSubs == "opted-in"
                     ? "Opted In"
                     : "Opted Out"}
                 </p>

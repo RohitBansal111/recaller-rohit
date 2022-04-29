@@ -412,13 +412,14 @@ const Voice = () => {
     const editData = {
       firstName: selecteduser.contact.firstName,
       lastName: selecteduser.contact.lastName,
-      phoneSubs: type,
+      voiceSubs: type,
+      phoneSubs: selecteduser.contact.phoneSubs,
       emailSubs: selecteduser.contact.emailSubs,
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
       getVoiceMessage(false, true);
-      selecteduser.contact.phoneSubs = type;
+      selecteduser.contact.voiceSubs = type;
       setSelecteduser(selecteduser);
     }
     getData();
