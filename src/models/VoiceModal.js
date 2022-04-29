@@ -3,6 +3,8 @@ import { Modal } from "react-responsive-modal";
 import NewVoiceSelectTag from "../components/voice/newVoiceSelectTags";
 import MicIcon from "@material-ui/icons/Mic";
 import LoadingButton from "@mui/lab/LoadingButton";
+import LoaderIcon from "../assets/svg-icons/loaderIcon";
+
 
 const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -30,6 +32,9 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               <button type="button" class="btn btn-primary">
                 <MicIcon className="mr-2" /> Press & Recording
               </button>
+              <div className="uploadfileAudio">
+                <LoaderIcon />
+              </div>
             </div>
           </div>
           <div className="field-group flexFull text-center mt-3">
