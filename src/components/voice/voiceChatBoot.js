@@ -176,7 +176,7 @@ const VoiceChatBoot = (props) => {
                   if (!props.isActive) {
                     props.startRecording();
                   } else {
-                    props.stopRecording();
+                    props.handleSendSingleContactVoice();
                   }
                   props.setIsActive(!props.isActive);
                 }}

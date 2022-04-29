@@ -44,7 +44,7 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 }}
               >
                 <MicIcon className="mr-2" />
-                {props.second > 0 ? "Stop" : "Press & Recording"}
+                {props.second > 0 ? "Stop" : "Press & Recording "}
               </button>
               {/* {props.isNewVoiceActive && (
                 <div className="uploadfileAudio">

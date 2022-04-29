@@ -18,6 +18,7 @@ import {
 import {
   getUploadVoiceMessageApi,
   getUserWithVoiceMessage,
+  uploadSingleVoiceMessageApi,
   uploadVoiceMessageApi,
 } from "../../api/voiceMessage";
 
@@ -80,6 +81,7 @@ const Voice = () => {
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setErrors({});
+    setIsNewVoiceActive(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -293,6 +295,7 @@ const Voice = () => {
   };
 
   const handleSendClick = async () => {
+    stopRecording();
     var file = new File([mediaBlobUrl], "name.mp3");
     var formData = new FormData();
     let id = selected.map((item) => item.value);
@@ -301,8 +304,30 @@ const Voice = () => {
 
     if (isSelectValid()) {
       setLoading(true);
-
       let res = await uploadVoiceMessageApi(formData);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Voice Message sent Successfully");
+        setOpenMessageModal(false);
+        setSelected([]);
+        setLoading(false);
+        setIsNewVoiceActive(false);
+        setIsActive(false);
+      }
+      getVoiceMessage();
+    }
+  };
+
+  const handleSendSingleContactVoice = async () => {
+    stopRecording();
+    var file = new File([mediaBlobUrl], "name.mp3");
+    var formData = new FormData();
+    let id = selected.map((item) => item.value);
+    formData.append("voice", file);
+    formData.append("contactid", id);
+
+    if (isSelectValid()) {
+      setLoading(true);
+      let res = await uploadSingleVoiceMessageApi(formData);
       if (res && res.data && res.data.status === 200) {
         toast.success("Voice Message sent Successfully");
         setOpenMessageModal(false);
@@ -493,6 +518,7 @@ const Voice = () => {
           handleOptOut={handleOptOut}
           divRef={divRef}
           fileUrl={mediaBlobUrl}
+          handleSendSingleContactVoice={handleSendSingleContactVoice}
         />
       </div>
       <VoiceModal
