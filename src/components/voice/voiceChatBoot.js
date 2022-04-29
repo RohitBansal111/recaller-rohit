@@ -43,7 +43,7 @@ const VoiceChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
+          {/* <p>{item.message.slice(0, 30).concat("...")}</p> */}
           <div className="chat-tag">
             {item.contact.tags.length > 0
               ? item.contact.tags.map((item) => (
@@ -146,6 +146,7 @@ const VoiceChatBoot = (props) => {
               <VoiceRecordingChat
                 voiceChatData={props.voiceChatData}
                 selecteduser={props.selecteduser}
+                fileUrl={props.fileUrl}
                 divRef={props.divRef}
               />
             </div>
@@ -181,7 +182,7 @@ const VoiceChatBoot = (props) => {
                 }}
               >
                 <MicIcon className="mr-2" />
-                {props.second > 0 ? "send" : "Press & Recording"}
+                {props.second > 0 ? "Stop" : "Press & Recording"}
               </button>
             </div>
           </div>

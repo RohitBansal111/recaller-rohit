@@ -37,7 +37,7 @@ const VoiceRecordingChat = (props) => {
                       // : "client chat-ui-box"
                     }
                   >
-                    <ReactAudioPlayer src={Recording1} controls />
+                    <ReactAudioPlayer src={props.fileUrl} controls />
                   </div>
                   <span>
                     <b>

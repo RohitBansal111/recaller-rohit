@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const sendVoiceMessageApi = async (data) => {
+const uploadVoiceMessageApi = async (data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
@@ -16,7 +16,7 @@ const sendVoiceMessageApi = async (data) => {
   }
 };
 
-const sendSingleVoiceMessageApi = async (data) => {
+const uploadSingleVoiceMessageApi = async (data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
@@ -47,7 +47,7 @@ const getUserWithVoiceMessage = async () => {
   }
 };
 
-const getVoiceMessageApi = async (id, data) => {
+const getUploadVoiceMessageApi = async (id, data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
@@ -64,8 +64,8 @@ const getVoiceMessageApi = async (id, data) => {
 };
 
 export {
-  sendVoiceMessageApi,
-  getVoiceMessageApi,
+  uploadVoiceMessageApi,
+  getUploadVoiceMessageApi,
   getUserWithVoiceMessage,
-  sendSingleVoiceMessageApi,
+  uploadSingleVoiceMessageApi,
 };

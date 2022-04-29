@@ -5,7 +5,6 @@ import MicIcon from "@material-ui/icons/Mic";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LoaderIcon from "../assets/svg-icons/loaderIcon";
 
-
 const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
@@ -27,14 +26,31 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
             <label>Voice Recording</label>
             <div class="voice-recorder-box">
               <div class="recording-left">
-                <span></span> <h4>00:00</h4>
+                <span></span>{" "}
+                <h4>
+                  {props.minute}:{props.second}
+                </h4>
               </div>
-              <button type="button" class="btn btn-primary">
-                <MicIcon className="mr-2" /> Press & Recording
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => {
+                  if (!props.isNewVoiceActive) {
+                    props.startRecording();
+                  } else {
+                    props.stopRecording();
+                  }
+                  props.setIsNewVoiceActive(!props.isNewVoiceActive);
+                }}
+              >
+                <MicIcon className="mr-2" />
+                {props.second > 0 ? "Stop" : "Press & Recording"}
               </button>
-              <div className="uploadfileAudio">
-                <LoaderIcon />
-              </div>
+              {/* {props.isNewVoiceActive && (
+                <div className="uploadfileAudio">
+                  <LoaderIcon />
+                </div>
+              )} */}
             </div>
           </div>
           <div className="field-group flexFull text-center mt-3">
