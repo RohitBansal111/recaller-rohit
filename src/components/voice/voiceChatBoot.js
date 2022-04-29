@@ -182,7 +182,13 @@ const VoiceChatBoot = (props) => {
                 }}
               >
                 <MicIcon className="mr-2" />
-                {props.second > 0 ? "Stop" : "Press & Recording"}
+                {props.isActive == true
+                  ? "Stop"
+                  : props.second == 0
+                  ? "Press & Recording"
+                  : props.isActive == false
+                  ? "Play"
+                  : "Press & Recording"}
               </button>
             </div>
           </div>

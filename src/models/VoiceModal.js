@@ -22,6 +22,7 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               value={props.selected}
             />
           </div>
+          <span className="spanError">{props.errors.selected}</span>
           <div className="field-group flexFull">
             <label>Voice Recording</label>
             <div class="voice-recorder-box">
@@ -44,9 +45,15 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 }}
               >
                 <MicIcon className="mr-2" />
-                {props.second > 0 ? "Stop" : "Press & Recording "}
+                {props.isNewVoiceActive == true
+                  ? "Stop"
+                  : props.second == 0
+                  ? "Press & Recording"
+                  : props.isNewVoiceActive == false
+                  ? "Play"
+                  : "Press & Recording"}
               </button>
-              {/* {props.isNewVoiceActive && (
+              {/* {props.isNewVoiceActive == false && (
                 <div className="uploadfileAudio">
                   <LoaderIcon />
                 </div>
@@ -66,6 +73,8 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               loadingPosition="center"
               loading={props.loading}
               onClick={props.handleSendClick}
+              style={{ cursor: props.second == 0 ? "not-allowed" : "pointer" }}
+              disabled={props.second == 0 ? true : false}
               className="btn btn-primary"
               variant="contained"
             >

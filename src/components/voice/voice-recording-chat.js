@@ -12,20 +12,6 @@ const VoiceRecordingChat = (props) => {
   return (
     <ScrollToBottom className="middle-chat-screen voice-chat-screen">
       <ul ref={props.divRef}>
-        <li className="voice-chat-list">
-          <div className="chat-ui-box client">
-            <ReactAudioPlayer src={Recording1} volume="0" controls />
-          </div>
-          <span>
-            <b>NH</b> 5:56 AM
-          </span>
-        </li>
-        <li className="voice-chat-list">
-          <div className="chat-ui-box user">
-            <ReactAudioPlayer src={Recording1} controls />
-          </div>
-          <span></span>
-        </li>
         {props.voiceChatData
           ? props.voiceChatData.map((item) => (
               <>

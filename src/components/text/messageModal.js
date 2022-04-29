@@ -122,6 +122,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                 type="button"
                 loadingPosition="center"
                 loading={props.loading}
+                style={{ cursor: props.sendNewMessage == 0 ? "not-allowed" : "pointer" }}
                 disabled={!props.sendNewMessage ? true : false}
                 onClick={props.handleSendClick}
                 className="btn btn-primary"
