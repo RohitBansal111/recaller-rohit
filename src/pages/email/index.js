@@ -409,6 +409,7 @@ const EmailPage = () => {
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
+      toast.success("Contact Updated Successfully")
       setOpenContactModal(false);
       getEmailMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
@@ -435,6 +436,7 @@ const EmailPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
+      toast.success(`${type} Successfully`)
       getEmailMessage(false, true);
       selecteduser.contact.emailSubs = type;
       setSelecteduser(selecteduser);

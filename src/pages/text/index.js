@@ -400,13 +400,13 @@ const TextPage = () => {
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
+      toast.success("Contact Updated Successfully")
       setOpenContactModal(false);
       getMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
       selecteduser.contact.lastName = editContact.lastName;
       selecteduser.contact.phoneSubs = editContact.phoneSubs;
       selecteduser.contact.emailSubs = editContact.emailSubs;
-
       setSelecteduser(selecteduser);
     }
     getData();
@@ -421,6 +421,7 @@ const TextPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
+      toast.success(`${type} Successfully`)
       getMessage(false, true);
       selecteduser.contact.phoneSubs = type;
       setSelecteduser(selecteduser);
