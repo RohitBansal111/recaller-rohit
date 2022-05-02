@@ -146,53 +146,57 @@ const VoiceChatBoot = (props) => {
               <VoiceRecordingChat
                 voiceChatData={props.voiceChatData}
                 selecteduser={props.selecteduser}
-                fileUrl={props.fileUrl}
                 divRef={props.divRef}
               />
             </div>
-            <div className="voice-recorder-box">
-              <div className="recording-left">
-                <span></span>{" "}
-                <h4>
-                  {props.minute}:{props.second}
-                </h4>
-                {props.second > 0 ? (
-                  <button
-                    type="button"
-                    className="remove-recording-action"
-                    onClick={props.stopTimer}
-                  >
-                    {" "}
-                    ×{" "}
-                  </button>
-                ) : (
-                  ""
-                )}
+            {props.contactVoiceList && props.contactVoiceList == 0 ? (
+              []
+            ) : (
+              <div className="voice-recorder-box">
+                <div className="recording-left">
+                  <span></span>{" "}
+                  <h4>
+                    {props.minute}:{props.second}
+                  </h4>
+                  {props.second > 0 ? (
+                    <button
+                      type="button"
+                      className="remove-recording-action"
+                      onClick={props.stopTimer}
+                    >
+                      {" "}
+                      ×{" "}
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => {
+                    if (!props.isActive) {
+                      props.startRecording();
+                    } else {
+                      props.handleSendSingleContactVoice();
+                    }
+                    props.setIsActive(!props.isActive);
+                  }}
+                >
+                  <MicIcon className="mr-2" />
+                  {props.isActive == true
+                    ? "Stop"
+                    : props.second == 0
+                    ? "Press & Recording"
+                    : props.isActive == false
+                    ? "Play"
+                    : "Press & Recording"}
+                </button>
               </div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => {
-                  if (!props.isActive) {
-                    props.startRecording();
-                  } else {
-                    props.handleSendSingleContactVoice();
-                  }
-                  props.setIsActive(!props.isActive);
-                }}
-              >
-                <MicIcon className="mr-2" />
-                {props.isActive == true
-                  ? "Stop"
-                  : props.second == 0
-                  ? "Press & Recording"
-                  : props.isActive == false
-                  ? "Play"
-                  : "Press & Recording"}
-              </button>
-            </div>
+            )}
           </div>
         </div>
+
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">

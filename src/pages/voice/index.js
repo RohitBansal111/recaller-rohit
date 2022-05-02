@@ -304,40 +304,34 @@ const Voice = () => {
       setContactData(res.data.data);
     }
   };
-  console.log(mediaBlobUrl,'mediaBlobUrl');
+  console.log(mediaBlobUrl, "mediaBlobUrl");
 
   const handleSendClick = async () => {
     if (true) {
       stopRecording();
-      // setLoading(true);
-      console.log(mediaBlobUrl,'mediaBlobUrl');
       fetch(mediaBlobUrl)
-    .then(async(res) => res.blob())
-    .then(async(myBlob) => {
-        console.log(myBlob,'mediaBlobUrl1');
-        // logs: Blob { size: 1024, type: "image/jpeg" }
-        var file = new File([myBlob], "name.wav");
-        console.log(file,'mediaBlobUrl12');
-        var formData = new FormData();
-        let contactid = selected.map((item) => item.value);
-        formData.append("voice", file);
-        formData.append("contactid", JSON.stringify(contactid));
-  
-        let res = await uploadVoiceMessageApi(formData);
-        if (res && res.data && res.data.status === 200) {
-          toast.success("Voice Message sent Successfully");
-          stopTimer();
-          setOpenMessageModal(false);
-          setSelected([]);
-          setLoading(false);
-          setIsNewVoiceActive(false);
-          setIsActive(false);
-        }
-        getVoiceMessage(false, true);
-    });
-     
-
-  
+        .then(async (res) => res.blob())
+        .then(async (myBlob) => {
+          var file = new File([myBlob], "name.wav");
+          var formData = new FormData();
+          let contactid = selected.map((item) => item.value);
+          formData.append("voice", file);
+          formData.append("contactid", JSON.stringify(contactid));
+          if (isSelectValid()) {
+            setLoading(true);
+            let res = await uploadVoiceMessageApi(formData);
+            if (res && res.data && res.data.status === 200) {
+              toast.success("Voice Message sent Successfully");
+              stopTimer();
+              setOpenMessageModal(false);
+              setSelected([]);
+              setLoading(false);
+              setIsNewVoiceActive(false);
+              setIsActive(false);
+            }
+          }
+          getVoiceMessage();
+        });
     }
   };
 
@@ -538,7 +532,6 @@ const Voice = () => {
           handleUserNameEdit={handleUserNameEdit}
           handleOptOut={handleOptOut}
           divRef={divRef}
-          fileUrl={mediaBlobUrl}
           handleSendSingleContactVoice={handleSendSingleContactVoice}
         />
       </div>

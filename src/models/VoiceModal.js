@@ -53,11 +53,14 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                   ? "Play"
                   : "Press & Recording"}
               </button>
-              {/* {props.isNewVoiceActive == false && (
-                <div className="uploadfileAudio">
-                  <LoaderIcon />
-                </div>
-              )} */}
+              {props.second == 0 ||
+                (props.isNewVoiceActive == true ? (
+                  ""
+                ) : (
+                  <div className="uploadfileAudio">
+                    <LoaderIcon />
+                  </div>
+                ))}
             </div>
           </div>
           <div className="field-group flexFull text-center mt-3">
@@ -73,8 +76,17 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               loadingPosition="center"
               loading={props.loading}
               onClick={props.handleSendClick}
-              style={{ cursor: props.second == 0 ? "not-allowed" : "pointer" }}
-              disabled={props.second == 0 ? true : false}
+              style={{
+                cursor:
+                  props.second == 0 || props.isNewVoiceActive == true
+                    ? "not-allowed"
+                    : "pointer",
+              }}
+              disabled={
+                props.second == 0 || props.isNewVoiceActive == true
+                  ? true
+                  : false
+              }
               className="btn btn-primary"
               variant="contained"
             >
