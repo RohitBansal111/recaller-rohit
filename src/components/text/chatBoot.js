@@ -147,7 +147,7 @@ const ChatBoot = (props) => {
             <div className="chat-now">
               <TextChat
                 chatData={props.chatData}
-                contactName={props.contactName}
+                selecteduser={props.selecteduser}
                 divRef={props.divRef}
               />
             </div>
@@ -176,6 +176,7 @@ const ChatBoot = (props) => {
                           type="button"
                           loadingPosition="center"
                           loading={props.loading}
+                          style={{ cursor: props.sendMessage == 0 ? "not-allowed" : "pointer" }}
                           disabled={!props.sendMessage ? true : false}
                           onClick={props.onHandleClick}
                           className="btn-primary-outline"

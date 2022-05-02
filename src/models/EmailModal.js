@@ -125,6 +125,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                 type="button"
                 loadingPosition="center"
                 loading={props.loading}
+                style={{ cursor: props.emailMessage == 0 ? "not-allowed" : "pointer" }}
                 disabled={!props.emailMessage ? true : false}
                 onClick={props.sendMessageClick}
                 className="btn btn-primary"

@@ -28,9 +28,9 @@ const EmailChatText = (props) => {
                           userData.lastName.charAt(0) +
                           " "
                         : "" || (item.sender === 2 && "client chat-ui-box")
-                        ? props.contactName.contact.firstName +
+                        ? props.selecteduser.contact.firstName +
                           " " +
-                          props.contactName.contact.lastName +
+                          props.selecteduser.contact.lastName +
                           " "
                         : ""}
                     </b>

@@ -239,8 +239,8 @@ const TextPage = () => {
   };
 
   useEffect(() => {
-    scrollToBottom()
-  },[chatMessages])
+    scrollToBottom();
+  }, [chatMessages]);
 
   const onHandleClick = async () => {
     setLoading(true);
@@ -400,7 +400,7 @@ const TextPage = () => {
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Contact Updated Successfully")
+      toast.success("Contact Updated Successfully");
       setOpenContactModal(false);
       getMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
@@ -421,7 +421,7 @@ const TextPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success(`${type} Successfully`)
+      toast.success(`${type} Successfully`);
       getMessage(false, true);
       selecteduser.contact.phoneSubs = type;
       setSelecteduser(selecteduser);
@@ -486,7 +486,6 @@ const TextPage = () => {
           handleUserNameEdit={handleUserNameEdit}
           handleEditUserName={handleEditUserName}
           editContactName={editContactName}
-          contactName={selecteduser}
           loading={loading}
           handleOptOut={handleOptOut}
           divRef={divRef}

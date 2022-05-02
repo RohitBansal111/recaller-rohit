@@ -488,7 +488,6 @@ const EmailPage = () => {
           openChatClick={openChatClick}
           selecteduser={selecteduser}
           emailChatData={emailChatMessages}
-          contactName={selecteduser}
           sendEmailMessage={sendEmailMessage}
           onHandleChange={onHandleChange}
           onHandleClick={onHandleClick}

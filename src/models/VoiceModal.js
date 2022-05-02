@@ -5,7 +5,6 @@ import MicIcon from "@material-ui/icons/Mic";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LoaderIcon from "../assets/svg-icons/loaderIcon";
 
-
 const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
@@ -23,18 +22,42 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               value={props.selected}
             />
           </div>
+          <span className="spanError">{props.errors.selected}</span>
           <div className="field-group flexFull">
             <label>Voice Recording</label>
             <div class="voice-recorder-box">
               <div class="recording-left">
-                <span></span> <h4>00:00</h4>
+                <span></span>{" "}
+                <h4>
+                  {props.minute}:{props.second}
+                </h4>
               </div>
-              <button type="button" class="btn btn-primary">
-                <MicIcon className="mr-2" /> Press & Recording
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => {
+                  if (!props.isNewVoiceActive) {
+                    props.startRecording();
+                  } else {
+                    props.stopRecording();
+                  }
+                  props.setIsNewVoiceActive(!props.isNewVoiceActive);
+                }}
+              >
+                <MicIcon className="mr-2" />
+                {props.isNewVoiceActive == true
+                  ? "Stop"
+                  : props.second == 0
+                  ? "Press & Recording"
+                  : props.isNewVoiceActive == false
+                  ? "Play"
+                  : "Press & Recording"}
               </button>
-              <div className="uploadfileAudio">
-                <LoaderIcon />
-              </div>
+              {/* {props.isNewVoiceActive == false && (
+                <div className="uploadfileAudio">
+                  <LoaderIcon />
+                </div>
+              )} */}
             </div>
           </div>
           <div className="field-group flexFull text-center mt-3">
@@ -50,6 +73,8 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               loadingPosition="center"
               loading={props.loading}
               onClick={props.handleSendClick}
+              style={{ cursor: props.second == 0 ? "not-allowed" : "pointer" }}
+              disabled={props.second == 0 ? true : false}
               className="btn btn-primary"
               variant="contained"
             >

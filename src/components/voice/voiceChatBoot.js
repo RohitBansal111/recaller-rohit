@@ -43,7 +43,7 @@ const VoiceChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
+          {/* <p>{item.message.slice(0, 30).concat("...")}</p> */}
           <div className="chat-tag">
             {item.contact.tags.length > 0
               ? item.contact.tags.map((item) => (
@@ -116,7 +116,7 @@ const VoiceChatBoot = (props) => {
                   <li
                     onClick={() =>
                       props.handleOptOut(
-                        props.selecteduser.contact.phoneSubs == "opted-in"
+                        props.selecteduser.contact.voiceSubs == "opted-in"
                           ? "opted-out"
                           : "opted-in"
                       )
@@ -124,14 +124,14 @@ const VoiceChatBoot = (props) => {
                   >
                     {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
+                    props.selecteduser.contact.voiceSubs == "opted-in" ? (
                       <WifiOffIcon />
                     ) : (
                       <WifiIcon />
                     )}
                     {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phoneSubs == "opted-in"
+                    props.selecteduser.contact.voiceSubs == "opted-in"
                       ? "Opted Out"
                       : "Opted In"}
                   </li>
@@ -145,6 +145,8 @@ const VoiceChatBoot = (props) => {
             <div className="chat-now">
               <VoiceRecordingChat
                 voiceChatData={props.voiceChatData}
+                selecteduser={props.selecteduser}
+                fileUrl={props.fileUrl}
                 divRef={props.divRef}
               />
             </div>
@@ -174,13 +176,19 @@ const VoiceChatBoot = (props) => {
                   if (!props.isActive) {
                     props.startRecording();
                   } else {
-                    props.stopRecording();
+                    props.handleSendSingleContactVoice();
                   }
                   props.setIsActive(!props.isActive);
                 }}
               >
                 <MicIcon className="mr-2" />
-                {props.second > 0 ? "send" : "Press & Recording"}
+                {props.isActive == true
+                  ? "Stop"
+                  : props.second == 0
+                  ? "Press & Recording"
+                  : props.isActive == false
+                  ? "Play"
+                  : "Press & Recording"}
               </button>
             </div>
           </div>
@@ -236,7 +244,7 @@ const VoiceChatBoot = (props) => {
                 <p>
                   {props.selecteduser &&
                   props.selecteduser.contact &&
-                  props.selecteduser.contact.phoneSubs == "opted-in"
+                  props.selecteduser.contact.voiceSubs == "opted-in"
                     ? "Opted In"
                     : "Opted Out"}
                 </p>

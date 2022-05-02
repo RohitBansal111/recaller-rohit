@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const sendVoiceMessageApi = async (data) => {
+const uploadVoiceMessageApi = async (data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/message/insert`,
+      `${process.env.REACT_APP_API_URL}/voice/insert`,
       data
     );
     if (result) {
@@ -16,12 +16,12 @@ const sendVoiceMessageApi = async (data) => {
   }
 };
 
-const sendSingleVoiceMessageApi = async (data) => {
+const uploadSingleVoiceMessageApi = async (data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
-      `${process.env.REACT_APP_API_URL}/message/single`,
+      `${process.env.REACT_APP_API_URL}/voice/single`,
       data
     );
     if (result) {
@@ -37,7 +37,7 @@ const getUserWithVoiceMessage = async () => {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/message/user`
+      `${process.env.REACT_APP_API_URL}/voice/user`
     );
     if (result) {
       return result;
@@ -47,12 +47,12 @@ const getUserWithVoiceMessage = async () => {
   }
 };
 
-const getVoiceMessageApi = async (id, data) => {
+const getUploadVoiceMessageApi = async (id, data) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/message/contact/${id}`,
+      `${process.env.REACT_APP_API_URL}/voice/contact/${id}`,
       data
     );
     if (result) {
@@ -64,8 +64,8 @@ const getVoiceMessageApi = async (id, data) => {
 };
 
 export {
-  sendVoiceMessageApi,
-  getVoiceMessageApi,
+  uploadVoiceMessageApi,
+  getUploadVoiceMessageApi,
   getUserWithVoiceMessage,
-  sendSingleVoiceMessageApi,
+  uploadSingleVoiceMessageApi,
 };

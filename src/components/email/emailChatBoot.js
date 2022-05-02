@@ -154,7 +154,7 @@ const EmailChatBoot = (props) => {
             <div className="chat-now">
               <EmailChatText
                 emailChatData={props.emailChatData}
-                contactName={props.contactName}
+                selecteduser={props.selecteduser}
                 divRef={props.divRef}
               />
             </div>
@@ -194,6 +194,7 @@ const EmailChatBoot = (props) => {
                             type="button"
                             loadingPosition="center"
                             loading={props.loading}
+                            style={{ cursor: props.sendEmailMessage == 0 ? "not-allowed" : "pointer" }}
                             disabled={!props.sendEmailMessage ? true : false}
                             onClick={props.onHandleClick}
                             className="btn-primary-outline"

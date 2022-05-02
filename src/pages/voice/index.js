@@ -16,9 +16,10 @@ import {
   updateContactApi,
 } from "../../api/contact";
 import {
+  getUploadVoiceMessageApi,
   getUserWithVoiceMessage,
-  getVoiceMessageApi,
-  sendVoiceMessageApi,
+  uploadSingleVoiceMessageApi,
+  uploadVoiceMessageApi,
 } from "../../api/voiceMessage";
 
 const Voice = () => {
@@ -40,10 +41,10 @@ const Voice = () => {
   const [counter, setCounter] = useState(0);
   const [rowsData, setRowsData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sendNewVoice, setSendNewVoice] = useState("");
+  const [isNewVoiceActive, setIsNewVoiceActive] = useState(false);
   const [voiceMessage, setVoiceMessages] = useState([]);
   const [selecteduser, setSelecteduser] = useState("");
-  const [chatMessages, setChatMesssages] = useState([]);
+  const [voiceChatData, setVoiceChatData] = useState([]);
   const [contactData, setContactData] = useState([]);
   const [editContact, setEditContact] = useState({});
   const [openContactModal, setOpenContactModal] = useState(false);
@@ -80,10 +81,17 @@ const Voice = () => {
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setErrors({});
+    setIsNewVoiceActive(false);
+    stopTimer();
+    setSelected([]);
+    setLoading(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setErrors({});
+    stopTimer();
+    setSelected([]);
+    setLoading(false);
   };
 
   const handleCloseETModal = () => {
@@ -224,6 +232,7 @@ const Voice = () => {
 
   const handleSelectChange = (values) => {
     setSelected(values);
+    setErrors({});
   };
 
   const scrollToBottom = (e) => {
@@ -235,9 +244,13 @@ const Voice = () => {
   };
 
   useEffect(() => {
+    scrollToBottom();
+  }, [voiceChatData]);
+
+  useEffect(() => {
     let intervalId;
 
-    if (isActive) {
+    if (isActive || isNewVoiceActive) {
       intervalId = setInterval(() => {
         const secondCounter = counter % 60;
         const minuteCounter = Math.floor(counter / 60);
@@ -258,9 +271,10 @@ const Voice = () => {
     }
 
     return () => clearInterval(intervalId);
-  }, [isActive, counter]);
+  }, [isActive, isNewVoiceActive, counter]);
 
   function stopTimer() {
+    setIsNewVoiceActive(false);
     setIsActive(false);
     setCounter(0);
     setSecond("00");
@@ -293,22 +307,46 @@ const Voice = () => {
 
   const handleSendClick = async () => {
     if (isSelectValid()) {
+      stopRecording();
       setLoading(true);
+      var file = new File([mediaBlobUrl], "name.mp3");
+      var formData = new FormData();
       let contactid = selected.map((item) => item.value);
-      const obj = {
-        contactid: contactid,
-        message: sendNewVoice,
-      };
-      let res = await sendVoiceMessageApi(obj);
+      formData.append("voice", file);
+      formData.append("contactid", JSON.stringify(contactid));
+
+      let res = await uploadVoiceMessageApi(formData);
       if (res && res.data && res.data.status === 200) {
         toast.success("Voice Message sent Successfully");
+        stopTimer();
         setOpenMessageModal(false);
         setSelected([]);
-        setSendNewVoice("");
         setLoading(false);
+        setIsNewVoiceActive(false);
+        setIsActive(false);
       }
-      getVoiceMessage();
+      getVoiceMessage(false, true);
     }
+  };
+
+  const handleSendSingleContactVoice = async () => {
+    stopRecording();
+    var file = new File([mediaBlobUrl], "name.mp3");
+    var formData = new FormData();
+    // let id = selected.map((item) => item.value);
+    formData.append("voice", file);
+    formData.append("contactId", selecteduser._id);
+    setLoading(true);
+    let res = await uploadSingleVoiceMessageApi(formData);
+    if (res && res.data && res.data.status === 200) {
+      toast.success("Voice Message sent Successfully");
+      setSelected([]);
+      scrollToBottom();
+      setLoading(false);
+      setIsNewVoiceActive(false);
+      setIsActive(false);
+    }
+    getVoiceMessage(false, true);
   };
 
   const getVoiceMessage = async (check = true, tagsCheck = false) => {
@@ -333,9 +371,9 @@ const Voice = () => {
   };
 
   const openChatClick = async (id, check) => {
-    const res = await getVoiceMessageApi(id);
+    const res = await getUploadVoiceMessageApi(id);
     if (res && res.data && res.data.status === 200) {
-      setChatMesssages(res.data.data);
+      setVoiceChatData(res.data.data);
     }
     if (check) {
       const selecteduser = voiceMessage.find((c) => c._id == id);
@@ -412,13 +450,14 @@ const Voice = () => {
     const editData = {
       firstName: selecteduser.contact.firstName,
       lastName: selecteduser.contact.lastName,
-      phoneSubs: type,
+      voiceSubs: type,
+      phoneSubs: selecteduser.contact.phoneSubs,
       emailSubs: selecteduser.contact.emailSubs,
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
       getVoiceMessage(false, true);
-      selecteduser.contact.phoneSubs = type;
+      selecteduser.contact.voiceSubs = type;
       setSelecteduser(selecteduser);
     }
     getData();
@@ -472,7 +511,7 @@ const Voice = () => {
           setIsActive={setIsActive}
           stopTimer={stopTimer}
           contactVoiceList={voiceMessage}
-          voiceChatData={chatMessages}
+          voiceChatData={voiceChatData}
           openChatClick={openChatClick}
           selecteduser={selecteduser}
           openContactModal={openContactModal}
@@ -487,6 +526,8 @@ const Voice = () => {
           handleUserNameEdit={handleUserNameEdit}
           handleOptOut={handleOptOut}
           divRef={divRef}
+          fileUrl={mediaBlobUrl}
+          handleSendSingleContactVoice={handleSendSingleContactVoice}
         />
       </div>
       <VoiceModal
@@ -497,6 +538,13 @@ const Voice = () => {
         options={rowsData}
         handleSendClick={handleSendClick}
         loading={loading}
+        minute={minute}
+        second={second}
+        isNewVoiceActive={isNewVoiceActive}
+        setIsNewVoiceActive={setIsNewVoiceActive}
+        startRecording={startRecording}
+        stopRecording={stopRecording}
+        errors={errors}
       />
     </div>
   );
