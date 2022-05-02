@@ -147,6 +147,7 @@ const VoiceChatBoot = (props) => {
                 voiceChatData={props.voiceChatData}
                 selecteduser={props.selecteduser}
                 divRef={props.divRef}
+                isShowLoading={props.isShowLoading}
               />
             </div>
             {props.contactVoiceList && props.contactVoiceList == 0 ? (

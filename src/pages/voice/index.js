@@ -51,6 +51,8 @@ const Voice = () => {
   const [editContactName, setEditContactName] = useState(false);
   const [editCName, setEditCName] = useState({});
   const [searchState, setSearchState] = useState("");
+  const [isShowLoading , setIsShowLoading] =useState(false)
+
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -317,6 +319,7 @@ const Voice = () => {
           let contactid = selected.map((item) => item.value);
           formData.append("voice", file);
           formData.append("contactid", JSON.stringify(contactid));
+          setIsShowLoading(true)
           if (isSelectValid()) {
             setLoading(true);
             let res = await uploadVoiceMessageApi(formData);
@@ -328,6 +331,7 @@ const Voice = () => {
               setLoading(false);
               setIsNewVoiceActive(false);
               setIsActive(false);
+              setIsShowLoading(false)
             }
           }
           getVoiceMessage();
@@ -533,6 +537,7 @@ const Voice = () => {
           handleOptOut={handleOptOut}
           divRef={divRef}
           handleSendSingleContactVoice={handleSendSingleContactVoice}
+          isShowLoading={isShowLoading}
         />
       </div>
       <VoiceModal
