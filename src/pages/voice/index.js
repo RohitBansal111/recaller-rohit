@@ -51,7 +51,7 @@ const Voice = () => {
   const [editContactName, setEditContactName] = useState(false);
   const [editCName, setEditCName] = useState({});
   const [searchState, setSearchState] = useState("");
-  const [isShowLoading , setIsShowLoading] =useState(false)
+  const [isShowLoading, setIsShowLoading] = useState(false);
 
   const divRef = useRef(null);
 
@@ -306,7 +306,6 @@ const Voice = () => {
       setContactData(res.data.data);
     }
   };
-  console.log(mediaBlobUrl, "mediaBlobUrl");
 
   const handleSendClick = async () => {
     if (true) {
@@ -319,7 +318,7 @@ const Voice = () => {
           let contactid = selected.map((item) => item.value);
           formData.append("voice", file);
           formData.append("contactid", JSON.stringify(contactid));
-          setIsShowLoading(true)
+          setIsShowLoading(true);
           if (isSelectValid()) {
             setLoading(true);
             let res = await uploadVoiceMessageApi(formData);
@@ -331,7 +330,7 @@ const Voice = () => {
               setLoading(false);
               setIsNewVoiceActive(false);
               setIsActive(false);
-              setIsShowLoading(false)
+              setIsShowLoading(false);
             }
           }
           getVoiceMessage();
@@ -340,23 +339,32 @@ const Voice = () => {
   };
 
   const handleSendSingleContactVoice = async () => {
-    stopRecording();
-    var file = new File([mediaBlobUrl], "name.mp3");
-    var formData = new FormData();
-    // let id = selected.map((item) => item.value);
-    formData.append("voice", file);
-    formData.append("contactId", selecteduser._id);
-    setLoading(true);
-    let res = await uploadSingleVoiceMessageApi(formData);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("Voice Message sent Successfully");
-      setSelected([]);
-      scrollToBottom();
-      setLoading(false);
-      setIsNewVoiceActive(false);
-      setIsActive(false);
+    if (true) {
+      stopRecording();
+      fetch(mediaBlobUrl)
+        .then(async (res) => res.blob())
+        .then(async (myBlob) => {
+          var file = new File([myBlob], "name.wav");
+          var formData = new FormData();
+          let contactid = selecteduser.contact.contactid;
+          formData.append("voice", file);
+          formData.append("contactid", contactid);
+          setLoading(true);
+          let res = await uploadSingleVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            setSelected([]);
+            stopTimer();
+            scrollToBottom();
+            setLoading(false);
+            setIsNewVoiceActive(false);
+            setIsActive(false);
+          } else {
+            toast.error(res.data.message);
+          }
+          getVoiceMessage();
+        });
     }
-    getVoiceMessage(false, true);
   };
 
   const getVoiceMessage = async (check = true, tagsCheck = false) => {

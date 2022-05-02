@@ -53,14 +53,6 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                   ? "Play"
                   : "Press & Recording"}
               </button>
-              {props.second == 0 ||
-                (props.isNewVoiceActive == true ? (
-                  ""
-                ) : (
-                  <div className="uploadfileAudio">
-                    <LoaderIcon />
-                  </div>
-                ))}
             </div>
           </div>
           <div className="field-group flexFull text-center mt-3">
