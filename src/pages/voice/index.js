@@ -304,28 +304,40 @@ const Voice = () => {
       setContactData(res.data.data);
     }
   };
+  console.log(mediaBlobUrl,'mediaBlobUrl');
 
   const handleSendClick = async () => {
-    if (isSelectValid()) {
+    if (true) {
       stopRecording();
-      setLoading(true);
-      var file = new File([mediaBlobUrl], "name.mp3");
-      var formData = new FormData();
-      let contactid = selected.map((item) => item.value);
-      formData.append("voice", file);
-      formData.append("contactid", JSON.stringify(contactid));
+      // setLoading(true);
+      console.log(mediaBlobUrl,'mediaBlobUrl');
+      fetch(mediaBlobUrl)
+    .then(async(res) => res.blob())
+    .then(async(myBlob) => {
+        console.log(myBlob,'mediaBlobUrl1');
+        // logs: Blob { size: 1024, type: "image/jpeg" }
+        var file = new File([myBlob], "name.wav");
+        console.log(file,'mediaBlobUrl12');
+        var formData = new FormData();
+        let contactid = selected.map((item) => item.value);
+        formData.append("voice", file);
+        formData.append("contactid", JSON.stringify(contactid));
+  
+        let res = await uploadVoiceMessageApi(formData);
+        if (res && res.data && res.data.status === 200) {
+          toast.success("Voice Message sent Successfully");
+          stopTimer();
+          setOpenMessageModal(false);
+          setSelected([]);
+          setLoading(false);
+          setIsNewVoiceActive(false);
+          setIsActive(false);
+        }
+        getVoiceMessage(false, true);
+    });
+     
 
-      let res = await uploadVoiceMessageApi(formData);
-      if (res && res.data && res.data.status === 200) {
-        toast.success("Voice Message sent Successfully");
-        stopTimer();
-        setOpenMessageModal(false);
-        setSelected([]);
-        setLoading(false);
-        setIsNewVoiceActive(false);
-        setIsActive(false);
-      }
-      getVoiceMessage(false, true);
+  
     }
   };
 
