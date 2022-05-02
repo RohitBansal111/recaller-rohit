@@ -172,21 +172,36 @@ const VoiceChatBoot = (props) => {
                     ""
                   )}
                 </div>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => {
-                    if (!props.isActive) {
-                      props.startRecording();
-                    } else {
-                      props.handleSendSingleContactVoice();
-                    }
-                    props.setIsActive(!props.isActive);
-                  }}
-                >
-                  <MicIcon className="mr-2" />
-                  {props.isActive == true ? "Send" : "Press & Recording"}
-                </button>
+
+                {props.second > 0 && props.isActive == false ? (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={props.handleSendSingleContactVoice}
+                  >
+                    Send
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      if (!props.isActive) {
+                        props.startRecording();
+                      } else {
+                        props.stopRecording();
+                      }
+                      props.setIsActive(!props.isActive);
+                    }}
+                  >
+                    <MicIcon className="mr-2" />
+                    {props.second == 0
+                      ? "Press & Recording"
+                      : props.isActive == true
+                      ? "Stop"
+                      : "Press & Recording"}
+                  </button>
+                )}
               </div>
             )}
           </div>

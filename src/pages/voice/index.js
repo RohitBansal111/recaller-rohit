@@ -340,11 +340,13 @@ const Voice = () => {
 
   const handleSendSingleContactVoice = async () => {
     if (true) {
+      setLoading(true);
       stopRecording();
       fetch(mediaBlobUrl)
         .then(async (res) => res.blob())
         .then(async (myBlob) => {
-          var file = new File([myBlob], "name.wav");
+          const file = new File([myBlob], "name.wav");
+          console.log(myBlob, "llllllllllll");
           var formData = new FormData();
           let contactid = selecteduser.contact.contactid;
           formData.append("voice", file);
@@ -525,6 +527,7 @@ const Voice = () => {
           second={second}
           startRecording={startRecording}
           isActive={isActive}
+          loading={loading}
           stopRecording={stopRecording}
           setIsActive={setIsActive}
           stopTimer={stopTimer}
