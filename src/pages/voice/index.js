@@ -308,30 +308,31 @@ const Voice = () => {
   };
 
   const handleSendClick = async () => {
-    if (true) {
-      stopRecording();
-      fetch(mediaBlobUrl)
-        .then(async (res) => res.blob())
+    if (isSelectValid()) {
+      console.log(mediaBlobUrl, "mediaBlobUrl");
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
         .then(async (myBlob) => {
+          console.log(myBlob, "mediaBlobUrl111111");
+
           var file = new File([myBlob], "name.wav");
+          console.log(file, "mediaBlobUrl2222");
           var formData = new FormData();
           let contactid = selected.map((item) => item.value);
           formData.append("voice", file);
           formData.append("contactid", JSON.stringify(contactid));
           setIsShowLoading(true);
-          if (isSelectValid()) {
-            setLoading(true);
-            let res = await uploadVoiceMessageApi(formData);
-            if (res && res.data && res.data.status === 200) {
-              toast.success("Voice Message sent Successfully");
-              stopTimer();
-              setOpenMessageModal(false);
-              setSelected([]);
-              setLoading(false);
-              setIsNewVoiceActive(false);
-              setIsActive(false);
-              setIsShowLoading(false);
-            }
+          setLoading(true);
+          let res = await uploadVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            stopTimer();
+            setOpenMessageModal(false);
+            setSelected([]);
+            setLoading(false);
+            setIsNewVoiceActive(false);
+            setIsActive(false);
+            setIsShowLoading(false);
           }
           getVoiceMessage();
         });
@@ -342,11 +343,13 @@ const Voice = () => {
     if (true) {
       setLoading(true);
       stopRecording();
-      fetch(mediaBlobUrl)
-        .then(async (res) => res.blob())
+      console.log(mediaBlobUrl, "mediaBlobUrl");
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
         .then(async (myBlob) => {
-          const file = new File([myBlob], "name.wav");
-          console.log(myBlob, "llllllllllll");
+          var file = new File([myBlob], "name.wav");
+          console.log(file,"mediaBlobUrl2222");
+          console.log(myBlob, "mediaBlobUrl111111");
           var formData = new FormData();
           let contactid = selecteduser.contact.contactid;
           formData.append("voice", file);
