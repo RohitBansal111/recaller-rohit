@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,28 +15,15 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import WifiOffIcon from "@material-ui/icons/WifiOff";
 import WifiIcon from "@material-ui/icons/Wifi";
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import ImageIcon from '@material-ui/icons/Image';
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import PostAddIcon from "@material-ui/icons/PostAdd";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import ImageIcon from "@material-ui/icons/Image";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 import ScheduleMessageModal from "../../models/ScheduleMessageModal";
-import { Link } from "react-router-dom";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 
-
 const ChatBoot = (props) => {
-  const [showScheduleModal, setShowScheduleModal] = useState(false)
-  const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false)
-  const [showManageeTemplateModal, setShowManageeTemplateModal] = useState(false)
-
-  const handleScheduleModal = () => setShowScheduleModal(true); 
-  const handleCloseSchedultModal = () => setShowScheduleModal(false);
-  const handleCreateTemplate = () => setShowCreateTemplateModal(true);
-  const handleCloseCreateTemplateModal = () => setShowCreateTemplateModal(false);
-  const handleManageTemplate = () => setShowManageeTemplateModal(true); 
-  const handleCloseManageTemplateModal = () => setShowManageeTemplateModal(false); 
-
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -193,33 +180,78 @@ const ChatBoot = (props) => {
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <ul className="action-icons">
-                            <li>
-                              <button 
+                          <li>
+                            <button
+                              type="button"
+                              id="dropdownMenuButton3"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                              className="btn-action1 dropdown-toggle"
+                            >
+                              <PostAddIcon />
+                            </button>
+                            <ul
+                              className="dropdown-menu inset-template-popup"
+                              aria-labelledby="dropdownMenuButton3"
+                            >
+                              <h4>
+                                Message Templates{" "}
+                                <button
+                                  type="button"
+                                  onClick={props.handleManageTemplate}
+                                >
+                                  Manage
+                                </button>
+                              </h4>
+                              <li>Followup SMS</li>
+                              {props.templateDataTitle &&
+                                props.templateDataTitle.map((item) => (
+                                  <li>{item.title}</li>
+                                ))}
+                              <button
                                 type="button"
-                                id="dropdownMenuButton3"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false" 
-                                className="btn-action1 dropdown-toggle"><PostAddIcon />
+                                className="create-tem"
+                                onClick={props.handleCreateTemplate}
+                              >
+                                + Create Message Template
                               </button>
-                              <ul
-                                className="dropdown-menu inset-template-popup"
-                                aria-labelledby="dropdownMenuButton3">
-                                  <h4>Message Templates <button type="button" onClick={handleManageTemplate}>Manage</button></h4>
-                                  <li>Followup SMS</li>
-                                  <li>Pre Survey SMS</li>
-                                  <button type="button" className="create-tem" onClick={handleCreateTemplate}>+ Create Message Template</button>
-                              </ul>
-                            </li>
-                            <li><button type="button" className="btn-action1"><EmojiEmotionsIcon /></button></li>
-                            <li><button type="button" className="btn-action1 fileType"><ImageIcon /><input type="file" /></button></li>
-                            <li><button type="button" className="btn-action1" onClick={handleScheduleModal}><ScheduleIcon /></button></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <button type="button" className="btn-action1">
+                              <EmojiEmotionsIcon />
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              type="button"
+                              className="btn-action1 fileType"
+                            >
+                              <ImageIcon />
+                              <input type="file" />
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              type="button"
+                              className="btn-action1"
+                              onClick={props.handleScheduleModal}
+                            >
+                              <ScheduleIcon />
+                            </button>
+                          </li>
                         </ul>
-                       
+
                         <LoadingButton
                           type="button"
                           loadingPosition="center"
                           loading={props.loading}
-                          style={{ cursor: props.sendMessage == 0 ? "not-allowed" : "pointer" }}
+                          style={{
+                            cursor:
+                              props.sendMessage == 0
+                                ? "not-allowed"
+                                : "pointer",
+                          }}
                           disabled={!props.sendMessage ? true : false}
                           onClick={props.onHandleClick}
                           className="btn-primary-outline"
@@ -241,9 +273,9 @@ const ChatBoot = (props) => {
                         ></textarea>
                       </div>
                       <div className="field-group btn-groups flexFull">
-                        <button type="button" className="btn-primary-outline">
+                        {/* <button type="button" className="btn-primary-outline">
                           Send & Close
-                        </button>
+                        </button> */}
                         <button type="button" className="btn-primary-outline">
                           Send
                         </button>
@@ -442,16 +474,24 @@ const ChatBoot = (props) => {
           </div>
         </div>
         <ScheduleMessageModal
-          showScheduleModal={showScheduleModal}
-          handleCloseSchedultModal={handleCloseSchedultModal}
+          showScheduleModal={props.showScheduleModal}
+          handleCloseSchedultModal={props.handleCloseSchedultModal}
         />
         <CreateTemplateModal
-          showCreateTemplateModal={showCreateTemplateModal}
-          handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+          showCreateTemplateModal={props.showCreateTemplateModal}
+          handleCloseCreateTemplateModal={props.handleCloseCreateTemplateModal}
+          templateName={props.templateName}
+          handleTemplateName={props.handleTemplateName}
+          templateTags={props.templateTags}
+          handleTemplateTagChange={props.handleTemplateTagChange}
+          templateMessage={props.templateMessage}
+          handleTempMessageChange={props.handleTempMessageChange}
+          handleTemplateSubmit={props.handleTemplateSubmit}
+          errors={props.errors}
         />
         <ManageTemplateModal
-          showManageeTemplateModal={showManageeTemplateModal}
-          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          showManageeTemplateModal={props.showManageeTemplateModal}
+          handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
         />
       </div>
     </div>

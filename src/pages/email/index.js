@@ -18,6 +18,7 @@ import {
   getTagsApi,
   updateTagsApi,
 } from "../../api/tag";
+import { getTemplateApi, sendTemplate } from "../../api/template";
 import EmailChatBoot from "../../components/email/emailChatBoot";
 import EmailModal from "../../models/EmailModal";
 
@@ -48,6 +49,16 @@ const EmailPage = () => {
   const [searchState, setSearchState] = useState("");
   const [sendEmailMessage, setSendEmailMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false);
+  const [showManageeTemplateModal, setShowManageeTemplateModal] =
+    useState(false);
+  const [templateName, setTemplateName] = useState("");
+  const [templateTags, setTemplateTags] = useState(null);
+  const [templateMessage, setTemplateMessage] = useState("");
+  const [templateData, setTemplateData] = useState("");
+  const [templateUser, setTemplateUser] = useState("");
+
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -57,6 +68,24 @@ const EmailPage = () => {
         setErrors({ name: "Please Enter a Tag Name" });
         formData = false;
         break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const isValidTemplate = () => {
+    let formData = true;
+    switch (true) {
+      case !templateName:
+        setErrors({ templateName: "Please Enter Template Name " });
+        formData = false;
+        break;
+      case !templateMessage:
+        setErrors({ templateMessage: "Please Enter Template Message" });
+        formData = false;
+        break;
+
       default:
         formData = true;
     }
@@ -110,6 +139,26 @@ const EmailPage = () => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
     setErrors({});
   };
+
+  const handleScheduleModal = () => setShowScheduleModal(true);
+  const handleCloseSchedultModal = () => setShowScheduleModal(false);
+  const handleCreateTemplate = () => {
+    setShowCreateTemplateModal(true);
+    setTemplateName("");
+    setTemplateName("");
+    setTemplateMessage("");
+    setErrors({});
+  };
+  const handleCloseCreateTemplateModal = () => {
+    setShowCreateTemplateModal(false);
+    setTemplateTags(null);
+    setTemplateName("");
+    setTemplateMessage("");
+    setErrors({});
+  };
+  const handleManageTemplate = () => setShowManageeTemplateModal(true);
+  const handleCloseManageTemplateModal = () =>
+    setShowManageeTemplateModal(false);
 
   useEffect(() => {
     getTags();
@@ -357,8 +406,8 @@ const EmailPage = () => {
   };
 
   useEffect(() => {
-    scrollToBottom()
-  },[emailChatMessages])
+    scrollToBottom();
+  }, [emailChatMessages]);
 
   const onHandleClick = async () => {
     setLoading(true);
@@ -409,7 +458,7 @@ const EmailPage = () => {
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Contact Updated Successfully")
+      toast.success("Contact Updated Successfully");
       setOpenContactModal(false);
       getEmailMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
@@ -436,7 +485,7 @@ const EmailPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success(`${type} Successfully`)
+      toast.success(`${type} Successfully`);
       getEmailMessage(false, true);
       selecteduser.contact.emailSubs = type;
       setSelecteduser(selecteduser);
@@ -445,6 +494,51 @@ const EmailPage = () => {
   };
 
   const handleBlock = () => {};
+
+  const handleTemplateName = (e) => {
+    setTemplateName(e.target.value);
+    setErrors({});
+  };
+
+  const handleTemplateTagChange = (e) => {
+    console.log(e.target.value);
+    setTemplateTags(e.target.value);
+    setErrors({});
+    setTemplateMessage(e.target.value);
+  };
+
+  const handleTempMessageChange = (e) => {
+    setTemplateMessage(e.target.value);
+  };
+
+  const handleTemplateSubmit = async () => {
+    if (isValidTemplate()) {
+      const obj = {
+        title: templateName,
+        message: templateMessage,
+      };
+      let res = await sendTemplate(obj);
+      if (res && res.data && res.data.status == 200) {
+        toast.success(res.data.message);
+        setShowCreateTemplateModal(false);
+        setTemplateTags(null);
+        setTemplateName("");
+        setTemplateMessage("");
+        setErrors({});
+        setSendEmailMessage(obj.message);
+        getTemplate();
+      } else {
+        toast.error(res.data.message);
+      }
+    }
+  };
+
+  const getTemplate = async () => {
+    let res = await getTemplateApi();
+    if (res && res.data && res.data.status == 200) {
+      setTemplateData(res.data.data);
+    }
+  };
 
   return (
     <div className="content-page-layout text-page-content">
@@ -508,6 +602,23 @@ const EmailPage = () => {
           handleOptOut={handleOptOut}
           handleMute={handleMute}
           divRef={divRef}
+          showScheduleModal={showScheduleModal}
+          handleCloseSchedultModal={handleCloseSchedultModal}
+          showCreateTemplateModal={showCreateTemplateModal}
+          handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+          showManageeTemplateModal={showManageeTemplateModal}
+          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          handleScheduleModal={handleScheduleModal}
+          handleCreateTemplate={handleCreateTemplate}
+          handleManageTemplate={handleManageTemplate}
+          templateName={templateName}
+          handleTemplateName={handleTemplateName}
+          templateTags={templateTags}
+          handleTemplateTagChange={handleTemplateTagChange}
+          templateMessage={templateMessage}
+          handleTempMessageChange={handleTempMessageChange}
+          handleTemplateSubmit={handleTemplateSubmit}
+          templateDataTitle={templateData}
         />
       </div>
       <EmailModal

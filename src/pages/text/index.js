@@ -20,6 +20,7 @@ import {
   sendMessageApi,
   sendSingleMessageApi,
 } from "../../api/textMessage";
+import { getTemplateApi, sendTemplate } from "../../api/template";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -48,6 +49,16 @@ const TextPage = () => {
   const [editCName, setEditCName] = useState({});
   const [editContactName, setEditContactName] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false);
+  const [showManageeTemplateModal, setShowManageeTemplateModal] =
+    useState(false);
+  const [templateName, setTemplateName] = useState("");
+  const [templateTags, setTemplateTags] = useState(null);
+  const [templateMessage, setTemplateMessage] = useState("");
+  const [templateData, setTemplateData] = useState("");
+  const [templateUser, setTemplateUser] = useState("");
+
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -63,6 +74,26 @@ const TextPage = () => {
     setErrors({});
     setLoading(false);
   };
+
+  const handleScheduleModal = () => setShowScheduleModal(true);
+  const handleCloseSchedultModal = () => setShowScheduleModal(false);
+  const handleCreateTemplate = () => {
+    setShowCreateTemplateModal(true);
+    setTemplateName("");
+    setTemplateName("");
+    setTemplateMessage("");
+    setErrors({});
+  };
+  const handleCloseCreateTemplateModal = () => {
+    setShowCreateTemplateModal(false);
+    setTemplateTags(null);
+    setTemplateName("");
+    setTemplateMessage("");
+    setErrors({});
+  };
+  const handleManageTemplate = () => setShowManageeTemplateModal(true);
+  const handleCloseManageTemplateModal = () =>
+    setShowManageeTemplateModal(false);
 
   const isTagValid = () => {
     let formData = true;
@@ -84,6 +115,24 @@ const TextPage = () => {
         setErrors({ selected: "Please Select a Contact" });
         formData = false;
         break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const isValidTemplate = () => {
+    let formData = true;
+    switch (true) {
+      case !templateName:
+        setErrors({ templateName: "Please Enter Template Name " });
+        formData = false;
+        break;
+      case !templateMessage:
+        setErrors({ templateMessage: "Please Enter Template Message" });
+        formData = false;
+        break;
+
       default:
         formData = true;
     }
@@ -123,6 +172,7 @@ const TextPage = () => {
     getTags();
     getData();
     getMessage();
+    getTemplate();
   }, []);
 
   const handleClick = async () => {
@@ -429,6 +479,51 @@ const TextPage = () => {
     getData();
   };
 
+  const handleTemplateName = (e) => {
+    setTemplateName(e.target.value);
+    setErrors({});
+  };
+
+  const handleTemplateTagChange = (e) => {
+    console.log(e.target.value);
+    setTemplateTags(e.target.value);
+    setErrors({});
+    setTemplateMessage(e.target.value);
+  };
+
+  const handleTempMessageChange = (e) => {
+    setTemplateMessage(e.target.value);
+  };
+
+  const handleTemplateSubmit = async () => {
+    if (isValidTemplate()) {
+      const obj = {
+        title: templateName,
+        message: templateMessage,
+      };
+      let res = await sendTemplate(obj);
+      if (res && res.data && res.data.status == 200) {
+        toast.success(res.data.message);
+        setShowCreateTemplateModal(false);
+        setTemplateTags(null);
+        setTemplateName("");
+        setTemplateMessage("");
+        setErrors({});
+        setSendMessage(obj.message);
+        getTemplate();
+      } else {
+        toast.error(res.data.message);
+      }
+    }
+  };
+
+  const getTemplate = async () => {
+    let res = await getTemplateApi();
+    if (res && res.data && res.data.status == 200) {
+      setTemplateData(res.data.data);
+    }
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -489,6 +584,23 @@ const TextPage = () => {
           loading={loading}
           handleOptOut={handleOptOut}
           divRef={divRef}
+          showScheduleModal={showScheduleModal}
+          handleCloseSchedultModal={handleCloseSchedultModal}
+          showCreateTemplateModal={showCreateTemplateModal}
+          handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+          showManageeTemplateModal={showManageeTemplateModal}
+          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          handleScheduleModal={handleScheduleModal}
+          handleCreateTemplate={handleCreateTemplate}
+          handleManageTemplate={handleManageTemplate}
+          templateName={templateName}
+          handleTemplateName={handleTemplateName}
+          templateTags={templateTags}
+          handleTemplateTagChange={handleTemplateTagChange}
+          templateMessage={templateMessage}
+          handleTempMessageChange={handleTempMessageChange}
+          handleTemplateSubmit={handleTemplateSubmit}
+          templateDataTitle={templateData}
         />
       </div>
       <MessageModal
