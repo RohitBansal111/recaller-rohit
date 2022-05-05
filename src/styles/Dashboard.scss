@@ -98,9 +98,13 @@
     }
   }
 }
-
+.MuiTableBody-root{
+  .MuiTableCell-root{
+    color: $HeadingColor;
+  }
+}
 .MuiTableHead-root{
-  background-color: $TableColor;
+  background-color: #edf8fe;
   .MuiTableCell-root{
     color: $HeadingColor;
     .MuiButtonBase-root{

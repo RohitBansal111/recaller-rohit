@@ -280,7 +280,7 @@ const EnhancedTableToolbar = (props) => {
           <input
             type="text"
             className="form-control"
-            placeholder="search by Name, Email or Phone"
+            placeholder="Search by Name, Email or Phone"
             onChange={props.handleSearchChange}
             value={props.value}
           />

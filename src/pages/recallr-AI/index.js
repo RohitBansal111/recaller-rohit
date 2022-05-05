@@ -1,4 +1,4 @@
-import ComingSoon from './../../assets/images/coming-soon.jpeg'
+import ComingSoon from './../../assets/images/RecallrAI-ComingSoon.png'
 
 const RecallrAI = () => {
   return (
