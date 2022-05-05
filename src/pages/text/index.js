@@ -488,7 +488,7 @@ const TextPage = () => {
     console.log(e.target.value);
     setTemplateTags(e.target.value);
     setErrors({});
-    setTemplateMessage(e.target.value);
+    setTemplateMessage(templateMessage + e.target.value);
   };
 
   const handleTempMessageChange = (e) => {
