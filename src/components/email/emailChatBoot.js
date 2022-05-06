@@ -222,7 +222,6 @@ const EmailChatBoot = (props) => {
                                     Manage
                                   </button>
                                 </h4>
-                                <li>Followup SMS</li>
                                 {props.templateDataTitle &&
                                   props.templateDataTitle.map((item) => (
                                     <li
@@ -297,9 +296,6 @@ const EmailChatBoot = (props) => {
                           ></textarea>
                         </div>
                         <div className="field-group btn-groups flexFull">
-                          <button type="button" className="btn-primary-outline">
-                            Send & Close
-                          </button>
                           <button type="button" className="btn-primary-outline">
                             Send
                           </button>
