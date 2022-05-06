@@ -520,6 +520,7 @@ const EmailPage = () => {
         message: templateMessage,
       };
       let res = await sendEmailTemplate(obj);
+      setLoading(true);
       if (res && res.data && res.data.status == 200) {
         toast.success(res.data.message);
         setShowCreateTemplateModal(false);
@@ -528,6 +529,7 @@ const EmailPage = () => {
         setTemplateMessage("");
         setErrors({});
         setSendEmailMessage(obj.message);
+        setLoading(false);
       } else {
         toast.error(res.data.message);
       }

@@ -493,6 +493,7 @@ const ChatBoot = (props) => {
           handleTempMessageChange={props.handleTempMessageChange}
           handleTemplateSubmit={props.handleTemplateSubmit}
           errors={props.errors}
+          loading={props.loading}
         />
         <ManageTemplateModal
           showManageeTemplateModal={props.showManageeTemplateModal}

@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import makeAnimated from "react-select/animated";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const animatedComponents = makeAnimated();
 
@@ -70,9 +71,20 @@ const CreateTemplateModal = (props) => {
           >
             Dismiss
           </Button>
-          <Button variant="primary" onClick={props.handleTemplateSubmit}>
+          <LoadingButton
+            type="button"
+            loadingPosition="center"
+            loading={props.loading}
+            style={{
+              cursor: props.templateMessage == 0 ? "not-allowed" : "pointer",
+            }}
+            disabled={!props.templateMessage ? true : false}
+            onClick={props.handleTemplateSubmit}
+            className="btn btn-primary"
+            variant="contained"
+          >
             Save
-          </Button>
+          </LoadingButton>
         </Modal.Footer>
       </Modal>
     </>

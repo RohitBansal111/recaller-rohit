@@ -499,6 +499,7 @@ const TextPage = () => {
         title: templateName,
         message: templateMessage,
       };
+      setLoading(true)
       let res = await sendTemplate(obj);
       if (res && res.data && res.data.status == 200) {
         toast.success(res.data.message);
@@ -507,6 +508,7 @@ const TextPage = () => {
         setTemplateName("");
         setTemplateMessage("");
         setErrors({});
+        setLoading(false)
         setSendMessage(obj.message);
         getTemplate();
       } else {
