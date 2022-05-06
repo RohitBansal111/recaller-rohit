@@ -8,11 +8,29 @@ import {
 } from "@material-ui/core";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Paper } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-responsive-modal";
 import NewMessageSelectTag from "./newMessageSelectTag";
+import PostAddIcon from "@material-ui/icons/PostAdd";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import ImageIcon from "@material-ui/icons/Image";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import ScheduleMessageModal from "../../models/ScheduleMessageModal";
+import CreateTemplateModal from "../../models/CreateTemplateModal";
+import ManageTemplateModal from "../../models/ManageTemplateModal";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
+  const [showScheduleModal, setShowScheduleModal] = useState(false)
+  const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false)
+  const [showManageeTemplateModal, setShowManageeTemplateModal] = useState(false)
+
+  const handleScheduleModal = () => setShowScheduleModal(true)
+  const handleCloseSchedultModal = () => setShowScheduleModal(false)
+  const handleCreateTemplate = () => setShowCreateTemplateModal(true)
+  const handleCloseCreateTemplateModal = () => setShowCreateTemplateModal(false)
+  const handleManageTemplate = () =>  setShowManageeTemplateModal(true)
+  const handleCloseManageTemplateModal = () => handleCloseManageTemplateModal(false)
+
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -85,7 +103,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               />
               <span className="spanError">{props.errors.selected}</span>
             </div>
-            <div className="field-group flexFull">
+            <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
               <textarea
                 type="text"
@@ -97,6 +115,68 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               >
                 {props.sendNewMessage}
               </textarea>
+              <ul className="action-icons">
+                <li>
+                  <button
+                    type="button"
+                    id="dropdownMenuButton3"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    className="btn-action1 dropdown-toggle"
+                  >
+                    <PostAddIcon />
+                  </button>
+                  <ul
+                    className="dropdown-menu inset-template-popup"
+                    aria-labelledby="dropdownMenuButton3"
+                  >
+                    <h4>
+                      Message Templates{" "}
+                      <button
+                        type="button"
+                        onClick={handleManageTemplate}
+                      >
+                        Manage
+                      </button>
+                    </h4>
+                    <li>Followup SMS</li>
+                    {props.templateDataTitle &&
+                      props.templateDataTitle.map((item) => (
+                        <li>{item.title}</li>
+                      ))}
+                    <button
+                      type="button"
+                      className="create-tem"
+                      onClick={handleCreateTemplate}
+                    >
+                      + Create Message Template
+                    </button>
+                  </ul>
+                </li>
+                <li>
+                  <button type="button" className="btn-action1">
+                    <EmojiEmotionsIcon />
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="btn-action1 fileType"
+                  >
+                    <ImageIcon />
+                    <input type="file" />
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="btn-action1"
+                    onClick={handleScheduleModal}
+                  >
+                    <ScheduleIcon />
+                  </button>
+                </li>
+              </ul>
             </div>
             <div className="field-group flexFull text-center mt-3">
               <button
@@ -132,6 +212,18 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               </LoadingButton>
             </div>
           </form>
+          <ScheduleMessageModal
+            showScheduleModal={showScheduleModal}
+            handleCloseSchedultModal={handleCloseSchedultModal}
+          />
+          <ManageTemplateModal
+            showManageeTemplateModal={showManageeTemplateModal}
+            handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          />
+          <CreateTemplateModal
+            showCreateTemplateModal={showCreateTemplateModal}
+            handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+          />
         </div>
       )}
     </Modal>

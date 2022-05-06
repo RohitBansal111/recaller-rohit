@@ -635,6 +635,23 @@ const EmailPage = () => {
         sendMessageClick={sendMessageClick}
         handleBackMessageModal={handleBackMessageModal}
         loading={loading}
+        showScheduleModal={showScheduleModal}
+        handleCloseSchedultModal={handleCloseSchedultModal}
+        showCreateTemplateModal={showCreateTemplateModal}
+        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+        showManageeTemplateModal={showManageeTemplateModal}
+        handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+        handleScheduleModal={handleScheduleModal}
+        handleCreateTemplate={handleCreateTemplate}
+        handleManageTemplate={handleManageTemplate}
+        templateName={templateName}
+        handleTemplateName={handleTemplateName}
+        templateTags={templateTags}
+        handleTemplateTagChange={handleTemplateTagChange}
+        templateMessage={templateMessage}
+        handleTempMessageChange={handleTempMessageChange}
+        handleTemplateSubmit={handleTemplateSubmit}
+        templateDataTitle={templateData}
       />
     </div>
   );
