@@ -709,6 +709,9 @@
         align-items: center;
         position: absolute;
         bottom: 5px;
+        .inset-template-popup{
+            transform: none !important;
+        }
         li{
             margin-right: 0px;
             .dropdown-toggle{

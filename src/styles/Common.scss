@@ -337,6 +337,12 @@ span.spanError {
     .modal-body{
       padding: 0px !important;
     }
+    .modal-footer{
+      padding: 0px !important;
+      .manage-modal-action{
+        margin: 0px;
+      }
+    }
   }
   .modal-footer{
     padding-bottom: 0px;
@@ -346,6 +352,8 @@ span.spanError {
   .tab-content{
     border-left: 1px solid #dedede;
     padding: 10px;
+    flex: 0 0 70%;
+    position: relative;
     .tab-pane{
       min-height: 300px;
     }
@@ -420,6 +428,17 @@ span.spanError {
       height: auto;
       padding: 10px 25px !important;
       border-radius: 20px !important;
+    }
+  }
+}
+.edit-manage-template{
+  padding: 10px;
+  .page-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .btn-cancel{
+      margin-right: 10px;
     }
   }
 }
