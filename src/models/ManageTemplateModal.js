@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import makeAnimated from "react-select/animated";
-import CreateTemplateModal from "./CreateTemplateModal";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const animatedComponents = makeAnimated();
 
 const ManageTemplateModal = (props) => {
+  const [editmanageTemplate, seteditmanageTemplate] = useState(false)
+  const handleEditTemplate = () => seteditmanageTemplate(true)
 
   return (
     <>
@@ -93,33 +95,107 @@ const ManageTemplateModal = (props) => {
                   role="tabpanel"
                   aria-labelledby="v-pills-messages-tab"
                 >
-                  <p>
-                    3 Hi . It's NH from Natures Harvest-Apparel. We would really
-                    appreciate it if you could take a minute to respond to our
-                    review request. Your feedback means a lot to us.
-                  </p>
-                </div>
-                <Modal.Footer>
-                  <div className="manage-modal-action">
-                    <Button
-                      variant="secondary"
-                      onClick={props.handleCloseManageTemplateModal}
-                    >
-                      Remove
-                    </Button>
-                    <div className="right-actions">
-                      <Button
-                        className="btn-primary-outline"
-                        variant="outlined"
+                {
+                  !editmanageTemplate &&
+                    <>
+                    <p>
+                      3 Hi . It's NH from Natures Harvest-Apparel. We would really
+                      appreciate it if you could take a minute to respond to our
+                      review request. Your feedback means a lot to us.
+                    </p>
+                    <Modal.Footer>
+                      <div className="manage-modal-action">
+                        <Button
+                          variant="secondary"
+                          onClick={props.handleCloseManageTemplateModal}
+                        >
+                          Remove
+                        </Button>
+                        <div className="right-actions">
+                          <Button
+                            className="btn-primary-outline"
+                            variant="outlined"
+                            onClick={handleEditTemplate}
+                          >
+                            Edit
+                          </Button>
+                          <Button variant="primary" onClick={props.handleTempInsert}>
+                            Insert
+                          </Button>
+                        </div>
+                      </div>
+                    </Modal.Footer>
+                  </>
+                  
+                }
+               
+                {
+                  editmanageTemplate &&
+                    <div className="edit-manage-template">
+                      <form className="main-form">
+                        <div className="field-group flexFull">
+                          <label>Template Name*</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter name"
+                            name="name"
+                          />
+                          <span className="sort-hint">e.g. Appointment Reminder</span>
+                          <span className="spanError"></span>
+                        </div>
+                        <div className="field-group flexFull">
+                          <label>Select Dynamic Tag</label>
+                          <select
+                            className="form-control"
+                            name="tempTags"
+                          >
+                            <option value={""}></option>
+                            <option value={"[Employee First Name]"}>
+                              [Employee First Name]
+                            </option>
+                            <option value={"[Employee Last Name]"}>
+                              [Employee Last Name]
+                            </option>
+                          </select>
+                        </div>
+                        <div className="field-group flexFull">
+                          <label>Message*</label>
+                          <textarea
+                            type="text"
+                            className="form-control"
+                            name="message"
+                          >
+                            
+                          </textarea>
+                          <span className="spanError"></span>
+                        </div>
+                      </form>
+                    <div className="page-footer">
+                      <button
+                        className="btn btn-cancel"
+                        onClick={props.handleCloseCreateTemplateModal}
                       >
-                        Edit
-                      </Button>
-                      <Button variant="primary" onClick={props.handleTempInsert}>
-                        Insert
-                      </Button>
+                        Cancel
+                      </button>
+                      <LoadingButton
+                        type="button"
+                        loadingPosition="center"
+                        loading={props.loading}
+                        style={{
+                          cursor: props.templateMessage == 0 ? "not-allowed" : "pointer",
+                        }}
+                        disabled={!props.templateMessage ? true : false}
+                        onClick={props.handleTemplateSubmit}
+                        className="btn btn-primary"
+                        variant="contained"
+                      >
+                        Save
+                      </LoadingButton>
                     </div>
                   </div>
-                </Modal.Footer>
+                  }
+                  </div>
               </div>
             </div>
           </div>
