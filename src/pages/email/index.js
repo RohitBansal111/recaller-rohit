@@ -550,8 +550,18 @@ const EmailPage = () => {
   };
 
   const handleTempShowClick = (item) => {
-    console.log(item);
+    console.log("kkkkkkkkkk");
     setTemplateDataState(item.message);
+  };
+
+  const handleTempInsert = () => {
+    setEmailMessage(templateDataState);
+    setShowManageeTemplateModal(false);
+  };
+
+  const handleSingleTempInsert = () => {
+    setSendEmailMessage(templateDataState)
+    setShowManageeTemplateModal(false);
   };
 
   return (
@@ -634,6 +644,9 @@ const EmailPage = () => {
           handleTemplateSubmit={handleTemplateSubmit}
           templateDataTitle={templateData}
           handleEmailTempTitleClick={handleEmailTempTitleClick}
+          handleSingleTempInsert={handleSingleTempInsert}
+          handleTempShowClick={handleTempShowClick}
+          templateDataState={templateDataState}
         />
       </div>
       <EmailModal
@@ -669,6 +682,8 @@ const EmailPage = () => {
         templateDataTitle={templateData}
         handleTempShowClick={handleTempShowClick}
         templateDataState={templateDataState}
+        handleTempInsert={handleTempInsert}
+        handleEmailTempTitleClick={handleEmailTempTitleClick}
       />
     </div>
   );

@@ -6,7 +6,6 @@ import CreateTemplateModal from "./CreateTemplateModal";
 const animatedComponents = makeAnimated();
 
 const ManageTemplateModal = (props) => {
-
   return (
     <>
       <Modal
@@ -71,9 +70,7 @@ const ManageTemplateModal = (props) => {
                   role="tabpanel"
                   aria-labelledby="v-pills-home-tab"
                 >
-                  <p>
-                    {props.templateDataState}
-                  </p>
+                  <p>{props.templateDataState}</p>
                 </div>
                 <div
                   class="tab-pane fade"
@@ -114,7 +111,10 @@ const ManageTemplateModal = (props) => {
                       >
                         Edit
                       </Button>
-                      <Button variant="primary" onClick={props.handleTempInsert}>
+                      <Button
+                        variant="primary"
+                        onClick={props.handleTempInsert}
+                      >
                         Insert
                       </Button>
                     </div>

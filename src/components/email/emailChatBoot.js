@@ -511,8 +511,11 @@ const EmailChatBoot = (props) => {
         <ManageTemplateModal
           showManageeTemplateModal={props.showManageeTemplateModal}
           handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
-          showScheduleModal={props.showScheduleModal}
-          handleCloseSchedultModal={props.handleCloseSchedultModal}
+          handleCreateTemplate={props.handleCreateTemplate}
+          templateDataTitle={props.templateDataTitle}
+          handleTempShowClick={props.handleTempShowClick}
+          templateDataState={props.templateDataState}
+          handleTempInsert={props.handleSingleTempInsert}
         />
         <CreateTemplateModal
           showCreateTemplateModal={props.showCreateTemplateModal}

@@ -502,7 +502,8 @@ const ChatBoot = (props) => {
           templateDataTitle={props.templateDataTitle}
           handleTempShowClick={props.handleTempShowClick}
           templateDataState={props.templateDataState}
-          handleTempInsert={props.handleTempInsert}
+          handleSingleTempInsert={props.handleSingleTempInsert}
+          handleTempInsert={props.handleSingleTempInsert}
         />
       </div>
     </div>

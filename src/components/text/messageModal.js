@@ -20,8 +20,6 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
- 
-
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -133,7 +131,9 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <li>Followup SMS</li>
                     {props.templateDataTitle &&
                       props.templateDataTitle.map((item) => (
-                        <li>{item.title}</li>
+                        <li onClick={() => props.handleTempTitleClick(item)}>
+                          {item.title}
+                        </li>
                       ))}
                     <button
                       type="button"
@@ -150,10 +150,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   </button>
                 </li>
                 <li>
-                  <button
-                    type="button"
-                    className="btn-action1 fileType"
-                  >
+                  <button type="button" className="btn-action1 fileType">
                     <ImageIcon />
                     <input type="file" />
                   </button>
@@ -193,7 +190,9 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                 type="button"
                 loadingPosition="center"
                 loading={props.loading}
-                style={{ cursor: props.sendNewMessage == 0 ? "not-allowed" : "pointer" }}
+                style={{
+                  cursor: props.sendNewMessage == 0 ? "not-allowed" : "pointer",
+                }}
                 disabled={!props.sendNewMessage ? true : false}
                 onClick={props.handleSendClick}
                 className="btn btn-primary"
@@ -208,17 +207,21 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             handleCloseSchedultModal={props.handleCloseSchedultModal}
           />
           <ManageTemplateModal
-             showManageeTemplateModal={props.showManageeTemplateModal}
-             handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
-             handleCreateTemplate={props.handleCreateTemplate}
-             templateDataTitle={props.templateDataTitle}
-             handleTempShowClick={props.handleTempShowClick}
-             templateDataState={props.templateDataState}
-             handleTempInsert={props.handleTempInsert}
+            showManageeTemplateModal={props.showManageeTemplateModal}
+            handleCloseManageTemplateModal={
+              props.handleCloseManageTemplateModal
+            }
+            handleCreateTemplate={props.handleCreateTemplate}
+            templateDataTitle={props.templateDataTitle}
+            handleTempShowClick={props.handleTempShowClick}
+            templateDataState={props.templateDataState}
+            handleTempInsert={props.handleTempInsert}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}
-            handleCloseCreateTemplateModal={props.handleCloseCreateTemplateModal}
+            handleCloseCreateTemplateModal={
+              props.handleCloseCreateTemplateModal
+            }
             templateName={props.templateName}
             handleTemplateName={props.handleTemplateName}
             templateTags={props.templateTags}

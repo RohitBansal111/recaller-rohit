@@ -534,6 +534,10 @@ const TextPage = () => {
   };
 
   const handleTempInsert = () => {
+    setSendNewMessage(templateDataState);
+    setShowManageeTemplateModal(false);
+  };
+  const handleSingleTempInsert = () => {
     setSendMessage(templateDataState);
     setShowManageeTemplateModal(false);
   };
@@ -618,7 +622,7 @@ const TextPage = () => {
           handleTempTitleClick={handleTempTitleClick}
           handleTempShowClick={handleTempShowClick}
           templateDataState={templateDataState}
-          handleTempInsert={handleTempInsert}
+          handleSingleTempInsert={handleSingleTempInsert}
         />
       </div> 
       <MessageModal
@@ -654,6 +658,8 @@ const TextPage = () => {
         templateDataTitle={templateData}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
+        handleSingleTempInsert={handleSingleTempInsert}
+        handleTempTitleClick={handleTempTitleClick}
         handleTempShowClick={handleTempShowClick}
       />
     </div>

@@ -127,7 +127,11 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <li>Followup SMS</li>
                     {props.templateDataTitle &&
                       props.templateDataTitle.map((item) => (
-                        <li>{item.title}</li>
+                        <li
+                          onClick={() => props.handleEmailTempTitleClick(item)}
+                        >
+                          {item.title}
+                        </li>
                       ))}
                     <button
                       type="button"
