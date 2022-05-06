@@ -498,6 +498,11 @@ const ChatBoot = (props) => {
         <ManageTemplateModal
           showManageeTemplateModal={props.showManageeTemplateModal}
           handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
+          handleCreateTemplate={props.handleCreateTemplate}
+          templateDataTitle={props.templateDataTitle}
+          handleTempShowClick={props.handleTempShowClick}
+          templateDataState={props.templateDataState}
+          handleTempInsert={props.handleTempInsert}
         />
       </div>
     </div>

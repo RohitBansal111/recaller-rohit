@@ -57,7 +57,7 @@ const TextPage = () => {
   const [templateTags, setTemplateTags] = useState(null);
   const [templateMessage, setTemplateMessage] = useState("");
   const [templateData, setTemplateData] = useState("");
-
+  const [templateDataState, setTemplateDataState] = useState("");
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -499,7 +499,7 @@ const TextPage = () => {
         title: templateName,
         message: templateMessage,
       };
-      setLoading(true)
+      setLoading(true);
       let res = await sendTemplate(obj);
       if (res && res.data && res.data.status == 200) {
         toast.success(res.data.message);
@@ -508,7 +508,7 @@ const TextPage = () => {
         setTemplateName("");
         setTemplateMessage("");
         setErrors({});
-        setLoading(false)
+        setLoading(false);
         setSendMessage(obj.message);
         getTemplate();
       } else {
@@ -525,7 +525,17 @@ const TextPage = () => {
   };
 
   const handleTempTitleClick = (item) => {
-    setSendMessage(item.message)
+    setSendMessage(item.message);
+  };
+
+  const handleTempShowClick = (item) => {
+    console.log(item);
+    setTemplateDataState(item.message);
+  };
+
+  const handleTempInsert = () => {
+    setSendMessage(templateDataState);
+    setShowManageeTemplateModal(false);
   };
 
   return (
@@ -606,6 +616,9 @@ const TextPage = () => {
           handleTemplateSubmit={handleTemplateSubmit}
           templateDataTitle={templateData}
           handleTempTitleClick={handleTempTitleClick}
+          handleTempShowClick={handleTempShowClick}
+          templateDataState={templateDataState}
+          handleTempInsert={handleTempInsert}
         />
       </div>
       <MessageModal
@@ -639,6 +652,9 @@ const TextPage = () => {
         handleTempMessageChange={handleTempMessageChange}
         handleTemplateSubmit={handleTemplateSubmit}
         templateDataTitle={templateData}
+        templateDataState={templateDataState}
+        handleTempInsert={handleTempInsert}
+        handleTempShowClick={handleTempShowClick}
       />
     </div>
   );

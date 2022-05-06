@@ -20,16 +20,7 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
-  const [showScheduleModal, setShowScheduleModal] = useState(false)
-  const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false)
-  const [showManageeTemplateModal, setShowManageeTemplateModal] = useState(false)
-
-  const handleScheduleModal = () => setShowScheduleModal(true)
-  const handleCloseSchedultModal = () => setShowScheduleModal(false)
-  const handleCreateTemplate = () => setShowCreateTemplateModal(true)
-  const handleCloseCreateTemplateModal = () => setShowCreateTemplateModal(false)
-  const handleManageTemplate = () =>  setShowManageeTemplateModal(true)
-  const handleCloseManageTemplateModal = () => handleCloseManageTemplateModal(false)
+ 
 
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
@@ -134,7 +125,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       Message Templates{" "}
                       <button
                         type="button"
-                        onClick={handleManageTemplate}
+                        onClick={props.handleManageTemplate}
                       >
                         Manage
                       </button>
@@ -147,7 +138,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <button
                       type="button"
                       className="create-tem"
-                      onClick={handleCreateTemplate}
+                      onClick={props.handleCreateTemplate}
                     >
                       + Create Message Template
                     </button>
@@ -171,7 +162,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   <button
                     type="button"
                     className="btn-action1"
-                    onClick={handleScheduleModal}
+                    onClick={props.handleScheduleModal}
                   >
                     <ScheduleIcon />
                   </button>
@@ -213,16 +204,30 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             </div>
           </form>
           <ScheduleMessageModal
-            showScheduleModal={showScheduleModal}
-            handleCloseSchedultModal={handleCloseSchedultModal}
+            showScheduleModal={props.showScheduleModal}
+            handleCloseSchedultModal={props.handleCloseSchedultModal}
           />
           <ManageTemplateModal
-            showManageeTemplateModal={showManageeTemplateModal}
-            handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+             showManageeTemplateModal={props.showManageeTemplateModal}
+             handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
+             handleCreateTemplate={props.handleCreateTemplate}
+             templateDataTitle={props.templateDataTitle}
+             handleTempShowClick={props.handleTempShowClick}
+             templateDataState={props.templateDataState}
+             handleTempInsert={props.handleTempInsert}
           />
           <CreateTemplateModal
-            showCreateTemplateModal={showCreateTemplateModal}
-            handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+            showCreateTemplateModal={props.showCreateTemplateModal}
+            handleCloseCreateTemplateModal={props.handleCloseCreateTemplateModal}
+            templateName={props.templateName}
+            handleTemplateName={props.handleTemplateName}
+            templateTags={props.templateTags}
+            handleTemplateTagChange={props.handleTemplateTagChange}
+            templateMessage={props.templateMessage}
+            handleTempMessageChange={props.handleTempMessageChange}
+            handleTemplateSubmit={props.handleTemplateSubmit}
+            errors={props.errors}
+            loading={props.loading}
           />
         </div>
       )}

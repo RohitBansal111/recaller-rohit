@@ -60,6 +60,7 @@ const EmailPage = () => {
   const [templateTags, setTemplateTags] = useState(null);
   const [templateMessage, setTemplateMessage] = useState("");
   const [templateData, setTemplateData] = useState("");
+  const [templateDataState, setTemplateDataState] = useState("");
 
   const divRef = useRef(null);
 
@@ -166,7 +167,7 @@ const EmailPage = () => {
     getTags();
     getEmailMessage();
     getData();
-    getEmailTemplate()
+    getEmailTemplate();
   }, []);
 
   const handleClick = async () => {
@@ -548,6 +549,11 @@ const EmailPage = () => {
     setSendEmailMessage(item.message);
   };
 
+  const handleTempShowClick = (item) => {
+    console.log(item);
+    setTemplateDataState(item.message);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -661,6 +667,8 @@ const EmailPage = () => {
         handleTempMessageChange={handleTempMessageChange}
         handleTemplateSubmit={handleTemplateSubmit}
         templateDataTitle={templateData}
+        handleTempShowClick={handleTempShowClick}
+        templateDataState={templateDataState}
       />
     </div>
   );
