@@ -13,8 +13,10 @@ import {
   sendSingleEmailMessageApi,
 } from "../../api/emailMessage";
 import {
+  deleteEmailTemplate,
   getEmailTemplateApi,
   sendEmailTemplate,
+  updateEmailTemplate,
 } from "../../api/emailTemplates";
 import {
   addTagsApi,
@@ -61,6 +63,8 @@ const EmailPage = () => {
   const [templateMessage, setTemplateMessage] = useState("");
   const [templateData, setTemplateData] = useState("");
   const [templateDataState, setTemplateDataState] = useState("");
+  const [editmanageTemplate, seteditmanageTemplate] = useState(false);
+  const [editTempData, setEditTempData] = useState({});
 
   const divRef = useRef(null);
 
@@ -159,9 +163,16 @@ const EmailPage = () => {
     setTemplateMessage("");
     setErrors({});
   };
-  const handleManageTemplate = () => setShowManageeTemplateModal(true);
-  const handleCloseManageTemplateModal = () =>
+  const handleManageTemplate = () => {
+    setShowManageeTemplateModal(true);
+    seteditmanageTemplate(false);
+    setTemplateDataState("");
+  };
+  const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
+    seteditmanageTemplate(false);
+    setTemplateDataState("");
+  };
 
   useEffect(() => {
     getTags();
@@ -508,6 +519,7 @@ const EmailPage = () => {
     setTemplateTags(e.target.value);
     setErrors({});
     setTemplateMessage(templateMessage + e.target.value);
+    setEditTempData(editTempData + e.target.value);
   };
 
   const handleTempMessageChange = (e) => {
@@ -550,18 +562,52 @@ const EmailPage = () => {
   };
 
   const handleTempShowClick = (item) => {
-    console.log("kkkkkkkkkk");
-    setTemplateDataState(item.message);
+    setTemplateDataState(item);
   };
 
   const handleTempInsert = () => {
-    setEmailMessage(templateDataState);
+    setEmailMessage(templateDataState.message);
     setShowManageeTemplateModal(false);
   };
 
   const handleSingleTempInsert = () => {
-    setSendEmailMessage(templateDataState)
+    setSendEmailMessage(templateDataState.message);
     setShowManageeTemplateModal(false);
+  };
+
+  const handleEditTemplate = (item) => {
+    seteditmanageTemplate(true);
+    setEditTempData(item);
+  };
+
+  const handleTempEditCancel = () => {
+    seteditmanageTemplate(false);
+  };
+
+  const handleEditTempChange = (e) => {
+    setEditTempData({ ...editTempData, [e.target.name]: e.target.value });
+  };
+
+  const handleTempEditSave = async () => {
+    const res = await updateEmailTemplate(templateDataState._id, editTempData);
+    if (res && res.data && res.data.status == 200) {
+      seteditmanageTemplate(false);
+      toast.success(res.data.message);
+    } else {
+      toast.error(res.data.message);
+    }
+    getEmailTemplate();
+  };
+
+  const handleTempRemove = async () => {
+    const res = await deleteEmailTemplate(templateDataState._id);
+    if (res && res.data && res.data.status == 200) {
+      toast.success(res.data.message);
+      setTemplateDataState("")
+    } else {
+      toast.error(res.data.message);
+    }
+    getEmailTemplate();
   };
 
   return (
@@ -647,6 +693,13 @@ const EmailPage = () => {
           handleSingleTempInsert={handleSingleTempInsert}
           handleTempShowClick={handleTempShowClick}
           templateDataState={templateDataState}
+          editmanageTemplate={editmanageTemplate}
+          handleEditTemplate={handleEditTemplate}
+          handleTempEditCancel={handleTempEditCancel}
+          editTempData={editTempData}
+          handleEditTempChange={handleEditTempChange}
+          handleTempEditSave={handleTempEditSave}
+          handleTempRemove={handleTempRemove}
         />
       </div>
       <EmailModal
@@ -684,6 +737,13 @@ const EmailPage = () => {
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
         handleEmailTempTitleClick={handleEmailTempTitleClick}
+        handleEditTemplate={handleEditTemplate}
+        editmanageTemplate={editmanageTemplate}
+        handleTempEditCancel={handleTempEditCancel}
+        editTempData={editTempData}
+        handleEditTempChange={handleEditTempChange}
+        handleTempEditSave={handleTempEditSave}
+        handleTempRemove={handleTempRemove}
       />
     </div>
   );

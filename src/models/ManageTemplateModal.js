@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import makeAnimated from "react-select/animated";
-import CreateTemplateModal from "./CreateTemplateModal";
-
-const animatedComponents = makeAnimated();
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ManageTemplateModal = (props) => {
   return (
@@ -66,60 +64,119 @@ const ManageTemplateModal = (props) => {
               <div class="tab-content" id="v-pills-tabContent">
                 <div
                   class="tab-pane fade show active"
-                  id="v-pills-home"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-home-tab"
-                >
-                  <p>{props.templateDataState}</p>
-                </div>
-                <div
-                  class="tab-pane fade"
-                  id="v-pills-profile"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-profile-tab"
-                >
-                  <p>
-                    2 Hi . It's NH from Natures Harvest-Apparel. We would really
-                    appreciate it if you could take a minute to respond to our
-                    review request. Your feedback means a lot to us.
-                  </p>
-                </div>
-                <div
-                  class="tab-pane fade"
                   id="v-pills-messages"
                   role="tabpanel"
                   aria-labelledby="v-pills-messages-tab"
                 >
-                  <p>
-                    3 Hi . It's NH from Natures Harvest-Apparel. We would really
-                    appreciate it if you could take a minute to respond to our
-                    review request. Your feedback means a lot to us.
-                  </p>
-                </div>
-                <Modal.Footer>
-                  <div className="manage-modal-action">
-                    <Button
-                      variant="secondary"
-                      onClick={props.handleCloseManageTemplateModal}
+                  {!props.editmanageTemplate ? (
+                    <div
+                      class="tab-pane fade show active"
+                      id="v-pills-home"
+                      role="tabpanel"
+                      aria-labelledby="v-pills-home-tab"
                     >
-                      Remove
-                    </Button>
-                    <div className="right-actions">
-                      <Button
-                        className="btn-primary-outline"
-                        variant="outlined"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="primary"
-                        onClick={props.handleTempInsert}
-                      >
-                        Insert
-                      </Button>
+                      <h2>{props.templateDataState.title}</h2>
+                      <p>{props.templateDataState.message}</p>
                     </div>
-                  </div>
-                </Modal.Footer>
+                  ) : (
+                    <div className="edit-manage-template">
+                      <form className="main-form">
+                        <div className="field-group flexFull">
+                          <label>Template Name*</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter name"
+                            name="title"
+                            value={props.editTempData.title}
+                            onChange={props.handleEditTempChange}
+                          />
+                          <span className="sort-hint">
+                            e.g. Appointment Reminder
+                          </span>
+                          <span className="spanError"></span>
+                        </div>
+                        <div className="field-group flexFull">
+                          <label>Select Dynamic Tag</label>
+                          <select
+                            className="form-control"
+                            name="tempTags"
+                            value={props.templateTags}
+                            onChange={props.handleTemplateTagChange}
+                          >
+                            <option value={""}></option>
+                            <option value={"[Employee First Name]"}>
+                              [Employee First Name]
+                            </option>
+                            <option value={"[Employee Last Name]"}>
+                              [Employee Last Name]
+                            </option>
+                          </select>
+                        </div>
+                        <div className="field-group flexFull">
+                          <label>Message*</label>
+                          <textarea
+                            type="text"
+                            className="form-control"
+                            name="message"
+                            value={props.editTempData.message}
+                            onChange={props.handleEditTempChange}
+                          ></textarea>
+                          <span className="spanError"></span>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+
+                  <Modal.Footer>
+                    {!props.editmanageTemplate ? (
+                      <div className="manage-modal-action">
+                        <Button
+                          variant="secondary"
+                          onClick={props.handleTempRemove}
+                        >
+                          Remove
+                        </Button>
+                        <div className="right-actions">
+                          <Button
+                            className="btn-primary-outline"
+                            variant="outlined"
+                            onClick={() =>
+                              props.handleEditTemplate(props.templateDataState)
+                            }
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            variant="primary"
+                            onClick={props.handleTempInsert}
+                          >
+                            Insert
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="page-footer">
+                        <Button
+                          variant="primary"
+                          onClick={props.handleTempEditCancel}
+                        >
+                          Cancel
+                        </Button>
+                        <LoadingButton
+                          type="button"
+                          loadingPosition="center"
+                          loading={props.loading}
+                          className="btn btn-primary"
+                          variant="contained"
+                          onClick={props.handleTempEditSave}
+                        >
+                          Save
+                        </LoadingButton>
+                      </div>
+                    )}
+                  </Modal.Footer>
+                </div>
               </div>
             </div>
           </div>

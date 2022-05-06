@@ -215,6 +215,15 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             handleTempShowClick={props.handleTempShowClick}
             templateDataState={props.templateDataState}
             handleTempInsert={props.handleTempInsert}
+            handleEditTemplate={props.handleEditTemplate}
+            editmanageTemplate={props.editmanageTemplate}
+            handleTempEditCancel={props.handleTempEditCancel}
+            editTempData={props.editTempData}
+            handleEditTempChange={props.handleEditTempChange}
+            handleTempEditSave={props.handleTempEditSave}
+            templateTags={props.templateTags}
+            handleTemplateTagChange={props.handleTemplateTagChange}
+            handleTempRemove={props.handleTempRemove}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

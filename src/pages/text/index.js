@@ -20,7 +20,12 @@ import {
   sendMessageApi,
   sendSingleMessageApi,
 } from "../../api/textMessage";
-import { getTemplateApi, sendTemplate } from "../../api/template";
+import {
+  deleteTemplate,
+  getTemplateApi,
+  sendTemplate,
+  updateTemplate,
+} from "../../api/template";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -58,6 +63,8 @@ const TextPage = () => {
   const [templateMessage, setTemplateMessage] = useState("");
   const [templateData, setTemplateData] = useState("");
   const [templateDataState, setTemplateDataState] = useState("");
+  const [editmanageTemplate, seteditmanageTemplate] = useState(false);
+  const [editTempData, setEditTempData] = useState({});
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -90,9 +97,16 @@ const TextPage = () => {
     setTemplateMessage("");
     setErrors({});
   };
-  const handleManageTemplate = () => setShowManageeTemplateModal(true);
-  const handleCloseManageTemplateModal = () =>
+  const handleManageTemplate = () => {
+    setShowManageeTemplateModal(true);
+    seteditmanageTemplate(false);
+    setTemplateDataState("");
+  };
+  const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
+    seteditmanageTemplate(false);
+    setTemplateDataState("");
+  };
 
   const isTagValid = () => {
     let formData = true;
@@ -487,6 +501,7 @@ const TextPage = () => {
     setTemplateTags(e.target.value);
     setErrors({});
     setTemplateMessage(templateMessage + e.target.value);
+    setEditTempData(editTempData.message + e.target.value);
   };
 
   const handleTempMessageChange = (e) => {
@@ -529,17 +544,52 @@ const TextPage = () => {
   };
 
   const handleTempShowClick = (item) => {
-    console.log(item);
-    setTemplateDataState(item.message);
+    setTemplateDataState(item);
   };
 
   const handleTempInsert = () => {
-    setSendNewMessage(templateDataState);
+    setSendNewMessage(templateDataState.message);
     setShowManageeTemplateModal(false);
   };
   const handleSingleTempInsert = () => {
-    setSendMessage(templateDataState);
+    setSendMessage(templateDataState.message);
     setShowManageeTemplateModal(false);
+  };
+
+  const handleEditTemplate = (item) => {
+    seteditmanageTemplate(true);
+    setEditTempData(item);
+  };
+
+  const handleTempEditCancel = () => {
+    seteditmanageTemplate(false);
+  };
+
+  const handleEditTempChange = (e) => {
+    setEditTempData({ ...editTempData, [e.target.name]: e.target.value });
+  };
+
+  const handleTempEditSave = async () => {
+    const res = await updateTemplate(templateDataState._id, editTempData);
+    if (res && res.data && res.data.status == 200) {
+      seteditmanageTemplate(false);
+      toast.success(res.data.message);
+      setTemplateDataState(templateDataState)
+    } else {
+      toast.error(res.data.message);
+    }
+    getTemplate();
+  };
+
+  const handleTempRemove = async () => {
+    const res = await deleteTemplate(templateDataState._id);
+    if (res && res.data && res.data.status == 200) {
+      toast.success(res.data.message);
+      setTemplateDataState("")
+    } else {
+      toast.error(res.data.message);
+    }
+    getTemplate();
   };
 
   return (
@@ -623,8 +673,15 @@ const TextPage = () => {
           handleTempShowClick={handleTempShowClick}
           templateDataState={templateDataState}
           handleSingleTempInsert={handleSingleTempInsert}
+          handleEditTemplate={handleEditTemplate}
+          editmanageTemplate={editmanageTemplate}
+          handleTempEditCancel={handleTempEditCancel}
+          editTempData={editTempData}
+          handleEditTempChange={handleEditTempChange}
+          handleTempEditSave={handleTempEditSave}
+          handleTempRemove={handleTempRemove}
         />
-      </div> 
+      </div>
       <MessageModal
         open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
@@ -661,6 +718,13 @@ const TextPage = () => {
         handleSingleTempInsert={handleSingleTempInsert}
         handleTempTitleClick={handleTempTitleClick}
         handleTempShowClick={handleTempShowClick}
+        editmanageTemplate={editmanageTemplate}
+        handleEditTemplate={handleEditTemplate}
+        handleTempEditCancel={handleTempEditCancel}
+        editTempData={editTempData}
+        handleEditTempChange={handleEditTempChange}
+        handleTempEditSave={handleTempEditSave}
+        handleTempRemove={handleTempRemove}
       />
     </div>
   );
