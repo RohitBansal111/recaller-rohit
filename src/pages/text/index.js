@@ -57,7 +57,6 @@ const TextPage = () => {
   const [templateTags, setTemplateTags] = useState(null);
   const [templateMessage, setTemplateMessage] = useState("");
   const [templateData, setTemplateData] = useState("");
-  const [templateUser, setTemplateUser] = useState("");
 
   const divRef = useRef(null);
 
@@ -485,7 +484,6 @@ const TextPage = () => {
   };
 
   const handleTemplateTagChange = (e) => {
-    console.log(e.target.value);
     setTemplateTags(e.target.value);
     setErrors({});
     setTemplateMessage(templateMessage + e.target.value);
@@ -522,6 +520,10 @@ const TextPage = () => {
     if (res && res.data && res.data.status == 200) {
       setTemplateData(res.data.data);
     }
+  };
+
+  const handleTempTitleClick = (item) => {
+    setSendMessage(item.message)
   };
 
   return (
@@ -601,6 +603,7 @@ const TextPage = () => {
           handleTempMessageChange={handleTempMessageChange}
           handleTemplateSubmit={handleTemplateSubmit}
           templateDataTitle={templateData}
+          handleTempTitleClick={handleTempTitleClick}
         />
       </div>
       <MessageModal

@@ -203,10 +203,15 @@ const ChatBoot = (props) => {
                                   Manage
                                 </button>
                               </h4>
-                              <li>Followup SMS</li>
                               {props.templateDataTitle &&
                                 props.templateDataTitle.map((item) => (
-                                  <li>{item.title}</li>
+                                  <li
+                                    onClick={() =>
+                                      props.handleTempTitleClick(item)
+                                    }
+                                  >
+                                    {item.title}
+                                  </li>
                                 ))}
                               <button
                                 type="button"

@@ -13,12 +13,15 @@ import {
   sendSingleEmailMessageApi,
 } from "../../api/emailMessage";
 import {
+  getEmailTemplateApi,
+  sendEmailTemplate,
+} from "../../api/emailTemplates";
+import {
   addTagsApi,
   deleteTagApi,
   getTagsApi,
   updateTagsApi,
 } from "../../api/tag";
-import { getTemplateApi, sendTemplate } from "../../api/template";
 import EmailChatBoot from "../../components/email/emailChatBoot";
 import EmailModal from "../../models/EmailModal";
 
@@ -57,7 +60,6 @@ const EmailPage = () => {
   const [templateTags, setTemplateTags] = useState(null);
   const [templateMessage, setTemplateMessage] = useState("");
   const [templateData, setTemplateData] = useState("");
-  const [templateUser, setTemplateUser] = useState("");
 
   const divRef = useRef(null);
 
@@ -164,6 +166,7 @@ const EmailPage = () => {
     getTags();
     getEmailMessage();
     getData();
+    getEmailTemplate()
   }, []);
 
   const handleClick = async () => {
@@ -501,7 +504,6 @@ const EmailPage = () => {
   };
 
   const handleTemplateTagChange = (e) => {
-    console.log(e.target.value);
     setTemplateTags(e.target.value);
     setErrors({});
     setTemplateMessage(templateMessage + e.target.value);
@@ -517,7 +519,7 @@ const EmailPage = () => {
         title: templateName,
         message: templateMessage,
       };
-      let res = await sendTemplate(obj);
+      let res = await sendEmailTemplate(obj);
       if (res && res.data && res.data.status == 200) {
         toast.success(res.data.message);
         setShowCreateTemplateModal(false);
@@ -526,18 +528,22 @@ const EmailPage = () => {
         setTemplateMessage("");
         setErrors({});
         setSendEmailMessage(obj.message);
-        getTemplate();
       } else {
         toast.error(res.data.message);
       }
     }
+    getEmailTemplate();
   };
 
-  const getTemplate = async () => {
-    let res = await getTemplateApi();
+  const getEmailTemplate = async () => {
+    let res = await getEmailTemplateApi();
     if (res && res.data && res.data.status == 200) {
       setTemplateData(res.data.data);
     }
+  };
+
+  const handleEmailTempTitleClick = (item) => {
+    setSendEmailMessage(item.message);
   };
 
   return (
@@ -619,6 +625,7 @@ const EmailPage = () => {
           handleTempMessageChange={handleTempMessageChange}
           handleTemplateSubmit={handleTemplateSubmit}
           templateDataTitle={templateData}
+          handleEmailTempTitleClick={handleEmailTempTitleClick}
         />
       </div>
       <EmailModal
