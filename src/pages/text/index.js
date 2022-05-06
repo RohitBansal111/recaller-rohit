@@ -620,7 +620,7 @@ const TextPage = () => {
           templateDataState={templateDataState}
           handleTempInsert={handleTempInsert}
         />
-      </div>
+      </div> 
       <MessageModal
         open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
