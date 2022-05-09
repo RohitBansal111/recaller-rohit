@@ -525,6 +525,12 @@ const EmailChatBoot = (props) => {
           templateTags={props.templateTags}
           handleTemplateTagChange={props.handleTemplateTagChange}
           handleTempRemove={props.handleTempRemove}
+          handleEditTemplateTagChange={props.handleEditTemplateTagChange}
+          templateEditTags={props.templateEditTags}
+          editTempMessageData={props.editTempMessageData}
+          handleEditMessageTempChange={props.handleEditMessageTempChange}
+          searchValue={props.searchValue}
+          handleSearchChange={props.handleSearchChange}
         />
         <CreateTemplateModal
           showCreateTemplateModal={props.showCreateTemplateModal}

@@ -26,6 +26,7 @@ import {
   sendTemplate,
   updateTemplate,
 } from "../../api/template";
+import { useSelector } from "react-redux";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -64,8 +65,11 @@ const TextPage = () => {
   const [templateData, setTemplateData] = useState("");
   const [templateDataState, setTemplateDataState] = useState("");
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
-  const [editTempData, setEditTempData] = useState({});
+  const [editTempData, setEditTempData] = useState("");
+  const [templateEditTags, setTemplateEditTags] = useState(null);
   const divRef = useRef(null);
+
+  const userData = useSelector((state) => state.Login.userData);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
@@ -100,7 +104,6 @@ const TextPage = () => {
   const handleManageTemplate = () => {
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
-    setTemplateDataState("");
   };
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
@@ -145,7 +148,6 @@ const TextPage = () => {
         setErrors({ templateMessage: "Please Enter Template Message" });
         formData = false;
         break;
-
       default:
         formData = true;
     }
@@ -156,14 +158,17 @@ const TextPage = () => {
     setOpenEditTagModal(false);
     setErrors({});
   };
+
   const handleManageTag = () => {
     setOpenManageTagModal(true);
     setErrors({});
   };
+
   const handleCloseManageModal = () => {
     setOpenManageTagModal(false);
     setErrors({});
   };
+
   const handleCMModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
@@ -498,14 +503,43 @@ const TextPage = () => {
   };
 
   const handleTemplateTagChange = (e) => {
-    setTemplateTags(e.target.value);
+    let data = e.target.value;
+    setTemplateTags(data);
     setErrors({});
-    setTemplateMessage(templateMessage + e.target.value);
-    setEditTempData(editTempData.message + e.target.value);
+    setTemplateMessage(templateMessage + data);
+  };
+
+  const handleEditTemplateTagChange = (e) => {
+    setTemplateEditTags(e.target.value);
+    setEditTempData({
+      ...editTempData,
+      message: editTempData.message + e.target.value,
+    });
   };
 
   const handleTempMessageChange = (e) => {
     setTemplateMessage(e.target.value);
+  };
+
+  const replacefunc = (item) => {
+    var x = "";
+    x = item.message.replace(
+      "[Employee First Name]",
+      userData.firstName.charAt(0)
+    );
+    x = item.message.replace(
+      "[Employee Last Name]",
+      userData.lastName.charAt(0)
+    );
+    x = item.message.replace(
+      "[Employee Full Name]",
+      userData.firstName + " " + userData.lastName
+    );
+    x = item.message.replace(
+      "[Customer Full Name]",
+      selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+    );
+    return x;
   };
 
   const handleTemplateSubmit = async () => {
@@ -514,6 +548,7 @@ const TextPage = () => {
         title: templateName,
         message: templateMessage,
       };
+      // let x = replacefunc(obj.message);
       setLoading(true);
       let res = await sendTemplate(obj);
       if (res && res.data && res.data.status == 200) {
@@ -536,23 +571,35 @@ const TextPage = () => {
     let res = await getTemplateApi();
     if (res && res.data && res.data.status == 200) {
       setTemplateData(res.data.data);
+      setTemplateDataState(res.data.data[0]);
     }
   };
 
   const handleTempTitleClick = (item) => {
-    setSendMessage(item.message);
+    let x = replacefunc(item);
+    setSendMessage(x);
+  };
+
+  const handleNewTempTitleClick = (item) => {
+    let x = replacefunc(item);
+    setSendNewMessage(x);
   };
 
   const handleTempShowClick = (item) => {
+    let x = replacefunc(item);
     setTemplateDataState(item);
   };
 
   const handleTempInsert = () => {
-    setSendNewMessage(templateDataState.message);
+    let x = replacefunc(templateDataState);
+    console.log(x);
+    setSendNewMessage(x);
     setShowManageeTemplateModal(false);
   };
+
   const handleSingleTempInsert = () => {
-    setSendMessage(templateDataState.message);
+    let x = replacefunc(templateDataState);
+    setSendMessage(x);
     setShowManageeTemplateModal(false);
   };
 
@@ -572,9 +619,12 @@ const TextPage = () => {
   const handleTempEditSave = async () => {
     const res = await updateTemplate(templateDataState._id, editTempData);
     if (res && res.data && res.data.status == 200) {
+      templateDataState.title = editTempData.title;
+      templateDataState.message = editTempData.message;
+      let x = replacefunc(templateDataState);
+      setTemplateDataState(x);
       seteditmanageTemplate(false);
       toast.success(res.data.message);
-      setTemplateDataState(templateDataState)
     } else {
       toast.error(res.data.message);
     }
@@ -585,11 +635,10 @@ const TextPage = () => {
     const res = await deleteTemplate(templateDataState._id);
     if (res && res.data && res.data.status == 200) {
       toast.success(res.data.message);
-      setTemplateDataState("")
+      getTemplate();
     } else {
       toast.error(res.data.message);
     }
-    getTemplate();
   };
 
   return (
@@ -677,9 +726,11 @@ const TextPage = () => {
           editmanageTemplate={editmanageTemplate}
           handleTempEditCancel={handleTempEditCancel}
           editTempData={editTempData}
+          templateEditTags={templateEditTags}
           handleEditTempChange={handleEditTempChange}
           handleTempEditSave={handleTempEditSave}
           handleTempRemove={handleTempRemove}
+          handleEditTemplateTagChange={handleEditTemplateTagChange}
         />
       </div>
       <MessageModal
@@ -716,15 +767,19 @@ const TextPage = () => {
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
         handleSingleTempInsert={handleSingleTempInsert}
-        handleTempTitleClick={handleTempTitleClick}
+        handleTempTitleClick={handleNewTempTitleClick}
         handleTempShowClick={handleTempShowClick}
         editmanageTemplate={editmanageTemplate}
         handleEditTemplate={handleEditTemplate}
         handleTempEditCancel={handleTempEditCancel}
         editTempData={editTempData}
         handleEditTempChange={handleEditTempChange}
+        templateEditTags={templateEditTags}
         handleTempEditSave={handleTempEditSave}
         handleTempRemove={handleTempRemove}
+        handleEditTemplateTagChange={handleEditTemplateTagChange}
+        searchValue={searchState}
+        handleSearchChange={(e) => setSearchState(e.target.value)}
       />
     </div>
   );

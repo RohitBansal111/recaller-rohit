@@ -124,7 +124,6 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                         Manage
                       </button>
                     </h4>
-                    <li>Followup SMS</li>
                     {props.templateDataTitle &&
                       props.templateDataTitle.map((item) => (
                         <li
@@ -224,6 +223,12 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             templateTags={props.templateTags}
             handleTemplateTagChange={props.handleTemplateTagChange}
             handleTempRemove={props.handleTempRemove}
+            handleEditTemplateTagChange={props.handleEditTemplateTagChange}
+            templateEditTags={props.templateEditTags}
+            editTempMessageData={props.editTempMessageData}
+            handleEditMessageTempChange={props.handleEditMessageTempChange}
+            searchValue={props.searchValue}
+            handleSearchChange={props.handleSearchChange}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

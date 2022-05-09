@@ -2,8 +2,44 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import makeAnimated from "react-select/animated";
 import LoadingButton from "@mui/lab/LoadingButton";
+import SearchIcon from "@material-ui/icons/Search";
 
 const ManageTemplateModal = (props) => {
+  const messgaeTempListData = () => {
+    let filtered = [];
+    filtered =
+      props.templateDataTitle &&
+      props.templateDataTitle.filter(
+        (val) =>
+          val.title.toLowerCase().startsWith(props.searchValue.toLowerCase()) ||
+          val.title.toLowerCase().startsWith(props.searchValue.toLowerCase())
+      );
+    const tempList =
+      filtered &&
+      filtered.map((item, index) => {
+        return (
+          <button
+            className={
+              props.templateDataState && props.templateDataState._id == item._id
+                ? "nav-link active"
+                : "nav-link "
+            }
+            id="v-pills-home-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-home"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-home"
+            aria-selected="true"
+            onClick={() => props.handleTempShowClick(item, true)}
+          >
+            {item.title}
+          </button>
+        );
+      });
+    return tempList;
+  };
+
   return (
     <>
       <Modal
@@ -30,27 +66,16 @@ const ManageTemplateModal = (props) => {
                       name="search"
                       class="form-control"
                       placeholder="Search by Template Name"
-                      value=""
+                      value={props.searchValue}
+                      onChange={props.handleSearchChange}
                     />
-                    <div class="search-field"></div>
+                    <div class="search-field">
+                      {" "}
+                      {props.searchValue && <SearchIcon />}
+                    </div>
                   </div>
                 </form>
-                {props.templateDataTitle &&
-                  props.templateDataTitle.map((item) => (
-                    <button
-                      class="nav-link active"
-                      id="v-pills-home-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#v-pills-home"
-                      type="button"
-                      role="tab"
-                      aria-controls="v-pills-home"
-                      aria-selected="true"
-                      onClick={() => props.handleTempShowClick(item)}
-                    >
-                      {item.title}
-                    </button>
-                  ))}
+                {messgaeTempListData()}
                 <div className="create_new">
                   <button
                     type="button"
@@ -102,7 +127,7 @@ const ManageTemplateModal = (props) => {
                             className="form-control"
                             name="tempTags"
                             value={props.templateTags}
-                            onChange={props.handleTemplateTagChange}
+                            onChange={props.handleEditTemplateTagChange}
                           >
                             <option value={""}></option>
                             <option value={"[Employee First Name]"}>
@@ -110,6 +135,12 @@ const ManageTemplateModal = (props) => {
                             </option>
                             <option value={"[Employee Last Name]"}>
                               [Employee Last Name]
+                            </option>
+                            <option value={"[Employee Full Name]"}>
+                              [Employee Full Name]
+                            </option>
+                            <option value={"[Customer Full Name]"}>
+                              [Customer Full Name]
                             </option>
                           </select>
                         </div>
@@ -121,7 +152,9 @@ const ManageTemplateModal = (props) => {
                             name="message"
                             value={props.editTempData.message}
                             onChange={props.handleEditTempChange}
-                          ></textarea>
+                          >
+                            {props.editTempData.message}
+                          </textarea>
                           <span className="spanError"></span>
                         </div>
                       </form>
@@ -135,7 +168,7 @@ const ManageTemplateModal = (props) => {
                           variant="secondary"
                           onClick={props.handleTempRemove}
                         >
-                          Remove
+                          Delete
                         </Button>
                         <div className="right-actions">
                           <Button

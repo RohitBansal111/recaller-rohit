@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   addTagsToListApi,
@@ -65,6 +66,7 @@ const EmailPage = () => {
   const [templateDataState, setTemplateDataState] = useState("");
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
+  const [templateEditTags, setTemplateEditTags] = useState(null);
 
   const divRef = useRef(null);
 
@@ -550,6 +552,29 @@ const EmailPage = () => {
     getEmailTemplate();
   };
 
+  const replacefunc = (item) => {
+    var x = "";
+    x = item.message.replace(
+      "[Employee First Name]",
+      userData.firstName.charAt(0)
+    );
+    x = item.message.replace(
+      "[Employee Last Name]",
+      userData.lastName.charAt(0)
+    );
+    x = item.message.replace(
+      "[Employee Full Name]",
+      userData.firstName + " " + userData.lastName
+    );
+    x = item.message.replace(
+      "[Customer Full Name]",
+      selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+    );
+    return x;
+  };
+
+  const userData = useSelector((state) => state.Login.userData);
+
   const getEmailTemplate = async () => {
     let res = await getEmailTemplateApi();
     if (res && res.data && res.data.status == 200) {
@@ -558,7 +583,8 @@ const EmailPage = () => {
   };
 
   const handleEmailTempTitleClick = (item) => {
-    setSendEmailMessage(item.message);
+    let x = replacefunc(item);
+    setSendEmailMessage(x);
   };
 
   const handleTempShowClick = (item) => {
@@ -568,6 +594,11 @@ const EmailPage = () => {
   const handleTempInsert = () => {
     setEmailMessage(templateDataState.message);
     setShowManageeTemplateModal(false);
+  };
+
+  const handleNewTempTitleClick = (item) => {
+    let x = replacefunc(item);
+    setEmailMessage(x);
   };
 
   const handleSingleTempInsert = () => {
@@ -584,6 +615,14 @@ const EmailPage = () => {
     seteditmanageTemplate(false);
   };
 
+  const handleEditTemplateTagChange = (e) => {
+    setTemplateEditTags(e.target.value);
+    setEditTempData({
+      ...editTempData,
+      message: editTempData.message + e.target.value,
+    });
+  };
+
   const handleEditTempChange = (e) => {
     setEditTempData({ ...editTempData, [e.target.name]: e.target.value });
   };
@@ -591,6 +630,9 @@ const EmailPage = () => {
   const handleTempEditSave = async () => {
     const res = await updateEmailTemplate(templateDataState._id, editTempData);
     if (res && res.data && res.data.status == 200) {
+      templateDataState.title = editTempData.title;
+      templateDataState.message = editTempData.message;
+      setTemplateDataState(templateDataState);
       seteditmanageTemplate(false);
       toast.success(res.data.message);
     } else {
@@ -603,7 +645,7 @@ const EmailPage = () => {
     const res = await deleteEmailTemplate(templateDataState._id);
     if (res && res.data && res.data.status == 200) {
       toast.success(res.data.message);
-      setTemplateDataState("")
+      setTemplateDataState("");
     } else {
       toast.error(res.data.message);
     }
@@ -700,6 +742,8 @@ const EmailPage = () => {
           handleEditTempChange={handleEditTempChange}
           handleTempEditSave={handleTempEditSave}
           handleTempRemove={handleTempRemove}
+          templateEditTags={templateEditTags}
+          handleEditTemplateTagChange={handleEditTemplateTagChange}
         />
       </div>
       <EmailModal
@@ -736,7 +780,7 @@ const EmailPage = () => {
         handleTempShowClick={handleTempShowClick}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
-        handleEmailTempTitleClick={handleEmailTempTitleClick}
+        handleEmailTempTitleClick={handleNewTempTitleClick}
         handleEditTemplate={handleEditTemplate}
         editmanageTemplate={editmanageTemplate}
         handleTempEditCancel={handleTempEditCancel}
@@ -744,6 +788,10 @@ const EmailPage = () => {
         handleEditTempChange={handleEditTempChange}
         handleTempEditSave={handleTempEditSave}
         handleTempRemove={handleTempRemove}
+        templateEditTags={templateEditTags}
+        searchValue={searchState}
+        handleSearchChange={(e) => setSearchState(e.target.value)}
+        handleEditTemplateTagChange={handleEditTemplateTagChange}
       />
     </div>
   );

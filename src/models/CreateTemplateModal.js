@@ -47,6 +47,12 @@ const CreateTemplateModal = (props) => {
                 <option value={"[Employee Last Name]"}>
                   [Employee Last Name]
                 </option>
+                <option value={"[Employee Full Name]"}>
+                  [Employee Full Name]
+                </option>
+                <option value={"[Customer Full Name]"}>
+                  [Customer Full Name]
+                </option>
               </select>
             </div>
             <div className="field-group flexFull">
