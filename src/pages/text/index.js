@@ -523,32 +523,26 @@ const TextPage = () => {
 
   const replacefunc = (item) => {
     var x = "";
-    x = item.message.replace(
-      "[Employee First Name]",
-      userData.firstName.charAt(0)
-    );
-    x = item.message.replace(
-      "[Employee Last Name]",
-      userData.lastName.charAt(0)
-    );
-    x = item.message.replace(
-      "[Employee Full Name]",
-      userData.firstName + " " + userData.lastName
-    );
-    x = item.message.replace(
-      "[Customer Full Name]",
-      selecteduser.contact.firstName + " " + selecteduser.contact.lastName
-    );
+    x = item.message
+      .replace("[Employee First Name]", userData.firstName.charAt(0))
+      .replace("[Employee Last Name]", userData.lastName.charAt(0))
+      .replace(
+        "[Employee Full Name]",
+        userData.firstName + " " + userData.lastName
+      )
+      .replace(
+        "[Customer Full Name]",
+        selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+      );
+
     return x;
   };
-
   const handleTemplateSubmit = async () => {
     if (isValidTemplate()) {
       const obj = {
         title: templateName,
         message: templateMessage,
       };
-      // let x = replacefunc(obj.message);
       setLoading(true);
       let res = await sendTemplate(obj);
       if (res && res.data && res.data.status == 200) {

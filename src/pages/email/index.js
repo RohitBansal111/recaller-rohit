@@ -168,12 +168,10 @@ const EmailPage = () => {
   const handleManageTemplate = () => {
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
-    setTemplateDataState("");
   };
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
-    setTemplateDataState("");
   };
 
   useEffect(() => {
@@ -554,22 +552,18 @@ const EmailPage = () => {
 
   const replacefunc = (item) => {
     var x = "";
-    x = item.message.replace(
-      "[Employee First Name]",
-      userData.firstName.charAt(0)
-    );
-    x = item.message.replace(
-      "[Employee Last Name]",
-      userData.lastName.charAt(0)
-    );
-    x = item.message.replace(
-      "[Employee Full Name]",
-      userData.firstName + " " + userData.lastName
-    );
-    x = item.message.replace(
-      "[Customer Full Name]",
-      selecteduser.contact.firstName + " " + selecteduser.contact.lastName
-    );
+    x = item.message
+      .replace("[Employee First Name]", userData.firstName.charAt(0))
+      .replace("[Employee Last Name]", userData.lastName.charAt(0))
+      .replace(
+        "[Employee Full Name]",
+        userData.firstName + " " + userData.lastName
+      )
+      .replace(
+        "[Customer Full Name]",
+        selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+      );
+
     return x;
   };
 
@@ -579,6 +573,7 @@ const EmailPage = () => {
     let res = await getEmailTemplateApi();
     if (res && res.data && res.data.status == 200) {
       setTemplateData(res.data.data);
+      setTemplateDataState(res.data.data[0]);
     }
   };
 
@@ -588,6 +583,7 @@ const EmailPage = () => {
   };
 
   const handleTempShowClick = (item) => {
+    let x = replacefunc(item);
     setTemplateDataState(item);
   };
 
@@ -645,7 +641,6 @@ const EmailPage = () => {
     const res = await deleteEmailTemplate(templateDataState._id);
     if (res && res.data && res.data.status == 200) {
       toast.success(res.data.message);
-      setTemplateDataState("");
     } else {
       toast.error(res.data.message);
     }
