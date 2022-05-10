@@ -296,6 +296,13 @@ const EmailChatBoot = (props) => {
                           ></textarea>
                         </div>
                         <div className="field-group btn-groups flexFull">
+                          <ul className="action-icons">
+                            <li>
+                              <button type="button" className="btn-action1">
+                                <EmojiEmotionsIcon />
+                              </button>
+                            </li>
+                          </ul>
                           <button type="button" className="btn-primary-outline">
                             Send
                           </button>

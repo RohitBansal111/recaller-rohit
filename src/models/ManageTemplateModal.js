@@ -178,7 +178,9 @@ const ManageTemplateModal = (props) => {
                         <DeleteTagsModal
                           showDeleteTagModal={props.showDeleteTempModal}
                           handleDeleteTagsData={props.handleTempRemove}
-                          handleCloseDeleteModal={props.handleCloseDeleteTempModal}
+                          handleCloseDeleteModal={
+                            props.handleCloseDeleteTempModal
+                          }
                         />
                         <div className="right-actions">
                           <Button

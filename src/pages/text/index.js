@@ -531,17 +531,19 @@ const TextPage = () => {
 
   const replacefunc = (item) => {
     var x = "";
-    x = item
-      .replace("[Employee First Name]", userData && userData.firstName)
-      .replace("[Employee Last Name]", userData && userData.lastName)
-      .replace(
-        "[Employee Full Name]",
-        userData.firstName + " " + userData.lastName
-      )
-      .replace(
-        "[Customer Full Name]",
-        selecteduser.contact.firstName + " " + selecteduser.contact.lastName
-      );
+    x =
+      item &&
+      item
+        .replace("[Employee First Name]", userData && userData.firstName)
+        .replace("[Employee Last Name]", userData && userData.lastName)
+        .replace(
+          "[Employee Full Name]",
+          userData.firstName + " " + userData.lastName
+        )
+        .replace(
+          "[Customer Full Name]",
+          selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+        );
 
     return x;
   };
