@@ -481,6 +481,8 @@ const ChatBoot = (props) => {
         <ScheduleMessageModal
           showScheduleModal={props.showScheduleModal}
           handleCloseSchedultModal={props.handleCloseSchedultModal}
+          dateSelected={props.dateSelected}
+          handleDateChange={props.handleDateChange}
         />
         <CreateTemplateModal
           showCreateTemplateModal={props.showCreateTemplateModal}

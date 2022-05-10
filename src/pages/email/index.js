@@ -67,7 +67,7 @@ const EmailPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-
+  const [dateSelected, setDateSelected] = useState("");
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -149,8 +149,15 @@ const EmailPage = () => {
     setErrors({});
   };
 
-  const handleScheduleModal = () => setShowScheduleModal(true);
-  const handleCloseSchedultModal = () => setShowScheduleModal(false);
+  const handleScheduleModal = () => {
+    setShowScheduleModal(true);
+    setDateSelected("");
+  };
+  const handleCloseSchedultModal = () => {
+    setShowScheduleModal(false);
+    setDateSelected("");
+  };
+  
   const handleCreateTemplate = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
@@ -649,6 +656,10 @@ const EmailPage = () => {
     getEmailTemplate();
   };
 
+  const handleDateChange = (e) => {
+    setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -742,6 +753,8 @@ const EmailPage = () => {
           templateEditTags={templateEditTags}
           handleEditTemplateTagChange={handleEditTemplateTagChange}
           replacefunc={replacefunc}
+          dateSelected={dateSelected}
+          handleDateChange={handleDateChange}
         />
       </div>
       <EmailModal

@@ -203,6 +203,8 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
           <ScheduleMessageModal
             showScheduleModal={props.showScheduleModal}
             handleCloseSchedultModal={props.handleCloseSchedultModal}
+            dateSelected={props.dateSelected}
+            handleDateChange={props.handleDateChange}
           />
           <ManageTemplateModal
             showManageeTemplateModal={props.showManageeTemplateModal}
@@ -230,7 +232,6 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             searchValue={props.searchValue}
             handleSearchChange={props.handleSearchChange}
             replacefunc={props.replacefunc}
-
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

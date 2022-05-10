@@ -67,6 +67,8 @@ const TextPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState("");
   const [templateEditTags, setTemplateEditTags] = useState(null);
+  const [dateSelected, setDateSelected] = useState("");
+
   const divRef = useRef(null);
 
   const userData = useSelector((state) => state.Login.userData);
@@ -85,8 +87,14 @@ const TextPage = () => {
     setLoading(false);
   };
 
-  const handleScheduleModal = () => setShowScheduleModal(true);
-  const handleCloseSchedultModal = () => setShowScheduleModal(false);
+  const handleScheduleModal = () => {
+    setShowScheduleModal(true);
+    setDateSelected("");
+  };
+  const handleCloseSchedultModal = () => {
+    setShowScheduleModal(false);
+    setDateSelected("");
+  };
   const handleCreateTemplate = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
@@ -537,6 +545,7 @@ const TextPage = () => {
 
     return x;
   };
+  
   const handleTemplateSubmit = async () => {
     if (isValidTemplate()) {
       const obj = {
@@ -568,7 +577,6 @@ const TextPage = () => {
       setTemplateData(res.data.data);
       setEditTempData(res.data.data[0]);
       setTemplateDataState(res.data.data[0]);
-     
     }
   };
 
@@ -617,7 +625,7 @@ const TextPage = () => {
       templateDataState.title = editTempData.title;
       templateDataState.message = editTempData.message;
       let x = replacefunc(templateDataState.message);
-      templateDataState.message = x
+      templateDataState.message = x;
       setTemplateDataState(templateDataState);
       seteditmanageTemplate(false);
       toast.success(res.data.message);
@@ -635,6 +643,10 @@ const TextPage = () => {
     } else {
       toast.error(res.data.message);
     }
+  };
+
+  const handleDateChange = (e) => {
+    setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
   };
 
   return (
@@ -728,6 +740,8 @@ const TextPage = () => {
           handleTempEditSave={handleTempEditSave}
           handleTempRemove={handleTempRemove}
           handleEditTemplateTagChange={handleEditTemplateTagChange}
+          dateSelected={dateSelected}
+          handleDateChange={handleDateChange}
         />
       </div>
       <MessageModal
@@ -778,7 +792,8 @@ const TextPage = () => {
         searchValue={searchState}
         handleSearchChange={(e) => setSearchState(e.target.value)}
         replacefunc={replacefunc}
-
+        dateSelected={dateSelected}
+        handleDateChange={handleDateChange}
       />
     </div>
   );
