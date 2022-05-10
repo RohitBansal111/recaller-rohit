@@ -286,7 +286,7 @@ const ChatBoot = (props) => {
                           </li>
                         </ul>
                         <button type="button" className="btn-primary-outline">
-                          Send
+                          Add Note
                         </button>
                       </div>
                     </form>
