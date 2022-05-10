@@ -14,7 +14,7 @@ const DeleteTagsModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <h2 className="text-center">
-            Are you sure you want to delete this tag?
+            Are you sure you want to delete this?
           </h2>
         </Modal.Body>
         <Modal.Footer>

@@ -68,7 +68,7 @@ const TextPage = () => {
   const [editTempData, setEditTempData] = useState("");
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState("");
-
+  const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const divRef = useRef(null);
 
   const userData = useSelector((state) => state.Login.userData);
@@ -532,8 +532,8 @@ const TextPage = () => {
   const replacefunc = (item) => {
     var x = "";
     x = item
-      .replace("[Employee First Name]", userData.firstName)
-      .replace("[Employee Last Name]", userData.lastName)
+      .replace("[Employee First Name]", userData && userData.firstName)
+      .replace("[Employee Last Name]", userData && userData.lastName)
       .replace(
         "[Employee Full Name]",
         userData.firstName + " " + userData.lastName
@@ -545,7 +545,7 @@ const TextPage = () => {
 
     return x;
   };
-  
+
   const handleTemplateSubmit = async () => {
     if (isValidTemplate()) {
       const obj = {
@@ -635,11 +635,20 @@ const TextPage = () => {
     getTemplate();
   };
 
+  const handleCloseDeleteTempModal = () => {
+    setDeleteTempComfirmation(false);
+  };
+
+  const handleTempDelModal = () => {
+    setDeleteTempComfirmation(true);
+  };
+
   const handleTempRemove = async () => {
     const res = await deleteTemplate(templateDataState._id);
     if (res && res.data && res.data.status == 200) {
       toast.success(res.data.message);
       getTemplate();
+      setDeleteTempComfirmation(false);
     } else {
       toast.error(res.data.message);
     }
@@ -742,6 +751,9 @@ const TextPage = () => {
           handleEditTemplateTagChange={handleEditTemplateTagChange}
           dateSelected={dateSelected}
           handleDateChange={handleDateChange}
+          handleTempDelModal={handleTempDelModal}
+          handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+          showDeleteTempModal={deleteTempComfirmation}
         />
       </div>
       <MessageModal
@@ -794,6 +806,9 @@ const TextPage = () => {
         replacefunc={replacefunc}
         dateSelected={dateSelected}
         handleDateChange={handleDateChange}
+        handleTempDelModal={handleTempDelModal}
+        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+        showDeleteTempModal={deleteTempComfirmation}
       />
     </div>
   );

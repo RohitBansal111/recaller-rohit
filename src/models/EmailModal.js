@@ -224,6 +224,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             handleTempEditSave={props.handleTempEditSave}
             templateTags={props.templateTags}
             handleTemplateTagChange={props.handleTemplateTagChange}
+            handleTempDelModal={props.handleTempDelModal}
             handleTempRemove={props.handleTempRemove}
             handleEditTemplateTagChange={props.handleEditTemplateTagChange}
             templateEditTags={props.templateEditTags}
@@ -232,6 +233,8 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             searchValue={props.searchValue}
             handleSearchChange={props.handleSearchChange}
             replacefunc={props.replacefunc}
+            handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
+            showDeleteTempModal={props.showDeleteTempModal}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

@@ -68,6 +68,8 @@ const EmailPage = () => {
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState("");
+  const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
+
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -660,6 +662,14 @@ const EmailPage = () => {
     setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
   };
 
+  const handleCloseDeleteTempModal = () => {
+    setDeleteTempComfirmation(false);
+  };
+
+  const handleTempDelModal = () => {
+    setDeleteTempComfirmation(true);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -755,6 +765,9 @@ const EmailPage = () => {
           replacefunc={replacefunc}
           dateSelected={dateSelected}
           handleDateChange={handleDateChange}
+          handleTempDelModal={handleTempDelModal}
+          handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+          showDeleteTempModal={deleteTempComfirmation}
         />
       </div>
       <EmailModal
@@ -804,6 +817,11 @@ const EmailPage = () => {
         handleSearchChange={(e) => setSearchState(e.target.value)}
         handleEditTemplateTagChange={handleEditTemplateTagChange}
         replacefunc={replacefunc}
+        dateSelected={dateSelected}
+        handleDateChange={handleDateChange}
+        handleTempDelModal={handleTempDelModal}
+        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+        showDeleteTempModal={deleteTempComfirmation}
       />
     </div>
   );

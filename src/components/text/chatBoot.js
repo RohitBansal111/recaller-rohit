@@ -514,6 +514,7 @@ const ChatBoot = (props) => {
           handleTempEditSave={props.handleTempEditSave}
           templateTags={props.templateTags}
           handleTemplateTagChange={props.handleTemplateTagChange}
+          handleTempDelModal={props.handleTempDelModal}
           handleTempRemove={props.handleTempRemove}
           handleEditTemplateTagChange={props.handleEditTemplateTagChange}
           templateEditTags={props.templateEditTags}
@@ -522,6 +523,8 @@ const ChatBoot = (props) => {
           searchValue={props.searchValue}
           replacefunc={props.replacefunc}
           handleSearchChange={props.handleSearchChange}
+          handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
+          showDeleteTempModal={props.showDeleteTempModal}
         />
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import makeAnimated from "react-select/animated";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SearchIcon from "@material-ui/icons/Search";
+import DeleteTagsModal from "./deleteTagsModal";
 
 const ManageTemplateModal = (props) => {
   const messgaeTempListData = () => {
@@ -168,10 +169,17 @@ const ManageTemplateModal = (props) => {
                       <div className="manage-modal-action">
                         <Button
                           variant="secondary"
-                          onClick={props.handleTempRemove}
+                          onClick={() =>
+                            props.handleTempDelModal(props.templateDataState)
+                          }
                         >
                           Delete
                         </Button>
+                        <DeleteTagsModal
+                          showDeleteTagModal={props.showDeleteTempModal}
+                          handleDeleteTagsData={props.handleTempRemove}
+                          handleCloseDeleteModal={props.handleCloseDeleteTempModal}
+                        />
                         <div className="right-actions">
                           <Button
                             className="btn-primary-outline"

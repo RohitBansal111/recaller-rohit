@@ -226,14 +226,17 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             handleTempEditSave={props.handleTempEditSave}
             templateTags={props.templateTags}
             handleTemplateTagChange={props.handleTemplateTagChange}
+            handleTempDelModal={props.handleTempDelModal}
             handleTempRemove={props.handleTempRemove}
             handleEditTemplateTagChange={props.handleEditTemplateTagChange}
             templateEditTags={props.templateEditTags}
             editTempMessageData={props.editTempMessageData}
             handleEditMessageTempChange={props.handleEditMessageTempChange}
             searchValue={props.searchValue}
-            handleSearchChange={props.handleSearchChange       }
-                   replacefunc={props.replacefunc}
+            handleSearchChange={props.handleSearchChange}
+            replacefunc={props.replacefunc}
+            handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
+            showDeleteTempModal={props.showDeleteTempModal}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}
