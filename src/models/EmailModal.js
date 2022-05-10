@@ -124,8 +124,8 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                         Manage
                       </button>
                     </h4>
-                    {props.templateDataTitle &&
-                      props.templateDataTitle.map((item) => (
+                    {props.templateData &&
+                      props.templateData.map((item) => (
                         <li
                           onClick={() => props.handleEmailTempTitleClick(item)}
                         >
@@ -210,7 +210,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
               props.handleCloseManageTemplateModal
             }
             handleCreateTemplate={props.handleCreateTemplate}
-            templateDataTitle={props.templateDataTitle}
+            templateData={props.templateData}
             handleTempShowClick={props.handleTempShowClick}
             templateDataState={props.templateDataState}
             handleTempInsert={props.handleTempInsert}
@@ -229,6 +229,8 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             handleEditMessageTempChange={props.handleEditMessageTempChange}
             searchValue={props.searchValue}
             handleSearchChange={props.handleSearchChange}
+            replacefunc={props.replacefunc}
+
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

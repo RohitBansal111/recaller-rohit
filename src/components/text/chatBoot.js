@@ -203,8 +203,8 @@ const ChatBoot = (props) => {
                                   Manage
                                 </button>
                               </h4>
-                              {props.templateDataTitle &&
-                                props.templateDataTitle.map((item) => (
+                              {props.templateData &&
+                                props.templateData.map((item) => (
                                   <li
                                     onClick={() =>
                                       props.handleTempTitleClick(item)
@@ -499,7 +499,7 @@ const ChatBoot = (props) => {
           showManageeTemplateModal={props.showManageeTemplateModal}
           handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
           handleCreateTemplate={props.handleCreateTemplate}
-          templateDataTitle={props.templateDataTitle}
+          templateData={props.templateData}
           handleTempShowClick={props.handleTempShowClick}
           templateDataState={props.templateDataState}
           handleSingleTempInsert={props.handleSingleTempInsert}
@@ -518,6 +518,7 @@ const ChatBoot = (props) => {
           editTempMessageData={props.editTempMessageData}
           handleEditMessageTempChange={props.handleEditMessageTempChange}
           searchValue={props.searchValue}
+          replacefunc={props.replacefunc}
           handleSearchChange={props.handleSearchChange}
         />
       </div>

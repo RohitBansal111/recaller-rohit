@@ -129,8 +129,8 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       </button>
                     </h4>
                     <li>Followup SMS</li>
-                    {props.templateDataTitle &&
-                      props.templateDataTitle.map((item) => (
+                    {props.templateData &&
+                      props.templateData.map((item) => (
                         <li onClick={() => props.handleTempTitleClick(item)}>
                           {item.title}
                         </li>
@@ -212,7 +212,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               props.handleCloseManageTemplateModal
             }
             handleCreateTemplate={props.handleCreateTemplate}
-            templateDataTitle={props.templateDataTitle}
+            templateData={props.templateData}
             handleTempShowClick={props.handleTempShowClick}
             templateDataState={props.templateDataState}
             handleTempInsert={props.handleTempInsert}
@@ -230,7 +230,8 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             editTempMessageData={props.editTempMessageData}
             handleEditMessageTempChange={props.handleEditMessageTempChange}
             searchValue={props.searchValue}
-            handleSearchChange={props.handleSearchChange}
+            handleSearchChange={props.handleSearchChange       }
+                   replacefunc={props.replacefunc}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

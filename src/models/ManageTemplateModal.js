@@ -8,8 +8,8 @@ const ManageTemplateModal = (props) => {
   const messgaeTempListData = () => {
     let filtered = [];
     filtered =
-      props.templateDataTitle &&
-      props.templateDataTitle.filter(
+      props.templateData &&
+      props.templateData.filter(
         (val) =>
           val.title.toLowerCase().startsWith(props.searchValue.toLowerCase()) ||
           val.title.toLowerCase().startsWith(props.searchValue.toLowerCase())
@@ -39,7 +39,6 @@ const ManageTemplateModal = (props) => {
       });
     return tempList;
   };
-
   return (
     <>
       <Modal
@@ -101,7 +100,10 @@ const ManageTemplateModal = (props) => {
                       aria-labelledby="v-pills-home-tab"
                     >
                       <h2>{props.templateDataState.title}</h2>
-                      <p>{props.templateDataState.message}</p>
+                      <p>
+                        {props.templateDataState &&
+                          props.replacefunc(props.templateDataState.message)}
+                      </p>
                     </div>
                   ) : (
                     <div className="edit-manage-template">
@@ -175,7 +177,7 @@ const ManageTemplateModal = (props) => {
                             className="btn-primary-outline"
                             variant="outlined"
                             onClick={() =>
-                              props.handleEditTemplate(props.templateDataState)
+                              props.handleEditTemplate(props.editTempData)
                             }
                           >
                             Edit

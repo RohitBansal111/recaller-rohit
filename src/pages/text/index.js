@@ -102,13 +102,13 @@ const TextPage = () => {
     setErrors({});
   };
   const handleManageTemplate = () => {
+    getTemplate();
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
   };
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
-    setTemplateDataState("");
   };
 
   const isTagValid = () => {
@@ -523,7 +523,7 @@ const TextPage = () => {
 
   const replacefunc = (item) => {
     var x = "";
-    x = item.message
+    x = item
       .replace("[Employee First Name]", userData.firstName.charAt(0))
       .replace("[Employee Last Name]", userData.lastName.charAt(0))
       .replace(
@@ -553,7 +553,8 @@ const TextPage = () => {
         setTemplateMessage("");
         setErrors({});
         setLoading(false);
-        setSendMessage(obj.message);
+        let x = replacefunc(obj.message);
+        setSendMessage(x);
         getTemplate();
       } else {
         toast.error(res.data.message);
@@ -565,34 +566,34 @@ const TextPage = () => {
     let res = await getTemplateApi();
     if (res && res.data && res.data.status == 200) {
       setTemplateData(res.data.data);
+      setEditTempData(res.data.data[0]);
       setTemplateDataState(res.data.data[0]);
+     
     }
   };
 
   const handleTempTitleClick = (item) => {
-    let x = replacefunc(item);
+    let x = replacefunc(item.message);
     setSendMessage(x);
   };
 
   const handleNewTempTitleClick = (item) => {
-    let x = replacefunc(item);
+    let x = replacefunc(item.message);
     setSendNewMessage(x);
   };
-
   const handleTempShowClick = (item) => {
-    let x = replacefunc(item);
+    setEditTempData(item);
     setTemplateDataState(item);
   };
 
   const handleTempInsert = () => {
-    let x = replacefunc(templateDataState);
-    console.log(x);
+    let x = replacefunc(templateDataState.message);
     setSendNewMessage(x);
     setShowManageeTemplateModal(false);
   };
 
   const handleSingleTempInsert = () => {
-    let x = replacefunc(templateDataState);
+    let x = replacefunc(templateDataState.message);
     setSendMessage(x);
     setShowManageeTemplateModal(false);
   };
@@ -615,8 +616,9 @@ const TextPage = () => {
     if (res && res.data && res.data.status == 200) {
       templateDataState.title = editTempData.title;
       templateDataState.message = editTempData.message;
-      let x = replacefunc(templateDataState);
-      setTemplateDataState(x);
+      let x = replacefunc(templateDataState.message);
+      templateDataState.message = x
+      setTemplateDataState(templateDataState);
       seteditmanageTemplate(false);
       toast.success(res.data.message);
     } else {
@@ -649,6 +651,7 @@ const TextPage = () => {
       <div className="text-main-section">
         <ChatBoot
           selecteduser={selecteduser}
+          replacefunc={replacefunc}
           openManageTagModal={openManageTagModal}
           openCreateTagModal={openCreateTagModal}
           onClick={handleManageTag}
@@ -711,7 +714,7 @@ const TextPage = () => {
           templateMessage={templateMessage}
           handleTempMessageChange={handleTempMessageChange}
           handleTemplateSubmit={handleTemplateSubmit}
-          templateDataTitle={templateData}
+          templateData={templateData}
           handleTempTitleClick={handleTempTitleClick}
           handleTempShowClick={handleTempShowClick}
           templateDataState={templateDataState}
@@ -757,7 +760,7 @@ const TextPage = () => {
         templateMessage={templateMessage}
         handleTempMessageChange={handleTempMessageChange}
         handleTemplateSubmit={handleTemplateSubmit}
-        templateDataTitle={templateData}
+        templateData={templateData}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
         handleSingleTempInsert={handleSingleTempInsert}
@@ -774,6 +777,8 @@ const TextPage = () => {
         handleEditTemplateTagChange={handleEditTemplateTagChange}
         searchValue={searchState}
         handleSearchChange={(e) => setSearchState(e.target.value)}
+        replacefunc={replacefunc}
+
       />
     </div>
   );

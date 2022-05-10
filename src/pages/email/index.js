@@ -166,6 +166,7 @@ const EmailPage = () => {
     setErrors({});
   };
   const handleManageTemplate = () => {
+    getEmailTemplate();
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
   };
@@ -173,7 +174,6 @@ const EmailPage = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
   };
-
   useEffect(() => {
     getTags();
     getEmailMessage();
@@ -519,7 +519,6 @@ const EmailPage = () => {
     setTemplateTags(e.target.value);
     setErrors({});
     setTemplateMessage(templateMessage + e.target.value);
-    setEditTempData(editTempData + e.target.value);
   };
 
   const handleTempMessageChange = (e) => {
@@ -541,7 +540,8 @@ const EmailPage = () => {
         setTemplateName("");
         setTemplateMessage("");
         setErrors({});
-        setSendEmailMessage(obj.message);
+        let x = replacefunc(obj.message);
+        setSendEmailMessage(x);
         setLoading(false);
       } else {
         toast.error(res.data.message);
@@ -552,7 +552,7 @@ const EmailPage = () => {
 
   const replacefunc = (item) => {
     var x = "";
-    x = item.message
+    x = item
       .replace("[Employee First Name]", userData.firstName.charAt(0))
       .replace("[Employee Last Name]", userData.lastName.charAt(0))
       .replace(
@@ -566,24 +566,24 @@ const EmailPage = () => {
 
     return x;
   };
-
   const userData = useSelector((state) => state.Login.userData);
 
   const getEmailTemplate = async () => {
     let res = await getEmailTemplateApi();
     if (res && res.data && res.data.status == 200) {
       setTemplateData(res.data.data);
+      setEditTempData(res.data.data[0]);
       setTemplateDataState(res.data.data[0]);
     }
   };
 
   const handleEmailTempTitleClick = (item) => {
-    let x = replacefunc(item);
+    let x = replacefunc(item.message);
     setSendEmailMessage(x);
   };
 
   const handleTempShowClick = (item) => {
-    let x = replacefunc(item);
+    setEditTempData(item);
     setTemplateDataState(item);
   };
 
@@ -593,7 +593,7 @@ const EmailPage = () => {
   };
 
   const handleNewTempTitleClick = (item) => {
-    let x = replacefunc(item);
+    let x = replacefunc(item.message);
     setEmailMessage(x);
   };
 
@@ -604,7 +604,7 @@ const EmailPage = () => {
 
   const handleEditTemplate = (item) => {
     seteditmanageTemplate(true);
-    setEditTempData(item);
+    setEditTempData(item.message);
   };
 
   const handleTempEditCancel = () => {
@@ -628,6 +628,8 @@ const EmailPage = () => {
     if (res && res.data && res.data.status == 200) {
       templateDataState.title = editTempData.title;
       templateDataState.message = editTempData.message;
+      let x = replacefunc(templateDataState.message);
+      templateDataState.message = x;
       setTemplateDataState(templateDataState);
       seteditmanageTemplate(false);
       toast.success(res.data.message);
@@ -725,7 +727,7 @@ const EmailPage = () => {
           templateMessage={templateMessage}
           handleTempMessageChange={handleTempMessageChange}
           handleTemplateSubmit={handleTemplateSubmit}
-          templateDataTitle={templateData}
+          templateData={templateData}
           handleEmailTempTitleClick={handleEmailTempTitleClick}
           handleSingleTempInsert={handleSingleTempInsert}
           handleTempShowClick={handleTempShowClick}
@@ -739,6 +741,7 @@ const EmailPage = () => {
           handleTempRemove={handleTempRemove}
           templateEditTags={templateEditTags}
           handleEditTemplateTagChange={handleEditTemplateTagChange}
+          replacefunc={replacefunc}
         />
       </div>
       <EmailModal
@@ -771,7 +774,7 @@ const EmailPage = () => {
         templateMessage={templateMessage}
         handleTempMessageChange={handleTempMessageChange}
         handleTemplateSubmit={handleTemplateSubmit}
-        templateDataTitle={templateData}
+        templateData={templateData}
         handleTempShowClick={handleTempShowClick}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
@@ -787,6 +790,7 @@ const EmailPage = () => {
         searchValue={searchState}
         handleSearchChange={(e) => setSearchState(e.target.value)}
         handleEditTemplateTagChange={handleEditTemplateTagChange}
+        replacefunc={replacefunc}
       />
     </div>
   );

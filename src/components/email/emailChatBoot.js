@@ -222,8 +222,8 @@ const EmailChatBoot = (props) => {
                                     Manage
                                   </button>
                                 </h4>
-                                {props.templateDataTitle &&
-                                  props.templateDataTitle.map((item) => (
+                                {props.templateData &&
+                                  props.templateData.map((item) => (
                                     <li
                                       onClick={() =>
                                         props.handleEmailTempTitleClick(item)
@@ -512,7 +512,7 @@ const EmailChatBoot = (props) => {
           showManageeTemplateModal={props.showManageeTemplateModal}
           handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
           handleCreateTemplate={props.handleCreateTemplate}
-          templateDataTitle={props.templateDataTitle}
+          templateData={props.templateData}
           handleTempShowClick={props.handleTempShowClick}
           templateDataState={props.templateDataState}
           handleTempInsert={props.handleSingleTempInsert}
@@ -531,6 +531,7 @@ const EmailChatBoot = (props) => {
           handleEditMessageTempChange={props.handleEditMessageTempChange}
           searchValue={props.searchValue}
           handleSearchChange={props.handleSearchChange}
+          replacefunc={props.replacefunc}
         />
         <CreateTemplateModal
           showCreateTemplateModal={props.showCreateTemplateModal}
