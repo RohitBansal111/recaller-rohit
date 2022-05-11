@@ -25,6 +25,8 @@ import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 import { Link } from "react-router-dom";
+import PlaceholderImage from './../../assets/images/placeholder.jpg'
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -171,7 +173,7 @@ const ChatBoot = (props) => {
                 <Tab eventKey="all" title="Message">
                   <div className="chat-textarea">
                     <form className="main-form">
-                      <div className="field-group flexFull">
+                      <div className="field-group flexFull mb-0">
                         {props.selecteduser &&
                         props.selecteduser.contact &&
                         props.selecteduser.contact.phoneSubs == "opted-out" ? (
@@ -199,15 +201,23 @@ const ChatBoot = (props) => {
                             </div>
                           </div>
                         ) : (
-                          <textarea
-                            placeholder="Type your message..."
-                            name="sendMessage"
-                            value={props.sendMessage}
-                            onChange={props.onHandleChange}
-                          >
-                            {props.sendMessage}
-                          </textarea>
-                        )}
+                          <div className="attachedImage-box">
+                            <ul className="attachedImageGallery">
+                              <li>
+                                <img src={PlaceholderImage} alt="img" />
+                                <button type='button' className="btn btn-cross"> <CancelIcon /> </button>
+                              </li>
+                            </ul>
+                            <textarea
+                              placeholder="Type your message..."
+                              name="sendMessage"
+                              value={props.sendMessage}
+                              onChange={props.onHandleChange}
+                            >
+                              {props.sendMessage}
+                            </textarea>
+                          </div>
+                        )} 
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <ul className="action-icons">

@@ -864,9 +864,35 @@
             font-weight: 400;
             line-height: 18px;
             margin-left: 10px;
-            a{
+            u{
                 font-weight: 600;
                 color: grey;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.attachedImage-box{
+    display: flex;
+    padding: 10px;
+    .attachedImageGallery{
+        padding: 0px;
+        margin: 0px;
+        flex: 0 0 30%;
+        li{
+            position: relative;
+            img{
+                width: 100%;
+                border-radius: 5pxs ;
+            }
+            .btn-cross{
+                position: absolute;
+                left: -6px;
+                padding: 0px;
+                top: -8px;
+                svg{
+                    fill: #adadad !important;
+                }
             }
         }
     }
