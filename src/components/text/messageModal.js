@@ -18,14 +18,9 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
-import Picker from 'emoji-picker-react'; 
+import Picker from "emoji-picker-react";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
-  const [chosenEmoji, setChosenEmoji] = useState(null);
-
-  const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-  };
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -151,18 +146,25 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   </ul>
                 </li>
                 <li>
-                  
-                  {chosenEmoji ? (
-                      // <span>You chose: {chosenEmoji.emoji}</span>
-                      <button type="button" className="btn-action1">
-                        <EmojiEmotionsIcon />
-                      </button>
-                    ) : (
-                      <button type="button" className="btn-action1">
-                        <EmojiEmotionsIcon />
-                      </button>
-                  )}
-                  <Picker onEmojiClick={onEmojiClick} />
+                  {/* {chosenEmoji ? (
+                    // <span>You chose: {chosenEmoji.emoji}</span>
+                    <button type="button" className="btn-action1">
+                      <EmojiEmotionsIcon />
+                    </button>
+                  ) : ( */}
+                  <>
+                    <button
+                      type="button"
+                      className="btn-action1"
+                      onClick={props.handleEmojiOpen}
+                    >
+                      <EmojiEmotionsIcon />
+                    </button>
+                    {props.onShowEmojiOpen && (
+                      <Picker onEmojiClick={props.onEmojiClick} />
+                    )}
+                  </>
+                  {/* )} */}
                 </li>
                 <li>
                   <button type="button" className="btn-action1 fileType">

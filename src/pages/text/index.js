@@ -69,6 +69,8 @@ const TextPage = () => {
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState("");
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [onShowEmoji, setOnShowEmoji] = useState(false);
   const divRef = useRef(null);
 
   const userData = useSelector((state) => state.Login.userData);
@@ -78,6 +80,7 @@ const TextPage = () => {
     setPreview(false);
     setErrors({});
     setLoading(false);
+    setOnShowEmoji(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -660,6 +663,15 @@ const TextPage = () => {
     setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
   };
 
+  const handleEmojiOpen = () => {
+    setOnShowEmoji(true);
+  };
+
+  const onEmojiClick = (event, emojiObject) => {
+    setSendNewMessage((prevInput) => prevInput + emojiObject.emoji);
+    setOnShowEmoji(false);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -756,6 +768,9 @@ const TextPage = () => {
           handleTempDelModal={handleTempDelModal}
           handleCloseDeleteTempModal={handleCloseDeleteTempModal}
           showDeleteTempModal={deleteTempComfirmation}
+          handleEmojiOpen={handleEmojiOpen}
+        onEmojiClick={onEmojiClick}
+        onShowEmojiOpen={onShowEmoji}
         />
       </div>
       <MessageModal
@@ -811,6 +826,9 @@ const TextPage = () => {
         handleTempDelModal={handleTempDelModal}
         handleCloseDeleteTempModal={handleCloseDeleteTempModal}
         showDeleteTempModal={deleteTempComfirmation}
+        handleEmojiOpen={handleEmojiOpen}
+        onEmojiClick={onEmojiClick}
+        onShowEmojiOpen={onShowEmoji}
       />
     </div>
   );

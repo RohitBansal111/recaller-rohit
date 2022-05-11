@@ -22,6 +22,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
+import Picker from "emoji-picker-react";
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -223,9 +224,18 @@ const ChatBoot = (props) => {
                             </ul>
                           </li>
                           <li>
-                            <button type="button" className="btn-action1">
-                              <EmojiEmotionsIcon />
-                            </button>
+                            <>
+                              <button
+                                type="button"
+                                className="btn-action1"
+                                onClick={props.handleEmojiOpen}
+                              >
+                                <EmojiEmotionsIcon />
+                              </button>
+                              {props.onShowEmojiOpen && (
+                                <Picker onEmojiClick={props.onEmojiClick} />
+                              )}
+                            </>
                           </li>
                           <li>
                             <button
