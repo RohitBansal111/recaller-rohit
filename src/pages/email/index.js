@@ -587,7 +587,7 @@ const EmailPage = () => {
       userData.firstName &&
       selecteduser.contact &&
       selecteduser.contact.firstName
-    )
+    ) {
       x =
         item &&
         item
@@ -601,7 +601,7 @@ const EmailPage = () => {
             "[Customer Full Name]",
             selecteduser.contact.firstName + " " + selecteduser.contact.lastName
           );
-
+    }
     return x;
   };
 
