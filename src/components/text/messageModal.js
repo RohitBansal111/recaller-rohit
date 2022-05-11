@@ -19,6 +19,7 @@ import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
+import CodeIcon from '@material-ui/icons/Code';
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -164,6 +165,27 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <ImageIcon />
                     <input type="file" />
                   </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    id="dropdownMenuButton4"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    className="btn-action1 dropdown-toggle"
+                  >
+                    <CodeIcon />
+                  </button>
+                  <ul
+                    className="dropdown-menu insert-contact-field"
+                    aria-labelledby="dropdownMenuButton3"
+                  >
+                      <h4> Insert Contact Field </h4>
+                      <ul>
+                        <li> Contact First Name </li>
+                        <li> Contact Full Name </li>
+                      </ul>
+                  </ul>
                 </li>
                 <li>
                   <button
