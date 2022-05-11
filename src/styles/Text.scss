@@ -714,6 +714,7 @@
         }
         li{
             margin-right: 0px;
+            position: relative;
             .dropdown-toggle{
                 &::after{
                     display: none;

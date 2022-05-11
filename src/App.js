@@ -42,7 +42,6 @@ import EmailSetting from "./pages/settings/email";
 import EmailSender from "./pages/settings/email/email-sender";
 
 
-
 const IsAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
   if (!user) {

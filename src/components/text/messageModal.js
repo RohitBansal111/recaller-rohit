@@ -18,8 +18,14 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
+import Picker from 'emoji-picker-react'; 
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -145,9 +151,16 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   </ul>
                 </li>
                 <li>
-                  <button type="button" className="btn-action1">
-                    <EmojiEmotionsIcon />
-                  </button>
+                  
+                  {chosenEmoji ? (
+                      // <span>You chose: {chosenEmoji.emoji}</span>
+                      <button type="button" className="btn-action1">
+                        <EmojiEmotionsIcon />
+                      </button>
+                    ) : (
+                      <span>No emoji Chosen</span>
+                  )}
+                  <Picker onEmojiClick={onEmojiClick} />
                 </li>
                 <li>
                   <button type="button" className="btn-action1 fileType">
