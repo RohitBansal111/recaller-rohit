@@ -23,6 +23,8 @@ import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
+import LockIcon from '@material-ui/icons/Lock';
+import { Link } from "react-router-dom";
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -178,6 +180,12 @@ const ChatBoot = (props) => {
                         >
                           {props.sendMessage}
                         </textarea>
+                        <div className="closed-conversation-section">
+                            <div className="card-box">
+                              <LockIcon />
+                              <p>This Conversation is <b>Closed.</b> &nbsp;<Link to="/">Reopen</Link> to send messages. </p>
+                            </div>
+                        </div>
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <ul className="action-icons">
