@@ -90,6 +90,18 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                 options={props.options}
                 value={props.selected}
               />
+              <span className="spanError">{props.errors.emailSubject}</span>
+            </div>
+            <div className="field-group flexFull">
+              <label>Email Subject</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Subject"
+                name="subject"
+                value={props.emailSubject}
+                onChange={props.handleSubjectChange}
+              />
               <span className="spanError">{props.errors.selected}</span>
             </div>
             <div className="field-group messageBoxModal flexFull">

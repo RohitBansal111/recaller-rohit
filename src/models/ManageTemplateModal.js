@@ -102,7 +102,7 @@ const ManageTemplateModal = (props) => {
                     >
                       <h2>{props.templateDataState.title}</h2>
                       <p>
-                        {props.templateDataState &&
+                        {props.templateDataState.message &&
                           props.replacefunc(props.templateDataState.message)}
                       </p>
                     </div>

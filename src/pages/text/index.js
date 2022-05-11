@@ -69,11 +69,10 @@ const TextPage = () => {
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState("");
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
-  const divRef = useRef(null);
+  const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
 
-  const userData = useSelector((state) => state.Login.userData);
+  const divRef = useRef(null);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
@@ -81,6 +80,7 @@ const TextPage = () => {
     setErrors({});
     setLoading(false);
     setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -88,6 +88,7 @@ const TextPage = () => {
     setSendNewMessage("");
     setErrors({});
     setLoading(false);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleScheduleModal = () => {
@@ -533,12 +534,13 @@ const TextPage = () => {
   };
 
   const replacefunc = (item) => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
     var x = "";
     x =
       item &&
       item
-        .replace("[Employee First Name]", userData && userData.firstName)
-        .replace("[Employee Last Name]", userData && userData.lastName)
+        .replace("[Employee First Name]", userData.firstName)
+        .replace("[Employee Last Name]", userData.lastName)
         .replace(
           "[Employee Full Name]",
           userData.firstName + " " + userData.lastName
@@ -667,9 +669,18 @@ const TextPage = () => {
     setOnShowEmoji(true);
   };
 
+  const handleChatBotEmojiOpen = () => {
+    setOnShowChatBotEmojiOpen(true);
+  };
+
   const onEmojiClick = (event, emojiObject) => {
     setSendNewMessage((prevInput) => prevInput + emojiObject.emoji);
     setOnShowEmoji(false);
+  };
+
+  const onChatBotEmojiClick = (event, emojiObject) => {
+    setSendMessage((prevInput) => prevInput + emojiObject.emoji);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   return (
@@ -768,9 +779,9 @@ const TextPage = () => {
           handleTempDelModal={handleTempDelModal}
           handleCloseDeleteTempModal={handleCloseDeleteTempModal}
           showDeleteTempModal={deleteTempComfirmation}
-          handleEmojiOpen={handleEmojiOpen}
-        onEmojiClick={onEmojiClick}
-        onShowEmojiOpen={onShowEmoji}
+          handleChatBotEmojiOpen={handleChatBotEmojiOpen}
+          onChatBotEmojiClick={onChatBotEmojiClick}
+          onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
         />
       </div>
       <MessageModal

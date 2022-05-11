@@ -70,7 +70,8 @@ const EmailPage = () => {
   const [dateSelected, setDateSelected] = useState("");
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
-
+  const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
+  const [emailSubject, setEmailSubject] = useState("");
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -110,6 +111,8 @@ const EmailPage = () => {
     setPreview(false);
     setEmailMessage("");
     setLoading(false);
+    setEmailSubject("");
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleCloseMessageModal = () => {
@@ -118,6 +121,8 @@ const EmailPage = () => {
     setEmailMessage("");
     setSelected([]);
     setLoading(false);
+    setEmailSubject("");
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleCloseETModal = () => {
@@ -310,7 +315,11 @@ const EmailPage = () => {
     let formData = true;
     switch (true) {
       case selected.length == 0:
-        setErrors({ selected: "Please Select an email address" });
+        setErrors({ selected: "Please Select a Contact Name" });
+        formData = false;
+        break;
+      case !emailSubject:
+        setErrors({ selected: "Please Enter Email Subject" });
         formData = false;
         break;
       default:
@@ -319,12 +328,19 @@ const EmailPage = () => {
     return formData;
   };
 
+  const handleSubjectChange = (e) => {
+    setEmailSubject(e.target.value);
+    setErrors({});
+    setLoading(false);
+  };
+
   const sendMessageClick = async () => {
     if (isSelectValid()) {
       setLoading(true);
       let contactid = selected.map((item) => item.value);
       const obj = {
         contactid: contactid,
+        subject: emailSubject,
         message: emailMessage,
       };
       let res = await sendEmailMessageApi(obj);
@@ -334,6 +350,7 @@ const EmailPage = () => {
         setSelected([]);
         setEmailMessage("");
         setLoading(false);
+        setEmailSubject("");
       }
       getEmailMessage();
     }
@@ -437,6 +454,7 @@ const EmailPage = () => {
   const onHandleClick = async () => {
     setLoading(true);
     const obj = {
+      subject: selecteduser.subject,
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
     };
@@ -561,6 +579,8 @@ const EmailPage = () => {
   };
 
   const replacefunc = (item) => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    console.log(userData, "uuuuuuuuuuuuu");
     var x = "";
     x =
       item &&
@@ -578,7 +598,6 @@ const EmailPage = () => {
 
     return x;
   };
-  const userData = useSelector((state) => state.Login.userData);
 
   const getEmailTemplate = async () => {
     let res = await getEmailTemplateApi();
@@ -677,9 +696,18 @@ const EmailPage = () => {
     setOnShowEmoji(true);
   };
 
+  const handleChatBotEmojiOpen = () => {
+    setOnShowChatBotEmojiOpen(true);
+  };
+
   const onEmojiClick = (event, emojiObject) => {
     setEmailMessage((prevInput) => prevInput + emojiObject.emoji);
     setOnShowEmoji(false);
+  };
+
+  const onChatBotEmojiClick = (event, emojiObject) => {
+    setSendEmailMessage((prevInput) => prevInput + emojiObject.emoji);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   return (
@@ -780,8 +808,9 @@ const EmailPage = () => {
           handleTempDelModal={handleTempDelModal}
           handleCloseDeleteTempModal={handleCloseDeleteTempModal}
           showDeleteTempModal={deleteTempComfirmation}
-          handleEmojiOpen={handleEmojiOpen}
-          onShowEmojiOpen={onShowEmoji}
+          handleChatBotEmojiOpen={handleChatBotEmojiOpen}
+          onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
+          onChatBotEmojiClick={onChatBotEmojiClick}
         />
       </div>
       <EmailModal
@@ -838,6 +867,9 @@ const EmailPage = () => {
         showDeleteTempModal={deleteTempComfirmation}
         handleEmojiOpen={handleEmojiOpen}
         onShowEmojiOpen={onShowEmoji}
+        emailSubject={emailSubject}
+        handleSubjectChange={handleSubjectChange}
+        onEmojiClick={onEmojiClick}
       />
     </div>
   );

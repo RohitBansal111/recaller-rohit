@@ -46,7 +46,7 @@ const ContactModal = (props) => {
             <div className="field-group flex2">
               <label>Phone</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 placeholder="Enter Phone"
                 name="phone"

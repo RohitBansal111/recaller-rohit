@@ -309,16 +309,23 @@ export default function EnhancedTable(props) {
                 .startsWith(props.value.toLowerCase()) ||
               contact.firstName
                 .toLowerCase()
-                .startsWith(props.value.toLowerCase())
+                .startsWith(props.value.toLowerCase()) ||
+              contact.lastName
+                .toLowerCase()
+                .startsWith(props.value.toLowerCase()) ||
+              contact.phone.startsWith(props.value) ||
+              contact.email.toLowerCase().startsWith(props.value.toLowerCase())
           )
         : rowsData.filter(
             (contact) =>
               contact.firstName
                 .toLowerCase()
                 .startsWith(props.value.toLowerCase()) ||
-              contact.firstName
+              contact.lastName
                 .toLowerCase()
-                .startsWith(props.value.toLowerCase())
+                .startsWith(props.value.toLowerCase()) ||
+              contact.phone.startsWith(props.value) ||
+              contact.email.toLowerCase().startsWith(props.value.toLowerCase())
           );
 
     const contactData =

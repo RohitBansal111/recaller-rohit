@@ -57,7 +57,6 @@ const Import = () => {
   const isValid = () => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    const phoneRegex = /^[+0]{0,2}(91)?[0-9]{10}$/;
     let formData = true;
     switch (true) {
       case !addContact.firstName:
@@ -71,10 +70,6 @@ const Import = () => {
       case !addContact.phone:
         setErrors({ phone: "Phone field is required!" });
 
-        formData = false;
-        break;
-      case addContact.phone && !phoneRegex.test(addContact.phone):
-        setErrors({ phone: "Please enter valid Valid Phone Number!" });
         formData = false;
         break;
       case !addContact.email:

@@ -247,12 +247,14 @@ const EmailChatBoot = (props) => {
                                 <button
                                   type="button"
                                   className="btn-action1"
-                                  onClick={props.handleEmojiOpen}
+                                  onClick={props.handleChatBotEmojiOpen}
                                 >
                                   <EmojiEmotionsIcon />
                                 </button>
-                                {props.onShowEmojiOpen && (
-                                  <Picker onEmojiClick={props.onEmojiClick} />
+                                {props.onShowChatBotEmojiOpen && (
+                                  <Picker
+                                    onEmojiClick={props.onChatBotEmojiClick}
+                                  />
                                 )}
                               </>
                             </li>

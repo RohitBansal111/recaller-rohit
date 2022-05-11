@@ -47,7 +47,7 @@ const FilterTabs = (props) => {
           eventKey="filter"
           title={
             <span>
-              <AddCircleOutlineIcon /> New Filter ({props.totalRecords}){" "}
+              <AddCircleOutlineIcon /> New Filter ({props.totalRecords})
             </span>
           }
         >
