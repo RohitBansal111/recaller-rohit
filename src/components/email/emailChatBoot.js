@@ -29,6 +29,7 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -189,7 +190,7 @@ const EmailChatBoot = (props) => {
                   <Tab eventKey="all" title="Message">
                     <div className="chat-textarea">
                       <form className="main-form">
-                        <div className="field-group flexFull">
+                        <div className="field-group flexFull mb-0">
                           {props.selecteduser &&
                           props.selecteduser.contact &&
                           props.selecteduser.contact.emailSubs ==
@@ -218,14 +219,33 @@ const EmailChatBoot = (props) => {
                               </div>
                             </div>
                           ) : (
-                            <textarea
-                              placeholder="Type your message..."
-                              name="sendEmailMessage"
-                              value={props.sendEmailMessage}
-                              onChange={props.onHandleChange}
-                            >
-                              {props.sendEmailMessage}
-                            </textarea>
+                            <div className="attachedImage-box">
+                              {props.selectedImage && (
+                                <ul className="attachedImageGallery">
+                                  <li>
+                                    <img
+                                      alt="not fount"
+                                      src={props.selectedImage}
+                                    />
+                                    <button
+                                      type="button"
+                                      className="btn btn-cross"
+                                      onClick={props.handleImageCancel}
+                                    >
+                                      <CancelIcon />
+                                    </button>
+                                  </li>
+                                </ul>
+                              )}
+                              <textarea
+                                placeholder="Type your message..."
+                                name="sendEmailMessage"
+                                value={props.sendEmailMessage}
+                                onChange={props.onHandleChange}
+                              >
+                                {props.sendEmailMessage}
+                              </textarea>
+                            </div>
                           )}
                         </div>
                         <div className="field-group btn-groups flexFull">
@@ -292,9 +312,14 @@ const EmailChatBoot = (props) => {
                               <button
                                 type="button"
                                 className="btn-action1 fileType"
+                                onClick={props.handleImageOpen}
                               >
                                 <ImageIcon />
-                                <input type="file" />
+                                <input
+                                  type="file"
+                                  name="myImage"
+                                  onChange={props.handleImageChange}
+                                />
                               </button>
                             </li>
                             <li>

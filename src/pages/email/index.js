@@ -72,6 +72,8 @@ const EmailPage = () => {
   const [onShowEmoji, setOnShowEmoji] = useState(false);
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
   const [emailSubject, setEmailSubject] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -577,24 +579,28 @@ const EmailPage = () => {
     }
     getEmailTemplate();
   };
-
   const replacefunc = (item) => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    console.log(userData, "uuuuuuuuuuuuu");
     var x = "";
-    x =
-      item &&
-      item
-        .replace("[Employee First Name]", userData.firstName)
-        .replace("[Employee Last Name]", userData.lastName)
-        .replace(
-          "[Employee Full Name]",
-          userData.firstName + " " + userData.lastName
-        )
-        .replace(
-          "[Customer Full Name]",
-          selecteduser.contact.firstName + " " + selecteduser.contact.lastName
-        );
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (
+      userData &&
+      userData.firstName &&
+      selecteduser.contact &&
+      selecteduser.contact.firstName
+    )
+      x =
+        item &&
+        item
+          .replace("[Employee First Name]", userData.firstName)
+          .replace("[Employee Last Name]", userData.lastName)
+          .replace(
+            "[Employee Full Name]",
+            userData.firstName + " " + userData.lastName
+          )
+          .replace(
+            "[Customer Full Name]",
+            selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+          );
 
     return x;
   };
@@ -634,8 +640,8 @@ const EmailPage = () => {
   };
 
   const handleEditTemplate = (item) => {
+    setEditTempData(item);
     seteditmanageTemplate(true);
-    setEditTempData(item.message);
   };
 
   const handleTempEditCancel = () => {
@@ -708,6 +714,25 @@ const EmailPage = () => {
   const onChatBotEmojiClick = (event, emojiObject) => {
     setSendEmailMessage((prevInput) => prevInput + emojiObject.emoji);
     setOnShowChatBotEmojiOpen(false);
+  };
+
+  const savelistToMessageClick = (e) => {
+    let data = e.target.getAttribute("data-name");
+    setEmailMessage(emailMessage + data);
+  };
+
+  const handleImageOpen = () => {
+    setSelectedImage(true);
+  };
+
+  const handleImageCancel = () => {
+    setSelectedImage(false);
+  };
+
+  const handleImageChange = (event) => {
+    console.log(event.target.files[0]);
+    let img = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(img));
   };
 
   return (
@@ -811,6 +836,10 @@ const EmailPage = () => {
           handleChatBotEmojiOpen={handleChatBotEmojiOpen}
           onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
           onChatBotEmojiClick={onChatBotEmojiClick}
+          selectedImage={selectedImage}
+          handleImageOpen={handleImageOpen}
+          handleImageCancel={handleImageCancel}
+          handleImageChange={handleImageChange}
         />
       </div>
       <EmailModal
@@ -870,9 +899,9 @@ const EmailPage = () => {
         emailSubject={emailSubject}
         handleSubjectChange={handleSubjectChange}
         onEmojiClick={onEmojiClick}
+        savelistToMessageClick={savelistToMessageClick}
       />
     </div>
   );
 };
-
 export default EmailPage;

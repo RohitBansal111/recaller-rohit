@@ -26,7 +26,6 @@ import {
   sendTemplate,
   updateTemplate,
 } from "../../api/template";
-import { useSelector } from "react-redux";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -71,6 +70,7 @@ const TextPage = () => {
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const divRef = useRef(null);
 
@@ -534,23 +534,30 @@ const TextPage = () => {
   };
 
   const replacefunc = (item) => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
     var x = "";
-    x =
-      item &&
-      item
-        .replace("[Employee First Name]", userData.firstName)
-        .replace("[Employee Last Name]", userData.lastName)
-        .replace(
-          "[Employee Full Name]",
-          userData.firstName + " " + userData.lastName
-        )
-        .replace(
-          "[Customer Full Name]",
-          selecteduser.contact.firstName + " " + selecteduser.contact.lastName
-        );
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (
+      userData &&
+      userData.firstName &&
+      selecteduser.contact &&
+      selecteduser.contact.firstName
+    ) {
+      x =
+        item &&
+        item
+          .replace("[Employee First Name]", userData.firstName)
+          .replace("[Employee Last Name]", userData.lastName)
+          .replace(
+            "[Employee Full Name]",
+            userData.firstName + " " + userData.lastName
+          )
+          .replace(
+            "[Customer Full Name]",
+            selecteduser.contact.firstName + " " + selecteduser.contact.lastName
+          );
 
-    return x;
+      return x;
+    }
   };
 
   const handleTemplateSubmit = async () => {
@@ -683,6 +690,25 @@ const TextPage = () => {
     setOnShowChatBotEmojiOpen(false);
   };
 
+  const savelistToMessageClick = (e) => {
+    let data = e.target.getAttribute("data-name");
+    setSendNewMessage(sendNewMessage + data);
+  };
+
+  const handleImageOpen = () => {
+    setSelectedImage(true);
+  };
+
+  const handleImageCancel = () => {
+    setSelectedImage(false);
+  };
+
+  const handleImageChange = (event) => {
+    console.log(event.target.files[0]);
+    let img = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(img));
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -782,6 +808,10 @@ const TextPage = () => {
           handleChatBotEmojiOpen={handleChatBotEmojiOpen}
           onChatBotEmojiClick={onChatBotEmojiClick}
           onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
+          handleImageOpen={handleImageOpen}
+          selectedImage={selectedImage}
+          handleImageCancel={handleImageCancel}
+          handleImageChange={handleImageChange}
         />
       </div>
       <MessageModal
@@ -840,6 +870,7 @@ const TextPage = () => {
         handleEmojiOpen={handleEmojiOpen}
         onEmojiClick={onEmojiClick}
         onShowEmojiOpen={onShowEmoji}
+        savelistToMessageClick={savelistToMessageClick}
       />
     </div>
   );

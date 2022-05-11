@@ -25,8 +25,8 @@ import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 import { Link } from "react-router-dom";
-import PlaceholderImage from './../../assets/images/placeholder.jpg'
-import CancelIcon from '@material-ui/icons/Cancel';
+import PlaceholderImage from "./../../assets/images/placeholder.jpg";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const ChatBoot = (props) => {
   const userMessageList = () => {
@@ -202,12 +202,23 @@ const ChatBoot = (props) => {
                           </div>
                         ) : (
                           <div className="attachedImage-box">
-                            <ul className="attachedImageGallery">
-                              <li>
-                                <img src={PlaceholderImage} alt="img" />
-                                <button type='button' className="btn btn-cross"> <CancelIcon /> </button>
-                              </li>
-                            </ul>
+                            {props.selectedImage && (
+                              <ul className="attachedImageGallery">
+                                <li>
+                                  <img
+                                    alt="not fount"
+                                    src={props.selectedImage}
+                                  />
+                                  <button
+                                    type="button"
+                                    className="btn btn-cross"
+                                    onClick={props.handleImageCancel}
+                                  >
+                                    <CancelIcon />
+                                  </button>
+                                </li>
+                              </ul>
+                            )}
                             <textarea
                               placeholder="Type your message..."
                               name="sendMessage"
@@ -217,7 +228,7 @@ const ChatBoot = (props) => {
                               {props.sendMessage}
                             </textarea>
                           </div>
-                        )} 
+                        )}
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <ul className="action-icons">
@@ -283,9 +294,14 @@ const ChatBoot = (props) => {
                             <button
                               type="button"
                               className="btn-action1 fileType"
+                              onClick={props.handleImageOpen}
                             >
                               <ImageIcon />
-                              <input type="file" />
+                              <input
+                                type="file"
+                                name="myImage"
+                                onChange={props.handleImageChange}
+                              />
                             </button>
                           </li>
                           <li>
