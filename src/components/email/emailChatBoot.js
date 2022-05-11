@@ -27,6 +27,7 @@ import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import { Link } from "react-router-dom";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
+import Picker from "emoji-picker-react";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -242,9 +243,18 @@ const EmailChatBoot = (props) => {
                               </ul>
                             </li>
                             <li>
-                              <button type="button" className="btn-action1">
-                                <EmojiEmotionsIcon />
-                              </button>
+                              <>
+                                <button
+                                  type="button"
+                                  className="btn-action1"
+                                  onClick={props.handleEmojiOpen}
+                                >
+                                  <EmojiEmotionsIcon />
+                                </button>
+                                {props.onShowEmojiOpen && (
+                                  <Picker onEmojiClick={props.onEmojiClick} />
+                                )}
+                              </>
                             </li>
                             <li>
                               <button

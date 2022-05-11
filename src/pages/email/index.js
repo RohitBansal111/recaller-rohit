@@ -69,6 +69,7 @@ const EmailPage = () => {
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState("");
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
+  const [onShowEmoji, setOnShowEmoji] = useState(false);
 
   const divRef = useRef(null);
 
@@ -672,6 +673,15 @@ const EmailPage = () => {
     setDeleteTempComfirmation(true);
   };
 
+  const handleEmojiOpen = () => {
+    setOnShowEmoji(true);
+  };
+
+  const onEmojiClick = (event, emojiObject) => {
+    setEmailMessage((prevInput) => prevInput + emojiObject.emoji);
+    setOnShowEmoji(false);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -770,6 +780,8 @@ const EmailPage = () => {
           handleTempDelModal={handleTempDelModal}
           handleCloseDeleteTempModal={handleCloseDeleteTempModal}
           showDeleteTempModal={deleteTempComfirmation}
+          handleEmojiOpen={handleEmojiOpen}
+          onShowEmojiOpen={onShowEmoji}
         />
       </div>
       <EmailModal
@@ -824,6 +836,8 @@ const EmailPage = () => {
         handleTempDelModal={handleTempDelModal}
         handleCloseDeleteTempModal={handleCloseDeleteTempModal}
         showDeleteTempModal={deleteTempComfirmation}
+        handleEmojiOpen={handleEmojiOpen}
+        onShowEmojiOpen={onShowEmoji}
       />
     </div>
   );

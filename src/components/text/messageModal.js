@@ -146,12 +146,6 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   </ul>
                 </li>
                 <li>
-                  {/* {chosenEmoji ? (
-                    // <span>You chose: {chosenEmoji.emoji}</span>
-                    <button type="button" className="btn-action1">
-                      <EmojiEmotionsIcon />
-                    </button>
-                  ) : ( */}
                   <>
                     <button
                       type="button"
@@ -164,7 +158,6 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       <Picker onEmojiClick={props.onEmojiClick} />
                     )}
                   </>
-                  {/* )} */}
                 </li>
                 <li>
                   <button type="button" className="btn-action1 fileType">

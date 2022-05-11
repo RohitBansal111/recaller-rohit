@@ -18,6 +18,8 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import CreateTemplateModal from "./CreateTemplateModal";
 import ManageTemplateModal from "./ManageTemplateModal";
 import ScheduleMessageModal from "./ScheduleMessageModal";
+import Picker from "emoji-picker-react";
+
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -142,9 +144,18 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                   </ul>
                 </li>
                 <li>
-                  <button type="button" className="btn-action1">
-                    <EmojiEmotionsIcon />
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="btn-action1"
+                      onClick={props.handleEmojiOpen}
+                    >
+                      <EmojiEmotionsIcon />
+                    </button>
+                    {props.onShowEmojiOpen && (
+                      <Picker onEmojiClick={props.onEmojiClick} />
+                    )}
+                  </>
                 </li>
                 <li>
                   <button type="button" className="btn-action1 fileType">
