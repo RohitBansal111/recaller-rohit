@@ -62,12 +62,12 @@ const EmailPage = () => {
   const [templateName, setTemplateName] = useState("");
   const [templateTags, setTemplateTags] = useState(null);
   const [templateMessage, setTemplateMessage] = useState("");
-  const [templateData, setTemplateData] = useState("");
-  const [templateDataState, setTemplateDataState] = useState("");
+  const [templateData, setTemplateData] = useState([]);
+  const [templateDataState, setTemplateDataState] = useState({});
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-  const [dateSelected, setDateSelected] = useState("");
+  const [dateSelected, setDateSelected] = useState({});
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
@@ -161,11 +161,11 @@ const EmailPage = () => {
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
-    setDateSelected("");
+    setDateSelected({});
   };
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
-    setDateSelected("");
+    setDateSelected({});
   };
 
   const handleCreateTemplate = () => {
