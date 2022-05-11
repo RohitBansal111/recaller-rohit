@@ -19,7 +19,7 @@ import CreateTemplateModal from "./CreateTemplateModal";
 import ManageTemplateModal from "./ManageTemplateModal";
 import ScheduleMessageModal from "./ScheduleMessageModal";
 import Picker from "emoji-picker-react";
-import CodeIcon from '@material-ui/icons/Code';
+import CodeIcon from "@material-ui/icons/Code";
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -183,17 +183,17 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                     aria-expanded="false"
                     className="btn-action1 dropdown-toggle"
                   >
-                    <CodeIcon />
+                    <CodeIcon></CodeIcon>
                   </button>
                   <ul
                     className="dropdown-menu insert-contact-field"
                     aria-labelledby="dropdownMenuButton3"
                   >
-                      <h4> Insert Contact Field </h4>
-                      <ul>
-                        <li> Contact First Name </li>
-                        <li> Contact Full Name </li>
-                      </ul>
+                    <h4> Insert Contact Field </h4>
+                    <ul>
+                      <li> [Contact First Name] </li>
+                      <li> [Contact Full Name] </li>
+                    </ul>
                   </ul>
                 </li>
                 <li>

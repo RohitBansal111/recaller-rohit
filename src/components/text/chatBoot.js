@@ -23,7 +23,7 @@ import ScheduleMessageModal from "../../models/ScheduleMessageModal";
 import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
-import LockIcon from '@material-ui/icons/Lock';
+import LockIcon from "@material-ui/icons/Lock";
 import { Link } from "react-router-dom";
 
 const ChatBoot = (props) => {
@@ -172,20 +172,42 @@ const ChatBoot = (props) => {
                   <div className="chat-textarea">
                     <form className="main-form">
                       <div className="field-group flexFull">
-                        <textarea
-                          placeholder="Type your message..."
-                          name="sendMessage"
-                          value={props.sendMessage}
-                          onChange={props.onHandleChange}
-                        >
-                          {props.sendMessage}
-                        </textarea>
-                        <div className="closed-conversation-section">
+                        {props.selecteduser &&
+                        props.selecteduser.contact &&
+                        props.selecteduser.contact.phoneSubs == "opted-out" ? (
+                          <div className="closed-conversation-section">
                             <div className="card-box">
                               <LockIcon />
-                              <p>This Conversation is <b>Closed.</b> &nbsp;<Link to="/">Reopen</Link> to send messages. </p>
+                              <p>
+                                This Conversation is <b>Closed.</b> &nbsp;
+                                <b>
+                                  <u
+                                    onClick={() =>
+                                      props.handleOptOut(
+                                        props.selecteduser.contact.phoneSubs ==
+                                          "opted-in"
+                                          ? "opted-out"
+                                          : "opted-in"
+                                      )
+                                    }
+                                  >
+                                    Opted In
+                                  </u>
+                                </b>{" "}
+                                to send messages.{" "}
+                              </p>
                             </div>
-                        </div>
+                          </div>
+                        ) : (
+                          <textarea
+                            placeholder="Type your message..."
+                            name="sendMessage"
+                            value={props.sendMessage}
+                            onChange={props.onHandleChange}
+                          >
+                            {props.sendMessage}
+                          </textarea>
+                        )}
                       </div>
                       <div className="field-group btn-groups flexFull">
                         <ul className="action-icons">
