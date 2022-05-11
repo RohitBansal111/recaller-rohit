@@ -730,7 +730,6 @@ const EmailPage = () => {
   };
 
   const handleImageChange = (event) => {
-    console.log(event.target.files[0]);
     let img = event.target.files[0];
     setSelectedImage(URL.createObjectURL(img));
   };
