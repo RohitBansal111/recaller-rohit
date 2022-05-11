@@ -158,7 +158,9 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                         <EmojiEmotionsIcon />
                       </button>
                     ) : (
-                      <span>No emoji Chosen</span>
+                      <button type="button" className="btn-action1">
+                        <EmojiEmotionsIcon />
+                      </button>
                   )}
                   <Picker onEmojiClick={onEmojiClick} />
                 </li>
