@@ -182,16 +182,16 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <h4> Insert Contact Field </h4>
                     <ul>
                       <li
-                        data-name={"[Contact First Name]"}
+                        data-name={"[Customer First Name]"}
                         onClick={props.savelistToMessageClick}
                       >
-                        [Contact First Name]
+                        [Customer First Name]
                       </li>
                       <li
-                        data-name={"[Contact Full Name]"}
+                        data-name={"[Customer Full Name]"}
                         onClick={props.savelistToMessageClick}
                       >
-                        [Contact Full Name]
+                        [Customer Full Name]
                       </li>
                     </ul>
                   </ul>
