@@ -509,8 +509,8 @@
         }
     }
     &.voice-chat-screen{
-        max-height: calc(100vh - 205px);
-        min-height: calc(100vh - 205px);
+        max-height: calc(100vh - 245px);
+        min-height: calc(100vh - 245px);
         width: 100%;
         ul{
             margin-bottom: 0px;
@@ -893,6 +893,18 @@
                 svg{
                     fill: #adadad !important;
                 }
+            }
+        }
+    }
+}
+.voice-recorder-box{
+    .voice-closed-OPT{
+        padding: 15px;
+        .closed-conversation-section{
+            position: relative;
+            background-color: #fff !important;
+            .card-box{
+                background-color: #f6f6f6 !important; 
             }
         }
     }

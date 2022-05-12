@@ -158,27 +158,29 @@ const VoiceChatBoot = (props) => {
                 {props.selecteduser &&
                 props.selecteduser.contact &&
                 props.selecteduser.contact.voiceSubs == "opted-out" ? (
-                  <div className="closed-conversation-section">
-                    <div className="card-box">
-                      <LockIcon />
-                      <p>
-                        This Conversation is <b>Closed.</b> &nbsp;
-                        <b>
-                          <u
-                            onClick={() =>
-                              props.handleOptOut(
-                                props.selecteduser.contact.voiceSubs ==
-                                  "opted-in"
-                                  ? "opted-out"
-                                  : "opted-in"
-                              )
-                            }
-                          >
-                            Opted In
-                          </u>
-                        </b>{" "}
-                        to send messages.{" "}
-                      </p>
+                  <div className="voice-closed-OPT">
+                    <div className="closed-conversation-section">
+                      <div className="card-box">
+                        <LockIcon />
+                        <p>
+                          This Conversation is <b>Closed.</b> &nbsp;
+                          <b>
+                            <u
+                              onClick={() =>
+                                props.handleOptOut(
+                                  props.selecteduser.contact.voiceSubs ==
+                                    "opted-in"
+                                    ? "opted-out"
+                                    : "opted-in"
+                                )
+                              }
+                            >
+                              Opted In
+                            </u>
+                          </b>{" "}
+                          to send messages.{" "}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ) : (
