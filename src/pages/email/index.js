@@ -596,8 +596,8 @@ const EmailPage = () => {
       x =
         item &&
         item
-          .replace("[Employee First Name]", userData.firstName)
-          .replace("[Employee Last Name]", userData.lastName)
+          .replace("[Employee First Name]", userData.firstName.charAt(0))
+          .replace("[Employee Last Name]", userData.lastName.charAt(0))
           .replace(
             "[Employee Full Name]",
             userData.firstName + " " + userData.lastName
