@@ -535,7 +535,7 @@ const EmailPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success(`${type} Successfully`);
+      toast.success(`${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`);
       getEmailMessage(false, true);
       selecteduser.contact.emailSubs = type;
       setSelecteduser(selecteduser);

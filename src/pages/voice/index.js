@@ -484,6 +484,7 @@ const Voice = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
+      toast.success(`${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`)
       getVoiceMessage(false, true);
       selecteduser.contact.voiceSubs = type;
       setSelecteduser(selecteduser);

@@ -13,6 +13,7 @@ import EditContactModal from "../../models/editContactModal";
 import WifiOffIcon from "@material-ui/icons/WifiOff";
 import WifiIcon from "@material-ui/icons/Wifi";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
+import LockIcon from "@material-ui/icons/Lock";
 
 const VoiceChatBoot = (props) => {
   const userVoiceMessageList = () => {
@@ -154,53 +155,83 @@ const VoiceChatBoot = (props) => {
               []
             ) : (
               <div className="voice-recorder-box">
-                <div className="recording-left">
-                  <span></span>{" "}
-                  <h4>
-                    {props.minute}:{props.second}
-                  </h4>
-                  {props.second > 0 ? (
-                    <button
-                      type="button"
-                      className="remove-recording-action"
-                      onClick={props.stopTimer}
-                    >
-                      {" "}
-                      ×{" "}
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </div>
-
-                {props.second > 0 && props.isActive == false ? (
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={props.handleSendSingleContactVoice}
-                  >
-                    Send
-                  </button>
+                {props.selecteduser &&
+                props.selecteduser.contact &&
+                props.selecteduser.contact.voiceSubs == "opted-out" ? (
+                  <div className="closed-conversation-section">
+                    <div className="card-box">
+                      <LockIcon />
+                      <p>
+                        This Conversation is <b>Closed.</b> &nbsp;
+                        <b>
+                          <u
+                            onClick={() =>
+                              props.handleOptOut(
+                                props.selecteduser.contact.voiceSubs ==
+                                  "opted-in"
+                                  ? "opted-out"
+                                  : "opted-in"
+                              )
+                            }
+                          >
+                            Opted In
+                          </u>
+                        </b>{" "}
+                        to send messages.{" "}
+                      </p>
+                    </div>
+                  </div>
                 ) : (
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                      if (!props.isActive) {
-                        props.startRecording();
-                      } else {
-                        props.stopRecording();
-                      }
-                      props.setIsActive(!props.isActive);
-                    }}
-                  >
-                    <MicIcon className="mr-2" />
-                    {props.second == 0
-                      ? "Press & Recording"
-                      : props.isActive == true
-                      ? "Stop"
-                      : "Press & Recording"}
-                  </button>
+                  <>
+                    <div className="recording-left">
+                      <span></span>{" "}
+                      <h4>
+                        {props.minute}:{props.second}
+                      </h4>
+                      {props.second > 0 ? (
+                        <button
+                          type="button"
+                          className="remove-recording-action"
+                          onClick={props.stopTimer}
+                        >
+                          {" "}
+                          ×{" "}
+                        </button>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+
+                    {props.second > 0 && props.isActive == false ? (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={props.handleSendSingleContactVoice}
+                      >
+                        Send
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                          if (!props.isActive) {
+                            props.startRecording();
+                          } else {
+                            props.stopRecording();
+                          }
+                          props.setIsActive(!props.isActive);
+                        }}
+                      >
+                        <MicIcon className="mr-2" />
+                        {props.second == 0
+                          ? "Press & Recording"
+                          : props.isActive == true
+                          ? "Stop"
+                          : "Press & Recording"}
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -294,98 +325,99 @@ const VoiceChatBoot = (props) => {
             </ul>
           </div>
           {!props.selecteduser ? (
-                ""
-              ) : (
-          <div className="conversation-tags">
-            <h4>Conversation Tags</h4>
-            <div className="dropdown">
-              <button
-                className="btn btn-addd-tag dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <AddIcon /> Add Tags
-              </button>
-              <div className="dynamic-tags">
-                <ul>
-                  {props.newAray
-                    ? props.newAray.map((item) => (
-                        <li
-                          style={{
-                            borderColor: item.color,
-                            color: item.color,
-                          }}
-                        >
-                          {item.name}{" "}
-                          <span
-                            className="remove-tag"
-                            style={{ color: item.color }}
-                            onClick={() => props.handleSelectDel(item)}
+            ""
+          ) : (
+            <div className="conversation-tags">
+              <h4>Conversation Tags</h4>
+              <div className="dropdown">
+                <button
+                  className="btn btn-addd-tag dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <AddIcon /> Add Tags
+                </button>
+                <div className="dynamic-tags">
+                  <ul>
+                    {props.newAray
+                      ? props.newAray.map((item) => (
+                          <li
+                            style={{
+                              borderColor: item.color,
+                              color: item.color,
+                            }}
                           >
-                            ✕
+                            {item.name}{" "}
+                            <span
+                              className="remove-tag"
+                              style={{ color: item.color }}
+                              onClick={() => props.handleSelectDel(item)}
+                            >
+                              ✕
+                            </span>
+                          </li>
+                        ))
+                      : []}
+                  </ul>
+                </div>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                  style={{ overflowY: "scroll", height: " 220px" }}
+                >
+                  {props.conversationTags
+                    ? props.conversationTags.map((item, index) => (
+                        <li
+                          style={{ borderColor: item.color }}
+                          onClick={() =>
+                            props.handleSelectedTagItems(item, index)
+                          }
+                        >
+                          <span style={{ color: item.color }}>
+                            <LocalOfferIcon style={{ fill: item.color }} />
+                            {item.name}
                           </span>
                         </li>
                       ))
                     : []}
-                </ul>
-              </div>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-                style={{ overflowY: "scroll", height: " 220px" }}
-              >
-                {props.conversationTags
-                  ? props.conversationTags.map((item, index) => (
-                      <li
-                        style={{ borderColor: item.color }}
-                        onClick={() =>
-                          props.handleSelectedTagItems(item, index)
-                        }
-                      >
-                        <span style={{ color: item.color }}>
-                          <LocalOfferIcon style={{ fill: item.color }} />
-                          {item.name}
-                        </span>
-                      </li>
-                    ))
-                  : []}
 
-                <li>
-                  <button
-                    type="button"
-                    onClick={props.onClick}
-                    className="btn link-bttn"
-                  >
-                    Manage Tags
-                  </button>
-                </li>
-              </ul>
-              <ConversationTagModal
-                open={props.openManageTagModal}
-                handleCloseManageModal={props.handleCloseManageModal}
-                openCTM={props.openCreateTagModal}
-                handleCloseCTModal={props.handleCloseCTModal}
-                addTags={props.addTags}
-                handleChange={props.handleChange}
-                handleClick={props.handleClick}
-                handleCMModal={props.handleCMModal}
-                openEditTagModal={props.openEditTagModal}
-                handleCloseETModal={props.handleCloseETModal}
-                handleEditChange={props.handleEditChange}
-                handleEdit={props.handleEdit}
-                editTags={props.editTags}
-                tags={props.tags}
-                handleEditTag={props.handleEditClick}
-                handleDelModal={props.handleDelModal}
-                showDeleteTagModal={props.openDelTagModal}
-                handleDeleteTags={props.handleDeleteTags}
-                handleCloseDeleteModal={props.handleCloseDeleteModal}
-                errors={props.errors}
-              />
+                  <li>
+                    <button
+                      type="button"
+                      onClick={props.onClick}
+                      className="btn link-bttn"
+                    >
+                      Manage Tags
+                    </button>
+                  </li>
+                </ul>
+                <ConversationTagModal
+                  open={props.openManageTagModal}
+                  handleCloseManageModal={props.handleCloseManageModal}
+                  openCTM={props.openCreateTagModal}
+                  handleCloseCTModal={props.handleCloseCTModal}
+                  addTags={props.addTags}
+                  handleChange={props.handleChange}
+                  handleClick={props.handleClick}
+                  handleCMModal={props.handleCMModal}
+                  openEditTagModal={props.openEditTagModal}
+                  handleCloseETModal={props.handleCloseETModal}
+                  handleEditChange={props.handleEditChange}
+                  handleEdit={props.handleEdit}
+                  editTags={props.editTags}
+                  tags={props.tags}
+                  handleEditTag={props.handleEditClick}
+                  handleDelModal={props.handleDelModal}
+                  showDeleteTagModal={props.openDelTagModal}
+                  handleDeleteTags={props.handleDeleteTags}
+                  handleCloseDeleteModal={props.handleCloseDeleteModal}
+                  errors={props.errors}
+                />
+              </div>
             </div>
-          </div>)}
+          )}
           <div className="monthly-balance-box">
             <h4>Monthly Balance</h4>
             <ul>
