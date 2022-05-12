@@ -685,10 +685,11 @@ const EmailPage = () => {
     const res = await deleteEmailTemplate(templateDataState._id);
     if (res && res.data && res.data.status == 200) {
       toast.success(res.data.message);
+      setDeleteTempComfirmation(false);
+      getEmailTemplate();
     } else {
       toast.error(res.data.message);
     }
-    getEmailTemplate();
   };
 
   const handleDateChange = (e) => {
