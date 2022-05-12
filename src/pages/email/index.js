@@ -386,7 +386,12 @@ const EmailPage = () => {
 
   const getEmailMessage = async (check = true, tagsCheck = false) => {
     let res = await getUserWithEmailMessage();
-    if (res && res.data && res.data.status === 200) {
+    if (
+      res &&
+      res.data &&
+      res.data.status === 200 &&
+      res.data.data.length != 0
+    ) {
       setEmailMessageList(res.data.data);
       if (!tagsCheck) {
         setSelecteduser(res.data.data[0]);

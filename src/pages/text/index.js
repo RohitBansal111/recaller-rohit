@@ -388,7 +388,12 @@ const TextPage = () => {
 
   const getMessage = async (check = true, tagsCheck = false) => {
     const res = await getUserWithMessage();
-    if (res && res.data && res.data.status === 200) {
+    if (
+      res &&
+      res.data &&
+      res.data.status === 200 &&
+      res.data.data.length != 0
+    ) {
       setMessages(res.data.data);
       if (!tagsCheck) {
         setSelecteduser(res.data.data[0]);

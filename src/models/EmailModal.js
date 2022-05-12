@@ -243,9 +243,16 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                 loadingPosition="center"
                 loading={props.loading}
                 style={{
-                  cursor: props.emailMessage == 0 ? "not-allowed" : "pointer",
+                  cursor:
+                    props.emailMessage == 0 || props.selected.length == 0
+                      ? "not-allowed"
+                      : "pointer",
                 }}
-                disabled={!props.emailMessage ? true : false}
+                disabled={
+                  !props.emailMessage || props.selected.length == 0
+                    ? true
+                    : false
+                }
                 onClick={props.sendMessageClick}
                 className="btn btn-primary"
                 variant="contained"
@@ -289,6 +296,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             replacefunc={props.replacefunc}
             handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
             showDeleteTempModal={props.showDeleteTempModal}
+            selecteduser={props.selecteduser}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

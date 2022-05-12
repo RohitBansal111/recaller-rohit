@@ -181,203 +181,214 @@ const EmailChatBoot = (props) => {
             )}
             {location.pathname === "/text" || location.pathname === "/email" ? (
               <div className="chat-text-editor">
-                <Tabs
-                  defaultActiveKey="all"
-                  transition={false}
-                  id="noanim-tab-example"
-                  className="mb-3"
-                >
-                  <Tab eventKey="all" title="Message">
-                    <div className="chat-textarea">
-                      <form className="main-form">
-                        <div className="field-group flexFull mb-0">
-                          {props.selecteduser &&
-                          props.selecteduser.contact &&
-                          props.selecteduser.contact.emailSubs ==
-                            "opted-out" ? (
-                            <div className="closed-conversation-section">
-                              <div className="card-box">
-                                <LockIcon />
-                                <p>
-                                  This Conversation is <b>Closed.</b> &nbsp;
-                                  <b>
-                                    <u
-                                      onClick={() =>
-                                        props.handleOptOut(
-                                          props.selecteduser.contact
-                                            .emailSubs == "opted-in"
-                                            ? "opted-out"
-                                            : "opted-in"
-                                        )
-                                      }
-                                    >
-                                      Opted In
-                                    </u>
-                                  </b>{" "}
-                                  to send messages.{" "}
-                                </p>
+                {props.emailMessageList.length == 0 ? (
+                  " "
+                ) : (
+                  <Tabs
+                    defaultActiveKey="all"
+                    transition={false}
+                    id="noanim-tab-example"
+                    className="mb-3"
+                  >
+                    <Tab eventKey="all" title="Message">
+                      <div className="chat-textarea">
+                        <form className="main-form">
+                          <div className="field-group flexFull mb-0">
+                            {props.selecteduser &&
+                            props.selecteduser.contact &&
+                            props.selecteduser.contact.emailSubs ==
+                              "opted-out" ? (
+                              <div className="closed-conversation-section">
+                                <div className="card-box">
+                                  <LockIcon />
+                                  <p>
+                                    This Conversation is <b>Closed.</b> &nbsp;
+                                    <b>
+                                      <u
+                                        onClick={() =>
+                                          props.handleOptOut(
+                                            props.selecteduser.contact
+                                              .emailSubs == "opted-in"
+                                              ? "opted-out"
+                                              : "opted-in"
+                                          )
+                                        }
+                                      >
+                                        Opted In
+                                      </u>
+                                    </b>{" "}
+                                    to send messages.{" "}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          ) : (
-                            <div className="attachedImage-box">
-                              {props.selectedImage && (
-                                <ul className="attachedImageGallery">
-                                  <li>
-                                    <img
-                                      alt="not fount"
-                                      src={props.selectedImage}
-                                    />
-                                    <button
-                                      type="button"
-                                      className="btn btn-cross"
-                                      onClick={props.handleImageCancel}
-                                    >
-                                      <CancelIcon />
-                                    </button>
-                                  </li>
-                                </ul>
-                              )}
-                              <textarea
-                                placeholder="Type your message..."
-                                name="sendEmailMessage"
-                                value={props.sendEmailMessage}
-                                onChange={props.onHandleChange}
-                              >
-                                {props.sendEmailMessage}
-                              </textarea>
-                            </div>
-                          )}
-                        </div>
-                        <div className="field-group btn-groups flexFull">
-                          <ul className="action-icons">
-                            <li>
-                              <button
-                                type="button"
-                                id="dropdownMenuButton3"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                className="btn-action1 dropdown-toggle"
-                              >
-                                <PostAddIcon />
-                              </button>
-                              <ul
-                                className="dropdown-menu inset-template-popup"
-                                aria-labelledby="dropdownMenuButton3"
-                              >
-                                <h4>
-                                  Message Templates{" "}
-                                  <button
-                                    type="button"
-                                    onClick={props.handleManageTemplate}
-                                  >
-                                    Manage
-                                  </button>
-                                </h4>
-                                {props.templateData &&
-                                  props.templateData.map((item) => (
-                                    <li
-                                      onClick={() =>
-                                        props.handleEmailTempTitleClick(item)
-                                      }
-                                    >
-                                      {item.title}
+                            ) : (
+                              <div className="attachedImage-box">
+                                {props.selectedImage && (
+                                  <ul className="attachedImageGallery">
+                                    <li>
+                                      <img
+                                        alt="not fount"
+                                        src={props.selectedImage}
+                                      />
+                                      <button
+                                        type="button"
+                                        className="btn btn-cross"
+                                        onClick={props.handleImageCancel}
+                                      >
+                                        <CancelIcon />
+                                      </button>
                                     </li>
-                                  ))}
+                                  </ul>
+                                )}
+                                <textarea
+                                  placeholder="Type your message..."
+                                  name="sendEmailMessage"
+                                  value={props.sendEmailMessage}
+                                  onChange={props.onHandleChange}
+                                >
+                                  {props.sendEmailMessage}
+                                </textarea>
+                              </div>
+                            )}
+                          </div>
+                          <div className="field-group btn-groups flexFull">
+                            <ul className="action-icons">
+                              <li>
                                 <button
                                   type="button"
-                                  className="create-tem"
-                                  onClick={props.handleCreateTemplate}
+                                  id="dropdownMenuButton3"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                  className="btn-action1 dropdown-toggle"
                                 >
-                                  + Create Message Template
+                                  <PostAddIcon />
                                 </button>
-                              </ul>
-                            </li>
-                            <li>
-                              <>
+                                <ul
+                                  className="dropdown-menu inset-template-popup"
+                                  aria-labelledby="dropdownMenuButton3"
+                                >
+                                  <h4>
+                                    Message Templates{" "}
+                                    {props.templateData.length == 0 ? (
+                                      ""
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={props.handleManageTemplate}
+                                      >
+                                        Manage
+                                      </button>
+                                    )}
+                                  </h4>
+                                  {props.templateData &&
+                                    props.templateData.map((item) => (
+                                      <li
+                                        onClick={() =>
+                                          props.handleEmailTempTitleClick(item)
+                                        }
+                                      >
+                                        {item.title}
+                                      </li>
+                                    ))}
+                                  <button
+                                    type="button"
+                                    className="create-tem"
+                                    onClick={props.handleCreateTemplate}
+                                  >
+                                    + Create Message Template
+                                  </button>
+                                </ul>
+                              </li>
+                              <li>
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-action1"
+                                    onClick={props.handleChatBotEmojiOpen}
+                                  >
+                                    <EmojiEmotionsIcon />
+                                  </button>
+                                  {props.onShowChatBotEmojiOpen && (
+                                    <Picker
+                                      onEmojiClick={props.onChatBotEmojiClick}
+                                    />
+                                  )}
+                                </>
+                              </li>
+                              <li>
+                                <button
+                                  type="button"
+                                  className="btn-action1 fileType"
+                                  onClick={props.handleImageOpen}
+                                >
+                                  <ImageIcon />
+                                  <input
+                                    type="file"
+                                    name="myImage"
+                                    onChange={props.handleImageChange}
+                                  />
+                                </button>
+                              </li>
+                              <li>
                                 <button
                                   type="button"
                                   className="btn-action1"
-                                  onClick={props.handleChatBotEmojiOpen}
+                                  onClick={props.handleScheduleModal}
                                 >
+                                  <ScheduleIcon />
+                                </button>
+                              </li>
+                            </ul>
+                            <LoadingButton
+                              type="button"
+                              loadingPosition="center"
+                              loading={props.loading}
+                              style={{
+                                cursor:
+                                  props.sendEmailMessage == 0
+                                    ? "not-allowed"
+                                    : "pointer",
+                              }}
+                              disabled={!props.sendEmailMessage ? true : false}
+                              onClick={props.onHandleClick}
+                              className="btn-primary-outline"
+                              variant="outlined"
+                            >
+                              Send
+                            </LoadingButton>
+                          </div>
+                        </form>
+                      </div>
+                    </Tab>
+                    <Tab eventKey="filter" title="Internal Note">
+                      <div className="chat-textarea">
+                        <form className="main-form">
+                          <div className="field-group flexFull">
+                            <textarea
+                              placeholder="Type your note, only you and your teammates will see it."
+                              name="sendInternalMessage"
+                            ></textarea>
+                          </div>
+                          <div className="field-group btn-groups flexFull">
+                            <ul className="action-icons">
+                              <li>
+                                <button type="button" className="btn-action1">
                                   <EmojiEmotionsIcon />
                                 </button>
-                                {props.onShowChatBotEmojiOpen && (
-                                  <Picker
-                                    onEmojiClick={props.onChatBotEmojiClick}
-                                  />
-                                )}
-                              </>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                className="btn-action1 fileType"
-                                onClick={props.handleImageOpen}
-                              >
-                                <ImageIcon />
-                                <input
-                                  type="file"
-                                  name="myImage"
-                                  onChange={props.handleImageChange}
-                                />
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                className="btn-action1"
-                                onClick={props.handleScheduleModal}
-                              >
-                                <ScheduleIcon />
-                              </button>
-                            </li>
-                          </ul>
-                          <LoadingButton
-                            type="button"
-                            loadingPosition="center"
-                            loading={props.loading}
-                            style={{
-                              cursor:
-                                props.sendEmailMessage == 0
-                                  ? "not-allowed"
-                                  : "pointer",
-                            }}
-                            disabled={!props.sendEmailMessage ? true : false}
-                            onClick={props.onHandleClick}
-                            className="btn-primary-outline"
-                            variant="outlined"
-                          >
-                            Send
-                          </LoadingButton>
-                        </div>
-                      </form>
-                    </div>
-                  </Tab>
-                  <Tab eventKey="filter" title="Internal Note">
-                    <div className="chat-textarea">
-                      <form className="main-form">
-                        <div className="field-group flexFull">
-                          <textarea
-                            placeholder="Type your note, only you and your teammates will see it."
-                            name="sendInternalMessage"
-                          ></textarea>
-                        </div>
-                        <div className="field-group btn-groups flexFull">
-                          <ul className="action-icons">
-                            <li>
-                              <button type="button" className="btn-action1">
-                                <EmojiEmotionsIcon />
-                              </button>
-                            </li>
-                          </ul>
-                          <button type="button" className="btn-primary-outline">
-                            Add Note
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </Tab>
-                </Tabs>
+                              </li>
+                            </ul>
+                            <button
+                              type="button"
+                              className="btn-primary-outline"
+                            >
+                              Add Note
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </Tab>
+                  </Tabs>
+                )}
               </div>
             ) : (
               ""
@@ -452,118 +463,126 @@ const EmailChatBoot = (props) => {
                     props.selecteduser.contact.email}
                 </p>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() =>
-                    props.handleContactEditModal(
-                      props.selecteduser && props.selecteduser.contact._id
-                    )
-                  }
-                  className="btn-links"
-                >
-                  Edit Contact
-                </button>
-                <EditContactModal
-                  open={props.openContactModal}
-                  handleCloseContactModal={props.handleCloseContactModal}
-                  editContact={props.editContact}
-                  handleEditContactChange={props.handleEditContactChange}
-                  handleConDataEdit={props.handleConDataEdit}
-                />
-              </li>
+              {!props.selecteduser ? (
+                ""
+              ) : (
+                <li>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      props.handleContactEditModal(
+                        props.selecteduser && props.selecteduser.contact._id
+                      )
+                    }
+                    className="btn-links"
+                  >
+                    Edit Contact
+                  </button>
+                  <EditContactModal
+                    open={props.openContactModal}
+                    handleCloseContactModal={props.handleCloseContactModal}
+                    editContact={props.editContact}
+                    handleEditContactChange={props.handleEditContactChange}
+                    handleConDataEdit={props.handleConDataEdit}
+                  />
+                </li>
+              )}
             </ul>
           </div>
-          <div className="conversation-tags">
-            <h4>Conversation Tags</h4>
-            <div className="dropdown">
-              <button
-                className="btn btn-addd-tag dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <AddIcon /> Add Tags
-              </button>
-              <div className="dynamic-tags">
-                <ul>
-                  {props.newAray
-                    ? props.newAray.map((item) => (
-                        <li
-                          style={{
-                            borderColor: item.color,
-                            color: item.color,
-                          }}
-                        >
-                          {item.name}{" "}
-                          <span
-                            className="remove-tag"
-                            style={{ color: item.color }}
-                            onClick={() => props.handleSelectDel(item)}
+          {!props.selecteduser ? (
+            ""
+          ) : (
+            <div className="conversation-tags">
+              <h4>Conversation Tags</h4>
+              <div className="dropdown">
+                <button
+                  className="btn btn-addd-tag dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <AddIcon /> Add Tags
+                </button>
+                <div className="dynamic-tags">
+                  <ul>
+                    {props.newAray
+                      ? props.newAray.map((item) => (
+                          <li
+                            style={{
+                              borderColor: item.color,
+                              color: item.color,
+                            }}
                           >
-                            ✕
+                            {item.name}{" "}
+                            <span
+                              className="remove-tag"
+                              style={{ color: item.color }}
+                              onClick={() => props.handleSelectDel(item)}
+                            >
+                              ✕
+                            </span>
+                          </li>
+                        ))
+                      : []}
+                  </ul>
+                </div>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                  style={{ overflowY: "scroll", height: " 220px" }}
+                >
+                  {props.conversationTags
+                    ? props.conversationTags.map((item, index) => (
+                        <li
+                          style={{ borderColor: item.color }}
+                          onClick={() =>
+                            props.handleSelectedTagItems(item, index)
+                          }
+                        >
+                          <span style={{ color: item.color }}>
+                            <LocalOfferIcon style={{ fill: item.color }} />
+                            {item.name}
                           </span>
                         </li>
                       ))
                     : []}
-                </ul>
-              </div>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-                style={{ overflowY: "scroll", height: " 220px" }}
-              >
-                {props.conversationTags
-                  ? props.conversationTags.map((item, index) => (
-                      <li
-                        style={{ borderColor: item.color }}
-                        onClick={() =>
-                          props.handleSelectedTagItems(item, index)
-                        }
-                      >
-                        <span style={{ color: item.color }}>
-                          <LocalOfferIcon style={{ fill: item.color }} />
-                          {item.name}
-                        </span>
-                      </li>
-                    ))
-                  : []}
 
-                <li>
-                  <button
-                    type="button"
-                    onClick={props.onClick}
-                    className="btn link-bttn"
-                  >
-                    Manage Tags
-                  </button>
-                </li>
-              </ul>
-              <ConversationTagModal
-                open={props.openManageTagModal}
-                handleCloseManageModal={props.handleCloseManageModal}
-                openCTM={props.openCreateTagModal}
-                handleCloseCTModal={props.handleCloseCTModal}
-                addTags={props.addTags}
-                handleChange={props.handleChange}
-                handleClick={props.handleClick}
-                handleCMModal={props.handleCMModal}
-                openEditTagModal={props.openEditTagModal}
-                handleCloseETModal={props.handleCloseETModal}
-                handleEditChange={props.handleEditChange}
-                handleEdit={props.handleEdit}
-                editTags={props.editTags}
-                tags={props.tags}
-                handleEditTag={props.handleEditClick}
-                handleDelModal={props.handleDelModal}
-                showDeleteTagModal={props.openDelTagModal}
-                handleDeleteTags={props.handleDeleteTags}
-                handleCloseDeleteModal={props.handleCloseDeleteModal}
-                errors={props.errors}
-              />
+                  <li>
+                    <button
+                      type="button"
+                      onClick={props.onClick}
+                      className="btn link-bttn"
+                    >
+                      Manage Tags
+                    </button>
+                  </li>
+                </ul>
+                <ConversationTagModal
+                  open={props.openManageTagModal}
+                  handleCloseManageModal={props.handleCloseManageModal}
+                  openCTM={props.openCreateTagModal}
+                  handleCloseCTModal={props.handleCloseCTModal}
+                  addTags={props.addTags}
+                  handleChange={props.handleChange}
+                  handleClick={props.handleClick}
+                  handleCMModal={props.handleCMModal}
+                  openEditTagModal={props.openEditTagModal}
+                  handleCloseETModal={props.handleCloseETModal}
+                  handleEditChange={props.handleEditChange}
+                  handleEdit={props.handleEdit}
+                  editTags={props.editTags}
+                  tags={props.tags}
+                  handleEditTag={props.handleEditClick}
+                  handleDelModal={props.handleDelModal}
+                  showDeleteTagModal={props.openDelTagModal}
+                  handleDeleteTags={props.handleDeleteTags}
+                  handleCloseDeleteModal={props.handleCloseDeleteModal}
+                  errors={props.errors}
+                />
+              </div>
             </div>
-          </div>
+          )}
           <div className="monthly-balance-box">
             <h4>Monthly Balance</h4>
             <ul>
@@ -611,6 +630,7 @@ const EmailChatBoot = (props) => {
           replacefunc={props.replacefunc}
           handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
           showDeleteTempModal={props.showDeleteTempModal}
+          selecteduser={props.selecteduser}
         />
         <CreateTemplateModal
           showCreateTemplateModal={props.showCreateTemplateModal}

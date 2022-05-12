@@ -232,9 +232,12 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                 loadingPosition="center"
                 loading={props.loading}
                 style={{
-                  cursor: props.sendNewMessage == 0 ? "not-allowed" : "pointer",
+                  cursor:
+                    props.sendNewMessage == 0 || props.selected.length == 0
+                      ? "not-allowed"
+                      : "pointer",
                 }}
-                disabled={!props.sendNewMessage ? true : false}
+                disabled={!props.sendNewMessage || props.selected.length == 0 ? true : false}
                 onClick={props.handleSendClick}
                 className="btn btn-primary"
                 variant="contained"
@@ -278,6 +281,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             replacefunc={props.replacefunc}
             handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
             showDeleteTempModal={props.showDeleteTempModal}
+            selecteduser={props.selecteduser}
           />
           <CreateTemplateModal
             showCreateTemplateModal={props.showCreateTemplateModal}

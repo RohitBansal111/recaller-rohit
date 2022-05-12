@@ -267,28 +267,35 @@ const VoiceChatBoot = (props) => {
                 <h5>Email</h5>
                 <p>{props.selecteduser && props.selecteduser.contact.email}</p>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() =>
-                    props.handleContactEditModal(
-                      props.selecteduser && props.selecteduser.contact._id
-                    )
-                  }
-                  className="btn-links"
-                >
-                  Edit Contact
-                </button>
-                <EditContactModal
-                  open={props.openContactModal}
-                  handleCloseContactModal={props.handleCloseContactModal}
-                  editContact={props.editContact}
-                  handleEditContactChange={props.handleEditContactChange}
-                  handleConDataEdit={props.handleConDataEdit}
-                />
-              </li>
+              {!props.selecteduser ? (
+                ""
+              ) : (
+                <li>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      props.handleContactEditModal(
+                        props.selecteduser && props.selecteduser.contact._id
+                      )
+                    }
+                    className="btn-links"
+                  >
+                    Edit Contact
+                  </button>
+                  <EditContactModal
+                    open={props.openContactModal}
+                    handleCloseContactModal={props.handleCloseContactModal}
+                    editContact={props.editContact}
+                    handleEditContactChange={props.handleEditContactChange}
+                    handleConDataEdit={props.handleConDataEdit}
+                  />
+                </li>
+              )}
             </ul>
           </div>
+          {!props.selecteduser ? (
+                ""
+              ) : (
           <div className="conversation-tags">
             <h4>Conversation Tags</h4>
             <div className="dropdown">
@@ -378,7 +385,7 @@ const VoiceChatBoot = (props) => {
                 errors={props.errors}
               />
             </div>
-          </div>
+          </div>)}
           <div className="monthly-balance-box">
             <h4>Monthly Balance</h4>
             <ul>

@@ -100,12 +100,20 @@ const ManageTemplateModal = (props) => {
                       role="tabpanel"
                       aria-labelledby="v-pills-home-tab"
                     >
-                      <h2>{props.templateDataState?.title}</h2>
-                      <p>
-                        {props.templateDataState &&
-                          props.templateDataState.message &&
-                          props.replacefunc(props.templateDataState.message)}
-                      </p>
+                      {!props.selecteduser ? (
+                        ""
+                      ) : (
+                        <>
+                          <h2>{props.templateDataState?.title}</h2>
+                          <p>
+                            {props.templateDataState &&
+                              props.templateDataState.message &&
+                              props.replacefunc(
+                                props.templateDataState.message
+                              )}
+                          </p>
+                        </>
+                      )}
                     </div>
                   ) : (
                     <div className="edit-manage-template">
