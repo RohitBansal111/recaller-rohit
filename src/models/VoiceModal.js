@@ -25,8 +25,8 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
           <span className="spanError">{props.errors.selected}</span>
           <div className="field-group flexFull">
             <label>Voice Recording</label>
-            <div class="voice-recorder-box">
-              <div class="recording-left">
+            <div className="voice-recorder-box">
+              <div className="recording-left">
                 <span></span>{" "}
                 <h4>
                   {props.minute}:{props.second}
@@ -34,7 +34,7 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
               </div>
               <button
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 onClick={() => {
                   if (!props.isNewVoiceActive) {
                     props.startRecording();

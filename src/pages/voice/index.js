@@ -348,7 +348,7 @@ const Voice = () => {
         .then((res) => res.blob())
         .then(async (myBlob) => {
           var file = new File([myBlob], "name.wav");
-          console.log(file,"mediaBlobUrl2222");
+          console.log(file, "mediaBlobUrl2222");
           console.log(myBlob, "mediaBlobUrl111111");
           var formData = new FormData();
           let contactid = selecteduser.contact.contactid;
@@ -374,7 +374,12 @@ const Voice = () => {
 
   const getVoiceMessage = async (check = true, tagsCheck = false) => {
     const res = await getUserWithVoiceMessage();
-    if (res && res.data && res.data.status === 200) {
+    if (
+      res &&
+      res.data &&
+      res.data.status === 200 &&
+      res.data.data.length != 0
+    ) {
       setVoiceMessages(res.data.data);
       if (!tagsCheck) {
         setSelecteduser(res.data.data[0]);

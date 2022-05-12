@@ -52,24 +52,24 @@ const ManageTemplateModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="manage-template-body">
-            <div class="d-flex align-items-start">
+            <div className="d-flex align-items-start">
               <div
-                class="nav flex-column nav-pills me-3"
+                className="nav flex-column nav-pills me-3"
                 id="v-pills-tab"
                 role="tablist"
                 aria-orientation="vertical"
               >
-                <form class="main-form">
-                  <div class="field-group flexFull searchField">
+                <form className="main-form">
+                  <div className="field-group flexFull searchField">
                     <input
                       type="text"
                       name="search"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Search by Template Name"
                       value={props.searchValue}
                       onChange={props.handleSearchChange}
                     />
-                    <div class="search-field">
+                    <div className="search-field">
                       {" "}
                       {props.searchValue && <SearchIcon />}
                     </div>
@@ -86,16 +86,16 @@ const ManageTemplateModal = (props) => {
                   </button>
                 </div>
               </div>
-              <div class="tab-content" id="v-pills-tabContent">
+              <div className="tab-content" id="v-pills-tabContent">
                 <div
-                  class="tab-pane fade show active"
+                  className="tab-pane fade show active"
                   id="v-pills-messages"
                   role="tabpanel"
                   aria-labelledby="v-pills-messages-tab"
                 >
                   {!props.editmanageTemplate ? (
                     <div
-                      class="tab-pane fade show active"
+                      className="tab-pane fade show active"
                       id="v-pills-home"
                       role="tabpanel"
                       aria-labelledby="v-pills-home-tab"

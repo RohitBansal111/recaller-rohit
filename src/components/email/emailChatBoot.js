@@ -99,7 +99,7 @@ const EmailChatBoot = (props) => {
                 </div>
               </div>
             </form>
-            <ul class="user-list-main" id="chatBox">
+            <ul className="user-list-main" id="chatBox">
               {userEmailMessageList()}
             </ul>
           </div>
