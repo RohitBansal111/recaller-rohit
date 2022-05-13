@@ -82,7 +82,7 @@ const EmailChatBoot = (props) => {
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
-        <div className="chat-user-list">
+        <div className="chat-user-list" ref={props.docRef}>
           <div className="chat-list-filter">
             <form className="main-form">
               <div className="field-group flexFull searchField">
@@ -202,7 +202,7 @@ const EmailChatBoot = (props) => {
                                 <div className="card-box">
                                   <LockIcon />
                                   <p>
-                                    This Conversation is <b>Closed.</b> &nbsp;
+                                    This Conversation is <b>Opted Out.</b> &nbsp;
                                     <b>
                                       <u
                                         onClick={() =>
@@ -398,7 +398,7 @@ const EmailChatBoot = (props) => {
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">
-              {!props.editContactName && (
+              {/* {!props.editContactName && ( */}
                 <>
                   <h4>
                     {props.selecteduser
@@ -407,15 +407,15 @@ const EmailChatBoot = (props) => {
                         props.selecteduser.contact.lastName
                       : ""}
                   </h4>
-                  <EditIcon
+                  {/* <EditIcon
                     onClick={() =>
                       props.handleEditUserName(props.selecteduser.contact._id)
                     }
-                  />
+                  /> */}
                 </>
-              )}
+              {/* )} */}
 
-              {props.editContactName && (
+              {/* {props.editContactName && (
                 <>
                   <div className="multi-inputs">
                     <input
@@ -434,7 +434,7 @@ const EmailChatBoot = (props) => {
                     />
                   </div>
                 </>
-              )}
+              )} */}
             </div>
             <ul className="personal-info">
               <li>

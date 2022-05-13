@@ -6,6 +6,7 @@ import Recording1 from "./../../assets/recording/1.mp3";
 import { timeAgo } from "../../helper/timerFuntion";
 import { useSelector } from "react-redux";
 import LoaderIcon from "../../assets/svg-icons/loaderIcon";
+import { dateSince } from "../../helper/dateFunction";
 
 const VoiceRecordingChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
@@ -16,6 +17,10 @@ const VoiceRecordingChat = (props) => {
         {props.voiceChatData
           ? props.voiceChatData.map((item) => (
               <>
+                <li className="date-update">
+                  <span>{dateSince(item.createdAt)}</span>
+                  <p></p>
+                </li>
                 <li className="voice-chat-list">
                   <div
                     className={
@@ -52,9 +57,6 @@ const VoiceRecordingChat = (props) => {
                     {timeAgo(item.createdAt)}
                   </span>
                 </li>
-                {/* <li className="date-update">
-                <span>April 22, 2022</span><p></p>
-              </li> */}
               </>
             ))
           : []}

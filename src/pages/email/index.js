@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -75,6 +75,7 @@ const EmailPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const divRef = useRef(null);
+  const docRef = createRef();
 
   const isValid = () => {
     let formData = true;

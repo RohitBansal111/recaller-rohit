@@ -163,7 +163,7 @@ const VoiceChatBoot = (props) => {
                       <div className="card-box">
                         <LockIcon />
                         <p>
-                          This Conversation is <b>Closed.</b> &nbsp;
+                          This Conversation is <b>Opted Out.</b> &nbsp;
                           <b>
                             <u
                               onClick={() =>
@@ -243,24 +243,24 @@ const VoiceChatBoot = (props) => {
         <div className="chat-compassion-area">
           <div className="user-compassion-details">
             <div className="user-name-head">
-              {!props.editContactName && (
-                <>
-                  <h4>
-                    {props.selecteduser
-                      ? props.selecteduser.contact.firstName +
-                        " " +
-                        props.selecteduser.contact.lastName
-                      : ""}
-                  </h4>
-                  <EditIcon
+              {/* {!props.editContactName && ( */}
+              <>
+                <h4>
+                  {props.selecteduser
+                    ? props.selecteduser.contact.firstName +
+                      " " +
+                      props.selecteduser.contact.lastName
+                    : ""}
+                </h4>
+                {/* <EditIcon
                     onClick={() =>
                       props.handleEditUserName(props.selecteduser.contact._id)
                     }
-                  />
-                </>
-              )}
+                  /> */}
+              </>
+              {/* )} */}
 
-              {props.editContactName && (
+              {/* {props.editContactName && (
                 <>
                   <div className="multi-inputs">
                     <input
@@ -279,7 +279,7 @@ const VoiceChatBoot = (props) => {
                     />
                   </div>
                 </>
-              )}
+              )} */}
             </div>
             <ul className="personal-info">
               <li>
