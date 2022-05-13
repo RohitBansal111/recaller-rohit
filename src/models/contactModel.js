@@ -70,16 +70,15 @@ const ContactModal = (props) => {
             </div>
             <div className="field-group flexFull">
               <label> Create Campaign </label>
-              <Select
-                isMulti={false}
-                name="colors"
-                components={animatedComponents}
-                options={props.addTags}
-                onChange={props.handleChange}
-                className="basic-multi-select"
-                classNamePrefix="select"
-                value={props.selectTags}
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Campaign"
+                name="compaign"
+                value={props.addContactData.compaign}
+                onChange={props.onChange}
               />
+              <span className="spanError">{props.errors.compaign}</span>
             </div>
           </form>
         </Modal.Body>

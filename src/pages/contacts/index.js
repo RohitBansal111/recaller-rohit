@@ -80,40 +80,25 @@ const Import = () => {
         setErrors({ email: "Please enter valid email address!" });
         formData = false;
         break;
+      case !addContact.compaign :
+        setErrors({ compaign: "Please enter your Campaign" });
+        formData = false;
+        break;
       default:
         formData = true;
     }
     return formData;
   };
 
-  const compaignValidatin = () => {
-    let compaignData = true;
-    switch (true) {
-      case !selectComgaigns:
-        toast.warning(
-          "You won’t be able to generate a custom campaign report without the tag. "
-        );
-        compaignData = false;
-        break;
-      default:
-        compaignData = true;
-    }
-    return compaignData;
-  };
 
   const handleSubmit = async () => {
     if (isValid()) {
       setLoading(true);
-      if (selectComgaigns) {
-        addContact.compaign = selectComgaigns.value;
-      }
       let res = await createApi(addContact);
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
-        compaignValidatin();
         toast.success("Contact saved!");
-        setSelectCompaign(null);
         setErrors({});
         getData();
       } else {
@@ -127,6 +112,7 @@ const Import = () => {
     if (res && res.data && res.data.status === 200) {
       setRowsData(res.data.data);
     }
+    getContactCompaign();
   };
 
   useEffect(() => {
@@ -331,7 +317,6 @@ const Import = () => {
         errors={errors}
         addTags={compaign}
         selectTags={selectComgaigns}
-        handleChange={handleTagChange}
         addContactData={addContact}
       />
 
@@ -339,15 +324,11 @@ const Import = () => {
         uploadModal={uploadModal}
         handleUploadClose={handleUploadClose}
         handleUploadShow={handleUploadShow}
-        // handleProceed={handleProceed}
         onChange={onChange}
         errors={errors}
         handleFinish={handleFinish}
         getData={getData}
         addTags={compaign}
-        selectTags={selectComgaigns}
-        tagValidation={compaignValidatin}
-        handleChange={handleTagChange}
         setSelectTags={setSelectCompaign}
       />
     </>

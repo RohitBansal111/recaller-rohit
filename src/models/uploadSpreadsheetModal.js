@@ -27,7 +27,7 @@ const UploadSpreadsheetModal = (props) => {
   const [errorsSelectMap, setSelectMapErrors] = useState({});
   const [addNote, setAddNote] = useState(false);
   const [noteData, setNoteData] = useState(null);
-
+  const [addCampaigns, setAddCampaigns] = useState("");
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
     formData.append("file", acceptedFiles[0].name);
@@ -138,15 +138,29 @@ const UploadSpreadsheetModal = (props) => {
     return formData;
   };
 
+  const isValidCampaigns = () => {
+    let formData = true;
+    switch (true) {
+      case !addCampaigns:
+        setErrors({ compaign: "Please enter Campagin data" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
   const handleClick = (e) => {
     if (isValid()) {
       handleCsvdataCheck();
       setStep(step + 1);
     }
   };
-  const handleTagSubmit = () => {
-    props.tagValidation();
-    setStep(step + 1);
+  const handleCampaignSubmit = () => {
+    if (isValidCampaigns()) {
+      setStep(step + 1);
+    }
   };
 
   const handleFirstNameChange = (e) => {
@@ -176,7 +190,7 @@ const UploadSpreadsheetModal = (props) => {
 
   const handleAddNote = () => {
     setAddNote(true);
-    setNoteData(null)
+    setNoteData(null);
   };
 
   const finishStep = async () => {
@@ -223,6 +237,11 @@ const UploadSpreadsheetModal = (props) => {
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+  const handleCampaignChange = (e) => {
+    setAddCampaigns(e.target.value);
+    setErrors({});
+  };
 
   return (
     <>
@@ -326,11 +345,10 @@ const UploadSpreadsheetModal = (props) => {
                   setStep={setStep}
                   closeModal={props.handleUploadClose}
                   onClose={backStep}
-                  options={props.addTags}
-                  addTagsErrors={errors}
-                  handleChange={props.handleChange}
-                  selectTags={props.selectTags}
-                  handleSubmit={handleTagSubmit}
+                  handleSubmit={handleCampaignSubmit}
+                  addCampaigns={addCampaigns}
+                  handleCampaignChange={handleCampaignChange}
+                  errors={errors}
                 />
               )}
               {step === 4 && (

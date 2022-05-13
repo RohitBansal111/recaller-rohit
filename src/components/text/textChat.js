@@ -12,10 +12,10 @@ const TextChat = (props) => {
         {props.chatData
           ? props.chatData.map((item) => (
               <>
-                <li className="date-update">
+                {/* <li className="date-update">
                   <span>{dateSince(item.createdAt)}</span>
                   <p></p>
-                </li>
+                </li> */}
                 <li>
                   <div
                     className={
