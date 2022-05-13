@@ -18,7 +18,6 @@ function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
   const month = MONTH_NAMES[date.getMonth()];
   const year = date.getFullYear();
   var minutes = date.getMinutes();
-  
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
@@ -44,12 +43,17 @@ export function dateSince(dateParam) {
   const today = new Date();
   const yesterday = new Date(today - DAY_IN_MS);
   const seconds = Math.round((today - date) / 1000);
+  const minutes = Math.round(seconds / 60);
   const isToday = today.toDateString() === date.toDateString();
   const isYesterday = yesterday.toDateString() === date.toDateString();
   const isThisYear = today.getFullYear() === date.getFullYear();
 
   if (seconds < 5) {
     return "Today";
+  } else if (seconds < 90) {
+    return "Today";
+  } else if (minutes < 60) {
+    return `Today`;
   } else if (isToday) {
     return getFormattedDate(date, "Today");
   } else if (isYesterday) {
