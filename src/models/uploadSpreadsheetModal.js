@@ -47,6 +47,21 @@ const UploadSpreadsheetModal = (props) => {
       setCsvFile(acceptedFiles[0].name);
       setIsFilePicked(true);
     }
+
+    console.log(Object.keys(csvData).map((key) => csvData[key]));
+
+    // const validKeyNames = ["firstName", "lastName", "phone", "email"];
+    // const keysData = Object.keys(acceptedFiles[0]).every((e) =>
+    //   validKeyNames.includes(e)
+    // );
+    // console.log(keysData, "keysData");
+    // if (!keysData) {
+    //   setIsFilePicked(false);
+    //   toast.error("Sorry, thats not a valid CSV Format");
+    // } else {
+    //   setCsvFile(acceptedFiles[0].name);
+    //   setIsFilePicked(true);
+    // }
   }, []);
 
   const onRadioChange = (e) => {
