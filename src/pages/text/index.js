@@ -506,7 +506,9 @@ const TextPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success(`${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`);
+      toast.success(
+        `${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`
+      );
       getMessage(false, true);
       selecteduser.contact.phoneSubs = type;
       setSelecteduser(selecteduser);
@@ -541,6 +543,8 @@ const TextPage = () => {
   const replacefunc = (item) => {
     var x = "";
     const userData = JSON.parse(localStorage.getItem("userData"));
+    let fName = userData.firstName.charAt(0);
+    let lName = userData.lastName.charAt(0);
     if (
       userData &&
       userData.firstName &&
@@ -550,8 +554,8 @@ const TextPage = () => {
       x =
         item &&
         item
-          .replace("[Employee First Name]", userData.firstName.charAt(0))
-          .replace("[Employee Last Name]", userData.lastName.charAt(0))
+          .replace("[Employee First Name]", fName)
+          .replace("[Employee Last Name]", lName)
           .replace(
             "[Employee Full Name]",
             userData.firstName + " " + userData.lastName
