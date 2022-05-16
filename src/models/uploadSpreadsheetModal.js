@@ -157,7 +157,7 @@ const UploadSpreadsheetModal = (props) => {
     let formData = true;
     switch (true) {
       case !addCampaigns:
-        setErrors({ compaign: "Please enter Campagin data" });
+        setErrors({ compaign: "Please enter Campaign name" });
         formData = false;
         break;
       default:
