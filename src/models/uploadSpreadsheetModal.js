@@ -77,6 +77,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
+    setAddCampaigns("")
     setNoteData(null);
     props.setSelectTags(null);
     props.handleUploadClose();
@@ -208,18 +209,9 @@ const UploadSpreadsheetModal = (props) => {
     setNoteData(null);
   };
 
-  console.log(addCampaigns , "addCampaigns.compaign");
+  console.log(addCampaigns, "addCampaigns.compaign");
 
   const finishStep = async () => {
-    setCsvFile(null);
-    setSelectedPhone("phone");
-    setSelectedEmail("email");
-    setSelectedFirstName("firstName");
-    setSelectedLastName("lastName");
-    setSelectedType("skip");
-    setSelectProperty(null);
-    setNoteData(null);
-    props.setSelectTags(null);
     const obj = {
       contacts: JSON.stringify(csvData),
       contactType: selectedType,
@@ -234,10 +226,20 @@ const UploadSpreadsheetModal = (props) => {
       props.getData();
       setStep(1);
       props.handleFinish();
-    }else if (res && res.data && res.data.status === 400){
+      setCsvFile(null);
+      setSelectedPhone("phone");
+      setSelectedEmail("email");
+      setSelectedFirstName("firstName");
+      setSelectedLastName("lastName");
+      setSelectedType("skip");
+      setSelectProperty(null);
+      setNoteData(null);
+      setAddCampaigns("")
+      props.setSelectTags(null);
+    } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
       setStep(step - 1);
-    }else{
+    } else {
       toast.success(res.data.message);
     }
   };
@@ -250,6 +252,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedFirstName("firstName");
     setSelectedLastName("lastName");
     setSelectedType("skip");
+    setAddCampaigns("")
     setSelectProperty(null);
     setNoteData(null);
     props.setSelectTags(null);
