@@ -47,12 +47,19 @@ const CreateNewFilter = (props) => {
                   label="Rules"
                   onChange={props.handleRulesChange}
                 >
-                  {sourceClick.map((item) => (
+                  <MenuItem value="Source">Source</MenuItem>
+                  <MenuItem value={20}>Joined Date</MenuItem>
+                  <MenuItem value={30}>Last Active</MenuItem>
+                  <MenuItem value={30}>Last Message Received</MenuItem>
+                  <MenuItem value={30}>Tags</MenuItem>
+                  <MenuItem value={30}>Duplicates</MenuItem>
+
+                  {/* {sourceClick.map((item) => (
                     <>
                       <MenuItem value={item.is}>{item.is}</MenuItem>
                       <MenuItem value={item.isNot}>{item.isNot}</MenuItem>
                     </>
-                  ))}
+                  ))} */}
                   {/* {joinedDateClick.map((item) => (
                     <>
                       <MenuItem value={20}>{item.moreThan}</MenuItem>

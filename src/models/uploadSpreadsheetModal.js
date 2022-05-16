@@ -209,8 +209,6 @@ const UploadSpreadsheetModal = (props) => {
     setNoteData(null);
   };
 
-  console.log(addCampaigns, "addCampaigns.compaign");
-
   const finishStep = async () => {
     const obj = {
       contacts: JSON.stringify(csvData),
