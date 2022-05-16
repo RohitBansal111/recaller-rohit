@@ -208,9 +208,9 @@ const UploadSpreadsheetModal = (props) => {
     setNoteData(null);
   };
 
+  console.log(addCampaigns , "addCampaigns.compaign");
+
   const finishStep = async () => {
-    setStep(1);
-    props.handleFinish();
     setCsvFile(null);
     setSelectedPhone("phone");
     setSelectedEmail("email");
@@ -226,11 +226,19 @@ const UploadSpreadsheetModal = (props) => {
       contactProperty: selectProperty,
       tag: props.selectTags && props.selectTags.value,
       note: noteData,
+      compaign: addCampaigns,
     };
     let res = await addMultipleContact(obj);
     if (res && res.data && res.data.status === 200) {
       toast.success(res.data.message);
       props.getData();
+      setStep(1);
+      props.handleFinish();
+    }else if (res && res.data && res.data.status === 400){
+      toast.error(res.data.message);
+      setStep(step - 1);
+    }else{
+      toast.success(res.data.message);
     }
   };
 
