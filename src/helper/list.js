@@ -1,48 +1,62 @@
 export const sourceClick = [
   {
-    is: "Is",
-    isNot: "IsNot",
+    name: "Is",
+  },
+  {
+    name: "IsNot",
   },
 ];
 
 export const joinedDateClick = [
   {
-    moreThan: "More Than",
-    exactly: "Exactly",
-    lessThan: "Less Than",
-    today: "Today",
+    name: "More Than",
+  },
+  {
+    name: "Exactly",
+  },
+  { name: "Less Than" },
+  {
+    name: "Today",
   },
 ];
 
 export const lastActiveClick = [
   {
-    moreThan: "More Than",
-    exactly: "Exactly",
-    lessThan: "Less Than",
-    today: "Today",
+    name: "More Than",
+  },
+  {
+    name: "Exactly",
+  },
+  { name: "Less Than" },
+  {
+    name: "Today",
   },
 ];
 
 export const lastMessageRecivedClick = [
   {
-    moreThan: "More Than",
-    exactly: "Exactly",
-    lessThan: "Less Than",
-    today: "Today",
+    name: "More Than",
+  },
+  {
+    name: "Exactly",
+  },
+  { name: "Less Than" },
+  {
+    name: "Today",
   },
 ];
 
 export const tagsClick = [
   {
-    include: "Include",
-    without: "Without",
+    name: "Include",
   },
+  { name: "Without" },
 ];
 
 export const duplicatedClick = [
   {
-    byEmail: "By Email",
-    byPhone: "By Phone",
-    all: "All",
+    name: "By Email",
   },
+  { name: "By Phone" },
+  { name: "All" },
 ];
