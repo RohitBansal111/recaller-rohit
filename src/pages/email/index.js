@@ -73,9 +73,10 @@ const EmailPage = () => {
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
   const [emailSubject, setEmailSubject] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
+    useState(false);
   const divRef = useRef(null);
-  const docRef = createRef();
+  const textref = useRef(null);
 
   const isValid = () => {
     let formData = true;
@@ -184,10 +185,22 @@ const EmailPage = () => {
     setErrors({});
   };
   const handleManageTemplate = () => {
-    getEmailTemplate();
     setShowManageeTemplateModal(true);
+    getEmailTemplate();
     seteditmanageTemplate(false);
   };
+
+  const handleNewManageTemplate = () => {
+    getEmailTemplate();
+    setNewShowManageeTemplateModal(true);
+    seteditmanageTemplate(false);
+  };
+
+  const handleNewCloseManageTemplateModal = () => {
+    setNewShowManageeTemplateModal(false);
+    seteditmanageTemplate(false);
+  };
+
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
@@ -308,8 +321,9 @@ const EmailPage = () => {
     setLoading(false);
   };
 
-  const handleMessageChange = (e) => {
-    setEmailMessage(e.target.value);
+  const handleMessageChange = (event) => {
+    let texto = event.editor.getData();
+    setEmailMessage(texto);
     setErrors({});
     setLoading(false);
   };
@@ -718,7 +732,7 @@ const EmailPage = () => {
   };
 
   const onEmojiClick = (event, emojiObject) => {
-    setEmailMessage((prevInput) => prevInput + emojiObject.emoji);
+    setEmailMessage(emailMessage + emojiObject.emoji);
     setOnShowEmoji(false);
   };
 
@@ -870,11 +884,11 @@ const EmailPage = () => {
         handleCloseSchedultModal={handleCloseSchedultModal}
         showCreateTemplateModal={showCreateTemplateModal}
         handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-        showManageeTemplateModal={showManageeTemplateModal}
-        handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+        showManageeTemplateModal={showNewManageeTemplateModal}
+        handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
         handleScheduleModal={handleScheduleModal}
         handleCreateTemplate={handleCreateTemplate}
-        handleManageTemplate={handleManageTemplate}
+        handleManageTemplate={handleNewManageTemplate}
         templateName={templateName}
         handleTemplateName={handleTemplateName}
         templateTags={templateTags}
@@ -910,6 +924,7 @@ const EmailPage = () => {
         handleSubjectChange={handleSubjectChange}
         onEmojiClick={onEmojiClick}
         savelistToMessageClick={savelistToMessageClick}
+        textRef={textref}
       />
     </div>
   );

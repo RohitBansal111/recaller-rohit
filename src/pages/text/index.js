@@ -58,6 +58,8 @@ const TextPage = () => {
   const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false);
   const [showManageeTemplateModal, setShowManageeTemplateModal] =
     useState(false);
+    const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
+    useState(false);
   const [templateName, setTemplateName] = useState("");
   const [templateTags, setTemplateTags] = useState(null);
   const [templateMessage, setTemplateMessage] = useState("");
@@ -116,6 +118,16 @@ const TextPage = () => {
   const handleManageTemplate = () => {
     getTemplate();
     setShowManageeTemplateModal(true);
+    seteditmanageTemplate(false);
+  };
+
+  const handleNewManageTemplate = () => {
+    getTemplate();
+    setNewShowManageeTemplateModal(true);
+    seteditmanageTemplate(false);
+  };
+  const handleNewCloseManageTemplateModal = () => {
+    setNewShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
   };
   const handleCloseManageTemplateModal = () => {
@@ -783,11 +795,11 @@ const TextPage = () => {
           handleCloseSchedultModal={handleCloseSchedultModal}
           showCreateTemplateModal={showCreateTemplateModal}
           handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-          showManageeTemplateModal={showManageeTemplateModal}
-          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          showManageeTemplateModal={showNewManageeTemplateModal}
+          handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
           handleScheduleModal={handleScheduleModal}
           handleCreateTemplate={handleCreateTemplate}
-          handleManageTemplate={handleManageTemplate}
+          handleManageTemplate={handleNewManageTemplate}
           templateName={templateName}
           handleTemplateName={handleTemplateName}
           templateTags={templateTags}

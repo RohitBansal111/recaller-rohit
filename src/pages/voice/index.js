@@ -347,7 +347,7 @@ const Voice = () => {
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
         .then(async (myBlob) => {
-          var file = new File([myBlob], "name.wav");
+          var file = new File([myBlob], "name.m4a");
           console.log(file, "mediaBlobUrl2222");
           console.log(myBlob, "mediaBlobUrl111111");
           var formData = new FormData();
@@ -484,7 +484,9 @@ const Voice = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success(`${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`)
+      toast.success(
+        `${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`
+      );
       getVoiceMessage(false, true);
       selecteduser.contact.voiceSubs = type;
       setSelecteduser(selecteduser);

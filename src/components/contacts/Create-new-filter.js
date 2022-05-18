@@ -137,7 +137,12 @@ const CreateNewFilter = (props) => {
                     id="demo-simple-select"
                     value={props.daysAgo}
                     label={
-                      props.properties == "tags " ? "tags name" : "Days Ago"
+                      props.properties == "tags "
+                        ? "tags name"
+                        : props.properties == "Last Active "
+                        ? "Date Ago"
+                        : props.properties == "Joined Date " ? 
+                        "Date Ago" : props.properties == "Joined Date "
                     }
                     onChange={props.handleDaysAgoChange}
                   >

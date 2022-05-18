@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { dateSince } from "../../helper/dateFunction";
 import { timeAgo } from "../../helper/timerFuntion";
+import parse from "html-react-parser";
+
 const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
   return (
@@ -23,7 +25,7 @@ const EmailChatText = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    <pre>{item.message}</pre>
+                    <pre>{parse(item.message)}</pre>
                   </div>
                   <span>
                     <b>

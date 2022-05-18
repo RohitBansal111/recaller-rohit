@@ -30,6 +30,7 @@ import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 import CancelIcon from "@material-ui/icons/Cancel";
+import parse from "html-react-parser";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -62,7 +63,7 @@ const EmailChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
+          <p>{parse(item.message.slice(0, 30).concat("..."))}</p>
           <div className="chat-tag">
             {item.contact.tags.length > 0
               ? item.contact.tags.map((item) => (

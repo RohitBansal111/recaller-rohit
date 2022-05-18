@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import LoadingButton from "@mui/lab/LoadingButton";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-responsive-modal";
 import NewEmailSelectTag from "../components/email/newEmailSelectTag";
 import PostAddIcon from "@material-ui/icons/PostAdd";
@@ -20,8 +20,11 @@ import ManageTemplateModal from "./ManageTemplateModal";
 import ScheduleMessageModal from "./ScheduleMessageModal";
 import Picker from "emoji-picker-react";
 import CodeIcon from "@material-ui/icons/Code";
+import { CKEditor } from "ckeditor4-react";
+import parse from "html-react-parser";
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
+  console.log("hello ji ", CKEditor.hasOwnProperty("on"));
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -106,14 +109,22 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             </div>
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
-              <textarea
+              <CKEditor
+                config={{
+                  removePlugins: "image",
+                }}
+                initData={<p>{props.emailMessage}</p>}
+                onChange={props.handleMessageChange}
+                ref={props.textRef}
+              />
+              {/* <textarea
                 type="text"
                 className="form-control"
                 placeholder="Type your message"
                 name="emailMessage"
                 value={props.emailMessage}
                 onChange={props.handleMessageChange}
-              />
+              /> */}
               <ul className="action-icons">
                 <li>
                   <button
@@ -131,12 +142,16 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                   >
                     <h4>
                       Message Templates{" "}
-                      <button
-                        type="button"
-                        onClick={props.handleManageTemplate}
-                      >
-                        Manage
-                      </button>
+                      {props.templateData.length == 0 ? (
+                        ""
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={props.handleManageTemplate}
+                        >
+                          Manage
+                        </button>
+                      )}
                     </h4>
                     {props.templateData &&
                       props.templateData.map((item) => (

@@ -123,12 +123,16 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   >
                     <h4>
                       Message Templates{" "}
-                      <button
-                        type="button"
-                        onClick={props.handleManageTemplate}
-                      >
-                        Manage
-                      </button>
+                      {props.templateData.length == 0 ? (
+                        ""
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={props.handleManageTemplate}
+                        >
+                          Manage
+                        </button>
+                      )}
                     </h4>
                     {props.templateData &&
                       props.templateData.map((item) => (
@@ -237,7 +241,11 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       ? "not-allowed"
                       : "pointer",
                 }}
-                disabled={!props.sendNewMessage || props.selected.length == 0 ? true : false}
+                disabled={
+                  !props.sendNewMessage || props.selected.length == 0
+                    ? true
+                    : false
+                }
                 onClick={props.handleSendClick}
                 className="btn btn-primary"
                 variant="contained"
