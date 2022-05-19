@@ -20,7 +20,8 @@ import ManageTemplateModal from "./ManageTemplateModal";
 import ScheduleMessageModal from "./ScheduleMessageModal";
 import Picker from "emoji-picker-react";
 import CodeIcon from "@material-ui/icons/Code";
-import { CKEditor } from "ckeditor4-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import parse from "html-react-parser";
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
@@ -108,10 +109,18 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             </div>
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
-              <CKEditor
+              {/* {props.emailMessage &&<CKEditor
                 initData={`<p>${props.emailMessage}</p>`}
                 onChange={props.handleMessageChange}
                 ref={props.textRef}
+              />} */}
+              <CKEditor
+                editor={ClassicEditor}
+                data={`${props.emailMessage}`}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  props.handleMessageChange(data);
+                }}
               />
               {/* <textarea
                 type="text"

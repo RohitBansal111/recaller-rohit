@@ -321,9 +321,9 @@ const EmailPage = () => {
     setLoading(false);
   };
 
-  const handleMessageChange = (event) => {
-    let texto = event.editor.getData();
-    setEmailMessage(texto);
+  const handleMessageChange = (data) => {
+    console.log(data,'hellooo')
+    setEmailMessage(data);
     setErrors({});
     setLoading(false);
   };
