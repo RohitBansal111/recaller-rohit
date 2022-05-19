@@ -226,7 +226,7 @@ const EmailChatBoot = (props) => {
                                 </div>
                               </div>
                             ) : (
-                              <div className="attachedImage-box">
+                              <div className="attachedImage-box email-emailEditor">
                                 {props.selectedImage && (
                                   <ul className="attachedImageGallery">
                                     <li>

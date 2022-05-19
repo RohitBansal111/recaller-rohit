@@ -8,7 +8,7 @@ import parse from "html-react-parser";
 const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
   return (
-    <ScrollToBottom className="middle-chat-screen">
+    <ScrollToBottom className="middle-chat-screen email-middle-screen">
       <ul ref={props.divRef}>
         {props.emailChatData
           ? props.emailChatData.map((item) => (

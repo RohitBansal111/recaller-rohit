@@ -487,6 +487,10 @@
     justify-content: flex-end;
     max-height: calc(100vh - 355px);
     min-height: calc(100vh - 355px);
+    &.email-middle-screen{
+        max-height: calc(100vh - 500px);
+        min-height: calc(100vh - 500px);
+    }
     .date-update{
         text-align: center;
         span{
@@ -509,8 +513,8 @@
         }
     }
     &.voice-chat-screen{
-        max-height: calc(100vh - 245px);
-        min-height: calc(100vh - 245px);
+        max-height: calc(100vh - 205px);
+        min-height: calc(100vh - 205px);
         width: 100%;
         ul{
             margin-bottom: 0px;
@@ -875,6 +879,16 @@
 .attachedImage-box{
     display: flex;
     padding: 10px;
+    &.email-emailEditor{
+        .ck-editor{
+            .ck-toolbar__items{
+                flex-wrap: wrap !important;
+            }
+            .ck-editor__editable{
+                min-height: 120px !important;
+            }
+        }
+    }
     .attachedImageGallery{
         padding: 0px;
         margin: 0px;
@@ -883,7 +897,7 @@
             position: relative;
             img{
                 width: 100%;
-                border-radius: 5pxs ;
+                border-radius: 5px;
             }
             .btn-cross{
                 position: absolute;
