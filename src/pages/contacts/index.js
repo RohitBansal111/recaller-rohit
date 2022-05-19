@@ -31,6 +31,7 @@ const Import = () => {
   const [rules, setRules] = useState("");
   const [daysAgo, setDaysAgo] = useState("");
   const [value, setValue] = useState("");
+  const [addFilter, setAddFilter] = useState({});
 
   const handleClose = () => {
     setShow(false);
@@ -80,7 +81,7 @@ const Import = () => {
         setErrors({ email: "Please enter valid email address!" });
         formData = false;
         break;
-      case !addContact.compaign :
+      case !addContact.compaign:
         setErrors({ compaign: "Please enter your Campaign" });
         formData = false;
         break;
@@ -89,7 +90,6 @@ const Import = () => {
     }
     return formData;
   };
-
 
   const handleSubmit = async () => {
     if (isValid()) {
@@ -224,9 +224,14 @@ const Import = () => {
 
   const handleFilterCancel = () => {};
 
-  const onHandleSave = (e) => {};
-  const handlePropertiesChange = (event) => {
+  const onHandleSave = () => {
+    console.log(addFilter, "fffffffffffffffff");
+  };
+  const handlePropertiesChange = async (event) => {
     setProperties(event.target.value);
+    let res = await getContactApi(properties, rules);
+    if (res && res.data && res.data.status === 200) {
+    }
   };
 
   const handleSelect = (e) => {
@@ -237,6 +242,18 @@ const Import = () => {
     setProperties("");
     setRules("");
     setDaysAgo("");
+  };
+
+  // const handleInputChange = (e) => {
+  //   setAddFilter({ ...addFilter, [e.target.name]: e.taget.value });
+  // };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setAddFilter({
+      ...addFilter,
+      [name]: value,
+    });
   };
 
   return (
@@ -280,6 +297,8 @@ const Import = () => {
           handleSelect={handleSelect}
           value={value}
           rowsData={rowsData}
+          addFilter={addFilter}
+          handleInputChange={handleInputChange}
         />
       </div>
       <div className="contact-data-table-main">

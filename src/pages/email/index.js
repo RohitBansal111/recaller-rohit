@@ -322,7 +322,7 @@ const EmailPage = () => {
   };
 
   const handleMessageChange = (data) => {
-    console.log(data,'hellooo')
+    console.log(data, "hellooo");
     setEmailMessage(data);
     setErrors({});
     setLoading(false);
@@ -604,8 +604,8 @@ const EmailPage = () => {
   const replacefunc = (item) => {
     var x = "";
     const userData = JSON.parse(localStorage.getItem("userData"));
-    let fName = userData.firstName.charAt(0);
-    let lName = userData.lastName.charAt(0);
+    let fName = userData.firstName;
+    let lName = userData.lastName;
     if (
       userData &&
       userData.firstName &&

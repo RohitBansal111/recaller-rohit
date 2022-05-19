@@ -64,12 +64,12 @@ const removeTagsToListApi = async (data) => {
   }
 };
 
-const getContactApi = async () => {
+const getContactApi = async (properties, rules, value) => {
   try {
     const AUTH_TOKEN = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.get(
-      `${process.env.REACT_APP_API_URL}/contact/getcontactdata`
+      `${process.env.REACT_APP_API_URL}/contact/getcontactdata?properties=${properties}&rules=${rules}&value=${value}`
     );
     if (result) {
       return result;

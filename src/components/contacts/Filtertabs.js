@@ -64,12 +64,8 @@ const FilterTabs = (props) => {
             onHandleSave={props.onHandleSave}
             handleClear={props.handleClear}
             rowsData={props.rowsData}
-            joinedDate={props.joinedDate}
-            lastActiveDate={props.lastActiveDate}
-            tagsName={props.tagsName}
-            handleJDChange={props.handleJDChange}
-            handleLAChange={props.handleLAChange}
-            handleTagsChange={props.handleTagsChange}
+            addFilter={props.addFilter}
+            handleInputChange={props.handleInputChange}
           />
         </Tab>
       </Tabs>

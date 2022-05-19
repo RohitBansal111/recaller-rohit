@@ -77,7 +77,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
-    setAddCampaigns("")
+    setAddCampaigns("");
     setNoteData(null);
     props.setSelectTags(null);
     props.handleUploadClose();
@@ -232,7 +232,7 @@ const UploadSpreadsheetModal = (props) => {
       setSelectedType("skip");
       setSelectProperty(null);
       setNoteData(null);
-      setAddCampaigns("")
+      setAddCampaigns("");
       props.setSelectTags(null);
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
@@ -250,7 +250,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedFirstName("firstName");
     setSelectedLastName("lastName");
     setSelectedType("skip");
-    setAddCampaigns("")
+    setAddCampaigns("");
     setSelectProperty(null);
     setNoteData(null);
     props.setSelectTags(null);
@@ -305,7 +305,7 @@ const UploadSpreadsheetModal = (props) => {
                       step === 3 || step === 4 ? "step active" : "step"
                     }
                   >
-                    <div className="step-inner">Add Tag</div>
+                    <div className="step-inner">Campaigns</div>
                   </li>
 
                   <li className={step === 4 ? "step active" : "step"}>

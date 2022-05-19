@@ -17,15 +17,6 @@ import {
 import { Input } from "@mui/material";
 
 const CreateNewFilter = (props) => {
-  const renderSourceOptions = () => {
-    return sourceClick.map((item, i) => {
-      return (
-        <MenuItem key={i} value={item.name}>
-          {item.name}
-        </MenuItem>
-      );
-    });
-  };
   const renderJoinedDateOptions = () => {
     return joinedDateClick.map((item, i) => {
       return (
@@ -44,15 +35,6 @@ const CreateNewFilter = (props) => {
       );
     });
   };
-  const renderLastMessageReceivedOptions = () => {
-    return lastMessageRecivedClick.map((item, i) => {
-      return (
-        <MenuItem key={i} value={item.name}>
-          {item.name}
-        </MenuItem>
-      );
-    });
-  };
   const renderTagsOptions = () => {
     return tagsClick.map((item, i) => {
       return (
@@ -62,15 +44,33 @@ const CreateNewFilter = (props) => {
       );
     });
   };
-  const renderDuplicatesOptions = () => {
-    return duplicatedClick.map((item, i) => {
-      return (
-        <MenuItem key={i} value={item.name}>
-          {item.name}
-        </MenuItem>
-      );
-    });
-  };
+  // const renderDuplicatesOptions = () => {
+  //   return duplicatedClick.map((item, i) => {
+  //     return (
+  //       <MenuItem key={i} value={item.name}>
+  //         {item.name}
+  //       </MenuItem>
+  //     );
+  //   });
+  // };
+  // const renderLastMessageReceivedOptions = () => {
+  //   return lastMessageRecivedClick.map((item, i) => {
+  //     return (
+  //       <MenuItem key={i} value={item.name}>
+  //         {item.name}
+  //       </MenuItem>
+  //     );
+  //   });
+  // };
+  // const renderSourceOptions = () => {
+  //   return sourceClick.map((item, i) => {
+  //     return (
+  //       <MenuItem key={i} value={item.name}>
+  //         {item.name}
+  //       </MenuItem>
+  //     );
+  //   });
+  // };
 
   return (
     <div className="create-filter">
@@ -86,14 +86,14 @@ const CreateNewFilter = (props) => {
                 label="Properties"
                 onChange={props.handlePropertiesChange}
               >
-                {/* <MenuItem value="Source">Source</MenuItem> */}
                 <MenuItem value={"Joined Date"}>Joined Date</MenuItem>
                 <MenuItem value={"Last Active"}>Last Active</MenuItem>
+                <MenuItem value={"Campaigns"}>Campaigns</MenuItem>
+                {/* <MenuItem value="Source">Source</MenuItem> */}
+                {/* <MenuItem value={"Duplicates"}>Duplicates</MenuItem> */}
                 {/* <MenuItem value={"Last Message Received"}>
                 Last Message Received
                 </MenuItem> */}
-                <MenuItem value={"Tags"}>Tags</MenuItem>
-                {/* <MenuItem value={"Duplicates"}>Duplicates</MenuItem> */}
               </Select>
             </FormControl>
             {props.properties && (
@@ -106,29 +106,31 @@ const CreateNewFilter = (props) => {
                   label="Rules"
                   onChange={props.handleRulesChange}
                 >
-                  {/* {props.properties == "Source" && renderSourceOptions()} */}
                   {props.properties == "Joined Date" &&
                     renderJoinedDateOptions()}
                   {props.properties == "Last Active" &&
                     renderLastActiveOptions()}
+                  {/* {props.properties == "Source" && renderSourceOptions()} */}
                   {/* {props.properties == "Last Message Received" &&
                     renderLastMessageReceivedOptions()} */}
-                  {props.properties == "Tags" && renderTagsOptions()}
+                  {props.properties == "Campaigns" && renderTagsOptions()}
                 </Select>
               </FormControl>
             )}
             {props.rules && (
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
-                  {props.properties == "Tags" ? "tags name" : "Days Ago"}
+                  {props.properties == "Campaigns"
+                    ? "Campaigns name"
+                    : "Days Ago"}
                 </InputLabel>
                 {props.properties == "Joined Date" && (
                   <Input
                     type="text"
                     name="joineddate"
                     placeholder="Enter Date"
-                    value={props.joinedDate}
-                    onChange={props.handleJDChange}
+                    value={props.addFilter.joineddate}
+                    onChange={props.handleInputChange}
                   ></Input>
                 )}
                 {props.properties == "Last Active" && (
@@ -136,29 +138,28 @@ const CreateNewFilter = (props) => {
                     type="text"
                     name="lastActive"
                     placeholder="Enter Date"
-                    value={props.lastActiveDate}
-                    onChange={props.handleLAChange}
+                    value={props.addFilter.lastActive}
+                    onChange={props.handleInputChange}
+                  ></Input>
+                )}
+                {props.properties == "Campaigns" && (
+                  <Input
+                    type="text"
+                    name="campaigns"
+                    placeholder="Enter Campaigns"
+                    value={props.addFilter.campaigns}
+                    onChange={props.handleInputChange}
                   ></Input>
                 )}
                 {/* {props.properties == "Last Message Received" && <Input></Input>} */}
-                {props.properties == "Tags" && (
-                  <Input
-                    type="text"
-                    name="tagsname"
-                    placeholder="Enter Tags"
-                    value={props.tagsName}
-                    onChange={props.handleTagsChange}
-                  ></Input>
-                )}
-
                 {/* {props.properties == "Source" && (
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={props.daysAgo}
                     label={
-                      props.properties == "tags "
-                        ? "tags name"
+                      props.properties == "Campaigns "
+                        ? "Campaigns name"
                         : props.properties == "Last Active "
                         ? "Date Ago"
                         : props.properties == "Joined Date "
