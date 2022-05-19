@@ -31,6 +31,8 @@ import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 import CancelIcon from "@material-ui/icons/Cancel";
 import parse from "html-react-parser";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -203,7 +205,8 @@ const EmailChatBoot = (props) => {
                                 <div className="card-box">
                                   <LockIcon />
                                   <p>
-                                    This Conversation is <b>Opted Out.</b> &nbsp;
+                                    This Conversation is <b>Opted Out.</b>{" "}
+                                    &nbsp;
                                     <b>
                                       <u
                                         onClick={() =>
@@ -241,14 +244,22 @@ const EmailChatBoot = (props) => {
                                     </li>
                                   </ul>
                                 )}
-                                <textarea
+                                <CKEditor
+                                  editor={ClassicEditor}
+                                  data={`${props.sendEmailMessage}`}
+                                  onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    props.onHandleChange(data);
+                                  }}
+                                />
+                                {/* <textarea
                                   placeholder="Type your message..."
                                   name="sendEmailMessage"
                                   value={props.sendEmailMessage}
                                   onChange={props.onHandleChange}
                                 >
                                   {props.sendEmailMessage}
-                                </textarea>
+                                </textarea> */}
                               </div>
                             )}
                           </div>
@@ -400,20 +411,20 @@ const EmailChatBoot = (props) => {
           <div className="user-compassion-details">
             <div className="user-name-head">
               {/* {!props.editContactName && ( */}
-                <>
-                  <h4>
-                    {props.selecteduser
-                      ? props.selecteduser.contact.firstName +
-                        " " +
-                        props.selecteduser.contact.lastName
-                      : ""}
-                  </h4>
-                  {/* <EditIcon
+              <>
+                <h4>
+                  {props.selecteduser
+                    ? props.selecteduser.contact.firstName +
+                      " " +
+                      props.selecteduser.contact.lastName
+                    : ""}
+                </h4>
+                {/* <EditIcon
                     onClick={() =>
                       props.handleEditUserName(props.selecteduser.contact._id)
                     }
                   /> */}
-                </>
+              </>
               {/* )} */}
 
               {/* {props.editContactName && (

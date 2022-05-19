@@ -109,11 +109,6 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             </div>
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
-              {/* {props.emailMessage &&<CKEditor
-                initData={`<p>${props.emailMessage}</p>`}
-                onChange={props.handleMessageChange}
-                ref={props.textRef}
-              />} */}
               <CKEditor
                 editor={ClassicEditor}
                 data={`${props.emailMessage}`}
@@ -122,14 +117,6 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                   props.handleMessageChange(data);
                 }}
               />
-              {/* <textarea
-                type="text"
-                className="form-control"
-                placeholder="Type your message"
-                name="emailMessage"
-                value={props.emailMessage}
-                onChange={props.handleMessageChange}
-              /> */}
               <ul className="action-icons">
                 <li>
                   <button
