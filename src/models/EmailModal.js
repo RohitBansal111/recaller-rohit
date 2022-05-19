@@ -176,12 +176,12 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                     )}
                   </>
                 </li>
-                <li>
+                {/* <li>
                   <button type="button" className="btn-action1 fileType">
                     <ImageIcon />
                     <input type="file" />
                   </button>
-                </li>
+                </li> */}
                 <li>
                   <button
                     type="button"

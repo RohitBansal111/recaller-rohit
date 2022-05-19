@@ -227,7 +227,7 @@ const EmailChatBoot = (props) => {
                               </div>
                             ) : (
                               <div className="attachedImage-box email-emailEditor">
-                                {props.selectedImage && (
+                                {/* {props.selectedImage && (
                                   <ul className="attachedImageGallery">
                                     <li>
                                       <img
@@ -243,7 +243,7 @@ const EmailChatBoot = (props) => {
                                       </button>
                                     </li>
                                   </ul>
-                                )}
+                                )} */}
                                 <CKEditor
                                   editor={ClassicEditor}
                                   data={`${props.sendEmailMessage}`}
@@ -327,7 +327,7 @@ const EmailChatBoot = (props) => {
                                   )}
                                 </>
                               </li>
-                              <li>
+                              {/* <li>
                                 <button
                                   type="button"
                                   className="btn-action1 fileType"
@@ -340,7 +340,7 @@ const EmailChatBoot = (props) => {
                                     onChange={props.handleImageChange}
                                   />
                                 </button>
-                              </li>
+                              </li> */}
                               <li>
                                 <button
                                   type="button"
