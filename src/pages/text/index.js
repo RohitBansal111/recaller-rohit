@@ -892,6 +892,7 @@ const TextPage = () => {
         onEmojiClick={onEmojiClick}
         onShowEmojiOpen={onShowEmoji}
         savelistToMessageClick={savelistToMessageClick}
+        selecteduser={selecteduser}
       />
     </div>
   );

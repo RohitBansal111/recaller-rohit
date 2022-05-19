@@ -86,14 +86,14 @@ const CreateNewFilter = (props) => {
                 label="Properties"
                 onChange={props.handlePropertiesChange}
               >
-                <MenuItem value="Source">Source</MenuItem>
+                {/* <MenuItem value="Source">Source</MenuItem> */}
                 <MenuItem value={"Joined Date"}>Joined Date</MenuItem>
                 <MenuItem value={"Last Active"}>Last Active</MenuItem>
-                <MenuItem value={"Last Message Received"}>
-                  Last Message Received
-                </MenuItem>
+                {/* <MenuItem value={"Last Message Received"}>
+                Last Message Received
+                </MenuItem> */}
                 <MenuItem value={"Tags"}>Tags</MenuItem>
-                <MenuItem value={"Duplicates"}>Duplicates</MenuItem>
+                {/* <MenuItem value={"Duplicates"}>Duplicates</MenuItem> */}
               </Select>
             </FormControl>
             {props.properties && (
@@ -106,32 +106,52 @@ const CreateNewFilter = (props) => {
                   label="Rules"
                   onChange={props.handleRulesChange}
                 >
-                  {props.properties == "Source" && renderSourceOptions()}
+                  {/* {props.properties == "Source" && renderSourceOptions()} */}
                   {props.properties == "Joined Date" &&
                     renderJoinedDateOptions()}
                   {props.properties == "Last Active" &&
                     renderLastActiveOptions()}
-                  {props.properties == "Last Message Received" &&
-                    renderLastMessageReceivedOptions()}
+                  {/* {props.properties == "Last Message Received" &&
+                    renderLastMessageReceivedOptions()} */}
                   {props.properties == "Tags" && renderTagsOptions()}
                 </Select>
               </FormControl>
             )}
-            {props.rules ? (
+            {props.rules && (
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
-                  {props.properties == "Tags"
-                    ? "tags name"
-                    : props.properties == "Source"
-                    ? "value"
-                    : "Days Ago"}
+                  {props.properties == "Tags" ? "tags name" : "Days Ago"}
                 </InputLabel>
-                {props.properties == "Joined Date" && <Input></Input>}
-                {props.properties == "Last Active" && <Input></Input>}
-                {props.properties == "Last Message Received" && <Input></Input>}
-                {props.properties == "Tags" && <Input></Input>}
+                {props.properties == "Joined Date" && (
+                  <Input
+                    type="text"
+                    name="joineddate"
+                    placeholder="Enter Date"
+                    value={props.joinedDate}
+                    onChange={props.handleJDChange}
+                  ></Input>
+                )}
+                {props.properties == "Last Active" && (
+                  <Input
+                    type="text"
+                    name="lastActive"
+                    placeholder="Enter Date"
+                    value={props.lastActiveDate}
+                    onChange={props.handleLAChange}
+                  ></Input>
+                )}
+                {/* {props.properties == "Last Message Received" && <Input></Input>} */}
+                {props.properties == "Tags" && (
+                  <Input
+                    type="text"
+                    name="tagsname"
+                    placeholder="Enter Tags"
+                    value={props.tagsName}
+                    onChange={props.handleTagsChange}
+                  ></Input>
+                )}
 
-                {props.properties == "Source" && (
+                {/* {props.properties == "Source" && (
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -141,8 +161,9 @@ const CreateNewFilter = (props) => {
                         ? "tags name"
                         : props.properties == "Last Active "
                         ? "Date Ago"
-                        : props.properties == "Joined Date " ? 
-                        "Date Ago" : props.properties == "Joined Date "
+                        : props.properties == "Joined Date "
+                        ? "Date Ago"
+                        : props.properties == "Joined Date "
                     }
                     onChange={props.handleDaysAgoChange}
                   >
@@ -189,23 +210,23 @@ const CreateNewFilter = (props) => {
                     <MenuItem value="Mindbody">Mindbody</MenuItem>
                     <MenuItem value="QuickBooks">QuickBooks</MenuItem>
                   </Select>
-                )}
+                )} */}
               </FormControl>
-            ) : props.properties == "Duplicates" ? (
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Value</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={props.daysAgo}
-                  label="Value"
-                  onChange={props.handleDaysAgoChange}
-                >
-                  {renderDuplicatesOptions()}
-                </Select>
-              </FormControl>
-            ) : (
-              ""
+              // ) : props.properties == "Duplicates" ? (
+              //   <FormControl fullWidth>
+              //     <InputLabel id="demo-simple-select-label">Value</InputLabel>
+              //     <Select
+              //       labelId="demo-simple-select-label"
+              //       id="demo-simple-select"
+              //       value={props.daysAgo}
+              //       label="Value"
+              //       onChange={props.handleDaysAgoChange}
+              //     >
+              //       {renderDuplicatesOptions()}
+              //     </Select>
+              //   </FormControl>
+              // ) : (
+              //   ""
             )}
 
             <button
