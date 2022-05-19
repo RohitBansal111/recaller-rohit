@@ -731,8 +731,16 @@ const EmailPage = () => {
     setOnShowChatBotEmojiOpen(true);
   };
 
-  const onEmojiClick = (event, emojiObject) => {
-    setEmailMessage(emailMessage + emojiObject.emoji);
+  const onEmojiClick = (e, emojiObject) => {
+    const cursor = textref && textref.current && textref.current.selectionStart;
+    const text =
+      emailMessage.slice(0, cursor) +
+      emojiObject.emoji +
+      emailMessage.slice(cursor);
+    console.log(text, "texxtttt");
+
+    setEmailMessage(text);
+    // setEmailMessage(emailMessage + emojiObject.emoji);
     setOnShowEmoji(false);
   };
 
@@ -743,7 +751,10 @@ const EmailPage = () => {
 
   const savelistToMessageClick = (e) => {
     let data = e.target.getAttribute("data-name");
-    setEmailMessage(emailMessage + data);
+    const cursor = textref && textref.current && textref.current.selectionStart;
+    const text =
+      emailMessage.slice(0, cursor) + data + emailMessage.slice(cursor);
+    setEmailMessage(text);
   };
 
   const handleImageOpen = () => {

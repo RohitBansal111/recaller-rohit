@@ -24,7 +24,6 @@ import { CKEditor } from "ckeditor4-react";
 import parse from "html-react-parser";
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
-  console.log("hello ji ", CKEditor.hasOwnProperty("on"));
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -110,10 +109,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
               <CKEditor
-                config={{
-                  removePlugins: "image",
-                }}
-                initData={<p>{props.emailMessage}</p>}
+                initData={`<p>${props.emailMessage}</p>`}
                 onChange={props.handleMessageChange}
                 ref={props.textRef}
               />
