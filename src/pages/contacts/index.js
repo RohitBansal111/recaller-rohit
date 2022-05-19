@@ -279,6 +279,7 @@ const Import = () => {
           handleClear={handleClear}
           handleSelect={handleSelect}
           value={value}
+          rowsData={rowsData}
         />
       </div>
       <div className="contact-data-table-main">

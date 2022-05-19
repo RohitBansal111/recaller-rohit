@@ -737,7 +737,6 @@ const EmailPage = () => {
       emailMessage.slice(0, cursor) +
       emojiObject.emoji +
       emailMessage.slice(cursor);
-    console.log(text, "texxtttt");
 
     setEmailMessage(text);
     // setEmailMessage(emailMessage + emojiObject.emoji);
@@ -936,6 +935,7 @@ const EmailPage = () => {
         onEmojiClick={onEmojiClick}
         savelistToMessageClick={savelistToMessageClick}
         textRef={textref}
+        selecteduser={selecteduser}
       />
     </div>
   );
