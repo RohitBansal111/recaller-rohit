@@ -15,6 +15,7 @@ import {
   tagsClick,
 } from "./../../helper/list";
 import { Input } from "@mui/material";
+import DeleteFilterModal from "../../models/addFilterModal";
 
 const CreateNewFilter = (props) => {
   const renderJoinedDateOptions = () => {
@@ -95,6 +96,7 @@ const CreateNewFilter = (props) => {
                 Last Message Received
                 </MenuItem> */}
               </Select>
+              <span className="spanError">{props.errors.properties}</span>
             </FormControl>
             {props.properties && (
               <FormControl fullWidth>
@@ -115,6 +117,7 @@ const CreateNewFilter = (props) => {
                     renderLastMessageReceivedOptions()} */}
                   {props.properties == "Campaigns" && renderTagsOptions()}
                 </Select>
+                <span className="spanError">{props.errors.rules}</span>
               </FormControl>
             )}
             {props.rules && (
@@ -125,33 +128,42 @@ const CreateNewFilter = (props) => {
                     : "Days Ago"}
                 </InputLabel>
                 {props.properties == "Joined Date" && (
-                  <Input
-                    type="number"
-                    name="joineddate"
-                    min="0"
-                    placeholder="Enter Date"
-                    value={props.joinedDate.joineddate}
-                    onChange={props.handleJDChange}
-                  ></Input>
+                  <>
+                    <Input
+                      type="number"
+                      name="joineddate"
+                      min="0"
+                      placeholder="Enter Date"
+                      value={props.joinedDate.joineddate}
+                      onChange={props.handleJDChange}
+                    ></Input>
+                    <span className="spanError">{props.errors.joinedDate}</span>
+                  </>
                 )}
                 {props.properties == "Last Active" && (
-                  <Input
-                    type="number"
-                    name="lastActive"
-                    min="0"
-                    placeholder="Enter Date"
-                    value={props.lastActiveDate.lastActive}
-                    onChange={props.handleLAChange}
-                  ></Input>
+                  <>
+                    <Input
+                      type="number"
+                      name="lastActive"
+                      min="0"
+                      placeholder="Enter Date"
+                      value={props.lastActiveDate.lastActive}
+                      onChange={props.handleLAChange}
+                    ></Input>
+                    <span className="spanError">{props.errors.lastActive}</span>
+                  </>
                 )}
                 {props.properties == "Campaigns" && (
-                  <Input
-                    type="text"
-                    name="campaigns"
-                    placeholder="Enter Campaigns"
-                    value={props.addFilter.campaigns}
-                    onChange={props.handleInputChange}
-                  ></Input>
+                  <>
+                    <Input
+                      type="text"
+                      name="campaigns"
+                      placeholder="Enter Campaigns"
+                      value={props.addFilter.campaigns}
+                      onChange={props.handleInputChange}
+                    ></Input>
+                    <span className="spanError">{props.errors.campaigns}</span>
+                  </>
                 )}
                 {/* {props.properties == "Last Message Received" && <Input></Input>} */}
                 {/* {props.properties == "Source" && (
@@ -257,6 +269,11 @@ const CreateNewFilter = (props) => {
               >
                 <DoneIcon /> Save Filter
               </button>
+              <DeleteFilterModal
+                showAddFilterModal={props.showAddFilterModal}
+                handleCloseAddFilterModal={props.handleCloseAddFilterModal}
+                handleAddFilterData={props.handleAddFilterData}
+              />
             </div>
           </div>
         </form>

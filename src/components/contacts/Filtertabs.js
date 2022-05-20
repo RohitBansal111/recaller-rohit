@@ -53,7 +53,7 @@ const FilterTabs = (props) => {
         >
           <CreateNewFilter
             handlePropertiesChange={props.handlePropertiesChange}
-            handleRulesChange={(event) => props.setRules(event.target.value)}
+            handleRulesChange={props.handleRulesChange}
             handleDaysAgoChange={(event) =>
               props.setDaysAgo(event.target.value)
             }
@@ -70,6 +70,10 @@ const FilterTabs = (props) => {
             handleInputChange={props.handleInputChange}
             handleJDChange={props.handleJDChange}
             handleLAChange={props.handleLAChange}
+            showAddFilterModal={props.showAddFilterModal}
+            handleCloseAddFilterModal={props.handleCloseAddFilterModal}
+            handleAddFilterData={props.handleAddFilterData}
+            errors={props.errors}
           />
         </Tab>
       </Tabs>
