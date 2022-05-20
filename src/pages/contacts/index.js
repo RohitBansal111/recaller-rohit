@@ -114,18 +114,18 @@ const Import = () => {
     let formData = true;
     switch (true) {
       case !properties:
-        setErrors({ properties: "This field is required!" });
+        setErrors({ properties: "Please Select Properties!" });
         formData = false;
         break;
       case !rules:
-        setErrors({ rules: "This field is required!" });
+        setErrors({ rules: "Please Select Rules!" });
         formData = false;
         break;
-      case !joinedDate:
-        setErrors({ joinedDate: "This field is required!" });
+      // case !joinedDate:
+      //   setErrors({ joinedDate: "Joined Date is required!" });
 
-        formData = false;
-        break;
+      //   formData = false;
+      //   break;
       // case !lastActiveDate:
       //   setErrors({ lastActive: "This field is required!" });
 
