@@ -226,7 +226,6 @@ const Import = () => {
   const handleFilterCancel = () => {};
 
   const onHandleSave = () => {
-    console.log(addFilter, "fffffffffffffffff");
   };
   const handlePropertiesChange = async (event) => {
     setProperties(event.target.value);
@@ -241,10 +240,6 @@ const Import = () => {
     setRules("");
     setDaysAgo("");
   };
-
-  // const handleInputChange = (e) => {
-  //   setAddFilter({ ...addFilter, [e.target.name]: e.taget.value });
-  // };
 
   const handleInputChange = async (e) => {
     setAddFilter(e.target.value);
