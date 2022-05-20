@@ -8,6 +8,7 @@ import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
 import { getCompaignApi } from "../../api/compaign";
+import { addContactFilter, getContactFilterApi } from "../../api/filter";
 
 const Import = () => {
   const [show, setShow] = useState(false);
@@ -32,9 +33,11 @@ const Import = () => {
   const [daysAgo, setDaysAgo] = useState("");
   const [value, setValue] = useState("");
   const [addFilter, setAddFilter] = useState("");
-  const [joinedDate, setJoinedDate] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [lastActiveDate, setLastActiveDate] = useState("");
   const [showAddFilterModal, setShowAddFilterModal] = useState(false);
+  const [filterName, setFilterName] = useState("");
+  const [filterList, setFilterList] = useState([]);
 
   const handleClose = () => {
     setShow(false);
@@ -121,21 +124,11 @@ const Import = () => {
         setErrors({ rules: "Please Select Rules!" });
         formData = false;
         break;
-      // case !joinedDate:
-      //   setErrors({ joinedDate: "Joined Date is required!" });
+      case !inputValue:
+        setErrors({ error: " Field is required!" });
 
-      //   formData = false;
-      //   break;
-      // case !lastActiveDate:
-      //   setErrors({ lastActive: "This field is required!" });
-
-      //   formData = false;
-      //   break;
-      // case !addFilter:
-      //   setErrors({ campaigns: "This field is required!" });
-
-      //   formData = false;
-      //   break;
+        formData = false;
+        break;
       default:
         formData = true;
     }
@@ -153,6 +146,7 @@ const Import = () => {
   useEffect(() => {
     getData();
     getContactCompaign();
+    getContactFilter();
   }, []);
 
   const onChange = (e) => {
@@ -259,13 +253,13 @@ const Import = () => {
 
   const handleFilterCancel = () => {};
 
-  const onHandleSave = () => {
+  const onHandleSave = async () => {
     if (isFilterValid()) {
       setShowAddFilterModal(true);
     }
   };
   const handlePropertiesChange = async (event) => {
-    setErrors({})
+    setErrors({});
     setProperties(event.target.value);
   };
 
@@ -279,26 +273,9 @@ const Import = () => {
     setDaysAgo("");
   };
 
-  const handleInputChange = async (e) => {
-    setErrors({})
-    setAddFilter(e.target.value);
-    let value = e.target.value;
-    let res = await getContactApi(properties, rules, value);
-    if (res && res.data && res.data.status === 200) {
-    }
-  };
   const handleJDChange = async (e) => {
-    setErrors({})
-    setJoinedDate(e.target.value);
-    let value = e.target.value;
-    let res = await getContactApi(properties, rules, value);
-    if (res && res.data && res.data.status === 200) {
-    }
-  };
-
-  const handleLAChange = async (e) => {
-    setErrors({})
-    setLastActiveDate(e.target.value);
+    setErrors({});
+    setInputValue(e.target.value);
     let value = e.target.value;
     let res = await getContactApi(properties, rules, value);
     if (res && res.data && res.data.status === 200) {
@@ -306,16 +283,43 @@ const Import = () => {
   };
 
   const handleRulesChange = (event) => {
-    setRules(event.target.value)
-    setErrors({})
-  }
+    setRules(event.target.value);
+    setErrors({});
+  };
 
-  const handleAddFilterData = () => {};
+  const handleAddFilterData = async () => {
+    const obj = {
+      property: properties,
+      rule: rules,
+      value: inputValue,
+      name: filterName,
+    };
+    const res = await addContactFilter(obj);
+    if (res && res.data && res.data.status === 200) {
+      setShowAddFilterModal(false);
+      setProperties("");
+      setRules("");
+      setInputValue("");
+      toast.success("Filter Added Succssfully");
+    }
+  };
 
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
+    setInputValue("");
   };
 
+  const onFilterNameChange = (e) => {
+    setFilterName(e.target.value);
+  };
+
+  const getContactFilter = async () => {
+    const res = await getContactFilterApi();
+    if (res && res.data && res.data.status === 200) {
+      setFilterList(res.data.results);
+    }
+  };
+  console.log(filterList, "kkkkkkkkkkkk");
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -357,16 +361,17 @@ const Import = () => {
           value={value}
           rowsData={rowsData}
           addFilter={addFilter}
-          joinedDate={joinedDate}
+          inputValue={inputValue}
           lastActiveDate={lastActiveDate}
-          handleInputChange={handleInputChange}
           handleJDChange={handleJDChange}
-          handleLAChange={handleLAChange}
           showAddFilterModal={showAddFilterModal}
           handleCloseAddFilterModal={handleCloseAddFilterModal}
           handleAddFilterData={handleAddFilterData}
-          errors = {errors}
+          errors={errors}
           handleRulesChange={handleRulesChange}
+          filterName={filterName}
+          filterList={filterList}
+          onFilterNameChange={onFilterNameChange}
         />
       </div>
       <div className="contact-data-table-main">

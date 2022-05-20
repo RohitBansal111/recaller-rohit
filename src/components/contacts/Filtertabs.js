@@ -27,14 +27,14 @@ const FilterTabs = (props) => {
                 <Dropdown.Item onClick={props.handleAllTagsData}>
                   {`All(${props.totalRecords})`}
                 </Dropdown.Item>
-                {props.compaign
-                  ? props.compaign.map((item) => (
+                {props.filterList
+                  ? props.filterList.map((item) => (
                       <>
                         <Dropdown.Item
-                          eventKey={item.label}
+                          eventKey={item.name}
                           onClick={() => props.handleTagsClick(item)}
                         >
-                          {item.label}
+                          {item.name}
                         </Dropdown.Item>
                       </>
                     ))
@@ -65,15 +65,16 @@ const FilterTabs = (props) => {
             handleClear={props.handleClear}
             rowsData={props.rowsData}
             addFilter={props.addFilter}
-            joinedDate={props.joinedDate}
-            lastActiveDate={props.lastActiveDate}
+            inputValue={props.inputValue}
             handleInputChange={props.handleInputChange}
             handleJDChange={props.handleJDChange}
-            handleLAChange={props.handleLAChange}
             showAddFilterModal={props.showAddFilterModal}
             handleCloseAddFilterModal={props.handleCloseAddFilterModal}
             handleAddFilterData={props.handleAddFilterData}
             errors={props.errors}
+            filterName={props.filterName}
+            onFilterNameChange={props.onFilterNameChange}
+            compaign={props.compaign}
           />
         </Tab>
       </Tabs>

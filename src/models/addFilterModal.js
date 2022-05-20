@@ -32,7 +32,11 @@ const DeleteFilterModal = (props) => {
           <Button variant="secondary" onClick={props.handleCloseAddFilterModal}>
             Dismiss
           </Button>
-          <Button variant="primary" onClick={props.handleAddFilterData}>
+          <Button
+            type="button"
+            variant="primary"
+            onClick={props.handleAddFilterData}
+          >
             Save
           </Button>
         </Modal.Footer>
