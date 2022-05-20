@@ -301,6 +301,9 @@ const Import = () => {
       setRules("");
       setInputValue("");
       toast.success("Filter Added Succssfully");
+      getContactFilter();
+    } else {
+      toast.error(res.data.message);
     }
   };
 
@@ -319,7 +322,6 @@ const Import = () => {
       setFilterList(res.data.results);
     }
   };
-  console.log(filterList, "kkkkkkkkkkkk");
   return (
     <>
       <div className="page-header justify-flex-end">
