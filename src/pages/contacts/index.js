@@ -126,16 +126,16 @@ const Import = () => {
 
         formData = false;
         break;
-      case !lastActiveDate:
-        setErrors({ lastActive: "This field is required!" });
+      // case !lastActiveDate:
+      //   setErrors({ lastActive: "This field is required!" });
 
-        formData = false;
-        break;
-      case !addFilter:
-        setErrors({ campaigns: "This field is required!" });
+      //   formData = false;
+      //   break;
+      // case !addFilter:
+      //   setErrors({ campaigns: "This field is required!" });
 
-        formData = false;
-        break;
+      //   formData = false;
+      //   break;
       default:
         formData = true;
     }
