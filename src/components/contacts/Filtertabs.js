@@ -65,7 +65,11 @@ const FilterTabs = (props) => {
             handleClear={props.handleClear}
             rowsData={props.rowsData}
             addFilter={props.addFilter}
+            joinedDate={props.joinedDate}
+            lastActiveDate={props.lastActiveDate}
             handleInputChange={props.handleInputChange}
+            handleJDChange={props.handleJDChange}
+            handleLAChange={props.handleLAChange}
           />
         </Tab>
       </Tabs>

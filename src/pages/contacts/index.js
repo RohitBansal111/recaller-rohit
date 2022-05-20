@@ -31,8 +31,9 @@ const Import = () => {
   const [rules, setRules] = useState("");
   const [daysAgo, setDaysAgo] = useState("");
   const [value, setValue] = useState("");
-  const [addFilter, setAddFilter] = useState({});
-
+  const [addFilter, setAddFilter] = useState("");
+  const [joinedDate, setJoinedDate] = useState("");
+  const [lastActiveDate, setLastActiveDate] = useState("");
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -229,9 +230,6 @@ const Import = () => {
   };
   const handlePropertiesChange = async (event) => {
     setProperties(event.target.value);
-    let res = await getContactApi(properties, rules);
-    if (res && res.data && res.data.status === 200) {
-    }
   };
 
   const handleSelect = (e) => {
@@ -248,12 +246,27 @@ const Import = () => {
   //   setAddFilter({ ...addFilter, [e.target.name]: e.taget.value });
   // };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setAddFilter({
-      ...addFilter,
-      [name]: value,
-    });
+  const handleInputChange = async (e) => {
+    setAddFilter(e.target.value);
+    let value = e.target.value;
+    let res = await getContactApi(properties, rules, value);
+    if (res && res.data && res.data.status === 200) {
+    }
+  };
+  const handleJDChange = async (e) => {
+    setJoinedDate(e.target.value);
+    let value = e.target.value;
+    let res = await getContactApi(properties, rules, value);
+    if (res && res.data && res.data.status === 200) {
+    }
+  };
+
+  const handleLAChange = async (e) => {
+    setLastActiveDate(e.target.value);
+    let value = e.target.value;
+    let res = await getContactApi(properties, rules, value);
+    if (res && res.data && res.data.status === 200) {
+    }
   };
 
   return (
@@ -298,7 +311,11 @@ const Import = () => {
           value={value}
           rowsData={rowsData}
           addFilter={addFilter}
+          joinedDate={joinedDate}
+          lastActiveDate={lastActiveDate}
           handleInputChange={handleInputChange}
+          handleJDChange={handleJDChange}
+          handleLAChange={handleLAChange}
         />
       </div>
       <div className="contact-data-table-main">

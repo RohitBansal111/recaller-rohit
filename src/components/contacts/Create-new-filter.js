@@ -126,20 +126,22 @@ const CreateNewFilter = (props) => {
                 </InputLabel>
                 {props.properties == "Joined Date" && (
                   <Input
-                    type="text"
+                    type="number"
                     name="joineddate"
+                    min="0"
                     placeholder="Enter Date"
-                    value={props.addFilter.joineddate}
-                    onChange={props.handleInputChange}
+                    value={props.joinedDate.joineddate}
+                    onChange={props.handleJDChange}
                   ></Input>
                 )}
                 {props.properties == "Last Active" && (
                   <Input
-                    type="text"
+                    type="number"
                     name="lastActive"
+                    min="0"
                     placeholder="Enter Date"
-                    value={props.addFilter.lastActive}
-                    onChange={props.handleInputChange}
+                    value={props.lastActiveDate.lastActive}
+                    onChange={props.handleLAChange}
                   ></Input>
                 )}
                 {props.properties == "Campaigns" && (
