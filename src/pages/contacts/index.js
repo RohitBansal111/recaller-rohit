@@ -270,7 +270,7 @@ const Import = () => {
     setFilterName("");
     setProperties("");
     setRules("");
-    handleAllTagsData()
+    handleAllTagsData();
     setErrors({});
   };
 
@@ -364,7 +364,7 @@ const Import = () => {
     );
     if (res && res.data && res.data.status === 200) {
       setEditFilter(false);
-      setShowSelect(true)
+      setShowSelect(true);
       setFilterByCompaigns([]);
       toast.success(res.data.message);
       setFilterList([]);
@@ -396,7 +396,7 @@ const Import = () => {
     setEditFilter(false);
     getContactFilter();
     setFilterList([]);
-    setShowSelect(true)
+    setShowSelect(true);
   };
 
   return (
