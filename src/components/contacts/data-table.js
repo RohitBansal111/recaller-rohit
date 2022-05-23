@@ -79,12 +79,12 @@ const headCells = [
     disablePadding: false,
     label: "Primary Phone",
   },
-  {
-    id: "updatedAt",
-    numeric: true,
-    disablePadding: false,
-    label: "Last Activity Date",
-  },
+  // {
+  //   id: "updatedAt",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "Last Activity Date",
+  // },
   {
     id: "createdAt",
     numeric: true,
@@ -364,9 +364,9 @@ export default function EnhancedTable(props) {
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>
-              <TableCell align="right">
+              {/* <TableCell align="right">
                 {moment(row && row.updatedAt).format("DD/MM/YYYY")}
-              </TableCell>
+              </TableCell> */}
               <TableCell align="right">
                 {moment(row && row.createdAt).format("DD/MM/YYYY")}
               </TableCell>
