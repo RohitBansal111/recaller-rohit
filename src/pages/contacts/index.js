@@ -302,6 +302,8 @@ const Import = () => {
       setInputValue("");
       toast.success("Filter Added Succssfully");
       getContactFilter();
+      setFilterName("");
+      setErrors({});
     } else {
       toast.error(res.data.message);
     }
@@ -310,6 +312,7 @@ const Import = () => {
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
     setInputValue("");
+    setFilterName("");
   };
 
   const onFilterNameChange = (e) => {
