@@ -264,7 +264,15 @@ const Import = () => {
     setFilterByCompaigns([]);
   };
 
-  const handleFilterCancel = () => {};
+  const handleFilterCancel = () => {
+    setShowAddFilterModal(false);
+    setInputValue("");
+    setFilterName("");
+    setProperties("");
+    setRules("");
+    handleAllTagsData()
+    setErrors({});
+  };
 
   const onHandleSave = async () => {
     if (isFilterValid()) {
@@ -284,7 +292,6 @@ const Import = () => {
   const handleClear = () => {
     setProperties("");
     setRules("");
-    setDaysAgo("");
   };
 
   const handleJDChange = async (e) => {
@@ -356,13 +363,13 @@ const Import = () => {
       editFilterValue
     );
     if (res && res.data && res.data.status === 200) {
-      getContactFilter();
       setEditFilter(false);
-      setShowSelect(false);
+      setShowSelect(true)
       setFilterByCompaigns([]);
       toast.success(res.data.message);
       setFilterList([]);
     }
+    getContactFilter();
   };
 
   const deleteFilter = () => {
@@ -372,13 +379,13 @@ const Import = () => {
   const handleDeleteFilter = async () => {
     const res = await deleteContactFilterApi(editFilterValue._id);
     if (res && res.data && res.data.status === 200) {
-      getContactFilter();
       setEditFilter(false);
       setShowSelect(false);
       toast.success(res.data.message);
       setFilterByCompaigns([]);
       setFilterList([]);
     }
+    getContactFilter();
   };
 
   const handleCloseDeleteFilterModal = () => {
@@ -387,10 +394,9 @@ const Import = () => {
 
   const handleContactFilterCancel = () => {
     setEditFilter(false);
-    setFilterByCompaigns([]);
-    setShowSelect(false);
     getContactFilter();
     setFilterList([]);
+    setShowSelect(true)
   };
 
   return (

@@ -48,7 +48,13 @@ const FilterTabs = (props) => {
         >
           {props.showSelect && (
             <div className="edit-filter-bar">
-              <span>{props.editFilterData.name}</span>
+              <span>
+                {props.editFilterData.property == "joinedDate"
+                  ? `${props.editFilterData.property} ${props.editFilterData.rule} ${props.editFilterData.value}`
+                  : props.editFilterData.property == "campaigns"
+                  ? `${props.editFilterData.name} `
+                  : ""}
+              </span>
               <button
                 type="button"
                 onClick={() => props.handleEditFilter(props.editFilterData)}

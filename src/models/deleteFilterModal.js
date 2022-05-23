@@ -14,11 +14,15 @@ const DeleteFilterModal = (props) => {
         </Modal.Header>
         <Modal.Body>
           <h2 className="text-center">
-            You want to Delete this Filter?
+            <b>{props.filterValue.name}</b> will be removed from your list of
+            saved filters.
           </h2>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleCloseDeleteFilterModal}>
+          <Button
+            variant="secondary"
+            onClick={props.handleCloseDeleteFilterModal}
+          >
             Dismiss
           </Button>
           <Button variant="primary" onClick={props.handleDeleteFilter}>

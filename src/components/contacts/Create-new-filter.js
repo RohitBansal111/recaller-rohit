@@ -86,9 +86,9 @@ const CreateNewFilter = (props) => {
                 label="Properties"
                 onChange={props.handlePropertiesChange}
               >
-                <MenuItem value={"Joined Date"}>Joined Date</MenuItem>
+                <MenuItem value={"joinedDate"}>Joined Date</MenuItem>
                 {/* <MenuItem value={"Last Active"}>Last Active</MenuItem> */}
-                <MenuItem value={"Campaigns"}>Campaigns</MenuItem>
+                <MenuItem value={"campaigns"}>Campaigns</MenuItem>
               </Select>
               <span className="spanError">{props.errors.properties}</span>
             </FormControl>
@@ -102,11 +102,11 @@ const CreateNewFilter = (props) => {
                   label="Rules"
                   onChange={props.handleRulesChange}
                 >
-                  {props.properties == "Joined Date" &&
+                  {props.properties == "joinedDate" &&
                     renderJoinedDateOptions()}
                   {/* {props.properties == "Last Active" &&
                     renderLastActiveOptions()} */}
-                  {props.properties == "Campaigns" && renderTagsOptions()}
+                  {props.properties == "campaigns" && renderTagsOptions()}
                 </Select>
                 <span className="spanError">{props.errors.rules}</span>
               </FormControl>
@@ -114,11 +114,11 @@ const CreateNewFilter = (props) => {
             {props.rules && (
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
-                  {props.properties == "Campaigns"
+                  {props.properties == "campaigns"
                     ? "Campaigns name"
                     : "Days Ago"}
                 </InputLabel>
-                {props.properties == "Joined Date" && (
+                {props.properties == "joinedDate" && (
                   <>
                     <Input
                       type="number"
@@ -142,7 +142,7 @@ const CreateNewFilter = (props) => {
                     <span className="spanError">{props.errors.error}</span>
                   </>
                 )} */}
-                {props.properties == "Campaigns" && (
+                {props.properties == "campaigns" && (
                   <>
                     <Select
                       labelId="demo-simple-select-label"

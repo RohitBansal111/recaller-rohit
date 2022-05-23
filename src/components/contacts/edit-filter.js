@@ -65,8 +65,8 @@ const EditFilter = (props) => {
                 value={props.editFilterValue.property}
                 onChange={props.onhandleEditFilterChange}
               >
-                <MenuItem value={"Joined Date"}>Joined Date</MenuItem>
-                <MenuItem value={"Campaigns"}>Campaigns</MenuItem>
+                <MenuItem value={"joinedDate"}>Joined Date</MenuItem>
+                <MenuItem value={"campaigns"}>Campaigns</MenuItem>
               </Select>
               <span className="spanError"> </span>
             </FormControl>
@@ -80,20 +80,20 @@ const EditFilter = (props) => {
                 value={props.editFilterValue.rule}
                 onChange={props.onhandleEditFilterChange}
               >
-                {props.editFilterValue.property === "Joined Date" &&
+                {props.editFilterValue.property === "joinedDate" &&
                   renderJoinedDateOptions()}
-                {props.editFilterValue.property == "Campaigns" &&
+                {props.editFilterValue.property == "campaigns" &&
                   renderTagsOptions()}
               </Select>
               <span className="spanError"> </span>
             </FormControl>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
-                {props.editFilterValue.property == "Joined Date"
+                {props.editFilterValue.property == "joinedDate"
                   ? "Days Ago"
                   : "Campaigns name"}
               </InputLabel>
-              {props.editFilterValue.property == "Joined Date" && (
+              {props.editFilterValue.property == "joinedDate" && (
                 <>
                   <Input
                     type="number"
@@ -105,7 +105,7 @@ const EditFilter = (props) => {
                   <span className="spanError"></span>
                 </>
               )}
-              {props.editFilterValue.property == "Campaigns" && (
+              {props.editFilterValue.property == "campaigns" && (
                 <>
                   <Select
                     labelId="demo-simple-select-label"
@@ -158,6 +158,7 @@ const EditFilter = (props) => {
               showDeleteFilterModal={props.showDeleteFilterModal}
               handleCloseDeleteFilterModal={props.handleCloseDeleteFilterModal}
               handleDeleteFilter={props.handleDeleteFilter}
+              filterValue={props.editFilterValue}
             />
           </div>
         </form>
