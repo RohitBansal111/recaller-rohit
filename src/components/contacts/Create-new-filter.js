@@ -87,7 +87,7 @@ const CreateNewFilter = (props) => {
                 onChange={props.handlePropertiesChange}
               >
                 <MenuItem value={"Joined Date"}>Joined Date</MenuItem>
-                <MenuItem value={"Last Active"}>Last Active</MenuItem>
+                {/* <MenuItem value={"Last Active"}>Last Active</MenuItem> */}
                 <MenuItem value={"Campaigns"}>Campaigns</MenuItem>
               </Select>
               <span className="spanError">{props.errors.properties}</span>
@@ -104,8 +104,8 @@ const CreateNewFilter = (props) => {
                 >
                   {props.properties == "Joined Date" &&
                     renderJoinedDateOptions()}
-                  {props.properties == "Last Active" &&
-                    renderLastActiveOptions()}
+                  {/* {props.properties == "Last Active" &&
+                    renderLastActiveOptions()} */}
                   {props.properties == "Campaigns" && renderTagsOptions()}
                 </Select>
                 <span className="spanError">{props.errors.rules}</span>
@@ -130,7 +130,7 @@ const CreateNewFilter = (props) => {
                     <span className="spanError">{props.errors.error}</span>
                   </>
                 )}
-                {props.properties == "Last Active" && (
+                {/* {props.properties == "Last Active" && (
                   <>
                     <Input
                       type="number"
@@ -141,7 +141,7 @@ const CreateNewFilter = (props) => {
                     ></Input>
                     <span className="spanError">{props.errors.error}</span>
                   </>
-                )}
+                )} */}
                 {props.properties == "Campaigns" && (
                   <>
                     <Select

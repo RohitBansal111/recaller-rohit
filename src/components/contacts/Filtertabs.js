@@ -4,12 +4,10 @@ import Tabs from "react-bootstrap/Tabs";
 import CreateNewFilter from "./Create-new-filter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Dropdown } from "react-bootstrap";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
 import EditFilter from "./edit-filter";
 
 const FilterTabs = (props) => {
-  const [editFilter, setEditFilter] = useState(false)
-  const handleEditFilter = () => setEditFilter(true)
   return (
     <div className="filter-tabs">
       <Tabs
@@ -48,12 +46,29 @@ const FilterTabs = (props) => {
             </Dropdown>
           }
         >
-          {!editFilter &&
-          <div className="edit-filter-bar">
-            <span>Tags include upload: alberta_file.csv (2020-09-01 16:38) </span>
-            <button type="button" onClick={handleEditFilter} className="btn btn-edit"> <EditIcon /> Edit </button>
-          </div> }
-          {editFilter && <EditFilter />}
+          {props.showSelect && (
+            <div className="edit-filter-bar">
+              <span>{props.editFilterData.name}</span>
+              <button
+                type="button"
+                onClick={() => props.handleEditFilter(props.editFilterData)}
+                className="btn btn-edit"
+              >
+                {" "}
+                <EditIcon /> Edit{" "}
+              </button>
+            </div>
+          )}
+          {props.editFilter && (
+            <EditFilter
+              editFilterValue={props.editFilterValue}
+              onhandleEditFilterChange={props.onhandleEditFilterChange}
+              compaign={props.compaign}
+              handleFilterEdit={props.handleFilterEdit}
+              deleteFilter={props.deleteFilter}
+              handleContactFilterCancel={props.handleContactFilterCancel}
+            />
+          )}
         </Tab>
         <Tab
           eventKey="filter"
