@@ -47,7 +47,7 @@ const Import = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [editFilterData, setEditFilterData] = useState({});
   const [editFilterValue, setEditFilterValue] = useState({});
-
+  const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -259,8 +259,9 @@ const Import = () => {
   };
 
   const handleAllTagsData = () => {
-    setFilterByCompaigns([]);
+    setEditFilter(false);
     setShowSelect(false);
+    setFilterByCompaigns([]);
   };
 
   const handleFilterCancel = () => {};
@@ -359,17 +360,29 @@ const Import = () => {
       setEditFilter(false);
       setShowSelect(false);
       setFilterByCompaigns([]);
+      toast.success(res.data.message);
+      setFilterList([]);
     }
   };
 
-  const deleteFilter = async (item) => {
+  const deleteFilter = () => {
+    setShowDeleteFilterModal(true);
+  };
+
+  const handleDeleteFilter = async () => {
     const res = await deleteContactFilterApi(editFilterValue._id);
     if (res && res.data && res.data.status === 200) {
       getContactFilter();
       setEditFilter(false);
       setShowSelect(false);
+      toast.success(res.data.message);
       setFilterByCompaigns([]);
+      setFilterList([]);
     }
+  };
+
+  const handleCloseDeleteFilterModal = () => {
+    setShowDeleteFilterModal(false);
   };
 
   const handleContactFilterCancel = () => {
@@ -377,6 +390,7 @@ const Import = () => {
     setFilterByCompaigns([]);
     setShowSelect(false);
     getContactFilter();
+    setFilterList([]);
   };
 
   return (
@@ -440,6 +454,9 @@ const Import = () => {
           handleFilterEdit={handleFilterEdit}
           deleteFilter={deleteFilter}
           handleContactFilterCancel={handleContactFilterCancel}
+          showDeleteFilterModal={showDeleteFilterModal}
+          handleCloseDeleteFilterModal={handleCloseDeleteFilterModal}
+          handleDeleteFilter={handleDeleteFilter}
         />
       </div>
       <div className="contact-data-table-main">

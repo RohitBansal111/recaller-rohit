@@ -9,7 +9,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { joinedDateClick, tagsClick } from "../../helper/list";
-
+import DeleteFilterModal from "../../models/deleteFilterModal";
 const EditFilter = (props) => {
   const renderJoinedDateOptions = () => {
     return joinedDateClick.map((item, i) => {
@@ -90,7 +90,7 @@ const EditFilter = (props) => {
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 {props.editFilterValue.property == "Joined Date"
-                  ? ""
+                  ? "Days Ago"
                   : "Campaigns name"}
               </InputLabel>
               {props.editFilterValue.property == "Joined Date" && (
@@ -154,6 +154,11 @@ const EditFilter = (props) => {
                 <DoneIcon /> Save Changes
               </button>
             </div>
+            <DeleteFilterModal
+              showDeleteFilterModal={props.showDeleteFilterModal}
+              handleCloseDeleteFilterModal={props.handleCloseDeleteFilterModal}
+              handleDeleteFilter={props.handleDeleteFilter}
+            />
           </div>
         </form>
       </div>

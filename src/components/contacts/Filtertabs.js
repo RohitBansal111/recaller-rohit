@@ -67,6 +67,9 @@ const FilterTabs = (props) => {
               handleFilterEdit={props.handleFilterEdit}
               deleteFilter={props.deleteFilter}
               handleContactFilterCancel={props.handleContactFilterCancel}
+              showDeleteFilterModal={props.showDeleteFilterModal}
+              handleCloseDeleteFilterModal={props.handleCloseDeleteFilterModal}
+              handleDeleteFilter={props.handleDeleteFilter}
             />
           )}
         </Tab>
