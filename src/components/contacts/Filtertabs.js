@@ -4,7 +4,12 @@ import Tabs from "react-bootstrap/Tabs";
 import CreateNewFilter from "./Create-new-filter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Dropdown } from "react-bootstrap";
+import EditIcon from '@material-ui/icons/Edit';
+import EditFilter from "./edit-filter";
+
 const FilterTabs = (props) => {
+  const [editFilter, setEditFilter] = useState(false)
+  const handleEditFilter = () => setEditFilter(true)
   return (
     <div className="filter-tabs">
       <Tabs
@@ -42,7 +47,14 @@ const FilterTabs = (props) => {
               </Dropdown.Menu>
             </Dropdown>
           }
-        ></Tab>
+        >
+          {!editFilter &&
+          <div className="edit-filter-bar">
+            <span>Tags include upload: alberta_file.csv (2020-09-01 16:38) </span>
+            <button type="button" onClick={handleEditFilter} className="btn btn-edit"> <EditIcon /> Edit </button>
+          </div> }
+          {editFilter && <EditFilter />}
+        </Tab>
         <Tab
           eventKey="filter"
           title={

@@ -31,18 +31,33 @@
   color: $HeadingColor;
   background-color: $CommonBorder;
 }
-button:disabled {
-  cursor: not-allowed;
-  pointer-events: all !important;
-  background-color: #000 !important;
-  color: #ffffff !important;
-  border: 1px solid #000000 !important;
-  opacity: 1 !important;
+button{
+  cursor: pointer;
 }
-button.Mui-disabled{
-  background-color: #000 !important;
-  color: #ffffff !important;
-  border: 1px solid #000000 !important;
-  opacity: 1 !important;
-  cursor: not-allowed !important;
+// button:disabled {
+//   cursor: not-allowed;
+//   pointer-events: all !important;
+//   background-color: #000 !important;
+//   color: #ffffff !important;
+//   border: 1px solid #000000 !important;
+//   opacity: 1 !important;
+// }
+// button.Mui-disabled{
+  // background-color: #000 !important;
+  // color: #ffffff !important;
+  // border: 1px solid #000000 !important;
+  // opacity: 1 !important;
+  // cursor: not-allowed !important;
+// }
+.wizard-main-content{
+  .main-form{
+    button:disabled{
+      background-color: #000 !important;
+      color: #ffffff !important;
+      border: 1px solid #000000 !important;
+      opacity: 1 !important;
+      cursor: not-allowed !important;
+      pointer-events: all;
+    }
+  }
 }
