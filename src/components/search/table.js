@@ -59,17 +59,6 @@ const data = [
 ];
 
 export default function SearchDataTable() {
-  const getSeachResults = async () => {
-    const res = await axios.get(
-      `https://serpapi.com/search.json?engine=duckduckgo&q=apple&api_key=1a2383ac8b7bd70fe640928f483d45645abe844b15bd03a4e219fa8ea5c3e79c`
-    );
-    console.log("res", res);
-  };
-
-  React.useEffect(() => {
-    getSeachResults();
-  }, []);
-
   return (
     <div
       className="search-data-table common-data-table"
