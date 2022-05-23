@@ -8,7 +8,12 @@ import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
 import { getCompaignApi } from "../../api/compaign";
-import { addContactFilter, getContactFilterApi } from "../../api/filter";
+import {
+  addContactFilter,
+  deleteContactFilterApi,
+  editContactFilterApi,
+  getContactFilterApi,
+} from "../../api/filter";
 
 const Import = () => {
   const [show, setShow] = useState(false);
@@ -38,7 +43,11 @@ const Import = () => {
   const [showAddFilterModal, setShowAddFilterModal] = useState(false);
   const [filterName, setFilterName] = useState("");
   const [filterList, setFilterList] = useState([]);
-
+  const [editFilter, setEditFilter] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
+  const [editFilterData, setEditFilterData] = useState({});
+  const [editFilterValue, setEditFilterValue] = useState({});
+  const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -242,12 +251,16 @@ const Import = () => {
   };
 
   const handleTagsClick = (item) => {
+    setEditFilterData(item);
     const data =
       rowsData && rowsData.filter((val) => val.compaignId == item.value);
     setFilterByCompaigns(data);
+    setShowSelect(true);
   };
 
   const handleAllTagsData = () => {
+    setEditFilter(false);
+    setShowSelect(false);
     setFilterByCompaigns([]);
   };
 
@@ -265,6 +278,7 @@ const Import = () => {
 
   const handleSelect = (e) => {
     setValue(e);
+    getContactFilter();
   };
 
   const handleClear = () => {
@@ -302,6 +316,8 @@ const Import = () => {
       setInputValue("");
       toast.success("Filter Added Succssfully");
       getContactFilter();
+      setFilterName("");
+      setErrors({});
     } else {
       toast.error(res.data.message);
     }
@@ -310,6 +326,7 @@ const Import = () => {
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
     setInputValue("");
+    setFilterName("");
   };
 
   const onFilterNameChange = (e) => {
@@ -322,6 +339,60 @@ const Import = () => {
       setFilterList(res.data.results);
     }
   };
+
+  const handleEditFilter = (item) => {
+    setEditFilterValue(item);
+    setEditFilter(true);
+    setShowSelect(false);
+  };
+
+  const onhandleEditFilterChange = (e) => {
+    setEditFilterValue({ ...editFilterValue, [e.target.name]: e.target.value });
+  };
+
+  const handleFilterEdit = async () => {
+    const res = await editContactFilterApi(
+      editFilterValue._id,
+      editFilterValue
+    );
+    if (res && res.data && res.data.status === 200) {
+      getContactFilter();
+      setEditFilter(false);
+      setShowSelect(false);
+      setFilterByCompaigns([]);
+      toast.success(res.data.message);
+      setFilterList([]);
+    }
+  };
+
+  const deleteFilter = () => {
+    setShowDeleteFilterModal(true);
+  };
+
+  const handleDeleteFilter = async () => {
+    const res = await deleteContactFilterApi(editFilterValue._id);
+    if (res && res.data && res.data.status === 200) {
+      getContactFilter();
+      setEditFilter(false);
+      setShowSelect(false);
+      toast.success(res.data.message);
+      setFilterByCompaigns([]);
+      setFilterList([]);
+    }
+  };
+
+  const handleCloseDeleteFilterModal = () => {
+    setShowDeleteFilterModal(false);
+  };
+
+  const handleContactFilterCancel = () => {
+    setEditFilter(false);
+    setFilterByCompaigns([]);
+    setShowSelect(false);
+    getContactFilter();
+    setFilterList([]);
+  };
+
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -374,6 +445,18 @@ const Import = () => {
           filterName={filterName}
           filterList={filterList}
           onFilterNameChange={onFilterNameChange}
+          handleEditFilter={handleEditFilter}
+          editFilter={editFilter}
+          showSelect={showSelect}
+          editFilterData={editFilterData}
+          editFilterValue={editFilterValue}
+          onhandleEditFilterChange={onhandleEditFilterChange}
+          handleFilterEdit={handleFilterEdit}
+          deleteFilter={deleteFilter}
+          handleContactFilterCancel={handleContactFilterCancel}
+          showDeleteFilterModal={showDeleteFilterModal}
+          handleCloseDeleteFilterModal={handleCloseDeleteFilterModal}
+          handleDeleteFilter={handleDeleteFilter}
         />
       </div>
       <div className="contact-data-table-main">

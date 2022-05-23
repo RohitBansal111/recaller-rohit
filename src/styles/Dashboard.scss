@@ -97,6 +97,25 @@
       box-sizing: border-box;
     }
   }
+  .input-label-control{
+    top: 10px !important;
+  }
+  .input-field-control{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    box-sizing: border-box;
+    &::before{
+      display: none;
+    }
+    &::after{
+      display: none;
+    }
+  }
 }
 .MuiTableBody-root{
   .MuiTableCell-root{
