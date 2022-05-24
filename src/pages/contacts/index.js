@@ -343,8 +343,6 @@ const Import = () => {
     }
   };
 
-  console.log(filterList.length, "filterList.length");
-
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
     setInputValue("");
