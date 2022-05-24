@@ -27,14 +27,17 @@ const FilterTabs = (props) => {
                 {props.value ? `${props.value}` : `All(${props.totalRecords})`}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={props.handleAllTagsData}>
+                <Dropdown.Item
+                  eventKey={`All(${props.totalRecords})`}
+                  onClick={props.handleAllTagsData}
+                >
                   {`All(${props.totalRecords})`}
                 </Dropdown.Item>
                 {props.filterList
                   ? props.filterList.map((item) => (
                       <>
                         <Dropdown.Item
-                          eventKey={item.name}
+                          eventKey={`${item.name}(${item.resultCount})`}
                           onClick={() => props.handleTagsClick(item)}
                         >
                           {`${item.name}(${item.resultCount})`}

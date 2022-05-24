@@ -49,6 +49,7 @@ const Import = () => {
   const [editFilterData, setEditFilterData] = useState({});
   const [editFilterValue, setEditFilterValue] = useState({});
   const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
+  const [totalRowsData , setTotalRowsData] = useState([]);
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -149,6 +150,7 @@ const Import = () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
       setRowsData(res.data.data);
+      setTotalRowsData(res.data.data.length)
     }
     getContactCompaign();
   };
@@ -280,7 +282,7 @@ const Import = () => {
     setFilterName("");
     setProperties("");
     setRules("");
-    handleAllTagsData();
+    setFilterByCompaigns([]);
     setErrors({});
   };
 
@@ -295,6 +297,7 @@ const Import = () => {
   };
 
   const handleSelect = (e) => {
+    console.log(e);
     setValue(e);
     getContactFilter();
   };
@@ -333,7 +336,7 @@ const Import = () => {
       setProperties("");
       setRules("");
       setInputValue("");
-      toast.success("Filter Added Succssfully");
+      toast.success(res.data.message);
       getContactFilter();
       setFilterName("");
       setErrors({});
@@ -391,8 +394,8 @@ const Import = () => {
       setFilterByCompaigns([]);
       toast.success(res.data.message);
       setFilterList([]);
+      getContactFilter();
     }
-    getContactFilter();
   };
 
   const deleteFilter = () => {
@@ -407,8 +410,8 @@ const Import = () => {
       toast.success(res.data.message);
       setFilterByCompaigns([]);
       setFilterList([]);
+      getContactFilter();
     }
-    getContactFilter();
   };
 
   const handleCloseDeleteFilterModal = () => {
@@ -447,7 +450,7 @@ const Import = () => {
       <div className="filter-by-option">
         <h3>Filter By:</h3>
         <FilterTabs
-          totalRecords={rowsData ? rowsData.length : 0}
+          totalRecords={totalRowsData ? totalRowsData : 0}
           compaign={compaign}
           handleTagsClick={handleTagsClick}
           handleAllTagsData={handleAllTagsData}
