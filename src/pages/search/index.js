@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import SearchDataTable from "../../components/search/table";
 import axios from "axios";
+import LoadingButton from "@mui/lab/LoadingButton";
+
 const Search = () => {
   const [search, setSearch] = useState({});
   const [searchData, setSearchData] = useState([]);
-  
+  const [loading, setLoading] = useState(false);
   const getSearchResults = async () => {
+    setLoading(true);
     const res = await axios.get(
       `http://localhost:5000/contact/search-api?apikey=1a2383ac8b7bd70fe640928f483d45645abe844b15bd03a4e219fa8ea5c3e79c&engine=duckduckgo&q=${
         search.productName
@@ -19,12 +22,13 @@ const Search = () => {
     );
     if (res && res.data && res.data.status === 200) {
       setSearchData(res.data.data.organic_results);
+      setLoading(false);
     }
   };
 
   const handleChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
-  }
+  };
 
   return (
     <div className="content-page-layout">
@@ -66,19 +70,27 @@ const Search = () => {
               />
             </div>
             <div className="field-group">
-              <button
+              <LoadingButton
                 type="button"
-                className="btn btn-primary"
+                disabled={
+                  !search.productName ||
+                  !search.prooductSku ||
+                  !search.productCompany
+                    ? true
+                    : false
+                }
+                loadingPosition="center"
+                loading={loading}
                 onClick={getSearchResults}
+                className="btn btn-primary"
+                variant="contained"
               >
-                Search
-              </button>
+                Send
+              </LoadingButton>
             </div>
           </form>
         </div>
-        <SearchDataTable
-          searchData={searchData}
-        />
+        <SearchDataTable searchData={searchData} />
       </div>
     </div>
   );
