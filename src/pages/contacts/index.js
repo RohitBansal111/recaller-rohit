@@ -271,6 +271,7 @@ const Import = () => {
   const handleAllTagsData = () => {
     setEditFilter(false);
     setShowSelect(false);
+    getData();
     setFilterByCompaigns([]);
   };
 
@@ -325,6 +326,7 @@ const Import = () => {
       rule: rules,
       value: inputValue,
       name: filterName,
+      resultCount: rowsData ? rowsData.length : 0,
     };
     const res = await addContactFilter(obj);
     if (res && res.data && res.data.status === 200) {
@@ -336,10 +338,13 @@ const Import = () => {
       getContactFilter();
       setFilterName("");
       setErrors({});
+      getData();
     } else {
       toast.error(res.data.message);
     }
   };
+
+  console.log(filterList.length, "filterList.length");
 
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
@@ -370,6 +375,11 @@ const Import = () => {
 
   const onhandleEditFilterChange = (e) => {
     setEditFilterValue({ ...editFilterValue, [e.target.name]: e.target.value });
+    applyFilter({
+      property: editFilterValue.property,
+      rule: editFilterValue.rule,
+      value: e.target.value,
+    });
   };
 
   const handleFilterEdit = async () => {
