@@ -265,7 +265,6 @@ const Import = () => {
     if (response && response.data && response.data.results) {
       setRowsData(response.data.results ? response.data.results : []);
     }
-    console.log("filter response :::", response);
   };
 
   const handleAllTagsData = () => {
