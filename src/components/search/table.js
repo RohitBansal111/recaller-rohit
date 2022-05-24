@@ -1,5 +1,3 @@
-import TablePagination from "@mui/material/TablePagination";
-import axios from "axios";
 import * as React from "react";
 import DataTable from "react-data-table-component";
 export default function SearchDataTable(props) {
