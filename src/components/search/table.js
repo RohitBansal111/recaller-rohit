@@ -16,8 +16,8 @@ export default function SearchDataTable(props) {
     },
 
     {
-      name: "Link",
-      selector: (row) => row.link,
+      name: "Snippet",
+      selector: (row) => (row && row.snippet ? row.snippet : ""),
       sortable: true,
     },
   ];
