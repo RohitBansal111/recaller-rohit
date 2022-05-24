@@ -8,6 +8,7 @@ import {
   getTagsApi,
   updateTagsApi,
 } from "../../../api/tag";
+import { Link } from "react-router-dom";
 const ConversationTags = () => {
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
@@ -53,17 +54,17 @@ const ConversationTags = () => {
   const openCTModal = () => {
     setOpenCreateTagModal(true);
     setaddTags({});
-    setErrors({})
+    setErrors({});
   };
   const handleCloseCTModal = () => {
     setOpenCreateTagModal(false);
     setaddTags({});
-    setErrors({})
+    setErrors({});
   };
 
   const handleChange = (e) => {
     setaddTags({ ...addTags, [e.target.name]: e.target.value });
-    setErrors({})
+    setErrors({});
   };
 
   useEffect(() => {
@@ -126,7 +127,10 @@ const ConversationTags = () => {
       <div className="page-header subheading-bar">
         <div className="header-text">
           <h1>Settings</h1>
-          <p>Setting / Text / Conversation Tags</p>
+          <p>
+            {<Link to={"/settings"}>Settings</Link>} /
+            {<Link to={"/settings/text"}>Text</Link>} / Conversation Tags
+          </p>
         </div>
         <div className="header-action">
           <button
