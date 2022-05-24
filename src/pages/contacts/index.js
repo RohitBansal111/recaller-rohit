@@ -13,6 +13,7 @@ import {
   deleteContactFilterApi,
   editContactFilterApi,
   getContactFilterApi,
+  applyContactFilterApi
 } from "../../api/filter";
 
 const Import = () => {
@@ -250,13 +251,22 @@ const Import = () => {
     setErrors({});
   };
 
-  const handleTagsClick = (item) => {
+  const handleTagsClick =  (item) => {
     setEditFilterData(item);
     const data =
       rowsData && rowsData.filter((val) => val.compaignId == item.value);
     setFilterByCompaigns(data);
     setShowSelect(true);
+    applyFilter(item)
   };
+
+  const applyFilter = async (data)=>{
+    const response = await applyContactFilterApi(data)
+    if(response && response.data && response.data.results){
+      setRowsData(response.data.results?response.data.results:[])
+    }
+    console.log("filter response :::",response)
+  }
 
   const handleAllTagsData = () => {
     setEditFilter(false);
@@ -298,9 +308,10 @@ const Import = () => {
     setErrors({});
     setInputValue(e.target.value);
     let value = e.target.value;
-    let res = await getContactApi(properties, rules, value);
-    if (res && res.data && res.data.status === 200) {
-    }
+    if(value) applyFilter({property:properties,rule:rules,value})
+    // let res = await getContactApi(properties, rules, value);
+    // if (res && res.data && res.data.status === 200) {
+    // }
   };
 
   const handleRulesChange = (event) => {
@@ -346,6 +357,10 @@ const Import = () => {
       setFilterList(res.data.results);
     }
   };
+
+  const afterFilterApply = (data)=>{
+  setRowsData(data)
+  }
 
   const handleEditFilter = (item) => {
     setEditFilterValue(item);
@@ -463,6 +478,7 @@ const Import = () => {
           showDeleteFilterModal={showDeleteFilterModal}
           handleCloseDeleteFilterModal={handleCloseDeleteFilterModal}
           handleDeleteFilter={handleDeleteFilter}
+          afterFilterApply={afterFilterApply}
         />
       </div>
       <div className="contact-data-table-main">
