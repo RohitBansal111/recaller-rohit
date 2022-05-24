@@ -343,8 +343,6 @@ const Import = () => {
     }
   };
 
-  console.log(filterList.length, "filterList.length");
-
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
     setInputValue("");
@@ -370,6 +368,7 @@ const Import = () => {
     setEditFilterValue(item);
     setEditFilter(true);
     setShowSelect(false);
+    setShowDeleteFilterModal(false)
   };
 
   const onhandleEditFilterChange = (e) => {
