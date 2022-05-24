@@ -37,7 +37,7 @@ const FilterTabs = (props) => {
                           eventKey={item.name}
                           onClick={() => props.handleTagsClick(item)}
                         >
-                          {item.name}
+                          {`${item.name}(${item.resultCount})`}
                         </Dropdown.Item>
                       </>
                     ))

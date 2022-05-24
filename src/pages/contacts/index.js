@@ -13,7 +13,7 @@ import {
   deleteContactFilterApi,
   editContactFilterApi,
   getContactFilterApi,
-  applyContactFilterApi
+  applyContactFilterApi,
 } from "../../api/filter";
 
 const Import = () => {
@@ -251,26 +251,27 @@ const Import = () => {
     setErrors({});
   };
 
-  const handleTagsClick =  (item) => {
+  const handleTagsClick = (item) => {
     setEditFilterData(item);
     const data =
       rowsData && rowsData.filter((val) => val.compaignId == item.value);
     setFilterByCompaigns(data);
     setShowSelect(true);
-    applyFilter(item)
+    applyFilter(item);
   };
 
-  const applyFilter = async (data)=>{
-    const response = await applyContactFilterApi(data)
-    if(response && response.data && response.data.results){
-      setRowsData(response.data.results?response.data.results:[])
+  const applyFilter = async (data) => {
+    const response = await applyContactFilterApi(data);
+    if (response && response.data && response.data.results) {
+      setRowsData(response.data.results ? response.data.results : []);
     }
-    console.log("filter response :::",response)
-  }
+    console.log("filter response :::", response);
+  };
 
   const handleAllTagsData = () => {
     setEditFilter(false);
     setShowSelect(false);
+    getData();
     setFilterByCompaigns([]);
   };
 
@@ -308,7 +309,7 @@ const Import = () => {
     setErrors({});
     setInputValue(e.target.value);
     let value = e.target.value;
-    if(value) applyFilter({property:properties,rule:rules,value})
+    if (value) applyFilter({ property: properties, rule: rules, value });
     // let res = await getContactApi(properties, rules, value);
     // if (res && res.data && res.data.status === 200) {
     // }
@@ -325,6 +326,7 @@ const Import = () => {
       rule: rules,
       value: inputValue,
       name: filterName,
+      resultCount: rowsData ? rowsData.length : 0,
     };
     const res = await addContactFilter(obj);
     if (res && res.data && res.data.status === 200) {
@@ -336,10 +338,13 @@ const Import = () => {
       getContactFilter();
       setFilterName("");
       setErrors({});
+      getData();
     } else {
       toast.error(res.data.message);
     }
   };
+
+  console.log(filterList.length, "filterList.length");
 
   const handleCloseAddFilterModal = () => {
     setShowAddFilterModal(false);
@@ -358,9 +363,9 @@ const Import = () => {
     }
   };
 
-  const afterFilterApply = (data)=>{
-  setRowsData(data)
-  }
+  const afterFilterApply = (data) => {
+    setRowsData(data);
+  };
 
   const handleEditFilter = (item) => {
     setEditFilterValue(item);
@@ -370,6 +375,11 @@ const Import = () => {
 
   const onhandleEditFilterChange = (e) => {
     setEditFilterValue({ ...editFilterValue, [e.target.name]: e.target.value });
+    applyFilter({
+      property: editFilterValue.property,
+      rule: editFilterValue.rule,
+      value: e.target.value,
+    });
   };
 
   const handleFilterEdit = async () => {
