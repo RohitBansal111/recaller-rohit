@@ -368,6 +368,7 @@ const Import = () => {
     setEditFilterValue(item);
     setEditFilter(true);
     setShowSelect(false);
+    setShowDeleteFilterModal(false)
   };
 
   const onhandleEditFilterChange = (e) => {
