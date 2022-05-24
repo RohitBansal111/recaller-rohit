@@ -3,13 +3,15 @@ import SearchDataTable from "../../components/search/table";
 import axios from "axios";
 const Search = () => {
   const [search, setSearch] = useState({});
-  const [searchData, setSearchData] = useState("");
+  const [searchData, setSearchData] = useState([]);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(5);
   const getSearchResults = async () => {
     const res = await axios.get(
       `http://localhost:5000/contact/search-api?apikey=1a2383ac8b7bd70fe640928f483d45645abe844b15bd03a4e219fa8ea5c3e79c&engine=duckduckgo&q=${
         search.productName
           ? search.productName
-          : "" + " " + search.prooductSku
+          : " " + " " + search.prooductSku
           ? search.prooductSku
           : "" + " " + search.productCompany
           ? search.productCompany
@@ -17,16 +19,17 @@ const Search = () => {
       }`
     );
     if (res && res.data && res.data.status === 200) {
-      setSearchData(res.data.data.search_parameters.q);
+      setSearchData(res.data.data.organic_results);
     }
   };
-  React.useEffect(() => {
-    getSearchResults();
-  }, []);
 
-  console.log(searchData, "searchData");
   const handleChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
+  };
+  const handleChangePage = () => {};
+
+  const handlePerRowsChange = async (newPerPage, page) => {
+    setPerPage(newPerPage);
   };
 
   return (
@@ -79,7 +82,12 @@ const Search = () => {
             </div>
           </form>
         </div>
-        <SearchDataTable data={searchData} />
+        <SearchDataTable
+          searchData={searchData}
+          handleChangePage={handleChangePage}
+          totalRows={totalRows}
+          handlePerRowsChange={handlePerRowsChange}
+        />
       </div>
     </div>
   );
