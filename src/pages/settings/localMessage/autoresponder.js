@@ -25,30 +25,41 @@ const Autoresponder = () => {
   const [inComingAutoRes, setInComingAutoRes] = useState("");
   const [autoResData, setAutoResData] = useState([]);
   const AddIncomeDuringSMS = (item) => {
-    setInComingAutoRes(item.duringHoursAutoResponse);
+    if (item) {
+      setInComingAutoRes(item.duringHoursAutoResponse);
+    }
     setAddIncomeDuringSet(true);
   };
 
   const AddWidgetDuringSMS = (item) => {
-    const val = item.duringHoursWidget;
-    setaddAutoResponse(val);
+    if (item) {
+      const val = item.duringHoursWidget;
+      setaddAutoResponse(val);
+    }
     setAddWidgetDuringSet(true);
   };
   const AddIncomeOutsideSMS = (item) => {
-    const val = item.outsideHoursAutoResponse;
-    setwidgetRes(val);
+    if (item) {
+      const val = item.outsideHoursAutoResponse;
+      setwidgetRes(val);
+    }
     setAddIncomeOutsideSet(true);
   };
   const AddWidgetOutsideSMS = (item) => {
-    const val = item.outsideHoursWidget;
-    setaddWidgetAutoRes(val);
+    if (item) {
+      const val = item.outsideHoursWidget;
+      setaddWidgetAutoRes(val);
+    }
     setAddWidgetOutsideSet(true);
   };
   const addBusinessHourModal = (item) => {
-    businessData.businesshours = item.businessHours.businesshours;
-    businessData.businessTime = item.businessHours.businessTime;
-    businessData.businesTimeHours = item.businessHours.businesTimeHours;
-    setBusinessData(businessData);
+    if (item) {
+      setBusinessData({
+        businesshours: item.businessHours.businesshours,
+        businessTime: item.businessHours.businessTime,
+        businesTimeHours: item.businessHours.businesTimeHours,
+      });
+    }
     setBusinessHourModal(true);
   };
   const handleModalClose = () => {
@@ -163,9 +174,14 @@ const Autoresponder = () => {
                   className="btn btn-autoReply"
                   onClick={() => addBusinessHourModal(autoResData)}
                 >
-                  {" "}
-                  {/* <AddIcon /> */}
-                  Edit Business hour{" "}
+                  {autoResData ? (
+                    "Edit Business hour"
+                  ) : (
+                    <>
+                      <AddIcon />
+                      Add Business hour
+                    </>
+                  )}
                 </button>
               </div>
             </div>
