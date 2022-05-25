@@ -31,7 +31,7 @@ export default function SearchDataTable(props) {
 
   return (
     <div
-      className="search-data-table common-data-table"
+      className="search-data-table common-data-table searchDataTable"
       style={{ height: 500, width: "100%" }}
     >
       <DataTable

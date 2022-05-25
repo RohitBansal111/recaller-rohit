@@ -76,3 +76,45 @@
     width: 100% !important;
   }
 }
+
+// Search page
+.searchDataTable{
+  .rdt_Table{
+    .rdt_TableHead{
+      .rdt_TableHeadRow{
+        .rdt_TableCol{
+          &:first-child{
+            width: 10%;
+            max-width: 180px;
+          }
+          &:nth-child(2){
+            width: 40%;
+            max-width: 450px;
+          }
+          &:nth-child(3){
+            width: 40%;
+            max-width: 600px;
+          }
+        }
+      }
+    }
+    .rdt_TableBody{
+      .rdt_TableRow{
+        .rdt_TableCell{
+          &:first-child{
+            width: 10%;
+            max-width: 180px;
+          }
+          &:nth-child(2){
+            width: 40%;
+            max-width: 450px;
+          }
+          &:nth-child(3){
+            width: 40%;
+            max-width: 600px;
+          }
+        }
+      }
+    }
+  }
+}
