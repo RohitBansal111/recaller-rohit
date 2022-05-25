@@ -131,13 +131,19 @@ const CreateNewFilter = (props) => {
                 <InputLabel id="demo-simple-select-label">
                   {props.properties == "campaigns"
                     ? "Campaigns name"
-                    : props.properties == "joinedDate"
+                    : props.rules == "More Than"
+                    ? "Days Ago"
+                    : props.rules == "Less Than"
+                    ? "Days Ago"
+                    : props.rules == "Exactly"
                     ? "Days Ago"
                     : props.properties == "Last Message Received"
                     ? "Days Ago"
                     : ""}
                 </InputLabel>
-                {props.properties == "joinedDate" && (
+                {props.rules == "More Than" ||
+                props.rules == "Less Than" ||
+                props.rules == "Exactly" ? (
                   <>
                     <Input
                       type="number"
@@ -148,20 +154,27 @@ const CreateNewFilter = (props) => {
                     ></Input>
                     <span className="spanError">{props.errors.error}</span>
                   </>
+                ) : props.rules == "Today" ? (
+                  ""
+                ) : (
+                  ""
                 )}
 
-                {props.properties == "Last Message Received" && (
-                  <>
-                    <Input
-                      type="number"
-                      name="val"
-                      min="0"
-                      value={props.inputValue.val}
-                      onChange={props.handleJDChange}
-                    ></Input>
-                    <span className="spanError">{props.errors.error}</span>
-                  </>
-                )}
+                {props.rules == "More Than" ||
+                  props.rules == "Less Than" ||
+                  props.rules == "Exactly" ||
+                  (props.rules == "Never" && (
+                    <>
+                      <Input
+                        type="number"
+                        name="val"
+                        min="0"
+                        value={props.inputValue.val}
+                        onChange={props.handleJDChange}
+                      ></Input>
+                      <span className="spanError">{props.errors.error}</span>
+                    </>
+                  ))}
 
                 {props.properties == "campaigns" && (
                   <>

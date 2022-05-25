@@ -313,15 +313,21 @@ const Import = () => {
     setErrors({});
     setInputValue(e.target.value);
     let value = e.target.value;
-    if (value) applyFilter({ property: properties, rule: rules, value });
-    // let res = await getContactApi(properties, rules, value);
-    // if (res && res.data && res.data.status === 200) {
-    // }
+    if (value) {
+      applyFilter({ property: properties, rule: rules, value });
+    }
   };
 
   const handleRulesChange = (event) => {
     setRules(event.target.value);
     setErrors({});
+    if (event.target.value == "Today") {
+      applyFilter({
+        property: properties,
+        rule: event.target.value,
+        value: inputValue,
+      });
+    }
   };
 
   const handleAddFilterData = async () => {

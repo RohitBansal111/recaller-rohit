@@ -251,6 +251,7 @@ const EmailChatBoot = (props) => {
                                     const data = editor.getData();
                                     props.onHandleChange(data);
                                   }}
+                                  editorLoaded={props.editorLoaded}
                                 />
                                 {/* <textarea
                                   placeholder="Type your message..."

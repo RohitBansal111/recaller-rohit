@@ -75,6 +75,8 @@ const EmailPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
     useState(false);
+    const [editorLoaded, setEditorLoaded] = useState(false);
+
   const divRef = useRef(null);
   const textref = useRef(null);
 
@@ -769,6 +771,10 @@ const EmailPage = () => {
     setSelectedImage(URL.createObjectURL(img));
   };
 
+  useEffect(() => {
+    setEditorLoaded(true);
+  }, []);
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -936,6 +942,7 @@ const EmailPage = () => {
         savelistToMessageClick={savelistToMessageClick}
         textRef={textref}
         selecteduser={selecteduser}
+        editorLoaded={editorLoaded}
       />
     </div>
   );
