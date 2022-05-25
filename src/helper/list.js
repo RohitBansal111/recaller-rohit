@@ -42,7 +42,7 @@ export const lastMessageRecivedClick = [
   },
   { name: "Less Than" },
   {
-    name: "Today",
+    name: "Never",
   },
 ];
 

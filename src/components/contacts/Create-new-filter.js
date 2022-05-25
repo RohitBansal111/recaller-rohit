@@ -91,43 +91,47 @@ const CreateNewFilter = (props) => {
                   Last Message Received
                 </MenuItem>
                 <MenuItem value={"Duplicates"}>Duplicates</MenuItem>
-                <MenuItem value={"Has Email Address"}>
-                  Has Email Address
-                </MenuItem>
-                <MenuItem value={"Has Phone Number"}>Has Phone Number</MenuItem>
+                <MenuItem value={"hasEmail"}>Has Email Address</MenuItem>
+                <MenuItem value={"hasPhoneNumber"}>Has Phone Number</MenuItem>
                 <MenuItem value={"campaigns"}>Campaigns</MenuItem>
               </Select>
               <span className="spanError">{props.errors.properties}</span>
             </FormControl>
             {props.properties && (
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Rules</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={props.rules}
-                  label="Rules"
-                  onChange={props.handleRulesChange}
-                >
-                  {props.properties == "joinedDate" &&
-                    renderJoinedDateOptions()}
-                  {props.properties == "Last Message Received" &&
-                    renderLastMessageReceivedOptions()}
-                  {props.properties == "Duplicates" &&
-                    renderDuplicatesOptions()}
-                  {props.properties == "Has Email Address" && renderEPOptions()}
-                  {props.properties == "Has Phone Number" && renderEPOptions()}
-                  {props.properties == "campaigns" && renderTagsOptions()}
-                </Select>
-                <span className="spanError">{props.errors.rules}</span>
-              </FormControl>
+              <>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Rules</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={props.rules}
+                    label="Rules"
+                    onChange={props.handleRulesChange}
+                  >
+                    {props.properties == "joinedDate" &&
+                      renderJoinedDateOptions()}
+                    {props.properties == "Last Message Received" &&
+                      renderLastMessageReceivedOptions()}
+                    {props.properties == "campaigns" && renderTagsOptions()}
+                    {/* {props.properties == "Duplicates" &&
+                      renderDuplicatesOptions()}
+                    {props.properties == "hasEmail" && renderEPOptions()}
+                    {props.properties == "hasPhoneNumber" && renderEPOptions()} */}
+                  </Select>
+                  <span className="spanError">{props.errors.rules}</span>
+                </FormControl>
+              </>
             )}
-            {props.rules && (
+            {props.rules ? (
               <FormControl className="input-control" fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   {props.properties == "campaigns"
                     ? "Campaigns name"
-                    : "Days Ago"}
+                    : props.properties == "joinedDate"
+                    ? "Days Ago"
+                    : props.properties == "Last Message Received"
+                    ? "Days Ago"
+                    : ""}
                 </InputLabel>
                 {props.properties == "joinedDate" && (
                   <>
@@ -141,7 +145,8 @@ const CreateNewFilter = (props) => {
                     <span className="spanError">{props.errors.error}</span>
                   </>
                 )}
-                {/* {props.properties == "Last Active" && (
+
+                {props.properties == "Last Message Received" && (
                   <>
                     <Input
                       type="number"
@@ -152,7 +157,8 @@ const CreateNewFilter = (props) => {
                     ></Input>
                     <span className="spanError">{props.errors.error}</span>
                   </>
-                )} */}
+                )}
+
                 {props.properties == "campaigns" && (
                   <>
                     <Select
@@ -173,6 +179,23 @@ const CreateNewFilter = (props) => {
                     <span className="spanError">{props.errors.error}</span>
                   </>
                 )}
+              </FormControl>
+            ) : (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Value</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  name="val"
+                  value={props.inputValue.val}
+                  onChange={props.handleJDChange}
+                >
+                  {props.properties == "Duplicates" &&
+                    renderDuplicatesOptions()}
+                  {props.properties == "hasEmail" && renderEPOptions()}
+                  {props.properties == "hasPhoneNumber" && renderEPOptions()}
+                </Select>
+                <span className="spanError">{props.errors.error}</span>
               </FormControl>
             )}
 
