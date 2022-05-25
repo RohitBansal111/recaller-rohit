@@ -1,22 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import {
+  sendOptInOutRequest,
+  getOptInOutRequest,
+} from "../../../api/setting-Api/textOptSetting";
 
 const OPTInOut = () => {
   const [optkeyWordSetting, setOptkeyWordSetting] = useState({});
+
   const navigate = useNavigate();
-  const handleOptkeyWordChnage = (e) => {
+
+  const handleChange = (e) => {
     setOptkeyWordSetting({
       ...optkeyWordSetting,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = () => {
-    console.log(optkeyWordSetting, "optkeyWordSetting");
+  const handleSubmit = async () => {
+    const data = {
+      optInKeywords: optkeyWordSetting.optInKeywords,
+      optoutKeywords: optkeyWordSetting.optoutKeywords,
+      optInConfirmMessage: optkeyWordSetting.optInConfirmMessage,
+      optOutConfirmMessage: optkeyWordSetting.optOutConfirmMessage,
+    };
+    let res = await sendOptInOutRequest(data);
+    if (res && res.data && res.data.status === 200) {
+      toast.success(res.data.message);
+      getDataApi();
+    }
   };
-
   const handleCancel = () => {
     navigate("/settings/text");
+  };
+
+  useEffect(() => {
+    getDataApi();
+  }, []);
+
+  const getDataApi = async () => {
+    const res = await getOptInOutRequest();
+    if (res && res.data && res.data.status === 200) {
+      setOptkeyWordSetting({
+        optInKeywords: res.data.result.optInKeywords,
+        optoutKeywords: res.data.result.optoutKeywords,
+        optInConfirmMessage: res.data.result.optInConfirmMessage,
+        optOutConfirmMessage: res.data.result.optOutConfirmMessage,
+      });
+    }
   };
 
   return (
@@ -40,10 +72,9 @@ const OPTInOut = () => {
                   type="text"
                   className="form-control"
                   placeholder="Enter first name"
-                  defaultValue={"help"}
-                  name="optIn"
-                  value={optkeyWordSetting.optIn}
-                  onChange={handleOptkeyWordChnage}
+                  name="optInKeywords"
+                  value={optkeyWordSetting.optInKeywords}
+                  onChange={handleChange}
                 />
               </div>
               <div className="field-group flex2">
@@ -52,10 +83,9 @@ const OPTInOut = () => {
                   type="text"
                   className="form-control"
                   placeholder="Enter last name"
-                  defaultValue={"stop"}
-                  name="optOut"
-                  value={optkeyWordSetting.optOut}
-                  onChange={handleOptkeyWordChnage}
+                  name="optoutKeywords"
+                  value={optkeyWordSetting.optoutKeywords}
+                  onChange={handleChange}
                 />
               </div>
               <div className="field-group flexFull">
@@ -63,11 +93,10 @@ const OPTInOut = () => {
                 <textarea
                   type="text"
                   className="form-control"
-                  defaultValue={"hlo"}
                   placeholder="You have successfully been resubscribed to messages from this number. Reply HELP for help. Reply STOP to unsubscribe. Msg Data Rates May Apply"
-                  name="optInConfirmation"
-                  value={optkeyWordSetting.optInConfirmation}
-                  onChange={handleOptkeyWordChnage}
+                  name="optInConfirmMessage"
+                  value={optkeyWordSetting.optInConfirmMessage}
+                  onChange={handleChange}
                 ></textarea>
               </div>
               <div className="field-group flexFull">
@@ -76,10 +105,9 @@ const OPTInOut = () => {
                   type="text"
                   className="form-control"
                   placeholder="You have successfully been unsubscribed. You will not receive any more messages from this number. Reply START to resubscribe"
-                  defaultValue={"hlo"}
-                  name="optOutConfirmation"
-                  value={optkeyWordSetting.optOutConfirmation}
-                  onChange={handleOptkeyWordChnage}
+                  name="optOutConfirmMessage"
+                  value={optkeyWordSetting.optOutConfirmMessage}
+                  onChange={handleChange}
                 ></textarea>
               </div>
               <div className="field-group btn-groups flexFull">
