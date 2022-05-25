@@ -137,8 +137,8 @@ const CreateNewFilter = (props) => {
                     ? "Days Ago"
                     : props.rules == "Exactly"
                     ? "Days Ago"
-                    : props.properties == "Last Message Received"
-                    ? "Days Ago"
+                    : props.properties == "Never"
+                    ? ""
                     : ""}
                 </InputLabel>
                 {props.rules == "More Than" ||
@@ -156,25 +156,11 @@ const CreateNewFilter = (props) => {
                   </>
                 ) : props.rules == "Today" ? (
                   ""
+                ) : props.rules == "Never" ? (
+                  ""
                 ) : (
                   ""
                 )}
-
-                {props.rules == "More Than" ||
-                  props.rules == "Less Than" ||
-                  props.rules == "Exactly" ||
-                  (props.rules == "Never" && (
-                    <>
-                      <Input
-                        type="number"
-                        name="val"
-                        min="0"
-                        value={props.inputValue.val}
-                        onChange={props.handleJDChange}
-                      ></Input>
-                      <span className="spanError">{props.errors.error}</span>
-                    </>
-                  ))}
 
                 {props.properties == "campaigns" && (
                   <>
