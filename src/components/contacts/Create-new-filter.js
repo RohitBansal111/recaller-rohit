@@ -113,10 +113,6 @@ const CreateNewFilter = (props) => {
                     {props.properties == "Last Message Received" &&
                       renderLastMessageReceivedOptions()}
                     {props.properties == "campaigns" && renderTagsOptions()}
-                    {/* {props.properties == "Duplicates" &&
-                      renderDuplicatesOptions()}
-                    {props.properties == "hasEmail" && renderEPOptions()}
-                    {props.properties == "hasPhoneNumber" && renderEPOptions()} */}
                   </Select>
                   <span className="spanError">{props.errors.rules}</span>
                 </FormControl>
@@ -180,7 +176,9 @@ const CreateNewFilter = (props) => {
                   </>
                 )}
               </FormControl>
-            ) : (
+            ) : props.properties == "Duplicates" ||
+              props.properties == "hasEmail" ||
+              props.properties == "hasPhoneNumber" ? (
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Value</InputLabel>
                 <Select
@@ -197,6 +195,8 @@ const CreateNewFilter = (props) => {
                 </Select>
                 <span className="spanError">{props.errors.error}</span>
               </FormControl>
+            ) : (
+              ""
             )}
 
             <button
