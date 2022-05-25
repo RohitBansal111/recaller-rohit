@@ -1,9 +1,9 @@
-export const sourceClick = [
+export const emailPhoneClick = [
   {
-    name: "Is",
+    name: "Yes",
   },
   {
-    name: "IsNot",
+    name: "No",
   },
 ];
 

@@ -27,7 +27,6 @@ const BusinessHourModal = ({
             <label>Select a day</label>
             <select
               className="form-control"
-              defaultValue={"Weekend"}
               name="businesshours"
               value={props.businessData.businesshours}
               onChange={props.handleBusinessChnage}
@@ -51,7 +50,6 @@ const BusinessHourModal = ({
               className="form-control"
               placeholder="Enter Name"
               name="businessTime"
-              defaultValue={"09:00"}
               value={props.businessData.businessTime}
               onChange={props.handleBusinessChnage}
             />
@@ -63,7 +61,6 @@ const BusinessHourModal = ({
               className="form-control"
               placeholder="Enter Contact Name"
               name="businesTimeHours"
-              defaultValue={"17:00"}
               value={props.businessData.businesTimeHours}
               onChange={props.handleBusinessChnage}
             />

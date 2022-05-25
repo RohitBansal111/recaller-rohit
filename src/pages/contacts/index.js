@@ -380,6 +380,7 @@ const Import = () => {
       property: editFilterValue.property,
       rule: editFilterValue.rule,
       value: e.target.value,
+      resultCount: rowsData ? rowsData.length : 0,
     });
   };
 
