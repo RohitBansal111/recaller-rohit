@@ -327,6 +327,13 @@ const Import = () => {
         rule: event.target.value,
         value: inputValue,
       });
+    } else if (event.target.value == "Never") {
+      applyFilter({
+        property: properties,
+        rule: event.target.value,
+        value: inputValue,
+      });
+    } else {
     }
   };
 
