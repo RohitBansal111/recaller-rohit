@@ -49,7 +49,7 @@ const Import = () => {
   const [editFilterData, setEditFilterData] = useState({});
   const [editFilterValue, setEditFilterValue] = useState({});
   const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
-  const [totalRowsData , setTotalRowsData] = useState([]);
+  const [totalRowsData, setTotalRowsData] = useState([]);
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -150,7 +150,7 @@ const Import = () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
       setRowsData(res.data.data);
-      setTotalRowsData(res.data.data.length)
+      setTotalRowsData(res.data.data.length);
     }
     getContactCompaign();
   };
@@ -277,12 +277,12 @@ const Import = () => {
   };
 
   const handleFilterCancel = () => {
+    getData();
     setShowAddFilterModal(false);
     setInputValue("");
     setFilterName("");
     setProperties("");
     setRules("");
-    setFilterByCompaigns([]);
     setErrors({});
   };
 
@@ -305,6 +305,8 @@ const Import = () => {
   const handleClear = () => {
     setProperties("");
     setRules("");
+    setErrors({});
+    getData();
   };
 
   const handleJDChange = async (e) => {
@@ -371,7 +373,7 @@ const Import = () => {
     setEditFilterValue(item);
     setEditFilter(true);
     setShowSelect(false);
-    setShowDeleteFilterModal(false)
+    setShowDeleteFilterModal(false);
   };
 
   const onhandleEditFilterChange = (e) => {
