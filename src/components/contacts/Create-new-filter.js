@@ -10,7 +10,7 @@ import {
   joinedDateClick,
   lastActiveClick,
   lastMessageRecivedClick,
-  sourceClick,
+  emailPhoneClick,
   tagsClick,
 } from "./../../helper/list";
 import { Input } from "@mui/material";
@@ -44,33 +44,33 @@ const CreateNewFilter = (props) => {
       );
     });
   };
-  // const renderDuplicatesOptions = () => {
-  //   return duplicatedClick.map((item, i) => {
-  //     return (
-  //       <MenuItem key={i} value={item.name}>
-  //         {item.name}
-  //       </MenuItem>
-  //     );
-  //   });
-  // };
-  // const renderLastMessageReceivedOptions = () => {
-  //   return lastMessageRecivedClick.map((item, i) => {
-  //     return (
-  //       <MenuItem key={i} value={item.name}>
-  //         {item.name}
-  //       </MenuItem>
-  //     );
-  //   });
-  // };
-  // const renderSourceOptions = () => {
-  //   return sourceClick.map((item, i) => {
-  //     return (
-  //       <MenuItem key={i} value={item.name}>
-  //         {item.name}
-  //       </MenuItem>
-  //     );
-  //   });
-  // };
+  const renderDuplicatesOptions = () => {
+    return duplicatedClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
+  const renderLastMessageReceivedOptions = () => {
+    return lastMessageRecivedClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
+  const renderEPOptions = () => {
+    return emailPhoneClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
 
   return (
     <div className="create-filter">
@@ -87,7 +87,14 @@ const CreateNewFilter = (props) => {
                 onChange={props.handlePropertiesChange}
               >
                 <MenuItem value={"joinedDate"}>Joined Date</MenuItem>
-                {/* <MenuItem value={"Last Active"}>Last Active</MenuItem> */}
+                <MenuItem value={"Last Message Received"}>
+                  Last Message Received
+                </MenuItem>
+                <MenuItem value={"Duplicates"}>Duplicates</MenuItem>
+                <MenuItem value={"Has Email Address"}>
+                  Has Email Address
+                </MenuItem>
+                <MenuItem value={"Has Phone Number"}>Has Phone Number</MenuItem>
                 <MenuItem value={"campaigns"}>Campaigns</MenuItem>
               </Select>
               <span className="spanError">{props.errors.properties}</span>
@@ -104,8 +111,12 @@ const CreateNewFilter = (props) => {
                 >
                   {props.properties == "joinedDate" &&
                     renderJoinedDateOptions()}
-                  {/* {props.properties == "Last Active" &&
-                    renderLastActiveOptions()} */}
+                  {props.properties == "Last Message Received" &&
+                    renderLastMessageReceivedOptions()}
+                  {props.properties == "Duplicates" &&
+                    renderDuplicatesOptions()}
+                  {props.properties == "Has Email Address" && renderEPOptions()}
+                  {props.properties == "Has Phone Number" && renderEPOptions()}
                   {props.properties == "campaigns" && renderTagsOptions()}
                 </Select>
                 <span className="spanError">{props.errors.rules}</span>

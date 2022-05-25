@@ -24,19 +24,31 @@ const Autoresponder = () => {
   const [addWidgetAutoRes, setaddWidgetAutoRes] = useState("");
   const [inComingAutoRes, setInComingAutoRes] = useState("");
   const [autoResData, setAutoResData] = useState([]);
-  const AddIncomeDuringSMS = () => {
+  const AddIncomeDuringSMS = (item) => {
+    setInComingAutoRes(item.duringHoursAutoResponse);
     setAddIncomeDuringSet(true);
   };
-  const AddWidgetDuringSMS = () => {
+
+  const AddWidgetDuringSMS = (item) => {
+    const val = item.duringHoursWidget;
+    setaddAutoResponse(val);
     setAddWidgetDuringSet(true);
   };
-  const AddIncomeOutsideSMS = () => {
+  const AddIncomeOutsideSMS = (item) => {
+    const val = item.outsideHoursAutoResponse;
+    setwidgetRes(val);
     setAddIncomeOutsideSet(true);
   };
-  const AddWidgetOutsideSMS = () => {
+  const AddWidgetOutsideSMS = (item) => {
+    const val = item.outsideHoursWidget;
+    setaddWidgetAutoRes(val);
     setAddWidgetOutsideSet(true);
   };
-  const addBusinessHourModal = () => {
+  const addBusinessHourModal = (item) => {
+    businessData.businesshours = item.businessHours.businesshours;
+    businessData.businessTime = item.businessHours.businessTime;
+    businessData.businesTimeHours = item.businessHours.businesTimeHours;
+    setBusinessData(businessData);
     setBusinessHourModal(true);
   };
   const handleModalClose = () => {
@@ -60,6 +72,8 @@ const Autoresponder = () => {
     const res = await sendAutoResRequest(obj);
     if (res && res.data && res.data.status === 200) {
       toast.success(res.data.message);
+      setBusinessHourModal(false);
+      getAutoResData();
     }
   };
 
@@ -115,9 +129,6 @@ const Autoresponder = () => {
       setAutoResData(res.data.result);
     }
   };
-
-  console.log(autoResData, "autoResData");
-
   return (
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
@@ -133,9 +144,11 @@ const Autoresponder = () => {
         <div className="setting-inner-container">
           <div className="add-business-hour">
             <h3>Business Hours</h3>
-            {autoResData &&
-              autoResData.businessHours &&
-              autoResData.businessHours.businesshours}
+            <b style={{ fontWeight: 500 }}>
+              {autoResData &&
+                autoResData.businessHours &&
+                autoResData.businessHours.businesshours}
+            </b>
             <p>
               {autoResData &&
                 autoResData.businessHours &&
@@ -148,10 +161,11 @@ const Autoresponder = () => {
                 <button
                   type="button"
                   className="btn btn-autoReply"
-                  onClick={addBusinessHourModal}
+                  onClick={() => addBusinessHourModal(autoResData)}
                 >
                   {" "}
-                  <AddIcon /> Add Business hour{" "}
+                  {/* <AddIcon /> */}
+                  Edit Business hour{" "}
                 </button>
               </div>
             </div>
@@ -173,7 +187,7 @@ const Autoresponder = () => {
                   <button
                     type="button"
                     className="btn btn-autoReply"
-                    onClick={AddIncomeDuringSMS}
+                    onClick={() => AddIncomeDuringSMS(autoResData)}
                   >
                     {" "}
                     <AddIcon /> Add Incoming SMS Auto-Response
@@ -186,11 +200,8 @@ const Autoresponder = () => {
                         <input
                           type="text"
                           className="form-control"
-                          defaultValue={
-                            "Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can."
-                          }
                           name="inComingAutoRes"
-                          value={inComingAutoRes.inComingAutoRes}
+                          value={inComingAutoRes}
                           onChange={handleAutIncomingResChnage}
                         />
                         <button
@@ -209,7 +220,7 @@ const Autoresponder = () => {
                   <button
                     type="button"
                     className="btn btn-autoReply"
-                    onClick={AddWidgetDuringSMS}
+                    onClick={() => AddWidgetDuringSMS(autoResData)}
                   >
                     {" "}
                     <AddIcon /> Add Widget Auto-Response{" "}
@@ -223,10 +234,7 @@ const Autoresponder = () => {
                           type="text"
                           className="form-control"
                           name="autoResponse"
-                          defaultValue={
-                            "Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can."
-                          }
-                          value={addAutoResponse.autoResponse}
+                          value={addAutoResponse}
                           onChange={handleAutoResponseChnage}
                         />
                         <button
@@ -261,7 +269,7 @@ const Autoresponder = () => {
                   <button
                     type="button"
                     className="btn btn-autoReply"
-                    onClick={AddIncomeOutsideSMS}
+                    onClick={() => AddIncomeOutsideSMS(autoResData)}
                   >
                     {" "}
                     <AddIcon /> Add Incoming SMS Auto-Response
@@ -274,11 +282,8 @@ const Autoresponder = () => {
                         <input
                           type="text"
                           className="form-control"
-                          defaultValue={
-                            "Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can."
-                          }
                           name="widgetRes"
-                          value={widgetRes.widgetRes}
+                          value={widgetRes}
                           onChange={handleWidgetResChnage}
                         />
                         <button
@@ -297,7 +302,7 @@ const Autoresponder = () => {
                   <button
                     type="button"
                     className="btn btn-autoReply"
-                    onClick={AddWidgetOutsideSMS}
+                    onClick={() => AddWidgetOutsideSMS(autoResData)}
                   >
                     {" "}
                     <AddIcon /> Add Widget Auto-Response{" "}
@@ -310,11 +315,8 @@ const Autoresponder = () => {
                         <input
                           type="text"
                           className="form-control"
-                          defaultValue={
-                            "Hey! Thanks for texting Natures Harvest-Apparel. We'll get back to you as soon as we can."
-                          }
                           name="widgetRes"
-                          value={addWidgetAutoRes.widgetRes}
+                          value={addWidgetAutoRes}
                           onChange={handleaddWidgetResChnage}
                         />
                         <button
@@ -338,6 +340,7 @@ const Autoresponder = () => {
         </div>
         <BusinessHourModal
           businessHourModal={businessHourModal}
+          autoResData={autoResData}
           handleModalClose={handleModalClose}
           handleModalShow={handleModalShow}
           handleProceed={handleProceed}
