@@ -112,7 +112,7 @@ const CreateNewFilter = (props) => {
               </FormControl>
             )}
             {props.rules && (
-              <FormControl fullWidth>
+              <FormControl className="input-control" fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   {props.properties == "campaigns"
                     ? "Campaigns name"

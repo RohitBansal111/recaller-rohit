@@ -4,9 +4,35 @@
   .select-property-filter {
     .filter-top {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       flex-wrap: wrap;
+      .MuiFormControl-root{
+        margin-right: 10px;
+      }
+      .input-control{
+        label{
+          font-size: 13px;
+          color: #000;
+        }
+        .MuiInput-root{
+          width: 100%;
+          height: 40px;
+          border: 1px solid #bbb;
+          font-size: 14px;
+          border-radius: 5px;
+          padding: 10px;
+          box-sizing: border-box;
+          margin-top: 0px;
+          background-color: #fff;
+          &::before{
+            display: none;
+          }
+          &::after{
+            display: none;
+          }
+        }
+      }
       .full-width-screen{
         max-width: 100%;
         flex: 0 0 100%;
