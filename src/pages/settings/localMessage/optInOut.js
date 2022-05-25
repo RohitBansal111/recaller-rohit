@@ -17,6 +17,7 @@ const OPTInOut = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async () => {
     const data = {
       optInKeywords: optkeyWordSetting.optInKeywords,
@@ -41,14 +42,12 @@ const OPTInOut = () => {
   const getDataApi = async () => {
     const res = await getOptInOutRequest();
     if (res && res.data && res.data.status === 200) {
-      optkeyWordSetting.optInKeywords = res.data.result.optInKeywords;
-      optkeyWordSetting.optoutKeywords = res.data.result.optoutKeywords;
-      optkeyWordSetting.optInConfirmMessage =
-        res.data.result.optInConfirmMessage;
-      optkeyWordSetting.optOutConfirmMessage =
-        res.data.result.optOutConfirmMessage;
-      console.log(optkeyWordSetting, "optkeyWordSetting");
-      setOptkeyWordSetting(optkeyWordSetting);
+      setOptkeyWordSetting({
+        optInKeywords: res.data.result.optInKeywords,
+        optoutKeywords: res.data.result.optoutKeywords,
+        optInConfirmMessage: res.data.result.optInConfirmMessage,
+        optOutConfirmMessage: res.data.result.optOutConfirmMessage,
+      });
     }
   };
 
