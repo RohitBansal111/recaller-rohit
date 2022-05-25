@@ -97,7 +97,9 @@ const CreateNewFilter = (props) => {
               </Select>
               <span className="spanError">{props.errors.properties}</span>
             </FormControl>
-            {props.properties && (
+            {props.properties == "joinedDate" ||
+            props.properties == "Last Message Received" ||
+            props.properties == "campaigns" ? (
               <>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Rules</InputLabel>
@@ -117,6 +119,12 @@ const CreateNewFilter = (props) => {
                   <span className="spanError">{props.errors.rules}</span>
                 </FormControl>
               </>
+            ) : props.properties == "Duplicates" ||
+              props.properties == "hasPhoneNumber" ||
+              props.properties == "hasEmail" ? (
+              " "
+            ) : (
+              ""
             )}
             {props.rules ? (
               <FormControl className="input-control" fullWidth>
