@@ -438,9 +438,7 @@ const Import = () => {
     if (res && res.data && res.data.status === 200) {
       setEditFilter(false);
       setShowSelect(true);
-      setFilterByCompaigns([]);
       toast.success(res.data.message);
-      setFilterList([]);
       getContactFilter();
     }
   };
@@ -455,9 +453,9 @@ const Import = () => {
       setEditFilter(false);
       setShowSelect(false);
       toast.success(res.data.message);
-      setFilterByCompaigns([]);
-      setFilterList([]);
+      handleAllTagsData()
       getContactFilter();
+      getData();
     }
   };
 
