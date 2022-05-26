@@ -25,6 +25,44 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import parse from "html-react-parser";
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
+  function uploadAdapter(loader) {
+    return {
+      upload: () => {
+        return new Promise((resolve, reject) => {
+          const body = new FormData();
+          loader.file.then((file) => {
+            body.append("ckImage", file);
+            // let headers = new Headers();
+            // headers.append("Origin", "http://localhost:3000");
+            const AUTH_TOKEN = localStorage.getItem("token");
+            fetch(`${process.env.REACT_APP_API_URL}/email/ckImageUpload`, {
+              method: "post",
+              headers: {
+                'Authorization': `${AUTH_TOKEN}`, // notice the Bearer before your token
+            },  
+              body: body
+              // mode: "no-cors"
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                console.log("upload ck response :::",res)
+                resolve({
+                  default: res.url
+                });
+              })
+              .catch((err) => {
+                reject(err);
+              });
+          });
+        });
+      }
+    };
+  }
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
   return (
     <Modal open={open} onClose={handleCloseMessageModal} center>
       <div className="modal-header">
@@ -112,9 +150,12 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
               <CKEditor
                 editor={ClassicEditor}
                 data={`${props.emailMessage}`}
-                onChange={(event, editor) => {
+                onChange={(event, editor) => { 
                   const data = editor.getData();
                   props.handleMessageChange(data);
+                }}
+                config={{
+                  extraPlugins: [uploadPlugin]
                 }}
               />
               <ul className="action-icons">

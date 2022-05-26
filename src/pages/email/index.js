@@ -324,7 +324,6 @@ const EmailPage = () => {
   };
 
   const handleMessageChange = (data) => {
-    console.log(data, "hellooo");
     setEmailMessage(data);
     setErrors({});
     setLoading(false);
