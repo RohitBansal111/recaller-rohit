@@ -295,6 +295,7 @@ const Import = () => {
     setErrors({});
     setProperties(event.target.value);
     setRules("");
+    setInputValue("");
   };
 
   const handleSelect = (e) => {
@@ -396,6 +397,7 @@ const Import = () => {
         ...editFilterValue,
         [e.target.name]: e.target.value,
         rule: "",
+        value: "",
       });
     } else {
       setEditFilterValue({
