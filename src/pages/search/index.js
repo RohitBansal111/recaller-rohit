@@ -11,13 +11,11 @@ const Search = () => {
     setLoading(true);
     const res = await axios.get(
       `http://localhost:5000/contact/search-api?apikey=2de83456f1b2dd9ee4ac5204b9f253cc2fc0f6804fa18bfdf8eef68ee2cdbb64&engine=duckduckgo&q=${
-        search.productName
-          ? search.productName
-          : " " + " " + search.prooductSku
-          ? search.prooductSku
-          : "" + " " + search.productCompany
-          ? search.productCompany
-          : ""
+        search.productName +
+        " " +
+        search.prooductSku +
+        " " +
+        search.productCompany
       }`
     );
     if (res && res.data && res.data.status === 200) {
