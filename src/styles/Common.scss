@@ -35,6 +35,37 @@ button:focus {
 .justify-flex-end {
   justify-content: flex-end !important;
 }
+
+.ck-editor__main {
+  ul {
+    li {
+      list-style-type: disc;
+    }
+  }
+}
+
+.middle-chat-screen {
+  ul {
+    li {
+      .chat-ui-box {
+        pre {
+          ul {
+            li {
+              list-style: disc outside none;
+              margin-left: 10px;
+            }
+          }
+          ol {
+            li {
+              list-style: auto;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ul {
   padding: 0px;
   margin: 0px;
@@ -42,6 +73,7 @@ ul {
     list-style-type: none;
   }
 }
+
 .modal-backdrop {
   display: none;
 }
