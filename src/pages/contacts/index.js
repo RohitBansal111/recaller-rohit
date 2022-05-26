@@ -323,6 +323,7 @@ const Import = () => {
   const handleRulesChange = (event) => {
     setRules(event.target.value);
     setErrors({});
+    setInputValue("");
     if (event.target.value == "Today") {
       applyFilter({
         property: properties,
