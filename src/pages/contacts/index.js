@@ -295,6 +295,7 @@ const Import = () => {
     setErrors({});
     setProperties(event.target.value);
     setRules("");
+    setInputValue("");
   };
 
   const handleSelect = (e) => {
@@ -322,6 +323,7 @@ const Import = () => {
   const handleRulesChange = (event) => {
     setRules(event.target.value);
     setErrors({});
+    setInputValue("");
     if (event.target.value == "Today") {
       applyFilter({
         property: properties,
@@ -396,6 +398,7 @@ const Import = () => {
         ...editFilterValue,
         [e.target.name]: e.target.value,
         rule: "",
+        value: "",
       });
     } else {
       setEditFilterValue({
