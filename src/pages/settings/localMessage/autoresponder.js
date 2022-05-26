@@ -26,39 +26,41 @@ const Autoresponder = () => {
   const [autoResData, setAutoResData] = useState([]);
   const AddIncomeDuringSMS = (item) => {
     if (item) {
-      setInComingAutoRes(item.duringHoursAutoResponse);
+      setInComingAutoRes(item.duringHoursAutoResponse.InComingAutoRes);
     }
     setAddIncomeDuringSet(true);
   };
 
   const AddWidgetDuringSMS = (item) => {
     if (item) {
-      const val = item.duringHoursWidget;
+      const val = item.duringHoursWidget.addAutoResponse;
       setaddAutoResponse(val);
     }
     setAddWidgetDuringSet(true);
   };
   const AddIncomeOutsideSMS = (item) => {
     if (item) {
-      const val = item.outsideHoursAutoResponse;
+      const val = item.outsideHoursAutoResponse.widgetRes;
       setwidgetRes(val);
     }
     setAddIncomeOutsideSet(true);
   };
   const AddWidgetOutsideSMS = (item) => {
     if (item) {
-      const val = item.outsideHoursWidget;
+      const val = item.outsideHoursWidget.addWidgetAutoRes;
       setaddWidgetAutoRes(val);
     }
     setAddWidgetOutsideSet(true);
   };
   const addBusinessHourModal = (item) => {
+    console.log(item);
     if (item) {
       setBusinessData({
-        businesshours: item.businessHours.businesshours,
-        businessTime: item.businessHours.businessTime,
-        businesTimeHours: item.businessHours.businesTimeHours,
+        businesshours: item.businesshours,
+        businessTime: item.businessTime,
+        businesTimeHours: item.businesTimeHours,
       });
+    } else {
     }
     setBusinessHourModal(true);
   };
@@ -73,12 +75,28 @@ const Autoresponder = () => {
   };
 
   const handleSaveHours = async () => {
+    const ob1 = {
+      InComingAutoRes: inComingAutoRes,
+      addIncomeDuringSet: addIncomeDuringSet,
+    };
+    const ob2 = {
+      addAutoResponse: addAutoResponse,
+      addWidgetDuringSet: addWidgetDuringSet,
+    };
+    const ob3 = {
+      widgetRes: widgetRes,
+      addIncomeOutsideSet: addIncomeOutsideSet,
+    };
+    const ob4 = {
+      addWidgetAutoRes: addWidgetAutoRes,
+      addWidgetOutsideSet: addWidgetOutsideSet,
+    };
     const obj = {
       businessHours: businessData,
-      duringHoursAutoResponse: inComingAutoRes,
-      duringHoursWidget: addAutoResponse,
-      outsideHoursAutoResponse: widgetRes,
-      outsideHoursWidget: addWidgetAutoRes,
+      duringHoursAutoResponse: ob1,
+      duringHoursWidget: ob2,
+      outsideHoursAutoResponse: ob3,
+      outsideHoursWidget: ob4,
     };
     const res = await sendAutoResRequest(obj);
     if (res && res.data && res.data.status === 200) {
@@ -116,12 +134,29 @@ const Autoresponder = () => {
   };
 
   const handleSaveClick = async () => {
+    const ob1 = {
+      InComingAutoRes: inComingAutoRes,
+      addIncomeDuringSet: addIncomeDuringSet,
+    };
+    const ob2 = {
+      addAutoResponse: addAutoResponse,
+      addWidgetDuringSet: addWidgetDuringSet,
+    };
+    const ob3 = {
+      widgetRes: widgetRes,
+      addIncomeOutsideSet: addIncomeOutsideSet,
+    };
+    const ob4 = {
+      addWidgetAutoRes: addWidgetAutoRes,
+      addWidgetOutsideSet: addWidgetOutsideSet,
+    };
+
     const obj = {
       businessHours: businessData,
-      duringHoursAutoResponse: inComingAutoRes,
-      duringHoursWidget: addAutoResponse,
-      outsideHoursAutoResponse: widgetRes,
-      outsideHoursWidget: addWidgetAutoRes,
+      duringHoursAutoResponse: ob1,
+      duringHoursWidget: ob2,
+      outsideHoursAutoResponse: ob3,
+      outsideHoursWidget: ob4,
     };
     const res = await sendAutoResRequest(obj);
     if (res && res.data && res.data.status === 200) {
@@ -172,9 +207,13 @@ const Autoresponder = () => {
                 <button
                   type="button"
                   className="btn btn-autoReply"
-                  onClick={() => addBusinessHourModal(autoResData)}
+                  onClick={() =>
+                    addBusinessHourModal(
+                      autoResData ? autoResData.businessHours : ""
+                    )
+                  }
                 >
-                  {autoResData ? (
+                  {autoResData && autoResData.businessHours ? (
                     "Edit Business hour"
                   ) : (
                     <>
