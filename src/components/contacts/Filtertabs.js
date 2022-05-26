@@ -56,7 +56,7 @@ const FilterTabs = (props) => {
                   ? `${props.editFilterData.property} ${props.editFilterData.rule} ${props.editFilterData.value}`
                   : props.editFilterData.property == "campaigns"
                   ? `${props.editFilterData.name} `
-                  : ""}
+                  : `${props.editFilterData.name} `}
               </span>
               <button
                 type="button"

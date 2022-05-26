@@ -10,7 +10,7 @@ const Search = () => {
   const getSearchResults = async () => {
     setLoading(true);
     const res = await axios.get(
-      `http://localhost:5000/contact/search-api?apikey=1a2383ac8b7bd70fe640928f483d45645abe844b15bd03a4e219fa8ea5c3e79c&engine=duckduckgo&q=${
+      `http://localhost:5000/contact/search-api?apikey=2de83456f1b2dd9ee4ac5204b9f253cc2fc0f6804fa18bfdf8eef68ee2cdbb64&engine=duckduckgo&q=${
         search.productName
           ? search.productName
           : " " + " " + search.prooductSku

@@ -8,7 +8,14 @@ import ClearIcon from "@mui/icons-material/Clear";
 import DoneIcon from "@mui/icons-material/Done";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
-import { joinedDateClick, tagsClick } from "../../helper/list";
+import {
+  duplicatedClick,
+  joinedDateClick,
+  lastActiveClick,
+  lastMessageRecivedClick,
+  emailPhoneClick,
+  tagsClick,
+} from "../../helper/list";
 import DeleteFilterModal from "../../models/deleteFilterModal";
 const EditFilter = (props) => {
   const renderJoinedDateOptions = () => {
@@ -20,9 +27,44 @@ const EditFilter = (props) => {
       );
     });
   };
-
+  const renderLastActiveOptions = () => {
+    return lastActiveClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
   const renderTagsOptions = () => {
     return tagsClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
+  const renderDuplicatesOptions = () => {
+    return duplicatedClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
+  const renderLastMessageReceivedOptions = () => {
+    return lastMessageRecivedClick.map((item, i) => {
+      return (
+        <MenuItem key={i} value={item.name}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
+  const renderEPOptions = () => {
+    return emailPhoneClick.map((item, i) => {
       return (
         <MenuItem key={i} value={item.name}>
           {item.name}
@@ -66,35 +108,64 @@ const EditFilter = (props) => {
                 onChange={props.onhandleEditFilterChange}
               >
                 <MenuItem value={"joinedDate"}>Joined Date</MenuItem>
+                <MenuItem value={"Last Message Received"}>
+                  Last Message Received
+                </MenuItem>
+                <MenuItem value={"Duplicates"}>Duplicates</MenuItem>
+                <MenuItem value={"hasEmail"}>Has Email Address</MenuItem>
+                <MenuItem value={"hasPhoneNumber"}>Has Phone Number</MenuItem>
                 <MenuItem value={"campaigns"}>Campaigns</MenuItem>
               </Select>
               <span className="spanError"> </span>
             </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Rule</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Rules"
-                name="rule"
-                value={props.editFilterValue.rule}
-                onChange={props.onhandleEditFilterChange}
-              >
-                {props.editFilterValue.property === "joinedDate" &&
-                  renderJoinedDateOptions()}
-                {props.editFilterValue.property == "campaigns" &&
-                  renderTagsOptions()}
-              </Select>
-              <span className="spanError"> </span>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                {props.editFilterValue.property == "joinedDate"
-                  ? "Days Ago"
-                  : "Campaigns name"}
-              </InputLabel>
-              {props.editFilterValue.property == "joinedDate" && (
-                <>
+            {props.editFilterValue.property == "joinedDate" ||
+            props.editFilterValue.property == "Last Message Received" ||
+            props.editFilterValue.property == "campaigns" ? (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Rule</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Rules"
+                  name="rule"
+                  value={props.editFilterValue.rule}
+                  onChange={props.onhandleEditFilterChange}
+                >
+                  {props.editFilterValue.property == "joinedDate" &&
+                    renderJoinedDateOptions()}
+                  {props.editFilterValue.property == "Last Message Received" &&
+                    renderLastMessageReceivedOptions()}
+                  {props.editFilterValue.property == "campaigns" &&
+                    renderTagsOptions()}
+                </Select>
+                <span className="spanError"> </span>
+              </FormControl>
+            ) : props.editFilterValue.property == "Duplicates" ||
+              props.editFilterValue.property == "hasPhoneNumber" ||
+              props.editFilterValue.property == "hasEmail" ? (
+              " "
+            ) : (
+              ""
+            )}
+            {props.editFilterValue.rule}
+            {props.editFilterValue.rule ? (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  {props.editFilterValue.property == "campaigns"
+                    ? "Campaigns name"
+                    : props.editFilterValue.rule == "More Than"
+                    ? "Days Ago"
+                    : props.editFilterValue.rule == "Less Than"
+                    ? "Days Ago"
+                    : props.editFilterValue.rule == "Exactly"
+                    ? "Days Ago"
+                    : props.editFilterValue.rule == "Never"
+                    ? ""
+                    : ""}
+                </InputLabel>
+                {props.editFilterValue.rule == "More Than" ||
+                props.editFilterValue.rule == "Less Than" ||
+                props.editFilterValue.rule == "Exactly" ? (
                   <Input
                     type="number"
                     min="0"
@@ -102,11 +173,11 @@ const EditFilter = (props) => {
                     value={props.editFilterValue.value}
                     onChange={props.onhandleEditFilterChange}
                   ></Input>
-                  <span className="spanError"></span>
-                </>
-              )}
-              {props.editFilterValue.property == "campaigns" && (
-                <>
+                ) : props.editFilterValue.rule == "Today" ? (
+                  ""
+                ) : props.editFilterValue.rule == "Never" ? (
+                  ""
+                ) : props.editFilterValue.property == "campaigns" ? (
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -122,10 +193,33 @@ const EditFilter = (props) => {
                         </MenuItem>
                       ))}
                   </Select>
-                  <span className="spanError"> </span>
-                </>
-              )}
-            </FormControl>
+                ) : (
+                  ""
+                )}
+              </FormControl>
+            ) : props.editFilterValue.property == "Duplicates" ||
+              props.editFilterValue.property == "hasEmail" ||
+              props.editFilterValue.property == "hasPhoneNumber" ? (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Value</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  name="value"
+                  value={props.editFilterValue.value}
+                  onChange={props.onhandleEditFilterChange}
+                >
+                  {props.editFilterValue.property == "Duplicates" &&
+                    renderDuplicatesOptions()}
+                  {props.editFilterValue.property == "hasEmail" &&
+                    renderEPOptions()}
+                  {props.editFilterValue.property == "hasPhoneNumber" &&
+                    renderEPOptions()}
+                </Select>
+              </FormControl>
+            ) : (
+              ""
+            )}
           </div>
           <div className="filter-bottom filter-edit-action">
             <div className="filter-add-clone"></div>

@@ -131,10 +131,10 @@ const Import = () => {
         setErrors({ properties: "Please Select Properties!" });
         formData = false;
         break;
-      case !rules:
-        setErrors({ rules: "Please Select Rules!" });
-        formData = false;
-        break;
+      // case !rules:
+      //   setErrors({ rules: "Please Select Rules!" });
+      //   formData = false;
+      //   break;
       case !inputValue:
         setErrors({ error: " Field is required!" });
 
@@ -391,13 +391,33 @@ const Import = () => {
 
   const onhandleEditFilterChange = (e) => {
     setEditFilterValue({ ...editFilterValue, [e.target.name]: e.target.value });
-    applyFilter({
-      property: editFilterValue.property,
-      rule: editFilterValue.rule,
-      value: e.target.value,
-      resultCount: rowsData ? rowsData.length : 0,
-    });
+    if (e.target.value == "Today") {
+      applyFilter({
+        property: editFilterValue.property,
+        rule: editFilterValue.rule,
+        value: e.target.value,
+        resultCount: rowsData ? rowsData.length : 0,
+      });
+    }
+    if (e.target.value == "Never") {
+      applyFilter({
+        property: editFilterValue.property,
+        rule: editFilterValue.rule,
+        value: e.target.value,
+        resultCount: rowsData ? rowsData.length : 0,
+      });
+    }
   };
+
+  useEffect(() => {
+    document.addEventListener(
+      "input",
+      () => {
+        setEditFilterValue({});
+      },
+      true
+    );
+  }, []);
 
   const handleFilterEdit = async () => {
     const res = await editContactFilterApi(
