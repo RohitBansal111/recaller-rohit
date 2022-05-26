@@ -72,6 +72,9 @@ button:focus {
             }
           }
         }
+        img {
+          max-width: 100%;
+        }
       }
     }
   }
@@ -491,4 +494,12 @@ span.spanError {
 
 .ck-editor__editable {
   min-height: 200px;
+}
+
+.search-data-table {
+  height: auto !important;
+}
+.search-data-table .rdt_TableBody div {
+  white-space: break-spaces !important;
+  padding: 3px 8px;
 }
