@@ -294,6 +294,7 @@ const Import = () => {
   const handlePropertiesChange = async (event) => {
     setErrors({});
     setProperties(event.target.value);
+    setRules("");
   };
 
   const handleSelect = (e) => {
@@ -390,34 +391,41 @@ const Import = () => {
   };
 
   const onhandleEditFilterChange = (e) => {
-    setEditFilterValue({ ...editFilterValue, [e.target.name]: e.target.value });
-    if (e.target.value == "Today") {
-      applyFilter({
-        property: editFilterValue.property,
-        rule: editFilterValue.rule,
-        value: e.target.value,
-        resultCount: rowsData ? rowsData.length : 0,
+    if (e.target.name == "property") {
+      setEditFilterValue({
+        ...editFilterValue,
+        [e.target.name]: e.target.value,
+        rule: "",
+      });
+    } else {
+      setEditFilterValue({
+        ...editFilterValue,
+        [e.target.name]: e.target.value,
       });
     }
+    applyFilter({
+      property: editFilterValue.property,
+      rule: editFilterValue.rule,
+      value: e.target.value,
+      resultCount: rowsData ? rowsData.length : 0,
+    });
     if (e.target.value == "Never") {
       applyFilter({
         property: editFilterValue.property,
-        rule: editFilterValue.rule,
-        value: e.target.value,
+        rule: e.target.value,
+        value: editFilterValue.value,
+        resultCount: rowsData ? rowsData.length : 0,
+      });
+    }
+    if (e.target.value == "Today") {
+      applyFilter({
+        property: editFilterValue.property,
+        rule: e.target.value,
+        value: editFilterValue.value,
         resultCount: rowsData ? rowsData.length : 0,
       });
     }
   };
-
-  useEffect(() => {
-    document.addEventListener(
-      "input",
-      () => {
-        setEditFilterValue({});
-      },
-      true
-    );
-  }, []);
 
   const handleFilterEdit = async () => {
     const res = await editContactFilterApi(
