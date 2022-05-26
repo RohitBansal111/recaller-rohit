@@ -9,6 +9,8 @@ import {
   updateTagsApi,
 } from "../../../api/tag";
 import { Link } from "react-router-dom";
+import { MdChevronRight } from "react-icons/md";
+
 const ConversationTags = () => {
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
@@ -128,8 +130,11 @@ const ConversationTags = () => {
         <div className="header-text">
           <h1>Settings</h1>
           <p>
-            {<Link to={"/settings"}>Settings</Link>} /
-            {<Link to={"/settings/text"}>Text</Link>} / Conversation Tags
+            {<Link to={"/settings"}>Settings</Link>}
+            <MdChevronRight />
+            {<Link to={"/settings/text"}>Text</Link>}
+            <MdChevronRight />
+            Conversation Tags
           </p>
         </div>
         <div className="header-action">

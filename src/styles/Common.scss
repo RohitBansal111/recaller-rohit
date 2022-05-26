@@ -192,6 +192,18 @@ ul {
           }
         }
       }
+      .header-text {
+        p {
+          a {
+            color: #655beb;
+            text-decoration: none;
+            font-weight: 400;
+            &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -502,4 +514,19 @@ span.spanError {
 .search-data-table .rdt_TableBody div {
   white-space: break-spaces !important;
   padding: 3px 8px;
+}
+.setting-tpbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .savebtn {
+    margin-left: 15px;
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 6px 16px;
+    background-color: #27dcbf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
 }

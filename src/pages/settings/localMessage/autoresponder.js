@@ -11,6 +11,7 @@ import {
   sendAutoResRequest,
 } from "../../../api/setting-Api/autoResPonder";
 import { toast } from "react-toastify";
+import { MdChevronRight } from "react-icons/md";
 
 const Autoresponder = () => {
   const [businessHourModal, setBusinessHourModal] = useState(false);
@@ -177,14 +178,20 @@ const Autoresponder = () => {
   };
   return (
     <div className="content-page-layout">
-      <div className="page-header subheading-bar">
+      <div className="page-header subheading-bar setting-tpbar">
         <div className="header-text">
           <h1>Settings</h1>
           <p>
-            {<Link to={"/settings"}>Settings</Link>}/{" "}
-            {<Link to={"/settings/text"}>Text</Link>}/ Autoresponder
+            {<Link to={"/settings"}>Settings</Link>}
+            <MdChevronRight />
+            {<Link to={"/settings/text"}>Text</Link>}
+            <MdChevronRight />
+            Autoresponder
           </p>
         </div>
+        <button type="button" className="savebtn" onClick={handleSaveClick}>
+          Save
+        </button>
       </div>
       <div className="setting-message-container">
         <div className="setting-inner-container">
@@ -388,9 +395,6 @@ const Autoresponder = () => {
                 )}
               </div>
             </div>
-            <button type="button" onClick={handleSaveClick}>
-              Save
-            </button>
           </div>
         </div>
         <BusinessHourModal
