@@ -77,19 +77,19 @@ const Autoresponder = () => {
 
   const handleSaveHours = async () => {
     const ob1 = {
-      InComingAutoRes: inComingAutoRes,
+      InComingAutoRes: autoResData.duringHoursAutoResponse.InComingAutoRes,
       addIncomeDuringSet: addIncomeDuringSet,
     };
     const ob2 = {
-      addAutoResponse: addAutoResponse,
+      addAutoResponse: autoResData.duringHoursWidget.addAutoResponse,
       addWidgetDuringSet: addWidgetDuringSet,
     };
     const ob3 = {
-      widgetRes: widgetRes,
+      widgetRes: autoResData.outsideHoursAutoResponse.addIncomeOutsideSet,
       addIncomeOutsideSet: addIncomeOutsideSet,
     };
     const ob4 = {
-      addWidgetAutoRes: addWidgetAutoRes,
+      addWidgetAutoRes: autoResData.outsideHoursWidget.addWidgetAutoRes,
       addWidgetOutsideSet: addWidgetOutsideSet,
     };
     const obj = {
@@ -153,7 +153,7 @@ const Autoresponder = () => {
     };
 
     const obj = {
-      businessHours: businessData,
+      businessHours: autoResData.businessHours,
       duringHoursAutoResponse: ob1,
       duringHoursWidget: ob2,
       outsideHoursAutoResponse: ob3,
@@ -176,6 +176,7 @@ const Autoresponder = () => {
       setAutoResData(res.data.result);
     }
   };
+
   return (
     <div className="content-page-layout">
       <div className="page-header subheading-bar setting-tpbar">
