@@ -227,23 +227,6 @@ const EmailChatBoot = (props) => {
                               </div>
                             ) : (
                               <div className="attachedImage-box email-emailEditor">
-                                {/* {props.selectedImage && (
-                                  <ul className="attachedImageGallery">
-                                    <li>
-                                      <img
-                                        alt="not fount"
-                                        src={props.selectedImage}
-                                      />
-                                      <button
-                                        type="button"
-                                        className="btn btn-cross"
-                                        onClick={props.handleImageCancel}
-                                      >
-                                        <CancelIcon />
-                                      </button>
-                                    </li>
-                                  </ul>
-                                )} */}
                                 <CKEditor
                                   editor={ClassicEditor}
                                   data={`${props.sendEmailMessage}`}
@@ -251,16 +234,14 @@ const EmailChatBoot = (props) => {
                                     const data = editor.getData();
                                     props.onHandleChange(data);
                                   }}
+                                  config={{
+                                    ckfinder: {
+                                      uploadUrl:
+                                        "https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json",
+                                    },
+                                  }}
                                   editorLoaded={props.editorLoaded}
                                 />
-                                {/* <textarea
-                                  placeholder="Type your message..."
-                                  name="sendEmailMessage"
-                                  value={props.sendEmailMessage}
-                                  onChange={props.onHandleChange}
-                                >
-                                  {props.sendEmailMessage}
-                                </textarea> */}
                               </div>
                             )}
                           </div>
