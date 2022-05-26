@@ -43,7 +43,13 @@ button:focus {
     }
   }
 }
-
+.ck-balloon-panel {
+  z-index: 9999 !important;
+  left: 322px !important;
+}
+.middle-chat-screen ul li .chat-ui-box pre {
+  overflow-x: hidden;
+}
 .middle-chat-screen {
   ul {
     li {
