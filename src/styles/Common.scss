@@ -48,7 +48,11 @@ button:focus {
   left: 322px !important;
 }
 .middle-chat-screen ul li .chat-ui-box pre {
-  overflow-x: hidden;
+  white-space: break-spaces;
+}
+.attachedImage-box.email-emailEditor .ck-editor .ck-editor__editable {
+  white-space: break-spaces;
+  word-break: break-all;
 }
 .middle-chat-screen {
   ul {
