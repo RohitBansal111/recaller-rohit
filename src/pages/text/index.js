@@ -339,6 +339,8 @@ const TextPage = () => {
     const obj = {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
+      selectedImage,
+      dateSelected
     };
     const res = await sendSingleMessageApi(obj);
 
@@ -379,6 +381,8 @@ const TextPage = () => {
       const obj = {
         contactid: contactid,
         message: sendNewMessage,
+        dateSelected,
+        selectedImage
       };
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
