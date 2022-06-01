@@ -119,6 +119,8 @@ const Import = () => {
         setErrors({});
         getData();
       } else {
+      setLoading(false);
+
         toast.error(res.data.message);
       }
     }
