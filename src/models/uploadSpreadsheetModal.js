@@ -28,6 +28,8 @@ const UploadSpreadsheetModal = (props) => {
   const [addNote, setAddNote] = useState(false);
   const [noteData, setNoteData] = useState(null);
   const [addCampaigns, setAddCampaigns] = useState("");
+  const [unSavedContacts, setUnSavedContacts] = useState([]);
+  
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
     formData.append("file", acceptedFiles[0].name);
@@ -209,6 +211,22 @@ const UploadSpreadsheetModal = (props) => {
     setNoteData(null);
   };
 
+  const closeModal=()=>{
+    setStep(1);
+    props.handleFinish();
+    setCsvFile(null);
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
+    setSelectedType("skip");
+    setSelectProperty(null);
+    setNoteData(null);
+    setAddCampaigns("");
+    props.setSelectTags(null);
+    setUnSavedContacts([])
+  }
+
   const finishStep = async () => {
     const obj = {
       contacts: JSON.stringify(csvData),
@@ -219,21 +237,29 @@ const UploadSpreadsheetModal = (props) => {
       compaign: addCampaigns,
     };
     let res = await addMultipleContact(obj);
+    console.log("res contact csv:::",res)
+    debugger
     if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      props.getData();
-      setStep(1);
-      props.handleFinish();
-      setCsvFile(null);
-      setSelectedPhone("phone");
-      setSelectedEmail("email");
-      setSelectedFirstName("firstName");
-      setSelectedLastName("lastName");
-      setSelectedType("skip");
-      setSelectProperty(null);
-      setNoteData(null);
-      setAddCampaigns("");
-      props.setSelectTags(null);
+      if(res.data.unSavedContacts && res.data.unSavedContacts.length){
+        props.getData();
+        setUnSavedContacts(res.data.unSavedContacts)
+      }else{
+        toast.success(res.data.message);
+        props.getData();
+        setStep(1);
+        props.handleFinish();
+        setCsvFile(null);
+        setSelectedPhone("phone");
+        setSelectedEmail("email");
+        setSelectedFirstName("firstName");
+        setSelectedLastName("lastName");
+        setSelectedType("skip");
+        setSelectProperty(null);
+        setNoteData(null);
+        setAddCampaigns("");
+        props.setSelectTags(null);
+      }
+
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
       setStep(step - 1);
@@ -386,6 +412,8 @@ const UploadSpreadsheetModal = (props) => {
                   handleAddNote={handleAddNote}
                   noteData={noteData}
                   handleNoteChange={handleNoteChange}
+                  closeModal={closeModal}
+                  unSavedContacts={unSavedContacts}
                 />
               )}
             </div>
