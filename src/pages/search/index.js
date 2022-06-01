@@ -15,7 +15,8 @@ const Search = () => {
         " " +
         search.prooductSku +
         " " +
-        search.productCompany
+        search.productCompany +
+        " recall"
       }`
     );
     if (res && res.data && res.data.status === 200) {
@@ -70,13 +71,13 @@ const Search = () => {
             <div className="field-group">
               <LoadingButton
                 type="button"
-                disabled={
-                  !search.productName ||
-                  !search.prooductSku ||
-                  !search.productCompany
-                    ? true
-                    : false
-                }
+                // disabled={
+                //   !search.productName ||
+                //   !search.prooductSku ||
+                //   !search.productCompany
+                //     ? true
+                //     : false
+                // }
                 loadingPosition="center"
                 loading={loading}
                 onClick={getSearchResults}
