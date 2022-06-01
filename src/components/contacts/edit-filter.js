@@ -147,7 +147,6 @@ const EditFilter = (props) => {
             ) : (
               ""
             )}
-            {props.editFilterValue.rule}
             {props.editFilterValue.rule ? (
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">

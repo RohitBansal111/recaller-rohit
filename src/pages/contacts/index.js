@@ -294,6 +294,8 @@ const Import = () => {
   const handlePropertiesChange = async (event) => {
     setErrors({});
     setProperties(event.target.value);
+    setRules("");
+    setInputValue("");
   };
 
   const handleSelect = (e) => {
@@ -321,6 +323,7 @@ const Import = () => {
   const handleRulesChange = (event) => {
     setRules(event.target.value);
     setErrors({});
+    setInputValue("");
     if (event.target.value == "Today") {
       applyFilter({
         property: properties,
@@ -390,34 +393,42 @@ const Import = () => {
   };
 
   const onhandleEditFilterChange = (e) => {
-    setEditFilterValue({ ...editFilterValue, [e.target.name]: e.target.value });
-    if (e.target.value == "Today") {
-      applyFilter({
-        property: editFilterValue.property,
-        rule: editFilterValue.rule,
-        value: e.target.value,
-        resultCount: rowsData ? rowsData.length : 0,
+    if (e.target.name == "property") {
+      setEditFilterValue({
+        ...editFilterValue,
+        [e.target.name]: e.target.value,
+        rule: "",
+        value: "",
+      });
+    } else {
+      setEditFilterValue({
+        ...editFilterValue,
+        [e.target.name]: e.target.value,
       });
     }
+    applyFilter({
+      property: editFilterValue.property,
+      rule: editFilterValue.rule,
+      value: e.target.value,
+      resultCount: rowsData ? rowsData.length : 0,
+    });
     if (e.target.value == "Never") {
       applyFilter({
         property: editFilterValue.property,
-        rule: editFilterValue.rule,
-        value: e.target.value,
+        rule: e.target.value,
+        value: editFilterValue.value,
+        resultCount: rowsData ? rowsData.length : 0,
+      });
+    }
+    if (e.target.value == "Today") {
+      applyFilter({
+        property: editFilterValue.property,
+        rule: e.target.value,
+        value: editFilterValue.value,
         resultCount: rowsData ? rowsData.length : 0,
       });
     }
   };
-
-  useEffect(() => {
-    document.addEventListener(
-      "input",
-      () => {
-        setEditFilterValue({});
-      },
-      true
-    );
-  }, []);
 
   const handleFilterEdit = async () => {
     const res = await editContactFilterApi(
@@ -427,9 +438,7 @@ const Import = () => {
     if (res && res.data && res.data.status === 200) {
       setEditFilter(false);
       setShowSelect(true);
-      setFilterByCompaigns([]);
       toast.success(res.data.message);
-      setFilterList([]);
       getContactFilter();
     }
   };
@@ -444,9 +453,9 @@ const Import = () => {
       setEditFilter(false);
       setShowSelect(false);
       toast.success(res.data.message);
-      setFilterByCompaigns([]);
-      setFilterList([]);
+      handleAllTagsData()
       getContactFilter();
+      getData();
     }
   };
 

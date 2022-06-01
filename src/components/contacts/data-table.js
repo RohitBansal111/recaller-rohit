@@ -281,8 +281,9 @@ const EnhancedTableToolbar = (props) => {
             type="text"
             className="form-control"
             placeholder="Search by Name, Email or Phone"
+            name="name"
+            value={props.value.name}
             onChange={props.handleSearchChange}
-            value={props.value}
           />
           {props.value && <SearchIcon />}
         </div>

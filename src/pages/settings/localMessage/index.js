@@ -2,6 +2,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
+import { MdChevronRight } from "react-icons/md";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -50,7 +51,11 @@ const LocalMessages = () => {
       <div className="page-header subheading-bar">
         <div className="header-text">
           <h1>Settings</h1>
-          <p>{<Link to={"/settings"}>Settings</Link>} / Text</p>
+          <p>
+            {<Link to={"/settings"}>Settings</Link>}
+            <MdChevronRight />
+            Text
+          </p>
         </div>
       </div>
       <div className="setting-page-main">
@@ -72,7 +77,7 @@ const LocalMessages = () => {
                     {item.extraField && (
                       <span className="switch-button">
                         <Switch
-                        checked={checked}
+                          checked={checked}
                           onChange={handleSwitchChange}
                           {...label}
                           defaultChecked

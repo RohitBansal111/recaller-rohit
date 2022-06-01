@@ -1,6 +1,7 @@
 import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 import SMSMessageGraph from "../../../components/settings/sms-message-graph";
+import { MdChevronRight } from "react-icons/md";
 
 const Usage = () => {
   return (
@@ -8,8 +9,13 @@ const Usage = () => {
       <div className="page-header subheading-bar">
         <div className="header-text">
           <h1>Settings</h1>
-          <p>{<Link to={"/settings"}>Settings</Link>} /
-            {<Link to={"/settings/text"}>Text</Link>} / Usage</p>
+          <p>
+            {<Link to={"/settings"}>Settings</Link>}
+            <MdChevronRight />
+            {<Link to={"/settings/text"}>Text</Link>}
+            <MdChevronRight />
+            Usage
+          </p>
         </div>
       </div>
       <div className="setting-page-main">

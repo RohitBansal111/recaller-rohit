@@ -5,6 +5,7 @@ import {
   sendOptInOutRequest,
   getOptInOutRequest,
 } from "../../../api/setting-Api/textOptSetting";
+import { MdChevronRight } from "react-icons/md";
 
 const OPTInOut = () => {
   const [optkeyWordSetting, setOptkeyWordSetting] = useState({});
@@ -57,8 +58,11 @@ const OPTInOut = () => {
         <div className="header-text">
           <h1>Settings</h1>
           <p>
-            {<Link to={"/settings"}>Settings</Link>} /
-            {<Link to={"/settings/text"}>Text</Link>} / Opt-In-Out
+            {<Link to={"/settings"}>Settings</Link>}
+            <MdChevronRight />
+            {<Link to={"/settings/text"}>Text</Link>}
+            <MdChevronRight />
+            Opt-In-Out
           </p>
         </div>
       </div>
