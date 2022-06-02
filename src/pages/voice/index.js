@@ -573,6 +573,13 @@ const Voice = () => {
     }
     getVoiceMessage();
   };
+
+  const clearUploadData = () => {
+    if (audioFileName !== null) {
+      setAudioFileName(null);
+    }
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -652,6 +659,7 @@ const Voice = () => {
           onSingleVoiceUploadChange={onSingleVoiceUploadChange}
           audioFileName={audioFileName}
           handleSingleVoiceUpload={handleSingleVoiceUpload}
+          clearUploadData={clearUploadData}
         />
       </div>
       <VoiceModal
