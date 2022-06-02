@@ -707,12 +707,16 @@
 .messageBoxModal{
     position: relative;
     .action-icons{
-        padding-left: 0px;
         margin-bottom: 0px;
         display: flex;
         align-items: center;
         position: absolute;
-        bottom: 5px;
+        bottom: 1px;
+        padding: 3px;
+        left: 1px;
+        z-index: 99;
+        background-color: #fff;
+        width: 99%;
         .inset-template-popup{
             transform: none !important;
         }

@@ -530,3 +530,11 @@ span.spanError {
     border-radius: 5px;
   }
 }
+
+.ck-editor__editable_inline{
+  max-height: 250px;
+  overflow: auto;
+  ul{
+    padding-bottom: 25px;
+  }
+}
