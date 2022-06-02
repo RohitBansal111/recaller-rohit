@@ -221,7 +221,13 @@ const VoiceChatBoot = (props) => {
                             />
                             <LibraryMusicIcon />
                           </div>
-                          <p>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              fontWeight: "500",
+                              position: "relative",
+                            }}
+                          >
                             {props.audioFileName
                               ? props.audioFileName.name
                               : ""}

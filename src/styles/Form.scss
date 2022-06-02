@@ -5,38 +5,38 @@
   position: relative;
   .field-group {
     margin-bottom: 15px;
-    .voice-recorder-box{
+    .voice-recorder-box {
       border: 2px dashed #27dcbf;
       border-radius: 5px;
       background-color: #27dcbf26 !important;
       padding: 10px 10px 10px 20px;
-      .btn{
-        svg{
+      .btn {
+        svg {
           fill: $Theme-white;
           font-size: 20px;
         }
       }
     }
-    .sort-hint{
+    .sort-hint {
       font-size: 12px;
     }
-    .foem-field-inner{
+    .foem-field-inner {
       display: flex;
       align-items: center;
     }
-    svg{
+    svg {
       fill: $Icon-color;
       cursor: pointer;
     }
-    .active-text{
+    .active-text {
       color: $Active-color;
       padding: 0px;
       margin-top: 5px;
       font-size: 15px !important;
       font-weight: 600 !important;
-      svg{
+      svg {
         fill: $Active-color;
-      };
+      }
     }
     label {
       font-size: 14px;
@@ -62,21 +62,23 @@
     }
     &.flexFull {
       flex: 0 0 100%;
+      position: relative;
+      z-index: 99;
     }
     &.flex2 {
       flex: 0 0 47%;
     }
-    &.flexOne{
+    &.flexOne {
       flex: 1;
     }
-    &.flexOneFour{
+    &.flexOneFour {
       margin-bottom: 0px;
     }
   }
-  .react-tags-wrapper{
+  .react-tags-wrapper {
     position: relative;
     margin-bottom: 30px;
-    .ReactTags__suggestions{
+    .ReactTags__suggestions {
       position: absolute;
       width: 100%;
       top: 100%;
@@ -85,26 +87,26 @@
       background-color: $Theme-white;
       box-shadow: 2px 3px 5px #d4d4d4;
 
-      ul{
+      ul {
         padding: 0px;
         margin: 0px;
-        li{
+        li {
           padding: 8px 10px;
           display: block;
-          &:hover{
+          &:hover {
             background-color: rgb(246, 246, 246);
             cursor: pointer;
           }
         }
       }
     }
-    .ReactTags__selected{
+    .ReactTags__selected {
       position: absolute;
       top: 100%;
       margin-bottom: 10px;
       display: flex;
       flex-wrap: wrap;
-      .tag-wrapper{
+      .tag-wrapper {
         background-color: rgba(54, 179, 126, 0.1);
         border-radius: 2px;
         display: flex;
@@ -119,7 +121,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         box-sizing: border-box;
-        .ReactTags__remove{
+        .ReactTags__remove {
           align-items: center;
           border-radius: 2px;
           display: flex;
@@ -135,9 +137,9 @@
         }
       }
     }
-    .ReactTags__tagInput{
+    .ReactTags__tagInput {
       position: relative;
-      .ReactTags__tagInputField{
+      .ReactTags__tagInputField {
         width: 100%;
         height: 40px;
         border: 1px solid #bbb;
@@ -153,10 +155,10 @@
       }
     }
   }
-  .tagsField{
-    ul{
+  .tagsField {
+    ul {
       padding-left: 0px;
-      li{
+      li {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -166,61 +168,61 @@
         color: grey;
         font-weight: 500;
         font-size: 14px;
-        span{
+        span {
           border-width: 1px;
           border-style: solid;
           padding: 5px 15px;
           border-radius: 30px;
-          svg{
+          svg {
             margin-right: 5px;
             font-size: 20px;
           }
         }
-        .tags-actions{
-          svg{
+        .tags-actions {
+          svg {
             margin-left: 15px;
           }
         }
       }
     }
   }
-  .searchField{
+  .searchField {
     position: relative;
-    .form-control{
+    .form-control {
       padding-left: 40px;
       box-sizing: border-box;
     }
-    .search-field{
-      svg{
+    .search-field {
+      svg {
         position: absolute;
         top: 9px;
         left: 10px;
       }
     }
   }
-  .btn-groups{
+  .btn-groups {
     display: flex;
     margin: 15px 0px;
     justify-content: center;
   }
 }
 
-.account-form{
+.account-form {
   margin: 30px 0px;
   background-color: #fff;
   padding: 35px;
-  .btn-cancel{
+  .btn-cancel {
     margin-right: 10px;
   }
 }
 
-.form-page-layout{
+.form-page-layout {
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  .center-form-box{
+  .center-form-box {
     background-color: #fff;
     padding: 20px;
     box-shadow: 0px 7px 10px #eeecec;
@@ -229,18 +231,18 @@
     box-shadow: 0px 7px 10px #eeecec;
     width: 45%;
     min-width: 600px;
-    @include Phone{
+    @include Phone {
       width: 95%;
       min-width: 95%;
     }
-    h2{
+    h2 {
       font-size: 26px;
       font-weight: 700;
       margin: 30px 0px;
     }
-    .main-form{
-      .field-group{
-        .link-router{
+    .main-form {
+      .field-group {
+        .link-router {
           color: $Active-color;
           text-decoration: none;
         }
