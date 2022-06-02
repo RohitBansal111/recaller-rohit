@@ -14,7 +14,7 @@ import WifiOffIcon from "@material-ui/icons/WifiOff";
 import WifiIcon from "@material-ui/icons/Wifi";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
-import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 
 const VoiceChatBoot = (props) => {
   const userVoiceMessageList = () => {
@@ -204,16 +204,28 @@ const VoiceChatBoot = (props) => {
                         ""
                       )}
                       <div className="uploadRecordingLibrary">
-                        <input type="file" />
+                        <input
+                          className="inputFile"
+                          type="file"
+                          accept="audio/*"
+                          name="file"
+                          onChange={props.onSingleVoiceUploadChange}
+                        />
                         <LibraryMusicIcon />
                       </div>
+                      {/* {props.audioFileName ? props.audioFileName.name : ""} */}
                     </div>
 
-                    {props.second > 0 && props.isActive == false ? (
+                    {(props.second > 0 && props.isActive == false) ||
+                    props.audioFileName !== null ? (
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={props.handleSendSingleContactVoice}
+                        onClick={
+                          props.audioFileName !== null
+                            ? props.handleSingleVoiceUpload
+                            : props.handleSendSingleContactVoice
+                        }
                       >
                         Send
                       </button>
