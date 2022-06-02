@@ -2,35 +2,37 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 const ConfirmUpload = ({ step, setStep, ...props }) => {
-  if(props.unSavedContacts && props.unSavedContacts.length){
-    return(  <div className="wizard-main-content">
-
-    <div className="main-form">
-      <div className="field-group flexFull note-form-control">
-        <p>These Below contacts are not added </p>
-       {props.unSavedContacts.map(c=>{
-         return(<div>
-           <p>{c.firstName?c.firstName:''}</p>
-           <p>{c.lastName?c.lastName:''}</p>
-           <p>{c.phone?c.phone:''}</p>
-           <p>{c.email?c.email:''}</p>
-         </div>)
-       })}
+  if (props.unSavedContacts && props.unSavedContacts.length) {
+    return (
+      <div className="wizard-main-content">
+        {/* <div className="main-form"> */}
+        <div className="field-group flexFull note-form-control">
+          <p>These Below contacts are not added </p>
+          {props.unSavedContacts.map((c) => {
+            return (
+              <div>
+                <p>{c.firstName ? c.firstName : ""}</p>
+                <p>{c.lastName ? c.lastName : ""}</p>
+                <p>{c.phone ? c.phone : ""}</p>
+                <p>{c.email ? c.email : ""}</p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="field-group flexFull text-center mt-3 mb-0">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={props.closeModal}
+          >
+            {" "}
+            close{" "}
+          </button>
+        </div>
+        {/* </div> */}
       </div>
-      <div className="field-group flexFull text-center mt-3 mb-0">
-
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={props.closeModal}
-        >
-          {" "}
-          close{" "}
-        </button>
-      </div>
-    </div>
-  </div>)
-  }else{
+    );
+  } else {
     return (
       <div className="wizard-main-content">
         <h2>Almost There!</h2>
@@ -85,7 +87,6 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
       </div>
     );
   }
-
 };
 
 export default ConfirmUpload;

@@ -259,7 +259,6 @@ const UploadSpreadsheetModal = (props) => {
         setAddCampaigns("");
         props.setSelectTags(null);
       }
-
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
       setStep(step - 1);

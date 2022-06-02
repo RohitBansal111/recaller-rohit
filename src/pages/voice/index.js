@@ -21,6 +21,8 @@ import {
   uploadSingleVoiceMessageApi,
   uploadVoiceMessageApi,
 } from "../../api/voiceMessage";
+import { Dropdown } from "react-bootstrap";
+import VoiceUploadModal from "../../models/uploadVoiceModal";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -52,6 +54,8 @@ const Voice = () => {
   const [editCName, setEditCName] = useState({});
   const [searchState, setSearchState] = useState("");
   const [isShowLoading, setIsShowLoading] = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [fileName, setFileName] = useState(null);
 
   const divRef = useRef(null);
 
@@ -494,9 +498,72 @@ const Voice = () => {
     getData();
   };
 
+  const handleOpenUploadModal = () => {
+    setUploadOpen(true);
+    setFileName(null);
+    setSelected([]);
+    setErrors({});
+  };
+
+  const handleCloseUploadModal = () => {
+    setUploadOpen(false);
+    setFileName(null);
+    setSelected([]);
+    setErrors({});
+  };
+
+  const onVoiceUploadChange = (e) => {
+    console.log(e.target.files[0], "name");
+    if (e.target.files[0]) {
+      if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
+        setFileName(e.target.files[0]);
+      } else {
+        toast.error("Sorry, thats not a valid Audio file");
+        setFileName(null);
+      }
+    }
+  };
+
+  const onVoiveUpload = async () => {
+    if (isSelectValid()) {
+      var formData = new FormData();
+      let contactid = selected.map((item) => item.value);
+      formData.append("voice", fileName);
+      formData.append("contactid", JSON.stringify(contactid));
+      // setIsShowLoading(true);
+      setLoading(true);
+      let res = await uploadVoiceMessageApi(formData);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Voice Message sent Successfully");
+        setUploadOpen(false);
+        getVoiceMessage();
+        setErrors({});
+      }
+    }
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
+        <Dropdown>
+          <Dropdown.Toggle
+            variant="success"
+            id="dropdown-basic"
+            className="btn btn-medium btn-primary"
+          >
+            New Voice
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="#" onClick={handleOpenUploadModal}>
+              Upload Voice
+            </Dropdown.Item>
+            <Dropdown.Item href="#" onClick={handleNewMessage}>
+              Manual Send Voice
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+      {/* <div className="page-header justify-flex-end">
         <button
           type="button"
           className="btn btn-medium btn-primary"
@@ -504,7 +571,7 @@ const Voice = () => {
         >
           New Voice
         </button>
-      </div>
+      </div> */}
       <div className="text-main-section">
         <VoiceChatBoot
           openManageTagModal={openManageTagModal}
@@ -577,6 +644,17 @@ const Voice = () => {
         startRecording={startRecording}
         stopRecording={stopRecording}
         errors={errors}
+      />
+      <VoiceUploadModal
+        uploadOpen={uploadOpen}
+        handleCloseUploadModal={handleCloseUploadModal}
+        options={rowsData}
+        handleSelectChange={handleSelectChange}
+        selected={selected}
+        onVoiceUploadChange={onVoiceUploadChange}
+        onVoiveUpload={onVoiveUpload}
+        errors={errors}
+        loading={loading}
       />
     </div>
   );
