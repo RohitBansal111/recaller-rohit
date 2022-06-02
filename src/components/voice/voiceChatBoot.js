@@ -210,7 +210,9 @@ const VoiceChatBoot = (props) => {
                           ""
                         )}
                       </div>
-                      {props.isActive == false && props.second == "00" ? (
+                      {props.isActive == false &&
+                      props.second == "00" &&
+                      props.minute == "00" ? (
                         <div className="upload-song">
                           <div className="uploadRecordingLibrary">
                             <input
@@ -229,16 +231,14 @@ const VoiceChatBoot = (props) => {
                               position: "relative",
                             }}
                           >
-                            {props.audioFileName
-                              ? props.audioFileName.name
-                              : ""}
+                            {props.audioFileName && props.audioFileName.name}
                           </p>
                         </div>
                       ) : (
                         ""
                       )}
                     </div>
-                    {/* {props.audioFileName !== null && (
+                    {props.audioFileName ? (
                       <button
                         type="button"
                         className="remove-recording-action"
@@ -246,7 +246,9 @@ const VoiceChatBoot = (props) => {
                       >
                         ×
                       </button>
-                    )} */}
+                    ) : (
+                      ""
+                    )}
                     {(props.second > 0 && props.isActive == false) ||
                     props.audioFileName !== null ? (
                       <button

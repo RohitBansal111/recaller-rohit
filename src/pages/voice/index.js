@@ -575,9 +575,7 @@ const Voice = () => {
   };
 
   const clearUploadData = () => {
-    if (audioFileName !== null) {
-      setAudioFileName(null);
-    }
+    setAudioFileName(null);
   };
 
   return (
