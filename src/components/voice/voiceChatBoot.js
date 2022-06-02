@@ -187,10 +187,16 @@ const VoiceChatBoot = (props) => {
                 ) : (
                   <>
                     <div className="recording-left">
-                      <span></span>{" "}
-                      <h4>
-                        {props.minute}:{props.second}
-                      </h4>
+                      {props.isActive ? (
+                        <>
+                          <span></span>
+                          <h4>
+                            {props.minute}:{props.second}
+                          </h4>
+                        </>
+                      ) : (
+                        ""
+                      )}
                       {props.second > 0 ? (
                         <button
                           type="button"
@@ -203,17 +209,27 @@ const VoiceChatBoot = (props) => {
                       ) : (
                         ""
                       )}
-                      <div className="uploadRecordingLibrary">
-                        <input
-                          className="inputFile"
-                          type="file"
-                          accept="audio/*"
-                          name="file"
-                          onChange={props.onSingleVoiceUploadChange}
-                        />
-                        <LibraryMusicIcon />
-                      </div>
-                      {/* {props.audioFileName ? props.audioFileName.name : ""} */}
+                      {props.isActive == false ? (
+                        <>
+                          <div className="uploadRecordingLibrary">
+                            <input
+                              className="inputFile"
+                              type="file"
+                              accept="audio/*"
+                              name="file"
+                              onChange={props.onSingleVoiceUploadChange}
+                            />
+                            <LibraryMusicIcon />
+                          </div>
+                          <p>
+                            {props.audioFileName
+                              ? props.audioFileName.name
+                              : ""}
+                          </p>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
 
                     {(props.second > 0 && props.isActive == false) ||

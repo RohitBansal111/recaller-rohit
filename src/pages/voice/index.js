@@ -504,6 +504,7 @@ const Voice = () => {
     setFileName(null);
     setSelected([]);
     setErrors({});
+    setLoading(false);
   };
 
   const handleCloseUploadModal = () => {
@@ -511,6 +512,7 @@ const Voice = () => {
     setFileName(null);
     setSelected([]);
     setErrors({});
+    setLoading(false);
   };
 
   const onVoiceUploadChange = (e) => {
@@ -520,6 +522,7 @@ const Voice = () => {
       } else {
         toast.error("Sorry, thats not a valid Audio file");
         setFileName(null);
+        setLoading(false);
       }
     }
   };

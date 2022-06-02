@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "react-responsive-modal";
 import NewVoiceSelectTag from "../components/voice/newVoiceSelectTags";
 import LoadingButton from "@mui/lab/LoadingButton";
+import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 
 const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -35,18 +36,33 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
               onChange={props.onVoiceUploadChange}
             />
             <span>
-              {props.fileName ? props.fileName.name : "Upload Voice Recording"}
+              {props.fileName ? (
+                props.fileName.name
+              ) : (
+                <>
+                  <LibraryMusicIcon /> Upload Voice Recording
+                </>
+              )}
             </span>
           </div>
-          <LoadingButton
-            type="button"
-            loadingPosition="center"
-            loading={props.loading}
-            className="btn btn-primary"
-            onClick={props.onVoiveUpload}
-          >
-            Send
-          </LoadingButton>
+          <div className="field-group flexFull text-center mt-3">
+            <button
+              type="button"
+              className="btn btn-cancel me-3"
+              onClick={props.handleCloseUploadModal}
+            >
+              Dismiss
+            </button>
+            <LoadingButton
+              type="button"
+              loadingPosition="center"
+              loading={props.loading}
+              className="btn btn-primary"
+              onClick={props.onVoiveUpload}
+            >
+              Send
+            </LoadingButton>
+          </div>
         </form>
       </div>
     </Modal>
