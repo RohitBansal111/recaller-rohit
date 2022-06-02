@@ -8,16 +8,38 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
         {/* <div className="main-form"> */}
         <div className="field-group flexFull note-form-control">
           <p>These Below contacts are not added </p>
-          {props.unSavedContacts.map((c) => {
-            return (
-              <div>
-                <p>{c.firstName ? c.firstName : ""}</p>
-                <p>{c.lastName ? c.lastName : ""}</p>
-                <p>{c.phone ? c.phone : ""}</p>
-                <p>{c.email ? c.email : ""}</p>
-              </div>
-            );
-          })}
+          {/* {props.unSavedContacts.map((tableData) => { */}
+            {/* return ( */}
+              <div className="table-responsive ">
+                <table className="table">
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Mobile Number</th>
+                        <th>Email Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        {
+                          props.unSavedContacts.map((item, index) => {
+                            return(
+                              <tr key={index}>
+                                <td>{item.firstName ? item.firstName : ""}</td>
+                                <td>{item.lastName ? item.lastName : ""}</td>
+                                <td>{item.phone ? item.phone : ""}</td>
+                                <td>{item.email ? item.email : ""}</td>
+                              </tr>
+                            )
+                          })
+                        }
+                      
+                    </tbody>
+                </table>
+              </div> 
+            {/* ); */}
+          {/* })} */}
         </div>
         <div className="field-group flexFull text-center mt-3 mb-0">
           <button

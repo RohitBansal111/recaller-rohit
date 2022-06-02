@@ -26,7 +26,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             />
           </div>
           <span className="spanError">{props.errors.selected}</span>
-          <div>
+          <div className="upload-voice-recording">
             <input
               className="inputFile"
               type="file"
@@ -34,6 +34,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
               name="file"
               onChange={props.onVoiceUploadChange}
             />
+            <span>Upload Voice Recording</span>
           </div>
           <LoadingButton
             type="button"

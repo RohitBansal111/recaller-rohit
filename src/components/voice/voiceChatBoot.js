@@ -14,6 +14,7 @@ import WifiOffIcon from "@material-ui/icons/WifiOff";
 import WifiIcon from "@material-ui/icons/Wifi";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 
 const VoiceChatBoot = (props) => {
   const userVoiceMessageList = () => {
@@ -202,6 +203,10 @@ const VoiceChatBoot = (props) => {
                       ) : (
                         ""
                       )}
+                      <div className="uploadRecordingLibrary">
+                        <input type="file" />
+                        <LibraryMusicIcon />
+                      </div>
                     </div>
 
                     {props.second > 0 && props.isActive == false ? (

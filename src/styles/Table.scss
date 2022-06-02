@@ -118,3 +118,17 @@
     }
   }
 }
+
+.wizard-main-content{
+  .table-responsive{
+    max-height: 350px;
+    overflow-y: auto;
+    thead{
+      tr{
+        th{
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

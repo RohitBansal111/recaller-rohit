@@ -927,3 +927,50 @@
         }
     }
 }
+.upload-voice-recording{
+    position: relative;
+    background-color: #d4fff4;
+    border: 2px dashed $AddSubmitButton-color;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 15px;
+    input{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+        z-index: 99;
+        cursor: pointer;
+        opacity: 0;
+    }
+    span{
+        padding: 12px;
+        text-align: center;
+        display: block;
+        font-weight: 500;
+        font-size: 14px;
+    }
+}
+.uploadRecordingLibrary{
+    position: relative;
+    svg{
+        fill: #adadad !important;
+        cursor: pointer;
+    }
+    input{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+        z-index: 99;
+        cursor: pointer;
+        opacity: 0;
+        &:hover{
+            &+svg{
+                fill: $AddSubmitButton-color;
+            }
+        }
+    }
+}
