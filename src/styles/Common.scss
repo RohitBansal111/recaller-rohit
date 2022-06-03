@@ -545,5 +545,8 @@ span.spanError {
 // }
 form.main-form .field-group:first-child {
   position: relative;
-  z-index: 999;
+  z-index: 99;
+}
+aside.emoji-picker-react {
+  z-index: 99;
 }
