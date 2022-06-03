@@ -543,3 +543,7 @@ span.spanError {
 //   position: relative;
 //   z-index: 99;
 // }
+form.main-form .field-group:first-child {
+  position: relative;
+  z-index: 999;
+}
