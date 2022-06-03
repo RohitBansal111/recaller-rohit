@@ -76,22 +76,40 @@ const Autoresponder = () => {
   };
 
   const handleSaveHours = async () => {
+    // const ob1 = {
+    //   InComingAutoRes: autoResData.duringHoursAutoResponse.InComingAutoRes,
+    //   addIncomeDuringSet: addIncomeDuringSet,
+    // };
+    // const ob2 = {
+    //   addAutoResponse: autoResData.duringHoursWidget.addAutoResponse,
+    //   addWidgetDuringSet: addWidgetDuringSet,
+    // };
+    // const ob3 = {
+    //   widgetRes: autoResData.outsideHoursAutoResponse.addIncomeOutsideSet,
+    //   addIncomeOutsideSet: addIncomeOutsideSet,
+    // };
+    // const ob4 = {
+    //   addWidgetAutoRes: autoResData.outsideHoursWidget.addWidgetAutoRes,
+    //   addWidgetOutsideSet: addWidgetOutsideSet,
+    // };
+
     const ob1 = {
-      InComingAutoRes: autoResData.duringHoursAutoResponse.InComingAutoRes,
+      InComingAutoRes: inComingAutoRes,
       addIncomeDuringSet: addIncomeDuringSet,
     };
     const ob2 = {
-      addAutoResponse: autoResData.duringHoursWidget.addAutoResponse,
+      addAutoResponse: addAutoResponse,
       addWidgetDuringSet: addWidgetDuringSet,
     };
     const ob3 = {
-      widgetRes: autoResData.outsideHoursAutoResponse.addIncomeOutsideSet,
+      widgetRes: widgetRes,
       addIncomeOutsideSet: addIncomeOutsideSet,
     };
     const ob4 = {
-      addWidgetAutoRes: autoResData.outsideHoursWidget.addWidgetAutoRes,
+      addWidgetAutoRes: addWidgetAutoRes,
       addWidgetOutsideSet: addWidgetOutsideSet,
     };
+
     const obj = {
       businessHours: businessData,
       duringHoursAutoResponse: ob1,
@@ -153,7 +171,8 @@ const Autoresponder = () => {
     };
 
     const obj = {
-      businessHours: autoResData.businessHours,
+      // businessHours: autoResData.businessHours,
+      businessHours: businessData,
       duringHoursAutoResponse: ob1,
       duringHoursWidget: ob2,
       outsideHoursAutoResponse: ob3,
