@@ -677,11 +677,11 @@
   .recording-left {
     display: flex;
     justify-content: flex-start;
-    align-items:center;
-    .recording-voice-action{
-      display: flex;
-    justify-content: flex-start;
     align-items: center;
+    .recording-voice-action {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
     }
     h4 {
       font-size: 18px;
@@ -697,6 +697,7 @@
     }
   }
   .remove-recording-action {
+    margin-right: 60px;
     background-color: #d82626;
     width: 25px;
     height: 25px;
