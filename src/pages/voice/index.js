@@ -140,7 +140,7 @@ const Voice = () => {
     if (isValid()) {
       let res = await addTagsApi(addTags);
       if (res && res.data && res.data.status === 200) {
-        toast.success("Tags Added Successfully");
+        toast.success("Tag Added Successfully");
         setOpenCreateTagModal(false);
         setaddTags({});
         getTags();
@@ -180,7 +180,7 @@ const Voice = () => {
   const handleEdit = async () => {
     let res = await updateTagsApi(addTags._id, addTags);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tags Edit Successfully");
+      toast.success("Tag Edit Successfully");
       setOpenEditTagModal(false);
       getTags();
     }
