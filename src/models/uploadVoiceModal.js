@@ -10,6 +10,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
       open={props.uploadOpen}
       onClose={props.handleCloseUploadModal}
       center
+      classNames="upload-voice"
     >
       <div className="modal-header">
         <h3>Upload Voice</h3>
