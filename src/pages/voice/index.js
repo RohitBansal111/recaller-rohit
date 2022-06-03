@@ -591,10 +591,10 @@ const Voice = () => {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item href="#" onClick={handleOpenUploadModal}>
-              Upload New Voice
+              Upload File
             </Dropdown.Item>
             <Dropdown.Item href="#" onClick={handleNewMessage}>
-              Send New Voice
+              Record Voice
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
