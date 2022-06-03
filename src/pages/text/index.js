@@ -221,7 +221,7 @@ const TextPage = () => {
     if (isTagValid()) {
       let res = await addTagsApi(addTags);
       if (res && res.data && res.data.status === 200) {
-        toast.success("Tags Added Successfully");
+        toast.success("Tag Added Successfully");
         setOpenCreateTagModal(false);
         setaddTags({});
         getTags();
@@ -261,7 +261,7 @@ const TextPage = () => {
   const handleEdit = async () => {
     let res = await updateTagsApi(addTags._id, addTags);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tags Edit Successfully");
+      toast.success("Tag Edit Successfully");
       setOpenEditTagModal(false);
       getTags();
     }
@@ -280,6 +280,7 @@ const TextPage = () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
       setOpenDelTagModal(false);
+      toast.success("Tag Deleted Successfully")
       getTags();
     }
   };

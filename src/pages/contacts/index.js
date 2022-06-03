@@ -231,6 +231,7 @@ const Import = () => {
     const res = await deleteApi(data);
     if (res && res.data && res.data.status === 200) {
       getData();
+      toast.success("Contact Deleted Successfully")
       setIsOpenDelete(false);
       setSelected([]);
     }
