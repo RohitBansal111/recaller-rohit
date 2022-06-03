@@ -587,14 +587,14 @@ const Voice = () => {
             id="dropdown-basic"
             className="btn btn-medium btn-primary"
           >
-            Add Voice
+            New Voice
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item href="#" onClick={handleOpenUploadModal}>
-              Upload Voice
+              Upload New Voice
             </Dropdown.Item>
             <Dropdown.Item href="#" onClick={handleNewMessage}>
-              New Voice
+              Send New Voice
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
