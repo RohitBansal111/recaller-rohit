@@ -15,7 +15,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
         <h3>Upload Voice</h3>
       </div>
 
-      <div className="modal-body">
+      <div className="modal-body upload-voicemodal">
         <form className="main-form">
           <div className="field-group flexFull">
             <label>Enter Contact Voice</label>

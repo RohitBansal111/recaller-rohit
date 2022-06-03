@@ -62,8 +62,6 @@
     }
     &.flexFull {
       flex: 0 0 100%;
-      position: relative;
-      z-index: 99;
     }
     &.flex2 {
       flex: 0 0 47%;
@@ -248,5 +246,11 @@
         }
       }
     }
+  }
+}
+.upload-voicemodal {
+  .flexFull {
+    position: relative;
+    z-index: 99;
   }
 }

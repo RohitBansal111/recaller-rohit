@@ -531,10 +531,15 @@ span.spanError {
   }
 }
 
-.ck-editor__editable_inline{
+.ck-editor__editable_inline {
   max-height: 250px;
   overflow: auto;
-  ul{
+  ul {
     padding-bottom: 25px;
   }
 }
+
+// .select-tags-styles div {
+//   position: relative;
+//   z-index: 99;
+// }
