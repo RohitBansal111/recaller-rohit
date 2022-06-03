@@ -121,6 +121,7 @@ const ConversationTags = () => {
     if (res && res.data && res.data.status === 200) {
       setOpenDelTagModal(false);
       getTags();
+      toast.success("Tag Deleted Successfully")
     }
   };
 

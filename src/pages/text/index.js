@@ -280,6 +280,7 @@ const TextPage = () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
       setOpenDelTagModal(false);
+      toast.success("Tag Deleted Successfully")
       getTags();
     }
   };

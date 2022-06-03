@@ -280,6 +280,7 @@ const EmailPage = () => {
   const handleDeleteTags = async () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
+      toast.success("Tag Deleted Successfully")
       setOpenDelTagModal(false);
       getTags();
     }
