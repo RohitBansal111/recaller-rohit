@@ -5,11 +5,8 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
   if (props.unSavedContacts && props.unSavedContacts.length) {
     return (
       <div className="wizard-main-content">
-        {/* <div className="main-form"> */}
         <div className="field-group flexFull note-form-control">
           <p>These Below contacts are not added </p>
-          {/* {props.unSavedContacts.map((tableData) => { */}
-            {/* return ( */}
               <div className="table-responsive ">
                 <table className="table">
                     <thead>
@@ -38,8 +35,6 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
                     </tbody>
                 </table>
               </div> 
-            {/* ); */}
-          {/* })} */}
         </div>
         <div className="field-group flexFull text-center mt-3 mb-0">
           <button
@@ -47,11 +42,9 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
             className="btn btn-primary"
             onClick={props.closeModal}
           >
-            {" "}
-            close{" "}
+            close
           </button>
         </div>
-        {/* </div> */}
       </div>
     );
   } else {
