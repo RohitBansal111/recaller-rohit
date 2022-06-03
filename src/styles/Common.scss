@@ -550,3 +550,7 @@ form.main-form .field-group:first-child {
 aside.emoji-picker-react {
   z-index: 99;
 }
+.bulkms form.main-form .field-group:first-child {
+  position: relative;
+  z-index: 999;
+}

@@ -82,7 +82,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
           </div>
         </div>
       ) : (
-        <div className="modal-body">
+        <div className="modal-body bulkms">
           <form className="main-form">
             <div className="field-group flexFull">
               <label>Enter Contact Name</label>
