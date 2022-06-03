@@ -84,7 +84,7 @@ const Search = () => {
                 className="btn btn-primary"
                 variant="contained"
               >
-                Send
+                Send to search
               </LoadingButton>
             </div>
           </form>
