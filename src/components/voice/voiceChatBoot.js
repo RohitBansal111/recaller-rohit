@@ -224,21 +224,25 @@ const VoiceChatBoot = (props) => {
                             />
                             <LibraryMusicIcon />
                           </div>
-                          <p
-                            style={{
-                              fontSize: "13px",
-                              fontWeight: "500",
-                              position: "relative",
-                            }}
-                          >
-                            {props.audioFileName && props.audioFileName.name}
-                          </p>
+                          {props.audioFileName && (
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                fontWeight: "500",
+                                position: "relative",
+                              }}
+                            >
+                              {props.audioFileName && props.audioFileName.name
+                                ? props.audioFileName.name
+                                : null}
+                            </p>
+                          )}
                         </div>
                       ) : (
                         ""
                       )}
                     </div>
-                    {props.audioFileName ? (
+                    {props.audioFileName !== null ? (
                       <button
                         type="button"
                         className="remove-recording-action"
@@ -280,6 +284,8 @@ const VoiceChatBoot = (props) => {
                           ? "Press & Recording"
                           : props.isActive == true
                           ? "Stop"
+                          : props.audioFileName == null
+                          ? "Press & Recording"
                           : "Press & Recording"}
                       </button>
                     )}
