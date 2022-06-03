@@ -538,10 +538,28 @@ span.spanError {
     padding-bottom: 25px;
   }
 }
-form.main-form .field-group:first-child .select-tags-styles div+div span+span+div {
+form.main-form
+  .field-group:first-child
+  .select-tags-styles
+  div
+  + div
+  span
+  + span
+  + div {
   position: relative;
   z-index: 0;
 }
-form.main-form .field-group:first-child .select-tags-styles div+div span+span+div+div{
+form.main-form
+  .field-group:first-child
+  .select-tags-styles
+  div
+  + div
+  span
+  + span
+  + div
+  + div {
   z-index: 999;
+}
+aside.emoji-picker-react {
+  z-index: 9;
 }
