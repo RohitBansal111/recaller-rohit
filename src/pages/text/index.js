@@ -73,9 +73,9 @@ const TextPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-  const [dateSelected, setDateSelected] = useState({
-    date: moment(new Date()).format("YYYY-MM-DD"),
-    time: today.getHours() + ":" + today.getMinutes(),
+  const [dateSelected, setDateSelected] = useState(()=>{
+    const today = new Date();
+    return {date:new Date().toISOString().substring(0, 10),time:today.getHours() + ":" + today.getMinutes()} 
   });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
@@ -84,6 +84,8 @@ const TextPage = () => {
   const [imageUrl, setImageUrl] = useState({});
   const [selectedNewImage, setSelectedNewImage] = useState(null);
   const [scheduledData, setScheduledData] = useState({});
+  const [schedule,setSchedule]= useState(false);
+
 
   const divRef = useRef(null);
 
@@ -351,17 +353,18 @@ const TextPage = () => {
 
   const onHandleClick = async () => {
     setLoading(true);
-    const obj = {
+    let obj = {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       selectedImage: imageUrl.url,
-      dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
-      type: imageUrl.url
+        type: imageUrl.url
         ? "MMS"
-        : dateSelected && dateSelected.date && dateSelected.time
-        ? "Schedule"
+        : schedule? "Schedule"
         : "SMS",
     };
+    if(scheduledData && scheduledData.date && scheduledData.time ){
+      obj.dateSelected=scheduledData.date + " " + scheduledData.time + ":00"
+    }
     const res = await sendSingleMessageApi(obj);
 
     if (res && res.data && res.data.status === 200) {
@@ -402,9 +405,14 @@ const TextPage = () => {
         contactid: contactid,
         message: sendNewMessage,
         selectedImage: imageUrl.url,
-        dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
-        type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
+        type: imageUrl.url
+        ? "MMS"
+        : schedule? "Schedule"
+        : "SMS",
       };
+      if(scheduledData && scheduledData.date && scheduledData.time ){
+        obj.dateSelected=scheduledData.date + " " + scheduledData.time + ":00"
+      }
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
         toast.success(" Message sent Successfully");
@@ -794,6 +802,7 @@ const TextPage = () => {
 
   const handleScheduleSubmit = () => {
     setShowScheduleModal(false);
+    setSchedule(true)
     setScheduledData(dateSelected);
   };
 
