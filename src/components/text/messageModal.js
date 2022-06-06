@@ -20,6 +20,7 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import CodeIcon from "@material-ui/icons/Code";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -96,6 +97,20 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             </div>
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
+              {props.selectedImage && (
+                <ul className="attachedImageGallery">
+                  <li>
+                    <img alt="not fount" src={props.selectedImage} />
+                    <button
+                      type="button"
+                      className="btn btn-cross"
+                      onClick={props.handleImageCancel}
+                    >
+                      <CancelIcon />
+                    </button>
+                  </li>
+                </ul>
+              )}
               <textarea
                 type="text"
                 className="form-control"
@@ -164,9 +179,17 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                   </>
                 </li>
                 <li>
-                  <button type="button" className="btn-action1 fileType">
+                  <button
+                    type="button"
+                    className="btn-action1 fileType"
+                    onClick={props.handleImageOpen}
+                  >
                     <ImageIcon />
-                    <input type="file" />
+                    <input
+                      type="file"
+                      name="myImage"
+                      onChange={props.handleImageChange}
+                    />
                   </button>
                 </li>
                 <li>

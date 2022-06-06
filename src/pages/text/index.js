@@ -26,6 +26,7 @@ import {
   sendTemplate,
   updateTemplate,
 } from "../../api/template";
+import axios from "axios";
 
 const TextPage = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -58,7 +59,7 @@ const TextPage = () => {
   const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false);
   const [showManageeTemplateModal, setShowManageeTemplateModal] =
     useState(false);
-    const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
+  const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
     useState(false);
   const [templateName, setTemplateName] = useState("");
   const [templateTags, setTemplateTags] = useState(null);
@@ -73,7 +74,8 @@ const TextPage = () => {
   const [onShowEmoji, setOnShowEmoji] = useState(false);
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [imageUrl, setImageUrl] = useState({});
+  const [selectedNewImage ,setSelectedNewImage ] = useState(null);
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -280,7 +282,7 @@ const TextPage = () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
       setOpenDelTagModal(false);
-      toast.success("Tag Deleted Successfully")
+      toast.success("Tag Deleted Successfully");
       getTags();
     }
   };
@@ -340,8 +342,9 @@ const TextPage = () => {
     const obj = {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
-      selectedImage,
-      dateSelected
+      selectedImage: imageUrl.url,
+      dateSelected,
+      type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
     };
     const res = await sendSingleMessageApi(obj);
 
@@ -382,8 +385,9 @@ const TextPage = () => {
       const obj = {
         contactid: contactid,
         message: sendNewMessage,
+        selectedImage: imageUrl.url,
         dateSelected,
-        selectedImage
+        type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
       };
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
@@ -725,14 +729,50 @@ const TextPage = () => {
     setSelectedImage(true);
   };
 
+  const handleNewImageOpen = () => {
+    setSelectedNewImage(true);
+  };
+
   const handleImageCancel = () => {
     setSelectedImage(false);
   };
 
-  const handleImageChange = (event) => {
+  const handleNewImageCancel = () => {
+    setSelectedNewImage(false);
+  };
+
+  const handleNewImageChange = async (event) => {
+    console.log(event.target.files[0]);
+    let img = event.target.files[0];
+    setSelectedNewImage(URL.createObjectURL(img));
+
+    const formData = new FormData();
+    formData.append("ckImage", event.target.files[0]);
+    const res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
+      formData
+    );
+    console.log(res, "res");
+    if (res && res.data && res.data.status) {
+      setImageUrl(res.data);
+    }
+  };
+
+  const handleImageChange = async (event) => {
     console.log(event.target.files[0]);
     let img = event.target.files[0];
     setSelectedImage(URL.createObjectURL(img));
+
+    const formData = new FormData();
+    formData.append("ckImage", event.target.files[0]);
+    const res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
+      formData
+    );
+    console.log(res, "res");
+    if (res && res.data && res.data.status) {
+      setImageUrl(res.data);
+    }
   };
 
   return (
@@ -898,6 +938,10 @@ const TextPage = () => {
         onShowEmojiOpen={onShowEmoji}
         savelistToMessageClick={savelistToMessageClick}
         selecteduser={selecteduser}
+        handleImageOpen={handleNewImageOpen}
+        selectedImage={selectedNewImage}
+        handleImageCancel={handleNewImageCancel}
+        handleImageChange={handleNewImageChange}
       />
     </div>
   );

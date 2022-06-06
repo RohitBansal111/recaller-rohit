@@ -75,7 +75,7 @@ const EmailPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
     useState(false);
-    const [editorLoaded, setEditorLoaded] = useState(false);
+  const [editorLoaded, setEditorLoaded] = useState(false);
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -280,7 +280,7 @@ const EmailPage = () => {
   const handleDeleteTags = async () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tag Deleted Successfully")
+      toast.success("Tag Deleted Successfully");
       setOpenDelTagModal(false);
       getTags();
     }
@@ -361,6 +361,7 @@ const EmailPage = () => {
         contactid: contactid,
         subject: emailSubject,
         message: emailMessage,
+        type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
       };
       let res = await sendEmailMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
@@ -481,6 +482,8 @@ const EmailPage = () => {
       subject: selecteduser.subject,
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
+      type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
+      schedule: dateSelected ? true : false,
     };
     const res = await sendSingleEmailMessageApi(obj);
 
