@@ -76,6 +76,7 @@ const EmailPage = () => {
   const [showNewManageeTemplateModal, setNewShowManageeTemplateModal] =
     useState(false);
   const [editorLoaded, setEditorLoaded] = useState(false);
+  const [scheduledData, setScheduledData] = useState({});
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -361,6 +362,7 @@ const EmailPage = () => {
         contactid: contactid,
         subject: emailSubject,
         message: emailMessage,
+        dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
         type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
       };
       let res = await sendEmailMessageApi(obj);
@@ -482,6 +484,7 @@ const EmailPage = () => {
       subject: selecteduser.subject,
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
+      dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
       type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
       schedule: dateSelected ? true : false,
     };
@@ -778,6 +781,12 @@ const EmailPage = () => {
     setEditorLoaded(true);
   }, []);
 
+  const handleScheduleSubmit = () => {
+    setShowScheduleModal(false);
+    setScheduledData(dateSelected);
+  };
+
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -883,6 +892,7 @@ const EmailPage = () => {
           handleImageOpen={handleImageOpen}
           handleImageCancel={handleImageCancel}
           handleImageChange={handleImageChange}
+          handleScheduleSubmit={handleScheduleSubmit}
         />
       </div>
       <EmailModal
@@ -946,6 +956,8 @@ const EmailPage = () => {
         textRef={textref}
         selecteduser={selecteduser}
         editorLoaded={editorLoaded}
+        handleScheduleSubmit={handleScheduleSubmit}
+
       />
     </div>
   );

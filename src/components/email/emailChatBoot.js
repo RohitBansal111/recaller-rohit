@@ -635,6 +635,7 @@ const EmailChatBoot = (props) => {
           handleCloseSchedultModal={props.handleCloseSchedultModal}
           dateSelected={props.dateSelected}
           handleDateChange={props.handleDateChange}
+          handleSubmit={props.handleScheduleSubmit}
         />
         <ManageTemplateModal
           showManageeTemplateModal={props.showManageeTemplateModal}

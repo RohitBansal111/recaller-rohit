@@ -75,7 +75,9 @@ const TextPage = () => {
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState({});
-  const [selectedNewImage ,setSelectedNewImage ] = useState(null);
+  const [selectedNewImage, setSelectedNewImage] = useState(null);
+  const [scheduledData, setScheduledData] = useState({});
+
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -99,10 +101,13 @@ const TextPage = () => {
     setShowScheduleModal(true);
     setDateSelected("");
   };
+
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
     setDateSelected("");
   };
+  console.log(dateSelected, "");
+
   const handleCreateTemplate = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
@@ -343,7 +348,7 @@ const TextPage = () => {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       selectedImage: imageUrl.url,
-      dateSelected,
+      dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
       type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
     };
     const res = await sendSingleMessageApi(obj);
@@ -386,7 +391,7 @@ const TextPage = () => {
         contactid: contactid,
         message: sendNewMessage,
         selectedImage: imageUrl.url,
-        dateSelected,
+        dateSelected: scheduledData.date + " " + scheduledData.time + "00",
         type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
       };
       let res = await sendMessageApi(obj);
@@ -775,6 +780,11 @@ const TextPage = () => {
     }
   };
 
+  const handleScheduleSubmit = () => {
+    setShowScheduleModal(false);
+    setScheduledData(dateSelected);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -878,6 +888,7 @@ const TextPage = () => {
           selectedImage={selectedImage}
           handleImageCancel={handleImageCancel}
           handleImageChange={handleImageChange}
+          handleScheduleSubmit={handleScheduleSubmit}
         />
       </div>
       <MessageModal
@@ -942,6 +953,7 @@ const TextPage = () => {
         selectedImage={selectedNewImage}
         handleImageCancel={handleNewImageCancel}
         handleImageChange={handleNewImageChange}
+        handleScheduleSubmit={handleScheduleSubmit}
       />
     </div>
   );

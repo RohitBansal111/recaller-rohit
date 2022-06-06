@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import makeAnimated from "react-select/animated";
 
 const ScheduleMessageModal = (props) => {
-  const handleSubmit = () => {};
   const toDay = new Date().toISOString().substring(0, 10);
   var today = new Date();
   const curTime = today.getHours() + ":" + today.getMinutes();
@@ -51,7 +50,7 @@ const ScheduleMessageModal = (props) => {
           <Button variant="secondary" onClick={props.handleCloseSchedultModal}>
             Dismiss
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" onClick={props.handleSubmit}>
             Set Schedule
           </Button>
         </Modal.Footer>
