@@ -97,6 +97,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             </div>
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
+              <div className="imgshowpopup">
               {props.selectedImage && (
                 <ul className="attachedImageGallery">
                   <li>
@@ -121,6 +122,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               >
                 {props.sendNewMessage}
               </textarea>
+              </div>
               <ul className="action-icons">
                 <li>
                   <button

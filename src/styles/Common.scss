@@ -563,3 +563,35 @@ form.main-form
 aside.emoji-picker-react {
   z-index: 9;
 }
+
+.attachedImageGallery{
+  margin: 0px;
+  padding: 0px;
+  li{
+    position: relative;
+  img{
+    max-width: 100%;
+  }
+  .btn{
+    position: absolute;
+    right: -25px;
+    top: -15px;
+  }
+  }
+}
+.imgshowpopup {
+  display: flex;
+  padding:10px 10px 15px 10px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  ul.attachedImageGallery{
+    max-width: 150px;
+  }
+  textarea{
+    background-color: transparent;
+    border: none!important;
+  }
+  &+.action-icons{
+    margin-bottom: 3px!important;
+  }
+}
