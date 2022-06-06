@@ -391,7 +391,7 @@ const TextPage = () => {
         contactid: contactid,
         message: sendNewMessage,
         selectedImage: imageUrl.url,
-        dateSelected: scheduledData.date + " " + scheduledData.time + "00",
+        dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
         type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
       };
       let res = await sendMessageApi(obj);
