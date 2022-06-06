@@ -79,6 +79,36 @@ const headCells = [
     disablePadding: false,
     label: "Primary Phone",
   },
+  {
+    id: "country",
+    numeric: true,
+    disablePadding: false,
+    label: "Country",
+  },
+  {
+    id: "state",
+    numeric: true,
+    disablePadding: false,
+    label: "State",
+  },
+  {
+    id: "city",
+    numeric: true,
+    disablePadding: false,
+    label: "City",
+  },
+  {
+    id: "zipcode",
+    numeric: true,
+    disablePadding: false,
+    label: "Zip Code",
+  },
+  {
+    id: "address",
+    numeric: true,
+    disablePadding: false,
+    label: "Address",
+  },
   // {
   //   id: "updatedAt",
   //   numeric: true,
@@ -315,6 +345,11 @@ export default function EnhancedTable(props) {
                 .toLowerCase()
                 .startsWith(props.value.toLowerCase()) ||
               contact.phone.startsWith(props.value) ||
+              contact.country.startsWith(props.value) ||
+              contact.state.startsWith(props.value) ||
+              contact.city.startsWith(props.value) ||
+              contact.zipcode.startsWith(props.value) ||
+              contact.address.startsWith(props.value) ||
               contact.email.toLowerCase().startsWith(props.value.toLowerCase())
           )
         : rowsData.filter(
@@ -326,6 +361,11 @@ export default function EnhancedTable(props) {
                 .toLowerCase()
                 .startsWith(props.value.toLowerCase()) ||
               contact.phone.startsWith(props.value) ||
+              contact.country.startsWith(props.value) ||
+              contact.state.startsWith(props.value) ||
+              contact.city.startsWith(props.value) ||
+              contact.zipcode.startsWith(props.value) ||
+              contact.address.startsWith(props.value) ||
               contact.email.toLowerCase().startsWith(props.value.toLowerCase())
           );
 
@@ -365,6 +405,11 @@ export default function EnhancedTable(props) {
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>
+              <TableCell align="right">{row && row.country}</TableCell>
+              <TableCell align="right">{row && row.state}</TableCell>
+              <TableCell align="right">{row && row.city}</TableCell>
+              <TableCell align="right">{row && row.zipcode}</TableCell>
+              <TableCell align="right">{row && row.address}</TableCell>
               {/* <TableCell align="right">
                 {moment(row && row.updatedAt).format("DD/MM/YYYY")}
               </TableCell> */}

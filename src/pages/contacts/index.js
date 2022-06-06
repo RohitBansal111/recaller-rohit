@@ -94,6 +94,26 @@ const Import = () => {
         setErrors({ email: "Email field is required!" });
         formData = false;
         break;
+      case !addContact.country:
+        setErrors({ country: "Please select country!" });
+        formData = false;
+        break;
+      case !addContact.state:
+        setErrors({ state: "Please select State!" });
+        formData = false;
+        break;
+      case !addContact.city:
+        setErrors({ city: "Please select city!" });
+        formData = false;
+        break;
+      case !addContact.zipcode:
+        setErrors({ zipcode: "Please enter valid Zip Code!" });
+        formData = false;
+        break;
+      case !addContact.address:
+        setErrors({ address: "Please add enter Address!" });
+        formData = false;
+        break;
       case addContact.email && !regex.test(addContact.email):
         setErrors({ email: "Please enter valid email address!" });
         formData = false;
@@ -119,7 +139,7 @@ const Import = () => {
         setErrors({});
         getData();
       } else {
-      setLoading(false);
+        setLoading(false);
 
         toast.error(res.data.message);
       }
@@ -231,7 +251,7 @@ const Import = () => {
     const res = await deleteApi(data);
     if (res && res.data && res.data.status === 200) {
       getData();
-      toast.success("Contact Deleted Successfully")
+      toast.success("Contact Deleted Successfully");
       setIsOpenDelete(false);
       setSelected([]);
     }
@@ -456,7 +476,7 @@ const Import = () => {
       setEditFilter(false);
       setShowSelect(false);
       toast.success(res.data.message);
-      handleAllTagsData()
+      handleAllTagsData();
       getContactFilter();
       getData();
     }

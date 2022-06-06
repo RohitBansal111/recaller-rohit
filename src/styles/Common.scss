@@ -590,8 +590,22 @@ aside.emoji-picker-react {
   textarea{
     background-color: transparent;
     border: none!important;
+    &:focus{
+      border: none!important;
+    }
   }
   &+.action-icons{
     margin-bottom: 3px!important;
   }
+}
+.main-form{
+.messageBoxModal{
+  .imgshowpopup {
+    textarea{
+      &:focus{
+        border: none!important;
+      }
+    }
+  }
+}
 }
