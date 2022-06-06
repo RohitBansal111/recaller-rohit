@@ -1,3 +1,4 @@
+import moment from "moment";
 import { createRef, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -29,6 +30,9 @@ import EmailChatBoot from "../../components/email/emailChatBoot";
 import EmailModal from "../../models/EmailModal";
 
 const EmailPage = () => {
+  var today = new Date();
+  const curTime = today.getHours() + ":" + today.getMinutes();
+
   const [openMessageModal, setOpenMessageModal] = useState(false);
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
@@ -67,7 +71,10 @@ const EmailPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-  const [dateSelected, setDateSelected] = useState({});
+  const [dateSelected, setDateSelected] = useState({
+    date: moment(new Date()).format("YYYY-MM-DD"),
+    time: today.getHours() + ":" + today.getMinutes(),
+  });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
@@ -167,10 +174,18 @@ const EmailPage = () => {
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
     setDateSelected({});
+    setDateSelected({
+      date: moment(new Date()).format("YYYY-MM-DD"),
+      time: today.getHours() + ":" + today.getMinutes(),
+    });
   };
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
     setDateSelected({});
+    setDateSelected({
+      date: moment(new Date()).format("YYYY-MM-DD"),
+      time: today.getHours() + ":" + today.getMinutes(),
+    });
   };
 
   const handleCreateTemplate = () => {

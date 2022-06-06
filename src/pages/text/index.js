@@ -94,6 +94,7 @@ const TextPage = () => {
     setLoading(false);
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
+    setSelectedImage(false)
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -102,18 +103,30 @@ const TextPage = () => {
     setErrors({});
     setLoading(false);
     setOnShowChatBotEmojiOpen(false);
+    setSelectedImage(false)
   };
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
     setDateSelected("");
+    setSendNewMessage("");
+    setSelectedImage(false)
+    setOnShowChatBotEmojiOpen(false);
+    setDateSelected({
+      date: moment(new Date()).format("YYYY-MM-DD"),
+      time: today.getHours() + ":" + today.getMinutes(),
+    });
   };
 
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
+    setOnShowChatBotEmojiOpen(false);
     setDateSelected("");
+    setDateSelected({
+      date: moment(new Date()).format("YYYY-MM-DD"),
+      time: today.getHours() + ":" + today.getMinutes(),
+    });
   };
-  console.log(dateSelected, "");
 
   const handleCreateTemplate = () => {
     setShowCreateTemplateModal(true);
@@ -460,6 +473,7 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id, check) => {
+    setSelectedImage(false)
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
