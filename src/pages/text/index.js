@@ -27,8 +27,12 @@ import {
   updateTemplate,
 } from "../../api/template";
 import axios from "axios";
+import moment from "moment";
 
 const TextPage = () => {
+  var today = new Date();
+  const curTime = today.getHours() + ":" + today.getMinutes();
+
   const [openMessageModal, setOpenMessageModal] = useState(false);
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
@@ -69,7 +73,10 @@ const TextPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-  const [dateSelected, setDateSelected] = useState({});
+  const [dateSelected, setDateSelected] = useState({
+    date: moment(new Date()).format("YYYY-MM-DD"),
+    time: today.getHours() + ":" + today.getMinutes(),
+  });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
   const [onShowChatBotEmojiOpen, setOnShowChatBotEmojiOpen] = useState(false);
@@ -349,7 +356,11 @@ const TextPage = () => {
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       selectedImage: imageUrl.url,
       dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
-      type: imageUrl.url ? "MMS" : dateSelected ? "Schedule" : "SMS",
+      type: imageUrl.url
+        ? "MMS"
+        : dateSelected && dateSelected.date && dateSelected.time
+        ? "Schedule"
+        : "SMS",
     };
     const res = await sendSingleMessageApi(obj);
 
@@ -704,6 +715,7 @@ const TextPage = () => {
   };
 
   const handleDateChange = (e) => {
+    console.log();
     setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
   };
 

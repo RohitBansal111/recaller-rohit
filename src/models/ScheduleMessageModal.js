@@ -1,7 +1,5 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import makeAnimated from "react-select/animated";
 
 const ScheduleMessageModal = (props) => {
   const toDay = new Date().toISOString().substring(0, 10);
@@ -27,7 +25,7 @@ const ScheduleMessageModal = (props) => {
                 className="form-control"
                 placeholder="Enter email"
                 name="date"
-                defaultValue={toDay}
+                // defaultValue={toDay}
                 value={props.dateSelected.date}
                 onChange={props.handleDateChange}
               ></input>
@@ -39,7 +37,7 @@ const ScheduleMessageModal = (props) => {
                 className="form-control"
                 placeholder="Enter name"
                 name="time"
-                defaultValue={curTime}
+                // defaultValue={curTime}
                 value={props.dateSelected.time}
                 onChange={props.handleDateChange}
               />
