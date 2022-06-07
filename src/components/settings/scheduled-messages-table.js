@@ -13,7 +13,10 @@ const columns = [
   },
   {
     name: "Conversation",
-    selector: (row) => row.conversation,
+    selector: (row) =>
+      row.contactDetails.map((data) => {
+        return data.firstName + " " + data.lastName;
+      }),
   },
   {
     name: "Created By",
