@@ -84,6 +84,10 @@ const EmailPage = () => {
     useState(false);
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [scheduledData, setScheduledData] = useState({});
+  const [showReScheduleModal, setShowReScheduleModal] = useState(false);
+  const [reScheduleData, setReScheduleData] = useState({});
+  const [cancelRescheDule, setCancelRescheDule] = useState(false);
+  const [schedule, setSchedule] = useState(false);
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -501,7 +505,7 @@ const EmailPage = () => {
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
       type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
-      schedule: dateSelected ? true : false,
+      schedule: schedule ? true : false,
     };
     const res = await sendSingleEmailMessageApi(obj);
 
@@ -798,9 +802,33 @@ const EmailPage = () => {
 
   const handleScheduleSubmit = () => {
     setShowScheduleModal(false);
+    setSchedule(true)
     setScheduledData(dateSelected);
   };
 
+ 
+  const handleReSchedule = () => {
+    setShowReScheduleModal(true);
+  };
+  const handleCloseReSchedultModal = () => {
+    setShowReScheduleModal(false);
+  };
+
+  const handleReSchaduleChange = (e) => {
+    setReScheduleData({ ...reScheduleData, [e.target.name]: e.target.value });
+  };
+  const handleReSubmit = () => {
+    setShowReScheduleModal(false);
+    console.log(reScheduleData , "reScheduleData");
+  };
+
+  const handleCancelReSchedultModal = () => {
+    setCancelRescheDule(true);
+  };
+
+  const handleNoReSchedultModal = () => {};
+
+  const handleDeleteReSchedultModal = () => {};
 
   return (
     <div className="content-page-layout text-page-content">
@@ -908,6 +936,16 @@ const EmailPage = () => {
           handleImageCancel={handleImageCancel}
           handleImageChange={handleImageChange}
           handleScheduleSubmit={handleScheduleSubmit}
+          showReScheduleModal={showReScheduleModal}
+          handleCloseReSchedultModal={handleCloseReSchedultModal}
+          reScheduleData={reScheduleData}
+          handleReSchedule={handleReSchedule}
+          handleReSchaduleChange={handleReSchaduleChange}
+          handleReSubmit={handleReSubmit}
+          handleCancelReSchedultModal={handleCancelReSchedultModal}
+          cancelRescheDule={cancelRescheDule}
+          handleNoReSchedultModal={handleNoReSchedultModal}
+          handleDeleteReSchedultModal={handleDeleteReSchedultModal}
         />
       </div>
       <EmailModal
@@ -972,7 +1010,6 @@ const EmailPage = () => {
         selecteduser={selecteduser}
         editorLoaded={editorLoaded}
         handleScheduleSubmit={handleScheduleSubmit}
-
       />
     </div>
   );

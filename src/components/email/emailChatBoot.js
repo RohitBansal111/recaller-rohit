@@ -212,6 +212,16 @@ const EmailChatBoot = (props) => {
                 emailChatData={props.emailChatData}
                 selecteduser={props.selecteduser}
                 divRef={props.divRef}
+                showReScheduleModal={props.showReScheduleModal}
+                handleCloseReSchedultModal={props.handleCloseReSchedultModal}
+                reScheduleData={props.reScheduleData}
+                handleReSchaduleChange={props.handleReSchaduleChange}
+                handleReSchedule={props.handleReSchedule}
+                handleReSubmit={props.handleReSubmit}
+                handleCancelReSchedultModal={props.handleCancelReSchedultModal}
+                cancelRescheDule={props.cancelRescheDule}
+                handleNoReSchedultModal={props.handleNoReSchedultModal}
+                handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
               />
             </div>
             {location.pathname === "/voice" && (

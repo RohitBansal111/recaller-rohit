@@ -4,6 +4,8 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { dateSince } from "../../helper/dateFunction";
 import { timeAgo } from "../../helper/timerFuntion";
 import parse from "html-react-parser";
+import ReScheduleMessageModal from "../../models/reScheduleMsg";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 
 const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
@@ -25,7 +27,21 @@ const EmailChatText = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    <pre>{parse(item.message)}</pre>
+                    {item.schedule == true ? (
+                      <div className="scheduletext">
+                        {" "}
+                        <button type="button" onClick={props.handleReSchedule}>
+                          <ScheduleIcon />
+                        </button>
+                        <pre>
+                          <pre>{parse(item.message)}</pre>
+                        </pre>
+                      </div>
+                    ) : (
+                      <pre>
+                        <pre>{parse(item.message)}</pre>
+                      </pre>
+                    )}
                   </div>
                   <span>
                     <b>
@@ -48,6 +64,17 @@ const EmailChatText = (props) => {
             ))
           : []}
       </ul>
+      <ReScheduleMessageModal
+        showReScheduleModal={props.showReScheduleModal}
+        handleCloseReSchedultModal={props.handleCloseReSchedultModal}
+        reScheduleData={props.reScheduleData}
+        handleReSchaduleChange={props.handleReSchaduleChange}
+        handleReSubmit={props.handleReSubmit}
+        handleCancelReSchedultModal={props.handleCancelReSchedultModal}
+        cancelRescheDule={props.cancelRescheDule}
+        handleNoReSchedultModal={props.handleNoReSchedultModal}
+        handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+      />
     </ScrollToBottom>
   );
 };

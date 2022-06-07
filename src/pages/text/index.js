@@ -73,9 +73,12 @@ const TextPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-  const [dateSelected, setDateSelected] = useState(()=>{
+  const [dateSelected, setDateSelected] = useState(() => {
     const today = new Date();
-    return {date:new Date().toISOString().substring(0, 10),time:today.getHours() + ":" + today.getMinutes()} 
+    return {
+      date: new Date().toISOString().substring(0, 10),
+      time: today.getHours() + ":" + today.getMinutes(),
+    };
   });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
@@ -84,9 +87,10 @@ const TextPage = () => {
   const [imageUrl, setImageUrl] = useState({});
   const [selectedNewImage, setSelectedNewImage] = useState(null);
   const [scheduledData, setScheduledData] = useState({});
-  const [schedule,setSchedule]= useState(false);
-
-
+  const [schedule, setSchedule] = useState(false);
+  const [showReScheduleModal, setShowReScheduleModal] = useState(false);
+  const [reScheduleData, setReScheduleData] = useState({});
+  const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -96,7 +100,7 @@ const TextPage = () => {
     setLoading(false);
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
-    setSelectedImage(false)
+    setSelectedImage(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -105,14 +109,14 @@ const TextPage = () => {
     setErrors({});
     setLoading(false);
     setOnShowChatBotEmojiOpen(false);
-    setSelectedImage(false)
+    setSelectedImage(false);
   };
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
     setDateSelected("");
     setSendNewMessage("");
-    setSelectedImage(false)
+    setSelectedImage(false);
     setOnShowChatBotEmojiOpen(false);
     setDateSelected({
       date: moment(new Date()).format("YYYY-MM-DD"),
@@ -370,13 +374,10 @@ const TextPage = () => {
       message: sendMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       selectedImage: imageUrl.url,
-        type: imageUrl.url
-        ? "MMS"
-        : schedule? "Schedule"
-        : "SMS",
+      type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
     };
-    if(scheduledData && scheduledData.date && scheduledData.time ){
-      obj.dateSelected=scheduledData.date + " " + scheduledData.time + ":00"
+    if (scheduledData && scheduledData.date && scheduledData.time) {
+      obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
     const res = await sendSingleMessageApi(obj);
 
@@ -418,13 +419,11 @@ const TextPage = () => {
         contactid: contactid,
         message: sendNewMessage,
         selectedImage: imageUrl.url,
-        type: imageUrl.url
-        ? "MMS"
-        : schedule? "Schedule"
-        : "SMS",
+        type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
       };
-      if(scheduledData && scheduledData.date && scheduledData.time ){
-        obj.dateSelected=scheduledData.date + " " + scheduledData.time + ":00"
+      if (scheduledData && scheduledData.date && scheduledData.time) {
+        obj.dateSelected =
+          scheduledData.date + " " + scheduledData.time + ":00";
       }
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
@@ -446,6 +445,7 @@ const TextPage = () => {
 
   const getMessage = async (check = true, tagsCheck = false) => {
     const res = await getUserWithMessage();
+
     if (
       res &&
       res.data &&
@@ -481,7 +481,7 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id, check) => {
-    setSelectedImage(false)
+    setSelectedImage(false);
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
@@ -791,7 +791,6 @@ const TextPage = () => {
       `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
       formData
     );
-    console.log(res, "res");
     if (res && res.data && res.data.status) {
       setImageUrl(res.data);
     }
@@ -808,7 +807,6 @@ const TextPage = () => {
       `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
       formData
     );
-    console.log(res, "res");
     if (res && res.data && res.data.status) {
       setImageUrl(res.data);
     }
@@ -816,9 +814,35 @@ const TextPage = () => {
 
   const handleScheduleSubmit = () => {
     setShowScheduleModal(false);
-    setSchedule(true)
+    setSchedule(true);
     setScheduledData(dateSelected);
   };
+
+  const handleReSchedule = () => {
+    setShowReScheduleModal(true);
+    setCancelRescheDule(false)
+  };
+  const handleCloseReSchedultModal = () => {
+    setShowReScheduleModal(false);
+    setCancelRescheDule(false)
+  };
+
+  const handleReSchaduleChange = (e) => {
+    setReScheduleData({ ...reScheduleData, [e.target.name]: e.target.value });
+  };
+  const handleReSubmit = () => {
+    setShowReScheduleModal(false);
+    setCancelRescheDule(false)
+    console.log(reScheduleData, "reScheduleData");
+  };
+
+  const handleCancelReSchedultModal = () => {
+    setCancelRescheDule(true);
+  };
+
+  const handleNoReSchedultModal = () => {};
+
+  const handleDeleteReSchedultModal = () => {};
 
   return (
     <div className="content-page-layout text-page-content">
@@ -924,6 +948,16 @@ const TextPage = () => {
           handleImageCancel={handleImageCancel}
           handleImageChange={handleImageChange}
           handleScheduleSubmit={handleScheduleSubmit}
+          showReScheduleModal={showReScheduleModal}
+          handleCloseReSchedultModal={handleCloseReSchedultModal}
+          reScheduleData={reScheduleData}
+          handleReSchedule={handleReSchedule}
+          handleReSchaduleChange={handleReSchaduleChange}
+          handleReSubmit={handleReSubmit}
+          handleCancelReSchedultModal={handleCancelReSchedultModal}
+          cancelRescheDule={cancelRescheDule}
+          handleNoReSchedultModal={handleNoReSchedultModal}
+          handleDeleteReSchedultModal={handleDeleteReSchedultModal}
         />
       </div>
       <MessageModal

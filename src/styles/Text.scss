@@ -629,6 +629,35 @@
             text-align: right;
             padding-right: 4px;
           }
+          .scheduletext{
+            display: flex;
+            align-items: center;
+            button{
+              border:none;
+              padding: 0px;
+              background-color: transparent;
+              margin-left: -40px;
+              opacity: 0;
+              svg{
+                fill:rgba(0,0,0,0.54);
+              }
+              &:hover{
+                svg{
+                  fill:#655beb;
+                }
+              }
+              
+            }
+            &:hover{
+             button{
+                opacity: 1;
+              }
+            }
+            pre{
+              padding-left: 20px;
+            }
+          }
+          
         }
       }
       p {

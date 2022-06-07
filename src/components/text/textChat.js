@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { dateSince } from "../../helper/dateFunction";
 import { timeAgo } from "../../helper/timerFuntion";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import ReScheduleMessageModal from "../../models/reScheduleMsg";
+
 const TextChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
 
@@ -24,7 +27,26 @@ const TextChat = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    <pre>{item.message}</pre>
+                    {item.type == "Schedule" ? (
+                      <div className="scheduletext">
+                        <button
+                          type="button"
+                          onClick={props.handleReSchedule}
+                        >
+                          <ScheduleIcon />
+                        </button>
+                        <pre>{item.message}</pre>
+                      </div>
+                    ) : (
+                      <pre>{item.message}</pre>
+                    )}
+                    {item.imageUrl ? (
+                      <>
+                        <img src={item.imageUrl} alt="img"></img>
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <span>
                     <b>
@@ -47,6 +69,17 @@ const TextChat = (props) => {
             ))
           : []}
       </ul>
+      <ReScheduleMessageModal
+        showReScheduleModal={props.showReScheduleModal}
+        handleCloseReSchedultModal={props.handleCloseReSchedultModal}
+        reScheduleData={props.reScheduleData}
+        handleReSchaduleChange={props.handleReSchaduleChange}
+        handleReSubmit={props.handleReSubmit}
+        handleCancelReSchedultModal={props.handleCancelReSchedultModal}
+        cancelRescheDule={props.cancelRescheDule}
+        handleNoReSchedultModal={props.handleNoReSchedultModal}
+        handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+      />
     </ScrollToBottom>
   );
 };
