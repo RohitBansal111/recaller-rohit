@@ -382,7 +382,7 @@ const EmailPage = () => {
         subject: emailSubject,
         message: emailMessage,
         dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
-        type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
+        schedule: schedule ? true : false,
       };
       let res = await sendEmailMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
@@ -504,7 +504,6 @@ const EmailPage = () => {
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
-      type: selectedImage ? "MMS" : dateSelected ? "Schedule" : "SMS",
       schedule: schedule ? true : false,
     };
     const res = await sendSingleEmailMessageApi(obj);
