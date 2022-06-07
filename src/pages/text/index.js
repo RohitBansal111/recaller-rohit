@@ -384,7 +384,10 @@ const TextPage = () => {
     if (res && res.data && res.data.status === 200) {
       setSendMessage("");
       scrollToBottom();
+      setDateSelected({});
+      setSchedule(false)
       setLoading(false);
+      setShowScheduleModal(false);
     }
     getMessage();
   };
@@ -430,6 +433,9 @@ const TextPage = () => {
         toast.success(" Message sent Successfully");
         setOpenMessageModal(false);
         setSelected([]);
+        setShowScheduleModal(false);
+        setDateSelected({});
+        setSchedule(false)
         setSendNewMessage("");
         setLoading(false);
       }

@@ -391,6 +391,9 @@ const EmailPage = () => {
         setSelected([]);
         setEmailMessage("");
         setLoading(false);
+        setDateSelected({});
+        setSchedule(false)
+        setShowScheduleModal(false);
         setEmailSubject("");
       }
       getEmailMessage();
@@ -512,6 +515,9 @@ const EmailPage = () => {
       setSendEmailMessage("");
       scrollToBottom();
       setLoading(false);
+      setSchedule(false)
+      setDateSelected({});
+      setShowScheduleModal(false);
     }
     getEmailMessage();
   };
