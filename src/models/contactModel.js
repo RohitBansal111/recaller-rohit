@@ -68,6 +68,57 @@ const ContactModal = (props) => {
               />
               <span className="spanError">{props.errors.email}</span>
             </div>
+            <div className="field-group flex2">
+              <label>Country</label>
+              <select>
+                <option>Select Country</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <span className="spanError">{props.errors.country}</span>
+            </div>
+            <div className="field-group flex2">
+              <label> State/Prov </label>
+              <select>
+                <option>Select State</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <span className="spanError">{props.errors.state}</span>
+            </div>
+            <div className="field-group flex2">
+              <label> City </label>
+              <select>
+                <option>Select City</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <span className="spanError">{props.errors.city}</span>
+            </div>
+            <div className="field-group flex2">
+              <label> Zip Code/Postal Code </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Zip Code/Postal Code"
+                name="compaign"
+              />
+              <span className="spanError">{props.errors.zipcode}</span>
+            </div>
+            <div className="field-group flexFull">
+              <label>Street Address </label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Street Address"
+                name="Address"
+              />
+              <span className="spanError">{props.errors.address}</span>
+            </div>
+           
             <div className="field-group flexFull">
               <label> Create Campaign </label>
               <input
