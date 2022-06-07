@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
 import ScheduledMessagesTable from "../../../components/settings/scheduled-messages-table";
 import { MdChevronRight } from "react-icons/md";
+import { useEffect, useState } from "react";
+import { getScheduleMessageApi } from "../../../api/setting-Api/schMsgSetting";
 
 const ScheduledMessages = () => {
+  useEffect(() => {
+    getScheduleMessage();
+  }, []);
+  const [data, setData] = useState([]);
+  const getScheduleMessage = async () => {
+    const res = await getScheduleMessageApi();
+    console.log(res.data.data, "lllllll");
+    setData(res.data.data);
+  };
+
   return (
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
@@ -23,7 +35,7 @@ const ScheduledMessages = () => {
           scheduled messages
         </p>
         <div className="schedule-table-box">
-          <ScheduledMessagesTable />
+          <ScheduledMessagesTable data={data} />
         </div>
       </div>
     </div>
