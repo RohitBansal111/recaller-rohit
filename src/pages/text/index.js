@@ -375,6 +375,7 @@ const TextPage = () => {
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       selectedImage: imageUrl.url,
       type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
+      schedule: schedule ? true : false,
     };
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
@@ -385,7 +386,7 @@ const TextPage = () => {
       setSendMessage("");
       scrollToBottom();
       setDateSelected({});
-      setSchedule(false)
+      setSchedule(false);
       setLoading(false);
       setShowScheduleModal(false);
     }
@@ -423,6 +424,7 @@ const TextPage = () => {
         message: sendNewMessage,
         selectedImage: imageUrl.url,
         type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
+        schedule: schedule ? true : false,
       };
       if (scheduledData && scheduledData.date && scheduledData.time) {
         obj.dateSelected =
@@ -435,7 +437,7 @@ const TextPage = () => {
         setSelected([]);
         setShowScheduleModal(false);
         setDateSelected({});
-        setSchedule(false)
+        setSchedule(false);
         setSendNewMessage("");
         setLoading(false);
       }
@@ -819,18 +821,28 @@ const TextPage = () => {
   };
 
   const handleScheduleSubmit = () => {
-    setShowScheduleModal(false);
-    setSchedule(true);
-    setScheduledData(dateSelected);
+    var dddd = new Date().toISOString().substring(0, 10);
+    var ssss = today.getHours() + ":" + today.getMinutes();
+    if (dateSelected.time === ssss && dateSelected.date === dddd) {
+      console.log("sssssssssssss");
+      toast.error("The date/time must be in the future");
+    } else {
+      setShowScheduleModal(false);
+      setSchedule(true);
+      setScheduledData(dateSelected);
+    }
   };
 
-  const handleReSchedule = () => {
+  const handleReSchedule = (item) => {
+    let val =item && item.dateString.split(" ");
+    setReScheduleData({ date: val[0], time: val[1] });
     setShowReScheduleModal(true);
-    setCancelRescheDule(false)
+    setCancelRescheDule(false);
   };
+
   const handleCloseReSchedultModal = () => {
     setShowReScheduleModal(false);
-    setCancelRescheDule(false)
+    setCancelRescheDule(false);
   };
 
   const handleReSchaduleChange = (e) => {
@@ -838,7 +850,7 @@ const TextPage = () => {
   };
   const handleReSubmit = () => {
     setShowReScheduleModal(false);
-    setCancelRescheDule(false)
+    setCancelRescheDule(false);
     console.log(reScheduleData, "reScheduleData");
   };
 
@@ -846,9 +858,14 @@ const TextPage = () => {
     setCancelRescheDule(true);
   };
 
-  const handleNoReSchedultModal = () => {};
+  const handleNoReSchedultModal = () => {
+    setShowReScheduleModal(true);
+    setCancelRescheDule(false);
+  };
 
-  const handleDeleteReSchedultModal = () => {};
+  const handleDeleteReSchedultModal = () => {
+    setShowReScheduleModal(false);
+  };
 
   return (
     <div className="content-page-layout text-page-content">

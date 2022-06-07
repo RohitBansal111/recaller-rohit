@@ -381,9 +381,12 @@ const EmailPage = () => {
         contactid: contactid,
         subject: emailSubject,
         message: emailMessage,
-        dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
         schedule: schedule ? true : false,
       };
+      if (scheduledData && scheduledData.date && scheduledData.time) {
+        obj.dateSelected =
+          scheduledData.date + " " + scheduledData.time + ":00";
+      }
       let res = await sendEmailMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
         toast.success(" Message sent Successfully");
@@ -392,7 +395,7 @@ const EmailPage = () => {
         setEmailMessage("");
         setLoading(false);
         setDateSelected({});
-        setSchedule(false)
+        setSchedule(false);
         setShowScheduleModal(false);
         setEmailSubject("");
       }
@@ -506,16 +509,18 @@ const EmailPage = () => {
       subject: selecteduser.subject,
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
-      dateSelected: scheduledData.date + " " + scheduledData.time + ":00",
       schedule: schedule ? true : false,
     };
+    if (scheduledData && scheduledData.date && scheduledData.time) {
+      obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
+    }
     const res = await sendSingleEmailMessageApi(obj);
 
     if (res && res.data && res.data.status === 200) {
       setSendEmailMessage("");
       scrollToBottom();
       setLoading(false);
-      setSchedule(false)
+      setSchedule(false);
       setDateSelected({});
       setShowScheduleModal(false);
     }
@@ -806,17 +811,28 @@ const EmailPage = () => {
   }, []);
 
   const handleScheduleSubmit = () => {
-    setShowScheduleModal(false);
-    setSchedule(true)
-    setScheduledData(dateSelected);
+    var dddd = new Date().toISOString().substring(0, 10);
+    var ssss = today.getHours() + ":" + today.getMinutes();
+    if (dateSelected.time === ssss && dateSelected.date === dddd) {
+      console.log("sssssssssssss");
+      toast.error("The date/time must be in the future");
+    } else {
+      setShowScheduleModal(false);
+      setSchedule(true);
+      setScheduledData(dateSelected);
+    }
   };
 
- 
-  const handleReSchedule = () => {
+  const handleReSchedule = (item) => {
+    let val = item.schedule.split(" ")
+    setReScheduleData({date : val[0] , time :val[1]})
     setShowReScheduleModal(true);
+    setCancelRescheDule(false);
   };
+
   const handleCloseReSchedultModal = () => {
     setShowReScheduleModal(false);
+    setCancelRescheDule(false);
   };
 
   const handleReSchaduleChange = (e) => {
@@ -824,16 +840,22 @@ const EmailPage = () => {
   };
   const handleReSubmit = () => {
     setShowReScheduleModal(false);
-    console.log(reScheduleData , "reScheduleData");
+    setCancelRescheDule(false);
+    console.log(reScheduleData, "reScheduleData");
   };
 
   const handleCancelReSchedultModal = () => {
     setCancelRescheDule(true);
   };
 
-  const handleNoReSchedultModal = () => {};
+  const handleNoReSchedultModal = () => {
+    setShowReScheduleModal(true);
+    setCancelRescheDule(false);
+  };
 
-  const handleDeleteReSchedultModal = () => {};
+  const handleDeleteReSchedultModal = () => {
+    setShowReScheduleModal(false);
+  };
 
   return (
     <div className="content-page-layout text-page-content">

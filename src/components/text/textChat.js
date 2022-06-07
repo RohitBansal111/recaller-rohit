@@ -9,6 +9,10 @@ import ReScheduleMessageModal from "../../models/reScheduleMsg";
 const TextChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
 
+  var today = new Date();
+  var dddd = new Date().toISOString().substring(0, 10);
+  var ssss = today.getHours() + ":" + today.getMinutes();
+
   return (
     <ScrollToBottom className="middle-chat-screen">
       <ul ref={props.divRef}>
@@ -31,7 +35,7 @@ const TextChat = (props) => {
                       <div className="scheduletext">
                         <button
                           type="button"
-                          onClick={props.handleReSchedule}
+                          onClick={() => props.handleReSchedule(item)}
                         >
                           <ScheduleIcon />
                         </button>
