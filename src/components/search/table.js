@@ -1,5 +1,6 @@
 import * as React from "react";
 import DataTable from "react-data-table-component";
+import { Link } from "react-router-dom";
 export default function SearchDataTable(props) {
   const columns = [
     {
@@ -9,7 +10,7 @@ export default function SearchDataTable(props) {
     },
     {
       name: "Title",
-      selector: (row) => row.title,
+      selector: (row) => <a href={row.link}>{row.title} </a>,
       sortable: true,
     },
 
