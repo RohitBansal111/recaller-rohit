@@ -71,9 +71,15 @@ const EmailPage = () => {
   const [editmanageTemplate, seteditmanageTemplate] = useState(false);
   const [editTempData, setEditTempData] = useState({});
   const [templateEditTags, setTemplateEditTags] = useState(null);
-  const [dateSelected, setDateSelected] = useState({
-    date: moment(new Date()).format("YYYY-MM-DD"),
-    time: today.getHours() + ":" + today.getMinutes(),
+  const [dateSelected, setDateSelected] = useState(() => {
+    const today = new Date();
+    return {
+      date: new Date().toISOString().substring(0, 10),
+      time:
+        today.getHours() + ":" + today.getMinutes() < 10
+          ? "0" + today.getMinutes()
+          : today.getMinutes(),
+    };
   });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
   const [onShowEmoji, setOnShowEmoji] = useState(false);
@@ -178,17 +184,29 @@ const EmailPage = () => {
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
     setDateSelected({});
-    setDateSelected({
-      date: moment(new Date()).format("YYYY-MM-DD"),
-      time: today.getHours() + ":" + today.getMinutes(),
+    setDateSelected(() => {
+      const today = new Date();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time:
+          today.getHours() + ":" + today.getMinutes() < 10
+            ? "0" + today.getMinutes()
+            : today.getMinutes(),
+      };
     });
   };
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
     setDateSelected({});
-    setDateSelected({
-      date: moment(new Date()).format("YYYY-MM-DD"),
-      time: today.getHours() + ":" + today.getMinutes(),
+    setDateSelected(() => {
+      const today = new Date();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time:
+          today.getHours() + ":" + today.getMinutes() < 10
+            ? "0" + today.getMinutes()
+            : today.getMinutes(),
+      };
     });
   };
 
@@ -824,8 +842,8 @@ const EmailPage = () => {
   };
 
   const handleReSchedule = (item) => {
-    let val = item.dateString.split(" ")
-    setReScheduleData({date : val[0] , time :val[1]})
+    let val = item.dateString.split(" ");
+    setReScheduleData({ date: val[0], time: val[1] });
     setShowReScheduleModal(true);
     setCancelRescheDule(false);
   };
@@ -855,6 +873,13 @@ const EmailPage = () => {
 
   const handleDeleteReSchedultModal = () => {
     setShowReScheduleModal(false);
+  };
+
+  const handleReSchaduleData = (item) => {
+    if (item.date !== {}) {
+      setShowReScheduleModal(true);
+      setReScheduleData({ date: item.date, time: item.time });
+    }
   };
 
   return (
@@ -973,6 +998,8 @@ const EmailPage = () => {
           cancelRescheDule={cancelRescheDule}
           handleNoReSchedultModal={handleNoReSchedultModal}
           handleDeleteReSchedultModal={handleDeleteReSchedultModal}
+          handleReSchaduleData={handleReSchaduleData}
+          scheduledData={scheduledData}
         />
       </div>
       <EmailModal

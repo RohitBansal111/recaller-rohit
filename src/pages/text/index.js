@@ -77,7 +77,10 @@ const TextPage = () => {
     const today = new Date();
     return {
       date: new Date().toISOString().substring(0, 10),
-      time: today.getHours() + ":" + today.getMinutes(),
+      time:
+        today.getHours() + ":" + today.getMinutes() < 10
+          ? "0" + today.getMinutes()
+          : today.getMinutes(),
     };
   });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
@@ -108,26 +111,37 @@ const TextPage = () => {
     setSendNewMessage("");
     setErrors({});
     setLoading(false);
+    setDateSelected(() => {
+      const today = new Date();
+
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + today.getMinutes(),
+      };
+    });
     setOnShowChatBotEmojiOpen(false);
     setSelectedImage(false);
   };
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
-    setDateSelected("");
     setSendNewMessage("");
     setSelectedImage(false);
     setOnShowChatBotEmojiOpen(false);
-    setDateSelected({
-      date: moment(new Date()).format("YYYY-MM-DD"),
-      time: today.getHours() + ":" + today.getMinutes(),
+    setDateSelected(() => {
+      const today = new Date();
+
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + today.getMinutes(),
+      };
     });
   };
 
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
     setOnShowChatBotEmojiOpen(false);
-    setDateSelected("");
+    // setDateSelected("");
     setDateSelected({
       date: moment(new Date()).format("YYYY-MM-DD"),
       time: today.getHours() + ":" + today.getMinutes(),
@@ -388,6 +402,7 @@ const TextPage = () => {
       setDateSelected({});
       setSchedule(false);
       setLoading(false);
+      setScheduledData({});
       setShowScheduleModal(false);
     }
     getMessage();
@@ -834,7 +849,7 @@ const TextPage = () => {
   };
 
   const handleReSchedule = (item) => {
-    let val =item && item.dateString.split(" ");
+    let val = item && item.dateString.split(" ");
     setReScheduleData({ date: val[0], time: val[1] });
     setShowReScheduleModal(true);
     setCancelRescheDule(false);
@@ -865,6 +880,13 @@ const TextPage = () => {
 
   const handleDeleteReSchedultModal = () => {
     setShowReScheduleModal(false);
+  };
+
+  const handleReSchaduleData = (item) => {
+    if (item.date !== {}) {
+      setShowReScheduleModal(true);
+      setReScheduleData({ date: item.date, time: item.time });
+    }
   };
 
   return (
@@ -981,6 +1003,8 @@ const TextPage = () => {
           cancelRescheDule={cancelRescheDule}
           handleNoReSchedultModal={handleNoReSchedultModal}
           handleDeleteReSchedultModal={handleDeleteReSchedultModal}
+          scheduledData={scheduledData}
+          handleReSchaduleData={handleReSchaduleData}
         />
       </div>
       <MessageModal

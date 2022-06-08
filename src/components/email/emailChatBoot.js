@@ -95,16 +95,16 @@ const EmailChatBoot = (props) => {
             fetch(`${process.env.REACT_APP_API_URL}/email/ckImageUpload`, {
               method: "post",
               headers: {
-                'Authorization': `${AUTH_TOKEN}`, // notice the Bearer before your token
-            },  
-              body: body
+                Authorization: `${AUTH_TOKEN}`, // notice the Bearer before your token
+              },
+              body: body,
               // mode: "no-cors"
             })
               .then((res) => res.json())
               .then((res) => {
-                console.log("upload ck response :::",res)
+                console.log("upload ck response :::", res);
                 resolve({
-                  default: res.url
+                  default: res.url,
                 });
               })
               .catch((err) => {
@@ -112,7 +112,7 @@ const EmailChatBoot = (props) => {
               });
           });
         });
-      }
+      },
     };
   }
   function uploadPlugin(editor) {
@@ -120,9 +120,6 @@ const EmailChatBoot = (props) => {
       return uploadAdapter(loader);
     };
   }
-
-
-
 
   return (
     <div className="chatbox-warpper">
@@ -287,7 +284,7 @@ const EmailChatBoot = (props) => {
                                     props.onHandleChange(data);
                                   }}
                                   config={{
-                                    extraPlugins: [uploadPlugin]
+                                    extraPlugins: [uploadPlugin],
                                   }}
                                   editorLoaded={props.editorLoaded}
                                 />
@@ -381,6 +378,23 @@ const EmailChatBoot = (props) => {
                                   <ScheduleIcon />
                                 </button>
                               </li>
+                              <p
+                                onClick={() =>
+                                  props.handleReSchaduleData(
+                                    props.scheduledData
+                                  )
+                                }
+                              >
+                                {props.scheduledData &&
+                                props.scheduledData.date &&
+                                props.scheduledData.time
+                                  ? `(${
+                                      props.scheduledData.date +
+                                      " " +
+                                      props.scheduledData.time
+                                    })`
+                                  : " "}
+                              </p>
                             </ul>
                             <LoadingButton
                               type="button"

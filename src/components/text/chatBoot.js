@@ -27,8 +27,11 @@ import LockIcon from "@material-ui/icons/Lock";
 import { Link } from "react-router-dom";
 import PlaceholderImage from "./../../assets/images/placeholder.jpg";
 import CancelIcon from "@material-ui/icons/Cancel";
+import ReScheduleMessageModal from "../../models/reScheduleMsg";
 
 const ChatBoot = (props) => {
+  console.log(props.scheduledData, "props.scheduledData");
+
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -220,7 +223,7 @@ const ChatBoot = (props) => {
                                 <ul className="attachedImageGallery">
                                   <li>
                                     <img
-                                      alt="not fount"
+                                      alt=""
                                       src={props.selectedImage}
                                     />
                                     <button
@@ -331,6 +334,21 @@ const ChatBoot = (props) => {
                                 <ScheduleIcon />
                               </button>
                             </li>
+                            <p
+                              onClick={() =>
+                                props.handleReSchaduleData(props.scheduledData)
+                              }
+                            >
+                              {props.scheduledData &&
+                              props.scheduledData.date &&
+                              props.scheduledData.time
+                                ? `(${
+                                    props.scheduledData.date +
+                                    " " +
+                                    props.scheduledData.time
+                                  })`
+                                : " "}
+                            </p>
                           </ul>
 
                           <LoadingButton
@@ -626,6 +644,17 @@ const ChatBoot = (props) => {
           handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
           showDeleteTempModal={props.showDeleteTempModal}
           selecteduser={props.selecteduser}
+        />
+        <ReScheduleMessageModal
+          showReScheduleModal={props.showReScheduleModal}
+          handleCloseReSchedultModal={props.handleCloseReSchedultModal}
+          reScheduleData={props.reScheduleData}
+          handleReSchaduleChange={props.handleReSchaduleChange}
+          handleReSubmit={props.handleReSubmit}
+          handleCancelReSchedultModal={props.handleCancelReSchedultModal}
+          cancelRescheDule={props.cancelRescheDule}
+          handleNoReSchedultModal={props.handleNoReSchedultModal}
+          handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
         />
       </div>
     </div>
