@@ -73,12 +73,11 @@ const EmailPage = () => {
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState(() => {
     const today = new Date();
+    const curtt =
+      today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
     return {
       date: new Date().toISOString().substring(0, 10),
-      time:
-        today.getHours() + ":" + today.getMinutes() < 10
-          ? "0" + today.getMinutes()
-          : today.getMinutes(),
+      time: today.getHours() + ":" + curtt,
     };
   });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
@@ -95,7 +94,7 @@ const EmailPage = () => {
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const [schedule, setSchedule] = useState(false);
 
-  console.log(dateSelected , "dateSelected");
+  console.log(dateSelected, "dateSelected");
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -187,12 +186,11 @@ const EmailPage = () => {
     setShowScheduleModal(true);
     setDateSelected(() => {
       const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
       return {
         date: new Date().toISOString().substring(0, 10),
-        time:
-          today.getHours() + ":" + today.getMinutes() < 10
-            ? "0" + today.getMinutes()
-            : today.getMinutes(),
+        time: today.getHours() + ":" + curtt,
       };
     });
   };
@@ -200,12 +198,11 @@ const EmailPage = () => {
     setShowScheduleModal(false);
     setDateSelected(() => {
       const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
       return {
         date: new Date().toISOString().substring(0, 10),
-        time:
-          today.getHours() + ":" + today.getMinutes() < 10
-            ? "0" + today.getMinutes()
-            : today.getMinutes(),
+        time: today.getHours() + ":" + curtt,
       };
     });
   };

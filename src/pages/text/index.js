@@ -75,12 +75,11 @@ const TextPage = () => {
   const [templateEditTags, setTemplateEditTags] = useState(null);
   const [dateSelected, setDateSelected] = useState(() => {
     const today = new Date();
+    const curtt =
+      today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
     return {
       date: new Date().toISOString().substring(0, 10),
-      time:
-        today.getHours() + ":" + today.getMinutes() < 10
-          ? "0" + today.getMinutes()
-          : today.getMinutes(),
+      time: today.getHours() + ":" + curtt,
     };
   });
   const [deleteTempComfirmation, setDeleteTempComfirmation] = useState(false);
@@ -115,12 +114,11 @@ const TextPage = () => {
     setLoading(false);
     setDateSelected(() => {
       const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
       return {
         date: new Date().toISOString().substring(0, 10),
-        time:
-          today.getHours() + ":" + today.getMinutes() < 10
-            ? "0" + today.getMinutes()
-            : today.getMinutes(),
+        time: today.getHours() + ":" + curtt,
       };
     });
     setOnShowChatBotEmojiOpen(false);
@@ -134,12 +132,11 @@ const TextPage = () => {
     setOnShowChatBotEmojiOpen(false);
     setDateSelected(() => {
       const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
       return {
         date: new Date().toISOString().substring(0, 10),
-        time:
-        today.getHours() + ":" + today.getMinutes() < 10
-          ? "0" + today.getMinutes()
-          : today.getMinutes(),
+        time: today.getHours() + ":" + curtt,
       };
     });
   };
@@ -148,9 +145,14 @@ const TextPage = () => {
     setShowScheduleModal(false);
     setOnShowChatBotEmojiOpen(false);
     // setDateSelected("");
-    setDateSelected({
-      date: moment(new Date()).format("YYYY-MM-DD"),
-      time: today.getHours() + ":" + today.getMinutes(),
+    setDateSelected(() => {
+      const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + curtt,
+      };
     });
   };
 
