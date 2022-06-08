@@ -289,8 +289,38 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
         <SendMessageModal
           showSendMSGModal={showSendMSGModal}
+          numSelected={numSelected}
           handleSendMessage={handleSendMessage}
           handleCloseSendModal={handleCloseSendModal}
+          // showCreateTemplateModal={props.showCreateTemplateModal}
+          // handleCloseCreateTemplateModal={props.handleCloseCreateTemplateModal}
+          // showManageeTemplateModal={props.showManageeTemplateModal}
+          // handleCloseManageTemplateModal={props.handleCloseManageTemplateModal}
+          // handleScheduleModal={props.handleScheduleModal}
+          // handleCreateTemplate={props.handleCreateTemplate}
+          // handleManageTemplate={props.handleManageTemplate}
+          // templateName={props.templateName}
+          // handleTemplateName={props.handleTemplateName}
+          // templateTags={props.templateTags}
+          // handleTemplateTagChange={props.handleTemplateTagChange}
+          // templateMessage={props.templateMessage}
+          // handleTempMessageChange={props.handleTempMessageChange}
+          // handleTemplateSubmit={props.handleTemplateSubmit}
+          // templateData={props.templateData}
+          // templateDataState={props.templateDataState}
+          // handleTempInsert={props.handleTempInsert}
+          // handleSingleTempInsert={props.handleSingleTempInsert}
+          // handleTempTitleClick={props.handleNewTempTitleClick}
+          // handleTempShowClick={props.handleTempShowClick}
+          // editmanageTemplate={props.editmanageTemplate}
+          // handleEditTemplate={props.handleEditTemplate}
+          // handleTempEditCancel={props.handleTempEditCancel}
+          // editTempData={props.editTempData}
+          // handleEditTempChange={props.handleEditTempChange}
+          // templateEditTags={props.templateEditTags}
+          // handleTempEditSave={props.handleTempEditSave}
+          // handleTempRemove={props.handleTempRemove}
+          // handleEditTemplateTagChange={props.handleEditTemplateTagChange}
         />
         <DeleteContactModal
           showDeleteContactModal={props.showDeleteContactModal}
