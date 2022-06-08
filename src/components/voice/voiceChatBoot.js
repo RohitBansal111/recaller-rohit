@@ -150,6 +150,7 @@ const VoiceChatBoot = (props) => {
                 selecteduser={props.selecteduser}
                 divRef={props.divRef}
                 isShowLoading={props.isShowLoading}
+                handleLoadMetadata={props.handleLoadMetadata}
               />
             </div>
             {props.contactVoiceList && props.contactVoiceList == 0 ? (
