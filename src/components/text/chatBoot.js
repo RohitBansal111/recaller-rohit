@@ -30,7 +30,6 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 
 const ChatBoot = (props) => {
-  console.log(props.scheduledData, "props.scheduledData");
 
   const userMessageList = () => {
     let filtered = [];

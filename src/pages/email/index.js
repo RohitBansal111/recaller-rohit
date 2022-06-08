@@ -94,8 +94,6 @@ const EmailPage = () => {
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const [schedule, setSchedule] = useState(false);
 
-  console.log(dateSelected, "dateSelected");
-
   const divRef = useRef(null);
   const textref = useRef(null);
 

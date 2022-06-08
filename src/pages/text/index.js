@@ -95,8 +95,6 @@ const TextPage = () => {
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const divRef = useRef(null);
 
-  console.log(dateSelected, "dateSelected");
-
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setPreview(false);
