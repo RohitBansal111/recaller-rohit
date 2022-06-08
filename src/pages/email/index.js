@@ -183,7 +183,6 @@ const EmailPage = () => {
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
-    setDateSelected({});
     setDateSelected(() => {
       const today = new Date();
       return {
@@ -197,7 +196,6 @@ const EmailPage = () => {
   };
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
-    setDateSelected({});
     setDateSelected(() => {
       const today = new Date();
       return {
