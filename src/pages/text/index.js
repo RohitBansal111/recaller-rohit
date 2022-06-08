@@ -93,6 +93,7 @@ const TextPage = () => {
   const [showReScheduleModal, setShowReScheduleModal] = useState(false);
   const [reScheduleData, setReScheduleData] = useState({});
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
+  const [reScheduleItem, setReScheduleItem] = useState({});
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -855,6 +856,8 @@ const TextPage = () => {
   };
 
   const handleReSchedule = (item) => {
+    console.log(item, "iiiiiiiiiiii");
+    setReScheduleItem(item);
     let val = item && item.dateString.split(" ");
     setReScheduleData({ date: val[0], time: val[1] });
     setShowReScheduleModal(true);
@@ -872,7 +875,11 @@ const TextPage = () => {
   const handleReSubmit = () => {
     setShowReScheduleModal(false);
     setCancelRescheDule(false);
-    console.log(reScheduleData, "reScheduleData");
+    const data = {
+      ...reScheduleItem,
+      dateString: reScheduleData.date + " " + reScheduleData.time,
+    };
+    console.log(data, "reScheduleData");
   };
 
   const handleCancelReSchedultModal = () => {

@@ -93,6 +93,7 @@ const EmailPage = () => {
   const [reScheduleData, setReScheduleData] = useState({});
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const [schedule, setSchedule] = useState(false);
+  const [reScheduleItem, setReScheduleItem] = useState({});
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -827,7 +828,6 @@ const EmailPage = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
     if (dateSelected.time === ssss && dateSelected.date === dddd) {
-      console.log("sssssssssssss");
       toast.error("The date/time must be in the future");
     } else {
       setShowScheduleModal(false);
@@ -837,6 +837,7 @@ const EmailPage = () => {
   };
 
   const handleReSchedule = (item) => {
+    setReScheduleItem(item)
     let val = item.dateString.split(" ");
     setReScheduleData({ date: val[0], time: val[1] });
     setShowReScheduleModal(true);
@@ -854,7 +855,11 @@ const EmailPage = () => {
   const handleReSubmit = () => {
     setShowReScheduleModal(false);
     setCancelRescheDule(false);
-    console.log(reScheduleData, "reScheduleData");
+    const data = {
+      ...reScheduleItem,
+      dateString: reScheduleData.date + " " + reScheduleData.time,
+    };
+    console.log(data, "reScheduleData");
   };
 
   const handleCancelReSchedultModal = () => {
