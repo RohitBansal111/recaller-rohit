@@ -199,7 +199,7 @@ const Voice = () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
       setOpenDelTagModal(false);
-      toast.success("Tag Deleted Successfully")
+      toast.success("Tag Deleted Successfully");
       getTags();
     }
   };
@@ -579,6 +579,10 @@ const Voice = () => {
     setAudioFileName(null);
   };
 
+  const handleLoadMetadata = (meta) => {
+    const { duration } = meta.target;
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -659,6 +663,7 @@ const Voice = () => {
           audioFileName={audioFileName}
           handleSingleVoiceUpload={handleSingleVoiceUpload}
           clearUploadData={clearUploadData}
+          handleLoadMetadata={handleLoadMetadata}
         />
       </div>
       <VoiceModal

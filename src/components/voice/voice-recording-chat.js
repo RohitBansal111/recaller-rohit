@@ -36,8 +36,9 @@ const VoiceRecordingChat = (props) => {
                     )}
                     <ReactAudioPlayer
                       src={`${process.env.REACT_APP_API_URL}/uploads/${item.message}`}
-                      volume="0"
+                      // volume="0"
                       controls
+                      onLoadedMetadata={props.handleLoadMetadata}
                     />
                   </div>
                   <span>
