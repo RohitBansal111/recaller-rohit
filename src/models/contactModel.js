@@ -143,6 +143,7 @@ const ContactModal = (props) => {
             onClick={props.handleSubmit}
             className="btn btn-primary"
             variant="contained"
+            // minFileSize: "500000",
           >
             Add Contact
           </LoadingButton>

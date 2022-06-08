@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchDataTable from "../../components/search/table";
-import axios from "axios";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { getSearch } from "../../api/search";
 
 const Search = () => {
   const [search, setSearch] = useState({});
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [table, setTable] = useState(false);
+
   const getSearchResults = async () => {
-    setLoading(true);
-    const res = await axios.get(
-      `http://localhost:5000/contact/search-api?apikey=2de83456f1b2dd9ee4ac5204b9f253cc2fc0f6804fa18bfdf8eef68ee2cdbb64&engine=duckduckgo&q=${
-        search.productName +
-        " " +
-        search.prooductSku +
-        " " +
-        search.productCompany +
-        " recall"
-      }`
-    );
+    let q =
+      search.productName +
+      " " +
+      search.prooductSku +
+      " " +
+      search.productCompany +
+      " recall";
+    const res = await getSearch(q);
+
     if (res && res.data && res.data.status === 200) {
       setSearchData(res.data.data.organic_results);
       setLoading(false);
     }
   };
-
   const handleChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
@@ -89,7 +88,7 @@ const Search = () => {
             </div>
           </form>
         </div>
-        <SearchDataTable searchData={searchData} />
+        {searchData && <SearchDataTable searchData={searchData} />}
       </div>
     </div>
   );

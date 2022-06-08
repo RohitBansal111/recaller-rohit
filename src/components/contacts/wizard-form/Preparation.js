@@ -1,7 +1,6 @@
 import React from "react";
 
 const Preparation = ({ closeModal, step, setStep, ...props }) => {
- 
   return (
     <div className="wizard-main-content">
       <ul className="wizard-steps-bar">
