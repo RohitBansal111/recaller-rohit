@@ -824,7 +824,7 @@ const EmailPage = () => {
   };
 
   const handleReSchedule = (item) => {
-    let val = item.schedule.split(" ")
+    let val = item.dateString.split(" ")
     setReScheduleData({date : val[0] , time :val[1]})
     setShowReScheduleModal(true);
     setCancelRescheDule(false);
