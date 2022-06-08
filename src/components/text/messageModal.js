@@ -101,7 +101,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                 {props.selectedImage && (
                   <ul className="attachedImageGallery">
                     <li>
-                      <img alt="not found" src={props.selectedImage} />
+                      <img alt=" " src={props.selectedImage} />
                       <button
                         type="button"
                         className="btn btn-cross"
@@ -234,7 +234,8 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <ScheduleIcon />
                   </button>
                 </li>
-                <p
+                <span
+                  className="scheduleData-text"
                   onClick={() =>
                     props.handleReSchaduleData(props.scheduledData)
                   }
@@ -248,7 +249,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                         props.scheduledData.time
                       })`
                     : " "}
-                </p>
+                </span>
               </ul>
             </div>
             <div className="field-group flexFull text-center mt-3">

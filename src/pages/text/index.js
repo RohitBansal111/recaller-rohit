@@ -104,6 +104,7 @@ const TextPage = () => {
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setSelectedImage(false);
+    setScheduledData({})
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -111,6 +112,7 @@ const TextPage = () => {
     setSendNewMessage("");
     setErrors({});
     setLoading(false);
+    setScheduledData({})
     setDateSelected(() => {
       const today = new Date();
       const curtt =

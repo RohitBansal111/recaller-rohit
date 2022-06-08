@@ -30,7 +30,7 @@ const EmailChatText = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    {item.sheduleDate ? (
+                    {item.sheduled == true ? (
                       <div className="scheduletext">
                         {" "}
                         <button

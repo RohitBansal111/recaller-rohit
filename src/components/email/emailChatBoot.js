@@ -378,7 +378,8 @@ const EmailChatBoot = (props) => {
                                   <ScheduleIcon />
                                 </button>
                               </li>
-                              <p
+                              <span
+                                className="scheduleData-text"
                                 onClick={() =>
                                   props.handleReSchaduleData(
                                     props.scheduledData
@@ -394,7 +395,7 @@ const EmailChatBoot = (props) => {
                                       props.scheduledData.time
                                     })`
                                   : " "}
-                              </p>
+                              </span>
                             </ul>
                             <LoadingButton
                               type="button"

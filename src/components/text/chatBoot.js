@@ -333,7 +333,8 @@ const ChatBoot = (props) => {
                                 <ScheduleIcon />
                               </button>
                             </li>
-                            <p
+                            <span
+                            className="scheduleData-text"
                               onClick={() =>
                                 props.handleReSchaduleData(props.scheduledData)
                               }
@@ -347,7 +348,7 @@ const ChatBoot = (props) => {
                                     props.scheduledData.time
                                   })`
                                 : " "}
-                            </p>
+                            </span>
                           </ul>
 
                           <LoadingButton

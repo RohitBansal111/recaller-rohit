@@ -38,16 +38,16 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             fetch(`${process.env.REACT_APP_API_URL}/email/ckImageUpload`, {
               method: "post",
               headers: {
-                'Authorization': `${AUTH_TOKEN}`, // notice the Bearer before your token
-            },  
-              body: body
+                Authorization: `${AUTH_TOKEN}`, // notice the Bearer before your token
+              },
+              body: body,
               // mode: "no-cors"
             })
               .then((res) => res.json())
               .then((res) => {
-                console.log("upload ck response :::",res)
+                console.log("upload ck response :::", res);
                 resolve({
-                  default: res.url
+                  default: res.url,
                 });
               })
               .catch((err) => {
@@ -55,7 +55,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
               });
           });
         });
-      }
+      },
     };
   }
   function uploadPlugin(editor) {
@@ -150,12 +150,12 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
               <CKEditor
                 editor={ClassicEditor}
                 data={`${props.emailMessage}`}
-                onChange={(event, editor) => { 
+                onChange={(event, editor) => {
                   const data = editor.getData();
                   props.handleMessageChange(data);
                 }}
                 config={{
-                  extraPlugins: [uploadPlugin]
+                  extraPlugins: [uploadPlugin],
                 }}
               />
               <ul className="action-icons">
@@ -263,7 +263,8 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <ScheduleIcon />
                   </button>
                 </li>
-                <p
+                <span
+                  className="scheduleData-text"
                   onClick={() =>
                     props.handleReSchaduleData(props.scheduledData)
                   }
@@ -277,7 +278,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                         props.scheduledData.time
                       })`
                     : " "}
-                </p>
+                </span>
               </ul>
             </div>
 

@@ -31,7 +31,7 @@ const TextChat = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    {item.type == "Schedule" ? (
+                    {item.sheduled == true ? (
                       <div className="scheduletext">
                         <button
                           type="button"

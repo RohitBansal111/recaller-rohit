@@ -10,7 +10,11 @@ export default function SearchDataTable(props) {
     },
     {
       name: "Title",
-      selector: (row) => <a href={row.link}>{row.title} </a>,
+      selector: (row) => (
+        <a href={row.link} rel="noreferrer" target="_blank">
+          {row.title}{" "}
+        </a>
+      ),
       sortable: true,
     },
 
