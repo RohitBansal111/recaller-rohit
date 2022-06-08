@@ -263,6 +263,21 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <ScheduleIcon />
                   </button>
                 </li>
+                <p
+                  onClick={() =>
+                    props.handleReSchaduleData(props.scheduledData)
+                  }
+                >
+                  {props.scheduledData &&
+                  props.scheduledData.date &&
+                  props.scheduledData.time
+                    ? `(${
+                        props.scheduledData.date +
+                        " " +
+                        props.scheduledData.time
+                      })`
+                    : " "}
+                </p>
               </ul>
             </div>
 

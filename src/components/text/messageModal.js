@@ -98,30 +98,30 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
               <div className="imgshowpopup">
-              {props.selectedImage && (
-                <ul className="attachedImageGallery">
-                  <li>
-                    <img alt="not fount" src={props.selectedImage} />
-                    <button
-                      type="button"
-                      className="btn btn-cross"
-                      onClick={props.handleImageCancel}
-                    >
-                      <CancelIcon />
-                    </button>
-                  </li>
-                </ul>
-              )}
-              <textarea
-                type="text"
-                className="form-control"
-                placeholder="Type your message"
-                name="name"
-                value={props.sendNewMessage}
-                onChange={props.handleNewMChange}
-              >
-                {props.sendNewMessage}
-              </textarea>
+                {props.selectedImage && (
+                  <ul className="attachedImageGallery">
+                    <li>
+                      <img alt="not fount" src={props.selectedImage} />
+                      <button
+                        type="button"
+                        className="btn btn-cross"
+                        onClick={props.handleImageCancel}
+                      >
+                        <CancelIcon />
+                      </button>
+                    </li>
+                  </ul>
+                )}
+                <textarea
+                  type="text"
+                  className="form-control"
+                  placeholder="Type your message"
+                  name="name"
+                  value={props.sendNewMessage}
+                  onChange={props.handleNewMChange}
+                >
+                  {props.sendNewMessage}
+                </textarea>
               </div>
               <ul className="action-icons">
                 <li>
@@ -234,6 +234,21 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <ScheduleIcon />
                   </button>
                 </li>
+                <p
+                  onClick={() =>
+                    props.handleReSchaduleData(props.scheduledData)
+                  }
+                >
+                  {props.scheduledData &&
+                  props.scheduledData.date &&
+                  props.scheduledData.time
+                    ? `(${
+                        props.scheduledData.date +
+                        " " +
+                        props.scheduledData.time
+                      })`
+                    : " "}
+                </p>
               </ul>
             </div>
             <div className="field-group flexFull text-center mt-3">

@@ -96,6 +96,8 @@ const TextPage = () => {
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const divRef = useRef(null);
 
+  console.log(dateSelected, "dateSelected");
+
   const handleNewMessage = () => {
     setOpenMessageModal(true);
     setPreview(false);
@@ -113,10 +115,12 @@ const TextPage = () => {
     setLoading(false);
     setDateSelected(() => {
       const today = new Date();
-
       return {
         date: new Date().toISOString().substring(0, 10),
-        time: today.getHours() + ":" + today.getMinutes(),
+        time:
+          today.getHours() + ":" + today.getMinutes() < 10
+            ? "0" + today.getMinutes()
+            : today.getMinutes(),
       };
     });
     setOnShowChatBotEmojiOpen(false);
@@ -130,10 +134,12 @@ const TextPage = () => {
     setOnShowChatBotEmojiOpen(false);
     setDateSelected(() => {
       const today = new Date();
-
       return {
         date: new Date().toISOString().substring(0, 10),
-        time: today.getHours() + ":" + today.getMinutes(),
+        time:
+        today.getHours() + ":" + today.getMinutes() < 10
+          ? "0" + today.getMinutes()
+          : today.getMinutes(),
       };
     });
   };
@@ -1070,6 +1076,8 @@ const TextPage = () => {
         handleImageCancel={handleNewImageCancel}
         handleImageChange={handleNewImageChange}
         handleScheduleSubmit={handleScheduleSubmit}
+        scheduledData={scheduledData}
+        handleReSchaduleData={handleReSchaduleData}
       />
     </div>
   );
