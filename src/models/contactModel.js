@@ -68,7 +68,7 @@ const ContactModal = (props) => {
               />
               <span className="spanError">{props.errors.email}</span>
             </div>
-            <div className="field-group flex2">
+            {/* <div className="field-group flex2">
               <label>Country</label>
               <select>
                 <option>Select Country</option>
@@ -117,8 +117,8 @@ const ContactModal = (props) => {
                 name="Address"
               />
               <span className="spanError">{props.errors.address}</span>
-            </div>
-           
+            </div> */}
+
             <div className="field-group flexFull">
               <label> Create Campaign </label>
               <input

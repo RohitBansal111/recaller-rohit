@@ -94,26 +94,26 @@ const Import = () => {
         setErrors({ email: "Email field is required!" });
         formData = false;
         break;
-      case !addContact.country:
-        setErrors({ country: "Please select country!" });
-        formData = false;
-        break;
-      case !addContact.state:
-        setErrors({ state: "Please select State!" });
-        formData = false;
-        break;
-      case !addContact.city:
-        setErrors({ city: "Please select city!" });
-        formData = false;
-        break;
-      case !addContact.zipcode:
-        setErrors({ zipcode: "Please enter valid Zip Code!" });
-        formData = false;
-        break;
-      case !addContact.address:
-        setErrors({ address: "Please add enter Address!" });
-        formData = false;
-        break;
+      // case !addContact.country:
+      //   setErrors({ country: "Please select country!" });
+      //   formData = false;
+      //   break;
+      // case !addContact.state:
+      //   setErrors({ state: "Please select State!" });
+      //   formData = false;
+      //   break;
+      // case !addContact.city:
+      //   setErrors({ city: "Please select city!" });
+      //   formData = false;
+      //   break;
+      // case !addContact.zipcode:
+      //   setErrors({ zipcode: "Please enter valid Zip Code!" });
+      //   formData = false;
+      //   break;
+      // case !addContact.address:
+      //   setErrors({ address: "Please add enter Address!" });
+      //   formData = false;
+      //   break;
       case addContact.email && !regex.test(addContact.email):
         setErrors({ email: "Please enter valid email address!" });
         formData = false;
