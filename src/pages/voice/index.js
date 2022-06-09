@@ -57,7 +57,7 @@ const Voice = () => {
   const [uploadOpen, setUploadOpen] = useState(false);
   const [fileName, setFileName] = useState(null);
   const [audioFileName, setAudioFileName] = useState(null);
-
+  const [blobState, setBlobState] = useState(null);
   const divRef = useRef(null);
 
   const isValid = () => {
@@ -320,7 +320,7 @@ const Voice = () => {
         .then((res) => res.blob())
         .then(async (myBlob) => {
           console.log(myBlob, "mediaBlobUrl111111");
-
+          setBlobState(myBlob);
           var file = new File([myBlob], "name.wav");
           console.log(file, "mediaBlobUrl2222");
           var formData = new FormData();
@@ -587,6 +587,11 @@ const Voice = () => {
     setFileName(null);
   };
 
+  const handlePlay = () => {
+    const tmp = new Audio(blobState);
+    tmp.play();
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -687,6 +692,7 @@ const Voice = () => {
         stopRecording={stopRecording}
         errors={errors}
         stopTimer={stopTimer}
+        handlePlay={handlePlay}
       />
       <VoiceUploadModal
         uploadOpen={uploadOpen}

@@ -51,6 +51,11 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 onClick={() => {
                   if (!props.isNewVoiceActive) {
                     props.startRecording();
+                  } else if (
+                    props.isNewVoiceActive == false &&
+                    props.second > 0
+                  ) {
+                    props.handlePlay();
                   } else {
                     props.stopRecording();
                   }
