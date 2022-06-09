@@ -243,18 +243,23 @@ const UploadSpreadsheetModal = (props) => {
       // note: noteData,
       compaign: addCampaigns,
     };
+    props.setIsLoading(true)
     let res = await addMultipleContact(obj);
     if (res && res.data && res.data.status === 200) {
       if (res.data.unSavedContacts && res.data.unSavedContacts.length) {
         props.getData();
+        props.setIsLoading(false)
         setUnSavedContacts(res.data.unSavedContacts);
+        props.setUploadModal(false)
       } else {
         toast.success(res.data.message);
         props.getData();
         setStep(1);
         props.handleFinish();
+        props.setUploadModal(false)
         setCsvFile(null);
         setSelectedPhone("phone");
+        props.setIsLoading(false)
         setSelectedEmail("email");
         setSelectedFirstName("firstName");
         setSelectedLastName("lastName");
@@ -266,9 +271,11 @@ const UploadSpreadsheetModal = (props) => {
       }
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
+      props.setIsLoading(false)
       setStep(step - 1);
     } else {
       toast.success(res.data.message);
+      props.setIsLoading(false)
     }
   };
 

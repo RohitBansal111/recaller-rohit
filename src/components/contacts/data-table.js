@@ -29,6 +29,7 @@ import DeleteContactModal from "../../models/deleteContactModal";
 import LogNoteModal from "../../models/LogNoteModal";
 import moment from "moment";
 import LoaderPic from "./../../assets/images/loader.gif";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -486,7 +487,13 @@ export default function EnhancedTable(props) {
                   rowCount={rowsData && rowsData.length}
                 />
                 <TableBody>
-                  {loadContacts()}
+                  {props.isLoading ? (
+                    <div className="circular-loading">
+                      <CircularProgress color="inherit" />
+                    </div>
+                  ) : (
+                    <> {loadContacts()}</>
+                  )}
                   {props.emptyRows > 0 && (
                     <TableRow
                       style={{

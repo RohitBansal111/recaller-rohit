@@ -50,6 +50,8 @@ const Import = () => {
   const [editFilterValue, setEditFilterValue] = useState({});
   const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
   const [totalRowsData, setTotalRowsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -130,6 +132,7 @@ const Import = () => {
   const handleSubmit = async () => {
     if (isValid()) {
       setLoading(true);
+      setIsLoading(true)
       let res = await createApi(addContact);
       if (res && res.data && res.data.status === 200) {
         setShow(false);
@@ -137,9 +140,10 @@ const Import = () => {
         toast.success("Contact saved!");
         setErrors({});
         getData();
+        setIsLoading(false)
       } else {
         setLoading(false);
-
+        setIsLoading(false)
         toast.error(res.data.message);
       }
     }
@@ -582,6 +586,7 @@ const Import = () => {
           value={searchState}
           handleSearchChange={(e) => setSearchState(e.target.value)}
           filterByCompaigns={filterByCompaigns}
+          isLoading={isLoading}
         />
       </div>
 
@@ -608,6 +613,8 @@ const Import = () => {
         getData={getData}
         addTags={compaign}
         setSelectTags={setSelectCompaign}
+        setIsLoading={setIsLoading}
+        setUploadModal={setUploadModal}
       />
     </>
   );
