@@ -46,6 +46,17 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
               )}
             </span>
           </div>
+          {props.fileName ? (
+            <button
+              type="button"
+              className="remove-recording-action"
+              onClick={props.clearUploading}
+            >
+              ×
+            </button>
+          ) : (
+            ""
+          )}
           <div className="field-group flexFull text-center mt-3">
             <button
               type="button"

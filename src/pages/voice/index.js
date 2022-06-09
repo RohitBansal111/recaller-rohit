@@ -583,6 +583,10 @@ const Voice = () => {
     const { duration } = meta.target;
   };
 
+  const clearUploading = () => {
+    setFileName(null);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -695,6 +699,7 @@ const Voice = () => {
         errors={errors}
         loading={loading}
         fileName={fileName}
+        clearUploading={clearUploading}
       />
     </div>
   );
