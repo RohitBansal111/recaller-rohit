@@ -30,7 +30,6 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 
 const ChatBoot = (props) => {
-
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -173,6 +172,8 @@ const ChatBoot = (props) => {
                 cancelRescheDule={props.cancelRescheDule}
                 handleNoReSchedultModal={props.handleNoReSchedultModal}
                 handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+                handleDeleteRechaduletitle={props.handleDeleteRechaduletitle}
+                schaduleData = {props.scheduledData}
               />
             </div>
             <div className="chat-text-editor">
@@ -221,10 +222,7 @@ const ChatBoot = (props) => {
                               {props.selectedImage && (
                                 <ul className="attachedImageGallery">
                                   <li>
-                                    <img
-                                      alt=""
-                                      src={props.selectedImage}
-                                    />
+                                    <img alt="" src={props.selectedImage} />
                                     <button
                                       type="button"
                                       className="btn btn-cross"
@@ -333,22 +331,28 @@ const ChatBoot = (props) => {
                                 <ScheduleIcon />
                               </button>
                             </li>
-                            <span
-                            className="scheduleData-text"
-                              onClick={() =>
-                                props.handleReSchaduleData(props.scheduledData)
-                              }
-                            >
-                              {props.scheduledData &&
-                              props.scheduledData.date &&
-                              props.scheduledData.time
-                                ? `(${
-                                    props.scheduledData.date +
-                                    " " +
-                                    props.scheduledData.time
-                                  })`
-                                : " "}
-                            </span>
+                            {props.openMessageModal == true ? (
+                              ""
+                            ) : (
+                              <span
+                                className="scheduleData-text"
+                                onClick={() =>
+                                  props.handleReSchaduleData(
+                                    props.scheduledData
+                                  )
+                                }
+                              >
+                                {props.scheduledData &&
+                                props.scheduledData.date &&
+                                props.scheduledData.time
+                                  ? `(${
+                                      props.scheduledData.date +
+                                      " " +
+                                      props.scheduledData.time
+                                    })`
+                                  : " "}
+                              </span>
+                            )}
                           </ul>
 
                           <LoadingButton

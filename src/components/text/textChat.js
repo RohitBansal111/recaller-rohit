@@ -83,6 +83,8 @@ const TextChat = (props) => {
         cancelRescheDule={props.cancelRescheDule}
         handleNoReSchedultModal={props.handleNoReSchedultModal}
         handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+        handleDeleteRechaduletitle={props.handleDeleteRechaduletitle}
+        schaduleData={props.schaduleData}
       />
     </ScrollToBottom>
   );

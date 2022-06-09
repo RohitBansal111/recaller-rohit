@@ -23,18 +23,18 @@ const ReScheduleMessageModal = (props) => {
                 Are you sure you want to cancel this scheduled message?
               </h2>
               <Modal.Footer>
-              <Button
-                variant="secondary"
-                onClick={props.handleNoReSchedultModal}
-              >
-                No
-              </Button>
-              <Button
-                variant="primary"
-                onClick={props.handleDeleteReSchedultModal}
-              >
-                Yes
-              </Button>
+                <Button
+                  variant="secondary"
+                  onClick={props.handleNoReSchedultModal}
+                >
+                  No
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={props.handleDeleteReSchedultModal}
+                >
+                  Yes
+                </Button>
               </Modal.Footer>
             </Modal.Body>
           </>
@@ -77,7 +77,11 @@ const ReScheduleMessageModal = (props) => {
               </Button>
               <Button
                 variant="primary"
-                onClick={props.handleCancelReSchedultModal}
+                onClick={
+                  props.schaduleData
+                    ? props.handleDeleteRechaduletitle
+                    : props.handleCancelReSchedultModal
+                }
               >
                 Cancel Message
               </Button>
