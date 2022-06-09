@@ -50,23 +50,25 @@ const UploadSpreadsheetModal = (props) => {
       setCsvFile(acceptedFiles[0].name);
       setIsFilePicked(true);
     }
-    // if (csvData) {
-    //   console.log(csvData, "csvData");
-    //   const validKeyNames = ["firstName", "lastName", "phone", "email"];
-    //   let keysData = Object.keys(csvData[0]).every((e) =>
-    //     validKeyNames.includes(e)
-    //   );
-    //   console.log(keysData, "keysData");
-    //   console.log(Object.keys(csvData[0]), "keysData111111111");
-    //   if (keysData) {
-    //     setCsvFile(acceptedFiles[0].name);
-    //     setIsFilePicked(true);
-    //   } else {
-    //     setIsFilePicked(false);
-    //     setCsvFile(null)
-    //     toast.error("Sorry, thats not a valid CSV Format");
-    //   }
-    // }
+    console.log(csvData, "csvData");
+
+    if (csvData) {
+      console.log(csvData, "csvData");
+      const validKeyNames = ["firstName", "lastName", "phone", "email"];
+      let keysData = Object.keys(csvData[0]).every((e) =>
+        validKeyNames.includes(e)
+      );
+      console.log(keysData, "keysData");
+      console.log(Object.keys(csvData[0]), "keysData111111111");
+      if (keysData) {
+        setCsvFile(acceptedFiles[0].name);
+        setIsFilePicked(true);
+      } else {
+        setIsFilePicked(false);
+        setCsvFile(null)
+        toast.error("Sorry, thats not a valid CSV Format");
+      }
+    }
   }, []);
 
   const onRadioChange = (e) => {
