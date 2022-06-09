@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState,useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
@@ -29,6 +29,7 @@ const UploadSpreadsheetModal = (props) => {
   const [noteData, setNoteData] = useState(null);
   const [addCampaigns, setAddCampaigns] = useState("");
   const [unSavedContacts, setUnSavedContacts] = useState([]);
+  const [loadingCsvdata, setLoadingCsvData] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
@@ -50,26 +51,44 @@ const UploadSpreadsheetModal = (props) => {
       setCsvFile(acceptedFiles[0].name);
       setIsFilePicked(true);
     }
-    console.log(csvData, "csvData");
 
-    if (csvData) {
-      console.log(csvData, "csvData");
-      const validKeyNames = ["firstName", "lastName", "phone", "email"];
-      let keysData = Object.keys(csvData[0]).every((e) =>
-        validKeyNames.includes(e)
-      );
-      console.log(keysData, "keysData");
-      console.log(Object.keys(csvData[0]), "keysData111111111");
-      if (keysData) {
-        setCsvFile(acceptedFiles[0].name);
-        setIsFilePicked(true);
-      } else {
-        setIsFilePicked(false);
-        setCsvFile(null)
-        toast.error("Sorry, thats not a valid CSV Format");
-      }
-    }
+    // if (csvData) {
+    //   console.log(csvData, "csvData");
+    //   const validKeyNames = ["firstName", "lastName", "phone", "email"];
+    //   let keysData = Object.keys(csvData[0]).every((e) =>
+    //     validKeyNames.includes(e)
+    //   );
+    //   if(!keysData){
+    //     toast.error("Csv Data is not valid");
+    //     setIsFilePicked(false);
+    //     setCsvFile(null)
+    //     setCsvData('')
+    //    }
+    // }
+     setLoadingCsvData(true)
+    
   }, []);
+
+useEffect(()=>{
+if(loadingCsvdata){
+  setLoadingCsvData(false)
+  console.log("loaded data ::::",csvData)
+  if (csvData) {
+    const validKeyNames = ["firstName", "lastName", "phone", "email"];
+    let keysData = Object.keys(csvData[0]).every((e) =>
+      validKeyNames.includes(e)
+    );
+   if(!keysData){
+    toast.error("Csv Data is not valid");
+    setIsFilePicked(false);
+    setCsvFile(null)
+    setCsvData('')
+   }
+
+  }
+}
+},[csvData])
+
 
   const onRadioChange = (e) => {
     setSelectedType(e.currentTarget.value);
