@@ -85,13 +85,12 @@ const Import = () => {
         setErrors({ lastName: "Last Name field is required!" });
         formData = false;
         break;
-      case !addContact.phone:
-        setErrors({ phone: "Phone field is required!" });
-
+      case !addContact.phone && !addContact.email:
+        setErrors({ phone: "Please Fill one field either phone or email!" });
         formData = false;
         break;
-      case !addContact.email:
-        setErrors({ email: "Email field is required!" });
+      case !addContact.email && !addContact.phone:
+        setErrors({ email: "Please Fill one field either phone or email!" });
         formData = false;
         break;
       // case !addContact.country:

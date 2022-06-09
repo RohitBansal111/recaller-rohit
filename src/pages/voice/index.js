@@ -664,6 +664,7 @@ const Voice = () => {
           handleSingleVoiceUpload={handleSingleVoiceUpload}
           clearUploadData={clearUploadData}
           handleLoadMetadata={handleLoadMetadata}
+          isNewVoiceActive={isNewVoiceActive}
         />
       </div>
       <VoiceModal
@@ -681,6 +682,7 @@ const Voice = () => {
         startRecording={startRecording}
         stopRecording={stopRecording}
         errors={errors}
+        stopTimer={stopTimer}
       />
       <VoiceUploadModal
         uploadOpen={uploadOpen}

@@ -9,8 +9,10 @@ import {
   updateContactApi,
 } from "../../api/contact";
 import {
+  deleteReScheduleEmailApi,
   getEmailMessageApi,
   getUserWithEmailMessage,
+  reScheduleEmailApi,
   sendEmailMessageApi,
   sendSingleEmailMessageApi,
 } from "../../api/emailMessage";
@@ -409,7 +411,10 @@ const EmailPage = () => {
         setEmailMessage("");
         setLoading(false);
         setDateSelected({});
+        setShowReScheduleModal(false);
+        setCancelRescheDule(false);
         setSchedule(false);
+        setScheduledData({})
         setShowScheduleModal(false);
         setEmailSubject("");
       }
@@ -535,7 +540,9 @@ const EmailPage = () => {
       scrollToBottom();
       setLoading(false);
       setSchedule(false);
+      setScheduledData({})
       setDateSelected({});
+      setCancelRescheDule(false);
       setShowScheduleModal(false);
     }
     getEmailMessage();
@@ -837,7 +844,7 @@ const EmailPage = () => {
   };
 
   const handleReSchedule = (item) => {
-    setReScheduleItem(item)
+    setReScheduleItem(item);
     let val = item.dateString.split(" ");
     setReScheduleData({ date: val[0], time: val[1] });
     setShowReScheduleModal(true);
@@ -852,14 +859,20 @@ const EmailPage = () => {
   const handleReSchaduleChange = (e) => {
     setReScheduleData({ ...reScheduleData, [e.target.name]: e.target.value });
   };
-  const handleReSubmit = () => {
-    setShowReScheduleModal(false);
-    setCancelRescheDule(false);
+  const handleReSubmit = async () => {
     const data = {
       ...reScheduleItem,
-      dateString: reScheduleData.date + " " + reScheduleData.time,
+      dateSelected: reScheduleData.date + " " + reScheduleData.time,
     };
     console.log(data, "reScheduleData");
+    const res = await reScheduleEmailApi(data);
+    console.log(res, "res");
+    if (res && res.data && res.data.status === 200) {
+      toast.success(res.data.message);
+      getEmailMessage();
+      setShowReScheduleModal(false);
+      setCancelRescheDule(false);
+    }
   };
 
   const handleCancelReSchedultModal = () => {
@@ -871,8 +884,13 @@ const EmailPage = () => {
     setCancelRescheDule(false);
   };
 
-  const handleDeleteReSchedultModal = () => {
+  const handleDeleteReSchedultModal = async () => {
     setShowReScheduleModal(false);
+    const res = await deleteReScheduleEmailApi(reScheduleItem.message_id);
+    if (res && res.data && res.data.status === 200) {
+      toast.success(res.data.message);
+      getEmailMessage();
+    }
   };
 
   const handleReSchaduleData = (item) => {

@@ -27,10 +27,23 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
             <label>Voice Recording</label>
             <div className="voice-recorder-box">
               <div className="recording-left">
-                <span></span>{" "}
-                <h4>
-                  {props.minute}:{props.second}
-                </h4>
+                <>
+                  <span></span>
+                  <h4>
+                    {props.minute}:{props.second}
+                  </h4>
+                </>
+                {props.second > 0 ? (
+                  <button
+                    type="button"
+                    className="remove-recording-action"
+                    onClick={props.stopTimer}
+                  >
+                    ×
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
               <button
                 type="button"

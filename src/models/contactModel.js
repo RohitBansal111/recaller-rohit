@@ -53,7 +53,7 @@ const ContactModal = (props) => {
                 value={props.addContactData.phone}
                 onChange={props.onChange}
               />
-              {/* <span className="spanError">{props.errors.phone}</span> */}
+              <span className="spanError">{props.errors.phone}</span>
             </div>
 
             <div className="field-group flex2">

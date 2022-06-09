@@ -883,8 +883,6 @@ const TextPage = () => {
     setReScheduleData({ ...reScheduleData, [e.target.name]: e.target.value });
   };
   const handleReSubmit = async () => {
-    setShowReScheduleModal(false);
-    setCancelRescheDule(false);
     const data = {
       ...reScheduleItem,
       dateSelected: reScheduleData.date + " " + reScheduleData.time,
@@ -894,6 +892,9 @@ const TextPage = () => {
     console.log(res, "res");
     if (res && res.data && res.data.status === 200) {
       toast.success(res.data.message);
+      getMessage();
+      setShowReScheduleModal(false);
+      setCancelRescheDule(false);
     }
   };
 
@@ -907,11 +908,11 @@ const TextPage = () => {
   };
 
   const handleDeleteReSchedultModal = async () => {
-    setShowReScheduleModal(false);
     const res = await deleteReScheduleMessageApi(reScheduleItem.message_id);
     if (res && res.data && res.data.status === 200) {
       toast.success(res.data.message);
       getMessage();
+      setShowReScheduleModal(false);
     }
   };
 
