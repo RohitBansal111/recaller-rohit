@@ -29,7 +29,7 @@ const UploadSpreadsheetModal = (props) => {
   const [noteData, setNoteData] = useState(null);
   const [addCampaigns, setAddCampaigns] = useState("");
   const [unSavedContacts, setUnSavedContacts] = useState([]);
-  
+
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
     formData.append("file", acceptedFiles[0].name);
@@ -45,24 +45,27 @@ const UploadSpreadsheetModal = (props) => {
     if (acceptedFiles[0].type !== "text/csv") {
       toast.error("Sorry, thats not a valid CSV file");
       setIsFilePicked(false);
+      setCsvFile(null);
     } else {
       setCsvFile(acceptedFiles[0].name);
       setIsFilePicked(true);
     }
-
-    console.log(Object.keys(csvData).map((key) => csvData[key]));
-
-    // const validKeyNames = ["firstName", "lastName", "phone", "email"];
-    // const keysData = Object.keys(acceptedFiles[0]).every((e) =>
-    //   validKeyNames.includes(e)
-    // );
-    // console.log(keysData, "keysData");
-    // if (!keysData) {
-    //   setIsFilePicked(false);
-    //   toast.error("Sorry, thats not a valid CSV Format");
-    // } else {
-    //   setCsvFile(acceptedFiles[0].name);
-    //   setIsFilePicked(true);
+    // if (csvData) {
+    //   console.log(csvData, "csvData");
+    //   const validKeyNames = ["firstName", "lastName", "phone", "email"];
+    //   let keysData = Object.keys(csvData[0]).every((e) =>
+    //     validKeyNames.includes(e)
+    //   );
+    //   console.log(keysData, "keysData");
+    //   console.log(Object.keys(csvData[0]), "keysData111111111");
+    //   if (keysData) {
+    //     setCsvFile(acceptedFiles[0].name);
+    //     setIsFilePicked(true);
+    //   } else {
+    //     setIsFilePicked(false);
+    //     setCsvFile(null)
+    //     toast.error("Sorry, thats not a valid CSV Format");
+    //   }
     // }
   }, []);
 
@@ -211,7 +214,7 @@ const UploadSpreadsheetModal = (props) => {
     setNoteData(null);
   };
 
-  const closeModal=()=>{
+  const closeModal = () => {
     setStep(1);
     props.handleFinish();
     setCsvFile(null);
@@ -224,8 +227,8 @@ const UploadSpreadsheetModal = (props) => {
     setNoteData(null);
     setAddCampaigns("");
     props.setSelectTags(null);
-    setUnSavedContacts([])
-  }
+    setUnSavedContacts([]);
+  };
 
   const finishStep = async () => {
     const obj = {
@@ -233,15 +236,15 @@ const UploadSpreadsheetModal = (props) => {
       contactType: selectedType,
       contactProperty: selectProperty,
       // tag: props.selectTags && props.selectTags.value,
-      note: noteData,
+      // note: noteData,
       compaign: addCampaigns,
     };
     let res = await addMultipleContact(obj);
     if (res && res.data && res.data.status === 200) {
-      if(res.data.unSavedContacts && res.data.unSavedContacts.length){
+      if (res.data.unSavedContacts && res.data.unSavedContacts.length) {
         props.getData();
-        setUnSavedContacts(res.data.unSavedContacts)
-      }else{
+        setUnSavedContacts(res.data.unSavedContacts);
+      } else {
         toast.success(res.data.message);
         props.getData();
         setStep(1);

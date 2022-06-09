@@ -7,34 +7,30 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
       <div className="wizard-main-content">
         <div className="field-group flexFull note-form-control">
           <p>These Below contacts are not added </p>
-              <div className="table-responsive ">
-                <table className="table">
-                    <thead>
-                      <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Mobile Number</th>
-                        <th>Email Address</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      
-                        {
-                          props.unSavedContacts.map((item, index) => {
-                            return(
-                              <tr key={index}>
-                                <td>{item.firstName ? item.firstName : ""}</td>
-                                <td>{item.lastName ? item.lastName : ""}</td>
-                                <td>{item.phone ? item.phone : ""}</td>
-                                <td>{item.email ? item.email : ""}</td>
-                              </tr>
-                            )
-                          })
-                        }
-                      
-                    </tbody>
-                </table>
-              </div> 
+          <div className="table-responsive ">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Mobile Number</th>
+                  <th>Email Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                {props.unSavedContacts.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.firstName ? item.firstName : ""}</td>
+                      <td>{item.lastName ? item.lastName : ""}</td>
+                      <td>{item.phone ? item.phone : ""}</td>
+                      <td>{item.email ? item.email : ""}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="field-group flexFull text-center mt-3 mb-0">
           <button
@@ -56,18 +52,18 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
           them later:
         </p>
         <p className="fileInfo">Upload: {props.fileName}</p>
-        <p>You can also configure some additional options below:</p>
+        {/* <p>You can also configure some additional options below:</p> */}
         <div className="main-form">
           <div className="field-group flexFull note-form-control">
-            {!props.addNote && (
+            {/* {!props.addNote && (
               <div className="add-note-bttn">
                 <button onClick={props.handleAddNote}>
                   {" "}
                   <AddIcon /> Add Note
                 </button>
               </div>
-            )}
-            {props.addNote && (
+            )} */}
+            {/* {props.addNote && (
               <>
                 <label>Notes</label>
                 <textarea
@@ -77,8 +73,8 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
                   className="form-control"
                 ></textarea>
               </>
-            )}
-            <h3>That's it! You can submit the upload when ready.</h3>
+            )} */}
+            {/* <h3>That's it! You can submit the upload when ready.</h3> */}
           </div>
           <div className="field-group flexFull text-center mt-3 mb-0">
             <button

@@ -234,7 +234,7 @@ const EnhancedTableToolbar = (props) => {
             0 selected
           </Typography>
         )}
-        <Typography
+        {/* <Typography
           sx={{ flex: "1 1 100%" }}
           variant="h6"
           component="button"
@@ -247,7 +247,7 @@ const EnhancedTableToolbar = (props) => {
         >
           <MessageOutlinedIcon />
           Send Message
-        </Typography>
+        </Typography> */}
         {numSelected === 0 ? (
           <Typography
             sx={{ flex: "1 1 100%" }}
@@ -271,10 +271,10 @@ const EnhancedTableToolbar = (props) => {
               <MoreHorizOutlinedIcon /> More
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={handleLogNoteShow}>
+              {/* <Dropdown.Item onClick={handleLogNoteShow}>
                 {" "}
                 Log Note{" "}
-              </Dropdown.Item>
+              </Dropdown.Item> */}
               <Dropdown.Item onClick={props.handleDeleteContact}>
                 {" "}
                 Delete Contacts{" "}
@@ -282,12 +282,12 @@ const EnhancedTableToolbar = (props) => {
             </Dropdown.Menu>
           </Dropdown>
         )}
-        <Tooltip title="Please select contacts from the list below to use available actions">
+        {/* <Tooltip title="Please select contacts from the list below to use available actions">
           <IconButton>
             <HelpIcon />
           </IconButton>
-        </Tooltip>
-        <SendMessageModal
+        </Tooltip> */}
+        {/* <SendMessageModal
           showSendMSGModal={showSendMSGModal}
           numSelected={numSelected}
           handleSendMessage={handleSendMessage}
@@ -321,18 +321,18 @@ const EnhancedTableToolbar = (props) => {
           // handleTempEditSave={props.handleTempEditSave}
           // handleTempRemove={props.handleTempRemove}
           // handleEditTemplateTagChange={props.handleEditTemplateTagChange}
-        />
+        /> */}
         <DeleteContactModal
           showDeleteContactModal={props.showDeleteContactModal}
           handleDeleteContact={props.handleContactDeleteV}
           handleCloseDeleteModal={props.handleCloseDeleteModal}
           selectedItems={numSelected}
         />
-        <LogNoteModal
+        {/* <LogNoteModal
           showLogModal={showLogModal}
           handleLogNote={handleLogNote}
           handleCloseNoteModal={handleCloseNoteModal}
-        />
+        /> */}
       </div>
 
       <Tooltip title="Filter list">
