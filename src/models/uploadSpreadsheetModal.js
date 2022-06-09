@@ -1,4 +1,4 @@
-import { useCallback, useState,useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import ConfirmUpload from "../components/contacts/wizard-form/ConfirmUpload";
 import Preparation from "../components/contacts/wizard-form/Preparation";
@@ -51,44 +51,27 @@ const UploadSpreadsheetModal = (props) => {
       setCsvFile(acceptedFiles[0].name);
       setIsFilePicked(true);
     }
-
-    // if (csvData) {
-    //   console.log(csvData, "csvData");
-    //   const validKeyNames = ["firstName", "lastName", "phone", "email"];
-    //   let keysData = Object.keys(csvData[0]).every((e) =>
-    //     validKeyNames.includes(e)
-    //   );
-    //   if(!keysData){
-    //     toast.error("Csv Data is not valid");
-    //     setIsFilePicked(false);
-    //     setCsvFile(null)
-    //     setCsvData('')
-    //    }
-    // }
-     setLoadingCsvData(true)
-    
+    setLoadingCsvData(true);
   }, []);
 
-useEffect(()=>{
-if(loadingCsvdata){
-  setLoadingCsvData(false)
-  console.log("loaded data ::::",csvData)
-  if (csvData) {
-    const validKeyNames = ["firstName", "lastName", "phone", "email"];
-    let keysData = Object.keys(csvData[0]).every((e) =>
-      validKeyNames.includes(e)
-    );
-   if(!keysData){
-    toast.error("Csv Data is not valid");
-    setIsFilePicked(false);
-    setCsvFile(null)
-    setCsvData('')
-   }
-
-  }
-}
-},[csvData])
-
+  useEffect(() => {
+    if (loadingCsvdata) {
+      setLoadingCsvData(false);
+      console.log("loaded data ::::", csvData);
+      if (csvData) {
+        const validKeyNames = ["firstName", "lastName", "phone", "email"];
+        let keysData = Object.keys(csvData[0]).every((e) =>
+          validKeyNames.includes(e)
+        );
+        if (!keysData) {
+          toast.error("Csv Data Format is not valid");
+          setIsFilePicked(false);
+          setCsvFile(null);
+          setCsvData("");
+        }
+      }
+    }
+  }, [csvData]);
 
   const onRadioChange = (e) => {
     setSelectedType(e.currentTarget.value);

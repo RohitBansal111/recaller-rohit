@@ -100,6 +100,7 @@ const TextPage = () => {
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setCancelRescheDule(false);
     setPreview(false);
     setErrors({});
     setLoading(false);
@@ -110,6 +111,7 @@ const TextPage = () => {
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
+    setCancelRescheDule(false);
     setSelected([]);
     setSendNewMessage("");
     setErrors({});
@@ -132,6 +134,7 @@ const TextPage = () => {
     setShowScheduleModal(true);
     setSendNewMessage("");
     setSelectedImage(false);
+    setCancelRescheDule(false);
     setOnShowChatBotEmojiOpen(false);
     setDateSelected(() => {
       const today = new Date();
@@ -147,7 +150,7 @@ const TextPage = () => {
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
     setOnShowChatBotEmojiOpen(false);
-    // setDateSelected("");
+    setCancelRescheDule(false);
     setDateSelected(() => {
       const today = new Date();
       const curtt =
@@ -413,6 +416,7 @@ const TextPage = () => {
       setDateSelected({});
       setSchedule(false);
       setLoading(false);
+      setCancelRescheDule(false);
       setScheduledData({});
       setShowScheduleModal(false);
     }
@@ -461,9 +465,11 @@ const TextPage = () => {
         toast.success(" Message sent Successfully");
         setOpenMessageModal(false);
         setSelected([]);
+        setScheduledData({});
         setShowScheduleModal(false);
         setDateSelected({});
         setSchedule(false);
+        setCancelRescheDule(false);
         setSendNewMessage("");
         setLoading(false);
       }
@@ -881,7 +887,7 @@ const TextPage = () => {
     setCancelRescheDule(false);
     const data = {
       ...reScheduleItem,
-      dateString: reScheduleData.date + " " + reScheduleData.time,
+      dateSelected: reScheduleData.date + " " + reScheduleData.time,
     };
     console.log(data, "reScheduleData");
     const res = await reScheduleMessageApi(data);
@@ -916,14 +922,10 @@ const TextPage = () => {
     }
   };
 
-  const handleDeleteRechaduletitle = async() => {
+  const handleDeleteRechaduletitle = async () => {
     setCancelRescheDule(false);
-    const res = await deleteReScheduleMessageApi(reScheduleItem.message_id);
-    if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      getMessage();
-    }
-  }
+    setScheduledData({});
+  };
 
   return (
     <div className="content-page-layout text-page-content">

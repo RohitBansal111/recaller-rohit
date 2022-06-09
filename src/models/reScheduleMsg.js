@@ -78,7 +78,7 @@ const ReScheduleMessageModal = (props) => {
               <Button
                 variant="primary"
                 onClick={
-                  props.schaduleData
+                  props.scheduleData
                     ? props.handleDeleteRechaduletitle
                     : props.handleCancelReSchedultModal
                 }
