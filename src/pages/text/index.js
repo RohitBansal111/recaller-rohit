@@ -838,17 +838,19 @@ const TextPage = () => {
 
   const handleImageChange = async (event) => {
     console.log(event.target.files[0]);
-    let img = event.target.files[0];
-    setSelectedImage(URL.createObjectURL(img));
+    if (event.target.files[0]) {
+      let img = event.target.files[0];
+      setSelectedImage(URL.createObjectURL(img));
 
-    const formData = new FormData();
-    formData.append("ckImage", event.target.files[0]);
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
-      formData
-    );
-    if (res && res.data && res.data.status) {
-      setImageUrl(res.data);
+      const formData = new FormData();
+      formData.append("ckImage", event.target.files[0]);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
+        formData
+      );
+      if (res && res.data && res.data.status) {
+        setImageUrl(res.data);
+      }
     }
   };
 

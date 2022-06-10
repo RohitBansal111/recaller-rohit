@@ -30,6 +30,7 @@ import LogNoteModal from "../../models/LogNoteModal";
 import moment from "moment";
 import LoaderPic from "./../../assets/images/loader.gif";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Button } from "@material-ui/core";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -249,7 +250,7 @@ const EnhancedTableToolbar = (props) => {
           <MessageOutlinedIcon />
           Send Message
         </Typography> */}
-        {numSelected === 0 ? (
+        {/* {numSelected === 0 ? (
           <Typography
             sx={{ flex: "1 1 100%" }}
             variant="h6"
@@ -258,8 +259,8 @@ const EnhancedTableToolbar = (props) => {
           >
             <MoreHorizOutlinedIcon /> More
           </Typography>
-        ) : (
-          <Dropdown itemSelector="button:not(:disabled)">
+        ) : ( */}
+        {/* <Dropdown itemSelector="button:not(:disabled)">
             <Dropdown.Toggle
               variant="success"
               id="dropdown-basic"
@@ -271,18 +272,31 @@ const EnhancedTableToolbar = (props) => {
             >
               <MoreHorizOutlinedIcon /> More
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {/* <Dropdown.Item onClick={handleLogNoteShow}>
+            <Dropdown.Menu> */}
+        {/* <Dropdown.Item onClick={handleLogNoteShow}>
                 {" "}
                 Log Note{" "}
               </Dropdown.Item> */}
-              <Dropdown.Item onClick={props.handleDeleteContact}>
-                {" "}
-                Delete Contacts{" "}
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        {numSelected === 0 ? (
+          <Button
+            className="btn table-light-btn disabled "
+            onClick={props.handleDeleteContact}
+          >
+            {" "}
+            Delete Contacts{" "}
+          </Button>
+        ) : (
+          <Button
+            className="btn table-light-btn delActive"
+            onClick={props.handleDeleteContact}
+          >
+            {" "}
+            Delete Contacts{" "}
+          </Button>
         )}
+        {/* </Dropdown.Menu> */}
+        {/* </Dropdown> */}
+        {/* )} */}
         {/* <Tooltip title="Please select contacts from the list below to use available actions">
           <IconButton>
             <HelpIcon />

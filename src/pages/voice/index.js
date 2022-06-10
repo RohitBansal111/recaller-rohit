@@ -586,6 +586,7 @@ const Voice = () => {
 
   const clearUploading = () => {
     setFileName(null);
+    setLoading(false);
   };
 
   const handlePlay = () => {
