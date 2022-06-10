@@ -28,7 +28,7 @@ import { Link } from "react-router-dom";
 import PlaceholderImage from "./../../assets/images/placeholder.jpg";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
-
+import CloseIcon from "@mui/icons-material/Close";
 const ChatBoot = (props) => {
   const userMessageList = () => {
     let filtered = [];
@@ -173,7 +173,7 @@ const ChatBoot = (props) => {
                 handleNoReSchedultModal={props.handleNoReSchedultModal}
                 handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
                 handleDeleteRechaduletitle={props.handleDeleteRechaduletitle}
-                schaduleData = {props.scheduledData}
+                schaduleData={props.scheduledData}
               />
             </div>
             <div className="chat-text-editor">
@@ -299,15 +299,29 @@ const ChatBoot = (props) => {
                                   className="btn-action1"
                                   onClick={props.handleChatBotEmojiOpen}
                                 >
-                                  <EmojiEmotionsIcon />
+                                  {props.onShowChatBotEmojiOpen == false && (
+                                    <EmojiEmotionsIcon />
+                                  )}
                                 </button>
                                 {props.onShowChatBotEmojiOpen && (
                                   <Picker
                                     onEmojiClick={props.onChatBotEmojiClick}
                                   />
                                 )}
+                                {props.onShowChatBotEmojiOpen && (
+                                  <div className="emoji-cancel-button">
+                                    <button
+                                      type="button"
+                                      className="btn-action1"
+                                      onClick={props.CancelEmoji}
+                                    >
+                                      <CloseIcon />
+                                    </button>
+                                  </div>
+                                )}
                               </>
                             </li>
+
                             <li>
                               <button
                                 type="button"

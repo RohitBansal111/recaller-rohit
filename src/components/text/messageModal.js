@@ -21,6 +21,7 @@ import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import CodeIcon from "@material-ui/icons/Code";
 import CancelIcon from "@material-ui/icons/Cancel";
+import CloseIcon from "@mui/icons-material/Close";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
@@ -173,10 +174,23 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       className="btn-action1"
                       onClick={props.handleEmojiOpen}
                     >
-                      <EmojiEmotionsIcon />
+                      {props.onShowEmojiOpen == false && (
+                        <EmojiEmotionsIcon />
+                      )}
                     </button>
                     {props.onShowEmojiOpen && (
                       <Picker onEmojiClick={props.onEmojiClick} />
+                    )}
+                    {props.onShowEmojiOpen && (
+                      <div className="emoji-cancel-button">
+                        <button
+                          type="button"
+                          className="btn-action1"
+                          onClick={props.CancelEmoji}
+                        >
+                          <CloseIcon />
+                        </button>
+                      </div>
                     )}
                   </>
                 </li>

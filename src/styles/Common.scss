@@ -562,6 +562,7 @@ form.main-form
 }
 aside.emoji-picker-react {
   z-index: 9;
+  bottom: 30px;
 }
 
 .attachedImageGallery{
@@ -584,6 +585,7 @@ aside.emoji-picker-react {
   padding:10px 10px 15px 10px;
   border: 1px solid #bbb;
   border-radius: 5px;
+  min-height: 170px;
   ul.attachedImageGallery{
     max-width: 150px;
   }
@@ -631,5 +633,28 @@ aside.emoji-picker-react {
       }
       }
     }
+  }
+}
+
+.emoji-cancel-button {
+  position: absolute;
+  top: 0;
+  left: -11px;
+  button.btn-action1 {
+    min-width: 37px;
+}
+}
+.all-discuss-section{
+  aside.emoji-picker-react {
+    z-index: 9;
+    bottom: 50px;
+  }
+  .emoji-cancel-button {
+    position: relative;
+    top: -11px;
+    left: 0px;
+    button.btn-action1 {
+      min-width: auto;
+  }
   }
 }

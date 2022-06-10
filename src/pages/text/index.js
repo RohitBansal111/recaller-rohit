@@ -166,6 +166,7 @@ const TextPage = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
     setTemplateName("");
+    setOnShowChatBotEmojiOpen(false)
     setTemplateMessage("");
     setErrors({});
   };
@@ -930,6 +931,11 @@ const TextPage = () => {
     setScheduledData({});
   };
 
+  const CancelEmoji = () => {
+    setOnShowChatBotEmojiOpen(false);
+    setOnShowEmoji(false);
+  }
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -1048,6 +1054,7 @@ const TextPage = () => {
           handleReSchaduleData={handleReSchaduleData}
           openMessageModal={openMessageModal}
           handleDeleteRechaduletitle={handleDeleteRechaduletitle}
+          CancelEmoji={CancelEmoji}
         />
       </div>
       <MessageModal
@@ -1115,6 +1122,7 @@ const TextPage = () => {
         handleScheduleSubmit={handleScheduleSubmit}
         scheduledData={scheduledData}
         handleReSchaduleData={handleReSchaduleData}
+        CancelEmoji={CancelEmoji}
       />
     </div>
   );
