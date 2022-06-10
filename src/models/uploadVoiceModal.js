@@ -3,7 +3,7 @@ import { Modal } from "react-responsive-modal";
 import NewVoiceSelectTag from "../components/voice/newVoiceSelectTags";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
-
+import { MdClose } from "react-icons/md";
 const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
     <Modal
@@ -37,26 +37,25 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
               onChange={props.onVoiceUploadChange}
             />
             <span>
-              {props.fileName ? (
-                props.fileName.name
-              ) : (
-                <>
-                  <LibraryMusicIcon /> Upload Voice Recording
-                </>
-              )}
+              <>
+                <LibraryMusicIcon /> Upload Voice Recording
+              </>
             </span>
           </div>
+          <div className="voice-file">
+          <span>{props.fileName ? props.fileName.name : ""}</span>
           {props.fileName ? (
             <button
               type="button"
               className="remove-recording-action"
               onClick={props.clearUploading}
             >
-              ×
+            <MdClose/>
             </button>
           ) : (
             ""
           )}
+          </div>
           <div className="field-group flexFull text-center mt-3">
             <button
               type="button"
