@@ -129,10 +129,23 @@ const Import = () => {
     return formData;
   };
 
+  const isValidFilterName = () => {
+    let formData = true;
+    switch (true) {
+      case !filterName.filterName:
+        setErrors({ filterName: "Filter Name field is required!" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
   const handleSubmit = async () => {
     if (isValid()) {
       setLoading(true);
-      setIsLoading(true)
+      setIsLoading(true);
       let res = await createApi(addContact);
       if (res && res.data && res.data.status === 200) {
         setShow(false);
@@ -140,10 +153,10 @@ const Import = () => {
         toast.success("Contact saved!");
         setErrors({});
         getData();
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
         setLoading(false);
-        setIsLoading(false)
+        setIsLoading(false);
         toast.error(res.data.message);
       }
     }
@@ -367,26 +380,28 @@ const Import = () => {
   };
 
   const handleAddFilterData = async () => {
-    const obj = {
-      property: properties,
-      rule: rules,
-      value: inputValue,
-      name: filterName,
-      resultCount: rowsData ? rowsData.length : 0,
-    };
-    const res = await addContactFilter(obj);
-    if (res && res.data && res.data.status === 200) {
-      setShowAddFilterModal(false);
-      setProperties("");
-      setRules("");
-      setInputValue("");
-      toast.success(res.data.message);
-      getContactFilter();
-      setFilterName("");
-      setErrors({});
-      getData();
-    } else {
-      toast.error(res.data.message);
+    if (isValidFilterName()) {
+      const obj = {
+        property: properties,
+        rule: rules,
+        value: inputValue,
+        name: filterName,
+        resultCount: rowsData ? rowsData.length : 0,
+      };
+      const res = await addContactFilter(obj);
+      if (res && res.data && res.data.status === 200) {
+        setShowAddFilterModal(false);
+        setProperties("");
+        setRules("");
+        setInputValue("");
+        toast.success(res.data.message);
+        getContactFilter();
+        setFilterName("");
+        setErrors({});
+        getData();
+      } else {
+        toast.error(res.data.message);
+      }
     }
   };
 

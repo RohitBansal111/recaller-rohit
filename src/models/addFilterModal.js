@@ -27,6 +27,7 @@ const DeleteFilterModal = (props) => {
               onChange={props.onFilterNameChange}
             />
           </div>
+          <span className="spanError">{props.errors.filterName}</span>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleCloseAddFilterModal}>
@@ -37,7 +38,7 @@ const DeleteFilterModal = (props) => {
             variant="primary"
             onClick={props.handleAddFilterData}
           >
-            Save
+            Add Name
           </Button>
         </Modal.Footer>
       </Modal>

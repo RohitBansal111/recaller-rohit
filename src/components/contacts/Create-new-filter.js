@@ -236,6 +236,7 @@ const CreateNewFilter = (props) => {
                 handleCloseAddFilterModal={props.handleCloseAddFilterModal}
                 handleAddFilterData={props.handleAddFilterData}
                 filterName={props.filterName}
+                errors={props.errors}
                 onFilterNameChange={props.onFilterNameChange}
               />
             </div>

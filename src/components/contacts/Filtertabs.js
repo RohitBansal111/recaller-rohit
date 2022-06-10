@@ -114,6 +114,7 @@ const FilterTabs = (props) => {
             filterName={props.filterName}
             onFilterNameChange={props.onFilterNameChange}
             compaign={props.compaign}
+            
           />
         </Tab>
       </Tabs>
