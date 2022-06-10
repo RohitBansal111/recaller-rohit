@@ -132,7 +132,7 @@ const Import = () => {
   const isValidFilterName = () => {
     let formData = true;
     switch (true) {
-      case !filterName.filterName:
+      case !filterName:
         setErrors({ filterName: "Filter Name field is required!" });
         formData = false;
         break;
@@ -388,6 +388,7 @@ const Import = () => {
         name: filterName,
         resultCount: rowsData ? rowsData.length : 0,
       };
+      
       const res = await addContactFilter(obj);
       if (res && res.data && res.data.status === 200) {
         setShowAddFilterModal(false);
@@ -413,6 +414,7 @@ const Import = () => {
 
   const onFilterNameChange = (e) => {
     setFilterName(e.target.value);
+    setErrors({});
   };
 
   const getContactFilter = async () => {
