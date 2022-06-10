@@ -30,6 +30,7 @@ const UploadSpreadsheetModal = (props) => {
   const [addCampaigns, setAddCampaigns] = useState("");
   const [unSavedContacts, setUnSavedContacts] = useState([]);
   const [loadingCsvdata, setLoadingCsvData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     var formData = new FormData();
@@ -243,14 +244,14 @@ const UploadSpreadsheetModal = (props) => {
       // note: noteData,
       compaign: addCampaigns,
     };
-    props.setIsLoading(true)
+    setIsLoading(true)
     let res = await addMultipleContact(obj);
     if (res && res.data && res.data.status === 200) {
       if (res.data.unSavedContacts && res.data.unSavedContacts.length) {
         props.getData();
-        props.setIsLoading(false)
+        // setIsLoading(false)
         setUnSavedContacts(res.data.unSavedContacts);
-        props.setUploadModal(false)
+        // props.setUploadModal(false)
       } else {
         toast.success(res.data.message);
         props.getData();
@@ -259,7 +260,7 @@ const UploadSpreadsheetModal = (props) => {
         props.setUploadModal(false)
         setCsvFile(null);
         setSelectedPhone("phone");
-        props.setIsLoading(false)
+        // setIsLoading(false)
         setSelectedEmail("email");
         setSelectedFirstName("firstName");
         setSelectedLastName("lastName");
@@ -271,11 +272,11 @@ const UploadSpreadsheetModal = (props) => {
       }
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
-      props.setIsLoading(false)
+      // setIsLoading(false)
       setStep(step - 1);
     } else {
       toast.success(res.data.message);
-      props.setIsLoading(false)
+      // setIsLoading(false)
     }
   };
 
@@ -288,6 +289,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setAddCampaigns("");
+    setUnSavedContacts([])
     setSelectProperty(null);
     setNoteData(null);
     props.setSelectTags(null);
@@ -425,6 +427,7 @@ const UploadSpreadsheetModal = (props) => {
                   handleNoteChange={handleNoteChange}
                   closeModal={closeModal}
                   unSavedContacts={unSavedContacts}
+                  isLoading={isLoading}
                 />
               )}
             </div>

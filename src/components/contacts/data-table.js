@@ -487,13 +487,13 @@ export default function EnhancedTable(props) {
                   rowCount={rowsData && rowsData.length}
                 />
                 <TableBody>
-                  {props.isLoading ? (
-                    <div className="circular-loading">
+                  {/* {props.isLoading ? (
+                    // <div className="circular-loading">
                       <CircularProgress color="inherit" />
-                    </div>
-                  ) : (
+                    // </div>
+                  ) : ( */}
                     <> {loadContacts()}</>
-                  )}
+                  {/* )} */}
                   {props.emptyRows > 0 && (
                     <TableRow
                       style={{

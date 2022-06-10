@@ -1,5 +1,6 @@
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ConfirmUpload = ({ step, setStep, ...props }) => {
   if (props.unSavedContacts && props.unSavedContacts.length) {
@@ -85,14 +86,24 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
               {" "}
               Back{" "}
             </button>
-            <button
+            <LoadingButton
+              type="button"
+              loadingPosition="center"
+              loading={props.isLoading}
+              onClick={props.finishStep}
+              className="btn btn-primary"
+              variant="contained"
+            >
+              Finish
+            </LoadingButton>
+            {/* <button
               type="button"
               className="btn btn-primary"
               onClick={props.finishStep}
             >
               {" "}
               Finish{" "}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

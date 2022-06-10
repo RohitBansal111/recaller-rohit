@@ -52,7 +52,7 @@ const Preparation = ({ closeModal, step, setStep, ...props }) => {
           </button>
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary proceedbtn"
             disabled={props.csvFile ? false : true}
             onClick={props.nextStep}
           >
