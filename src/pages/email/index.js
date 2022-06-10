@@ -414,7 +414,7 @@ const EmailPage = () => {
         setShowReScheduleModal(false);
         setCancelRescheDule(false);
         setSchedule(false);
-        setScheduledData({})
+        setScheduledData({});
         setShowScheduleModal(false);
         setEmailSubject("");
       }
@@ -540,7 +540,7 @@ const EmailPage = () => {
       scrollToBottom();
       setLoading(false);
       setSchedule(false);
-      setScheduledData({})
+      setScheduledData({});
       setDateSelected({});
       setCancelRescheDule(false);
       setShowScheduleModal(false);
@@ -900,6 +900,11 @@ const EmailPage = () => {
     }
   };
 
+  const CancelEmoji = () => {
+    setOnShowChatBotEmojiOpen(false);
+    setOnShowEmoji(false);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
@@ -1018,6 +1023,7 @@ const EmailPage = () => {
           handleDeleteReSchedultModal={handleDeleteReSchedultModal}
           handleReSchaduleData={handleReSchaduleData}
           scheduledData={scheduledData}
+          CancelEmoji={CancelEmoji}
         />
       </div>
       <EmailModal
@@ -1084,6 +1090,7 @@ const EmailPage = () => {
         handleScheduleSubmit={handleScheduleSubmit}
         scheduledData={scheduledData}
         handleReSchaduleData={handleReSchaduleData}
+        CancelEmoji={CancelEmoji}
       />
     </div>
   );

@@ -565,55 +565,55 @@ aside.emoji-picker-react {
   bottom: 30px;
 }
 
-.attachedImageGallery{
+.attachedImageGallery {
   margin: 0px;
   padding: 0px;
-  li{
+  li {
     position: relative;
-  img{
-    max-width: 100%;
-  }
-  .btn{
-    position: absolute;
-    right: -25px;
-    top: -15px;
-  }
+    img {
+      max-width: 100%;
+    }
+    .btn {
+      position: absolute;
+      right: -25px;
+      top: -15px;
+    }
   }
 }
 .imgshowpopup {
   display: flex;
-  padding:10px 10px 15px 10px;
+  padding: 10px 10px 15px 10px;
   border: 1px solid #bbb;
   border-radius: 5px;
   min-height: 170px;
-  ul.attachedImageGallery{
+  ul.attachedImageGallery {
     max-width: 150px;
   }
-  textarea{
+  textarea {
     background-color: transparent;
-    border: none!important;
-    &:focus{
-      border: none!important;
+    border: none !important;
+    &:focus {
+      border: none !important;
     }
   }
-  &+.action-icons{
-    margin-bottom: 3px!important;
+  & + .action-icons {
+    margin-bottom: 3px !important;
   }
 }
-.main-form{
-.messageBoxModal{
-  .imgshowpopup {
-    textarea{
-      &:focus{
-        border: none!important;
+.main-form {
+  .messageBoxModal {
+    .imgshowpopup {
+      textarea {
+        &:focus {
+          border: none !important;
+        }
       }
     }
   }
 }
-}
-.contact-data-table-main{
-  table{
-    tbody{
+.contact-data-table-main {
+  table {
+    tbody {
       position: relative;
       .circular-loading {
         position: absolute;
@@ -623,14 +623,14 @@ aside.emoji-picker-react {
         text-align: center;
         top: 0px;
         bottom: 0px;
-        background: rgba(0,0,0,0.05);
+        background: rgba(0, 0, 0, 0.05);
         overflow: hidden;
         span {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           z-index: 9999;
-      }
+        }
       }
     }
   }
@@ -642,9 +642,9 @@ aside.emoji-picker-react {
   left: -11px;
   button.btn-action1 {
     min-width: 37px;
+  }
 }
-}
-.all-discuss-section{
+.all-discuss-section {
   aside.emoji-picker-react {
     z-index: 9;
     bottom: 50px;
@@ -655,6 +655,16 @@ aside.emoji-picker-react {
     left: 0px;
     button.btn-action1 {
       min-width: auto;
+    }
   }
-  }
+}
+.MuiPaper-root .MuiMenu-list .MuiMenuItem-root {
+  display: flex;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding-left: 16px;
+  padding-right: 16px;
+  justify-content: flex-start;
 }

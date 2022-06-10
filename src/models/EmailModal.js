@@ -23,6 +23,7 @@ import CodeIcon from "@material-ui/icons/Code";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import parse from "html-react-parser";
+import CloseIcon from "@mui/icons-material/Close";
 
 const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
   function uploadAdapter(loader) {
@@ -210,10 +211,21 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                       className="btn-action1"
                       onClick={props.handleEmojiOpen}
                     >
-                      <EmojiEmotionsIcon />
+                      {props.onShowEmojiOpen == false && <EmojiEmotionsIcon />}
                     </button>
                     {props.onShowEmojiOpen && (
                       <Picker onEmojiClick={props.onEmojiClick} />
+                    )}
+                    {props.onShowEmojiOpen && (
+                      <div className="emoji-cancel-button">
+                        <button
+                          type="button"
+                          className="btn-action1"
+                          onClick={props.CancelEmoji}
+                        >
+                          <CloseIcon />
+                        </button>
+                      </div>
                     )}
                   </>
                 </li>

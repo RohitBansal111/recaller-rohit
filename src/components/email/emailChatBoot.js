@@ -33,6 +33,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import CloseIcon from "@mui/icons-material/Close";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -346,12 +347,25 @@ const EmailChatBoot = (props) => {
                                     className="btn-action1"
                                     onClick={props.handleChatBotEmojiOpen}
                                   >
-                                    <EmojiEmotionsIcon />
+                                    {props.onShowChatBotEmojiOpen == false && (
+                                      <EmojiEmotionsIcon />
+                                    )}
                                   </button>
                                   {props.onShowChatBotEmojiOpen && (
                                     <Picker
                                       onEmojiClick={props.onChatBotEmojiClick}
                                     />
+                                  )}
+                                  {props.onShowChatBotEmojiOpen && (
+                                    <div className="emoji-cancel-button">
+                                      <button
+                                        type="button"
+                                        className="btn-action1"
+                                        onClick={props.CancelEmoji}
+                                      >
+                                        <CloseIcon />
+                                      </button>
+                                    </div>
                                   )}
                                 </>
                               </li>
