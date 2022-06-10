@@ -592,7 +592,7 @@ const Voice = () => {
     // setBlobState(mediaBlobUrl);
     if (second > 0) {
       setPlaying(true);
-      stopRecording()
+      // stopRecording()
       const tmp = new Audio(mediaBlobUrl);
       console.log(tmp, "tmp");
       tmp.play();

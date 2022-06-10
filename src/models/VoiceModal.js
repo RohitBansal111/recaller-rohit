@@ -49,10 +49,12 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => {
-                  if (!props.isNewVoiceActive) {
+                  // console.log("propsss rescrd :::",props)
+                  if (!props.isNewVoiceActive && props.second > 0) {
+                   props.handlePlay();
+                   return
+                  }else if (!props.isNewVoiceActive) {
                     props.startRecording();
-                  } else if (props.second > 0) {
-                    props.handlePlay();
                   } else {
                     props.stopRecording();
                   }
