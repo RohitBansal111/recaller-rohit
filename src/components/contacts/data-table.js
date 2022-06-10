@@ -67,7 +67,13 @@ const headCells = [
     id: "firstName",
     numeric: false,
     disablePadding: true,
-    label: "Name",
+    label: "First Name",
+  },
+  {
+    id: "lastName",
+    numeric: false,
+    disablePadding: true,
+    label: "Last Name",
   },
   {
     id: "email",
@@ -389,13 +395,13 @@ export default function EnhancedTable(props) {
               contact.lastName
                 .toLowerCase()
                 .startsWith(props.value.toLowerCase()) ||
-              contact.phone.startsWith(props.value) ||
-              contact.country.startsWith(props.value) ||
-              contact.state.startsWith(props.value) ||
-              contact.city.startsWith(props.value) ||
-              contact.zipcode.startsWith(props.value) ||
-              contact.address.startsWith(props.value) ||
-              contact.email.toLowerCase().startsWith(props.value.toLowerCase())
+              contact.phone.startsWith(props.value)
+            // contact.country.startsWith(props.value) ||
+            // contact.state.startsWith(props.value) ||
+            // contact.city.startsWith(props.value) ||
+            // contact.zipcode.startsWith(props.value) ||
+            // contact.address.startsWith(props.value) ||
+            // contact.email.toLowerCase().startsWith(props.value.toLowerCase())
           )
         : rowsData.filter(
             (contact) =>
@@ -405,13 +411,13 @@ export default function EnhancedTable(props) {
               contact.lastName
                 .toLowerCase()
                 .startsWith(props.value.toLowerCase()) ||
-              contact.phone.startsWith(props.value) ||
-              contact.country.startsWith(props.value) ||
-              contact.state.startsWith(props.value) ||
-              contact.city.startsWith(props.value) ||
-              contact.zipcode.startsWith(props.value) ||
-              contact.address.startsWith(props.value) ||
-              contact.email.toLowerCase().startsWith(props.value.toLowerCase())
+              contact.phone.startsWith(props.value)
+            // contact.country.startsWith(props.value) ||
+            // contact.state.startsWith(props.value) ||
+            // contact.city.startsWith(props.value) ||
+            // contact.zipcode.startsWith(props.value) ||
+            // contact.address.startsWith(props.value) ||
+            // contact.email.toLowerCase().startsWith(props.value.toLowerCase())
           );
 
     const contactData =
@@ -446,7 +452,10 @@ export default function EnhancedTable(props) {
                 />
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row && row.firstName + " " + row.lastName}
+                {row && row.firstName}
+              </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row && row.lastName}
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>
@@ -506,7 +515,7 @@ export default function EnhancedTable(props) {
                       <CircularProgress color="inherit" />
                     // </div>
                   ) : ( */}
-                    <> {loadContacts()}</>
+                  <> {loadContacts()}</>
                   {/* )} */}
                   {props.emptyRows > 0 && (
                     <TableRow
