@@ -188,40 +188,38 @@ const VoiceChatBoot = (props) => {
                 ) : (
                   <>
                     <div className="recording-left">
-                      {props.isNewVoiceActive == true ||
-                      props.isNewVoiceActive == false ? (
+                      {/* {props.isNewVoiceActive == false ? (
                         " "
-                      ) : (
-                        <div className="recording-voice-action">
-                          {props.isActive == true || props.second > 0 ? (
-                            <>
-                              <span></span>
-                              <h4>
-                                {props.minute}:{props.second}
-                              </h4>
-                            </>
-                          ) : (
-                            ""
-                          )}
-                          {props.second > 0 ? (
-                            <button
-                              type="button"
-                              className="remove-recording-action"
-                              onClick={props.stopTimer}
-                            >
-                              ×
-                            </button>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      )}
+                      ) : ( */}
+                      <div className="recording-voice-action">
+                        {props.isActive == true || props.second > 0 ? (
+                          <>
+                            <span></span>
+                            <h4>
+                              {props.minute}:{props.second}
+                            </h4>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                        {props.second > 0 ? (
+                          <button
+                            type="button"
+                            className="remove-recording-action"
+                            onClick={props.stopTimer}
+                          >
+                            ×
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      {/* )} */}
 
-                      {(props.isActive == false &&
-                        props.second == "00" &&
-                        props.isNewVoiceActive == false) ||
-                      (props.isNewVoiceActive == true &&
-                        props.minute == "00") ? (
+                      {props.isActive == false &&
+                      props.second == "00" &&
+                      props.isNewVoiceActive == false &&
+                      props.minute == "00" ? (
                         <div className="upload-song">
                           <div className="uploadRecordingLibrary">
                             <input
@@ -275,10 +273,7 @@ const VoiceChatBoot = (props) => {
                             : props.handleSendSingleContactVoice
                         }
                       >
-                        {props.isNewVoiceActive == true ||
-                        props.isNewVoiceActive == false
-                          ? "Press & Recording"
-                          : "Send"}
+                        Send
                       </button>
                     ) : (
                       <button
