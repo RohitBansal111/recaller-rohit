@@ -410,11 +410,8 @@ const TextPage = () => {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
     var today = new Date().getHours();
-    var min = new Date().getMinutes();
 
-    console.log(today <= 13 + ":" + min <= 0);
-
-    if (today >= 8 && today <= 21) {
+    if (today >= 8 && today <= 20) {
       const res = await sendSingleMessageApi(obj);
 
       if (res && res.data && res.data.status === 200) {
@@ -472,9 +469,8 @@ const TextPage = () => {
           scheduledData.date + " " + scheduledData.time + ":00";
       }
       var today = new Date().getHours();
-      var min = new Date().getMinutes();
 
-      if (today >= 8 && today <= 21) {
+      if (today >= 8 && today <= 20) {
         let res = await sendMessageApi(obj);
         if (res && res.data && res.data.status === 200) {
           toast.success(" Message sent Successfully");
