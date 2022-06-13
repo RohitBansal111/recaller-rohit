@@ -337,6 +337,7 @@ const Voice = () => {
             setOpenMessageModal(false);
             setSelected([]);
             setLoading(false);
+            setPlaying(false);
             setIsNewVoiceActive(false);
             setIsActive(false);
             setIsShowLoading(false);
@@ -587,6 +588,7 @@ const Voice = () => {
   const clearUploading = () => {
     setFileName(null);
     setLoading(false);
+    setPlaying(false);
   };
 
   const handlePlay = () => {
