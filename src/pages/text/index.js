@@ -907,7 +907,7 @@ const TextPage = () => {
     };
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
-    if (reScheduleData.time === ssss && reScheduleData.date === dddd) {
+    if (reScheduleData.time == ssss && reScheduleData.date == dddd) {
       toast.error("The date/time must be in the future");
     } else {
       const res = await reScheduleMessageApi(data);
