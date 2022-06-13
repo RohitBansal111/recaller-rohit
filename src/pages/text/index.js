@@ -411,7 +411,7 @@ const TextPage = () => {
     }
     var today = new Date().getHours();
 
-    if (today >= 8 && today <= 11) {
+    if (today >= 8 && today <= 21) {
       const res = await sendSingleMessageApi(obj);
 
       if (res && res.data && res.data.status === 200) {
