@@ -905,14 +905,19 @@ const TextPage = () => {
       ...reScheduleItem,
       dateSelected: reScheduleData.date + " " + reScheduleData.time,
     };
-    console.log(data, "reScheduleData");
-    const res = await reScheduleMessageApi(data);
-    console.log(res, "res");
-    if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      getMessage();
-      setShowReScheduleModal(false);
-      setCancelRescheDule(false);
+    var dddd = new Date().toISOString().substring(0, 10);
+    var ssss = today.getHours() + ":" + today.getMinutes();
+    if (reScheduleData.time === ssss && reScheduleData.date === dddd) {
+      toast.error("The date/time must be in the future");
+    } else {
+      const res = await reScheduleMessageApi(data);
+      console.log(res, "res");
+      if (res && res.data && res.data.status === 200) {
+        toast.success(res.data.message);
+        getMessage();
+        setShowReScheduleModal(false);
+        setCancelRescheDule(false);
+      }
     }
   };
 

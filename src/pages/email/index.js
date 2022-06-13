@@ -832,7 +832,7 @@ const EmailPage = () => {
   }, []);
 
   const handleScheduleSubmit = () => {
-    var dddd = new Date().toISOString().substring(0, 10);
+    var dddd = new Date();
     var ssss = today.getHours() + ":" + today.getMinutes();
     if (dateSelected.time === ssss && dateSelected.date === dddd) {
       toast.error("The date/time must be in the future");
@@ -864,14 +864,20 @@ const EmailPage = () => {
       ...reScheduleItem,
       dateSelected: reScheduleData.date + " " + reScheduleData.time,
     };
-    console.log(data, "reScheduleData");
-    const res = await reScheduleEmailApi(data);
-    console.log(res, "res");
-    if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      getEmailMessage();
-      setShowReScheduleModal(false);
-      setCancelRescheDule(false);
+
+    var dddd = new Date().toISOString().substring(0, 10);
+    var ssss = today.getHours() + ":" + today.getMinutes();
+
+    if (reScheduleData.time === ssss && reScheduleData.date === dddd) {
+      toast.error("The date/time must be in the future");
+    } else {
+      const res = await reScheduleEmailApi(data);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(res.data.message);
+        getEmailMessage();
+        setShowReScheduleModal(false);
+        setCancelRescheDule(false);
+      }
     }
   };
 
