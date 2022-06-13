@@ -25,6 +25,7 @@ const Autoresponder = () => {
   const [addWidgetAutoRes, setaddWidgetAutoRes] = useState("");
   const [inComingAutoRes, setInComingAutoRes] = useState("");
   const [autoResData, setAutoResData] = useState([]);
+  const [cancelAutoresponder, setCancelAutoresponder] = useState(false);
   const AddIncomeDuringSMS = (item) => {
     if (item) {
       setInComingAutoRes(item.duringHoursAutoResponse.InComingAutoRes);
@@ -67,6 +68,7 @@ const Autoresponder = () => {
   };
   const handleModalClose = () => {
     setBusinessHourModal(false);
+    setCancelAutoresponder(false);
   };
   const handleModalShow = () => {};
   const handleProceed = () => {};
@@ -125,11 +127,16 @@ const Autoresponder = () => {
       outsideHoursAutoResponse: ob3,
       outsideHoursWidget: ob4,
     };
-    const res = await sendAutoResRequest(obj);
-    if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      setBusinessHourModal(false);
-      getAutoResData();
+    if (cancelAutoresponder == true) {
+      setBusinessHourModal(true);
+      toast.error("Please add at least one open time to your business hours.");
+    } else {
+      const res = await sendAutoResRequest(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(res.data.message);
+        setBusinessHourModal(false);
+        getAutoResData();
+      }
     }
   };
 
@@ -200,6 +207,16 @@ const Autoresponder = () => {
     const res = await getAutoResRequest();
     if (res && res.data && res.data.status === 200) {
       setAutoResData(res.data.result);
+    }
+  };
+
+  const handleBusinessHoursDel = () => {
+    setCancelAutoresponder(true);
+  };
+
+  const handleBusinessHoursAdd = () => {
+    if (cancelAutoresponder == true) {
+      setCancelAutoresponder(false);
     }
   };
 
@@ -433,6 +450,9 @@ const Autoresponder = () => {
           businessData={businessData}
           handleBusinessChnage={handleBusinessChnage}
           handleSaveHours={handleSaveHours}
+          handleBusinessHoursDel={handleBusinessHoursDel}
+          cancelAutoresponder={cancelAutoresponder}
+          handleBusinessHoursAdd={handleBusinessHoursAdd}
         />
       </div>
     </div>

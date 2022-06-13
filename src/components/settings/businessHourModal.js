@@ -23,53 +23,67 @@ const BusinessHourModal = ({
           </Tooltip>
         </p>
         <form className="main-form align-items-center">
-          <div className="field-group flexOne me-2">
-            <label>Select a day</label>
-            <select
-              className="form-control"
-              name="businesshours"
-              value={props.businessData.businesshours}
-              onChange={props.handleBusinessChnage}
-            >
-              <option value={"Every Day"}>Every Day</option>
-              <option value={"Weekdays"}>Weekdays</option>
-              <option value={"Weekend"}>Weekend</option>
-              <option value={"Monday"}>Monday</option>
-              <option value={"Tuesday"}>Tuesday</option>
-              <option value={"Wednesday"}>Wednesday</option>
-              <option value={"Thrusday"}>Thrusday</option>
-              <option value={"Friday"}>Friday</option>
-              <option value={"Saturday"}>Saturday</option>
-              <option value={"Sunday"}>Sunday</option>
-            </select>
-          </div>
-          <div className="field-group flexOne me-2">
-            <label>Select hours (From)</label>
-            <input
-              type="time"
-              className="form-control"
-              placeholder="Enter Name"
-              name="businessTime"
-              value={props.businessData.businessTime}
-              onChange={props.handleBusinessChnage}
-            />
-          </div>
-          <div className="field-group flexOne me-2">
-            <label>Select hours (To)</label>
-            <input
-              type="time"
-              className="form-control"
-              placeholder="Enter Contact Name"
-              name="businesTimeHours"
-              value={props.businessData.businesTimeHours}
-              onChange={props.handleBusinessChnage}
-            />
-          </div>
-          <div className="field-group flexOneFour">
-            <DeleteIcon />
-          </div>
+          {props.cancelAutoresponder == true ? (
+            ""
+          ) : (
+            <>
+              <div className="field-group flexOne me-2">
+                <label>Select a day</label>
+                <select
+                  className="form-control"
+                  name="businesshours"
+                  value={props.businessData.businesshours}
+                  onChange={props.handleBusinessChnage}
+                >
+                  <option value={"Every Day"}>Every Day</option>
+                  <option value={"Weekdays"}>Weekdays</option>
+                  <option value={"Weekend"}>Weekend</option>
+                  <option value={"Monday"}>Monday</option>
+                  <option value={"Tuesday"}>Tuesday</option>
+                  <option value={"Wednesday"}>Wednesday</option>
+                  <option value={"Thrusday"}>Thrusday</option>
+                  <option value={"Friday"}>Friday</option>
+                  <option value={"Saturday"}>Saturday</option>
+                  <option value={"Sunday"}>Sunday</option>
+                </select>
+              </div>
+              <div className="field-group flexOne me-2">
+                <label>Select hours (From)</label>
+                <input
+                  type="time"
+                  className="form-control"
+                  placeholder="Enter Name"
+                  name="businessTime"
+                  value={props.businessData.businessTime}
+                  onChange={props.handleBusinessChnage}
+                />
+              </div>
+              <div className="field-group flexOne me-2">
+                <label>Select hours (To)</label>
+                <input
+                  type="time"
+                  className="form-control"
+                  placeholder="Enter Contact Name"
+                  name="businesTimeHours"
+                  value={props.businessData.businesTimeHours}
+                  onChange={props.handleBusinessChnage}
+                />
+              </div>
+              <div
+                className="field-group flexOneFour"
+                onClick={props.handleBusinessHoursDel}
+              >
+                <DeleteIcon />
+              </div>
+            </>
+          )}
+
           <div className="field-group flexFull">
-            <button type="button" className="btn btn-icon active-text">
+            <button
+              type="button"
+              className="btn btn-icon active-text"
+              onClick={props.handleBusinessHoursAdd}
+            >
               <AddIcon /> Add Time Slot{" "}
             </button>
           </div>
