@@ -80,11 +80,11 @@ const Import = () => {
     let formData = true;
     switch (true) {
       case !addContact.firstName:
-        setErrors({ firstName: "First Name field is required!" });
+        setErrors({ firstName: "First Name is required!" });
         formData = false;
         break;
       case !addContact.lastName:
-        setErrors({ lastName: "Last Name field is required!" });
+        setErrors({ lastName: "Last Name is required!" });
         formData = false;
         break;
       case !addContact.phone && !addContact.email:
@@ -133,7 +133,7 @@ const Import = () => {
     let formData = true;
     switch (true) {
       case !filterName:
-        setErrors({ filterName: "Filter Name field is required!" });
+        setErrors({ filterName: "Filter Name is required!" });
         formData = false;
         break;
       default:
@@ -174,7 +174,7 @@ const Import = () => {
       //   formData = false;
       //   break;
       case !inputValue:
-        setErrors({ error: " Field is required!" });
+        setErrors({ error: "Field is required!" });
 
         formData = false;
         break;
