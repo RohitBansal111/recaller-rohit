@@ -106,7 +106,7 @@ const TextPage = () => {
     setLoading(false);
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
-    setSelectedImage(false);
+    setSelectedImage(null);
     setScheduledData({});
   };
   const handleCloseMessageModal = () => {
@@ -116,6 +116,7 @@ const TextPage = () => {
     setSendNewMessage("");
     setErrors({});
     setLoading(false);
+    setSelectedImage(null);
     setScheduledData({});
     setDateSelected(() => {
       const today = new Date();
@@ -127,7 +128,6 @@ const TextPage = () => {
       };
     });
     setOnShowChatBotEmojiOpen(false);
-    setSelectedImage(false);
   };
 
   const handleScheduleModal = () => {
@@ -166,7 +166,7 @@ const TextPage = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
     setTemplateName("");
-    setOnShowChatBotEmojiOpen(false)
+    setOnShowChatBotEmojiOpen(false);
     setTemplateMessage("");
     setErrors({});
   };
@@ -409,19 +409,26 @@ const TextPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
-    const res = await sendSingleMessageApi(obj);
+    var today = new Date().getHours();
 
-    if (res && res.data && res.data.status === 200) {
-      setSendMessage("");
-      scrollToBottom();
-      setDateSelected({});
-      setSchedule(false);
+    if (today >= 8 && today <= 11) {
+      const res = await sendSingleMessageApi(obj);
+
+      if (res && res.data && res.data.status === 200) {
+        setSendMessage("");
+        scrollToBottom();
+        setDateSelected({});
+        setSchedule(false);
+        setLoading(false);
+        setCancelRescheDule(false);
+        setScheduledData({});
+        setShowScheduleModal(false);
+      }
+      getMessage();
+    } else {
+      toast.error("Please Send Text between 8am - 9pm");
       setLoading(false);
-      setCancelRescheDule(false);
-      setScheduledData({});
-      setShowScheduleModal(false);
     }
-    getMessage();
   };
 
   const getData = async () => {
@@ -461,20 +468,28 @@ const TextPage = () => {
         obj.dateSelected =
           scheduledData.date + " " + scheduledData.time + ":00";
       }
-      let res = await sendMessageApi(obj);
-      if (res && res.data && res.data.status === 200) {
-        toast.success(" Message sent Successfully");
-        setOpenMessageModal(false);
-        setSelected([]);
-        setScheduledData({});
-        setShowScheduleModal(false);
-        setDateSelected({});
-        setSchedule(false);
-        setCancelRescheDule(false);
-        setSendNewMessage("");
+      var today = new Date().getHours();
+
+      if (today >= 8 && today <= 21) {
+        let res = await sendMessageApi(obj);
+        if (res && res.data && res.data.status === 200) {
+          toast.success(" Message sent Successfully");
+          setOpenMessageModal(false);
+          setSelected([]);
+          setSelectedImage(null);
+          setScheduledData({});
+          setShowScheduleModal(false);
+          setDateSelected({});
+          setSchedule(false);
+          setCancelRescheDule(false);
+          setSendNewMessage("");
+          setLoading(false);
+        }
+        getMessage();
+      } else {
+        toast.error("Please Send Text between 8am - 9pm");
         setLoading(false);
       }
-      getMessage();
     }
   };
 
@@ -934,7 +949,7 @@ const TextPage = () => {
   const CancelEmoji = () => {
     setOnShowChatBotEmojiOpen(false);
     setOnShowEmoji(false);
-  }
+  };
 
   return (
     <div className="content-page-layout text-page-content">
