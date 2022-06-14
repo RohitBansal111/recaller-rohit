@@ -2,8 +2,14 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 import SMSMessageGraph from "../../../components/settings/sms-message-graph";
 import { MdChevronRight } from "react-icons/md";
+import { useState } from "react";
 
 const Usage = () => {
+  const [messageData, setMessageData] = useState({
+    sentMessageCount: 45,
+    recieveMessageCount: 50,
+  });
+
   return (
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
@@ -30,7 +36,7 @@ const Usage = () => {
           <div className="card-body">
             <div className="content-body">
               <div className="sms-progressbar">
-                <LinearProgress variant="determinate" value={50} />
+                <LinearProgress variant="determinate" value={10} />
               </div>
             </div>
           </div>
@@ -41,7 +47,7 @@ const Usage = () => {
           </div>
           <div className="card-body">
             <div className="content-body">
-              <SMSMessageGraph />
+              <SMSMessageGraph messageData={messageData} />
             </div>
           </div>
         </div>
