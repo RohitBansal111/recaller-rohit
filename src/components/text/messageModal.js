@@ -99,14 +99,14 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
               <div className="imgshowpopup">
-                {props.selectedImage && (
+                {props.selectedNewImageData != null && (
                   <ul className="attachedImageGallery">
                     <li>
-                      <img alt=" " src={props.selectedImage} />
+                      <img alt=" " src={props.selectedNewImageData} />
                       <button
                         type="button"
                         className="btn btn-cross"
-                        onClick={props.handleImageCancel}
+                        onClick={props.handleNewImageCancel}
                       >
                         <CancelIcon />
                       </button>
@@ -174,9 +174,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       className="btn-action1"
                       onClick={props.handleEmojiOpen}
                     >
-                      {props.onShowEmojiOpen == false && (
-                        <EmojiEmotionsIcon />
-                      )}
+                      {props.onShowEmojiOpen == false && <EmojiEmotionsIcon />}
                     </button>
                     {props.onShowEmojiOpen && (
                       <Picker onEmojiClick={props.onEmojiClick} />

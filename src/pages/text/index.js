@@ -96,6 +96,9 @@ const TextPage = () => {
   const [reScheduleData, setReScheduleData] = useState({});
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const [reScheduleItem, setReScheduleItem] = useState({});
+  const [selectedImageData, setSelectedImageData] = useState(null);
+  const [selectedNewImageData, setSelectedNewImageData] = useState(null);
+
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -825,21 +828,25 @@ const TextPage = () => {
   };
 
   const handleNewImageOpen = () => {
-    setSelectedNewImage(true);
+    if (selectedImageData == null) {
+      setSelectedNewImage(true);
+    }
   };
 
   const handleImageCancel = () => {
-    setSelectedImage(false);
+    // setSelectedImage(false);
+    setSelectedImageData(null);
   };
 
   const handleNewImageCancel = () => {
     setSelectedNewImage(false);
+    setSelectedNewImageData(null);
   };
 
   const handleNewImageChange = async (event) => {
     console.log(event.target.files[0]);
     let img = event.target.files[0];
-    setSelectedNewImage(URL.createObjectURL(img));
+    setSelectedNewImageData(URL.createObjectURL(img));
 
     const formData = new FormData();
     formData.append("ckImage", event.target.files[0]);
@@ -856,7 +863,7 @@ const TextPage = () => {
     console.log(event.target.files[0]);
     if (event.target.files[0]) {
       let img = event.target.files[0];
-      setSelectedImage(URL.createObjectURL(img));
+      setSelectedImageData(URL.createObjectURL(img));
 
       const formData = new FormData();
       formData.append("ckImage", event.target.files[0]);
@@ -1075,6 +1082,7 @@ const TextPage = () => {
           openMessageModal={openMessageModal}
           handleDeleteRechaduletitle={handleDeleteRechaduletitle}
           CancelEmoji={CancelEmoji}
+          selectedImageData={selectedImageData}
         />
       </div>
       <MessageModal
@@ -1137,12 +1145,13 @@ const TextPage = () => {
         selecteduser={selecteduser}
         handleImageOpen={handleNewImageOpen}
         selectedImage={selectedNewImage}
-        handleImageCancel={handleNewImageCancel}
+        handleNewImageCancel={handleNewImageCancel}
         handleImageChange={handleNewImageChange}
         handleScheduleSubmit={handleScheduleSubmit}
         scheduledData={scheduledData}
         handleReSchaduleData={handleReSchaduleData}
         CancelEmoji={CancelEmoji}
+        selectedNewImageData={selectedNewImageData}
       />
     </div>
   );
