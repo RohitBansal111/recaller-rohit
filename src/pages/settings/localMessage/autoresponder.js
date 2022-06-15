@@ -133,7 +133,7 @@ const Autoresponder = () => {
     } else {
       const res = await sendAutoResRequest(obj);
       if (res && res.data && res.data.status === 200) {
-        toast.success(res.data.message);
+        toast.success("Autoresponder Save Successfully ");
         setBusinessHourModal(false);
         getAutoResData();
       }
@@ -194,7 +194,7 @@ const Autoresponder = () => {
     };
     const res = await sendAutoResRequest(obj);
     if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
+      toast.success("Autoresponder Save Successfully ");
       getAutoResData();
     }
   };

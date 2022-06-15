@@ -1,8 +1,9 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdChevronRight } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -35,16 +36,22 @@ const SettingCards = [
   {
     title: "Notification",
     description: "Enable Desktop Notifications  Yes / No",
-    path: "/settings/text/",
+    path: "",
     extraField: <Switch {...label} />,
   },
 ];
+
 const LocalMessages = () => {
   const [checked, setChecked] = useState(false);
 
-  function handleSwitchChange(event) {
+  const handleSwitchChange = (event) => {
     setChecked(event.target.checked);
-  }
+    if (event.target.checked == true) {
+      toast.success("Desktop Notification Enable Successfully");
+    } else {
+      toast.success("Desktop Notification Disable Successfully");
+    }
+  };
 
   return (
     <div className="content-page-layout">
@@ -64,27 +71,33 @@ const LocalMessages = () => {
             {SettingCards.map((item, index) => {
               return (
                 <li key={index}>
-                  <Link to={item.path}>
-                    <div className="button-box-text">
-                      <h3>{item.title}</h3>
-                      <p> {item.description} </p>
+                  <div className="notification-div">
+                    <Link to={item.path}>
+                      <div className="button-box-text">
+                        <h3>{item.title}</h3>
+                        <p> {item.description} </p>
+                      </div>
+                      <div className="rightChevronIcon">
+                        {!item.extraField && (
+                          <span className="button-box-arrow">
+                            <ChevronRightIcon />
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                    <div>
+                      {item.extraField && (
+                        <span className="switch-button">
+                          <Switch
+                            checked={checked}
+                            onChange={handleSwitchChange}
+                            defaultChecked
+                            {...label}
+                          />
+                        </span>
+                      )}
                     </div>
-                    {!item.extraField && (
-                      <span className="button-box-arrow">
-                        <ChevronRightIcon />
-                      </span>
-                    )}
-                    {item.extraField && (
-                      <span className="switch-button">
-                        <Switch
-                          checked={checked}
-                          onChange={handleSwitchChange}
-                          {...label}
-                          defaultChecked
-                        />
-                      </span>
-                    )}
-                  </Link>
+                  </div>
                 </li>
               );
             })}
