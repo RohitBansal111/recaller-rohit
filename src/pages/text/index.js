@@ -834,7 +834,7 @@ const TextPage = () => {
   };
 
   const handleImageCancel = () => {
-    // setSelectedImage(false);
+    setSelectedImage(false);
     setSelectedImageData(null);
   };
 
