@@ -225,7 +225,6 @@ const ChatBoot = (props) => {
                                     <img
                                       alt=""
                                       src={props.selectedImageData}
-                                      ref={props.singleimgref}
                                     />
                                     <button
                                       type="button"
@@ -336,6 +335,7 @@ const ChatBoot = (props) => {
                                 <input
                                   type="file"
                                   name="myImage"
+                                  ref={props.singleimgref}
                                   onChange={props.handleImageChange}
                                 />
                               </button>

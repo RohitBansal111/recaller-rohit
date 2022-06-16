@@ -105,7 +105,6 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       <img
                         alt=" "
                         src={props.selectedNewImageData}
-                        ref={props.imgref}
                       />
                       <button
                         type="button"
@@ -206,6 +205,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <input
                       type="file"
                       name="myImage"
+                      ref={props.imgref}
                       onChange={props.handleImageChange}
                     />
                   </button>
