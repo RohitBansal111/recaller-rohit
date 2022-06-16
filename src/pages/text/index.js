@@ -841,10 +841,10 @@ const TextPage = () => {
   const imgref = useRef();
 
   const handleImageCancel = () => {
-    console.log(singleimgref.current, "singleimgref.current");
+    console.log(singleimgref.current.src, "singleimgref.current");
     singleimgref.current.src = null;
-    setSelectedImage(false);
-    setSelectedImageData(null);
+    // setSelectedImage(false);
+    // setSelectedImageData(null);
   };
 
   const handleNewImageCancel = () => {

@@ -42,12 +42,25 @@ const SMSMessageGraph = (props) => {
       {
         name: "Sent",
         type: "column",
-        data: [40, 60, 59, 93, 290, 400],
+        data: [
+          props.messageData && props.messageData.January,
+          props.messageData && props.messageData.February,
+          props.messageData && props.messageData.March,
+          props.messageData && props.messageData.April,
+          props.messageData && props.messageData.may,
+          props.messageData && props.messageData.June,
+          props.messageData && props.messageData.july,
+          props.messageData && props.messageData.August,
+          props.messageData && props.messageData.September,
+          props.messageData && props.messageData.October,
+          props.messageData && props.messageData.November,
+          props.messageData && props.messageData.December,
+        ],
       },
       {
         name: "Received",
         type: "column",
-        data: [40, 65, 120, 260],
+        data: [],
       },
     ],
   };
