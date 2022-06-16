@@ -32,6 +32,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             <input
               className="inputFile"
               type="file"
+              ref={props.voiceref}
               accept="audio/*"
               name="file"
               onChange={props.onVoiceUploadChange}

@@ -12,7 +12,17 @@ const ScheduledMessages = () => {
   const getScheduleMessage = async () => {
     const res = await getScheduleMessageApi();
     console.log(res.data.data, "lllllll");
-    setData(res.data.data);
+    if (res && res.data && res.data.data.length > 0) {
+      let filterData = [];
+      filterData = res.data.data.filter((val) => {
+        if (val.sheduled == true && new Date(val.sheduleDate) >= new Date()) {
+          return val;
+        }
+      });
+      setData(filterData);
+    } else {
+      setData([]);
+    }
   };
 
   return (

@@ -42,26 +42,12 @@ const SMSMessageGraph = (props) => {
       {
         name: "Sent",
         type: "column",
-        data: [
-          props.messageData && props.messageData.sentMessageCount,
-          40,
-          60,
-          59,
-          93,
-          290,
-          400,
-        ],
+        data: [40, 60, 59, 93, 290, 400],
       },
       {
         name: "Received",
         type: "column",
-        data: [
-          props.messageData && props.messageData.recieveMessageCount,
-          40,
-          65,
-          120,
-          260,
-        ],
+        data: [40, 65, 120, 260],
       },
     ],
   };

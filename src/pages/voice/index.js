@@ -509,7 +509,6 @@ const Voice = () => {
     setErrors({});
     setLoading(false);
   };
-
   const handleCloseUploadModal = () => {
     setUploadOpen(false);
     setFileName(null);
@@ -519,15 +518,15 @@ const Voice = () => {
   };
 
   const onVoiceUploadChange = (e) => {
-    if (e.target.files[0]) {
-      if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
-        setFileName(e.target.files[0]);
-      } else {
-        toast.error("Sorry, thats not a valid Audio file");
-        setFileName(null);
-        setLoading(false);
-      }
-    }
+    // if (e.target.files[0]) {
+    //   if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
+    setFileName(e.target.files[0]);
+    //   } else {
+    //     toast.error("Sorry, thats not a valid Audio file");
+    //     setFileName(null);
+    //     setLoading(false);
+    //   }
+    // }
   };
 
   const onVoiveUpload = async () => {
@@ -536,7 +535,6 @@ const Voice = () => {
       let contactid = selected.map((item) => item.value);
       formData.append("voice", fileName);
       formData.append("contactid", JSON.stringify(contactid));
-      // setIsShowLoading(true);
       setLoading(true);
       let res = await uploadVoiceMessageApi(formData);
       if (res && res.data && res.data.status === 200) {
@@ -577,7 +575,12 @@ const Voice = () => {
     getVoiceMessage();
   };
 
+  const voiceref = useRef();
+  const singleVref = useRef();
+
   const clearUploadData = () => {
+    console.log(singleVref.current.value, "oiceref.current.value");
+    singleVref.current.value = null;
     setAudioFileName(null);
   };
 
@@ -586,9 +589,8 @@ const Voice = () => {
   };
 
   const clearUploading = () => {
+    voiceref.current.value = null;
     setFileName(null);
-    setLoading(false);
-    setPlaying(false);
   };
 
   const handlePlay = () => {
@@ -684,6 +686,7 @@ const Voice = () => {
           clearUploadData={clearUploadData}
           handleLoadMetadata={handleLoadMetadata}
           isNewVoiceActive={isNewVoiceActive}
+          singleVref={singleVref}
         />
       </div>
       <VoiceModal
@@ -717,6 +720,7 @@ const Voice = () => {
         loading={loading}
         fileName={fileName}
         clearUploading={clearUploading}
+        voiceref={voiceref}
       />
     </div>
   );

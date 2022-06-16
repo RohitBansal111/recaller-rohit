@@ -435,14 +435,20 @@ const EmailPage = () => {
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
-      let data = res.data.data.map(function (item) {
-        return {
-          value: item.contactid,
-          label: item.firstName + " " + item.lastName,
-          phone: item.phone,
-          id: item._id,
-        };
-      });
+      let data = res.data.data
+        .filter((val) => {
+          if (val.email) {
+            return val;
+          }
+        })
+        .map(function (item) {
+          return {
+            value: item.contactid,
+            label: item.firstName + " " + item.lastName,
+            phone: item.phone,
+            id: item._id,
+          };
+        });
       setRowsData(data);
       setContactData(res.data.data);
     }
@@ -798,12 +804,10 @@ const EmailPage = () => {
 
     setEmailMessage(text);
     // setEmailMessage(emailMessage + emojiObject.emoji);
-    setOnShowEmoji(false);
   };
 
   const onChatBotEmojiClick = (event, emojiObject) => {
     setSendEmailMessage((prevInput) => prevInput + emojiObject.emoji);
-    setOnShowChatBotEmojiOpen(false);
   };
 
   const savelistToMessageClick = (e) => {

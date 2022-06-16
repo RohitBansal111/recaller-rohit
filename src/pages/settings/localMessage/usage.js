@@ -2,13 +2,20 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 import SMSMessageGraph from "../../../components/settings/sms-message-graph";
 import { MdChevronRight } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUsageApi } from "../../../api/setting-Api/usage";
 
 const Usage = () => {
-  const [messageData, setMessageData] = useState({
-    sentMessageCount: 45,
-    recieveMessageCount: 50,
+  const [messageData, setMessageData] = useState([]);
+  useEffect(() => {
+    getUsage();
   });
+  const getUsage = async () => {
+    const res = await getUsageApi();
+    if (res && res.data && res.data.data) {
+      setMessageData(res.data.data);
+    }
+  };
 
   return (
     <div className="content-page-layout">

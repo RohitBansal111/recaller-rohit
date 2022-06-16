@@ -222,7 +222,11 @@ const ChatBoot = (props) => {
                               {props.selectedImageData != null && (
                                 <ul className="attachedImageGallery">
                                   <li>
-                                    <img alt="" src={props.selectedImageData} />
+                                    <img
+                                      alt=""
+                                      src={props.selectedImageData}
+                                      ref={props.singleimgref}
+                                    />
                                     <button
                                       type="button"
                                       className="btn btn-cross"

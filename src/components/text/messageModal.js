@@ -102,7 +102,11 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                 {props.selectedNewImageData != null && (
                   <ul className="attachedImageGallery">
                     <li>
-                      <img alt=" " src={props.selectedNewImageData} />
+                      <img
+                        alt=" "
+                        src={props.selectedNewImageData}
+                        ref={props.imgref}
+                      />
                       <button
                         type="button"
                         className="btn btn-cross"
