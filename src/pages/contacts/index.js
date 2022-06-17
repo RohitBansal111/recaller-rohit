@@ -77,6 +77,7 @@ const Import = () => {
   const isValid = () => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneRegex = /^\d{10}$/;
     let formData = true;
     switch (true) {
       case !addContact.firstName:
@@ -93,6 +94,12 @@ const Import = () => {
         break;
       case !addContact.email && !addContact.phone:
         setErrors({ email: "Please Fill one field either phone or email!" });
+        formData = false;
+        break;
+      case addContact.phone &&
+        addContact.phone != "" &&
+        !phoneRegex.test(addContact.phone):
+        setErrors({ phone: "Phone Number Must have 10 digits" });
         formData = false;
         break;
       // case !addContact.country:
@@ -388,7 +395,7 @@ const Import = () => {
         name: filterName,
         resultCount: rowsData ? rowsData.length : 0,
       };
-      
+
       const res = await addContactFilter(obj);
       if (res && res.data && res.data.status === 200) {
         setShowAddFilterModal(false);
