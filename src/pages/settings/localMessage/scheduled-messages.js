@@ -11,7 +11,6 @@ const ScheduledMessages = () => {
   const [data, setData] = useState([]);
   const getScheduleMessage = async () => {
     const res = await getScheduleMessageApi();
-    console.log(res.data.data, "lllllll");
     if (res && res.data && res.data.data.length > 0) {
       let filterData = [];
       filterData = res.data.data.filter((val) => {

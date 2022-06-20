@@ -103,7 +103,6 @@ const EmailChatBoot = (props) => {
             })
               .then((res) => res.json())
               .then((res) => {
-                console.log("upload ck response :::", res);
                 resolve({
                   default: res.url,
                 });

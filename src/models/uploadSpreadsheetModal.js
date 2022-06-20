@@ -58,7 +58,6 @@ const UploadSpreadsheetModal = (props) => {
   useEffect(() => {
     if (loadingCsvdata) {
       setLoadingCsvData(false);
-      console.log("loaded data ::::", csvData);
       if (csvData) {
         const validKeyNames = ["firstName", "lastName", "phone", "email"];
         let keysData = Object.keys(csvData[0]).every((e) =>

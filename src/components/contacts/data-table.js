@@ -379,8 +379,6 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable(props) {
   const { rowsData } = props;
-  console.log(rowsData, "rowsData");
-  console.log(props.value, " props.filterByCompaigns");
 
   const loadContacts = () => {
     let filtered = "";

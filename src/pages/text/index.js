@@ -802,7 +802,6 @@ const TextPage = () => {
   };
 
   const handleDateChange = (e) => {
-    console.log();
     setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
   };
 
@@ -853,7 +852,6 @@ const TextPage = () => {
   };
 
   const handleNewImageChange = async (event) => {
-    console.log(event.target.files[0]);
     let img = event.target.files[0];
     if (img != null) {
       setSelectedNewImageData(URL.createObjectURL(img));
@@ -871,7 +869,6 @@ const TextPage = () => {
   };
 
   const handleImageChange = async (event) => {
-    console.log(event.target.files[0]);
     if (event.target.files[0] !== null) {
       let img = event.target.files[0];
       setSelectedImageData(URL.createObjectURL(img));
@@ -927,7 +924,6 @@ const TextPage = () => {
       toast.error("The date/time must be in the future");
     } else {
       const res = await reScheduleMessageApi(data);
-      console.log(res, "res");
       if (res && res.data && res.data.status === 200) {
         toast.success(res.data.message);
         getMessage();

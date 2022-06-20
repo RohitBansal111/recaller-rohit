@@ -345,7 +345,6 @@ const Import = () => {
   };
 
   const handleSelect = (e) => {
-    console.log(e);
     setValue(e);
     getContactFilter();
   };

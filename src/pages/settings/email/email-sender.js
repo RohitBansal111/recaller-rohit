@@ -19,7 +19,6 @@ const EmailSender = () => {
   const handleShow = () => setShow(true);
 
   const handleSubmit = () => {
-    console.log(addEmailSender, "addEmailSender");
   };
 
   const handleChangeEmailSender = (e) => {

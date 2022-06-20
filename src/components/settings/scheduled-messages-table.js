@@ -4,7 +4,6 @@ import EditTagModal from "./EditTagModal";
 import { useState } from "react";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
-console.log(userData, "userData");
 const columns = [
   {
     name: "Date",
