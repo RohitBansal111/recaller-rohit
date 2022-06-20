@@ -222,10 +222,7 @@ const ChatBoot = (props) => {
                               {props.selectedImageData != null && (
                                 <ul className="attachedImageGallery">
                                   <li>
-                                    <img
-                                      alt=""
-                                      src={props.selectedImageData}
-                                    />
+                                    <img alt="" src={props.selectedImageData} />
                                     <button
                                       type="button"
                                       className="btn btn-cross"
@@ -481,7 +478,11 @@ const ChatBoot = (props) => {
               </li>
               <li>
                 <h5>Email</h5>
-                <p>{props.selecteduser && props.selecteduser.contact.email}</p>
+                <p>
+                  {props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.email}
+                </p>
               </li>
               {!props.selecteduser ? (
                 ""
@@ -491,7 +492,9 @@ const ChatBoot = (props) => {
                     type="button"
                     onClick={() =>
                       props.handleContactEditModal(
-                        props.selecteduser && props.selecteduser.contact._id
+                        props.selecteduser &&
+                          props.selecteduser.contact &&
+                          props.selecteduser.contact._id
                       )
                     }
                     className="btn-links"

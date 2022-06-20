@@ -363,7 +363,7 @@ const EnhancedTableToolbar = (props) => {
             className="form-control"
             placeholder="Search by Name, Email or Phone"
             name="name"
-            value={props.value.name}
+            value={props.value}
             onChange={props.handleSearchChange}
           />
           {props.value && <SearchIcon />}
@@ -379,46 +379,45 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable(props) {
   const { rowsData } = props;
+  console.log(rowsData, "rowsData");
+  console.log(props.value, " props.filterByCompaigns");
 
   const loadContacts = () => {
-    let filtered = [];
+    let filtered = "";
     filtered =
-      props.filterByCompaigns.length > 0
-        ? props.filterByCompaigns.filter(
-            (contact) =>
-              contact.firstName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.firstName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.lastName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.phone.startsWith(props.value)
-            // contact.country.startsWith(props.value) ||
-            // contact.state.startsWith(props.value) ||
-            // contact.city.startsWith(props.value) ||
-            // contact.zipcode.startsWith(props.value) ||
-            // contact.address.startsWith(props.value) ||
-            // contact.email.toLowerCase().startsWith(props.value.toLowerCase())
-          )
-        : rowsData.filter(
-            (contact) =>
-              contact.firstName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.lastName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.phone.startsWith(props.value)
-            // contact.country.startsWith(props.value) ||
-            // contact.state.startsWith(props.value) ||
-            // contact.city.startsWith(props.value) ||
-            // contact.zipcode.startsWith(props.value) ||
-            // contact.address.startsWith(props.value) ||
-            // contact.email.toLowerCase().startsWith(props.value.toLowerCase())
-          );
+      // props.filterByCompaigns.length > 0
+      //   ? props.filterByCompaigns.filter(
+      //       (contact) =>
+      //         contact.firstName
+      //           .toLowerCase()
+      //           .startsWith(props.value.toLowerCase()) ||
+      //         contact.firstName
+      //           .toLowerCase()
+      //           .startsWith(props.value.toLowerCase()) ||
+      //         contact.lastName.toLowerCase().startsWith(props.value) ||
+      //         contact.phone.startsWith(props.value) ||
+      //         // contact.country.startsWith(props.value) ||
+      //         // contact.state.startsWith(props.value) ||
+      //         // contact.city.startsWith(props.value) ||
+      //         // contact.zipcode.startsWith(props.value) ||
+      //         // contact.address.startsWith(props.value) ||
+      //         contact.email.toLowerCase().startsWith(props.value)
+      //     )
+      //   :
+      rowsData &&
+      rowsData.filter(
+        (contact) =>
+          contact.firstName
+            .toLowerCase()
+            .startsWith(props.value.toLowerCase()) ||
+          contact.lastName
+            .toLowerCase()
+            .startsWith(props.value.toLowerCase()) ||
+          (contact && contact.phone && contact.phone.startsWith(props.value)) ||
+          (contact &&
+            contact.email &&
+            contact.email.toLowerCase().startsWith(props.value.toLowerCase()))
+      );
 
     const contactData =
       filtered &&
