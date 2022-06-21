@@ -147,6 +147,15 @@ const EmailPage = () => {
     setEmailMessage("");
     setSelected([]);
     setLoading(false);
+    setDateSelected(() => {
+      const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + curtt,
+      };
+    });
     setEmailSubject("");
     setOnShowChatBotEmojiOpen(false);
   };
@@ -836,9 +845,9 @@ const EmailPage = () => {
   }, []);
 
   const handleScheduleSubmit = () => {
-    var dddd = new Date();
+    var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
-    if (dateSelected.time === ssss && dateSelected.date === dddd) {
+    if (dateSelected.time <= ssss && dateSelected.date  <= dddd) {
       toast.error("The date/time must be in the future");
     } else {
       setShowScheduleModal(false);
@@ -872,7 +881,7 @@ const EmailPage = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
 
-    if (reScheduleData.time == ssss && reScheduleData.date == dddd) {
+    if (reScheduleData.time <= ssss && reScheduleData.date <= dddd) {
       toast.error("The date/time must be in the future");
     } else {
       const res = await reScheduleEmailApi(data);
