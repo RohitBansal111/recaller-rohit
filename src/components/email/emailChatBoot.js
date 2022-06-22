@@ -34,6 +34,7 @@ import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CloseIcon from "@mui/icons-material/Close";
+import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -715,6 +716,14 @@ const EmailChatBoot = (props) => {
           handleTempMessageChange={props.handleTempMessageChange}
           handleTemplateSubmit={props.handleTemplateSubmit}
           errors={props.errors}
+        />
+        <ReScheduleTitleModal
+          showReScheduleTitleModal={props.showReScheduleTitleModal}
+          handleCloseReSchedulTitle={props.handleCloseReSchedulTitle}
+          reScheduleTitle={props.reScheduleTitle}
+          handleReSchaduleTChange={props.handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={props.handleDeleteRechaduletitleM}
+          handleReTitleSubmit={props.handleReTitleSubmit}
         />
       </div>
     </div>

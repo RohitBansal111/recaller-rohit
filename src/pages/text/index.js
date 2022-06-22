@@ -98,7 +98,9 @@ const TextPage = () => {
   const [reScheduleItem, setReScheduleItem] = useState({});
   const [selectedImageData, setSelectedImageData] = useState(null);
   const [selectedNewImageData, setSelectedNewImageData] = useState(null);
-
+  const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
+    useState(false);
+  const [reScheduleTitle, setReScheduleTitle] = useState({});
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -888,7 +890,7 @@ const TextPage = () => {
   const handleScheduleSubmit = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
-    if (dateSelected.time <= ssss && dateSelected.date  <= dddd) {
+    if (dateSelected.time <= ssss && dateSelected.date <= dddd) {
       toast.error("The date/time must be in the future");
     } else {
       setShowScheduleModal(false);
@@ -952,10 +954,8 @@ const TextPage = () => {
   };
 
   const handleReSchaduleData = (item) => {
-    if (item.date !== {}) {
-      setShowReScheduleModal(true);
-      setReScheduleData({ date: item.date, time: item.time });
-    }
+    setShowReScheduleTitleModal(true);
+    setReScheduleTitle(item);
   };
 
   const handleDeleteRechaduletitle = async () => {
@@ -966,6 +966,27 @@ const TextPage = () => {
   const CancelEmoji = () => {
     setOnShowChatBotEmojiOpen(false);
     setOnShowEmoji(false);
+  };
+
+  const handleCloseReSchedulTitle = () => {
+    setShowReScheduleTitleModal(false);
+  };
+
+  const handleReSchaduleTChange = (e) => {
+    setReScheduleTitle({ ...reScheduleTitle, [e.target.name]: e.target.value });
+  };
+
+  const handleDeleteRechaduletitleM = () => {
+    setScheduledData({})
+    setShowReScheduleTitleModal(false);
+  };
+
+  const handleReTitleSubmit = () => {
+    setScheduledData({
+      date: reScheduleTitle.date,
+      time: reScheduleTitle.time,
+    });
+    setShowReScheduleTitleModal(false);
   };
 
   return (
@@ -1089,6 +1110,12 @@ const TextPage = () => {
           CancelEmoji={CancelEmoji}
           selectedImageData={selectedImageData}
           singleimgref={singleimgref}
+          showReScheduleTitleModal={showReScheduleTitleModal}
+          handleCloseReSchedulTitle={handleCloseReSchedulTitle}
+          reScheduleTitle={reScheduleTitle}
+          handleReSchaduleTChange={handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
+          handleReTitleSubmit={handleReTitleSubmit}
         />
       </div>
       <MessageModal

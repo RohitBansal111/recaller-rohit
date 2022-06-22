@@ -29,6 +29,7 @@ import PlaceholderImage from "./../../assets/images/placeholder.jpg";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
+import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 const ChatBoot = (props) => {
   const userMessageList = () => {
     let filtered = [];
@@ -680,6 +681,14 @@ const ChatBoot = (props) => {
           cancelRescheDule={props.cancelRescheDule}
           handleNoReSchedultModal={props.handleNoReSchedultModal}
           handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+        />
+        <ReScheduleTitleModal
+          showReScheduleTitleModal={props.showReScheduleTitleModal}
+          handleCloseReSchedulTitle={props.handleCloseReSchedulTitle}
+          reScheduleTitle={props.reScheduleTitle}
+          handleReSchaduleTChange={props.handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={props.handleDeleteRechaduletitleM}
+          handleReTitleSubmit={props.handleReTitleSubmit}
         />
       </div>
     </div>
