@@ -626,6 +626,7 @@
         &.client {
           border-color: #dedede;
           background-color: $Theme-white;
+          text-align: left;
           & + span {
             text-align: left;
             padding-left: 4px;
