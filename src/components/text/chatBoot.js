@@ -478,7 +478,13 @@ const ChatBoot = (props) => {
                 </p>
               </li>
               <li>
-                <h5>Email</h5>
+                <h5>
+                  {props.selecteduser &&
+                  props.selecteduser.contact &&
+                  props.selecteduser.contact.email
+                    ? "Email"
+                    : ""}
+                </h5>
                 <p>
                   {props.selecteduser &&
                     props.selecteduser.contact &&

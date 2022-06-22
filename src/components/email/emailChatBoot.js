@@ -509,14 +509,27 @@ const EmailChatBoot = (props) => {
               )} */}
             </div>
             <ul className="personal-info">
-              <li>
-                <h5>Phone Number</h5>
-                <p>
-                  {props.selecteduser &&
+              {props.selecteduser &&
+              props.selecteduser.contact &&
+              props.selecteduser.contact.phone ? (
+                <li>
+                  <h5>
+                    {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phone}
-                </p>
-              </li>
+                    props.selecteduser.contact.phone
+                      ? " Phone Number"
+                      : ""}
+                  </h5>
+                  <p>
+                    {props.selecteduser &&
+                      props.selecteduser.contact &&
+                      props.selecteduser.contact.phone}
+                  </p>
+                </li>
+              ) : (
+                ""
+              )}
+
               <li>
                 <h5>Subscription</h5>
                 <p>

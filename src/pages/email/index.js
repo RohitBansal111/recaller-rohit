@@ -141,6 +141,8 @@ const EmailPage = () => {
     setEmailMessage("");
     setLoading(false);
     setEmailSubject("");
+    setOnShowEmoji(false);
+    setSendEmailMessage("")
     setOnShowChatBotEmojiOpen(false);
   };
 
@@ -160,6 +162,8 @@ const EmailPage = () => {
       };
     });
     setEmailSubject("");
+    setSelectedImage(null);
+    setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
   };
 
@@ -197,6 +201,8 @@ const EmailPage = () => {
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
     setDateSelected(() => {
       const today = new Date();
       const curtt =
@@ -832,6 +838,8 @@ const EmailPage = () => {
 
   const handleImageOpen = () => {
     setSelectedImage(true);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleImageCancel = () => {
@@ -933,7 +941,7 @@ const EmailPage = () => {
     setReScheduleTitle({ ...reScheduleTitle, [e.target.name]: e.target.value });
   };
   const handleDeleteRechaduletitleM = () => {
-    setScheduledData({})
+    setScheduledData({});
     setSchedule(false);
     setShowReScheduleTitleModal(false);
   };

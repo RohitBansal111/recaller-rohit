@@ -154,6 +154,7 @@ const TextPage = () => {
 
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
+    setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setCancelRescheDule(false);
     setDateSelected(() => {
@@ -171,6 +172,7 @@ const TextPage = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
     setTemplateName("");
+    setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setTemplateMessage("");
     setErrors({});
@@ -830,6 +832,8 @@ const TextPage = () => {
 
   const handleImageOpen = () => {
     setSelectedImage(true);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleNewImageOpen = () => {
@@ -977,7 +981,7 @@ const TextPage = () => {
   };
 
   const handleDeleteRechaduletitleM = () => {
-    setScheduledData({})
+    setScheduledData({});
     setSchedule(false);
     setShowReScheduleTitleModal(false);
   };
