@@ -978,6 +978,7 @@ const TextPage = () => {
 
   const handleDeleteRechaduletitleM = () => {
     setScheduledData({})
+    setSchedule(false);
     setShowReScheduleTitleModal(false);
   };
 

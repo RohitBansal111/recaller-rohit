@@ -932,9 +932,9 @@ const EmailPage = () => {
   const handleReSchaduleTChange = (e) => {
     setReScheduleTitle({ ...reScheduleTitle, [e.target.name]: e.target.value });
   };
-
   const handleDeleteRechaduletitleM = () => {
-    setScheduledData({});
+    setScheduledData({})
+    setSchedule(false);
     setShowReScheduleTitleModal(false);
   };
 
