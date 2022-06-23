@@ -392,8 +392,8 @@
           span {
             display: block;
           }
-          &+li{
-            b{
+          & + li {
+            b {
               color: #474a4a;
             }
           }
@@ -567,8 +567,8 @@
                   }
                 }
               }
-              pre{
-                p{
+              pre {
+                p {
                   margin-top: 0px;
                 }
               }
@@ -613,12 +613,13 @@
       margin-bottom: 10px;
       font-size: 13px;
       word-break: break-word;
-      text-align: right;
+      text-align: left;
       .chat-ui-box {
         padding: 10px;
         border-radius: 6px;
         border-width: 2px;
         border-style: solid;
+        display: inline-block;
         pre {
           font-size: 13px;
           margin-bottom: 0px;
@@ -626,9 +627,14 @@
         &.client {
           border-color: #dedede;
           background-color: $Theme-white;
+          text-align: left;
           & + span {
             text-align: left;
             padding-left: 4px;
+          }
+          p {
+            margin-top: 0px;
+            display: initial;
           }
         }
         &.user {
@@ -637,15 +643,22 @@
           margin-bottom: 2px;
           display: inline-block;
           position: relative;
+          float: right;
           & + span {
             text-align: right;
             padding-right: 4px;
+            width: 100%;
+            display: inline-block;
           }
-          .scheduletext{
+          p {
+            margin-top: 0px;
+            display: initial;
+          }
+          .scheduletext {
             display: flex;
             align-items: center;
-            button{
-              border:none;
+            button {
+              border: none;
               padding: 0px;
               background-color: transparent;
               margin-left: -30px;
@@ -654,26 +667,27 @@
               left: 0px;
               top: 50%;
               transform: translateY(-50%);
-              svg{
-                fill:rgba(0,0,0,0.54);
+              svg {
+                fill: rgba(0, 0, 0, 0.54);
               }
-              &:hover{
-                svg{
-                  fill:#655beb;
+              &:hover {
+                svg {
+                  fill: #655beb;
                 }
               }
-              
             }
-            &:hover{
-             button{
+            &:hover {
+              button {
                 opacity: 1;
               }
             }
-            pre{
+            pre {
               padding-left: 20px;
+              p {
+                margin-top: 0px;
+              }
             }
           }
-          
         }
       }
       p {
@@ -772,6 +786,9 @@
     width: 99%;
     .inset-template-popup {
       transform: none !important;
+    }
+    & > li + li:nth-child(2) {
+      width: 36px;
     }
     li {
       margin-right: 0px;
@@ -897,7 +914,15 @@
       .scheduleData-text {
         font-size: 12px;
         color: #838080;
+      }
     }
+  }
+  .ck.ck-content {
+    padding: 10px;
+    p {
+      margin-bottom: 0px !important;
+      margin-top: 0px !important;
+      display: inline;
     }
   }
 }
@@ -1033,29 +1058,29 @@
   }
 }
 .voice-file {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  span {
+    font-size: 13px;
+    font-weight: 500;
     position: relative;
-    span{
-      font-size: 13px;
-      font-weight: 500;
-      position: relative;
+  }
+  .remove-recording-action {
+    border: none;
+    padding: 0px;
+    width: 20px;
+    background: #d82626;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -25px;
+    // top: -5px;
+    svg {
+      fill: #ffffff;
     }
-    .remove-recording-action{
-      border: none;
-      padding: 0px;
-      width: 20px;
-      background: #d82626;
-      height: 20px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: -25px;
-      // top: -5px;
-      svg{
-        fill:#ffffff;
-      }
-    }
+  }
 }

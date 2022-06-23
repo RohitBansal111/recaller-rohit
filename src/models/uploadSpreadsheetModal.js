@@ -58,7 +58,6 @@ const UploadSpreadsheetModal = (props) => {
   useEffect(() => {
     if (loadingCsvdata) {
       setLoadingCsvData(false);
-      console.log("loaded data ::::", csvData);
       if (csvData) {
         const validKeyNames = ["firstName", "lastName", "phone", "email"];
         let keysData = Object.keys(csvData[0]).every((e) =>
@@ -260,7 +259,7 @@ const UploadSpreadsheetModal = (props) => {
         props.setUploadModal(false)
         setCsvFile(null);
         setSelectedPhone("phone");
-        // setIsLoading(false)
+        setIsLoading(false)
         setSelectedEmail("email");
         setSelectedFirstName("firstName");
         setSelectedLastName("lastName");
@@ -272,11 +271,11 @@ const UploadSpreadsheetModal = (props) => {
       }
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
-      // setIsLoading(false)
+      setIsLoading(false)
       setStep(step - 1);
     } else {
       toast.success(res.data.message);
-      // setIsLoading(false)
+      setIsLoading(false)
     }
   };
 
@@ -289,7 +288,7 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedLastName("lastName");
     setSelectedType("skip");
     setAddCampaigns("");
-    setUnSavedContacts([])
+    setUnSavedContacts([]);
     setSelectProperty(null);
     setNoteData(null);
     props.setSelectTags(null);
@@ -304,6 +303,16 @@ const UploadSpreadsheetModal = (props) => {
   const handleCampaignChange = (e) => {
     setAddCampaigns(e.target.value);
     setErrors({});
+  };
+
+  const handleCSVDownload = () => {
+    const url = `${process.env.REACT_APP_BASE_URL}/${csvFile}`;
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = url.split("/").pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -428,6 +437,7 @@ const UploadSpreadsheetModal = (props) => {
                   closeModal={closeModal}
                   unSavedContacts={unSavedContacts}
                   isLoading={isLoading}
+                  handleCSVDownload={handleCSVDownload}
                 />
               )}
             </div>

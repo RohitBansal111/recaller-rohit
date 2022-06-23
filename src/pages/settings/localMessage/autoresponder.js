@@ -55,7 +55,6 @@ const Autoresponder = () => {
     setAddWidgetOutsideSet(true);
   };
   const addBusinessHourModal = (item) => {
-    console.log(item);
     if (item) {
       setBusinessData({
         businesshours: item.businesshours,

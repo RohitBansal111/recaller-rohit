@@ -96,6 +96,9 @@ const EmailPage = () => {
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const [schedule, setSchedule] = useState(false);
   const [reScheduleItem, setReScheduleItem] = useState({});
+  const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
+    useState(false);
+  const [reScheduleTitle, setReScheduleTitle] = useState({});
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -138,6 +141,8 @@ const EmailPage = () => {
     setEmailMessage("");
     setLoading(false);
     setEmailSubject("");
+    setOnShowEmoji(false);
+    setSendEmailMessage("")
     setOnShowChatBotEmojiOpen(false);
   };
 
@@ -147,7 +152,18 @@ const EmailPage = () => {
     setEmailMessage("");
     setSelected([]);
     setLoading(false);
+    setDateSelected(() => {
+      const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + curtt,
+      };
+    });
     setEmailSubject("");
+    setSelectedImage(null);
+    setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
   };
 
@@ -185,6 +201,8 @@ const EmailPage = () => {
 
   const handleScheduleModal = () => {
     setShowScheduleModal(true);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
     setDateSelected(() => {
       const today = new Date();
       const curtt =
@@ -435,14 +453,20 @@ const EmailPage = () => {
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
-      let data = res.data.data.map(function (item) {
-        return {
-          value: item.contactid,
-          label: item.firstName + " " + item.lastName,
-          phone: item.phone,
-          id: item._id,
-        };
-      });
+      let data = res.data.data
+        .filter((val) => {
+          if (val.email) {
+            return val;
+          }
+        })
+        .map(function (item) {
+          return {
+            value: item.contactid,
+            label: item.firstName + " " + item.lastName,
+            phone: item.phone,
+            id: item._id,
+          };
+        });
       setRowsData(data);
       setContactData(res.data.data);
     }
@@ -798,12 +822,10 @@ const EmailPage = () => {
 
     setEmailMessage(text);
     // setEmailMessage(emailMessage + emojiObject.emoji);
-    setOnShowEmoji(false);
   };
 
   const onChatBotEmojiClick = (event, emojiObject) => {
     setSendEmailMessage((prevInput) => prevInput + emojiObject.emoji);
-    setOnShowChatBotEmojiOpen(false);
   };
 
   const savelistToMessageClick = (e) => {
@@ -816,6 +838,8 @@ const EmailPage = () => {
 
   const handleImageOpen = () => {
     setSelectedImage(true);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleImageCancel = () => {
@@ -832,9 +856,9 @@ const EmailPage = () => {
   }, []);
 
   const handleScheduleSubmit = () => {
-    var dddd = new Date();
+    var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
-    if (dateSelected.time === ssss && dateSelected.date === dddd) {
+    if (dateSelected.time <= ssss && dateSelected.date <= dddd) {
       toast.error("The date/time must be in the future");
     } else {
       setShowScheduleModal(false);
@@ -868,7 +892,7 @@ const EmailPage = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
 
-    if (reScheduleData.time == ssss && reScheduleData.date == dddd) {
+    if (reScheduleData.time <= ssss && reScheduleData.date <= dddd) {
       toast.error("The date/time must be in the future");
     } else {
       const res = await reScheduleEmailApi(data);
@@ -900,15 +924,34 @@ const EmailPage = () => {
   };
 
   const handleReSchaduleData = (item) => {
-    if (item.date !== {}) {
-      setShowReScheduleModal(true);
-      setReScheduleData({ date: item.date, time: item.time });
-    }
+    setShowReScheduleTitleModal(true);
+    setReScheduleTitle(item);
   };
 
   const CancelEmoji = () => {
     setOnShowChatBotEmojiOpen(false);
     setOnShowEmoji(false);
+  };
+
+  const handleCloseReSchedulTitle = () => {
+    setShowReScheduleTitleModal(false);
+  };
+
+  const handleReSchaduleTChange = (e) => {
+    setReScheduleTitle({ ...reScheduleTitle, [e.target.name]: e.target.value });
+  };
+  const handleDeleteRechaduletitleM = () => {
+    setScheduledData({});
+    setSchedule(false);
+    setShowReScheduleTitleModal(false);
+  };
+
+  const handleReTitleSubmit = () => {
+    setScheduledData({
+      date: reScheduleTitle.date,
+      time: reScheduleTitle.time,
+    });
+    setShowReScheduleTitleModal(false);
   };
 
   return (
@@ -1030,6 +1073,12 @@ const EmailPage = () => {
           handleReSchaduleData={handleReSchaduleData}
           scheduledData={scheduledData}
           CancelEmoji={CancelEmoji}
+          showReScheduleTitleModal={showReScheduleTitleModal}
+          handleCloseReSchedulTitle={handleCloseReSchedulTitle}
+          reScheduleTitle={reScheduleTitle}
+          handleReSchaduleTChange={handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
+          handleReTitleSubmit={handleReTitleSubmit}
         />
       </div>
       <EmailModal

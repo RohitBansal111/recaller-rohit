@@ -10,6 +10,11 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
 
+<<<<<<< HEAD
+=======
+  var today = new Date();
+
+>>>>>>> 08cf13ee74f6987148d72fcb0ff281673451ba75
   return (
     <ScrollToBottom className="middle-chat-screen email-middle-screen">
       <ul ref={props.divRef}>
@@ -28,7 +33,8 @@ const EmailChatText = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    {item.sheduled == true ? (
+                    {item.sheduled == true &&
+                    new Date(item.sheduleDate) >= today ? (
                       <div className="scheduletext">
                         {" "}
                         <button
@@ -37,14 +43,10 @@ const EmailChatText = (props) => {
                         >
                           <ScheduleIcon />
                         </button>
-                        <pre>
-                          <pre>{parse(item.message)}</pre>
-                        </pre>
+                        <pre>{parse(item.message)}</pre>
                       </div>
                     ) : (
-                      <pre>
-                        <pre>{parse(item.message)}</pre>
-                      </pre>
+                      <pre>{parse(item.message)}</pre>
                     )}
                   </div>
                   <span>

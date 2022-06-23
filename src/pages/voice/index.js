@@ -57,7 +57,6 @@ const Voice = () => {
   const [uploadOpen, setUploadOpen] = useState(false);
   const [fileName, setFileName] = useState(null);
   const [audioFileName, setAudioFileName] = useState(null);
-  const [blobState, setBlobState] = useState(null);
   const [playing, setPlaying] = useState(false);
 
   const divRef = useRef(null);
@@ -317,13 +316,10 @@ const Voice = () => {
 
   const handleSendClick = async () => {
     if (isSelectValid()) {
-      console.log(mediaBlobUrl, "mediaBlobUrl");
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
         .then(async (myBlob) => {
-          console.log(myBlob, "mediaBlobUrl111111");
           var file = new File([myBlob], "name.wav");
-          console.log(file, "mediaBlobUrl2222");
           var formData = new FormData();
           let contactid = selected.map((item) => item.value);
           formData.append("voice", file);
@@ -351,13 +347,10 @@ const Voice = () => {
     if (true) {
       setLoading(true);
       stopRecording();
-      console.log(mediaBlobUrl, "mediaBlobUrl");
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
         .then(async (myBlob) => {
           var file = new File([myBlob], "name.m4a");
-          console.log(file, "mediaBlobUrl2222");
-          console.log(myBlob, "mediaBlobUrl111111");
           var formData = new FormData();
           let contactid = selecteduser.contact.contactid;
           formData.append("voice", file);
@@ -509,7 +502,6 @@ const Voice = () => {
     setErrors({});
     setLoading(false);
   };
-
   const handleCloseUploadModal = () => {
     setUploadOpen(false);
     setFileName(null);
@@ -519,15 +511,15 @@ const Voice = () => {
   };
 
   const onVoiceUploadChange = (e) => {
-    if (e.target.files[0]) {
-      if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
-        setFileName(e.target.files[0]);
-      } else {
-        toast.error("Sorry, thats not a valid Audio file");
-        setFileName(null);
-        setLoading(false);
-      }
-    }
+    // if (e.target.files[0]) {
+    //   if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
+    setFileName(e.target.files[0]);
+    //   } else {
+    //     toast.error("Sorry, thats not a valid Audio file");
+    //     setFileName(null);
+    //     setLoading(false);
+    //   }
+    // }
   };
 
   const onVoiveUpload = async () => {
@@ -536,7 +528,6 @@ const Voice = () => {
       let contactid = selected.map((item) => item.value);
       formData.append("voice", fileName);
       formData.append("contactid", JSON.stringify(contactid));
-      // setIsShowLoading(true);
       setLoading(true);
       let res = await uploadVoiceMessageApi(formData);
       if (res && res.data && res.data.status === 200) {
@@ -577,7 +568,11 @@ const Voice = () => {
     getVoiceMessage();
   };
 
+  const voiceref = useRef();
+  const singleVref = useRef();
+
   const clearUploadData = () => {
+    singleVref.current.value = null;
     setAudioFileName(null);
   };
 
@@ -586,18 +581,14 @@ const Voice = () => {
   };
 
   const clearUploading = () => {
+    voiceref.current.value = null;
     setFileName(null);
-    setLoading(false);
-    setPlaying(false);
   };
 
   const handlePlay = () => {
-    // setBlobState(mediaBlobUrl);
     if (second > 0) {
       setPlaying(true);
-      // stopRecording()
       const tmp = new Audio(mediaBlobUrl);
-      console.log(tmp, "tmp");
       tmp.play();
     }
   };
@@ -684,6 +675,7 @@ const Voice = () => {
           clearUploadData={clearUploadData}
           handleLoadMetadata={handleLoadMetadata}
           isNewVoiceActive={isNewVoiceActive}
+          singleVref={singleVref}
         />
       </div>
       <VoiceModal
@@ -717,6 +709,7 @@ const Voice = () => {
         loading={loading}
         fileName={fileName}
         clearUploading={clearUploading}
+        voiceref={voiceref}
       />
     </div>
   );

@@ -227,6 +227,7 @@ const VoiceChatBoot = (props) => {
                               type="file"
                               accept="audio/*"
                               name="file"
+                              ref={props.singleVref}
                               onChange={props.onSingleVoiceUploadChange}
                             />
                             <LibraryMusicIcon />

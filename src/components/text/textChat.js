@@ -31,7 +31,8 @@ const TextChat = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    {item.sheduled == true ? (
+                    {item.sheduled == true &&
+                    new Date(item.sheduleDate) >= today ? (
                       <div className="scheduletext">
                         <button
                           type="button"

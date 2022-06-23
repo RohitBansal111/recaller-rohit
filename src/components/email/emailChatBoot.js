@@ -34,6 +34,7 @@ import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CloseIcon from "@mui/icons-material/Close";
+import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -66,17 +67,21 @@ const EmailChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{parse(item.message.slice(0, 30).concat("..."))}</p>
-          <div className="chat-tag">
-            {item.contact.tags.length > 0
-              ? item.contact.tags.map((item) => (
-                  <p style={{ borderColor: item.color, color: item.color }}>
-                    <LocalOfferIcon style={{ color: item.color }} />
-                    {item.name}
-                  </p>
-                ))
-              : ""}
+          <div className="title-chat-display">
+            {parse(item.message.slice(0, 30).concat("..."))}
           </div>
+          {item.contact.tags.length > 0 && (
+            <div className="chat-tag">
+              {item.contact.tags.length > 0
+                ? item.contact.tags.map((item) => (
+                    <p style={{ borderColor: item.color, color: item.color }}>
+                      <LocalOfferIcon style={{ color: item.color }} />
+                      {item.name}
+                    </p>
+                  ))
+                : ""}
+            </div>
+          )}
         </li>
       );
     });
@@ -103,7 +108,6 @@ const EmailChatBoot = (props) => {
             })
               .then((res) => res.json())
               .then((res) => {
-                console.log("upload ck response :::", res);
                 resolve({
                   default: res.url,
                 });
@@ -509,14 +513,27 @@ const EmailChatBoot = (props) => {
               )} */}
             </div>
             <ul className="personal-info">
-              <li>
-                <h5>Phone Number</h5>
-                <p>
-                  {props.selecteduser &&
+              {props.selecteduser &&
+              props.selecteduser.contact &&
+              props.selecteduser.contact.phone ? (
+                <li>
+                  <h5>
+                    {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phone}
-                </p>
-              </li>
+                    props.selecteduser.contact.phone
+                      ? " Phone Number"
+                      : ""}
+                  </h5>
+                  <p>
+                    {props.selecteduser &&
+                      props.selecteduser.contact &&
+                      props.selecteduser.contact.phone}
+                  </p>
+                </li>
+              ) : (
+                ""
+              )}
+
               <li>
                 <h5>Subscription</h5>
                 <p>
@@ -716,6 +733,14 @@ const EmailChatBoot = (props) => {
           handleTempMessageChange={props.handleTempMessageChange}
           handleTemplateSubmit={props.handleTemplateSubmit}
           errors={props.errors}
+        />
+        <ReScheduleTitleModal
+          showReScheduleTitleModal={props.showReScheduleTitleModal}
+          handleCloseReSchedulTitle={props.handleCloseReSchedulTitle}
+          reScheduleTitle={props.reScheduleTitle}
+          handleReSchaduleTChange={props.handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={props.handleDeleteRechaduletitleM}
+          handleReTitleSubmit={props.handleReTitleSubmit}
         />
       </div>
     </div>

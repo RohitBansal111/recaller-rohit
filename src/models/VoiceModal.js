@@ -49,7 +49,6 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => {
-                  // console.log("propsss rescrd :::",props)
                   if (!props.isNewVoiceActive && props.second > 0) {
                    props.handlePlay();
                    return

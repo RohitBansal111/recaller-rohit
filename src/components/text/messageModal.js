@@ -102,7 +102,10 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                 {props.selectedNewImageData != null && (
                   <ul className="attachedImageGallery">
                     <li>
-                      <img alt=" " src={props.selectedNewImageData} />
+                      <img
+                        alt=" "
+                        src={props.selectedNewImageData}
+                      />
                       <button
                         type="button"
                         className="btn btn-cross"
@@ -202,6 +205,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <input
                       type="file"
                       name="myImage"
+                      ref={props.imgref}
                       onChange={props.handleImageChange}
                     />
                   </button>

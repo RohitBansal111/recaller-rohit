@@ -29,6 +29,7 @@ import PlaceholderImage from "./../../assets/images/placeholder.jpg";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
+import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 const ChatBoot = (props) => {
   const userMessageList = () => {
     let filtered = [];
@@ -332,6 +333,7 @@ const ChatBoot = (props) => {
                                 <input
                                   type="file"
                                   name="myImage"
+                                  ref={props.singleimgref}
                                   onChange={props.handleImageChange}
                                 />
                               </button>
@@ -476,8 +478,18 @@ const ChatBoot = (props) => {
                 </p>
               </li>
               <li>
-                <h5>Email</h5>
-                <p>{props.selecteduser && props.selecteduser.contact.email}</p>
+                <h5>
+                  {props.selecteduser &&
+                  props.selecteduser.contact &&
+                  props.selecteduser.contact.email
+                    ? "Email"
+                    : ""}
+                </h5>
+                <p>
+                  {props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.email}
+                </p>
               </li>
               {!props.selecteduser ? (
                 ""
@@ -487,7 +499,9 @@ const ChatBoot = (props) => {
                     type="button"
                     onClick={() =>
                       props.handleContactEditModal(
-                        props.selecteduser && props.selecteduser.contact._id
+                        props.selecteduser &&
+                          props.selecteduser.contact &&
+                          props.selecteduser.contact._id
                       )
                     }
                     className="btn-links"
@@ -673,6 +687,14 @@ const ChatBoot = (props) => {
           cancelRescheDule={props.cancelRescheDule}
           handleNoReSchedultModal={props.handleNoReSchedultModal}
           handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+        />
+        <ReScheduleTitleModal
+          showReScheduleTitleModal={props.showReScheduleTitleModal}
+          handleCloseReSchedulTitle={props.handleCloseReSchedulTitle}
+          reScheduleTitle={props.reScheduleTitle}
+          handleReSchaduleTChange={props.handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={props.handleDeleteRechaduletitleM}
+          handleReTitleSubmit={props.handleReTitleSubmit}
         />
       </div>
     </div>

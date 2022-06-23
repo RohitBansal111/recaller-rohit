@@ -46,11 +46,11 @@ const LocalMessages = () => {
 
   const handleSwitchChange = (event) => {
     setChecked(event.target.checked);
-    if (event.target.checked == true) {
-      toast.success("Desktop Notification Enable Successfully");
-    } else {
-      toast.success("Desktop Notification Disable Successfully");
-    }
+    // if (event.target.checked == true) {
+    //   toast.success("Desktop Notification Enable Successfully");
+    // } else {
+    //   toast.success("Desktop Notification Disable Successfully");
+    // }
   };
 
   return (

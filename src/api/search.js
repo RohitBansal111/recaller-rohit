@@ -9,7 +9,6 @@ const getSearch = async (q) => {
     if (result) {
       return result;
     }
-    console.log(q, ";llll");
   } catch (err) {
     return { data: err.response.data };
   }
