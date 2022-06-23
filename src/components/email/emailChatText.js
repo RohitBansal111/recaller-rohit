@@ -40,14 +40,10 @@ const EmailChatText = (props) => {
                         >
                           <ScheduleIcon />
                         </button>
-                        <pre>
-                          <pre>{parse(item.message)}</pre>
-                        </pre>
+                        <pre>{parse(item.message)}</pre>
                       </div>
                     ) : (
-                      <pre>
-                        <pre>{parse(item.message)}</pre>
-                      </pre>
+                      <pre>{parse(item.message)}</pre>
                     )}
                   </div>
                   <span>

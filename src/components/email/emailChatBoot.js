@@ -67,17 +67,21 @@ const EmailChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{parse(item.message.slice(0, 30).concat("..."))}</p>
-          <div className="chat-tag">
-            {item.contact.tags.length > 0
-              ? item.contact.tags.map((item) => (
-                  <p style={{ borderColor: item.color, color: item.color }}>
-                    <LocalOfferIcon style={{ color: item.color }} />
-                    {item.name}
-                  </p>
-                ))
-              : ""}
+          <div className="title-chat-display">
+            {parse(item.message.slice(0, 30).concat("..."))}
           </div>
+          {item.contact.tags.length > 0 && (
+            <div className="chat-tag">
+              {item.contact.tags.length > 0
+                ? item.contact.tags.map((item) => (
+                    <p style={{ borderColor: item.color, color: item.color }}>
+                      <LocalOfferIcon style={{ color: item.color }} />
+                      {item.name}
+                    </p>
+                  ))
+                : ""}
+            </div>
+          )}
         </li>
       );
     });

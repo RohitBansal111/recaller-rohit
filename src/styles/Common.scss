@@ -639,7 +639,6 @@ aside.emoji-picker-react {
 .emoji-cancel-button {
   position: absolute;
   top: 0;
-  left: -11px;
   button.btn-action1 {
     min-width: 37px;
   }
@@ -667,4 +666,16 @@ aside.emoji-picker-react {
   padding-left: 16px;
   padding-right: 16px;
   justify-content: flex-start;
+}
+.chat-textarea {
+  .ck.ck-content p {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+    display: inline;
+  }
+}
+
+.title-chat-display {
+  display: inline-flex;
+  flex-wrap: wrap;
 }
