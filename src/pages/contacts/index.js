@@ -344,6 +344,7 @@ const Import = () => {
     setProperties("");
     setRules("");
     setErrors({});
+    setValue(`All(${totalRowsData ? totalRowsData : 0})`);
   };
 
   const onHandleSave = async () => {
