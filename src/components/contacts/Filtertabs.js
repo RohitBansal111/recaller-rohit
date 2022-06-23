@@ -11,10 +11,11 @@ const FilterTabs = (props) => {
   return (
     <div className="filter-tabs">
       <Tabs
-        defaultActiveKey="all"
+        activeKey={props.tabsKey}
         transition={false}
         id="noanim-tab-example"
         className="mb-3"
+        onSelect={props.handleTabsSelect}
       >
         <Tab
           eventKey={"all"}
@@ -124,6 +125,7 @@ const FilterTabs = (props) => {
             filterName={props.filterName}
             onFilterNameChange={props.onFilterNameChange}
             compaign={props.compaign}
+            handleTabsSelect={props.handleTabsSelect}
           />
         </Tab>
       </Tabs>

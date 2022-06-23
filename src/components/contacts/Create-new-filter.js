@@ -221,7 +221,7 @@ const CreateNewFilter = (props) => {
               <button
                 type="button"
                 className="cancel-action"
-                onClick={props.onCancel}
+                onClick={() => props.handleTabsSelect("all")}
               >
                 <ClearIcon />
                 Cancel

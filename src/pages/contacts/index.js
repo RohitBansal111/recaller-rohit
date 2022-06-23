@@ -51,6 +51,7 @@ const Import = () => {
   const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
   const [totalRowsData, setTotalRowsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [tabKeySet, setTabKeySet] = useState("all");
 
   const handleClose = () => {
     setShow(false);
@@ -534,6 +535,16 @@ const Import = () => {
     setShowSelect(true);
   };
 
+  const handleTabsSelect = (key) => {
+    setTabKeySet(key)
+    setShowAddFilterModal(false);
+    setInputValue("");
+    setFilterName("");
+    setProperties("");
+    setRules("");
+    setErrors({});
+  }
+
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -599,6 +610,8 @@ const Import = () => {
           handleCloseDeleteFilterModal={handleCloseDeleteFilterModal}
           handleDeleteFilter={handleDeleteFilter}
           afterFilterApply={afterFilterApply}
+          handleTabsSelect={handleTabsSelect}
+          tabsKey={tabKeySet}
         />
       </div>
       <div className="contact-data-table-main">
