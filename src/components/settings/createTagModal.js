@@ -3,7 +3,12 @@ import { Modal } from "react-responsive-modal";
 
 const CreateTagModal = ({ open, handleCloseCTModal, ...props }) => {
   return (
-    <Modal open={open} onClose={handleCloseCTModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseCTModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>Create Conversation Tag</h3>
       </div>

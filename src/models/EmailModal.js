@@ -64,7 +64,12 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
     };
   }
   return (
-    <Modal open={open} onClose={handleCloseMessageModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseMessageModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>New Email</h3>
       </div>

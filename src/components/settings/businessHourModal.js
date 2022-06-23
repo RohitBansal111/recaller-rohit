@@ -11,7 +11,12 @@ const BusinessHourModal = ({
   ...props
 }) => {
   return (
-    <Modal open={businessHourModal} onClose={handleModalClose} center>
+    <Modal
+      open={businessHourModal}
+      onClose={handleModalClose}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>Add Business Hours </h3>
       </div>

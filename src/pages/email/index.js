@@ -143,7 +143,7 @@ const EmailPage = () => {
     setLoading(false);
     setEmailSubject("");
     setOnShowEmoji(false);
-    setSendEmailMessage("")
+    setSendEmailMessage("");
     setOnShowChatBotEmojiOpen(false);
   };
 

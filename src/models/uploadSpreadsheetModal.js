@@ -243,7 +243,7 @@ const UploadSpreadsheetModal = (props) => {
       // note: noteData,
       compaign: addCampaigns,
     };
-    setIsLoading(true)
+    setIsLoading(true);
     let res = await addMultipleContact(obj);
     if (res && res.data && res.data.status === 200) {
       if (res.data.unSavedContacts && res.data.unSavedContacts.length) {
@@ -256,10 +256,10 @@ const UploadSpreadsheetModal = (props) => {
         props.getData();
         setStep(1);
         props.handleFinish();
-        props.setUploadModal(false)
+        props.setUploadModal(false);
         setCsvFile(null);
         setSelectedPhone("phone");
-        setIsLoading(false)
+        setIsLoading(false);
         setSelectedEmail("email");
         setSelectedFirstName("firstName");
         setSelectedLastName("lastName");
@@ -271,11 +271,11 @@ const UploadSpreadsheetModal = (props) => {
       }
     } else if (res && res.data && res.data.status === 400) {
       toast.error(res.data.message);
-      setIsLoading(false)
+      setIsLoading(false);
       setStep(step - 1);
     } else {
       toast.success(res.data.message);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -321,6 +321,7 @@ const UploadSpreadsheetModal = (props) => {
         className="normal-modal"
         show={props.uploadModal}
         onHide={handleClose}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Add From Spreadsheet</Modal.Title>

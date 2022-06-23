@@ -13,6 +13,7 @@ const ContactModal = (props) => {
         className="normal-modal"
         show={props.show}
         onHide={props.handleClose}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>New Contact</Modal.Title>

@@ -11,6 +11,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
       onClose={props.handleCloseUploadModal}
       center
       classNames="upload-voice"
+      closeOnOverlayClick={false}
     >
       <div className="modal-header">
         <h3>Upload Voice</h3>

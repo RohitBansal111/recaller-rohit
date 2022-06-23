@@ -8,14 +8,13 @@ const DeleteTagsModal = (props) => {
         className="normal-modal"
         show={props.showDeleteTagModal}
         onHide={props.handleCloseDeleteModal}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Delete Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2 className="text-center">
-            Are you sure you want to delete this?
-          </h2>
+          <h2 className="text-center">Are you sure you want to delete this?</h2>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleCloseDeleteModal}>

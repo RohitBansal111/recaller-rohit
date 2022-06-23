@@ -50,6 +50,7 @@ const ManageTemplateModal = (props) => {
         className="normal-modal manageTem-modal"
         show={props.showManageeTemplateModal}
         onHide={props.handleCloseManageTemplateModal}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Message Templates</Modal.Title>

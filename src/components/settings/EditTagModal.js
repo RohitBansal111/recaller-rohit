@@ -3,7 +3,12 @@ import { Modal } from "react-responsive-modal";
 
 const EditTagModal = ({ open, handleCloseETModal, ...props }) => {
   return (
-    <Modal open={open} onClose={handleCloseETModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseETModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>Edit Tag</h3>
       </div>

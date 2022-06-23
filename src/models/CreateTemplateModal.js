@@ -13,6 +13,7 @@ const CreateTemplateModal = (props) => {
         className="normal-modal"
         show={props.showCreateTemplateModal}
         onHide={props.handleCloseCreateTemplateModal}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Create Message Template</Modal.Title>

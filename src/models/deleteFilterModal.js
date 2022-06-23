@@ -8,6 +8,7 @@ const DeleteFilterModal = (props) => {
         className="normal-modal"
         show={props.showDeleteFilterModal}
         onHide={props.handleCloseDeleteFilterModal}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Are You Sure?</Modal.Title>
