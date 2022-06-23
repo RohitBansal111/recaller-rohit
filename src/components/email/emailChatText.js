@@ -10,11 +10,8 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
 
-<<<<<<< HEAD
-=======
   var today = new Date();
 
->>>>>>> 08cf13ee74f6987148d72fcb0ff281673451ba75
   return (
     <ScrollToBottom className="middle-chat-screen email-middle-screen">
       <ul ref={props.divRef}>
