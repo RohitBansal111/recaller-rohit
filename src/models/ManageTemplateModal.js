@@ -12,8 +12,12 @@ const ManageTemplateModal = (props) => {
       props.templateData &&
       props.templateData.filter(
         (val) =>
-          val.title.toLowerCase().startsWith(props.searchValue.toLowerCase()) ||
-          val.title.toLowerCase().startsWith(props.searchValue.toLowerCase())
+          val.title
+            .toLowerCase()
+            .startsWith(props.searchTemplateValue.toLowerCase()) ||
+          val.title
+            .toLowerCase()
+            .startsWith(props.searchTemplateValue.toLowerCase())
       );
     const tempList =
       filtered &&
@@ -66,8 +70,8 @@ const ManageTemplateModal = (props) => {
                       name="search"
                       className="form-control"
                       placeholder="Search by Template Name"
-                      value={props.searchValue}
-                      onChange={props.handleSearchChange}
+                      value={props.searchTemplateValue}
+                      onChange={props.handleSearchTempChange}
                     />
                     <div className="search-field">
                       {" "}

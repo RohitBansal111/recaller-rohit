@@ -78,6 +78,7 @@ const Import = () => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     const phoneRegex = /^\d{10}$/;
+    const num = /^[0-9]+$/;
     let formData = true;
     switch (true) {
       case !addContact.firstName:
@@ -96,12 +97,17 @@ const Import = () => {
         setErrors({ email: "Please Fill one field either phone or email!" });
         formData = false;
         break;
-      case addContact.phone &&
-        addContact.phone != "" &&
-        !phoneRegex.test(addContact.phone):
-        setErrors({ phone: "Phone Number Must have 10 digits" });
+      case addContact.phone && !num.test(addContact.phone):
+        setErrors({
+          phone: "Phone Number only contains digits for eg. 9999999999",
+        });
         formData = false;
         break;
+      case addContact.phone && !phoneRegex.test(addContact.phone):
+        setErrors({ phone: "Phone Number contains 10 digits only" });
+        formData = false;
+        break;
+
       // case !addContact.country:
       //   setErrors({ country: "Please select country!" });
       //   formData = false;
@@ -176,10 +182,18 @@ const Import = () => {
         setErrors({ properties: "Please Select Properties!" });
         formData = false;
         break;
-      // case !rules:
-      //   setErrors({ rules: "Please Select Rules!" });
-      //   formData = false;
-      //   break;
+      case properties == "joinedDate" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
+      case properties == "Last Message Received" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
+      case properties == "campaigns" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
       case !inputValue:
         setErrors({ error: "Field is required!" });
 

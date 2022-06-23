@@ -99,6 +99,7 @@ const EmailPage = () => {
   const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
     useState(false);
   const [reScheduleTitle, setReScheduleTitle] = useState({});
+  const [searchTemplateValue , setSearchTemplateValue] = useState("")
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -232,6 +233,7 @@ const EmailPage = () => {
     setTemplateName("");
     setTemplateMessage("");
     setErrors({});
+    setSearchTemplateValue("")
   };
   const handleCloseCreateTemplateModal = () => {
     setShowCreateTemplateModal(false);
@@ -239,27 +241,32 @@ const EmailPage = () => {
     setTemplateName("");
     setTemplateMessage("");
     setErrors({});
+    setSearchTemplateValue("")
   };
   const handleManageTemplate = () => {
     setShowManageeTemplateModal(true);
     getEmailTemplate();
     seteditmanageTemplate(false);
+    setSearchTemplateValue("")
   };
 
   const handleNewManageTemplate = () => {
     getEmailTemplate();
     setNewShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("")
   };
 
   const handleNewCloseManageTemplateModal = () => {
     setNewShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("")
   };
 
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("")
   };
   useEffect(() => {
     getTags();
@@ -1072,6 +1079,8 @@ const EmailPage = () => {
           handleDeleteReSchedultModal={handleDeleteReSchedultModal}
           handleReSchaduleData={handleReSchaduleData}
           scheduledData={scheduledData}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
           CancelEmoji={CancelEmoji}
           showReScheduleTitleModal={showReScheduleTitleModal}
           handleCloseReSchedulTitle={handleCloseReSchedulTitle}
@@ -1105,6 +1114,8 @@ const EmailPage = () => {
         handleCreateTemplate={handleCreateTemplate}
         handleManageTemplate={handleNewManageTemplate}
         templateName={templateName}
+        searchTemplateValue={searchTemplateValue}
+        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
         handleTemplateName={handleTemplateName}
         templateTags={templateTags}
         handleTemplateTagChange={handleTemplateTagChange}

@@ -148,7 +148,9 @@ const CreateNewFilter = (props) => {
                     <Input
                       type="number"
                       name="val"
-                      min="0"
+                      inputProps={{
+                        min: 1,
+                      }}
                       value={props.inputValue.val}
                       onChange={props.handleJDChange}
                     ></Input>

@@ -101,6 +101,7 @@ const TextPage = () => {
   const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
     useState(false);
   const [reScheduleTitle, setReScheduleTitle] = useState({});
+  const [searchTemplateValue , setSearchTemplateValue] = useState("")
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -175,6 +176,7 @@ const TextPage = () => {
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setTemplateMessage("");
+    setSearchTemplateValue("")
     setErrors({});
   };
   const handleCloseCreateTemplateModal = () => {
@@ -182,26 +184,31 @@ const TextPage = () => {
     setTemplateTags(null);
     setTemplateName("");
     setTemplateMessage("");
+    setSearchTemplateValue("")
     setErrors({});
   };
   const handleManageTemplate = () => {
     getTemplate();
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("")
   };
 
   const handleNewManageTemplate = () => {
     getTemplate();
     setNewShowManageeTemplateModal(true);
+    setSearchTemplateValue("")
     seteditmanageTemplate(false);
   };
   const handleNewCloseManageTemplateModal = () => {
     setNewShowManageeTemplateModal(false);
+    setSearchTemplateValue("")
     seteditmanageTemplate(false);
   };
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("")
   };
 
   const isTagValid = () => {
@@ -1106,6 +1113,8 @@ const TextPage = () => {
           handleReSubmit={handleReSubmit}
           handleCancelReSchedultModal={handleCancelReSchedultModal}
           cancelRescheDule={cancelRescheDule}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
           handleNoReSchedultModal={handleNoReSchedultModal}
           handleDeleteReSchedultModal={handleDeleteReSchedultModal}
           scheduledData={scheduledData}
@@ -1169,6 +1178,8 @@ const TextPage = () => {
         handleTempRemove={handleTempRemove}
         handleEditTemplateTagChange={handleEditTemplateTagChange}
         searchValue={searchState}
+        searchTemplateValue={searchTemplateValue}
+        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
         handleSearchChange={(e) => setSearchState(e.target.value)}
         replacefunc={replacefunc}
         dateSelected={dateSelected}
