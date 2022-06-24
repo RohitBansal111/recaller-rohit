@@ -38,7 +38,7 @@
           border-radius: 30px !important;
           min-width: 120px;
           font-weight: 600 !important;
-          font-family: 'Poppins', sans-serif !important;
+          font-family: "Poppins", sans-serif !important;
           text-transform: capitalize;
           &:hover {
             border: none !important;
@@ -47,10 +47,10 @@
       }
     }
   }
-  .MuiBox-root{
-    .MuiStepper-horizontal{
+  .MuiBox-root {
+    .MuiStepper-horizontal {
       position: relative;
-      .MuiStep-horizontal{
+      .MuiStep-horizontal {
         position: absolute;
       }
     }
@@ -59,14 +59,15 @@
 
 // React responsive modal
 
-.react-responsive-modal-modal{
+.react-responsive-modal-modal {
   margin: 0px !important;
   min-width: 720px !important;
   max-width: 720px !important;
   padding: 0px !important;
   border-radius: 5px;
-  .modal-header{
-    h3{
+  overflow-x: hidden;
+  .modal-header {
+    h3 {
       font-size: 20px;
       margin: 0px;
       display: block;
@@ -74,10 +75,10 @@
       width: 100%;
     }
   }
-  .modal-body{
+  .modal-body {
     padding: 30px;
-    .timeZone{
-      svg{
+    .timeZone {
+      svg {
         fill: $Icon-color;
         font-size: 27px;
         padding-left: 10px;

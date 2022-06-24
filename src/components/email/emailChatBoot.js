@@ -437,7 +437,7 @@ const EmailChatBoot = (props) => {
                       </div>
                     </Tab>
                     <Tab eventKey="filter" title="Internal Note">
-                      <div className="chat-textarea">
+                      <div className="chat-textarea Internal">
                         <form className="main-form">
                           <div className="field-group flexFull">
                             <textarea

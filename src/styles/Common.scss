@@ -673,6 +673,11 @@ aside.emoji-picker-react {
     margin-top: 0px !important;
     display: inline;
   }
+  &.Internal {
+    textarea {
+      min-height: 195.59px !important;
+    }
+  }
 }
 
 .title-chat-display {
