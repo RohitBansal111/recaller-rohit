@@ -640,6 +640,7 @@ const Import = () => {
           handleSearchChange={(e) => setSearchState(e.target.value)}
           filterByCompaigns={filterByCompaigns}
           isLoading={isLoading}
+          totalRecords={totalRowsData ? totalRowsData : 0}
         />
       </div>
 
