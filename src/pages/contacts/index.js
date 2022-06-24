@@ -370,6 +370,7 @@ const Import = () => {
     setRules("");
     setErrors({});
     getData();
+    setTabKeySet("all")
   };
 
   const handleJDChange = async (e) => {

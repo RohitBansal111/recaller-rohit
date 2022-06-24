@@ -90,7 +90,7 @@ const CreateNewFilter = (props) => {
                 <MenuItem value={"Last Message Received"}>
                   Last Message Received
                 </MenuItem>
-                <MenuItem value={"Duplicates"}>Duplicates</MenuItem>
+                {/* <MenuItem value={"Duplicates"}>Duplicates</MenuItem> */}
                 <MenuItem value={"hasEmail"}>Has Email Address</MenuItem>
                 <MenuItem value={"hasPhoneNumber"}>Has Phone Number</MenuItem>
                 <MenuItem value={"campaigns"}>Campaigns</MenuItem>
