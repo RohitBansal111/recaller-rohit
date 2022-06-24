@@ -10,7 +10,12 @@ import DeleteTagsModal from "./../models/deleteTagsModal";
 const ConversationTagModal = ({ open, handleCloseManageModal, ...props }) => {
   return (
     <>
-      <Modal open={open} onClose={handleCloseManageModal} center>
+      <Modal
+        open={open}
+        onClose={handleCloseManageModal}
+        center
+        closeOnOverlayClick={false}
+      >
         <div className="modal-header">
           <h3>Campaign Tags</h3>
         </div>

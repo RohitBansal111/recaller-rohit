@@ -12,6 +12,7 @@ const ReScheduleMessageModal = (props) => {
         className="normal-modal"
         show={props.showReScheduleModal}
         onHide={props.handleCloseReSchedultModal}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>Reschedule Message</Modal.Title>

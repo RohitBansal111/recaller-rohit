@@ -29,6 +29,7 @@ const SendMessageModal = (props) => {
         className="normal-modal"
         show={props.showSendMSGModal}
         onHide={props.handleCloseSendModal}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>New Bulk Message</Modal.Title>

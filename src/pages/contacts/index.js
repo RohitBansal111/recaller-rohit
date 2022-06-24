@@ -51,6 +51,7 @@ const Import = () => {
   const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
   const [totalRowsData, setTotalRowsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [tabKeySet, setTabKeySet] = useState("all");
 
   const handleClose = () => {
     setShow(false);
@@ -78,6 +79,7 @@ const Import = () => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     const phoneRegex = /^\d{10}$/;
+    const num = /^[0-9]+$/;
     let formData = true;
     switch (true) {
       case !addContact.firstName:
@@ -96,12 +98,17 @@ const Import = () => {
         setErrors({ email: "Please Fill one field either phone or email!" });
         formData = false;
         break;
-      case addContact.phone &&
-        addContact.phone != "" &&
-        !phoneRegex.test(addContact.phone):
-        setErrors({ phone: "Phone Number Must have 10 digits" });
+      case addContact.phone && !num.test(addContact.phone):
+        setErrors({
+          phone: "Phone Number only contains digits for eg. 9999999999",
+        });
         formData = false;
         break;
+      case addContact.phone && !phoneRegex.test(addContact.phone):
+        setErrors({ phone: "Phone Number contains 10 digits only" });
+        formData = false;
+        break;
+
       // case !addContact.country:
       //   setErrors({ country: "Please select country!" });
       //   formData = false;
@@ -176,10 +183,18 @@ const Import = () => {
         setErrors({ properties: "Please Select Properties!" });
         formData = false;
         break;
-      // case !rules:
-      //   setErrors({ rules: "Please Select Rules!" });
-      //   formData = false;
-      //   break;
+      case properties == "joinedDate" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
+      case properties == "Last Message Received" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
+      case properties == "campaigns" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
       case !inputValue:
         setErrors({ error: "Field is required!" });
 
@@ -330,6 +345,7 @@ const Import = () => {
     setProperties("");
     setRules("");
     setErrors({});
+    setValue(`All(${totalRowsData ? totalRowsData : 0})`);
   };
 
   const onHandleSave = async () => {
@@ -354,6 +370,7 @@ const Import = () => {
     setRules("");
     setErrors({});
     getData();
+    setTabKeySet("all")
   };
 
   const handleJDChange = async (e) => {
@@ -519,6 +536,16 @@ const Import = () => {
     setShowSelect(true);
   };
 
+  const handleTabsSelect = (key) => {
+    setTabKeySet(key)
+    setShowAddFilterModal(false);
+    setInputValue("");
+    setFilterName("");
+    setProperties("");
+    setRules("");
+    setErrors({});
+  }
+
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -584,6 +611,8 @@ const Import = () => {
           handleCloseDeleteFilterModal={handleCloseDeleteFilterModal}
           handleDeleteFilter={handleDeleteFilter}
           afterFilterApply={afterFilterApply}
+          handleTabsSelect={handleTabsSelect}
+          tabsKey={tabKeySet}
         />
       </div>
       <div className="contact-data-table-main">

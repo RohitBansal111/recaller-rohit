@@ -13,6 +13,7 @@ const ContactModal = (props) => {
         className="normal-modal"
         show={props.show}
         onHide={props.handleClose}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title>New Contact</Modal.Title>
@@ -46,7 +47,7 @@ const ContactModal = (props) => {
             <div className="field-group flex2">
               <label>Phone</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 placeholder="Enter Phone"
                 name="phone"

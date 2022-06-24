@@ -437,7 +437,7 @@ const EmailChatBoot = (props) => {
                       </div>
                     </Tab>
                     <Tab eventKey="filter" title="Internal Note">
-                      <div className="chat-textarea">
+                      <div className="chat-textarea Internal">
                         <form className="main-form">
                           <div className="field-group flexFull">
                             <textarea
@@ -715,8 +715,8 @@ const EmailChatBoot = (props) => {
           templateEditTags={props.templateEditTags}
           editTempMessageData={props.editTempMessageData}
           handleEditMessageTempChange={props.handleEditMessageTempChange}
-          searchValue={props.searchValue}
-          handleSearchChange={props.handleSearchChange}
+          searchTemplateValue={props.searchTemplateValue}
+          handleSearchTempChange={props.handleSearchTempChange}
           replacefunc={props.replacefunc}
           handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
           showDeleteTempModal={props.showDeleteTempModal}

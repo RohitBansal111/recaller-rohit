@@ -11,6 +11,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
       onClose={props.handleCloseUploadModal}
       center
       classNames="upload-voice"
+      closeOnOverlayClick={false}
     >
       <div className="modal-header">
         <h3>Upload Voice</h3>
@@ -68,6 +69,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
+              disabled={!props.selected || !props.fileName ? true : false}
               loading={props.loading}
               className="btn btn-primary"
               onClick={props.onVoiveUpload}

@@ -670,9 +670,9 @@ const ChatBoot = (props) => {
           templateEditTags={props.templateEditTags}
           editTempMessageData={props.editTempMessageData}
           handleEditMessageTempChange={props.handleEditMessageTempChange}
-          searchValue={props.searchValue}
           replacefunc={props.replacefunc}
-          handleSearchChange={props.handleSearchChange}
+          searchTemplateValue={props.searchTemplateValue}
+          handleSearchTempChange={props.handleSearchTempChange}
           handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
           showDeleteTempModal={props.showDeleteTempModal}
           selecteduser={props.selecteduser}

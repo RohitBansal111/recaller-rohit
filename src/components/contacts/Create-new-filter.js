@@ -90,7 +90,7 @@ const CreateNewFilter = (props) => {
                 <MenuItem value={"Last Message Received"}>
                   Last Message Received
                 </MenuItem>
-                <MenuItem value={"Duplicates"}>Duplicates</MenuItem>
+                {/* <MenuItem value={"Duplicates"}>Duplicates</MenuItem> */}
                 <MenuItem value={"hasEmail"}>Has Email Address</MenuItem>
                 <MenuItem value={"hasPhoneNumber"}>Has Phone Number</MenuItem>
                 <MenuItem value={"campaigns"}>Campaigns</MenuItem>
@@ -148,7 +148,9 @@ const CreateNewFilter = (props) => {
                     <Input
                       type="number"
                       name="val"
-                      min="0"
+                      inputProps={{
+                        min: 1,
+                      }}
                       value={props.inputValue.val}
                       onChange={props.handleJDChange}
                     ></Input>
@@ -219,7 +221,7 @@ const CreateNewFilter = (props) => {
               <button
                 type="button"
                 className="cancel-action"
-                onClick={props.onCancel}
+                onClick={() => props.handleTabsSelect("all")}
               >
                 <ClearIcon />
                 Cancel

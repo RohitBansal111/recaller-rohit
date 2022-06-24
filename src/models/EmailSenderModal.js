@@ -8,7 +8,12 @@ const animatedComponents = makeAnimated();
 const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
   return (
     <>
-      <Modal className="normal-modal" show={show} onHide={handleClose}>
+      <Modal
+        className="normal-modal"
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Add New Sender</Modal.Title>
         </Modal.Header>

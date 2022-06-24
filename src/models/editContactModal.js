@@ -4,7 +4,12 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
   return (
-    <Modal open={open} onClose={handleCloseContactModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseContactModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>Edit Contact Details</h3>
       </div>

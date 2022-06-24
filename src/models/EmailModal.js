@@ -64,7 +64,12 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
     };
   }
   return (
-    <Modal open={open} onClose={handleCloseMessageModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseMessageModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>New Email</h3>
       </div>
@@ -367,8 +372,8 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
             templateEditTags={props.templateEditTags}
             editTempMessageData={props.editTempMessageData}
             handleEditMessageTempChange={props.handleEditMessageTempChange}
-            searchValue={props.searchValue}
-            handleSearchChange={props.handleSearchChange}
+            searchTemplateValue={props.searchTemplateValue}
+            handleSearchTempChange={props.handleSearchTempChange}
             replacefunc={props.replacefunc}
             handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
             showDeleteTempModal={props.showDeleteTempModal}
