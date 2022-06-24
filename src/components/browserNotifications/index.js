@@ -1,70 +1,92 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Notification from "react-web-notification";
+import NotificationIcon from "../../assets/icons/Notifications_button_24.png";
+import { socket } from "../../helper/socket";
 
 //allow react dev tools work
 window.React = React;
 
-export default class BroNotifcation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ignore: true,
-      title: ""
-    };
+ const BroNotifcation =(props) => {
+  const [ignore, setIgnore] = useState(true);
+  const [title, setTitle] = useState('');
+  const [options, setOptions] = useState({});
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     ignore: true,
+  //     title: ""
+  //   };
+  // }
+  const getNotificationsEventHandler = (data) => {
+if(data && data.userId){
+  let userObj =localStorage.getItem('userData')
+  if(userObj)userObj = JSON.parse(userObj)
+  if(userObj && userObj.id && userObj.id==data.userId){
+    handleButtonClick(data.title?data.title:'',data.body?data.body:'')
   }
 
-  handlePermissionGranted() {
+}
+  };
+  useEffect(() => {
+    socket.on('getNotifications', getNotificationsEventHandler);
+   // unsubscribe from event for preventing memory leaks
+   return () => {
+     socket.off('getNotifications',getNotificationsEventHandler);
+   };
+ }, []);
+
+ function handlePermissionGranted() {
     console.log("Permission Granted");
-    this.setState({
-      ignore: false
-    });
+    setIgnore(false)
+    // this.setState({
+    //   ignore: false
+    // });
   }
-  handlePermissionDenied() {
+  function handlePermissionDenied() {
     console.log("Permission Denied");
-    this.setState({
-      ignore: true
-    });
+    setIgnore(true)
+    // this.setState({
+    //   ignore: true
+    // });
   }
-  handleNotSupported() {
+  function handleNotSupported() {
     console.log("Web Notification not Supported");
-    this.setState({
-      ignore: true
-    });
+    setIgnore(true)
   }
 
-  handleNotificationOnClick(e, tag) {
+  function  handleNotificationOnClick(e, tag) {
     console.log(e, "Notification clicked tag:" + tag);
   }
 
-  handleNotificationOnError(e, tag) {
+  function handleNotificationOnError(e, tag) {
     console.log(e, "Notification error tag:" + tag);
   }
 
-  handleNotificationOnClose(e, tag) {
+  function handleNotificationOnClose(e, tag) {
     console.log(e, "Notification closed tag:" + tag);
   }
 
-  handleNotificationOnShow(e, tag) {
-    this.playSound();
+  function handleNotificationOnShow(e, tag) {
+    playSound();
     console.log(e, "Notification shown tag:" + tag);
   }
 
-  playSound(filename) {
+  function playSound(filename) {
     document.getElementById("sound").play();
   }
 
-  handleButtonClick() {
-    if (this.state.ignore) {
+  function handleButtonClick(t='',b='') {
+    if (ignore) {
       return;
     }
 
     const now = Date.now();
 
-    const title = "Trying Web Notifications";
-    const body = "This is Notifcation body";
+    const title =t?t: " Notifications";
+    const body = b?b:"This is Notifcation body";
     const tag = now;
-    const icon =
-      "http://mobilusoss.github.io/react-web-notification/example/Notifications_button_24.png";
+    const icon =NotificationIcon
+      // "http://mobilusoss.github.io/react-web-notification/example/Notifications_button_24.png";
     const options = {
       tag: tag,
       body: body,
@@ -73,42 +95,46 @@ export default class BroNotifcation extends React.Component {
       dir: "ltr",
     //   sound: "../sound.mp3"
     };
-    this.setState({
-      title: title,
-      options: options
-    });
+    setTitle(title)
+    setOptions(options)
+    // this.setState({
+    //   title: title,
+    //   options: options
+    // });
+    handleButtonClick2()
   }
 
-  handleButtonClick2() {
-    this.props.swRegistration
+  function handleButtonClick2() {
+    console.log("called")
+    props.swRegistration
       .getNotifications({})
       .then(function(notifications) {
         console.log(notifications);
       });
   }
 
-  render() {
+  
     return (
       <div>
-        <button onClick={this.handleButtonClick.bind(this)}>Notify Me</button>
-        {document.title === "swExample" && (
-          <button onClick={this.handleButtonClick2.bind(this)}>
+        {/* <button onClick={handleButtonClick}>Notify Me</button> */}
+        {/* {document.title === "swExample" && (
+          <button onClick={handleButtonClick2}>
             swRegistration.getNotifications
           </button>
-        )}
+        )} */}
         <Notification
-          ignore={this.state.ignore && this.state.title !== ""}
-          notSupported={this.handleNotSupported.bind(this)}
-          onPermissionGranted={this.handlePermissionGranted.bind(this)}
-          onPermissionDenied={this.handlePermissionDenied.bind(this)}
-        //   onShow={this.handleNotificationOnShow.bind(this)}
-          onClick={this.handleNotificationOnClick.bind(this)}
-          onClose={this.handleNotificationOnClose.bind(this)}
-          onError={this.handleNotificationOnError.bind(this)}
+          ignore={ignore && title !== ""}
+          notSupported={handleNotSupported}
+          onPermissionGranted={handlePermissionGranted}
+          onPermissionDenied={handlePermissionDenied}
+        //   onShow={handleNotificationOnShow}
+          onClick={handleNotificationOnClick}
+          onClose={handleNotificationOnClose}
+          onError={handleNotificationOnError}
           timeout={5000}
-          title={this.state.title}
-          options={this.state.options}
-          swRegistration={this.props.swRegistration}
+          title={title} 
+          options={options}
+          swRegistration={props.swRegistration}
         />
         <audio id="sound" preload="auto">
           <source src="../sound.mp3" type="audio/mpeg" />
@@ -122,5 +148,6 @@ export default class BroNotifcation extends React.Component {
         </audio>
       </div>
     );
-  }
+  
 }
+export default BroNotifcation

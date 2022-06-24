@@ -40,6 +40,7 @@ import ResetPassword from "./pages/reset-password";
 import EmailPage from "./pages/email";
 import EmailSetting from "./pages/settings/email";
 import EmailSender from "./pages/settings/email/email-sender";
+import { socket } from "./helper/socket";
 
 const IsAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
@@ -63,6 +64,14 @@ function App({ component: Component, ...rest }) {
   useEffect(() => {
     userDetail();
   }, []);
+
+  // useEffect(() => {
+  //   socket.on('getNotifications', ()=>{});
+  //   // unsubscribe from event for preventing memory leaks
+  //   return () => {
+  //     socket.off('getNotifications', ()=>{});
+  //   };
+  // }, []);
 
   const userDetail = async () => {
     const user = localStorage.getItem("token");

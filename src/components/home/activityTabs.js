@@ -22,7 +22,7 @@ const ActivityCardContent = () => {
           <div className="card-tav-content">
               <p> Visit our Help Centre </p>
           </div>
-          <BroNotifcation />
+          {/* <BroNotifcation /> */}
         </li>
     </ul>
   )

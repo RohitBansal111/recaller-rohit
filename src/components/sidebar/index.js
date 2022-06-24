@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import RecallrAIICon from "../../assets/svg-icons/recallrIcon";
 import EmailIcon from "../../assets/svg-icons/emailIcon";
 import { loginAction } from "../../redux/actions/loginAction";
+import BroNotification from '../browserNotifications/index'
+
 
 const SideNavMenu = [
   {
@@ -75,15 +77,21 @@ const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
+
   if (location.pathname === "/login") {
     return null;
   }
+
 
   const handleLogout = () => {
     localStorage.clear();
     dispatch(loginAction({}));
     navigate("/login");
   };
+
+
 
   return (
     <div className="page-sidebar">
@@ -92,6 +100,8 @@ const Sidebar = () => {
           <img src={Logo} alt="Recallr" />
         </div>
         <ul className="sidebar-menu">
+          <BroNotification 
+          />
           {SideNavMenu.map((item, index) => {
             return (
               <li key={index}>
