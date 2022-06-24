@@ -853,10 +853,12 @@ const TextPage = () => {
   const imgref = useRef();
 
   const handleImageCancel = () => {
-    singleimgref.current.value = null;
+    singleimgref.current.value = "";
+    console.log(singleimgref.current.value , "singleimgref");
     setSelectedImage(false);
     setSelectedImageData(null);
   };
+  console.log(singleimgref.current , "singleimgref11111111111111");
 
   const handleNewImageCancel = () => {
     imgref.current.value = null;
@@ -897,6 +899,9 @@ const TextPage = () => {
       }
     }
   };
+
+  console.log(selectedImageData , "selectedImageData");
+  console.log(selectedImage , "selectedImage");
 
   const handleScheduleSubmit = () => {
     var dddd = new Date().toISOString().substring(0, 10);

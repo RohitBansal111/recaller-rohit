@@ -220,7 +220,7 @@ const ChatBoot = (props) => {
                             </div>
                           ) : (
                             <div className="attachedImage-box">
-                              {props.selectedImageData != null && (
+                              {props.selectedImageData != null ? (
                                 <ul className="attachedImageGallery">
                                   <li>
                                     <img alt="" src={props.selectedImageData} />
@@ -233,6 +233,8 @@ const ChatBoot = (props) => {
                                     </button>
                                   </li>
                                 </ul>
+                              ) : (
+                                ""
                               )}
                               <textarea
                                 placeholder="Type your message..."

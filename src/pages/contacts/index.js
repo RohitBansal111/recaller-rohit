@@ -544,6 +544,7 @@ const Import = () => {
     setProperties("");
     setRules("");
     setErrors({});
+    getData();
   }
 
   return (
