@@ -541,7 +541,6 @@ const EmailPage = () => {
   };
 
   const onHandleChange = (data) => {
-    console.log(data , "ddddddddddddd");
     setSendEmailMessage(data);
     setLoading(false);
   };
