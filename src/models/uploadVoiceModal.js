@@ -69,6 +69,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
+              disabled={!props.selected || !props.fileName ? true : false}
               loading={props.loading}
               className="btn btn-primary"
               onClick={props.onVoiveUpload}
