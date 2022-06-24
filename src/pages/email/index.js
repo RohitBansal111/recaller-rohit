@@ -513,6 +513,7 @@ const EmailPage = () => {
   };
 
   const openChatClick = async (id, check) => {
+    setSendEmailMessage("")
     const res = await getEmailMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setEmailChatMesssages(res.data.data);
@@ -849,15 +850,6 @@ const EmailPage = () => {
     setOnShowChatBotEmojiOpen(false);
   };
 
-  const handleImageCancel = () => {
-    setSelectedImage(false);
-  };
-
-  const handleImageChange = (event) => {
-    let img = event.target.files[0];
-    setSelectedImage(URL.createObjectURL(img));
-  };
-
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
@@ -1062,10 +1054,7 @@ const EmailPage = () => {
           handleChatBotEmojiOpen={handleChatBotEmojiOpen}
           onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
           onChatBotEmojiClick={onChatBotEmojiClick}
-          selectedImage={selectedImage}
-          handleImageOpen={handleImageOpen}
-          handleImageCancel={handleImageCancel}
-          handleImageChange={handleImageChange}
+          selectedImage={selectedImage}          
           handleScheduleSubmit={handleScheduleSubmit}
           showReScheduleModal={showReScheduleModal}
           handleCloseReSchedultModal={handleCloseReSchedultModal}

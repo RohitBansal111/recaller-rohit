@@ -101,15 +101,18 @@ const TextPage = () => {
   const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
     useState(false);
   const [reScheduleTitle, setReScheduleTitle] = useState({});
-  const [searchTemplateValue , setSearchTemplateValue] = useState("")
+  const [searchTemplateValue, setSearchTemplateValue] = useState("");
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setSelectedNewImageData(null);
+    setImageUrl({});
     setCancelRescheDule(false);
     setPreview(false);
     setErrors({});
     setLoading(false);
+    setSelectedImageData(null);
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setSelectedImage(null);
@@ -118,11 +121,14 @@ const TextPage = () => {
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setCancelRescheDule(false);
+    setSelectedNewImageData(null);
+    setSelectedImageData(null);
     setSelected([]);
     setSendNewMessage("");
     setErrors({});
     setLoading(false);
     setSelectedImage(null);
+    setImageUrl({});
     setScheduledData({});
     setDateSelected(() => {
       const today = new Date();
@@ -176,7 +182,7 @@ const TextPage = () => {
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setTemplateMessage("");
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
     setErrors({});
   };
   const handleCloseCreateTemplateModal = () => {
@@ -184,31 +190,31 @@ const TextPage = () => {
     setTemplateTags(null);
     setTemplateName("");
     setTemplateMessage("");
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
     setErrors({});
   };
   const handleManageTemplate = () => {
     getTemplate();
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
 
   const handleNewManageTemplate = () => {
     getTemplate();
     setNewShowManageeTemplateModal(true);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
     seteditmanageTemplate(false);
   };
   const handleNewCloseManageTemplateModal = () => {
     setNewShowManageeTemplateModal(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
     seteditmanageTemplate(false);
   };
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
 
   const isTagValid = () => {
@@ -433,7 +439,9 @@ const TextPage = () => {
         scrollToBottom();
         setDateSelected({});
         setSchedule(false);
+        setImageUrl({});
         setLoading(false);
+        setSelectedImageData(null);
         setCancelRescheDule(false);
         setScheduledData({});
         setShowScheduleModal(false);
@@ -499,8 +507,10 @@ const TextPage = () => {
           setSelectedImage(null);
           setScheduledData({});
           setShowScheduleModal(false);
+          setSelectedNewImageData(null);
           setDateSelected({});
           setSchedule(false);
+          setImageUrl({});
           setCancelRescheDule(false);
           setSendNewMessage("");
           setLoading(false);
@@ -557,6 +567,8 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id, check) => {
+    setSelectedImageData(null)
+    setImageUrl({})
     setSelectedImage(false);
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
@@ -853,15 +865,17 @@ const TextPage = () => {
   const imgref = useRef();
 
   const handleImageCancel = () => {
-    singleimgref.current.value = null;
+    singleimgref.current.value = "";
     setSelectedImage(false);
     setSelectedImageData(null);
+    setImageUrl({});
   };
 
   const handleNewImageCancel = () => {
     imgref.current.value = null;
     setSelectedNewImage(false);
     setSelectedNewImageData(null);
+    setImageUrl({});
   };
 
   const handleNewImageChange = async (event) => {
@@ -897,7 +911,7 @@ const TextPage = () => {
       }
     }
   };
-
+  
   const handleScheduleSubmit = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();

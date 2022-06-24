@@ -220,7 +220,9 @@ const ChatBoot = (props) => {
                             </div>
                           ) : (
                             <div className="attachedImage-box">
-                              {props.selectedImageData != null && (
+                              {props.selectedImageData == null ? (
+                                ""
+                              ) : (
                                 <ul className="attachedImageGallery">
                                   <li>
                                     <img alt="" src={props.selectedImageData} />

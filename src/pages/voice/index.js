@@ -400,6 +400,12 @@ const Voice = () => {
   };
 
   const openChatClick = async (id, check) => {
+    setIsNewVoiceActive(false);
+    setAudioFileName(null);
+    setIsActive(false);
+    setCounter(0);
+    setSecond("00");
+    setMinute("00");
     const res = await getUploadVoiceMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setVoiceChatData(res.data.data);
