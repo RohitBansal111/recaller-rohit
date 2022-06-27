@@ -773,7 +773,7 @@ const TextPage = () => {
   const handleSingleTempInsert = () => {
     let x = replacefunc(templateDataState.message);
     setSendMessage(x);
-    setShowManageeTemplateModal(false);
+    setNewShowManageeTemplateModal(false);
   };
 
   const handleEditTemplate = (item) => {
@@ -1179,7 +1179,6 @@ const TextPage = () => {
         templateData={templateData}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
-        handleSingleTempInsert={handleSingleTempInsert}
         handleTempTitleClick={handleNewTempTitleClick}
         handleTempShowClick={handleTempShowClick}
         editmanageTemplate={editmanageTemplate}
