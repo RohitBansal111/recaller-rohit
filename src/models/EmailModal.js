@@ -99,7 +99,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
                         {item.label} <br></br>
                         {item.phone}
                       </TableCell>
-                      <TableCell> {props.emailMessage}</TableCell>
+                      <TableCell> {parse(props.emailMessage)}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>
