@@ -754,8 +754,8 @@ const EmailPage = () => {
 
   const handleTempInsert = () => {
     let x = replacefunc(templateDataState.message);
-    setSendEmailMessage(x);
-    setShowManageeTemplateModal(false);
+    setEmailMessage(x);
+    setNewShowManageeTemplateModal(false);
   };
 
   const handleNewTempTitleClick = (item) => {
@@ -764,7 +764,8 @@ const EmailPage = () => {
   };
 
   const handleSingleTempInsert = () => {
-    setSendEmailMessage(templateDataState.message);
+    let x = replacefunc(templateDataState.message);
+    setSendEmailMessage(x);
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
   };
