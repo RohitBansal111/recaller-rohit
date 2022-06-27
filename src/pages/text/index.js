@@ -570,6 +570,7 @@ const TextPage = () => {
     setSelectedImageData(null)
     setImageUrl({})
     setSelectedImage(false);
+    setSendMessage("")
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
