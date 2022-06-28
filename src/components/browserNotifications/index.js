@@ -24,6 +24,7 @@ if(data && data.userId){
   let userObj =localStorage.getItem('userData')
   if(userObj)userObj = JSON.parse(userObj)
   if(userObj && userObj.id && userObj.id==data.userId){
+    console.log("in condition  ::::")
     handleButtonClick(data.title?data.title:'',data.body?data.body:'')
   }
 
@@ -81,7 +82,7 @@ if(data && data.userId){
     if (ignore) {
       return;
     }
-
+console.log("called ::::",t,b)
     const now = Date.now();
 
     const title =t?t: " Notifications";
