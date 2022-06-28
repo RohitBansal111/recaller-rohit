@@ -59,7 +59,10 @@ const ChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
+          <p className="noti_wrap">
+            <span>{item.message.slice(0, 30).concat("...")}</span>
+            {/* <span className="notification_cstm">20</span> */}
+          </p>
           <div className="chat-tag">
             {item.contact.tags.length > 0
               ? item.contact.tags.map((item) => (
@@ -177,7 +180,7 @@ const ChatBoot = (props) => {
                 schaduleData={props.scheduledData}
               />
             </div>
-            <div className="chat-text-editor">
+            <div className="chat-text-editor text-chat-editor">
               {props.userMessageList.length == 0 ? (
                 " "
               ) : (

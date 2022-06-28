@@ -78,6 +78,22 @@
               font-size: 13px;
               color: $labelColor;
               margin-bottom: 0px;
+              &.noti_wrap {
+                display: flex;
+                justify-content: space-between;
+                .notification_cstm {
+                  background: #7674ec;
+                  color: #fff;
+                  width: 20px;
+                  height: 20px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  font-size: 10px;
+                  border-radius: 50%;
+                  font-weight: 500;
+                }
+              }
             }
             .chat-tag {
               margin-top: 10px;
@@ -176,6 +192,8 @@
           width: 94%;
           margin: auto;
           left: 3%;
+          min-height: 340px;
+          background: #fff;
           .chat-textarea {
             width: 100%;
             background-color: $Theme-white;
@@ -185,7 +203,7 @@
               padding: 10px;
               font-size: 14px;
               outline: 0px;
-              min-height: 70px;
+              min-height: 140px;
               background-color: transparent;
               &:focus {
                 outline: 0px;
@@ -291,6 +309,20 @@
                 }
               }
             }
+            .ck-content {
+              max-height: 120px;
+              p {
+                display: inline;
+              }
+            }
+          }
+          &.text-chat-editor {
+            min-height: auto;
+            .chat-textarea {
+              textarea {
+                min-height: 70px;
+              }
+            }
           }
         }
       }
@@ -373,6 +405,7 @@
         padding: 20px;
         margin: 20px 0px;
         border-radius: 3px;
+        margin-bottom: 0;
         h4 {
           text-align: center;
           font-size: 20px;
@@ -490,8 +523,12 @@
   align-items: flex-end;
   flex-direction: column;
   justify-content: flex-end;
-  max-height: calc(100vh - 355px);
-  min-height: calc(100vh - 355px);
+  max-height: calc(100vh - 370px);
+  min-height: calc(100vh - 370px);
+  @media (min-width: 1400px) {
+    max-height: calc(100vh - 390px);
+    min-height: calc(100vh - 390px);
+  }
   &.email-middle-screen {
     max-height: calc(100vh - 500px);
     min-height: calc(100vh - 500px);
@@ -518,8 +555,8 @@
     }
   }
   &.voice-chat-screen {
-    max-height: calc(100vh - 205px);
-    min-height: calc(100vh - 205px);
+    max-height: calc(100vh - 210px);
+    min-height: calc(100vh - 210px);
     width: 100%;
     ul {
       margin-bottom: 0px;
@@ -623,6 +660,9 @@
         pre {
           font-size: 13px;
           margin-bottom: 0px;
+          p {
+            display: inline;
+          }
         }
         &.client {
           border-color: #dedede;
