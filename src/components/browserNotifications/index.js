@@ -18,6 +18,8 @@ window.React = React;
   //   };
   // }
   const getNotificationsEventHandler = (data) => {
+    console.log("notification event socket:::::::")
+    console.log("notification event socket:::::::",data)
 if(data && data.userId){
   let userObj =localStorage.getItem('userData')
   if(userObj)userObj = JSON.parse(userObj)
