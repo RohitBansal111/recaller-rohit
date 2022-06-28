@@ -18,6 +18,8 @@ window.React = React;
   //   };
   // }
   function getNotificationsEventHandler(data){
+
+    console.log("notification event socket:::::::",data)
 if(data && data.userId){
   let userObj =localStorage.getItem('userData')
   if(userObj)userObj = JSON.parse(userObj)
@@ -114,7 +116,7 @@ if(data && data.userId){
   
     return (
       <div>
-        <button onClick={()=>handleButtonClick()}>Notify Me</button>
+        <button style={{display:'none'}} onClick={()=>handleButtonClick()}></button>
         {document.title === "swExample" && (
           <button onClick={handleButtonClick2}>
             swRegistration.getNotifications
