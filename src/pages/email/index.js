@@ -99,7 +99,7 @@ const EmailPage = () => {
   const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
     useState(false);
   const [reScheduleTitle, setReScheduleTitle] = useState({});
-  const [searchTemplateValue , setSearchTemplateValue] = useState("")
+  const [searchTemplateValue, setSearchTemplateValue] = useState("");
 
   const divRef = useRef(null);
   const textref = useRef(null);
@@ -233,7 +233,7 @@ const EmailPage = () => {
     setTemplateName("");
     setTemplateMessage("");
     setErrors({});
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
   const handleCloseCreateTemplateModal = () => {
     setShowCreateTemplateModal(false);
@@ -241,32 +241,32 @@ const EmailPage = () => {
     setTemplateName("");
     setTemplateMessage("");
     setErrors({});
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
   const handleManageTemplate = () => {
     setShowManageeTemplateModal(true);
     getEmailTemplate();
     seteditmanageTemplate(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
 
   const handleNewManageTemplate = () => {
     getEmailTemplate();
     setNewShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
 
   const handleNewCloseManageTemplateModal = () => {
     setNewShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
 
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
-    setSearchTemplateValue("")
+    setSearchTemplateValue("");
   };
   useEffect(() => {
     getTags();
@@ -428,22 +428,29 @@ const EmailPage = () => {
         obj.dateSelected =
           scheduledData.date + " " + scheduledData.time + ":00";
       }
-      let res = await sendEmailMessageApi(obj);
-      if (res && res.data && res.data.status === 200) {
-        toast.success(" Message sent Successfully");
-        setOpenMessageModal(false);
-        setSelected([]);
-        setEmailMessage("");
+      var today = new Date().getHours();
+
+      if (today >= 8 && today <= 20) {
+        let res = await sendEmailMessageApi(obj);
+        if (res && res.data && res.data.status === 200) {
+          toast.success(" Message sent Successfully");
+          setOpenMessageModal(false);
+          setSelected([]);
+          setEmailMessage("");
+          setLoading(false);
+          setDateSelected({});
+          setShowReScheduleModal(false);
+          setCancelRescheDule(false);
+          setSchedule(false);
+          setScheduledData({});
+          setShowScheduleModal(false);
+          setEmailSubject("");
+        }
+        getEmailMessage();
+      } else {
+        toast.error("Please Send Text between 8am - 9pm");
         setLoading(false);
-        setDateSelected({});
-        setShowReScheduleModal(false);
-        setCancelRescheDule(false);
-        setSchedule(false);
-        setScheduledData({});
-        setShowScheduleModal(false);
-        setEmailSubject("");
       }
-      getEmailMessage();
     }
   };
 
@@ -513,7 +520,7 @@ const EmailPage = () => {
   };
 
   const openChatClick = async (id, check) => {
-    setSendEmailMessage("")
+    setSendEmailMessage("");
     const res = await getEmailMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setEmailChatMesssages(res.data.data);
@@ -565,19 +572,26 @@ const EmailPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
-    const res = await sendSingleEmailMessageApi(obj);
+    var today = new Date().getHours();
 
-    if (res && res.data && res.data.status === 200) {
-      setSendEmailMessage("");
-      scrollToBottom();
+    if (today >= 8 && today <= 20) {
+      const res = await sendSingleEmailMessageApi(obj);
+
+      if (res && res.data && res.data.status === 200) {
+        setSendEmailMessage("");
+        scrollToBottom();
+        setLoading(false);
+        setSchedule(false);
+        setScheduledData({});
+        setDateSelected({});
+        setCancelRescheDule(false);
+        setShowScheduleModal(false);
+      }
+      getEmailMessage();
+    } else {
+      toast.error("Please Send Text between 8am - 9pm");
       setLoading(false);
-      setSchedule(false);
-      setScheduledData({});
-      setDateSelected({});
-      setCancelRescheDule(false);
-      setShowScheduleModal(false);
     }
-    getEmailMessage();
   };
 
   const handleContactEditModal = (id) => {
@@ -739,8 +753,9 @@ const EmailPage = () => {
   };
 
   const handleTempInsert = () => {
-    setEmailMessage(templateDataState.message);
-    setShowManageeTemplateModal(false);
+    let x = replacefunc(templateDataState.message);
+    setEmailMessage(x);
+    setNewShowManageeTemplateModal(false);
   };
 
   const handleNewTempTitleClick = (item) => {
@@ -749,8 +764,10 @@ const EmailPage = () => {
   };
 
   const handleSingleTempInsert = () => {
-    setSendEmailMessage(templateDataState.message);
+    let x = replacefunc(templateDataState.message);
+    setSendEmailMessage(x);
     setShowManageeTemplateModal(false);
+    seteditmanageTemplate(false);
   };
 
   const handleEditTemplate = (item) => {
@@ -1054,7 +1071,7 @@ const EmailPage = () => {
           handleChatBotEmojiOpen={handleChatBotEmojiOpen}
           onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
           onChatBotEmojiClick={onChatBotEmojiClick}
-          selectedImage={selectedImage}          
+          selectedImage={selectedImage}
           handleScheduleSubmit={handleScheduleSubmit}
           showReScheduleModal={showReScheduleModal}
           handleCloseReSchedultModal={handleCloseReSchedultModal}

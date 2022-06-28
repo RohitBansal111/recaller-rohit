@@ -667,18 +667,18 @@ aside.emoji-picker-react {
   padding-right: 16px;
   justify-content: flex-start;
 }
-.chat-textarea {
+// .chat-textarea {
   .ck.ck-content p {
     margin-bottom: 0px !important;
     margin-top: 0px !important;
-    display: inline;
+    // display: inline;
   }
-  &.Internal {
-    textarea {
-      min-height: 195.59px !important;
-    }
-  }
-}
+  // &.Internal {
+  //   textarea {
+  //     min-height: 195.59px !important;
+  //   }
+  // }
+// }
 
 .title-chat-display {
   display: inline-flex;

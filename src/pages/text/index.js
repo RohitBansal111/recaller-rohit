@@ -567,9 +567,10 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id, check) => {
-    setSelectedImageData(null)
-    setImageUrl({})
+    setSelectedImageData(null);
+    setImageUrl({});
     setSelectedImage(false);
+    setSendMessage("");
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
@@ -766,14 +767,14 @@ const TextPage = () => {
 
   const handleTempInsert = () => {
     let x = replacefunc(templateDataState.message);
-    setSendNewMessage(x);
+    setSendNewMessage(x + sendNewMessage);
     setShowManageeTemplateModal(false);
   };
 
   const handleSingleTempInsert = () => {
     let x = replacefunc(templateDataState.message);
-    setSendMessage(x);
-    setShowManageeTemplateModal(false);
+    setSendMessage(x + sendMessage);
+    setNewShowManageeTemplateModal(false);
   };
 
   const handleEditTemplate = (item) => {
@@ -911,7 +912,7 @@ const TextPage = () => {
       }
     }
   };
-  
+
   const handleScheduleSubmit = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
@@ -1179,7 +1180,6 @@ const TextPage = () => {
         templateData={templateData}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
-        handleSingleTempInsert={handleSingleTempInsert}
         handleTempTitleClick={handleNewTempTitleClick}
         handleTempShowClick={handleTempShowClick}
         editmanageTemplate={editmanageTemplate}

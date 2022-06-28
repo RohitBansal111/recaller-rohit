@@ -656,7 +656,6 @@ const ChatBoot = (props) => {
           templateData={props.templateData}
           handleTempShowClick={props.handleTempShowClick}
           templateDataState={props.templateDataState}
-          handleSingleTempInsert={props.handleSingleTempInsert}
           handleTempInsert={props.handleSingleTempInsert}
           handleEditTemplate={props.handleEditTemplate}
           editmanageTemplate={props.editmanageTemplate}
