@@ -82,6 +82,7 @@ if(data && data.userId){
     addNotification({
       title: t?t:'Notification',
       // subtitle: 'This is a subtitle',
+      icon: NotificationIcon,
       message:b?b:'This is a very long message',
       theme: 'darkblue',
       native: true // when using native, your OS will handle theming.
