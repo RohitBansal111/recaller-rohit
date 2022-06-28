@@ -145,6 +145,9 @@
 }
 .contact-data-table-main {
   padding: 0px;
+  .MuiTableContainer-root {
+    max-height: calc(100vh - 262px);
+  }
   .tableFilter-toolbar {
     display: flex;
     justify-content: space-between;
