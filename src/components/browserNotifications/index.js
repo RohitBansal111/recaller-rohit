@@ -119,12 +119,12 @@ console.log("called ::::",t,b)
   
     return (
       <div>
-        {/* <button onClick={handleButtonClick}>Notify Me</button> */}
-        {/* {document.title === "swExample" && (
+        <button onClick={handleButtonClick}>Notify Me</button>
+        {document.title === "swExample" && (
           <button onClick={handleButtonClick2}>
             swRegistration.getNotifications
           </button>
-        )} */}
+        )}
         <Notification
           ignore={ignore && title !== ""}
           notSupported={handleNotSupported}
