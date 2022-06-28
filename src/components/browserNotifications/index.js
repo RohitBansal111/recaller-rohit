@@ -17,14 +17,12 @@ window.React = React;
   //     title: ""
   //   };
   // }
-  const getNotificationsEventHandler = (data) => {
-    console.log("notification event socket:::::::")
-    console.log("notification event socket:::::::",data)
+  function getNotificationsEventHandler(data){
 if(data && data.userId){
   let userObj =localStorage.getItem('userData')
   if(userObj)userObj = JSON.parse(userObj)
   if(userObj && userObj.id && userObj.id==data.userId){
-    console.log("in condition  ::::")
+
     handleButtonClick(data.title?data.title:'',data.body?data.body:'')
   }
 
@@ -78,11 +76,10 @@ if(data && data.userId){
     document.getElementById("sound").play();
   }
 
-  function handleButtonClick(t='',b='') {
+  const handleButtonClick =(t='',b='')=> {
     if (ignore) {
       return;
     }
-console.log("called ::::",t,b)
     const now = Date.now();
     const body = b?b:"This is Notifcation body";
     const tag = now;
@@ -96,7 +93,7 @@ console.log("called ::::",t,b)
       dir: "ltr",
     //   sound: "../sound.mp3"
     };
-    console.log("test:::",t)
+
     setTitle(t?t:'Notification')
     setOptions(options)
     // this.setState({
@@ -106,8 +103,7 @@ console.log("called ::::",t,b)
     handleButtonClick2()
   }
 
-  function handleButtonClick2() {
-    console.log("called")
+  const handleButtonClick2 =()=> {
     props.swRegistration
       .getNotifications({})
       .then(function(notifications) {
