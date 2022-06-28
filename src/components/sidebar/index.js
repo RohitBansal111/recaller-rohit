@@ -100,7 +100,7 @@ const Sidebar = () => {
           <img src={Logo} alt="Recallr" />
         </div>
         <ul className="sidebar-menu">
-          <BroNotification 
+        <BroNotification 
           />
           {SideNavMenu.map((item, index) => {
             return (
@@ -116,7 +116,9 @@ const Sidebar = () => {
             );
           })}
         </ul>
+   
         <div className="user-profile-btn">
+      
           <button
             className="btn btn-secondary dropdown-toggle"
             type="button"
@@ -124,6 +126,7 @@ const Sidebar = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
+    
             <ProfileIcon />
             {userDataa
               ? userDataa.firstName + " " + userDataa.lastName

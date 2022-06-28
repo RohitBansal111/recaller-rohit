@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import Notification from "react-web-notification";
 import NotificationIcon from "../../assets/icons/Notifications_button_24.png";
 import { socket } from "../../helper/socket";
+import addNotification from 'react-push-notification';
 
 //allow react dev tools work
 window.React = React;
@@ -25,7 +26,7 @@ if(data && data.userId){
   if(userObj)userObj = JSON.parse(userObj)
   if(userObj && userObj.id && userObj.id==data.userId){
 
-    handleButtonClick(data.title?data.title:'',data.body?data.body:'')
+    newMethod(data.title?data.title:'',data.body?data.body:'')
   }
 
 }
@@ -77,6 +78,15 @@ if(data && data.userId){
   function playSound(filename) {
     document.getElementById("sound").play();
   }
+  const newMethod =(t,b)=>{
+    addNotification({
+      title: t?t:'Notification',
+      // subtitle: 'This is a subtitle',
+      message:b?b:'This is a very long message',
+      theme: 'darkblue',
+      native: true // when using native, your OS will handle theming.
+  })
+  }
 
   const handleButtonClick =(t='',b='')=> {
     if (ignore) {
@@ -116,12 +126,12 @@ if(data && data.userId){
   
     return (
       <div>
-        <button style={{display:'none'}} onClick={()=>handleButtonClick()}></button>
+        {/* <button style={{}}  onClick={()=>{        ;}}>testtt</button>
         {document.title === "swExample" && (
           <button onClick={handleButtonClick2}>
             swRegistration.getNotifications
           </button>
-        )}
+        )} */}
         <Notification
           ignore={ignore}
           notSupported={handleNotSupported}
