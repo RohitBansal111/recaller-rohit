@@ -84,8 +84,6 @@ if(data && data.userId){
     }
 console.log("called ::::",t,b)
     const now = Date.now();
-
-    const title =t?t: " Notifications";
     const body = b?b:"This is Notifcation body";
     const tag = now;
     const icon =NotificationIcon
@@ -98,7 +96,8 @@ console.log("called ::::",t,b)
       dir: "ltr",
     //   sound: "../sound.mp3"
     };
-    setTitle(title)
+    console.log("test:::",t)
+    setTitle(t?t:'Notification')
     setOptions(options)
     // this.setState({
     //   title: title,
@@ -119,14 +118,14 @@ console.log("called ::::",t,b)
   
     return (
       <div>
-        <button onClick={handleButtonClick}>Notify Me</button>
+        <button onClick={()=>handleButtonClick()}>Notify Me</button>
         {document.title === "swExample" && (
           <button onClick={handleButtonClick2}>
             swRegistration.getNotifications
           </button>
         )}
         <Notification
-          ignore={ignore && title !== ""}
+          ignore={ignore}
           notSupported={handleNotSupported}
           onPermissionGranted={handlePermissionGranted}
           onPermissionDenied={handlePermissionDenied}
