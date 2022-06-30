@@ -133,7 +133,7 @@ const Voice = () => {
   };
   const handleNewMessage = () => {
     setOpenMessageModal(true);
-    setUploadOpen(false)
+    setUploadOpen(false);
     // setErrors({});
     // setIsNewVoiceActive(false);
     // stopTimer();
@@ -360,36 +360,38 @@ const Voice = () => {
     }
   };
 
+  console.log(mediaBlobUrl, "mediaBlobUrl");
+
   const handleSendClick = async () => {
     console.log();
     if (isSelectValid()) {
-    await fetch(mediaBlobUrl)
-      .then((res) => res.blob())
-      .then(async (myBlob) => {
-        var file = new File([myBlob], "name.wav");
-        var formData = new FormData();
-        let contactid = selected.map((item) => item.value);
-        console.log(contactid, "contactid");
-        formData.append("voice", file);
-        formData.append("contactid", JSON.stringify(contactid));
-        setIsShowLoading(true);
-        setLoading(true);
-        let res = await uploadVoiceMessageApi(formData);
-        if (res && res.data && res.data.status === 200) {
-          toast.success("Voice Message sent Successfully");
-          stopTimer();
-          setOpenMessageModal(false);
-          setSelected([]);
-          setLoading(false);
-          setPlaying(false);
-          setIsNewVoiceActive(false);
-          setIsActive(false);
-          setIndividualOpen(false);
-          setBulkOpen(false);
-          setIsShowLoading(false);
-        }
-        getVoiceMessage();
-      });
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
+        .then(async (myBlob) => {
+          var file = new File([myBlob], "name.wav");
+          var formData = new FormData();
+          let contactid = selected.map((item) => item.value);
+          console.log(contactid, "contactid");
+          formData.append("voice", file);
+          formData.append("contactid", JSON.stringify(contactid));
+          setIsShowLoading(true);
+          setLoading(true);
+          let res = await uploadVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            stopTimer();
+            setOpenMessageModal(false);
+            setSelected([]);
+            setLoading(false);
+            setPlaying(false);
+            setIsNewVoiceActive(false);
+            setIsActive(false);
+            setIndividualOpen(false);
+            setBulkOpen(false);
+            setIsShowLoading(false);
+          }
+          getVoiceMessage();
+        });
     }
   };
 
@@ -397,33 +399,33 @@ const Voice = () => {
   const handleBulkSendClick = async () => {
     console.log();
     if (isBulkSelectValid()) {
-    await fetch(mediaBlobUrl)
-      .then((res) => res.blob())
-      .then(async (myBlob) => {
-        var file = new File([myBlob], "name.wav");
-        var formData = new FormData();
-        let contactid = bulkSelected.map((item) => item.value);
-        console.log(contactid, "contactid");
-        formData.append("voice", file);
-        formData.append("contactid", JSON.stringify(contactid));
-        setIsShowLoading(true);
-        setLoading(true);
-        let res = await uploadVoiceMessageApi(formData);
-        if (res && res.data && res.data.status === 200) {
-          toast.success("Voice Message sent Successfully");
-          stopTimer();
-          setOpenMessageModal(false);
-          setSelected([]);
-          setLoading(false);
-          setPlaying(false);
-          setIsNewVoiceActive(false);
-          setIsActive(false);
-          setIndividualOpen(false);
-          setBulkOpen(false);
-          setIsShowLoading(false);
-        }
-        getVoiceMessage();
-      });
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
+        .then(async (myBlob) => {
+          var file = new File([myBlob], "name.wav");
+          var formData = new FormData();
+          let contactid = bulkSelected.map((item) => item.value);
+          console.log(contactid, "contactid");
+          formData.append("voice", file);
+          formData.append("contactid", JSON.stringify(contactid));
+          setIsShowLoading(true);
+          setLoading(true);
+          let res = await uploadVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            stopTimer();
+            setOpenMessageModal(false);
+            setSelected([]);
+            setLoading(false);
+            setPlaying(false);
+            setIsNewVoiceActive(false);
+            setIsActive(false);
+            setIndividualOpen(false);
+            setBulkOpen(false);
+            setIsShowLoading(false);
+          }
+          getVoiceMessage();
+        });
     }
   };
 
@@ -587,6 +589,7 @@ const Voice = () => {
 
   const handleOpenUploadModal = () => {
     setUploadOpen(true);
+    stopTimer();
     setOpenMessageModal(false);
     setFileName(null);
     // setSelected([]);
@@ -614,23 +617,45 @@ const Voice = () => {
   };
 
   const onVoiveUpload = async () => {
-    // if (isSelectValid()) {
-    var formData = new FormData();
-    let contactid = selected.map((item) => item.value);
-    formData.append("voice", fileName);
-    formData.append("contactid", JSON.stringify(contactid));
-    setLoading(true);
-    let res = await uploadVoiceMessageApi(formData);
-    if (res && res.data && res.data.status === 200) {
-      toast.success("Voice Message sent Successfully");
-      setUploadOpen(false);
-      getVoiceMessage();
-      setErrors({});
-      setIndividualOpen(false);
-      setBulkOpen(false);
+    console.log(fileName, "fileName");
+    if (isSelectValid()) {
+      var formData = new FormData();
+      let contactid = selected.map((item) => item.value);
+      formData.append("voice", fileName);
+      formData.append("contactid", JSON.stringify(contactid));
+      setLoading(true);
+      let res = await uploadVoiceMessageApi(formData);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Voice Message sent Successfully");
+        setUploadOpen(false);
+        getVoiceMessage();
+        setErrors({});
+        setIndividualOpen(false);
+        setBulkOpen(false);
+      }
     }
-    // }
   };
+
+  const onBulkVoiceUpload = async () => {
+    console.log(fileName, "fileName");
+    if (isBulkSelectValid()) {
+      var formData = new FormData();
+      let contactid = selected.map((item) => item.value);
+      formData.append("voice", fileName);
+      formData.append("contactid", JSON.stringify(contactid));
+      setLoading(true);
+      let res = await uploadVoiceMessageApi(formData);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Voice Message sent Successfully");
+        setUploadOpen(false);
+        getVoiceMessage();
+        setErrors({});
+        setIndividualOpen(false);
+        setBulkOpen(false);
+      }
+    }
+  };
+
 
   const onSingleVoiceUploadChange = (e) => {
     if (e.target.files[0]) {
@@ -875,7 +900,7 @@ const Voice = () => {
         handleCloseUploadModal={handleCloseUploadModal}
         handleSelectChange={handleSelectChange}
         onVoiceUploadChange={onVoiceUploadChange}
-        onVoiveUpload={onVoiveUpload}
+        onVoiveUpload={onBulkVoiceUpload}
         errors={errors}
         loading={loading}
         fileName={fileName}

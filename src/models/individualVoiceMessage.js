@@ -156,7 +156,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
               type="button"
               loadingPosition="center"
               loading={props.loading}
-              onClick={props.handleSendClick}
+              onClick={props.onVoiveUpload}
               className="btn btn-primary"
               variant="contained"
             >
