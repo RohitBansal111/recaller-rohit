@@ -748,19 +748,21 @@ body {
 .field-group.flexFull {
   position: relative;
 }
-button.remove-recording-action {
-  position: absolute;
-  left: 75px;
-  top: 2px;
-  padding: 3px 3px !important;
-  border: none !important;
-  background-color: #ff0000 !important;
-  line-height: 0px;
-  width: 20px;
-  height: 20px;
-  border-radius: 25px;
-  svg {
-    fill: #fff;
-    font-size: 15px;
+.upload-voicemodal .voice-recorder-box {
+  & + .remove-recording-action {
+    position: absolute;
+    right: -12px;
+    top: -5px;
+    padding: 3px 3px !important;
+    border: none !important;
+    background-color: #ff0000 !important;
+    line-height: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 25px;
+    svg {
+      fill: #fff;
+      font-size: 15px;
+    }
   }
 }
