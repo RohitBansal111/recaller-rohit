@@ -72,6 +72,7 @@ const Voice = () => {
   const handleOpenIndividual = () => {
     setIndividualOpen(true);
     setOpenMessageModal(false);
+    stopTimer();
     setUploadOpen(false);
   };
 
@@ -79,17 +80,20 @@ const Voice = () => {
     setBulkOpen(true);
     setOpenMessageModal(false);
     setUploadOpen(false);
+    stopTimer();
   };
 
   const handleCloseBulkModal = () => {
     setBulkOpen(false);
     setOpenMessageModal(false);
+    stopTimer();
     setUploadOpen(false);
   };
 
   const handleCloseIndividual = () => {
     setIndividualOpen(false);
     setOpenMessageModal(false);
+    stopTimer();
     setUploadOpen(false);
   };
 
@@ -136,7 +140,7 @@ const Voice = () => {
     setUploadOpen(false);
     // setErrors({});
     // setIsNewVoiceActive(false);
-    // stopTimer();
+    stopTimer();
     setLoading(false);
   };
   const handleCloseMessageModal = () => {
