@@ -708,7 +708,7 @@ aside.emoji-picker-react {
   border-radius: 20px;
   background-color: #474949;
 }
-.search-data-table > div:first-child {
+.search-main-section .search-data-table > div:first-child {
   max-height: calc(100vh - 270px);
   overflow-y: auto;
 }
@@ -735,5 +735,32 @@ body {
     svg {
       color: #fff;
     }
+  }
+  .remove-recording-action {
+    left: auto;
+    top: -15px;
+    right: -15px;
+  }
+  .upload-voice-recording.bulk-upload {
+    margin-top: 20px;
+  }
+}
+.field-group.flexFull {
+  position: relative;
+}
+button.remove-recording-action {
+  position: absolute;
+  left: 75px;
+  top: 2px;
+  padding: 3px 3px !important;
+  border: none !important;
+  background-color: #ff0000 !important;
+  line-height: 0px;
+  width: 20px;
+  height: 20px;
+  border-radius: 25px;
+  svg {
+    fill: #fff;
+    font-size: 15px;
   }
 }

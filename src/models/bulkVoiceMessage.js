@@ -48,28 +48,30 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
         {props.uploadOpen == true && (
           <>
             {" "}
-            <div className="upload-voice-recording">
-              <input
-                className="inputFile"
-                type="file"
-                ref={props.voiceref}
-                accept="audio/*"
-                name="file"
-                onChange={props.onVoiceUploadChange}
-              />
-              <span>
-                <>
-                  <LibraryMusicIcon /> Upload Voice Recording
-                </>
-              </span>
+            <div className="voice-record-upload">
+              <div className="upload-voice-recording bulk-upload">
+                <input
+                  className="inputFile"
+                  type="file"
+                  ref={props.voiceref}
+                  accept="audio/*"
+                  name="file"
+                  onChange={props.onVoiceUploadChange}
+                />
+                <span>
+                  <>
+                    <LibraryMusicIcon /> Upload Voice Recording
+                  </>
+                </span>
+              </div>
+              <button
+                type="button"
+                className="remove-recording-action"
+                onClick={props.clearUploadInput}
+              >
+                <MdClose />
+              </button>
             </div>
-            <button
-              type="button"
-              className="remove-recording-action"
-              onClick={props.clearUploadInput}
-            >
-              <MdClose />
-            </button>
             <div className="voice-file">
               <span>{props.fileName ? props.fileName.name : ""}</span>
               {props.fileName ? (
