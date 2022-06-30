@@ -36,11 +36,16 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
           <Button
             variant="primary"
             className="btn btn me-3"
+            style={{ marginBottom: " 15px" }}
             onClick={props.handleOpenUploadModal}
           >
             Upload File
           </Button>
-          <Button variant="primary" onClick={props.handleNewMessage}>
+          <Button
+            variant="primary"
+            style={{ marginBottom: " 15px" }}
+            onClick={props.handleNewMessage}
+          >
             Record Voice
           </Button>
         </div>
@@ -64,13 +69,9 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
                   </>
                 </span>
               </div>
-              <button
-                type="button"
-                className="remove-recording-action"
-                onClick={props.clearUploadInput}
-              >
+              <Button className="cl-icon" onClick={props.clearUploadInput}>
                 <MdClose />
-              </button>
+              </Button>
             </div>
             <div className="voice-file">
               <span>{props.fileName ? props.fileName.name : ""}</span>
