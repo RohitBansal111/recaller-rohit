@@ -386,7 +386,6 @@ const TextPage = () => {
   const getContactCompaign = async () => {
     let res = await getCompaignApi();
     if (res && res.data && res.data.status === 200) {
-      // console.log(value, "value");
       let data = res.data.data.map(function (item) {
         return {
           value: item._id,
@@ -500,7 +499,6 @@ const TextPage = () => {
       timeZone: "America/New_York",
     });
 
-    console.log(todayy, "today");
     // if (today >= 8 && today <= 20) {
     const res = await sendSingleMessageApi(obj);
 
@@ -570,7 +568,6 @@ const TextPage = () => {
         timeZone: "America/New_York",
       });
 
-      console.log(todayy, "today");
       // if (today >= 8 && today <= 20) {
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
@@ -599,7 +596,6 @@ const TextPage = () => {
   const handleSendBulkClick = async () => {
     setLoading(true);
     let contactid = bulkSelected.value;
-    console.log(contactid, "contactid");
     const obj = {
       compaignId: contactid,
       message: sendNewMessage,
@@ -613,8 +609,6 @@ const TextPage = () => {
     let todayy = new Date().toLocaleString("en-US", {
       timeZone: "America/New_York",
     });
-
-    console.log(todayy, "today");
     // if (today >= 8 && today <= 20) {
     let res = await sendMessageApi(obj);
     if (res && res.data && res.data.status === 200) {
@@ -647,7 +641,6 @@ const TextPage = () => {
 
   const handleBulkSelectChange = (values) => {
     setBulkSelected(values);
-    console.log(values, "values");
   };
 
   const getMessage = async (check = true, tagsCheck = false) => {

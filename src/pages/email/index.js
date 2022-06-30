@@ -447,7 +447,6 @@ const EmailPage = () => {
         timeZone: "America/New_York",
       });
 
-      console.log(todayy, "today");
       // if (today >= 8 && today <= 20) {
       let res = await sendEmailMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
@@ -595,7 +594,6 @@ const EmailPage = () => {
       timeZone: "America/New_York",
     });
 
-    console.log(todayy, "today");
     // if (today >= 8 && today <= 20) {
     const res = await sendSingleEmailMessageApi(obj);
 
@@ -1009,7 +1007,6 @@ const EmailPage = () => {
   const handleSendBulkClick = async () => {
     setLoading(true);
     let contactid = bulkSelected.value;
-    console.log(contactid, "contactid");
     // const obj = {
     //   compaignId: contactid,
     //   message: sendEmailMessage,
@@ -1024,7 +1021,6 @@ const EmailPage = () => {
       timeZone: "America/New_York",
     });
 
-    console.log(todayy, "today");
     // if (today >= 8 && today <= 20) {
 
     // } else {

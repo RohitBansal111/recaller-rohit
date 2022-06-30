@@ -360,10 +360,7 @@ const Voice = () => {
     }
   };
 
-  console.log(mediaBlobUrl, "mediaBlobUrl");
-
   const handleSendClick = async () => {
-    console.log();
     if (isSelectValid()) {
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
@@ -371,7 +368,6 @@ const Voice = () => {
           var file = new File([myBlob], "name.wav");
           var formData = new FormData();
           let contactid = selected.map((item) => item.value);
-          console.log(contactid, "contactid");
           formData.append("voice", file);
           formData.append("contactid", JSON.stringify(contactid));
           setIsShowLoading(true);
@@ -395,9 +391,7 @@ const Voice = () => {
     }
   };
 
-  console.log(bulkSelected, "bulkSelected");
   const handleBulkSendClick = async () => {
-    console.log();
     if (isBulkSelectValid()) {
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
@@ -405,7 +399,6 @@ const Voice = () => {
           var file = new File([myBlob], "name.wav");
           var formData = new FormData();
           let contactid = bulkSelected.map((item) => item.value);
-          console.log(contactid, "contactid");
           formData.append("voice", file);
           formData.append("contactid", JSON.stringify(contactid));
           setIsShowLoading(true);
@@ -617,7 +610,6 @@ const Voice = () => {
   };
 
   const onVoiveUpload = async () => {
-    console.log(fileName, "fileName");
     if (isSelectValid()) {
       var formData = new FormData();
       let contactid = selected.map((item) => item.value);
@@ -637,7 +629,6 @@ const Voice = () => {
   };
 
   const onBulkVoiceUpload = async () => {
-    console.log(fileName, "fileName");
     if (isBulkSelectValid()) {
       var formData = new FormData();
       let contactid = selected.map((item) => item.value);
@@ -655,7 +646,6 @@ const Voice = () => {
       }
     }
   };
-
 
   const onSingleVoiceUploadChange = (e) => {
     if (e.target.files[0]) {
@@ -723,7 +713,6 @@ const Voice = () => {
 
   const handleBulkSelectChange = (values) => {
     setBulkSelected(values);
-    console.log(values, "values");
   };
 
   const clearRecording = () => {
@@ -733,8 +722,6 @@ const Voice = () => {
   const clearUploadInput = () => {
     setUploadOpen(false);
   };
-
-  console.log(selected, "selected");
 
   return (
     <div className="content-page-layout text-page-content">
