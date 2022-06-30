@@ -49,20 +49,25 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
           {props.uploadOpen == true ? (
             <>
               {" "}
-              <div className="upload-voice-recording">
-                <input
-                  className="inputFile"
-                  type="file"
-                  ref={props.voiceref}
-                  accept="audio/*"
-                  name="file"
-                  onChange={props.onVoiceUploadChange}
-                />
-                <span>
-                  <>
-                    <LibraryMusicIcon /> Upload Voice Recording
-                  </>
-                </span>
+              <div className="voice-record-upload">
+                <div className="upload-voice-recording">
+                  <input
+                    className="inputFile"
+                    type="file"
+                    ref={props.voiceref}
+                    accept="audio/*"
+                    name="file"
+                    onChange={props.onVoiceUploadChange}
+                  />
+                  <span>
+                    <>
+                      <LibraryMusicIcon /> Upload Voice Recording
+                    </>
+                  </span>
+                </div>
+                <Button className="cl-icon">
+                  <MdClose />
+                </Button>
               </div>
               <div className="voice-file">
                 <span>{props.fileName ? props.fileName.name : ""}</span>

@@ -72,30 +72,32 @@ const LocalMessages = () => {
               return (
                 <li key={index}>
                   <div className="notification-div">
-                    <Link to={item.path}>
-                      <div className="button-box-text">
-                        <h3>{item.title}</h3>
-                        <p> {item.description} </p>
-                      </div>
-                      <div className="rightChevronIcon">
-                        {!item.extraField && (
-                          <span className="button-box-arrow">
-                            <ChevronRightIcon />
+                    <div className="notification-toggle">
+                      <Link to={item.path}>
+                        <div className="button-box-text">
+                          <h3>{item.title}</h3>
+                          <p> {item.description} </p>
+                        </div>
+                        <div className="rightChevronIcon">
+                          {!item.extraField && (
+                            <span className="button-box-arrow">
+                              <ChevronRightIcon />
+                            </span>
+                          )}
+                        </div>
+                      </Link>
+                      <div>
+                        {item.extraField && (
+                          <span className="switch-button">
+                            <Switch
+                              checked={checked}
+                              onChange={handleSwitchChange}
+                              defaultChecked
+                              {...label}
+                            />
                           </span>
                         )}
                       </div>
-                    </Link>
-                    <div>
-                      {item.extraField && (
-                        <span className="switch-button">
-                          <Switch
-                            checked={checked}
-                            onChange={handleSwitchChange}
-                            defaultChecked
-                            {...label}
-                          />
-                        </span>
-                      )}
                     </div>
                   </div>
                 </li>
