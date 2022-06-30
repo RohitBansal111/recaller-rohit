@@ -71,7 +71,7 @@ const BulkEmailMessageModal = ({ open, handleCloseMessageModal, ...props }) => {
       closeOnOverlayClick={false}
     >
       <div className="modal-header">
-        <h3>{"Bulk Email Message"}</h3>
+        <h3>{"Bulk Campaign Email "}</h3>
       </div>
 
       <div className="modal-body bulkms">

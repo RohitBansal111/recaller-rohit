@@ -32,7 +32,7 @@ const BulkMessageModal = ({ open, handleCloseMessageModal, ...props }) => {
       closeOnOverlayClick={false}
     >
       <div className="modal-header">
-        <h3>{"Bulk Message"}</h3>
+        <h3>{"Bulk Campaign Message"}</h3>
       </div>
 
       <div className="modal-body bulkms">

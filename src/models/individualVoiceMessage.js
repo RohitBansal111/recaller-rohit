@@ -31,7 +31,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
               value={props.selected}
             />
           </div>
-          {/* <span className="spanError">{props.errors.selected}</span> */}
+          <span className="spanError">{props.errors.selected}</span>
 
           <div className="field-group flexFull text-left mt-3">
             <Button
@@ -46,7 +46,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
             </Button>
           </div>
 
-          {props.uploadOpen == true ? (
+          {props.uploadOpen == true && (
             <>
               {" "}
               <div className="voice-record-upload">
@@ -65,7 +65,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
                     </>
                   </span>
                 </div>
-                <Button className="cl-icon">
+                <Button className="cl-icon" onClick={props.clearUploadInput}>
                   <MdClose />
                 </Button>
               </div>
@@ -84,11 +84,9 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
                 )}
               </div>
             </>
-          ) : (
-            ""
           )}
         </form>
-        {props.openMessageModal == true ? (
+        {props.openMessageModal == true && (
           <div className="field-group flexFull">
             <div className="voice-recorder-box">
               <div className="recording-left">
@@ -135,17 +133,14 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
                   : "Press & Recording"}
               </button>
             </div>
+            <button
+              type="button"
+              className="remove-recording-action"
+              onClick={props.clearRecording}
+            >
+              <MdClose />
+            </button>
           </div>
-        ) : props.uploadOpen == true ? (
-          <Button
-            variant="primary"
-            className="btn btn-primary"
-            onClick={props.sendVoiceMessage}
-          >
-            Send
-          </Button>
-        ) : (
-          ""
         )}
 
         <div className="field-group flexFull text-center mt-3">
@@ -156,25 +151,29 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
           >
             Dismiss
           </button>
-          <LoadingButton
-            type="button"
-            loadingPosition="center"
-            loading={props.loading}
-            onClick={props.handleSendClick}
-            style={{
-              cursor:
-                props.second == 0 || props.isNewVoiceActive == true
-                  ? "not-allowed"
-                  : "pointer",
-            }}
-            disabled={
-              props.second == 0 || props.isNewVoiceActive == true ? true : false
-            }
-            className="btn btn-primary"
-            variant="contained"
-          >
-            Send
-          </LoadingButton>
+          {props.uploadOpen == true ? (
+            <LoadingButton
+              type="button"
+              loadingPosition="center"
+              //   loading={props.loading}
+              onClick={props.handleSendClick}
+              className="btn btn-primary"
+              variant="contained"
+            >
+              Send
+            </LoadingButton>
+          ) : (
+            <LoadingButton
+              type="button"
+              loadingPosition="center"
+              //   loading={props.loading}
+              onClick={props.handleSendClick}
+              className="btn btn-primary"
+              variant="contained"
+            >
+              Send
+            </LoadingButton>
+          )}
         </div>
       </div>
     </Modal>
