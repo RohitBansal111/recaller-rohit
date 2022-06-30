@@ -17,7 +17,7 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
       closeOnOverlayClick={false}
     >
       <div className="modal-header">
-        <h3>Bulk Campaign Voice</h3>
+        <h3>Bulk Campaign Voice Mail</h3>
       </div>
 
       <div className="modal-body upload-voicemodal">

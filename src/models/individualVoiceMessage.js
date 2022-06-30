@@ -17,7 +17,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
       closeOnOverlayClick={false}
     >
       <div className="modal-header">
-        <h3>Individual Voice</h3>
+        <h3>Individual Voice Mail</h3>
       </div>
 
       <div className="modal-body upload-voicemodal">
