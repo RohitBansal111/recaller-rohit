@@ -30,7 +30,7 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
               value={props.selected}
             />
           </div>
-          {/* <span className="spanError">{props.errors.selected}</span> */}
+          <span className="spanError">{props.errors.bulkSelected}</span>
         </form>
         <div className="field-group flexFull text-left mt-3">
           <Button
@@ -158,7 +158,7 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
-              //   loading={props.loading}
+              loading={props.loading}
               onClick={props.handleSendClick}
               className="btn btn-primary"
               variant="contained"
@@ -169,7 +169,7 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
-              //   loading={props.loading}
+              loading={props.loading}
               onClick={props.handleSendClick}
               className="btn btn-primary"
               variant="contained"

@@ -155,7 +155,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
-              //   loading={props.loading}
+              loading={props.loading}
               onClick={props.handleSendClick}
               className="btn btn-primary"
               variant="contained"
@@ -166,7 +166,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
-              //   loading={props.loading}
+              loading={props.loading}
               onClick={props.handleSendClick}
               className="btn btn-primary"
               variant="contained"

@@ -118,8 +118,22 @@ const Voice = () => {
     }
     return formData;
   };
+
+  const isBulkSelectValid = () => {
+    let formData = true;
+    switch (true) {
+      case bulkSelected.length == 0:
+        setErrors({ bulkSelected: "Please Select a Campaign" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setUploadOpen(false)
     // setErrors({});
     // setIsNewVoiceActive(false);
     // stopTimer();
@@ -348,7 +362,7 @@ const Voice = () => {
 
   const handleSendClick = async () => {
     console.log();
-    // if (isSelectValid()) {
+    if (isSelectValid()) {
     await fetch(mediaBlobUrl)
       .then((res) => res.blob())
       .then(async (myBlob) => {
@@ -376,13 +390,13 @@ const Voice = () => {
         }
         getVoiceMessage();
       });
-    // }
+    }
   };
 
   console.log(bulkSelected, "bulkSelected");
   const handleBulkSendClick = async () => {
     console.log();
-    // if (isSelectValid()) {
+    if (isBulkSelectValid()) {
     await fetch(mediaBlobUrl)
       .then((res) => res.blob())
       .then(async (myBlob) => {
@@ -410,7 +424,7 @@ const Voice = () => {
         }
         getVoiceMessage();
       });
-    // }
+    }
   };
 
   const handleSendSingleContactVoice = async () => {
@@ -573,6 +587,7 @@ const Voice = () => {
 
   const handleOpenUploadModal = () => {
     setUploadOpen(true);
+    setOpenMessageModal(false);
     setFileName(null);
     // setSelected([]);
     setErrors({});
