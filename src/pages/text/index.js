@@ -34,6 +34,7 @@ import { Dropdown } from "react-bootstrap";
 import BulkMessageModal from "../../models/bulkMessageModal";
 import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
 
 const TextPage = () => {
   var today = new Date();
@@ -495,10 +496,12 @@ const TextPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
-    //     var today = new Date();
-    //     let todayy = changeTimeZone(new Date(), "America/New_York");
-    // console.log(todayy , "todayy");
-    //     if (today >= 17 && today <= 6) {
+    let todayy = changeTimeZone(new Date(), "America/New_York");
+
+    const estTime = date.format(todayy, "hh:mm A");
+    const estTime1 = date.format(todayy, "hh:mm A", true);
+
+    // if (estTime >= 8 && estTime <= 20) {
     const res = await sendSingleMessageApi(obj);
 
     if (res && res.data && res.data.status === 200) {
@@ -565,8 +568,11 @@ const TextPage = () => {
       }
       //  var today = new Date();
       // let todayy = changeTimeZone(new Date(), "America/New_York");
-      // console.log(todayy, "todayy");
-      // if (today >= 17 && today <= 6) {
+
+      // const estTime = date.format(todayy, "hh:mm A");
+      // const estTime1 = date.format(todayy, "hh:mm A", true);
+
+      // if (estTime >= 8 && estTime <= 20) {
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
         toast.success(" Message sent Successfully");

@@ -34,6 +34,7 @@ import EmailModal from "../../models/EmailModal";
 import BulkEmailMessageModal from "../../models/bulkEmailMessageModal";
 import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
 
 const EmailPage = () => {
   var today = new Date();
@@ -445,9 +446,12 @@ const EmailPage = () => {
           scheduledData.date + " " + scheduledData.time + ":00";
       }
       // var today = new Date();
-      //     let todayy = changeTimeZone(new Date(), "America/New_York");
-      //     console.log(todayy, "todayy");
-      //     if (today >= 17 && today <= 6) {
+      let todayy = changeTimeZone(new Date(), "America/New_York");
+
+      const estTime = date.format(todayy, "hh:mm A");
+      const estTime1 = date.format(todayy, "hh:mm A", true);
+
+      // if (estTime >= 8 && estTime <= 20) {
       let res = await sendEmailMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
         toast.success(" Message sent Successfully");
@@ -590,9 +594,12 @@ const EmailPage = () => {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
     // var today = new Date();
-    // let todayy = changeTimeZone(new Date(), "America/New_York");
-    // console.log(todayy, "todayy");
-    // if (today >= 17 && today <= 6) {
+    let todayy = changeTimeZone(new Date(), "America/New_York");
+
+    const estTime = date.format(todayy, "hh:mm A");
+    const estTime1 = date.format(todayy, "hh:mm A", true);
+
+    // if (estTime >= 8 && estTime <= 20) {
     const res = await sendSingleEmailMessageApi(obj);
 
     if (res && res.data && res.data.status === 200) {

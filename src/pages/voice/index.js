@@ -28,6 +28,7 @@ import IndividualVoice from "../../models/individualVoiceMessage";
 import BulkVoiceMessage from "../../models/bulkVoiceMessage";
 import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -377,10 +378,12 @@ const Voice = () => {
           formData.append("contactid", JSON.stringify(contactid));
           setIsShowLoading(true);
           setLoading(true);
-          // var today = new Date();
-          // let todayy = changeTimeZone(new Date(), "America/New_York");
-          // console.log(todayy, "todayy");
-          // if (today >= 17 && today <= 6) {
+          let todayy = changeTimeZone(new Date(), "America/New_York");
+
+          const estTime = date.format(todayy, "hh:mm A");
+          const estTime1 = date.format(todayy, "hh:mm A", true);
+
+          // if (estTime >= 8 && estTime <= 20) {
           let res = await uploadVoiceMessageApi(formData);
           if (res && res.data && res.data.status === 200) {
             toast.success("Voice Message sent Successfully");

@@ -88,7 +88,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
         </form>
         {props.openMessageModal == true && (
           <div className="field-group flexFull">
-            <div className="voice-recorder-box">
+            <div className="voice-recorder-box extra">
               <div className="recording-left">
                 <>
                   <span></span>
