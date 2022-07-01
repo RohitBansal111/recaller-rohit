@@ -40,10 +40,10 @@ const TextChat = (props) => {
                         >
                           <ScheduleIcon />
                         </button>
-                        <pre>{item.message}</pre>
+                        <pre>{item.message.trim()}</pre>
                       </div>
                     ) : (
-                      <pre>{item.message}</pre>
+                      <pre>{item.message.trim()}</pre>
                     )}
                     {item.imageUrl ? (
                       <>
