@@ -721,10 +721,12 @@ const Voice = () => {
 
   const clearRecording = () => {
     setOpenMessageModal(false);
+    stopTimer();
   };
 
   const clearUploadInput = () => {
     setUploadOpen(false);
+    stopTimer();
   };
 
   return (
