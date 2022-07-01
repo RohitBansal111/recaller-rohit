@@ -27,6 +27,7 @@ import { Button } from "@material-ui/core";
 import IndividualVoice from "../../models/individualVoiceMessage";
 import BulkVoiceMessage from "../../models/bulkVoiceMessage";
 import { getCompaignApi } from "../../api/compaign";
+import { changeTimeZone } from "../../helper/getTimeZone";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -376,6 +377,10 @@ const Voice = () => {
           formData.append("contactid", JSON.stringify(contactid));
           setIsShowLoading(true);
           setLoading(true);
+          // var today = new Date();
+          // let todayy = changeTimeZone(new Date(), "America/New_York");
+          // console.log(todayy, "todayy");
+          // if (today >= 17 && today <= 6) {
           let res = await uploadVoiceMessageApi(formData);
           if (res && res.data && res.data.status === 200) {
             toast.success("Voice Message sent Successfully");
@@ -391,6 +396,10 @@ const Voice = () => {
             setIsShowLoading(false);
           }
           getVoiceMessage();
+          // } else {
+          //   toast.error("Please Send Text between 8am - 9pm");
+          //   setLoading(false);
+          // }
         });
     }
   };

@@ -33,6 +33,7 @@ import EmailChatBoot from "../../components/email/emailChatBoot";
 import EmailModal from "../../models/EmailModal";
 import BulkEmailMessageModal from "../../models/bulkEmailMessageModal";
 import { getCompaignApi } from "../../api/compaign";
+import { changeTimeZone } from "../../helper/getTimeZone";
 
 const EmailPage = () => {
   var today = new Date();
@@ -443,11 +444,10 @@ const EmailPage = () => {
         obj.dateSelected =
           scheduledData.date + " " + scheduledData.time + ":00";
       }
-      let todayy = new Date().toLocaleString("en-US", {
-        timeZone: "America/New_York",
-      });
-
-      // if (today >= 8 && today <= 20) {
+      // var today = new Date();
+      //     let todayy = changeTimeZone(new Date(), "America/New_York");
+      //     console.log(todayy, "todayy");
+      //     if (today >= 17 && today <= 6) {
       let res = await sendEmailMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
         toast.success(" Message sent Successfully");
@@ -589,12 +589,10 @@ const EmailPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
-    var today = new Date().getHours();
-    let todayy = new Date().toLocaleString("en-US", {
-      timeZone: "America/New_York",
-    });
-
-    // if (today >= 8 && today <= 20) {
+    // var today = new Date();
+    // let todayy = changeTimeZone(new Date(), "America/New_York");
+    // console.log(todayy, "todayy");
+    // if (today >= 17 && today <= 6) {
     const res = await sendSingleEmailMessageApi(obj);
 
     if (res && res.data && res.data.status === 200) {
