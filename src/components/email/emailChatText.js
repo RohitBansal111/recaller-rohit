@@ -49,7 +49,7 @@ const EmailChatText = (props) => {
                   <span>
                     <b>
                       {item.sender === 1 && "user chat-ui-box"
-                        ? userData.firstName + "" + userData.lastName + " "
+                        ? userData.firstName + " " + userData.lastName + " "
                         : "" || (item.sender === 2 && "client chat-ui-box")
                         ? props.selecteduser.contact.firstName +
                           " " +
