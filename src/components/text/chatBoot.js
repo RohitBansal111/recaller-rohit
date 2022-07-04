@@ -61,7 +61,7 @@ const ChatBoot = (props) => {
           </h5>
           <p className="noti_wrap">
             <span>{item.message.slice(0, 30).concat("...")}</span>
-            {/* <span className="notification_cstm">20</span> */}
+           { item.count > 0 && <span className="notification_cstm">{item.count}</span>}
           </p>
           <div className="chat-tag">
             {item.contact.tags.length > 0

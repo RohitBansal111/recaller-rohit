@@ -19,6 +19,7 @@ import {
   getMessageApi,
   getUserWithMessage,
   reScheduleMessageApi,
+  resetBulkMessageApi,
   sendBulkMessageApi,
   sendMessageApi,
   sendSingleMessageApi,
@@ -36,6 +37,7 @@ import BulkMessageModal from "../../models/bulkMessageModal";
 import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
 import date from "date-and-time";
+import { socket } from "../../helper/socket";
 
 const TextPage = () => {
   var today = new Date();
@@ -131,6 +133,18 @@ const TextPage = () => {
     setSendNewMessage("");
     setScheduledData({});
   };
+
+  const getNotificationsEventHandler = () => {
+    getMessage();
+  };
+
+  useEffect(() => {
+    socket.on("getNotifications", getNotificationsEventHandler);
+    // unsubscribe from event for preventing memory leaks
+    return () => {
+      socket.off("getNotifications", getNotificationsEventHandler);
+    };
+  }, []);
 
   const handleBulkMessageModal = () => {
     setOpenBulkMessageModal(true);
@@ -614,7 +628,7 @@ const TextPage = () => {
   };
 
   const handleSendBulkClick = async () => {
-    if(isBulkValid()){
+    if (isBulkValid()) {
       setLoading(true);
       let compaignId = bulkSelected.value;
       console.log(compaignId, "compaignid");
@@ -626,7 +640,8 @@ const TextPage = () => {
         schedule: schedule ? true : false,
       };
       if (scheduledData && scheduledData.date && scheduledData.time) {
-        obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
+        obj.dateSelected =
+          scheduledData.date + " " + scheduledData.time + ":00";
       }
       let todayy = new Date().toLocaleString("en-US", {
         timeZone: "America/New_York",
@@ -652,7 +667,7 @@ const TextPage = () => {
         getMessage();
       }
     }
-    
+
     // } else {
     //   toast.error("Please Send Text between 8am - 9pm");
     //   setLoading(false);
@@ -714,7 +729,12 @@ const TextPage = () => {
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
+      if (selecteduser.count > 0) {
+        await resetBulkMessageApi(selecteduser._id);
+        getMessage();
+      }
     }
+
     if (check) {
       const selecteduser = messages.find((c) => c._id == id);
       setSelecteduser(selecteduser);
