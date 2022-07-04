@@ -77,6 +77,7 @@ const Voice = () => {
     setOpenMessageModal(false);
     stopTimer();
     setUploadOpen(false);
+    setIsShowLoading(false)
   };
 
   const handleOpenBulk = () => {
@@ -84,6 +85,7 @@ const Voice = () => {
     setOpenMessageModal(false);
     setUploadOpen(false);
     stopTimer();
+    setIsShowLoading(false)
   };
 
   const handleCloseBulkModal = () => {
@@ -91,12 +93,14 @@ const Voice = () => {
     setOpenMessageModal(false);
     stopTimer();
     setUploadOpen(false);
+    setIsShowLoading(false)
   };
 
   const handleCloseIndividual = () => {
     setIndividualOpen(false);
     setOpenMessageModal(false);
     stopTimer();
+    setIsShowLoading(false)
     setUploadOpen(false);
   };
 
@@ -427,6 +431,7 @@ const Voice = () => {
             setOpenMessageModal(false);
             setSelected([]);
             setLoading(false);
+            setIsShowLoading(false)
             setBulkOpen(false);
             setPlaying(false);
             setIsNewVoiceActive(false);
@@ -667,6 +672,7 @@ const Voice = () => {
             getVoiceMessage();
             setLoading(false);
             setErrors({});
+            setIsShowLoading(false)
             setIndividualOpen(false);
             setBulkOpen(false);
           }
