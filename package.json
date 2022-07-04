@@ -23,6 +23,7 @@
     "ckeditor": "^4.12.1",
     "ckeditor4": "^4.18.0",
     "ckeditor4-react": "^3.0.0",
+    "date-and-time": "^2.4.0",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "emoji-picker-react": "^3.5.1",

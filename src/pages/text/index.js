@@ -30,12 +30,19 @@ import {
 } from "../../api/template";
 import axios from "axios";
 import moment from "moment";
+import { Dropdown } from "react-bootstrap";
+import BulkMessageModal from "../../models/bulkMessageModal";
+import { getCompaignApi } from "../../api/compaign";
+import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
 
 const TextPage = () => {
   var today = new Date();
   const curTime = today.getHours() + ":" + today.getMinutes();
 
   const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [openBulkMessageModal, setOpenBulkMessageModal] = useState(false);
+
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
@@ -49,6 +56,8 @@ const TextPage = () => {
   const [rowsData, setRowsData] = useState([]);
   const [sendNewMessage, setSendNewMessage] = useState("");
   const [selected, setSelected] = useState([]);
+  const [bulkSelected, setBulkSelected] = useState([]);
+
   const [messages, setMessages] = useState([]);
   const [preview, setPreview] = useState(false);
   const [errors, setErrors] = useState({});
@@ -102,6 +111,8 @@ const TextPage = () => {
     useState(false);
   const [reScheduleTitle, setReScheduleTitle] = useState({});
   const [searchTemplateValue, setSearchTemplateValue] = useState("");
+  const [compaign, setCompaigns] = useState([]);
+
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
@@ -116,7 +127,48 @@ const TextPage = () => {
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setSelectedImage(null);
+    setSendNewMessage("");
     setScheduledData({});
+  };
+
+  const handleBulkMessageModal = () => {
+    setOpenBulkMessageModal(true);
+    setSelectedNewImageData(null);
+    setImageUrl({});
+    setCancelRescheDule(false);
+    setPreview(false);
+    setErrors({});
+    setLoading(false);
+    setSelectedImageData(null);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
+    setSelectedImage(null);
+    setScheduledData({});
+    setSendNewMessage("");
+  };
+  const handleCloseBulkMessageModal = () => {
+    setOpenBulkMessageModal(false);
+    setSelectedNewImageData(null);
+    setImageUrl({});
+    setCancelRescheDule(false);
+    setPreview(false);
+    setErrors({});
+    setLoading(false);
+    setSelectedImageData(null);
+    setOnShowEmoji(false);
+    setSendNewMessage("");
+    setOnShowChatBotEmojiOpen(false);
+    setSelectedImage(null);
+    setScheduledData({});
+    setDateSelected(() => {
+      const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + curtt,
+      };
+    });
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
@@ -297,6 +349,7 @@ const TextPage = () => {
     getData();
     getMessage();
     getTemplate();
+    getContactCompaign();
   }, []);
 
   const handleClick = async () => {
@@ -329,6 +382,20 @@ const TextPage = () => {
           setConversationTags(resData1);
         }
       }
+    }
+  };
+
+  const getContactCompaign = async () => {
+    let res = await getCompaignApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return {
+          value: item._id,
+          label: item.name,
+        };
+      });
+
+      setCompaigns(data);
     }
   };
 
@@ -429,28 +496,31 @@ const TextPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
-    var today = new Date().getHours();
+    let todayy = changeTimeZone(new Date(), "America/New_York");
 
-    if (today >= 8 && today <= 20) {
-      const res = await sendSingleMessageApi(obj);
+    const estTime = date.format(todayy, "hh:mm A");
+    const estTime1 = date.format(todayy, "hh:mm A", true);
 
-      if (res && res.data && res.data.status === 200) {
-        setSendMessage("");
-        scrollToBottom();
-        setDateSelected({});
-        setSchedule(false);
-        setImageUrl({});
-        setLoading(false);
-        setSelectedImageData(null);
-        setCancelRescheDule(false);
-        setScheduledData({});
-        setShowScheduleModal(false);
-      }
-      getMessage();
-    } else {
-      toast.error("Please Send Text between 8am - 9pm");
+    // if (estTime >= 8 && estTime <= 20) {
+    const res = await sendSingleMessageApi(obj);
+
+    if (res && res.data && res.data.status === 200) {
+      setSendMessage("");
+      scrollToBottom();
+      setDateSelected({});
+      setSchedule(false);
+      setImageUrl({});
       setLoading(false);
+      setSelectedImageData(null);
+      setCancelRescheDule(false);
+      setScheduledData({});
+      setShowScheduleModal(false);
     }
+    getMessage();
+    // } else {
+    //   toast.error("Please Send Text between 8am - 9pm");
+    //   setLoading(false);
+    // }
   };
 
   const getData = async () => {
@@ -496,37 +566,85 @@ const TextPage = () => {
         obj.dateSelected =
           scheduledData.date + " " + scheduledData.time + ":00";
       }
-      var today = new Date().getHours();
+      //  var today = new Date();
+      // let todayy = changeTimeZone(new Date(), "America/New_York");
 
-      if (today >= 8 && today <= 20) {
-        let res = await sendMessageApi(obj);
-        if (res && res.data && res.data.status === 200) {
-          toast.success(" Message sent Successfully");
-          setOpenMessageModal(false);
-          setSelected([]);
-          setSelectedImage(null);
-          setScheduledData({});
-          setShowScheduleModal(false);
-          setSelectedNewImageData(null);
-          setDateSelected({});
-          setSchedule(false);
-          setImageUrl({});
-          setCancelRescheDule(false);
-          setSendNewMessage("");
-          setLoading(false);
-        }
-        getMessage();
-      } else {
-        toast.error("Please Send Text between 8am - 9pm");
+      // const estTime = date.format(todayy, "hh:mm A");
+      // const estTime1 = date.format(todayy, "hh:mm A", true);
+
+      // if (estTime >= 8 && estTime <= 20) {
+      let res = await sendMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setOpenMessageModal(false);
+        setSelected([]);
+        setSelectedImage(null);
+        setScheduledData({});
+        setShowScheduleModal(false);
+        setSelectedNewImageData(null);
+        setDateSelected({});
+        setSchedule(false);
+        setImageUrl({});
+        setCancelRescheDule(false);
+        setSendNewMessage("");
         setLoading(false);
       }
+      getMessage();
+      // } else {
+      //   toast.error("Please Send Text between 8am - 9pm");
+      //   setLoading(false);
+      // }
     }
+  };
+
+  const handleSendBulkClick = async () => {
+    setLoading(true);
+    let contactid = bulkSelected.value;
+    const obj = {
+      compaignId: contactid,
+      message: sendNewMessage,
+      selectedImage: imageUrl.url,
+      type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
+      schedule: schedule ? true : false,
+    };
+    if (scheduledData && scheduledData.date && scheduledData.time) {
+      obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
+    }
+    let todayy = new Date().toLocaleString("en-US", {
+      timeZone: "America/New_York",
+    });
+    // if (today >= 8 && today <= 20) {
+    let res = await sendMessageApi(obj);
+    if (res && res.data && res.data.status === 200) {
+      toast.success(" Message sent Successfully");
+      setOpenMessageModal(false);
+      setSelected([]);
+      setSelectedImage(null);
+      setScheduledData({});
+      setShowScheduleModal(false);
+      setSelectedNewImageData(null);
+      setDateSelected({});
+      setSchedule(false);
+      setImageUrl({});
+      setCancelRescheDule(false);
+      setSendNewMessage("");
+      setLoading(false);
+      getMessage();
+    }
+    // } else {
+    //   toast.error("Please Send Text between 8am - 9pm");
+    //   setLoading(false);
+    // }
   };
 
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
     setLoading(false);
+  };
+
+  const handleBulkSelectChange = (values) => {
+    setBulkSelected(values);
   };
 
   const getMessage = async (check = true, tagsCheck = false) => {
@@ -1018,7 +1136,7 @@ const TextPage = () => {
 
   return (
     <div className="content-page-layout text-page-content">
-      <div className="page-header justify-flex-end">
+      {/* <div className="page-header justify-flex-end">
         <button
           type="button"
           className="btn btn-medium btn-primary"
@@ -1026,6 +1144,25 @@ const TextPage = () => {
         >
           New Message
         </button>
+      </div> */}
+      <div className="page-header justify-flex-end">
+        <Dropdown>
+          <Dropdown.Toggle
+            variant="success"
+            id="dropdown-basic"
+            className="btn btn-medium btn-primary"
+          >
+            New Message
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="#" onClick={handleNewMessage}>
+              Individual Message
+            </Dropdown.Item>
+            <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
+              Bulk Campaign Message
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
       <div className="text-main-section">
         <ChatBoot
@@ -1156,6 +1293,76 @@ const TextPage = () => {
         handleNewMChange={handleNewMChange}
         handleSelectChange={handleSelectChange}
         selected={selected}
+        handlePreview={handlePreview}
+        preview={preview}
+        handleBackMessageModal={handleBackMessageModal}
+        errors={errors}
+        loading={loading}
+        showScheduleModal={showScheduleModal}
+        handleCloseSchedultModal={handleCloseSchedultModal}
+        showCreateTemplateModal={showCreateTemplateModal}
+        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+        showManageeTemplateModal={showManageeTemplateModal}
+        handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+        handleScheduleModal={handleScheduleModal}
+        handleCreateTemplate={handleCreateTemplate}
+        handleManageTemplate={handleManageTemplate}
+        templateName={templateName}
+        handleTemplateName={handleTemplateName}
+        templateTags={templateTags}
+        handleTemplateTagChange={handleTemplateTagChange}
+        templateMessage={templateMessage}
+        handleTempMessageChange={handleTempMessageChange}
+        handleTemplateSubmit={handleTemplateSubmit}
+        templateData={templateData}
+        templateDataState={templateDataState}
+        handleTempInsert={handleTempInsert}
+        handleTempTitleClick={handleNewTempTitleClick}
+        handleTempShowClick={handleTempShowClick}
+        editmanageTemplate={editmanageTemplate}
+        handleEditTemplate={handleEditTemplate}
+        handleTempEditCancel={handleTempEditCancel}
+        editTempData={editTempData}
+        handleEditTempChange={handleEditTempChange}
+        templateEditTags={templateEditTags}
+        handleTempEditSave={handleTempEditSave}
+        handleTempRemove={handleTempRemove}
+        handleEditTemplateTagChange={handleEditTemplateTagChange}
+        searchValue={searchState}
+        searchTemplateValue={searchTemplateValue}
+        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
+        handleSearchChange={(e) => setSearchState(e.target.value)}
+        replacefunc={replacefunc}
+        dateSelected={dateSelected}
+        handleDateChange={handleDateChange}
+        handleTempDelModal={handleTempDelModal}
+        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+        showDeleteTempModal={deleteTempComfirmation}
+        handleEmojiOpen={handleEmojiOpen}
+        onEmojiClick={onEmojiClick}
+        onShowEmojiOpen={onShowEmoji}
+        savelistToMessageClick={savelistToMessageClick}
+        selecteduser={selecteduser}
+        handleImageOpen={handleNewImageOpen}
+        selectedImage={selectedNewImage}
+        handleNewImageCancel={handleNewImageCancel}
+        handleImageChange={handleNewImageChange}
+        handleScheduleSubmit={handleScheduleSubmit}
+        scheduledData={scheduledData}
+        handleReSchaduleData={handleReSchaduleData}
+        CancelEmoji={CancelEmoji}
+        selectedNewImageData={selectedNewImageData}
+        imgref={imgref}
+      />
+      <BulkMessageModal
+        open={openBulkMessageModal}
+        handleCloseMessageModal={handleCloseBulkMessageModal}
+        options={compaign}
+        handleSendBulkClick={handleSendBulkClick}
+        sendNewMessage={sendNewMessage}
+        handleNewMChange={handleNewMChange}
+        handleBulkSelectChange={handleBulkSelectChange}
+        selected={bulkSelected}
         handlePreview={handlePreview}
         preview={preview}
         handleBackMessageModal={handleBackMessageModal}

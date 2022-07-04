@@ -174,7 +174,7 @@ ul {
           background-color: #fff;
           border-radius: 8px;
           right: 0px !important;
-          max-width: 200px;
+          // max-width: 200px;
           top: 115% !important;
           min-width: 200px !important;
           box-shadow: 0px 4px 5px #dcdcdc;
@@ -668,19 +668,107 @@ aside.emoji-picker-react {
   justify-content: flex-start;
 }
 // .chat-textarea {
-  .ck.ck-content p {
-    margin-bottom: 0px !important;
-    margin-top: 0px !important;
-    // display: inline;
-  }
-  // &.Internal {
-  //   textarea {
-  //     min-height: 195.59px !important;
-  //   }
-  // }
+.ck.ck-content p {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  // display: inline;
+}
+// &.Internal {
+//   textarea {
+//     min-height: 195.59px !important;
+//   }
+// }
 // }
 
 .title-chat-display {
   display: inline-flex;
   flex-wrap: wrap;
+}
+.main-content div::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.main-content div::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content div::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #474949;
+}
+.inner-sidebar .sidebar-menu::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.inner-sidebar .sidebar-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inner-sidebar .sidebar-menu::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #474949;
+}
+.search-main-section .search-data-table > div:first-child {
+  max-height: calc(100vh - 270px);
+  overflow-y: auto;
+}
+.common-data-table > div:first-child {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}
+body {
+  overflow-y: hidden;
+}
+.voice-record-upload {
+  width: 100%;
+  position: relative;
+  .cl-icon {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    padding: 3px 3px !important;
+    border: none !important;
+    background-color: #ff0000 !important;
+    line-height: 0px;
+    width: 20px;
+    height: 20px;
+    svg {
+      color: #fff;
+    }
+  }
+  .remove-recording-action {
+    left: auto;
+    top: -15px;
+    right: -15px;
+  }
+  .upload-voice-recording.bulk-upload {
+    margin-top: 20px;
+  }
+}
+.field-group.flexFull {
+  position: relative;
+}
+.upload-voicemodal .voice-recorder-box {
+  & + .remove-recording-action {
+    position: absolute;
+    right: -12px;
+    top: -5px;
+    padding: 3px 3px !important;
+    border: none !important;
+    background-color: #ff0000 !important;
+    line-height: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 25px;
+    svg {
+      fill: #fff;
+      font-size: 15px;
+    }
+  }
+}
+
+.voice-recorder-box.extra {
+  border: 2px dashed #27dcbf !important;
+  border-radius: 5px;
+  background-color: #d4fff4;
 }

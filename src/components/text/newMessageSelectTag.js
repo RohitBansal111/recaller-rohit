@@ -43,7 +43,7 @@ const NewMessageSelectTag = (props) => {
       // eslint-disable-next-line no-restricted-globals
       { name, action: "remove-value", removedValue }
     );
-  }; 
+  };
 
   return (
     <div className="select-tags-styles">
@@ -59,7 +59,11 @@ const NewMessageSelectTag = (props) => {
             ))
           : null}
       </ValuesContainer>
-      <Select {...props} controlShouldRenderValue={!isMulti} />
+      <Select
+        placeholder={"recallr123"}
+        {...props}
+        controlShouldRenderValue={!isMulti}
+      />
     </div>
   );
 };

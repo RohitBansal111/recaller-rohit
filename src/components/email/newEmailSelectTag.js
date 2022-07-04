@@ -43,14 +43,14 @@ const NewEmailSelectTag = (props) => {
       // eslint-disable-next-line no-restricted-globals
       { name, action: "remove-value", removedValue }
     );
-  }; 
+  };
 
   return (
     <div className="select-tags-styles">
       <ValuesContainer>
         {isMulti
           ? value.map((val) => (
-              <Value key={val.value}> 
+              <Value key={val.value}>
                 {val.label}
                 <XButton name={val.value} onClick={handleRemoveEmailValue}>
                   ✕
@@ -59,7 +59,11 @@ const NewEmailSelectTag = (props) => {
             ))
           : null}
       </ValuesContainer>
-      <Select {...props} controlShouldRenderValue={!isMulti} />
+      <Select
+        placeholder={"recallr123"}
+        {...props}
+        controlShouldRenderValue={!isMulti}
+      />
     </div>
   );
 };

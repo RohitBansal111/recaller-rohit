@@ -40,19 +40,16 @@ const EmailChatText = (props) => {
                         >
                           <ScheduleIcon />
                         </button>
-                        <pre>{parse(item.message)}</pre>
+                        <pre>{parse(item.message.trim())}</pre>
                       </div>
                     ) : (
-                      <pre>{parse(item.message)}</pre>
+                      <pre>{parse(item.message.trim())}</pre>
                     )}
                   </div>
                   <span>
                     <b>
                       {item.sender === 1 && "user chat-ui-box"
-                        ? userData.firstName.charAt(0) +
-                          "" +
-                          userData.lastName.charAt(0) +
-                          " "
+                        ? userData.firstName + " " + userData.lastName + " "
                         : "" || (item.sender === 2 && "client chat-ui-box")
                         ? props.selecteduser.contact.firstName +
                           " " +

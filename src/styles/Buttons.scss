@@ -24,14 +24,14 @@
 .btn {
   border: none !important;
 }
-.btn-cancel{
+.btn-cancel {
   height: auto;
   padding: 10px 25px !important;
   border-radius: 20px !important;
   color: $HeadingColor;
   background-color: $CommonBorder;
 }
-button{
+button {
   cursor: pointer;
 }
 button:disabled {
@@ -39,15 +39,15 @@ button:disabled {
   pointer-events: all !important;
 }
 // button.Mui-disabled{
-  // background-color: #000 !important;
-  // color: #ffffff !important;
-  // border: 1px solid #000000 !important;
-  // opacity: 1 !important;
-  // cursor: not-allowed !important;
+//   background-color: #000 !important;
+//   color: #ffffff !important;
+//   border: 1px solid #000000 !important;
+//   opacity: 1 !important;
+//   cursor: not-allowed !important;
 // }
-.wizard-main-content{
-  .main-form{
-    .proceedbtn:disabled{
+.wizard-main-content {
+  .main-form {
+    .proceedbtn:disabled {
       background-color: #000 !important;
       color: #ffffff !important;
       border: 1px solid #000000 !important;

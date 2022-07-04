@@ -92,7 +92,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
         <div className="modal-body bulkms">
           <form className="main-form">
             <div className="field-group flexFull">
-              <label>Enter Contact Name</label>
+              <label>Select Contact Name</label>
               <NewMessageSelectTag
                 onChange={props.handleSelectChange}
                 isMulti

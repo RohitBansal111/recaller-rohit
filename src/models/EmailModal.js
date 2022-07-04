@@ -135,7 +135,7 @@ const EmailModal = ({ open, handleCloseMessageModal, ...props }) => {
           <div className="modal-body bulkms">
             <form className="main-form">
               <div className="field-group flexFull">
-                <label>Enter Contact Email</label>
+                <label>Select Contact Email</label>
                 <NewEmailSelectTag
                   onChange={props.handleSelectChange}
                   isMulti

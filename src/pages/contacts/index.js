@@ -370,7 +370,7 @@ const Import = () => {
     setRules("");
     setErrors({});
     getData();
-    setTabKeySet("all")
+    setTabKeySet("all");
   };
 
   const handleJDChange = async (e) => {
@@ -537,7 +537,7 @@ const Import = () => {
   };
 
   const handleTabsSelect = (key) => {
-    setTabKeySet(key)
+    setTabKeySet(key);
     setShowAddFilterModal(false);
     setInputValue("");
     setFilterName("");
@@ -545,7 +545,7 @@ const Import = () => {
     setRules("");
     setErrors({});
     getData();
-  }
+  };
 
   return (
     <>
@@ -641,6 +641,7 @@ const Import = () => {
           filterByCompaigns={filterByCompaigns}
           isLoading={isLoading}
           totalRecords={totalRowsData ? totalRowsData : 0}
+          compaign={compaign}
         />
       </div>
 

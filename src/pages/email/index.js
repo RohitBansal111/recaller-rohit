@@ -1,5 +1,6 @@
 import moment from "moment";
 import { createRef, useEffect, useRef, useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -30,12 +31,17 @@ import {
 } from "../../api/tag";
 import EmailChatBoot from "../../components/email/emailChatBoot";
 import EmailModal from "../../models/EmailModal";
+import BulkEmailMessageModal from "../../models/bulkEmailMessageModal";
+import { getCompaignApi } from "../../api/compaign";
+import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
 
 const EmailPage = () => {
   var today = new Date();
   const curTime = today.getHours() + ":" + today.getMinutes();
 
   const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [openBulkMessageModal, setOpenBulkMessageModal] = useState(false);
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
@@ -100,9 +106,19 @@ const EmailPage = () => {
     useState(false);
   const [reScheduleTitle, setReScheduleTitle] = useState({});
   const [searchTemplateValue, setSearchTemplateValue] = useState("");
+  const [compaign, setCompaigns] = useState([]);
+  const [bulkSelected, setBulkSelected] = useState([]);
 
   const divRef = useRef(null);
   const textref = useRef(null);
+
+  const handleBulkMessageModal = () => {
+    setOpenBulkMessageModal(true);
+  };
+
+  const handleCloseBulkMessageModal = () => {
+    setOpenBulkMessageModal(false);
+  };
 
   const isValid = () => {
     let formData = true;
@@ -273,6 +289,7 @@ const EmailPage = () => {
     getEmailMessage();
     getData();
     getEmailTemplate();
+    getContactCompaign();
   }, []);
 
   const handleClick = async () => {
@@ -428,29 +445,33 @@ const EmailPage = () => {
         obj.dateSelected =
           scheduledData.date + " " + scheduledData.time + ":00";
       }
-      var today = new Date().getHours();
+      // var today = new Date();
+      let todayy = changeTimeZone(new Date(), "America/New_York");
 
-      if (today >= 8 && today <= 20) {
-        let res = await sendEmailMessageApi(obj);
-        if (res && res.data && res.data.status === 200) {
-          toast.success(" Message sent Successfully");
-          setOpenMessageModal(false);
-          setSelected([]);
-          setEmailMessage("");
-          setLoading(false);
-          setDateSelected({});
-          setShowReScheduleModal(false);
-          setCancelRescheDule(false);
-          setSchedule(false);
-          setScheduledData({});
-          setShowScheduleModal(false);
-          setEmailSubject("");
-        }
-        getEmailMessage();
-      } else {
-        toast.error("Please Send Text between 8am - 9pm");
+      const estTime = date.format(todayy, "hh:mm A");
+      const estTime1 = date.format(todayy, "hh:mm A", true);
+
+      // if (estTime >= 8 && estTime <= 20) {
+      let res = await sendEmailMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setOpenMessageModal(false);
+        setSelected([]);
+        setEmailMessage("");
         setLoading(false);
+        setDateSelected({});
+        setShowReScheduleModal(false);
+        setCancelRescheDule(false);
+        setSchedule(false);
+        setScheduledData({});
+        setShowScheduleModal(false);
+        setEmailSubject("");
       }
+      getEmailMessage();
+      // } else {
+      //   toast.error("Please Send Text between 8am - 9pm");
+      //   setLoading(false);
+      // }
     }
   };
 
@@ -572,26 +593,30 @@ const EmailPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
-    var today = new Date().getHours();
+    // var today = new Date();
+    let todayy = changeTimeZone(new Date(), "America/New_York");
 
-    if (today >= 8 && today <= 20) {
-      const res = await sendSingleEmailMessageApi(obj);
+    const estTime = date.format(todayy, "hh:mm A");
+    const estTime1 = date.format(todayy, "hh:mm A", true);
 
-      if (res && res.data && res.data.status === 200) {
-        setSendEmailMessage("");
-        scrollToBottom();
-        setLoading(false);
-        setSchedule(false);
-        setScheduledData({});
-        setDateSelected({});
-        setCancelRescheDule(false);
-        setShowScheduleModal(false);
-      }
-      getEmailMessage();
-    } else {
-      toast.error("Please Send Text between 8am - 9pm");
+    // if (estTime >= 8 && estTime <= 20) {
+    const res = await sendSingleEmailMessageApi(obj);
+
+    if (res && res.data && res.data.status === 200) {
+      setSendEmailMessage("");
+      scrollToBottom();
       setLoading(false);
+      setSchedule(false);
+      setScheduledData({});
+      setDateSelected({});
+      setCancelRescheDule(false);
+      setShowScheduleModal(false);
     }
+    getEmailMessage();
+    // } else {
+    //   toast.error("Please Send Text between 8am - 9pm");
+    //   setLoading(false);
+    // }
   };
 
   const handleContactEditModal = (id) => {
@@ -970,9 +995,48 @@ const EmailPage = () => {
     setShowReScheduleTitleModal(false);
   };
 
+  const handleBulkSelectChange = (values) => {
+    setBulkSelected(values);
+  };
+
+  const getContactCompaign = async () => {
+    let res = await getCompaignApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return { value: item._id, label: item.name };
+      });
+      setCompaigns(data);
+    }
+  };
+
+  const handleSendBulkClick = async () => {
+    setLoading(true);
+    let contactid = bulkSelected.value;
+    // const obj = {
+    //   compaignId: contactid,
+    //   message: sendEmailMessage,
+    //   selectedImage: imageUrl.url,
+    //   type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
+    //   schedule: schedule ? true : false,
+    // };
+    // if (scheduledData && scheduledData.date && scheduledData.time) {
+    //   obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
+    // }
+    let todayy = new Date().toLocaleString("en-US", {
+      timeZone: "America/New_York",
+    });
+
+    // if (today >= 8 && today <= 20) {
+
+    // } else {
+    //   toast.error("Please Send Text between 8am - 9pm");
+    //   setLoading(false);
+    // }
+  };
+
   return (
     <div className="content-page-layout text-page-content">
-      <div className="page-header justify-flex-end">
+      {/* <div className="page-header justify-flex-end">
         <button
           type="button"
           className="btn btn-medium btn-primary"
@@ -980,6 +1044,25 @@ const EmailPage = () => {
         >
           New Email
         </button>
+      </div> */}
+      <div className="page-header justify-flex-end">
+        <Dropdown>
+          <Dropdown.Toggle
+            variant="success"
+            id="dropdown-basic"
+            className="btn btn-medium btn-primary"
+          >
+            New Email
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="#" onClick={handleNewMessage}>
+              Individual Email Message
+            </Dropdown.Item>
+            <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
+              Bulk Campaign Message
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
       <div className="text-main-section">
         <EmailChatBoot
@@ -1107,6 +1190,76 @@ const EmailPage = () => {
         preview={preview}
         handlePreview={handlePreview}
         handleMessageChange={handleMessageChange}
+        sendMessageClick={sendMessageClick}
+        handleBackMessageModal={handleBackMessageModal}
+        loading={loading}
+        showScheduleModal={showScheduleModal}
+        handleCloseSchedultModal={handleCloseSchedultModal}
+        showCreateTemplateModal={showCreateTemplateModal}
+        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+        showManageeTemplateModal={showNewManageeTemplateModal}
+        handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
+        handleScheduleModal={handleScheduleModal}
+        handleCreateTemplate={handleCreateTemplate}
+        handleManageTemplate={handleNewManageTemplate}
+        templateName={templateName}
+        searchTemplateValue={searchTemplateValue}
+        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
+        handleTemplateName={handleTemplateName}
+        templateTags={templateTags}
+        handleTemplateTagChange={handleTemplateTagChange}
+        templateMessage={templateMessage}
+        handleTempMessageChange={handleTempMessageChange}
+        handleTemplateSubmit={handleTemplateSubmit}
+        templateData={templateData}
+        handleTempShowClick={handleTempShowClick}
+        templateDataState={templateDataState}
+        handleTempInsert={handleTempInsert}
+        handleEmailTempTitleClick={handleNewTempTitleClick}
+        handleEditTemplate={handleEditTemplate}
+        editmanageTemplate={editmanageTemplate}
+        handleTempEditCancel={handleTempEditCancel}
+        editTempData={editTempData}
+        handleEditTempChange={handleEditTempChange}
+        handleTempEditSave={handleTempEditSave}
+        handleTempRemove={handleTempRemove}
+        templateEditTags={templateEditTags}
+        searchValue={searchState}
+        handleSearchChange={(e) => setSearchState(e.target.value)}
+        handleEditTemplateTagChange={handleEditTemplateTagChange}
+        replacefunc={replacefunc}
+        dateSelected={dateSelected}
+        handleDateChange={handleDateChange}
+        handleTempDelModal={handleTempDelModal}
+        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+        showDeleteTempModal={deleteTempComfirmation}
+        handleEmojiOpen={handleEmojiOpen}
+        onShowEmojiOpen={onShowEmoji}
+        emailSubject={emailSubject}
+        handleSubjectChange={handleSubjectChange}
+        onEmojiClick={onEmojiClick}
+        savelistToMessageClick={savelistToMessageClick}
+        textRef={textref}
+        selecteduser={selecteduser}
+        editorLoaded={editorLoaded}
+        handleScheduleSubmit={handleScheduleSubmit}
+        scheduledData={scheduledData}
+        handleReSchaduleData={handleReSchaduleData}
+        CancelEmoji={CancelEmoji}
+      />
+      <BulkEmailMessageModal
+        open={openBulkMessageModal}
+        handleCloseMessageModal={handleCloseBulkMessageModal}
+        options={compaign}
+        handleSendBulkClick={handleSendBulkClick}
+        sendNewMessage={emailMessage}
+        handleMessageChange={handleMessageChange}
+        handleBulkSelectChange={handleBulkSelectChange}
+        selected={bulkSelected}
+        errors={errors}
+        emailMessage={emailMessage}
+        preview={preview}
+        handlePreview={handlePreview}
         sendMessageClick={sendMessageClick}
         handleBackMessageModal={handleBackMessageModal}
         loading={loading}
