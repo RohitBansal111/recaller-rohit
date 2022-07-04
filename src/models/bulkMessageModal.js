@@ -44,7 +44,7 @@ const BulkMessageModal = ({ open, handleCloseMessageModal, ...props }) => {
               options={props.options}
               value={props.selected}
             />
-            {/* <span className="spanError">{props.errors.selected}</span> */}
+            <span className="spanError">{props.errors.bulkSelected}</span>
           </div>
           <div className="field-group messageBoxModal flexFull">
             <label>Message</label>

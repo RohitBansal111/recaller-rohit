@@ -18,6 +18,7 @@ import {
 import {
   getUploadVoiceMessageApi,
   getUserWithVoiceMessage,
+  uploadBulkVoiceMessageApi,
   uploadSingleVoiceMessageApi,
   uploadVoiceMessageApi,
 } from "../../api/voiceMessage";
@@ -414,21 +415,23 @@ const Voice = () => {
         .then(async (myBlob) => {
           var file = new File([myBlob], "name.wav");
           var formData = new FormData();
-          let contactid = bulkSelected.map((item) => item.value);
+          let compaignId = bulkSelected.value;
           formData.append("voice", file);
-          formData.append("contactid", JSON.stringify(contactid));
+          formData.append("compaignId", compaignId);
           setIsShowLoading(true);
           setLoading(true);
-          let res = await uploadVoiceMessageApi(formData);
+          let res = await uploadBulkVoiceMessageApi(formData);
           if (res && res.data && res.data.status === 200) {
             toast.success("Voice Message sent Successfully");
             stopTimer();
             setOpenMessageModal(false);
             setSelected([]);
             setLoading(false);
+            setBulkOpen(false);
             setPlaying(false);
             setIsNewVoiceActive(false);
             setIsActive(false);
+            setBulkSelected("");
             setIndividualOpen(false);
             setBulkOpen(false);
             setIsShowLoading(false);
@@ -637,6 +640,7 @@ const Voice = () => {
         toast.success("Voice Message sent Successfully");
         setUploadOpen(false);
         getVoiceMessage();
+        setLoading(false);
         setErrors({});
         setIndividualOpen(false);
         setBulkOpen(false);
@@ -646,20 +650,28 @@ const Voice = () => {
 
   const onBulkVoiceUpload = async () => {
     if (isBulkSelectValid()) {
-      var formData = new FormData();
-      let contactid = selected.map((item) => item.value);
-      formData.append("voice", fileName);
-      formData.append("contactid", JSON.stringify(contactid));
-      setLoading(true);
-      let res = await uploadVoiceMessageApi(formData);
-      if (res && res.data && res.data.status === 200) {
-        toast.success("Voice Message sent Successfully");
-        setUploadOpen(false);
-        getVoiceMessage();
-        setErrors({});
-        setIndividualOpen(false);
-        setBulkOpen(false);
-      }
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
+        .then(async (myBlob) => {
+          var formData = new FormData();
+          let compaignId = bulkSelected.value;
+          formData.append("voice", fileName);
+          formData.append("compaignId", compaignId);
+          setIsShowLoading(true);
+          setLoading(true);
+          let res = await uploadBulkVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            stopTimer();
+            setUploadOpen(false);
+            getVoiceMessage();
+            setLoading(false);
+            setErrors({});
+            setIndividualOpen(false);
+            setBulkOpen(false);
+          }
+          getVoiceMessage();
+        });
     }
   };
 
@@ -729,6 +741,7 @@ const Voice = () => {
 
   const handleBulkSelectChange = (values) => {
     setBulkSelected(values);
+    setErrors({});
   };
 
   const clearRecording = () => {

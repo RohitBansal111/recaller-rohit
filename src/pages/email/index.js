@@ -14,6 +14,7 @@ import {
   getEmailMessageApi,
   getUserWithEmailMessage,
   reScheduleEmailApi,
+  sendBulkEmailApi,
   sendEmailMessageApi,
   sendSingleEmailMessageApi,
 } from "../../api/emailMessage";
@@ -113,11 +114,48 @@ const EmailPage = () => {
   const textref = useRef(null);
 
   const handleBulkMessageModal = () => {
+    setSendEmailMessage("");
+    scrollToBottom();
+    setLoading(false);
+    setSchedule(false);
     setOpenBulkMessageModal(true);
+    setBulkSelected([]);
+    setEmailSubject("");
+    setEmailMessage("");
+    setScheduledData({});
+    setDateSelected({});
+    setCancelRescheDule(false);
+    setShowScheduleModal(false);
+    getEmailMessage();
   };
 
   const handleCloseBulkMessageModal = () => {
     setOpenBulkMessageModal(false);
+    setSendEmailMessage("");
+    scrollToBottom();
+    setLoading(false);
+    setSchedule(false);
+    setBulkSelected([]);
+    setEmailSubject("");
+    setEmailMessage("");
+    setScheduledData({});
+    setDateSelected({});
+    setCancelRescheDule(false);
+    setShowScheduleModal(false);
+    getEmailMessage();
+  };
+
+  const isBulkValid = () => {
+    let formData = true;
+    switch (true) {
+      case bulkSelected.length == 0:
+        setErrors({ bulkSelected: "Please Select a Campaign" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
   };
 
   const isValid = () => {
@@ -997,6 +1035,7 @@ const EmailPage = () => {
 
   const handleBulkSelectChange = (values) => {
     setBulkSelected(values);
+    setErrors({});
   };
 
   const getContactCompaign = async () => {
@@ -1010,22 +1049,43 @@ const EmailPage = () => {
   };
 
   const handleSendBulkClick = async () => {
-    setLoading(true);
-    let contactid = bulkSelected.value;
-    // const obj = {
-    //   compaignId: contactid,
-    //   message: sendEmailMessage,
-    //   selectedImage: imageUrl.url,
-    //   type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
-    //   schedule: schedule ? true : false,
-    // };
-    // if (scheduledData && scheduledData.date && scheduledData.time) {
-    //   obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
-    // }
-    let todayy = new Date().toLocaleString("en-US", {
-      timeZone: "America/New_York",
-    });
+    if (isBulkValid()) {
+      setLoading(true);
+      let contactid = bulkSelected.value;
+      const obj = {
+        subject: selecteduser.subject,
+        message: emailMessage,
+        compaignId: contactid,
+        schedule: schedule ? true : false,
+      };
+      if (scheduledData && scheduledData.date && scheduledData.time) {
+        obj.dateSelected =
+          scheduledData.date + " " + scheduledData.time + ":00";
+      }
+      let todayy = new Date().toLocaleString("en-US", {
+        timeZone: "America/New_York",
+      });
+      let res = await sendBulkEmailApi(obj);
 
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setSendEmailMessage("");
+        scrollToBottom();
+        setLoading(false);
+        setSchedule(false);
+        setOpenBulkMessageModal(false);
+        setBulkSelected([]);
+        setEmailSubject("");
+        setEmailMessage("");
+        setScheduledData({});
+        setDateSelected({});
+        setCancelRescheDule(false);
+        setShowScheduleModal(false);
+        getEmailMessage();
+      } else {
+        toast.error(res.data.message);
+      }
+    }
     // if (today >= 8 && today <= 20) {
 
     // } else {

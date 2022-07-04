@@ -154,7 +154,7 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
           >
             Dismiss
           </button>
-          {props.uploadOpen == true ? (
+          {props.fileName && props.fileName.name ? (
             <LoadingButton
               type="button"
               loadingPosition="center"

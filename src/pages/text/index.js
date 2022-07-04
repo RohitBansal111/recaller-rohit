@@ -19,6 +19,7 @@ import {
   getMessageApi,
   getUserWithMessage,
   reScheduleMessageApi,
+  sendBulkMessageApi,
   sendMessageApi,
   sendSingleMessageApi,
 } from "../../api/textMessage";
@@ -137,6 +138,7 @@ const TextPage = () => {
     setImageUrl({});
     setCancelRescheDule(false);
     setPreview(false);
+    setBulkSelected([]);
     setErrors({});
     setLoading(false);
     setSelectedImageData(null);
@@ -148,6 +150,7 @@ const TextPage = () => {
   };
   const handleCloseBulkMessageModal = () => {
     setOpenBulkMessageModal(false);
+    setBulkSelected([]);
     setSelectedNewImageData(null);
     setImageUrl({});
     setCancelRescheDule(false);
@@ -287,6 +290,19 @@ const TextPage = () => {
     switch (true) {
       case selected.length == 0:
         setErrors({ selected: "Please Select a Contact" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const isBulkValid = () => {
+    let formData = true;
+    switch (true) {
+      case bulkSelected.length == 0:
+        setErrors({ bulkSelected: "Please Select a Campaign" });
         formData = false;
         break;
       default:
@@ -598,39 +614,45 @@ const TextPage = () => {
   };
 
   const handleSendBulkClick = async () => {
-    setLoading(true);
-    let contactid = bulkSelected.value;
-    const obj = {
-      compaignId: contactid,
-      message: sendNewMessage,
-      selectedImage: imageUrl.url,
-      type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
-      schedule: schedule ? true : false,
-    };
-    if (scheduledData && scheduledData.date && scheduledData.time) {
-      obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
+    if(isBulkValid()){
+      setLoading(true);
+      let compaignId = bulkSelected.value;
+      console.log(compaignId, "compaignid");
+      const obj = {
+        compaignId: compaignId,
+        message: sendNewMessage,
+        selectedImage: imageUrl.url,
+        type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
+        schedule: schedule ? true : false,
+      };
+      if (scheduledData && scheduledData.date && scheduledData.time) {
+        obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
+      }
+      let todayy = new Date().toLocaleString("en-US", {
+        timeZone: "America/New_York",
+      });
+      // if (today >= 8 && today <= 20) {
+      let res = await sendBulkMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setOpenMessageModal(false);
+        setOpenBulkMessageModal(false);
+        setSelected([]);
+        setSelectedImage(null);
+        setScheduledData({});
+        setBulkSelected([]);
+        setShowScheduleModal(false);
+        setSelectedNewImageData(null);
+        setDateSelected({});
+        setSchedule(false);
+        setImageUrl({});
+        setCancelRescheDule(false);
+        setSendNewMessage("");
+        setLoading(false);
+        getMessage();
+      }
     }
-    let todayy = new Date().toLocaleString("en-US", {
-      timeZone: "America/New_York",
-    });
-    // if (today >= 8 && today <= 20) {
-    let res = await sendMessageApi(obj);
-    if (res && res.data && res.data.status === 200) {
-      toast.success(" Message sent Successfully");
-      setOpenMessageModal(false);
-      setSelected([]);
-      setSelectedImage(null);
-      setScheduledData({});
-      setShowScheduleModal(false);
-      setSelectedNewImageData(null);
-      setDateSelected({});
-      setSchedule(false);
-      setImageUrl({});
-      setCancelRescheDule(false);
-      setSendNewMessage("");
-      setLoading(false);
-      getMessage();
-    }
+    
     // } else {
     //   toast.error("Please Send Text between 8am - 9pm");
     //   setLoading(false);
