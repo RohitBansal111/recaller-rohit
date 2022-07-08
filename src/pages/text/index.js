@@ -726,13 +726,23 @@ const TextPage = () => {
     setImageUrl({});
     setSelectedImage(false);
     setSendMessage("");
+    //reset counter
+    if (selecteduser.count > 0) {
+      await resetBulkMessageApi(selecteduser._id);
+      const res = await getUserWithMessage();
+      if (
+        res &&
+        res.data &&
+        res.data.status === 200 &&
+        res.data.data.length != 0
+      ) {
+        setMessages(res.data.data);
+      }
+  
+    }
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
-      if (selecteduser.count > 0) {
-        await resetBulkMessageApi(selecteduser._id);
-        getMessage();
-      }
     }
 
     if (check) {

@@ -35,7 +35,9 @@ const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
                 value={props.addEmailSender.fromEmail}
                 onChange={props.handleChangeEmailSender}
               />
+               <span className="spanError">{props.errors.fromEmail?props.errors.fromEmail:''}</span>
             </div>
+           
             <div className="field-group flex2">
               <label>From Name*</label>
               <input
@@ -46,14 +48,16 @@ const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
                 value={props.addEmailSender.fromName}
                 onChange={props.handleChangeEmailSender}
               />
+                     <span className="spanError">{props.errors.fromName?props.errors.fromName:''}</span>
             </div>
+     
             <div className="field-group flexFull">
               <label>Reply-to</label>
               <input
                 type="email"
                 className="form-control"
                 placeholder="Enter reply email"
-                name="replyEmail"
+                name="replyTo"
                 value={props.addEmailSender.replyEmail}
                 onChange={props.handleChangeEmailSender}
               />

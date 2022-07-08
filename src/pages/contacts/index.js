@@ -209,6 +209,7 @@ const Import = () => {
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
+      console.log("campaign data:::",res.data.data)
       setRowsData(res.data.data);
       setTotalRowsData(res.data.data.length);
     }

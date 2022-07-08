@@ -3,10 +3,34 @@ import SearchIcon from "@material-ui/icons/Search";
 import EmailSenderModal from "../../../models/EmailSenderModal";
 import { useState } from "react";
 import { MdChevronRight } from "react-icons/md";
+import {createEmailSenderApi,getEmailSenderListApi} from '../../../api/emailMessage';
 
 const EmailSender = () => {
   const [show, setShow] = useState(false);
   const [addEmailSender, setaddEmailSender] = useState({});
+  const [errors, setErrors] = useState({});
+  const isValid = () => {
+    const regex =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneRegex = /^\d{10}$/;
+    const num = /^[0-9]+$/;
+    let formData = true;
+    switch (true) {
+      case !addEmailSender.fromEmail:
+        setErrors({ fromEmail: "From Email is required!" });
+        formData = false;
+        break;
+      // case !addEmailSender.fromName:
+      //   setErrors({ lastName: "Last Name is required!" });
+      //   formData = false;
+      //   break;
+
+
+      default:
+        formData = true;
+    }
+    return formData;
+  };
 
   const handleAddSender = () => {
     setShow(true);
@@ -18,7 +42,12 @@ const EmailSender = () => {
 
   const handleShow = () => setShow(true);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if(isValid()){
+      const response =  await createEmailSenderApi(addEmailSender)
+      console.log("response::::",response)
+    }
+
   };
 
   const handleChangeEmailSender = (e) => {
@@ -95,6 +124,7 @@ const EmailSender = () => {
         handleClose={handleClose}
         handleShow={handleShow}
         handleSubmit={handleSubmit}
+        errors={errors}
         handleChangeEmailSender={handleChangeEmailSender}
         addEmailSender={addEmailSender}
       />

@@ -76,6 +76,12 @@ const headCells = [
     label: "Last Name",
   },
   {
+    id: "compaignId.name",
+    numeric: false,
+    disablePadding: true,
+    label: "Latest Campaign",
+  },
+  {
     id: "email",
     numeric: true,
     disablePadding: false,
@@ -453,6 +459,9 @@ export default function EnhancedTable(props) {
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
                 {row && row.lastName}
+              </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row && row.compaignId && row.compaignId.name}
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>

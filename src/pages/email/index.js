@@ -682,11 +682,14 @@ const EmailPage = () => {
   };
 
   const handleConDataEdit = async () => {
+    console.log("edit data :::",editContact)
     const editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
       phoneSubs: editContact.phoneSubs,
       emailSubs: editContact.emailSubs,
+      compaign:editContact.compaign?editContact.compaign:''
+      
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
@@ -1053,7 +1056,7 @@ const EmailPage = () => {
       setLoading(true);
       let contactid = bulkSelected.value;
       const obj = {
-        subject: selecteduser.subject,
+        subject:emailSubject,
         message: emailMessage,
         compaignId: contactid,
         schedule: schedule ? true : false,

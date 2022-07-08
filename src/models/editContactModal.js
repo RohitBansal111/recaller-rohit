@@ -3,6 +3,7 @@ import { Modal } from "react-responsive-modal";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
+  console.log("edit contact data ::::::",props)
   return (
     <Modal
       open={open}
@@ -76,9 +77,17 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             />
           </div>
           <div className="field-group flex2">
-            <label>Subscription</label>
+            <label>Campaign</label>
             <div className="foem-field-inner">
-              <select
+            <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Campaign"
+                name="compaign"
+                value={props.editContact?props.editContact.compaign?props.editContact.compaign:props.editContact.compaignId?props.editContact.compaignId.name:'' :''}
+                onChange={props.handleEditContactChange}
+              />
+              {/* <select
                 className="form-control"
                 name="phoneSubs"
                 value={props.editContact.phoneSubs}
@@ -86,7 +95,7 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
               >
                 <option value={"opted-in"}>Opted In</option>
                 <option value={"opted-out"}>Opted Out</option>
-              </select>
+              </select> */}
             </div>
           </div>
           <div className="field-group flexFull text-center mt-5">

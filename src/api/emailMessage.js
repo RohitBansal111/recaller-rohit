@@ -15,6 +15,36 @@ const sendEmailMessageApi = async (data) => {
     return { data: err.response.data };
   }
 };
+const createEmailSenderApi = async (data) => {
+  try {
+    const AUTH_TOKEN = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/email/createSender`,
+      data
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
+
+const getEmailSenderListApi = async () => {
+  try {
+    const AUTH_TOKEN = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/email/createSender`
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
 
 const sendSingleEmailMessageApi = async (data) => {
   try {
@@ -118,4 +148,6 @@ export {
   reScheduleEmailApi,
   deleteReScheduleEmailApi,
   sendBulkEmailApi,
+  createEmailSenderApi,
+  getEmailSenderListApi
 };
