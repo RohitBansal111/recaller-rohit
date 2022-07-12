@@ -397,7 +397,7 @@ const ChatBoot = (props) => {
                       </form>
                     </div>
                   </Tab>
-                  <Tab eventKey="filter" title="Internal Note">
+                  {/* <Tab eventKey="filter" title="Internal Note">
                     <div className="chat-textarea">
                       <form className="main-form">
                         <div className="field-group flexFull">
@@ -420,7 +420,7 @@ const ChatBoot = (props) => {
                         </div>
                       </form>
                     </div>
-                  </Tab>
+                  </Tab> */}
                 </Tabs>
               )}
             </div>

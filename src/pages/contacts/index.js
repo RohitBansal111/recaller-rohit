@@ -133,10 +133,10 @@ const Import = () => {
         setErrors({ email: "Please enter valid email address!" });
         formData = false;
         break;
-      case !addContact.compaign:
-        setErrors({ compaign: "Please enter your Campaign" });
-        formData = false;
-        break;
+      // case !addContact.compaign:
+      //   setErrors({ compaign: "Please enter your Campaign" });
+      //   formData = false;
+      //   break;
       default:
         formData = true;
     }
@@ -156,11 +156,16 @@ const Import = () => {
     return formData;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e,selectedCampaign) => {
     if (isValid()) {
+      console.log("campaign::::",selectedCampaign)
+     if(!selectedCampaign){
+      setErrors({ compaign: "Please enter your Campaign" });
+      return
+     }
       setLoading(true);
       setIsLoading(true);
-      let res = await createApi(addContact);
+      let res = await createApi({...addContact,compaign:selectedCampaign});
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
@@ -646,7 +651,7 @@ const Import = () => {
         />
       </div>
 
-      <ContactModal
+      <ContactModal 
         show={show}
         loading={loading}
         handleClose={handleClose}

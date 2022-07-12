@@ -794,13 +794,17 @@ const TextPage = () => {
     setEditContactName(true);
   };
 
-  const handleConDataEdit = async () => {
-    const editData = {
+  const handleConDataEdit = async (e,selectedCampaign) => {
+    console.log("selected campaign::::",selectedCampaign)
+    let editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
       phoneSubs: editContact.phoneSubs,
       emailSubs: editContact.emailSubs,
     };
+    if(selectedCampaign){
+      editData.compaign=selectedCampaign
+    }
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
       toast.success("Contact Updated Successfully");

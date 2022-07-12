@@ -69,7 +69,7 @@ const VoiceChatBoot = (props) => {
           <div className="chat-list-filter">
             <form className="main-form">
               <div className="field-group flexFull searchField">
-                <input
+                <input 
                   type="text"
                   name="name"
                   className="form-control"
@@ -265,6 +265,19 @@ const VoiceChatBoot = (props) => {
                       props.isActive == false &&
                       props.isNewVoiceActive == false) ||
                     props.audioFileName !== null ? (
+                      <>
+                             <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={()=>{
+                          props.handlePlay();
+                          return;
+                        }
+                          
+                        }
+                      >
+                        Play
+                      </button>
                       <button
                         type="button"
                         className="btn btn-primary"
@@ -276,6 +289,7 @@ const VoiceChatBoot = (props) => {
                       >
                         Send
                       </button>
+                      </>
                     ) : (
                       <button
                         type="button"

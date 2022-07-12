@@ -69,7 +69,7 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 {props.isNewVoiceActive == true
                   ? "Stop"
                   : props.second == 0
-                  ? "Press & Recording"
+                  ? "Press & Recording" 
                   : props.isNewVoiceActive == false
                   ? "Play"
                   : "Press & Recording"}

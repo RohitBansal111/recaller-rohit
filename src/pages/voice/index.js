@@ -843,6 +843,7 @@ const Voice = () => {
           handleLoadMetadata={handleLoadMetadata}
           isNewVoiceActive={isNewVoiceActive}
           singleVref={singleVref}
+          handlePlay={handlePlay}
         />
       </div>
       {/* <VoiceModal

@@ -280,6 +280,19 @@ const EmailChatBoot = (props) => {
                                 </div>
                               </div>
                             ) : (
+                              <>
+                              <div className="field-group flexFull">
+                              {/* <label>Email Subject</label> */}
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter Subject"
+                                name="subject"
+                                value={props.emailSubject}
+                                onChange={props.handleSubjectChange}
+                              />
+                              <span className="spanError">{props.errors.selected}</span>
+                            </div>
                               <div className="attachedImage-box email-emailEditor">
                                 <CKEditor
                                   editor={ClassicEditor}
@@ -294,6 +307,7 @@ const EmailChatBoot = (props) => {
                                   editorLoaded={props.editorLoaded}
                                 />
                               </div>
+                              </>
                             )}
                           </div>
                           <div className="field-group btn-groups flexFull">
@@ -436,7 +450,7 @@ const EmailChatBoot = (props) => {
                         </form>
                       </div>
                     </Tab>
-                    <Tab eventKey="filter" title="Internal Note">
+                    {/* <Tab eventKey="filter" title="Internal Note">
                       <div className="chat-textarea Internal">
                         <form className="main-form">
                           <div className="field-group flexFull">
@@ -462,7 +476,7 @@ const EmailChatBoot = (props) => {
                           </div>
                         </form>
                       </div>
-                    </Tab>
+                    </Tab> */}
                   </Tabs>
                 )}
               </div>

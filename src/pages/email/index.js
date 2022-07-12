@@ -623,7 +623,7 @@ const EmailPage = () => {
   const onHandleClick = async () => {
     setLoading(true);
     const obj = {
-      subject: selecteduser.subject,
+      subject: emailSubject,
       message: sendEmailMessage,
       contactid: selecteduser.contact && selecteduser.contact.contactid,
       schedule: schedule ? true : false,
@@ -642,6 +642,8 @@ const EmailPage = () => {
 
     if (res && res.data && res.data.status === 200) {
       setSendEmailMessage("");
+      //email subject make empty
+      setEmailSubject('')
       scrollToBottom();
       setLoading(false);
       setSchedule(false);
@@ -1240,6 +1242,8 @@ const EmailPage = () => {
           handleReSchaduleTChange={handleReSchaduleTChange}
           handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
           handleReTitleSubmit={handleReTitleSubmit}
+          emailSubject={emailSubject}
+          handleSubjectChange={handleSubjectChange}
         />
       </div>
       <EmailModal
