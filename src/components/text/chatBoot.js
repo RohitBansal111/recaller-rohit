@@ -37,12 +37,16 @@ const ChatBoot = (props) => {
       props.userMessageList &&
       props.userMessageList.filter(
         (val) =>
-          val.contact.firstName
-            .toLowerCase()
-            .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.lastName
-            .toLowerCase()
-            .startsWith(props.searchValue.toLowerCase())
+          (val &&
+            val.contact &&
+            val.contact.firstName
+              .toLowerCase()
+              .startsWith(props.searchValue.toLowerCase())) ||
+          (val &&
+            val.contact &&
+            val.contact.lastName
+              .toLowerCase()
+              .startsWith(props.searchValue.toLowerCase()))
       );
     const chatList = filtered.map((item, index) => {
       return (
