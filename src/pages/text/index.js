@@ -795,7 +795,7 @@ const TextPage = () => {
   };
 
   const handleConDataEdit = async (e,selectedCampaign) => {
-    console.log("selected campaign::::",selectedCampaign)
+    e.preventDefault()
     let editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,

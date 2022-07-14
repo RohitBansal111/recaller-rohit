@@ -16,12 +16,11 @@ const UploadSpreadsheetModal = (props) => {
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [selectedType, setSelectedType] = useState("skip");
   const [selectProperty, setSelectProperty] = useState(null);
-  const [selectedFirstName, setSelectedFirstName] = useState("First Name");
-  const [selectedLastName, setSelectedLastName] = useState("Last Name");
+  const [selectedFirstName, setSelectedFirstName] = useState("firstName");
+  const [selectedLastName, setSelectedLastName] = useState("lastName");
 
-  const [selectedEmail, setSelectedEmail] = useState("Email");
-  const [selectedPhone, setSelectedPhone] = useState("Mobile Phone");
-  const [selectedHomePhone, setSelectedHomePhone] = useState("Home Phone");
+  const [selectedEmail, setSelectedEmail] = useState("email");
+  const [selectedPhone, setSelectedPhone] = useState("phone");
   const [mapArray, setMapArray] = useState("");
 
   const [errors, setErrors] = useState({});
@@ -60,8 +59,7 @@ const UploadSpreadsheetModal = (props) => {
     if (loadingCsvdata) {
       setLoadingCsvData(false);
       if (csvData) {
-        console.log("csv data ::::",csvData)
-        const validKeyNames = ["First Name", "Last Name", "Mobile Phone", "Email","Home Phone"];
+        const validKeyNames = ["firstName", "lastName", "phone", "email"];
         let keysData = Object.keys(csvData[0]).every((e) =>
           validKeyNames.includes(e)
         );
@@ -82,11 +80,10 @@ const UploadSpreadsheetModal = (props) => {
   const handleClose = () => {
     setStep(1);
     setCsvFile(null);
-    setSelectedPhone("Mobile Phone");
-    setSelectedHomePhone("Home Phone");
-    setSelectedEmail("Email");
-    setSelectedFirstName("First Name");
-    setSelectedLastName("Last Name");
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
     setAddCampaigns("");
@@ -104,11 +101,10 @@ const UploadSpreadsheetModal = (props) => {
     const arr = [];
     csvData.map((item) => {
       const obj = {
-        [selectedFirstName]: item['First Name'],
-        [selectedLastName]: item['Last Name'],
-        [selectedPhone]: item['Mobile Phone'],
-        [selectedEmail]: item.Email,//item['First Name']     setSelectedHomePhone("Home Phone");
-        [selectedHomePhone]: item['Home Phone'],
+        [selectedFirstName]: item.firstName,
+        [selectedLastName]: item.lastName,
+        [selectedPhone]: item.phone,
+        [selectedEmail]: item.email,
       };
       return arr.push(obj);
     });
@@ -208,10 +204,6 @@ const UploadSpreadsheetModal = (props) => {
     setSelectedPhone(e.target.value);
     setErrors({});
   };
-  const handleHomePhoneChange = (e) => {
-    setSelectedHomePhone(e.target.value);
-    setErrors({});
-  };
 
   const nextStep = () => {
     setStep(step + 1);
@@ -230,11 +222,10 @@ const UploadSpreadsheetModal = (props) => {
     setStep(1);
     props.handleFinish();
     setCsvFile(null);
-    setSelectedPhone("Mobile Phone");
-    setSelectedHomePhone("Home Phone");
-    setSelectedEmail("Email");
-    setSelectedFirstName("First Name");
-    setSelectedLastName("Last Name");
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
     setSelectedType("skip");
     setSelectProperty(null);
     setNoteData(null);
@@ -267,12 +258,11 @@ const UploadSpreadsheetModal = (props) => {
         props.handleFinish();
         props.setUploadModal(false);
         setCsvFile(null);
-        setSelectedPhone("Mobile Phone");
-        setSelectedHomePhone("Home Phone");
+        setSelectedPhone("phone");
         setIsLoading(false);
-        setSelectedEmail("Email");
-        setSelectedFirstName("First Name");
-        setSelectedLastName("Last Name");
+        setSelectedEmail("email");
+        setSelectedFirstName("firstName");
+        setSelectedLastName("lastName");
         setSelectedType("skip");
         setSelectProperty(null);
         setNoteData(null);
@@ -292,11 +282,10 @@ const UploadSpreadsheetModal = (props) => {
   const handleCloseModal = () => {
     props.handleUploadClose();
     setCsvFile(null);
-    setSelectedPhone("Mobile Phone");
-    setSelectedHomePhone("Home Phone");
-    setSelectedEmail("Email");
-    setSelectedFirstName("First Name");
-    setSelectedLastName("Last Name");
+    setSelectedPhone("phone");
+    setSelectedEmail("email");
+    setSelectedFirstName("firstName");
+    setSelectedLastName("lastName");
     setSelectedType("skip");
     setAddCampaigns("");
     setUnSavedContacts([]);
@@ -411,13 +400,11 @@ const UploadSpreadsheetModal = (props) => {
                   handleFirstNameChange={handleFirstNameChange}
                   handleLastNameChange={handleLastNameChange}
                   handlePhoneChange={handlePhoneChange}
-                  handleHomePhoneChange={handleHomePhoneChange}
                   handleEmailChange={handleEmailChange}
                   selectedEmail={selectedEmail}
                   selectedFirstName={selectedFirstName}
                   selectedLastName={selectedLastName}
                   selectedPhone={selectedPhone}
-                  selectedHomePhone={selectedHomePhone}
                   errors={errors}
                   errorsSelectMap={errorsSelectMap}
                   handleClick={handleClick}

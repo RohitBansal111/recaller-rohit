@@ -88,6 +88,12 @@ const headCells = [
     label: "Primary Email",
   },
   {
+    id: "homePhone",
+    numeric: true,
+    disablePadding: false,
+    label: "Home Phone",
+  },
+  {
     id: "phone",
     numeric: true,
     disablePadding: false,
@@ -464,6 +470,7 @@ export default function EnhancedTable(props) {
                 {row && row.compaignId && row.compaignId.name}
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
+              <TableCell align="right">{row && row.homePhone}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>
               {/* <TableCell align="right">{row && row.country}</TableCell>
               <TableCell align="right">{row && row.state}</TableCell>

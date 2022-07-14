@@ -87,6 +87,18 @@ const ContactModal = (props) => {
               />
               <span className="spanError">{props.errors.phone}</span>
             </div>
+            <div className="field-group flex2">
+              <label>Home Phone</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Phone"
+                name="homePhone"
+                value={props.addContactData.homePhone}
+                onChange={props.onChange}
+              />
+              <span className="spanError">{props.errors.homePhone}</span>
+            </div>
 
             <div className="field-group flex2">
               <label>Email</label>

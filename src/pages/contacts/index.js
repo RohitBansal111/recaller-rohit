@@ -158,7 +158,6 @@ const Import = () => {
 
   const handleSubmit = async (e,selectedCampaign) => {
     if (isValid()) {
-      console.log("campaign::::",selectedCampaign)
      if(!selectedCampaign){
       setErrors({ compaign: "Please enter your Campaign" });
       return
