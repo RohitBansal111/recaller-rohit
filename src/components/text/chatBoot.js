@@ -112,7 +112,7 @@ const ChatBoot = (props) => {
           <div className="all-discuss-section">
             <div className="chat-header">
               <h4>
-                {props.selecteduser
+                {props.selecteduser && props.selecteduser.contact
                   ? props.selecteduser.contact.firstName +
                     " " +
                     props.selecteduser.contact.lastName
@@ -436,7 +436,7 @@ const ChatBoot = (props) => {
               {/* {!props.editContactName && ( */}
               <>
                 <h4>
-                  {props.selecteduser
+                  {props.selecteduser && props.selecteduser.contact
                     ? props.selecteduser.contact.firstName +
                       " " +
                       props.selecteduser.contact.lastName
@@ -474,7 +474,7 @@ const ChatBoot = (props) => {
             <ul className="personal-info">
               <li>
                 <h5>Phone Number</h5>
-                <p>{props.selecteduser && props.selecteduser.contact.phone}</p>
+                <p>{props.selecteduser && props.selecteduser.contact && props.selecteduser.contact.phone}</p>
               </li>
               <li>
                 <h5>Subscription</h5>
