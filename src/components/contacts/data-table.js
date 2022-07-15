@@ -97,7 +97,7 @@ const headCells = [
     id: "phone",
     numeric: true,
     disablePadding: false,
-    label: "Primary Phone",
+    label: "Mobile Phone",
   },
   // {
   //   id: "country",
