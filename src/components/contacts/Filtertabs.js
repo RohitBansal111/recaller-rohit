@@ -11,10 +11,11 @@ const FilterTabs = (props) => {
   return (
     <div className="filter-tabs">
       <Tabs
-        defaultActiveKey="all"
+        activeKey={props.tabsKey}
         transition={false}
         id="noanim-tab-example"
         className="mb-3"
+        onSelect={props.handleTabsSelect}
       >
         <Tab
           eventKey={"all"}
@@ -86,7 +87,17 @@ const FilterTabs = (props) => {
           eventKey="filter"
           title={
             <span>
-              <AddCircleOutlineIcon /> New Filter ({props.totalRecords})
+              {props.rowsData ? (
+                <>
+                  <AddCircleOutlineIcon />{" "}
+                  {`New Filter(${props.rowsData.length})`}
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <AddCircleOutlineIcon /> New Filter ({props.totalRecords})
+                </>
+              )}
             </span>
           }
         >
@@ -114,6 +125,7 @@ const FilterTabs = (props) => {
             filterName={props.filterName}
             onFilterNameChange={props.onFilterNameChange}
             compaign={props.compaign}
+            handleTabsSelect={props.handleTabsSelect}
           />
         </Tab>
       </Tabs>

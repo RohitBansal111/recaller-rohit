@@ -2,8 +2,24 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 import SMSMessageGraph from "../../../components/settings/sms-message-graph";
 import { MdChevronRight } from "react-icons/md";
+import { useEffect, useState } from "react";
+import { getUsageApi } from "../../../api/setting-Api/usage";
 
 const Usage = () => {
+  const [messageData, setMessageData] = useState();
+  useEffect(() => {
+    getUsage();
+  }, []);
+  const getUsage = async () => {
+    const res = await getUsageApi();
+    if (res && res.data && res.data.data) {
+      setMessageData(res.data.data);
+    }
+  };
+
+  const today = new Date();
+  let longMonth = today.toLocaleString("en-us", { month: "long" });
+
   return (
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
@@ -21,16 +37,16 @@ const Usage = () => {
       <div className="setting-page-main">
         <div className="common-card-ui mb-4">
           <div className="card-header">
-            <h3>SMS Messages sent in March</h3>
+            <h3>SMS Messages sent in {longMonth}</h3>
             <p>
               {" "}
-              <b>6042</b> / 8000 SMS
+              <b>{messageData ? messageData.totalMessageSent : 0}</b> / 8000 SMS
             </p>
           </div>
           <div className="card-body">
             <div className="content-body">
               <div className="sms-progressbar">
-                <LinearProgress variant="determinate" value={50} />
+                <LinearProgress variant="determinate" value={10} />
               </div>
             </div>
           </div>
@@ -41,7 +57,7 @@ const Usage = () => {
           </div>
           <div className="card-body">
             <div className="content-body">
-              <SMSMessageGraph />
+              <SMSMessageGraph messageData={messageData} />
             </div>
           </div>
         </div>

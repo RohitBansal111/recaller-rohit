@@ -30,6 +30,7 @@ import LogNoteModal from "../../models/LogNoteModal";
 import moment from "moment";
 import LoaderPic from "./../../assets/images/loader.gif";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Button } from "@material-ui/core";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -66,7 +67,19 @@ const headCells = [
     id: "firstName",
     numeric: false,
     disablePadding: true,
-    label: "Name",
+    label: "First Name",
+  },
+  {
+    id: "lastName",
+    numeric: false,
+    disablePadding: true,
+    label: "Last Name",
+  },
+  {
+    id: "compaignId.name",
+    numeric: false,
+    disablePadding: true,
+    label: "Latest Campaign",
   },
   {
     id: "email",
@@ -75,10 +88,16 @@ const headCells = [
     label: "Primary Email",
   },
   {
+    id: "homePhone",
+    numeric: true,
+    disablePadding: false,
+    label: "Home Phone",
+  },
+  {
     id: "phone",
     numeric: true,
     disablePadding: false,
-    label: "Primary Phone",
+    label: "Mobile Phone",
   },
   // {
   //   id: "country",
@@ -249,7 +268,7 @@ const EnhancedTableToolbar = (props) => {
           <MessageOutlinedIcon />
           Send Message
         </Typography> */}
-        {numSelected === 0 ? (
+        {/* {numSelected === 0 ? (
           <Typography
             sx={{ flex: "1 1 100%" }}
             variant="h6"
@@ -258,8 +277,8 @@ const EnhancedTableToolbar = (props) => {
           >
             <MoreHorizOutlinedIcon /> More
           </Typography>
-        ) : (
-          <Dropdown itemSelector="button:not(:disabled)">
+        ) : ( */}
+        {/* <Dropdown itemSelector="button:not(:disabled)">
             <Dropdown.Toggle
               variant="success"
               id="dropdown-basic"
@@ -271,18 +290,31 @@ const EnhancedTableToolbar = (props) => {
             >
               <MoreHorizOutlinedIcon /> More
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {/* <Dropdown.Item onClick={handleLogNoteShow}>
+            <Dropdown.Menu> */}
+        {/* <Dropdown.Item onClick={handleLogNoteShow}>
                 {" "}
                 Log Note{" "}
               </Dropdown.Item> */}
-              <Dropdown.Item onClick={props.handleDeleteContact}>
-                {" "}
-                Delete Contacts{" "}
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        {numSelected === 0 ? (
+          <Button
+            className="btn table-light-btn disabled "
+            onClick={props.handleDeleteContact}
+          >
+            {" "}
+            Delete Contacts{" "}
+          </Button>
+        ) : (
+          <Button
+            className="btn table-light-btn delActive"
+            onClick={props.handleDeleteContact}
+          >
+            {" "}
+            Delete Contacts{" "}
+          </Button>
         )}
+        {/* </Dropdown.Menu> */}
+        {/* </Dropdown> */}
+        {/* )} */}
         {/* <Tooltip title="Please select contacts from the list below to use available actions">
           <IconButton>
             <HelpIcon />
@@ -343,7 +375,7 @@ const EnhancedTableToolbar = (props) => {
             className="form-control"
             placeholder="Search by Name, Email or Phone"
             name="name"
-            value={props.value.name}
+            value={props.value}
             onChange={props.handleSearchChange}
           />
           {props.value && <SearchIcon />}
@@ -361,44 +393,41 @@ export default function EnhancedTable(props) {
   const { rowsData } = props;
 
   const loadContacts = () => {
-    let filtered = [];
+    let filtered = "";
     filtered =
-      props.filterByCompaigns.length > 0
-        ? props.filterByCompaigns.filter(
-            (contact) =>
-              contact.firstName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.firstName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.lastName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.phone.startsWith(props.value) ||
-              contact.country.startsWith(props.value) ||
-              contact.state.startsWith(props.value) ||
-              contact.city.startsWith(props.value) ||
-              contact.zipcode.startsWith(props.value) ||
-              contact.address.startsWith(props.value) ||
-              contact.email.toLowerCase().startsWith(props.value.toLowerCase())
-          )
-        : rowsData.filter(
-            (contact) =>
-              contact.firstName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.lastName
-                .toLowerCase()
-                .startsWith(props.value.toLowerCase()) ||
-              contact.phone.startsWith(props.value) ||
-              contact.country.startsWith(props.value) ||
-              contact.state.startsWith(props.value) ||
-              contact.city.startsWith(props.value) ||
-              contact.zipcode.startsWith(props.value) ||
-              contact.address.startsWith(props.value) ||
-              contact.email.toLowerCase().startsWith(props.value.toLowerCase())
-          );
+      // props.filterByCompaigns.length > 0
+      //   ? props.filterByCompaigns.filter(
+      //       (contact) =>
+      //         contact.firstName
+      //           .toLowerCase()
+      //           .startsWith(props.value.toLowerCase()) ||
+      //         contact.firstName
+      //           .toLowerCase()
+      //           .startsWith(props.value.toLowerCase()) ||
+      //         contact.lastName.toLowerCase().startsWith(props.value) ||
+      //         contact.phone.startsWith(props.value) ||
+      //         // contact.country.startsWith(props.value) ||
+      //         // contact.state.startsWith(props.value) ||
+      //         // contact.city.startsWith(props.value) ||
+      //         // contact.zipcode.startsWith(props.value) ||
+      //         // contact.address.startsWith(props.value) ||
+      //         contact.email.toLowerCase().startsWith(props.value)
+      //     )
+      //   :
+      rowsData &&
+      rowsData.filter(
+        (contact) =>
+          contact.firstName
+            .toLowerCase()
+            .startsWith(props.value.toLowerCase()) ||
+          contact.lastName
+            .toLowerCase()
+            .startsWith(props.value.toLowerCase()) ||
+          (contact && contact.phone && contact.phone.startsWith(props.value)) ||
+          (contact &&
+            contact.email &&
+            contact.email.toLowerCase().startsWith(props.value.toLowerCase()))
+      );
 
     const contactData =
       filtered &&
@@ -432,9 +461,16 @@ export default function EnhancedTable(props) {
                 />
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row && row.firstName + " " + row.lastName}
+                {row && row.firstName}
+              </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row && row.lastName}
+              </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row && row.compaignId && row.compaignId.name}
               </TableCell>
               <TableCell align="right">{row && row.email}</TableCell>
+              <TableCell align="right">{row && row.homePhone}</TableCell>
               <TableCell align="right">{row && row.phone}</TableCell>
               {/* <TableCell align="right">{row && row.country}</TableCell>
               <TableCell align="right">{row && row.state}</TableCell>
@@ -487,13 +523,13 @@ export default function EnhancedTable(props) {
                   rowCount={rowsData && rowsData.length}
                 />
                 <TableBody>
-                  {props.isLoading ? (
-                    <div className="circular-loading">
+                  {/* {props.isLoading ? (
+                    // <div className="circular-loading">
                       <CircularProgress color="inherit" />
-                    </div>
-                  ) : (
-                    <> {loadContacts()}</>
-                  )}
+                    // </div>
+                  ) : ( */}
+                  <> {loadContacts()}</>
+                  {/* )} */}
                   {props.emptyRows > 0 && (
                     <TableRow
                       style={{

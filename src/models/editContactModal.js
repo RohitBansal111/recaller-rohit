@@ -1,10 +1,59 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "react-responsive-modal";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { getCompaignApi } from "../api/compaign";
+import SelectCampaign from "../components/contacts/selectCampaign";
 
 const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
+  const [compaigns, setCompaigns] = useState([]);
+  const [selectedCampaign, setSelectedCampaign] = useState(
+    {
+      value: props.editContact.compaignId
+        ? props.editContact.compaignId.name
+        : "",
+      label: props.editContact.compaignId
+        ? props.editContact.compaignId.name
+        : "",
+    }
+  );
+
+  useEffect(()=>{
+    getContactCompaign()
+    console.log("selected campaign :::",selectedCampaign)
+  },[open])
+
+  useEffect(()=>{
+    console.log("selected campaign :::",selectedCampaign)
+  },[selectedCampaign])
+  console.log("edit contact data ::::::", props);
+  const getContactCompaign = async () => {
+    let res = await getCompaignApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return {
+          value: item.name,
+          label: item.name,
+        };
+      });
+
+      setCompaigns(data);
+      setSelectedCampaign(  {
+        value: props.editContact.compaignId
+          ? props.editContact.compaignId.name
+          : "",
+        label: props.editContact.compaignId
+          ? props.editContact.compaignId.name
+          : "",
+      })
+    }
+  };
   return (
-    <Modal open={open} onClose={handleCloseContactModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseContactModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>Edit Contact Details</h3>
       </div>
@@ -71,18 +120,24 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             />
           </div>
           <div className="field-group flex2">
-            <label>Subscription</label>
-            <div className="foem-field-inner">
-              <select
+            <label>Campaign</label>
+            <SelectCampaign
+              isClearable={true}
+              onChange={setSelectedCampaign}
+              options={compaigns}
+              value={selectedCampaign}
+            />
+            {/* <span className="spanError">{props.errors.bulkSelected}</span> */}
+            {/* <div className="foem-field-inner">
+            <input
+                type="text"
                 className="form-control"
-                name="phoneSubs"
-                value={props.editContact.phoneSubs}
+                placeholder="Enter Campaign"
+                name="compaign"
+                value={props.editContact?props.editContact.compaign?props.editContact.compaign:props.editContact.compaignId?props.editContact.compaignId.name:'' :''}
                 onChange={props.handleEditContactChange}
-              >
-                <option value={"opted-in"}>Opted In</option>
-                <option value={"opted-out"}>Opted Out</option>
-              </select>
-            </div>
+              />
+            </div> */}
           </div>
           <div className="field-group flexFull text-center mt-5">
             <button
@@ -96,7 +151,7 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={props.handleConDataEdit}
+              onClick={(e)=>props.handleConDataEdit(e,selectedCampaign?selectedCampaign.value:'')}
             >
               {" "}
               Save{" "}

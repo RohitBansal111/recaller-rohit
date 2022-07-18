@@ -174,7 +174,7 @@ ul {
           background-color: #fff;
           border-radius: 8px;
           right: 0px !important;
-          max-width: 200px;
+          // max-width: 200px;
           top: 115% !important;
           min-width: 200px !important;
           box-shadow: 0px 4px 5px #dcdcdc;
@@ -562,56 +562,58 @@ form.main-form
 }
 aside.emoji-picker-react {
   z-index: 9;
+  bottom: 30px;
 }
 
-.attachedImageGallery{
+.attachedImageGallery {
   margin: 0px;
   padding: 0px;
-  li{
+  li {
     position: relative;
-  img{
-    max-width: 100%;
-  }
-  .btn{
-    position: absolute;
-    right: -25px;
-    top: -15px;
-  }
+    img {
+      max-width: 100%;
+    }
+    .btn {
+      position: absolute;
+      right: -25px;
+      top: -15px;
+    }
   }
 }
 .imgshowpopup {
   display: flex;
-  padding:10px 10px 15px 10px;
+  padding: 10px 10px 15px 10px;
   border: 1px solid #bbb;
   border-radius: 5px;
-  ul.attachedImageGallery{
+  min-height: 170px;
+  ul.attachedImageGallery {
     max-width: 150px;
   }
-  textarea{
+  textarea {
     background-color: transparent;
-    border: none!important;
-    &:focus{
-      border: none!important;
+    border: none !important;
+    &:focus {
+      border: none !important;
     }
   }
-  &+.action-icons{
-    margin-bottom: 3px!important;
+  & + .action-icons {
+    margin-bottom: 3px !important;
   }
 }
-.main-form{
-.messageBoxModal{
-  .imgshowpopup {
-    textarea{
-      &:focus{
-        border: none!important;
+.main-form {
+  .messageBoxModal {
+    .imgshowpopup {
+      textarea {
+        &:focus {
+          border: none !important;
+        }
       }
     }
   }
 }
-}
-.contact-data-table-main{
-  table{
-    tbody{
+.contact-data-table-main {
+  table {
+    tbody {
       position: relative;
       .circular-loading {
         position: absolute;
@@ -621,15 +623,152 @@ aside.emoji-picker-react {
         text-align: center;
         top: 0px;
         bottom: 0px;
-        background: rgba(0,0,0,0.05);
+        background: rgba(0, 0, 0, 0.05);
         overflow: hidden;
         span {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           z-index: 9999;
-      }
+        }
       }
     }
   }
+}
+
+.emoji-cancel-button {
+  position: absolute;
+  top: 0;
+  button.btn-action1 {
+    min-width: 37px;
+  }
+}
+.all-discuss-section {
+  aside.emoji-picker-react {
+    z-index: 9;
+    bottom: 50px;
+  }
+  .emoji-cancel-button {
+    position: relative;
+    top: -11px;
+    left: 0px;
+    button.btn-action1 {
+      min-width: auto;
+    }
+  }
+}
+.MuiPaper-root .MuiMenu-list .MuiMenuItem-root {
+  display: flex;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding-left: 16px;
+  padding-right: 16px;
+  justify-content: flex-start;
+}
+// .chat-textarea {
+.ck.ck-content p {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  // display: inline;
+}
+// &.Internal {
+//   textarea {
+//     min-height: 195.59px !important;
+//   }
+// }
+// }
+
+.title-chat-display {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.main-content div::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.main-content div::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content div::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #474949;
+}
+.inner-sidebar .sidebar-menu::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+.inner-sidebar .sidebar-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inner-sidebar .sidebar-menu::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #474949;
+}
+.search-main-section .search-data-table > div:first-child {
+  max-height: calc(100vh - 270px);
+  overflow-y: auto;
+}
+.common-data-table > div:first-child {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}
+body {
+  overflow-y: hidden;
+}
+.voice-record-upload {
+  width: 100%;
+  position: relative;
+  .cl-icon {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    padding: 3px 3px !important;
+    border: none !important;
+    background-color: #ff0000 !important;
+    line-height: 0px;
+    width: 20px;
+    height: 20px;
+    svg {
+      color: #fff;
+    }
+  }
+  .remove-recording-action {
+    left: auto;
+    top: -15px;
+    right: -15px;
+  }
+  .upload-voice-recording.bulk-upload {
+    margin-top: 20px;
+  }
+}
+.field-group.flexFull {
+  position: relative;
+}
+.upload-voicemodal .voice-recorder-box {
+  & + .remove-recording-action {
+    position: absolute;
+    right: -12px;
+    top: -5px;
+    padding: 3px 3px !important;
+    border: none !important;
+    background-color: #ff0000 !important;
+    line-height: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 25px;
+    svg {
+      fill: #fff;
+      font-size: 15px;
+    }
+  }
+}
+
+.voice-recorder-box.extra {
+  border: 2px dashed #27dcbf !important;
+  border-radius: 5px;
+  background-color: #d4fff4;
 }

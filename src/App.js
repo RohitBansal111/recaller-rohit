@@ -40,6 +40,8 @@ import ResetPassword from "./pages/reset-password";
 import EmailPage from "./pages/email";
 import EmailSetting from "./pages/settings/email";
 import EmailSender from "./pages/settings/email/email-sender";
+import { socket } from "./helper/socket";
+import { Notifications } from "react-push-notification";
 
 const IsAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
@@ -288,7 +290,8 @@ function App({ component: Component, ...rest }) {
           />
         </Routes>
       </Layout>
-      <ToastContainer />
+      <ToastContainer limit={1}  />
+      <Notifications />
     </Router>
   );
 }

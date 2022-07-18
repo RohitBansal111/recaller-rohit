@@ -21,10 +21,16 @@ import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import CodeIcon from "@material-ui/icons/Code";
 import CancelIcon from "@material-ui/icons/Cancel";
+import CloseIcon from "@mui/icons-material/Close";
 
 const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
-    <Modal open={open} onClose={handleCloseMessageModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseMessageModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>
           {props.selected.length > 1 ? "New Bulk Message" : "New Message"}
@@ -86,7 +92,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
         <div className="modal-body bulkms">
           <form className="main-form">
             <div className="field-group flexFull">
-              <label>Enter Contact Name</label>
+              <label>Select Contact Name</label>
               <NewMessageSelectTag
                 onChange={props.handleSelectChange}
                 isMulti
@@ -98,20 +104,21 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             <div className="field-group messageBoxModal flexFull">
               <label>Message</label>
               <div className="imgshowpopup">
-                {props.selectedImage && (
-                  <ul className="attachedImageGallery">
-                    <li>
-                      <img alt=" " src={props.selectedImage} />
-                      <button
-                        type="button"
-                        className="btn btn-cross"
-                        onClick={props.handleImageCancel}
-                      >
-                        <CancelIcon />
-                      </button>
-                    </li>
-                  </ul>
-                )}
+                {props.selectedNewImageData != null &&
+                  props.selectedImage == true && (
+                    <ul className="attachedImageGallery">
+                      <li>
+                        <img alt=" " src={props.selectedNewImageData} />
+                        <button
+                          type="button"
+                          className="btn btn-cross"
+                          onClick={props.handleNewImageCancel}
+                        >
+                          <CancelIcon />
+                        </button>
+                      </li>
+                    </ul>
+                  )}
                 <textarea
                   type="text"
                   className="form-control"
@@ -173,10 +180,21 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                       className="btn-action1"
                       onClick={props.handleEmojiOpen}
                     >
-                      <EmojiEmotionsIcon />
+                      {props.onShowEmojiOpen == false && <EmojiEmotionsIcon />}
                     </button>
                     {props.onShowEmojiOpen && (
                       <Picker onEmojiClick={props.onEmojiClick} />
+                    )}
+                    {props.onShowEmojiOpen && (
+                      <div className="emoji-cancel-button">
+                        <button
+                          type="button"
+                          className="btn-action1"
+                          onClick={props.CancelEmoji}
+                        >
+                          <CloseIcon />
+                        </button>
+                      </div>
                     )}
                   </>
                 </li>
@@ -190,6 +208,7 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
                     <input
                       type="file"
                       name="myImage"
+                      ref={props.imgref}
                       onChange={props.handleImageChange}
                     />
                   </button>
@@ -326,8 +345,8 @@ const MessageModal = ({ open, handleCloseMessageModal, ...props }) => {
             templateEditTags={props.templateEditTags}
             editTempMessageData={props.editTempMessageData}
             handleEditMessageTempChange={props.handleEditMessageTempChange}
-            searchValue={props.searchValue}
-            handleSearchChange={props.handleSearchChange}
+            searchTemplateValue={props.searchTemplateValue}
+            handleSearchTempChange={props.handleSearchTempChange}
             replacefunc={props.replacefunc}
             handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
             showDeleteTempModal={props.showDeleteTempModal}

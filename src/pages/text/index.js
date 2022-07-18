@@ -19,6 +19,8 @@ import {
   getMessageApi,
   getUserWithMessage,
   reScheduleMessageApi,
+  resetBulkMessageApi,
+  sendBulkMessageApi,
   sendMessageApi,
   sendSingleMessageApi,
 } from "../../api/textMessage";
@@ -30,12 +32,20 @@ import {
 } from "../../api/template";
 import axios from "axios";
 import moment from "moment";
+import { Dropdown } from "react-bootstrap";
+import BulkMessageModal from "../../models/bulkMessageModal";
+import { getCompaignApi } from "../../api/compaign";
+import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
+import { socket } from "../../helper/socket";
 
 const TextPage = () => {
   var today = new Date();
   const curTime = today.getHours() + ":" + today.getMinutes();
 
   const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [openBulkMessageModal, setOpenBulkMessageModal] = useState(false);
+
   const [openManageTagModal, setOpenManageTagModal] = useState(false);
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
   const [addTags, setaddTags] = useState({});
@@ -49,6 +59,8 @@ const TextPage = () => {
   const [rowsData, setRowsData] = useState([]);
   const [sendNewMessage, setSendNewMessage] = useState("");
   const [selected, setSelected] = useState([]);
+  const [bulkSelected, setBulkSelected] = useState([]);
+
   const [messages, setMessages] = useState([]);
   const [preview, setPreview] = useState(false);
   const [errors, setErrors] = useState({});
@@ -96,26 +108,96 @@ const TextPage = () => {
   const [reScheduleData, setReScheduleData] = useState({});
   const [cancelRescheDule, setCancelRescheDule] = useState(false);
   const [reScheduleItem, setReScheduleItem] = useState({});
+  const [selectedImageData, setSelectedImageData] = useState(null);
+  const [selectedNewImageData, setSelectedNewImageData] = useState(null);
+  const [showReScheduleTitleModal, setShowReScheduleTitleModal] =
+    useState(false);
+  const [reScheduleTitle, setReScheduleTitle] = useState({});
+  const [searchTemplateValue, setSearchTemplateValue] = useState("");
+  const [compaign, setCompaigns] = useState([]);
+
   const divRef = useRef(null);
 
   const handleNewMessage = () => {
     setOpenMessageModal(true);
+    setSelectedNewImageData(null);
+    setImageUrl({});
     setCancelRescheDule(false);
     setPreview(false);
     setErrors({});
     setLoading(false);
+    setSelectedImageData(null);
     setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
-    setSelectedImage(false);
+    setSelectedImage(null);
+    setSendNewMessage("");
     setScheduledData({});
+  };
+
+  const getNotificationsEventHandler = () => {
+    getMessage();
+  };
+
+  useEffect(() => {
+    socket.on("getNotifications", getNotificationsEventHandler);
+    // unsubscribe from event for preventing memory leaks
+    return () => {
+      socket.off("getNotifications", getNotificationsEventHandler);
+    };
+  }, []);
+
+  const handleBulkMessageModal = () => {
+    setOpenBulkMessageModal(true);
+    setSelectedNewImageData(null);
+    setImageUrl({});
+    setCancelRescheDule(false);
+    setPreview(false);
+    setBulkSelected([]);
+    setErrors({});
+    setLoading(false);
+    setSelectedImageData(null);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
+    setSelectedImage(null);
+    setScheduledData({});
+    setSendNewMessage("");
+  };
+  const handleCloseBulkMessageModal = () => {
+    setOpenBulkMessageModal(false);
+    setBulkSelected([]);
+    setSelectedNewImageData(null);
+    setImageUrl({});
+    setCancelRescheDule(false);
+    setPreview(false);
+    setErrors({});
+    setLoading(false);
+    setSelectedImageData(null);
+    setOnShowEmoji(false);
+    setSendNewMessage("");
+    setOnShowChatBotEmojiOpen(false);
+    setSelectedImage(null);
+    setScheduledData({});
+    setDateSelected(() => {
+      const today = new Date();
+      const curtt =
+        today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+      return {
+        date: new Date().toISOString().substring(0, 10),
+        time: today.getHours() + ":" + curtt,
+      };
+    });
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setCancelRescheDule(false);
+    setSelectedNewImageData(null);
+    setSelectedImageData(null);
     setSelected([]);
     setSendNewMessage("");
     setErrors({});
     setLoading(false);
+    setSelectedImage(null);
+    setImageUrl({});
     setScheduledData({});
     setDateSelected(() => {
       const today = new Date();
@@ -127,7 +209,6 @@ const TextPage = () => {
       };
     });
     setOnShowChatBotEmojiOpen(false);
-    setSelectedImage(false);
   };
 
   const handleScheduleModal = () => {
@@ -149,6 +230,7 @@ const TextPage = () => {
 
   const handleCloseSchedultModal = () => {
     setShowScheduleModal(false);
+    setOnShowEmoji(false);
     setOnShowChatBotEmojiOpen(false);
     setCancelRescheDule(false);
     setDateSelected(() => {
@@ -166,7 +248,10 @@ const TextPage = () => {
     setShowCreateTemplateModal(true);
     setTemplateName("");
     setTemplateName("");
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
     setTemplateMessage("");
+    setSearchTemplateValue("");
     setErrors({});
   };
   const handleCloseCreateTemplateModal = () => {
@@ -174,26 +259,31 @@ const TextPage = () => {
     setTemplateTags(null);
     setTemplateName("");
     setTemplateMessage("");
+    setSearchTemplateValue("");
     setErrors({});
   };
   const handleManageTemplate = () => {
     getTemplate();
     setShowManageeTemplateModal(true);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("");
   };
 
   const handleNewManageTemplate = () => {
     getTemplate();
     setNewShowManageeTemplateModal(true);
+    setSearchTemplateValue("");
     seteditmanageTemplate(false);
   };
   const handleNewCloseManageTemplateModal = () => {
     setNewShowManageeTemplateModal(false);
+    setSearchTemplateValue("");
     seteditmanageTemplate(false);
   };
   const handleCloseManageTemplateModal = () => {
     setShowManageeTemplateModal(false);
     seteditmanageTemplate(false);
+    setSearchTemplateValue("");
   };
 
   const isTagValid = () => {
@@ -214,6 +304,19 @@ const TextPage = () => {
     switch (true) {
       case selected.length == 0:
         setErrors({ selected: "Please Select a Contact" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const isBulkValid = () => {
+    let formData = true;
+    switch (true) {
+      case bulkSelected.length == 0:
+        setErrors({ bulkSelected: "Please Select a Campaign" });
         formData = false;
         break;
       default:
@@ -276,6 +379,7 @@ const TextPage = () => {
     getData();
     getMessage();
     getTemplate();
+    getContactCompaign();
   }, []);
 
   const handleClick = async () => {
@@ -308,6 +412,20 @@ const TextPage = () => {
           setConversationTags(resData1);
         }
       }
+    }
+  };
+
+  const getContactCompaign = async () => {
+    let res = await getCompaignApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return {
+          value: item._id,
+          label: item.name,
+        };
+      });
+
+      setCompaigns(data);
     }
   };
 
@@ -408,6 +526,12 @@ const TextPage = () => {
     if (scheduledData && scheduledData.date && scheduledData.time) {
       obj.dateSelected = scheduledData.date + " " + scheduledData.time + ":00";
     }
+    let todayy = changeTimeZone(new Date(), "America/New_York");
+
+    const estTime = date.format(todayy, "hh:mm A");
+    const estTime1 = date.format(todayy, "hh:mm A", true);
+
+    // if (estTime >= 8 && estTime <= 20) {
     const res = await sendSingleMessageApi(obj);
 
     if (res && res.data && res.data.status === 200) {
@@ -415,25 +539,37 @@ const TextPage = () => {
       scrollToBottom();
       setDateSelected({});
       setSchedule(false);
+      setImageUrl({});
       setLoading(false);
+      setSelectedImageData(null);
       setCancelRescheDule(false);
       setScheduledData({});
       setShowScheduleModal(false);
     }
     getMessage();
+    // } else {
+    //   toast.error("Please Send Text between 8am - 9pm");
+    //   setLoading(false);
+    // }
   };
 
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
-      let data = res.data.data.map(function (item) {
-        return {
-          value: item.contactid,
-          label: item.firstName + " " + item.lastName,
-          phone: item.phone,
-          id: item._id,
-        };
-      });
+      let data = res.data.data
+        .filter((val) => {
+          if (val.phone) {
+            return val;
+          }
+        })
+        .map(function (item) {
+          return {
+            value: item.contactid,
+            label: item.firstName + " " + item.lastName,
+            phone: item.phone,
+            id: item._id,
+          };
+        });
       setRowsData(data);
       setContactData(res.data.data);
     }
@@ -460,27 +596,92 @@ const TextPage = () => {
         obj.dateSelected =
           scheduledData.date + " " + scheduledData.time + ":00";
       }
+      //  var today = new Date();
+      // let todayy = changeTimeZone(new Date(), "America/New_York");
+
+      // const estTime = date.format(todayy, "hh:mm A");
+      // const estTime1 = date.format(todayy, "hh:mm A", true);
+
+      // if (estTime >= 8 && estTime <= 20) {
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
         toast.success(" Message sent Successfully");
         setOpenMessageModal(false);
         setSelected([]);
+        setSelectedImage(null);
         setScheduledData({});
         setShowScheduleModal(false);
+        setSelectedNewImageData(null);
         setDateSelected({});
         setSchedule(false);
+        setImageUrl({});
         setCancelRescheDule(false);
         setSendNewMessage("");
         setLoading(false);
       }
       getMessage();
+      // } else {
+      //   toast.error("Please Send Text between 8am - 9pm");
+      //   setLoading(false);
+      // }
     }
+  };
+
+  const handleSendBulkClick = async () => {
+    if (isBulkValid()) {
+      setLoading(true);
+      let compaignId = bulkSelected.value;
+      console.log(compaignId, "compaignid");
+      const obj = {
+        compaignId: compaignId,
+        message: sendNewMessage,
+        selectedImage: imageUrl.url,
+        type: imageUrl.url ? "MMS" : schedule ? "Schedule" : "SMS",
+        schedule: schedule ? true : false,
+      };
+      if (scheduledData && scheduledData.date && scheduledData.time) {
+        obj.dateSelected =
+          scheduledData.date + " " + scheduledData.time + ":00";
+      }
+      let todayy = new Date().toLocaleString("en-US", {
+        timeZone: "America/New_York",
+      });
+      // if (today >= 8 && today <= 20) {
+      let res = await sendBulkMessageApi(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(" Message sent Successfully");
+        setOpenMessageModal(false);
+        setOpenBulkMessageModal(false);
+        setSelected([]);
+        setSelectedImage(null);
+        setScheduledData({});
+        setBulkSelected([]);
+        setShowScheduleModal(false);
+        setSelectedNewImageData(null);
+        setDateSelected({});
+        setSchedule(false);
+        setImageUrl({});
+        setCancelRescheDule(false);
+        setSendNewMessage("");
+        setLoading(false);
+        getMessage();
+      }
+    }
+
+    // } else {
+    //   toast.error("Please Send Text between 8am - 9pm");
+    //   setLoading(false);
+    // }
   };
 
   const handleSelectChange = (values) => {
     setSelected(values);
     setErrors({});
     setLoading(false);
+  };
+
+  const handleBulkSelectChange = (values) => {
+    setBulkSelected(values);
   };
 
   const getMessage = async (check = true, tagsCheck = false) => {
@@ -521,11 +722,29 @@ const TextPage = () => {
   };
 
   const openChatClick = async (id, check) => {
+    setSelectedImageData(null);
+    setImageUrl({});
     setSelectedImage(false);
+    setSendMessage("");
+    //reset counter
+    if (selecteduser.count > 0) {
+      await resetBulkMessageApi(selecteduser._id);
+      const res = await getUserWithMessage();
+      if (
+        res &&
+        res.data &&
+        res.data.status === 200 &&
+        res.data.data.length != 0
+      ) {
+        setMessages(res.data.data);
+      }
+  
+    }
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setChatMesssages(res.data.data);
     }
+
     if (check) {
       const selecteduser = messages.find((c) => c._id == id);
       setSelecteduser(selecteduser);
@@ -575,13 +794,17 @@ const TextPage = () => {
     setEditContactName(true);
   };
 
-  const handleConDataEdit = async () => {
-    const editData = {
+  const handleConDataEdit = async (e,selectedCampaign) => {
+    e.preventDefault()
+    let editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
       phoneSubs: editContact.phoneSubs,
       emailSubs: editContact.emailSubs,
     };
+    if(selectedCampaign){
+      editData.compaign=selectedCampaign
+    }
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
       toast.success("Contact Updated Successfully");
@@ -718,14 +941,14 @@ const TextPage = () => {
 
   const handleTempInsert = () => {
     let x = replacefunc(templateDataState.message);
-    setSendNewMessage(x);
+    setSendNewMessage(x + sendNewMessage);
     setShowManageeTemplateModal(false);
   };
 
   const handleSingleTempInsert = () => {
     let x = replacefunc(templateDataState.message);
-    setSendMessage(x);
-    setShowManageeTemplateModal(false);
+    setSendMessage(x + sendMessage);
+    setNewShowManageeTemplateModal(false);
   };
 
   const handleEditTemplate = (item) => {
@@ -777,7 +1000,6 @@ const TextPage = () => {
   };
 
   const handleDateChange = (e) => {
-    console.log();
     setDateSelected({ ...dateSelected, [e.target.name]: e.target.value });
   };
 
@@ -791,12 +1013,10 @@ const TextPage = () => {
 
   const onEmojiClick = (event, emojiObject) => {
     setSendNewMessage((prevInput) => prevInput + emojiObject.emoji);
-    setOnShowEmoji(false);
   };
 
   const onChatBotEmojiClick = (event, emojiObject) => {
     setSendMessage((prevInput) => prevInput + emojiObject.emoji);
-    setOnShowChatBotEmojiOpen(false);
   };
 
   const savelistToMessageClick = (e) => {
@@ -806,57 +1026,71 @@ const TextPage = () => {
 
   const handleImageOpen = () => {
     setSelectedImage(true);
+    setOnShowEmoji(false);
+    setOnShowChatBotEmojiOpen(false);
   };
 
   const handleNewImageOpen = () => {
-    setSelectedNewImage(true);
+    if (selectedImageData == null) {
+      setSelectedNewImage(true);
+    }
   };
 
+  const singleimgref = useRef();
+  const imgref = useRef();
+
   const handleImageCancel = () => {
+    singleimgref.current.value = "";
     setSelectedImage(false);
+    setSelectedImageData(null);
+    setImageUrl({});
   };
 
   const handleNewImageCancel = () => {
+    imgref.current.value = null;
     setSelectedNewImage(false);
+    setSelectedNewImageData(null);
+    setImageUrl({});
   };
 
   const handleNewImageChange = async (event) => {
-    console.log(event.target.files[0]);
     let img = event.target.files[0];
-    setSelectedNewImage(URL.createObjectURL(img));
+    if (img != null) {
+      setSelectedNewImageData(URL.createObjectURL(img));
 
-    const formData = new FormData();
-    formData.append("ckImage", event.target.files[0]);
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
-      formData
-    );
-    if (res && res.data && res.data.status) {
-      setImageUrl(res.data);
+      const formData = new FormData();
+      formData.append("ckImage", event.target.files[0]);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
+        formData
+      );
+      if (res && res.data && res.data.status) {
+        setImageUrl(res.data);
+      }
     }
   };
 
   const handleImageChange = async (event) => {
-    console.log(event.target.files[0]);
-    let img = event.target.files[0];
-    setSelectedImage(URL.createObjectURL(img));
+    if (event.target.files[0] !== null) {
+      let img = event.target.files[0];
+      setSelectedImageData(URL.createObjectURL(img));
 
-    const formData = new FormData();
-    formData.append("ckImage", event.target.files[0]);
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
-      formData
-    );
-    if (res && res.data && res.data.status) {
-      setImageUrl(res.data);
+      const formData = new FormData();
+      formData.append("ckImage", event.target.files[0]);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/email/ckImageUpload`,
+        formData
+      );
+      if (res && res.data && res.data.status) {
+        setImageUrl(res.data);
+      }
     }
   };
 
   const handleScheduleSubmit = () => {
     var dddd = new Date().toISOString().substring(0, 10);
     var ssss = today.getHours() + ":" + today.getMinutes();
-    if (dateSelected.time === ssss && dateSelected.date === dddd) {
-      console.log("sssssssssssss");
+    if (dateSelected.time <= ssss && dateSelected.date <= dddd) {
       toast.error("The date/time must be in the future");
     } else {
       setShowScheduleModal(false);
@@ -866,7 +1100,6 @@ const TextPage = () => {
   };
 
   const handleReSchedule = (item) => {
-    console.log(item, "iiiiiiiiiiii");
     setReScheduleItem(item);
     let val = item && item.dateString.split(" ");
     setReScheduleData({ date: val[0], time: val[1] });
@@ -887,14 +1120,18 @@ const TextPage = () => {
       ...reScheduleItem,
       dateSelected: reScheduleData.date + " " + reScheduleData.time,
     };
-    console.log(data, "reScheduleData");
-    const res = await reScheduleMessageApi(data);
-    console.log(res, "res");
-    if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      getMessage();
-      setShowReScheduleModal(false);
-      setCancelRescheDule(false);
+    var dddd = new Date().toISOString().substring(0, 10);
+    var ssss = today.getHours() + ":" + today.getMinutes();
+    if (reScheduleData.time <= ssss && reScheduleData.date <= dddd) {
+      toast.error("The date/time must be in the future");
+    } else {
+      const res = await reScheduleMessageApi(data);
+      if (res && res.data && res.data.status === 200) {
+        toast.success(res.data.message);
+        getMessage();
+        setShowReScheduleModal(false);
+        setCancelRescheDule(false);
+      }
     }
   };
 
@@ -917,10 +1154,8 @@ const TextPage = () => {
   };
 
   const handleReSchaduleData = (item) => {
-    if (item.date !== {}) {
-      setShowReScheduleModal(true);
-      setReScheduleData({ date: item.date, time: item.time });
-    }
+    setShowReScheduleTitleModal(true);
+    setReScheduleTitle(item);
   };
 
   const handleDeleteRechaduletitle = async () => {
@@ -928,9 +1163,36 @@ const TextPage = () => {
     setScheduledData({});
   };
 
+  const CancelEmoji = () => {
+    setOnShowChatBotEmojiOpen(false);
+    setOnShowEmoji(false);
+  };
+
+  const handleCloseReSchedulTitle = () => {
+    setShowReScheduleTitleModal(false);
+  };
+
+  const handleReSchaduleTChange = (e) => {
+    setReScheduleTitle({ ...reScheduleTitle, [e.target.name]: e.target.value });
+  };
+
+  const handleDeleteRechaduletitleM = () => {
+    setScheduledData({});
+    setSchedule(false);
+    setShowReScheduleTitleModal(false);
+  };
+
+  const handleReTitleSubmit = () => {
+    setScheduledData({
+      date: reScheduleTitle.date,
+      time: reScheduleTitle.time,
+    });
+    setShowReScheduleTitleModal(false);
+  };
+
   return (
     <div className="content-page-layout text-page-content">
-      <div className="page-header justify-flex-end">
+      {/* <div className="page-header justify-flex-end">
         <button
           type="button"
           className="btn btn-medium btn-primary"
@@ -938,6 +1200,25 @@ const TextPage = () => {
         >
           New Message
         </button>
+      </div> */}
+      <div className="page-header justify-flex-end">
+        <Dropdown>
+          <Dropdown.Toggle
+            variant="success"
+            id="dropdown-basic"
+            className="btn btn-medium btn-primary"
+          >
+            New Message
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="#" onClick={handleNewMessage}>
+              Individual Message
+            </Dropdown.Item>
+            <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
+              Bulk Campaign Message
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
       <div className="text-main-section">
         <ChatBoot
@@ -1040,12 +1321,23 @@ const TextPage = () => {
           handleReSubmit={handleReSubmit}
           handleCancelReSchedultModal={handleCancelReSchedultModal}
           cancelRescheDule={cancelRescheDule}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
           handleNoReSchedultModal={handleNoReSchedultModal}
           handleDeleteReSchedultModal={handleDeleteReSchedultModal}
           scheduledData={scheduledData}
           handleReSchaduleData={handleReSchaduleData}
           openMessageModal={openMessageModal}
           handleDeleteRechaduletitle={handleDeleteRechaduletitle}
+          CancelEmoji={CancelEmoji}
+          selectedImageData={selectedImageData}
+          singleimgref={singleimgref}
+          showReScheduleTitleModal={showReScheduleTitleModal}
+          handleCloseReSchedulTitle={handleCloseReSchedulTitle}
+          reScheduleTitle={reScheduleTitle}
+          handleReSchaduleTChange={handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
+          handleReTitleSubmit={handleReTitleSubmit}
         />
       </div>
       <MessageModal
@@ -1081,7 +1373,6 @@ const TextPage = () => {
         templateData={templateData}
         templateDataState={templateDataState}
         handleTempInsert={handleTempInsert}
-        handleSingleTempInsert={handleSingleTempInsert}
         handleTempTitleClick={handleNewTempTitleClick}
         handleTempShowClick={handleTempShowClick}
         editmanageTemplate={editmanageTemplate}
@@ -1094,6 +1385,8 @@ const TextPage = () => {
         handleTempRemove={handleTempRemove}
         handleEditTemplateTagChange={handleEditTemplateTagChange}
         searchValue={searchState}
+        searchTemplateValue={searchTemplateValue}
+        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
         handleSearchChange={(e) => setSearchState(e.target.value)}
         replacefunc={replacefunc}
         dateSelected={dateSelected}
@@ -1108,11 +1401,84 @@ const TextPage = () => {
         selecteduser={selecteduser}
         handleImageOpen={handleNewImageOpen}
         selectedImage={selectedNewImage}
-        handleImageCancel={handleNewImageCancel}
+        handleNewImageCancel={handleNewImageCancel}
         handleImageChange={handleNewImageChange}
         handleScheduleSubmit={handleScheduleSubmit}
         scheduledData={scheduledData}
         handleReSchaduleData={handleReSchaduleData}
+        CancelEmoji={CancelEmoji}
+        selectedNewImageData={selectedNewImageData}
+        imgref={imgref}
+      />
+      <BulkMessageModal
+        open={openBulkMessageModal}
+        handleCloseMessageModal={handleCloseBulkMessageModal}
+        options={compaign}
+        handleSendBulkClick={handleSendBulkClick}
+        sendNewMessage={sendNewMessage}
+        handleNewMChange={handleNewMChange}
+        handleBulkSelectChange={handleBulkSelectChange}
+        selected={bulkSelected}
+        handlePreview={handlePreview}
+        preview={preview}
+        handleBackMessageModal={handleBackMessageModal}
+        errors={errors}
+        loading={loading}
+        showScheduleModal={showScheduleModal}
+        handleCloseSchedultModal={handleCloseSchedultModal}
+        showCreateTemplateModal={showCreateTemplateModal}
+        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+        showManageeTemplateModal={showManageeTemplateModal}
+        handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+        handleScheduleModal={handleScheduleModal}
+        handleCreateTemplate={handleCreateTemplate}
+        handleManageTemplate={handleManageTemplate}
+        templateName={templateName}
+        handleTemplateName={handleTemplateName}
+        templateTags={templateTags}
+        handleTemplateTagChange={handleTemplateTagChange}
+        templateMessage={templateMessage}
+        handleTempMessageChange={handleTempMessageChange}
+        handleTemplateSubmit={handleTemplateSubmit}
+        templateData={templateData}
+        templateDataState={templateDataState}
+        handleTempInsert={handleTempInsert}
+        handleTempTitleClick={handleNewTempTitleClick}
+        handleTempShowClick={handleTempShowClick}
+        editmanageTemplate={editmanageTemplate}
+        handleEditTemplate={handleEditTemplate}
+        handleTempEditCancel={handleTempEditCancel}
+        editTempData={editTempData}
+        handleEditTempChange={handleEditTempChange}
+        templateEditTags={templateEditTags}
+        handleTempEditSave={handleTempEditSave}
+        handleTempRemove={handleTempRemove}
+        handleEditTemplateTagChange={handleEditTemplateTagChange}
+        searchValue={searchState}
+        searchTemplateValue={searchTemplateValue}
+        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
+        handleSearchChange={(e) => setSearchState(e.target.value)}
+        replacefunc={replacefunc}
+        dateSelected={dateSelected}
+        handleDateChange={handleDateChange}
+        handleTempDelModal={handleTempDelModal}
+        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+        showDeleteTempModal={deleteTempComfirmation}
+        handleEmojiOpen={handleEmojiOpen}
+        onEmojiClick={onEmojiClick}
+        onShowEmojiOpen={onShowEmoji}
+        savelistToMessageClick={savelistToMessageClick}
+        selecteduser={selecteduser}
+        handleImageOpen={handleNewImageOpen}
+        selectedImage={selectedNewImage}
+        handleNewImageCancel={handleNewImageCancel}
+        handleImageChange={handleNewImageChange}
+        handleScheduleSubmit={handleScheduleSubmit}
+        scheduledData={scheduledData}
+        handleReSchaduleData={handleReSchaduleData}
+        CancelEmoji={CancelEmoji}
+        selectedNewImageData={selectedNewImageData}
+        imgref={imgref}
       />
     </div>
   );

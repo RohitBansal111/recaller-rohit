@@ -7,7 +7,12 @@ import LoaderIcon from "../assets/svg-icons/loaderIcon";
 
 const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
   return (
-    <Modal open={open} onClose={handleCloseMessageModal} center>
+    <Modal
+      open={open}
+      onClose={handleCloseMessageModal}
+      center
+      closeOnOverlayClick={false}
+    >
       <div className="modal-header">
         <h3>New Voice</h3>
       </div>
@@ -49,13 +54,11 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => {
-                  if (!props.isNewVoiceActive) {
-                    props.startRecording();
-                  } else if (
-                    props.isNewVoiceActive == false &&
-                    props.second > 0
-                  ) {
+                  if (!props.isNewVoiceActive && props.second > 0) {
                     props.handlePlay();
+                    return;
+                  } else if (!props.isNewVoiceActive) {
+                    props.startRecording();
                   } else {
                     props.stopRecording();
                   }
@@ -66,7 +69,7 @@ const VoiceModal = ({ open, handleCloseMessageModal, ...props }) => {
                 {props.isNewVoiceActive == true
                   ? "Stop"
                   : props.second == 0
-                  ? "Press & Recording"
+                  ? "Press & Recording" 
                   : props.isNewVoiceActive == false
                   ? "Play"
                   : "Press & Recording"}

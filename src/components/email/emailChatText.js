@@ -10,7 +10,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 const EmailChatText = (props) => {
   const userData = useSelector((state) => state.Login.userData);
 
-  console.log(props.emailChatData, "ssssssssssss");
+  var today = new Date();
 
   return (
     <ScrollToBottom className="middle-chat-screen email-middle-screen">
@@ -30,7 +30,8 @@ const EmailChatText = (props) => {
                         : "client chat-ui-box"
                     }
                   >
-                    {item.sheduled == true ? (
+                    {item.sheduled == true &&
+                    new Date(item.sheduleDate) >= today ? (
                       <div className="scheduletext">
                         {" "}
                         <button
@@ -39,23 +40,22 @@ const EmailChatText = (props) => {
                         >
                           <ScheduleIcon />
                         </button>
-                        <pre>
-                          <pre>{parse(item.message)}</pre>
-                        </pre>
+                        <>
+                      <pre>  Subject : {item.subject?item.subject.trim():''} </pre>
+                      <pre>  Content : {parse(item.message.trim())}</pre>
+                      </>
                       </div>
                     ) : (
-                      <pre>
-                        <pre>{parse(item.message)}</pre>
-                      </pre>
+                      <>
+                      <pre>  Subject : {item.subject?item.subject.trim():''} </pre>
+                      <pre>  Content : {parse(item.message.trim())}</pre>
+                      </>
                     )}
                   </div>
                   <span>
                     <b>
                       {item.sender === 1 && "user chat-ui-box"
-                        ? userData.firstName.charAt(0) +
-                          "" +
-                          userData.lastName.charAt(0) +
-                          " "
+                        ? userData.firstName + " " + userData.lastName + " "
                         : "" || (item.sender === 2 && "client chat-ui-box")
                         ? props.selecteduser.contact.firstName +
                           " " +

@@ -18,11 +18,18 @@ import {
 import {
   getUploadVoiceMessageApi,
   getUserWithVoiceMessage,
+  uploadBulkVoiceMessageApi,
   uploadSingleVoiceMessageApi,
   uploadVoiceMessageApi,
 } from "../../api/voiceMessage";
 import { Dropdown } from "react-bootstrap";
 import VoiceUploadModal from "../../models/uploadVoiceModal";
+import { Button } from "@material-ui/core";
+import IndividualVoice from "../../models/individualVoiceMessage";
+import BulkVoiceMessage from "../../models/bulkVoiceMessage";
+import { getCompaignApi } from "../../api/compaign";
+import { changeTimeZone } from "../../helper/getTimeZone";
+import date from "date-and-time";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -57,8 +64,45 @@ const Voice = () => {
   const [uploadOpen, setUploadOpen] = useState(false);
   const [fileName, setFileName] = useState(null);
   const [audioFileName, setAudioFileName] = useState(null);
-  const [blobState, setBlobState] = useState(null);
+  const [playing, setPlaying] = useState(false);
+  const [individualOpen, setIndividualOpen] = useState(false);
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [compaign, setCompaigns] = useState([]);
+  const [bulkSelected, setBulkSelected] = useState([]);
+
   const divRef = useRef(null);
+
+  const handleOpenIndividual = () => {
+    setIndividualOpen(true);
+    setOpenMessageModal(false);
+    stopTimer();
+    setUploadOpen(false);
+    setIsShowLoading(false)
+  };
+
+  const handleOpenBulk = () => {
+    setBulkOpen(true);
+    setOpenMessageModal(false);
+    setUploadOpen(false);
+    stopTimer();
+    setIsShowLoading(false)
+  };
+
+  const handleCloseBulkModal = () => {
+    setBulkOpen(false);
+    setOpenMessageModal(false);
+    stopTimer();
+    setUploadOpen(false);
+    setIsShowLoading(false)
+  };
+
+  const handleCloseIndividual = () => {
+    setIndividualOpen(false);
+    setOpenMessageModal(false);
+    stopTimer();
+    setIsShowLoading(false)
+    setUploadOpen(false);
+  };
 
   const isValid = () => {
     let formData = true;
@@ -85,19 +129,32 @@ const Voice = () => {
     }
     return formData;
   };
+
+  const isBulkSelectValid = () => {
+    let formData = true;
+    switch (true) {
+      case bulkSelected.length == 0:
+        setErrors({ bulkSelected: "Please Select a Campaign" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
   const handleNewMessage = () => {
     setOpenMessageModal(true);
-    setErrors({});
-    setIsNewVoiceActive(false);
+    setUploadOpen(false);
+    // setErrors({});
+    // setIsNewVoiceActive(false);
     stopTimer();
-    setSelected([]);
     setLoading(false);
   };
   const handleCloseMessageModal = () => {
     setOpenMessageModal(false);
     setErrors({});
     stopTimer();
-    setSelected([]);
+    // setSelected([]);
     setLoading(false);
   };
 
@@ -134,6 +191,7 @@ const Voice = () => {
     getTags();
     getData();
     getVoiceMessage();
+    getContactCompaign();
   }, []);
 
   const handleClick = async () => {
@@ -315,20 +373,22 @@ const Voice = () => {
 
   const handleSendClick = async () => {
     if (isSelectValid()) {
-      console.log(mediaBlobUrl, "mediaBlobUrl");
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
         .then(async (myBlob) => {
-          console.log(myBlob, "mediaBlobUrl111111");
-          setBlobState(myBlob);
           var file = new File([myBlob], "name.wav");
-          console.log(file, "mediaBlobUrl2222");
           var formData = new FormData();
           let contactid = selected.map((item) => item.value);
           formData.append("voice", file);
           formData.append("contactid", JSON.stringify(contactid));
           setIsShowLoading(true);
           setLoading(true);
+          let todayy = changeTimeZone(new Date(), "America/New_York");
+
+          const estTime = date.format(todayy, "hh:mm A");
+          const estTime1 = date.format(todayy, "hh:mm A", true);
+
+          // if (estTime >= 8 && estTime <= 20) {
           let res = await uploadVoiceMessageApi(formData);
           if (res && res.data && res.data.status === 200) {
             toast.success("Voice Message sent Successfully");
@@ -336,8 +396,49 @@ const Voice = () => {
             setOpenMessageModal(false);
             setSelected([]);
             setLoading(false);
+            setPlaying(false);
             setIsNewVoiceActive(false);
             setIsActive(false);
+            setIndividualOpen(false);
+            setBulkOpen(false);
+            setIsShowLoading(false);
+          }
+          getVoiceMessage();
+          // } else {
+          //   toast.error("Please Send Text between 8am - 9pm");
+          //   setLoading(false);
+          // }
+        });
+    }
+  };
+
+  const handleBulkSendClick = async () => {
+    if (isBulkSelectValid()) {
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
+        .then(async (myBlob) => {
+          var file = new File([myBlob], "name.wav");
+          var formData = new FormData();
+          let compaignId = bulkSelected.value;
+          formData.append("voice", file);
+          formData.append("compaignId", compaignId);
+          setIsShowLoading(true);
+          setLoading(true);
+          let res = await uploadBulkVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            stopTimer();
+            setOpenMessageModal(false);
+            setSelected([]);
+            setLoading(false);
+            setIsShowLoading(false)
+            setBulkOpen(false);
+            setPlaying(false);
+            setIsNewVoiceActive(false);
+            setIsActive(false);
+            setBulkSelected("");
+            setIndividualOpen(false);
+            setBulkOpen(false);
             setIsShowLoading(false);
           }
           getVoiceMessage();
@@ -349,13 +450,10 @@ const Voice = () => {
     if (true) {
       setLoading(true);
       stopRecording();
-      console.log(mediaBlobUrl, "mediaBlobUrl");
       await fetch(mediaBlobUrl)
         .then((res) => res.blob())
         .then(async (myBlob) => {
           var file = new File([myBlob], "name.m4a");
-          console.log(file, "mediaBlobUrl2222");
-          console.log(myBlob, "mediaBlobUrl111111");
           var formData = new FormData();
           let contactid = selecteduser.contact.contactid;
           formData.append("voice", file);
@@ -405,6 +503,12 @@ const Voice = () => {
   };
 
   const openChatClick = async (id, check) => {
+    setIsNewVoiceActive(false);
+    setAudioFileName(null);
+    setIsActive(false);
+    setCounter(0);
+    setSecond("00");
+    setMinute("00");
     const res = await getUploadVoiceMessageApi(id);
     if (res && res.data && res.data.status === 200) {
       setVoiceChatData(res.data.data);
@@ -502,30 +606,31 @@ const Voice = () => {
 
   const handleOpenUploadModal = () => {
     setUploadOpen(true);
+    stopTimer();
+    setOpenMessageModal(false);
     setFileName(null);
-    setSelected([]);
+    // setSelected([]);
     setErrors({});
     setLoading(false);
   };
-
   const handleCloseUploadModal = () => {
     setUploadOpen(false);
     setFileName(null);
-    setSelected([]);
+    // setSelected([]);
     setErrors({});
     setLoading(false);
   };
 
   const onVoiceUploadChange = (e) => {
-    if (e.target.files[0]) {
-      if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
-        setFileName(e.target.files[0]);
-      } else {
-        toast.error("Sorry, thats not a valid Audio file");
-        setFileName(null);
-        setLoading(false);
-      }
-    }
+    // if (e.target.files[0]) {
+    //   if (e.target.files[0].type == "audio/mpeg" || "audio/wav") {
+    setFileName(e.target.files[0]);
+    //   } else {
+    //     toast.error("Sorry, thats not a valid Audio file");
+    //     setFileName(null);
+    //     setLoading(false);
+    //   }
+    // }
   };
 
   const onVoiveUpload = async () => {
@@ -534,15 +639,45 @@ const Voice = () => {
       let contactid = selected.map((item) => item.value);
       formData.append("voice", fileName);
       formData.append("contactid", JSON.stringify(contactid));
-      // setIsShowLoading(true);
       setLoading(true);
       let res = await uploadVoiceMessageApi(formData);
       if (res && res.data && res.data.status === 200) {
         toast.success("Voice Message sent Successfully");
         setUploadOpen(false);
         getVoiceMessage();
+        setLoading(false);
         setErrors({});
+        setIndividualOpen(false);
+        setBulkOpen(false);
       }
+    }
+  };
+
+  const onBulkVoiceUpload = async () => {
+    if (isBulkSelectValid()) {
+      await fetch(mediaBlobUrl)
+        .then((res) => res.blob())
+        .then(async (myBlob) => {
+          var formData = new FormData();
+          let compaignId = bulkSelected.value;
+          formData.append("voice", fileName);
+          formData.append("compaignId", compaignId);
+          setIsShowLoading(true);
+          setLoading(true);
+          let res = await uploadBulkVoiceMessageApi(formData);
+          if (res && res.data && res.data.status === 200) {
+            toast.success("Voice Message sent Successfully");
+            stopTimer();
+            setUploadOpen(false);
+            getVoiceMessage();
+            setLoading(false);
+            setErrors({});
+            setIsShowLoading(false)
+            setIndividualOpen(false);
+            setBulkOpen(false);
+          }
+          getVoiceMessage();
+        });
     }
   };
 
@@ -575,7 +710,11 @@ const Voice = () => {
     getVoiceMessage();
   };
 
+  const voiceref = useRef();
+  const singleVref = useRef();
+
   const clearUploadData = () => {
+    singleVref.current.value = null;
     setAudioFileName(null);
   };
 
@@ -584,12 +723,41 @@ const Voice = () => {
   };
 
   const clearUploading = () => {
+    voiceref.current.value = null;
     setFileName(null);
   };
 
   const handlePlay = () => {
-    const tmp = new Audio(blobState);
-    tmp.play();
+    if (second > 0) {
+      setPlaying(true);
+      const tmp = new Audio(mediaBlobUrl);
+      tmp.play();
+    }
+  };
+
+  const getContactCompaign = async () => {
+    let res = await getCompaignApi();
+    if (res && res.data && res.data.status === 200) {
+      let data = res.data.data.map(function (item) {
+        return { value: item._id, label: item.name };
+      });
+      setCompaigns(data);
+    }
+  };
+
+  const handleBulkSelectChange = (values) => {
+    setBulkSelected(values);
+    setErrors({});
+  };
+
+  const clearRecording = () => {
+    setOpenMessageModal(false);
+    stopTimer();
+  };
+
+  const clearUploadInput = () => {
+    setUploadOpen(false);
+    stopTimer();
   };
 
   return (
@@ -604,11 +772,11 @@ const Voice = () => {
             New Voice
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={handleOpenUploadModal}>
-              Upload File
+            <Dropdown.Item onClick={handleOpenIndividual}>
+              Individual Voice
             </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={handleNewMessage}>
-              Record Voice
+            <Dropdown.Item onClick={handleOpenBulk}>
+              Bulk Campaign Voice
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -674,10 +842,12 @@ const Voice = () => {
           clearUploadData={clearUploadData}
           handleLoadMetadata={handleLoadMetadata}
           isNewVoiceActive={isNewVoiceActive}
+          singleVref={singleVref}
+          handlePlay={handlePlay}
         />
       </div>
-      <VoiceModal
-        open={openMessageModal}
+      {/* <VoiceModal
+        // open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
         handleSelectChange={handleSelectChange}
         selected={selected}
@@ -693,9 +863,10 @@ const Voice = () => {
         errors={errors}
         stopTimer={stopTimer}
         handlePlay={handlePlay}
-      />
-      <VoiceUploadModal
-        uploadOpen={uploadOpen}
+        playing={playing}
+      /> */}
+      {/* <VoiceUploadModal
+        // uploadOpen={uploadOpen}
         handleCloseUploadModal={handleCloseUploadModal}
         options={rowsData}
         handleSelectChange={handleSelectChange}
@@ -706,6 +877,74 @@ const Voice = () => {
         loading={loading}
         fileName={fileName}
         clearUploading={clearUploading}
+        voiceref={voiceref}
+      /> */}
+      <IndividualVoice
+        individualOpen={individualOpen}
+        openMessageModal={openMessageModal}
+        handleIndividualCloseModal={handleCloseIndividual}
+        handleOpenUploadModal={handleOpenUploadModal}
+        handleNewMessage={handleNewMessage}
+        options={rowsData}
+        selected={selected}
+        uploadOpen={uploadOpen}
+        handleCloseUploadModal={handleCloseUploadModal}
+        handleSelectChange={handleSelectChange}
+        onVoiceUploadChange={onVoiceUploadChange}
+        onVoiveUpload={onVoiveUpload}
+        errors={errors}
+        loading={loading}
+        fileName={fileName}
+        clearUploading={clearUploading}
+        voiceref={voiceref}
+        open={openMessageModal}
+        handleCloseMessageModal={handleCloseMessageModal}
+        handleSendClick={handleSendClick}
+        minute={minute}
+        second={second}
+        isNewVoiceActive={isNewVoiceActive}
+        setIsNewVoiceActive={setIsNewVoiceActive}
+        startRecording={startRecording}
+        stopRecording={stopRecording}
+        stopTimer={stopTimer}
+        handlePlay={handlePlay}
+        playing={playing}
+        clearRecording={clearRecording}
+        clearUploadInput={clearUploadInput}
+      />
+      <BulkVoiceMessage
+        bulkOpen={bulkOpen}
+        handleCloseBulkModal={handleCloseBulkModal}
+        options={compaign}
+        openMessageModal={openMessageModal}
+        selected={bulkSelected}
+        handleBulkSelectChange={handleBulkSelectChange}
+        handleOpenUploadModal={handleOpenUploadModal}
+        handleNewMessage={handleNewMessage}
+        uploadOpen={uploadOpen}
+        handleCloseUploadModal={handleCloseUploadModal}
+        handleSelectChange={handleSelectChange}
+        onVoiceUploadChange={onVoiceUploadChange}
+        onVoiveUpload={onBulkVoiceUpload}
+        errors={errors}
+        loading={loading}
+        fileName={fileName}
+        clearUploading={clearUploading}
+        voiceref={voiceref}
+        open={openMessageModal}
+        handleCloseMessageModal={handleCloseMessageModal}
+        handleSendClick={handleBulkSendClick}
+        minute={minute}
+        second={second}
+        isNewVoiceActive={isNewVoiceActive}
+        setIsNewVoiceActive={setIsNewVoiceActive}
+        startRecording={startRecording}
+        stopRecording={stopRecording}
+        stopTimer={stopTimer}
+        handlePlay={handlePlay}
+        playing={playing}
+        clearRecording={clearRecording}
+        clearUploadInput={clearUploadInput}
       />
     </div>
   );

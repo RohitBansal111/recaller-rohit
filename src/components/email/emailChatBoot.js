@@ -33,6 +33,8 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import CloseIcon from "@mui/icons-material/Close";
+import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 
 const EmailChatBoot = (props) => {
   const location = useLocation();
@@ -65,17 +67,21 @@ const EmailChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{parse(item.message.slice(0, 30).concat("..."))}</p>
-          <div className="chat-tag">
-            {item.contact.tags.length > 0
-              ? item.contact.tags.map((item) => (
-                  <p style={{ borderColor: item.color, color: item.color }}>
-                    <LocalOfferIcon style={{ color: item.color }} />
-                    {item.name}
-                  </p>
-                ))
-              : ""}
+          <div className="title-chat-display">
+            {parse(item.message.slice(0, 30).concat("..."))}
           </div>
+          {item.contact.tags.length > 0 && (
+            <div className="chat-tag">
+              {item.contact.tags.length > 0
+                ? item.contact.tags.map((item) => (
+                    <p style={{ borderColor: item.color, color: item.color }}>
+                      <LocalOfferIcon style={{ color: item.color }} />
+                      {item.name}
+                    </p>
+                  ))
+                : ""}
+            </div>
+          )}
         </li>
       );
     });
@@ -102,7 +108,6 @@ const EmailChatBoot = (props) => {
             })
               .then((res) => res.json())
               .then((res) => {
-                console.log("upload ck response :::", res);
                 resolve({
                   default: res.url,
                 });
@@ -275,6 +280,19 @@ const EmailChatBoot = (props) => {
                                 </div>
                               </div>
                             ) : (
+                              <>
+                              <div className="field-group flexFull">
+                              {/* <label>Email Subject</label> */}
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter Subject"
+                                name="subject"
+                                value={props.emailSubject}
+                                onChange={props.handleSubjectChange}
+                              />
+                              <span className="spanError">{props.errors.selected}</span>
+                            </div>
                               <div className="attachedImage-box email-emailEditor">
                                 <CKEditor
                                   editor={ClassicEditor}
@@ -289,6 +307,7 @@ const EmailChatBoot = (props) => {
                                   editorLoaded={props.editorLoaded}
                                 />
                               </div>
+                              </>
                             )}
                           </div>
                           <div className="field-group btn-groups flexFull">
@@ -346,12 +365,25 @@ const EmailChatBoot = (props) => {
                                     className="btn-action1"
                                     onClick={props.handleChatBotEmojiOpen}
                                   >
-                                    <EmojiEmotionsIcon />
+                                    {props.onShowChatBotEmojiOpen == false && (
+                                      <EmojiEmotionsIcon />
+                                    )}
                                   </button>
                                   {props.onShowChatBotEmojiOpen && (
                                     <Picker
                                       onEmojiClick={props.onChatBotEmojiClick}
                                     />
+                                  )}
+                                  {props.onShowChatBotEmojiOpen && (
+                                    <div className="emoji-cancel-button">
+                                      <button
+                                        type="button"
+                                        className="btn-action1"
+                                        onClick={props.CancelEmoji}
+                                      >
+                                        <CloseIcon />
+                                      </button>
+                                    </div>
                                   )}
                                 </>
                               </li>
@@ -418,8 +450,8 @@ const EmailChatBoot = (props) => {
                         </form>
                       </div>
                     </Tab>
-                    <Tab eventKey="filter" title="Internal Note">
-                      <div className="chat-textarea">
+                    {/* <Tab eventKey="filter" title="Internal Note">
+                      <div className="chat-textarea Internal">
                         <form className="main-form">
                           <div className="field-group flexFull">
                             <textarea
@@ -444,7 +476,7 @@ const EmailChatBoot = (props) => {
                           </div>
                         </form>
                       </div>
-                    </Tab>
+                    </Tab> */}
                   </Tabs>
                 )}
               </div>
@@ -495,14 +527,27 @@ const EmailChatBoot = (props) => {
               )} */}
             </div>
             <ul className="personal-info">
-              <li>
-                <h5>Phone Number</h5>
-                <p>
-                  {props.selecteduser &&
+              {props.selecteduser &&
+              props.selecteduser.contact &&
+              props.selecteduser.contact.phone ? (
+                <li>
+                  <h5>
+                    {props.selecteduser &&
                     props.selecteduser.contact &&
-                    props.selecteduser.contact.phone}
-                </p>
-              </li>
+                    props.selecteduser.contact.phone
+                      ? " Phone Number"
+                      : ""}
+                  </h5>
+                  <p>
+                    {props.selecteduser &&
+                      props.selecteduser.contact &&
+                      props.selecteduser.contact.phone}
+                  </p>
+                </li>
+              ) : (
+                ""
+              )}
+
               <li>
                 <h5>Subscription</h5>
                 <p>
@@ -684,8 +729,8 @@ const EmailChatBoot = (props) => {
           templateEditTags={props.templateEditTags}
           editTempMessageData={props.editTempMessageData}
           handleEditMessageTempChange={props.handleEditMessageTempChange}
-          searchValue={props.searchValue}
-          handleSearchChange={props.handleSearchChange}
+          searchTemplateValue={props.searchTemplateValue}
+          handleSearchTempChange={props.handleSearchTempChange}
           replacefunc={props.replacefunc}
           handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
           showDeleteTempModal={props.showDeleteTempModal}
@@ -702,6 +747,14 @@ const EmailChatBoot = (props) => {
           handleTempMessageChange={props.handleTempMessageChange}
           handleTemplateSubmit={props.handleTemplateSubmit}
           errors={props.errors}
+        />
+        <ReScheduleTitleModal
+          showReScheduleTitleModal={props.showReScheduleTitleModal}
+          handleCloseReSchedulTitle={props.handleCloseReSchedulTitle}
+          reScheduleTitle={props.reScheduleTitle}
+          handleReSchaduleTChange={props.handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={props.handleDeleteRechaduletitleM}
+          handleReTitleSubmit={props.handleReTitleSubmit}
         />
       </div>
     </div>

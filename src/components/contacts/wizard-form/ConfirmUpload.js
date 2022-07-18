@@ -1,5 +1,6 @@
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ConfirmUpload = ({ step, setStep, ...props }) => {
   if (props.unSavedContacts && props.unSavedContacts.length) {
@@ -32,7 +33,15 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
             </table>
           </div>
         </div>
-        <div className="field-group flexFull text-center mt-3 mb-0">
+
+        <div className="field-group flexFull text-center mt-5 mb-0">
+          {/* <button
+            type="button"
+            className="btn btn-primary me-3"
+            onClick={props.handleCSVDownload}
+          >
+            download CSV File
+          </button> */}
           <button
             type="button"
             className="btn btn-primary"
@@ -85,14 +94,24 @@ const ConfirmUpload = ({ step, setStep, ...props }) => {
               {" "}
               Back{" "}
             </button>
-            <button
+            <LoadingButton
+              type="button"
+              loadingPosition="center"
+              // loading={props.isLoading}
+              onClick={props.finishStep}
+              className="btn btn-primary"
+              variant="contained"
+            >
+              Finish
+            </LoadingButton>
+            {/* <button
               type="button"
               className="btn btn-primary"
               onClick={props.finishStep}
             >
               {" "}
               Finish{" "}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

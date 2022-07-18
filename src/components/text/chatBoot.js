@@ -28,7 +28,8 @@ import { Link } from "react-router-dom";
 import PlaceholderImage from "./../../assets/images/placeholder.jpg";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
-
+import CloseIcon from "@mui/icons-material/Close";
+import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 const ChatBoot = (props) => {
   const userMessageList = () => {
     let filtered = [];
@@ -36,12 +37,16 @@ const ChatBoot = (props) => {
       props.userMessageList &&
       props.userMessageList.filter(
         (val) =>
-          val.contact.firstName
-            .toLowerCase()
-            .startsWith(props.searchValue.toLowerCase()) ||
-          val.contact.lastName
-            .toLowerCase()
-            .startsWith(props.searchValue.toLowerCase())
+          (val &&
+            val.contact &&
+            val.contact.firstName
+              .toLowerCase()
+              .startsWith(props.searchValue.toLowerCase())) ||
+          (val &&
+            val.contact &&
+            val.contact.lastName
+              .toLowerCase()
+              .startsWith(props.searchValue.toLowerCase()))
       );
     const chatList = filtered.map((item, index) => {
       return (
@@ -58,7 +63,10 @@ const ChatBoot = (props) => {
               item.contact.firstName + " " + item.contact.lastName}
             <span>{timeAgo(item.createdAt)}</span>
           </h5>
-          <p>{item.message.slice(0, 30).concat("...")}</p>
+          <p className="noti_wrap">
+            <span>{item.message.slice(0, 30).concat("...")}</span>
+           { item.count > 0 && <span className="notification_cstm">{item.count}</span>}
+          </p>
           <div className="chat-tag">
             {item.contact.tags.length > 0
               ? item.contact.tags.map((item) => (
@@ -104,7 +112,7 @@ const ChatBoot = (props) => {
           <div className="all-discuss-section">
             <div className="chat-header">
               <h4>
-                {props.selecteduser
+                {props.selecteduser && props.selecteduser.contact
                   ? props.selecteduser.contact.firstName +
                     " " +
                     props.selecteduser.contact.lastName
@@ -173,10 +181,10 @@ const ChatBoot = (props) => {
                 handleNoReSchedultModal={props.handleNoReSchedultModal}
                 handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
                 handleDeleteRechaduletitle={props.handleDeleteRechaduletitle}
-                schaduleData = {props.scheduledData}
+                schaduleData={props.scheduledData}
               />
             </div>
-            <div className="chat-text-editor">
+            <div className="chat-text-editor text-chat-editor">
               {props.userMessageList.length == 0 ? (
                 " "
               ) : (
@@ -219,10 +227,12 @@ const ChatBoot = (props) => {
                             </div>
                           ) : (
                             <div className="attachedImage-box">
-                              {props.selectedImage && (
+                              {props.selectedImageData == null ? (
+                                ""
+                              ) : (
                                 <ul className="attachedImageGallery">
                                   <li>
-                                    <img alt="" src={props.selectedImage} />
+                                    <img alt="" src={props.selectedImageData} />
                                     <button
                                       type="button"
                                       className="btn btn-cross"
@@ -299,15 +309,29 @@ const ChatBoot = (props) => {
                                   className="btn-action1"
                                   onClick={props.handleChatBotEmojiOpen}
                                 >
-                                  <EmojiEmotionsIcon />
+                                  {props.onShowChatBotEmojiOpen == false && (
+                                    <EmojiEmotionsIcon />
+                                  )}
                                 </button>
                                 {props.onShowChatBotEmojiOpen && (
                                   <Picker
                                     onEmojiClick={props.onChatBotEmojiClick}
                                   />
                                 )}
+                                {props.onShowChatBotEmojiOpen && (
+                                  <div className="emoji-cancel-button">
+                                    <button
+                                      type="button"
+                                      className="btn-action1"
+                                      onClick={props.CancelEmoji}
+                                    >
+                                      <CloseIcon />
+                                    </button>
+                                  </div>
+                                )}
                               </>
                             </li>
+
                             <li>
                               <button
                                 type="button"
@@ -318,6 +342,7 @@ const ChatBoot = (props) => {
                                 <input
                                   type="file"
                                   name="myImage"
+                                  ref={props.singleimgref}
                                   onChange={props.handleImageChange}
                                 />
                               </button>
@@ -376,7 +401,7 @@ const ChatBoot = (props) => {
                       </form>
                     </div>
                   </Tab>
-                  <Tab eventKey="filter" title="Internal Note">
+                  {/* <Tab eventKey="filter" title="Internal Note">
                     <div className="chat-textarea">
                       <form className="main-form">
                         <div className="field-group flexFull">
@@ -399,7 +424,7 @@ const ChatBoot = (props) => {
                         </div>
                       </form>
                     </div>
-                  </Tab>
+                  </Tab> */}
                 </Tabs>
               )}
             </div>
@@ -411,7 +436,7 @@ const ChatBoot = (props) => {
               {/* {!props.editContactName && ( */}
               <>
                 <h4>
-                  {props.selecteduser
+                  {props.selecteduser && props.selecteduser.contact
                     ? props.selecteduser.contact.firstName +
                       " " +
                       props.selecteduser.contact.lastName
@@ -449,7 +474,7 @@ const ChatBoot = (props) => {
             <ul className="personal-info">
               <li>
                 <h5>Phone Number</h5>
-                <p>{props.selecteduser && props.selecteduser.contact.phone}</p>
+                <p>{props.selecteduser && props.selecteduser.contact && props.selecteduser.contact.phone}</p>
               </li>
               <li>
                 <h5>Subscription</h5>
@@ -462,8 +487,18 @@ const ChatBoot = (props) => {
                 </p>
               </li>
               <li>
-                <h5>Email</h5>
-                <p>{props.selecteduser && props.selecteduser.contact.email}</p>
+                <h5>
+                  {props.selecteduser &&
+                  props.selecteduser.contact &&
+                  props.selecteduser.contact.email
+                    ? "Email"
+                    : ""}
+                </h5>
+                <p>
+                  {props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.email}
+                </p>
               </li>
               {!props.selecteduser ? (
                 ""
@@ -473,7 +508,9 @@ const ChatBoot = (props) => {
                     type="button"
                     onClick={() =>
                       props.handleContactEditModal(
-                        props.selecteduser && props.selecteduser.contact._id
+                        props.selecteduser &&
+                          props.selecteduser.contact &&
+                          props.selecteduser.contact._id
                       )
                     }
                     className="btn-links"
@@ -626,7 +663,6 @@ const ChatBoot = (props) => {
           templateData={props.templateData}
           handleTempShowClick={props.handleTempShowClick}
           templateDataState={props.templateDataState}
-          handleSingleTempInsert={props.handleSingleTempInsert}
           handleTempInsert={props.handleSingleTempInsert}
           handleEditTemplate={props.handleEditTemplate}
           editmanageTemplate={props.editmanageTemplate}
@@ -642,9 +678,9 @@ const ChatBoot = (props) => {
           templateEditTags={props.templateEditTags}
           editTempMessageData={props.editTempMessageData}
           handleEditMessageTempChange={props.handleEditMessageTempChange}
-          searchValue={props.searchValue}
           replacefunc={props.replacefunc}
-          handleSearchChange={props.handleSearchChange}
+          searchTemplateValue={props.searchTemplateValue}
+          handleSearchTempChange={props.handleSearchTempChange}
           handleCloseDeleteTempModal={props.handleCloseDeleteTempModal}
           showDeleteTempModal={props.showDeleteTempModal}
           selecteduser={props.selecteduser}
@@ -659,6 +695,14 @@ const ChatBoot = (props) => {
           cancelRescheDule={props.cancelRescheDule}
           handleNoReSchedultModal={props.handleNoReSchedultModal}
           handleDeleteReSchedultModal={props.handleDeleteReSchedultModal}
+        />
+        <ReScheduleTitleModal
+          showReScheduleTitleModal={props.showReScheduleTitleModal}
+          handleCloseReSchedulTitle={props.handleCloseReSchedulTitle}
+          reScheduleTitle={props.reScheduleTitle}
+          handleReSchaduleTChange={props.handleReSchaduleTChange}
+          handleDeleteRechaduletitleM={props.handleDeleteRechaduletitleM}
+          handleReTitleSubmit={props.handleReTitleSubmit}
         />
       </div>
     </div>

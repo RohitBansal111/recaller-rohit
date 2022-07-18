@@ -8,7 +8,12 @@ const animatedComponents = makeAnimated();
 const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
   return (
     <>
-      <Modal className="normal-modal" show={show} onHide={handleClose}>
+      <Modal
+        className="normal-modal"
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Add New Sender</Modal.Title>
         </Modal.Header>
@@ -30,7 +35,9 @@ const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
                 value={props.addEmailSender.fromEmail}
                 onChange={props.handleChangeEmailSender}
               />
+               <span className="spanError">{props.errors.fromEmail?props.errors.fromEmail:''}</span>
             </div>
+           
             <div className="field-group flex2">
               <label>From Name*</label>
               <input
@@ -41,19 +48,21 @@ const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
                 value={props.addEmailSender.fromName}
                 onChange={props.handleChangeEmailSender}
               />
+                     <span className="spanError">{props.errors.fromName?props.errors.fromName:''}</span>
             </div>
+     
             <div className="field-group flexFull">
               <label>Reply-to</label>
               <input
                 type="email"
                 className="form-control"
                 placeholder="Enter reply email"
-                name="replyEmail"
+                name="replyTo"
                 value={props.addEmailSender.replyEmail}
                 onChange={props.handleChangeEmailSender}
               />
             </div>
-            <div className="field-group flex2">
+            {/* <div className="field-group flex2">
               <label>Physical Mailing Address*</label>
               <input
                 type="text"
@@ -63,8 +72,8 @@ const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
                 value={props.addEmailSender.mailAddress}
                 onChange={props.handleChangeEmailSender}
               />
-            </div>
-            <div className="field-group flex2">
+            </div> */}
+            {/* <div className="field-group flex2">
               <label>Sender Nickname*</label>
               <input
                 type="text"
@@ -74,7 +83,7 @@ const EmailSenderModal = ({ show, handleClose, handleSubmit, ...props }) => {
                 value={props.addEmailSender.nickName}
                 onChange={props.handleChangeEmailSender}
               />
-            </div>
+            </div> */}
           </form>
           <p className="modal-para">
             We will send a confirmation email to the "From Email" to verify

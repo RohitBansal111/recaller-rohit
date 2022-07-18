@@ -1,14 +1,26 @@
-import Chart from 'react-apexcharts'
+import Chart from "react-apexcharts";
 
-const SMSMessageGraph = () => {
-
+const SMSMessageGraph = (props) => {
   const chartData = {
     chart: {
       type: "line",
-      id: "apexchart-example"
+      id: "apexchart-example",
     },
     xaxis: {
-      categories: ['Sept', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May']
+      categories: [
+        "jan",
+        "feb",
+        "mar",
+        "apr",
+        "may",
+        "jun",
+        "july",
+        "aug",
+        "sep",
+        "oct",
+        "nov",
+        "dec",
+      ],
     },
     fill: {
       type: "gradient",
@@ -16,43 +28,53 @@ const SMSMessageGraph = () => {
         shade: "light",
         type: "horizontal",
         shadeIntensity: 0.5,
-        gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+        gradientToColors: undefined,
         inverseColors: true,
         opacityFrom: 1,
         opacityTo: 1,
-        stops: [0, 50, 100]
-        // colorStops: []
-      }
+        stops: [0, 50, 100],
+      },
     },
     legend: {
-      // position: '',
-      width: 400
-      // position: 'top',
+      width: 400,
     },
     series: [
       {
         name: "Sent",
         type: "column",
-        data: [440, 505, 414, 571, 227, 413, 201, 352, 652, 320, 257, 160]
+        data: [
+          props.messageData && props.messageData.January,
+          props.messageData && props.messageData.February,
+          props.messageData && props.messageData.March,
+          props.messageData && props.messageData.April,
+          props.messageData && props.messageData.may,
+          props.messageData && props.messageData.June,
+          props.messageData && props.messageData.july,
+          props.messageData && props.messageData.August,
+          props.messageData && props.messageData.September,
+          props.messageData && props.messageData.October,
+          props.messageData && props.messageData.November,
+          props.messageData && props.messageData.December,
+        ],
       },
       {
         name: "Received",
         type: "column",
-        data: [23, 42, 35, 27, 43, 22, 17, 31, 42, 22, 12, 16]
-      }
-    ]
+        data: [],
+      },
+    ],
   };
 
   return (
     <div className="common-graph-section">
-        <Chart
-          options={chartData} 
-          series={chartData.series}
-          type="bar" 
-          height={320} 
-        />
+      <Chart
+        options={chartData}
+        series={chartData.series}
+        type="bar"
+        height={320}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default SMSMessageGraph
+export default SMSMessageGraph;

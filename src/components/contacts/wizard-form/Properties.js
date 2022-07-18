@@ -19,10 +19,12 @@ const Properties = ({ step, setStep, ...props }) => {
           handleFirstNameChange={props.handleFirstNameChange}
           handleLastNameChange={props.handleLastNameChange}
           handlePhoneChange={props.handlePhoneChange}
+          handleHomePhoneChange={props.handleHomePhoneChange}
           handleEmailChange={props.handleEmailChange}
           selectedEmail={props.selectedEmail}
           selectedFirstName={props.selectedFirstName}
           selectedPhone={props.selectedPhone}
+          selectedHomePhone={props.selectedHomePhone}
           selectedLastName={props.selectedLastName}
           // errors={props.errors}
         />

@@ -51,6 +51,7 @@ const Import = () => {
   const [showDeleteFilterModal, setShowDeleteFilterModal] = useState(false);
   const [totalRowsData, setTotalRowsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [tabKeySet, setTabKeySet] = useState("all");
 
   const handleClose = () => {
     setShow(false);
@@ -77,14 +78,16 @@ const Import = () => {
   const isValid = () => {
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneRegex = /^\d{10}$/;
+    const num = /^[0-9]+$/;
     let formData = true;
     switch (true) {
       case !addContact.firstName:
-        setErrors({ firstName: "First Name field is required!" });
+        setErrors({ firstName: "First Name is required!" });
         formData = false;
         break;
       case !addContact.lastName:
-        setErrors({ lastName: "Last Name field is required!" });
+        setErrors({ lastName: "Last Name is required!" });
         formData = false;
         break;
       case !addContact.phone && !addContact.email:
@@ -95,6 +98,17 @@ const Import = () => {
         setErrors({ email: "Please Fill one field either phone or email!" });
         formData = false;
         break;
+      case addContact.phone && !num.test(addContact.phone):
+        setErrors({
+          phone: "Phone Number only contains digits for eg. 9999999999",
+        });
+        formData = false;
+        break;
+      case addContact.phone && !phoneRegex.test(addContact.phone):
+        setErrors({ phone: "Phone Number contains 10 digits only" });
+        formData = false;
+        break;
+
       // case !addContact.country:
       //   setErrors({ country: "Please select country!" });
       //   formData = false;
@@ -119,8 +133,21 @@ const Import = () => {
         setErrors({ email: "Please enter valid email address!" });
         formData = false;
         break;
-      case !addContact.compaign:
-        setErrors({ compaign: "Please enter your Campaign" });
+      // case !addContact.compaign:
+      //   setErrors({ compaign: "Please enter your Campaign" });
+      //   formData = false;
+      //   break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+
+  const isValidFilterName = () => {
+    let formData = true;
+    switch (true) {
+      case !filterName:
+        setErrors({ filterName: "Filter Name is required!" });
         formData = false;
         break;
       default:
@@ -129,21 +156,25 @@ const Import = () => {
     return formData;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e,selectedCampaign) => {
     if (isValid()) {
+     if(!selectedCampaign){
+      setErrors({ compaign: "Please enter your Campaign" });
+      return
+     }
       setLoading(true);
-      setIsLoading(true)
-      let res = await createApi(addContact);
+      setIsLoading(true);
+      let res = await createApi({...addContact,compaign:selectedCampaign});
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
         toast.success("Contact saved!");
         setErrors({});
         getData();
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
         setLoading(false);
-        setIsLoading(false)
+        setIsLoading(false);
         toast.error(res.data.message);
       }
     }
@@ -156,12 +187,20 @@ const Import = () => {
         setErrors({ properties: "Please Select Properties!" });
         formData = false;
         break;
-      // case !rules:
-      //   setErrors({ rules: "Please Select Rules!" });
-      //   formData = false;
-      //   break;
+      case properties == "joinedDate" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
+      case properties == "Last Message Received" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
+      case properties == "campaigns" && rules == "":
+        setErrors({ rules: "Please Select Rules!" });
+        formData = false;
+        break;
       case !inputValue:
-        setErrors({ error: " Field is required!" });
+        setErrors({ error: "Field is required!" });
 
         formData = false;
         break;
@@ -174,6 +213,7 @@ const Import = () => {
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
+      console.log("campaign data:::",res.data.data)
       setRowsData(res.data.data);
       setTotalRowsData(res.data.data.length);
     }
@@ -310,6 +350,7 @@ const Import = () => {
     setProperties("");
     setRules("");
     setErrors({});
+    setValue(`All(${totalRowsData ? totalRowsData : 0})`);
   };
 
   const onHandleSave = async () => {
@@ -325,7 +366,6 @@ const Import = () => {
   };
 
   const handleSelect = (e) => {
-    console.log(e);
     setValue(e);
     getContactFilter();
   };
@@ -335,6 +375,7 @@ const Import = () => {
     setRules("");
     setErrors({});
     getData();
+    setTabKeySet("all");
   };
 
   const handleJDChange = async (e) => {
@@ -367,26 +408,29 @@ const Import = () => {
   };
 
   const handleAddFilterData = async () => {
-    const obj = {
-      property: properties,
-      rule: rules,
-      value: inputValue,
-      name: filterName,
-      resultCount: rowsData ? rowsData.length : 0,
-    };
-    const res = await addContactFilter(obj);
-    if (res && res.data && res.data.status === 200) {
-      setShowAddFilterModal(false);
-      setProperties("");
-      setRules("");
-      setInputValue("");
-      toast.success(res.data.message);
-      getContactFilter();
-      setFilterName("");
-      setErrors({});
-      getData();
-    } else {
-      toast.error(res.data.message);
+    if (isValidFilterName()) {
+      const obj = {
+        property: properties,
+        rule: rules,
+        value: inputValue,
+        name: filterName,
+        resultCount: rowsData ? rowsData.length : 0,
+      };
+
+      const res = await addContactFilter(obj);
+      if (res && res.data && res.data.status === 200) {
+        setShowAddFilterModal(false);
+        setProperties("");
+        setRules("");
+        setInputValue("");
+        toast.success(res.data.message);
+        getContactFilter();
+        setFilterName("");
+        setErrors({});
+        getData();
+      } else {
+        toast.error(res.data.message);
+      }
     }
   };
 
@@ -398,6 +442,7 @@ const Import = () => {
 
   const onFilterNameChange = (e) => {
     setFilterName(e.target.value);
+    setErrors({});
   };
 
   const getContactFilter = async () => {
@@ -496,6 +541,17 @@ const Import = () => {
     setShowSelect(true);
   };
 
+  const handleTabsSelect = (key) => {
+    setTabKeySet(key);
+    setShowAddFilterModal(false);
+    setInputValue("");
+    setFilterName("");
+    setProperties("");
+    setRules("");
+    setErrors({});
+    getData();
+  };
+
   return (
     <>
       <div className="page-header justify-flex-end">
@@ -561,6 +617,8 @@ const Import = () => {
           handleCloseDeleteFilterModal={handleCloseDeleteFilterModal}
           handleDeleteFilter={handleDeleteFilter}
           afterFilterApply={afterFilterApply}
+          handleTabsSelect={handleTabsSelect}
+          tabsKey={tabKeySet}
         />
       </div>
       <div className="contact-data-table-main">
@@ -587,10 +645,12 @@ const Import = () => {
           handleSearchChange={(e) => setSearchState(e.target.value)}
           filterByCompaigns={filterByCompaigns}
           isLoading={isLoading}
+          totalRecords={totalRowsData ? totalRowsData : 0}
+          compaign={compaign}
         />
       </div>
 
-      <ContactModal
+      <ContactModal 
         show={show}
         loading={loading}
         handleClose={handleClose}

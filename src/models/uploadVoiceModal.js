@@ -11,6 +11,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
       onClose={props.handleCloseUploadModal}
       center
       classNames="upload-voice"
+      closeOnOverlayClick={false}
     >
       <div className="modal-header">
         <h3>Upload Voice</h3>
@@ -32,6 +33,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             <input
               className="inputFile"
               type="file"
+              ref={props.voiceref}
               accept="audio/*"
               name="file"
               onChange={props.onVoiceUploadChange}
@@ -43,18 +45,18 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             </span>
           </div>
           <div className="voice-file">
-          <span>{props.fileName ? props.fileName.name : ""}</span>
-          {props.fileName ? (
-            <button
-              type="button"
-              className="remove-recording-action"
-              onClick={props.clearUploading}
-            >
-            <MdClose/>
-            </button>
-          ) : (
-            ""
-          )}
+            <span>{props.fileName ? props.fileName.name : ""}</span>
+            {props.fileName ? (
+              <button
+                type="button"
+                className="remove-recording-action"
+                onClick={props.clearUploading}
+              >
+                <MdClose />
+              </button>
+            ) : (
+              ""
+            )}
           </div>
           <div className="field-group flexFull text-center mt-3">
             <button
@@ -67,6 +69,7 @@ const VoiceUploadModal = ({ open, handleCloseMessageModal, ...props }) => {
             <LoadingButton
               type="button"
               loadingPosition="center"
+              disabled={!props.selected || !props.fileName ? true : false}
               loading={props.loading}
               className="btn btn-primary"
               onClick={props.onVoiveUpload}

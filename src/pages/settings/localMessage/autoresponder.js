@@ -25,6 +25,7 @@ const Autoresponder = () => {
   const [addWidgetAutoRes, setaddWidgetAutoRes] = useState("");
   const [inComingAutoRes, setInComingAutoRes] = useState("");
   const [autoResData, setAutoResData] = useState([]);
+  const [cancelAutoresponder, setCancelAutoresponder] = useState(false);
   const AddIncomeDuringSMS = (item) => {
     if (item) {
       setInComingAutoRes(item.duringHoursAutoResponse.InComingAutoRes);
@@ -54,7 +55,6 @@ const Autoresponder = () => {
     setAddWidgetOutsideSet(true);
   };
   const addBusinessHourModal = (item) => {
-    console.log(item);
     if (item) {
       setBusinessData({
         businesshours: item.businesshours,
@@ -67,6 +67,7 @@ const Autoresponder = () => {
   };
   const handleModalClose = () => {
     setBusinessHourModal(false);
+    setCancelAutoresponder(false);
   };
   const handleModalShow = () => {};
   const handleProceed = () => {};
@@ -76,39 +77,47 @@ const Autoresponder = () => {
   };
 
   const handleSaveHours = async () => {
-    // const ob1 = {
-    //   InComingAutoRes: autoResData.duringHoursAutoResponse.InComingAutoRes,
-    //   addIncomeDuringSet: addIncomeDuringSet,
-    // };
-    // const ob2 = {
-    //   addAutoResponse: autoResData.duringHoursWidget.addAutoResponse,
-    //   addWidgetDuringSet: addWidgetDuringSet,
-    // };
-    // const ob3 = {
-    //   widgetRes: autoResData.outsideHoursAutoResponse.addIncomeOutsideSet,
-    //   addIncomeOutsideSet: addIncomeOutsideSet,
-    // };
-    // const ob4 = {
-    //   addWidgetAutoRes: autoResData.outsideHoursWidget.addWidgetAutoRes,
-    //   addWidgetOutsideSet: addWidgetOutsideSet,
-    // };
-
     const ob1 = {
-      InComingAutoRes: inComingAutoRes,
+      InComingAutoRes: autoResData
+        ? autoResData.duringHoursAutoResponse.InComingAutoRes
+        : inComingAutoRes,
       addIncomeDuringSet: addIncomeDuringSet,
     };
     const ob2 = {
-      addAutoResponse: addAutoResponse,
+      addAutoResponse: autoResData
+        ? autoResData.duringHoursWidget.addAutoResponse
+        : addAutoResponse,
       addWidgetDuringSet: addWidgetDuringSet,
     };
     const ob3 = {
-      widgetRes: widgetRes,
+      widgetRes: autoResData
+        ? autoResData.outsideHoursAutoResponse.widgetRes
+        : widgetRes,
       addIncomeOutsideSet: addIncomeOutsideSet,
     };
     const ob4 = {
-      addWidgetAutoRes: addWidgetAutoRes,
+      addWidgetAutoRes: autoResData
+        ? autoResData.outsideHoursWidget.addWidgetAutoRes
+        : addWidgetAutoRes,
       addWidgetOutsideSet: addWidgetOutsideSet,
     };
+
+    // const ob1 = {
+    //   InComingAutoRes: inComingAutoRes,
+    //   addIncomeDuringSet: addIncomeDuringSet,
+    // };
+    // const ob2 = {
+    //   addAutoResponse: addAutoResponse,
+    //   addWidgetDuringSet: addWidgetDuringSet,
+    // };
+    // const ob3 = {
+    //   widgetRes: widgetRes,
+    //   addIncomeOutsideSet: addIncomeOutsideSet,
+    // };
+    // const ob4 = {
+    //   addWidgetAutoRes: addWidgetAutoRes,
+    //   addWidgetOutsideSet: addWidgetOutsideSet,
+    // };
 
     const obj = {
       businessHours: businessData,
@@ -117,11 +126,16 @@ const Autoresponder = () => {
       outsideHoursAutoResponse: ob3,
       outsideHoursWidget: ob4,
     };
-    const res = await sendAutoResRequest(obj);
-    if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
-      setBusinessHourModal(false);
-      getAutoResData();
+    if (cancelAutoresponder == true) {
+      setBusinessHourModal(true);
+      toast.error("Please add at least one open time to your business hours.");
+    } else {
+      const res = await sendAutoResRequest(obj);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Autoresponder Save Successfully ");
+        setBusinessHourModal(false);
+        getAutoResData();
+      }
     }
   };
 
@@ -171,8 +185,7 @@ const Autoresponder = () => {
     };
 
     const obj = {
-      // businessHours: autoResData.businessHours,
-      businessHours: businessData,
+      businessHours: autoResData ? autoResData.businessHours : businessData,
       duringHoursAutoResponse: ob1,
       duringHoursWidget: ob2,
       outsideHoursAutoResponse: ob3,
@@ -180,7 +193,7 @@ const Autoresponder = () => {
     };
     const res = await sendAutoResRequest(obj);
     if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
+      toast.success("Autoresponder Save Successfully ");
       getAutoResData();
     }
   };
@@ -193,6 +206,16 @@ const Autoresponder = () => {
     const res = await getAutoResRequest();
     if (res && res.data && res.data.status === 200) {
       setAutoResData(res.data.result);
+    }
+  };
+
+  const handleBusinessHoursDel = () => {
+    setCancelAutoresponder(true);
+  };
+
+  const handleBusinessHoursAdd = () => {
+    if (cancelAutoresponder == true) {
+      setCancelAutoresponder(false);
     }
   };
 
@@ -426,6 +449,9 @@ const Autoresponder = () => {
           businessData={businessData}
           handleBusinessChnage={handleBusinessChnage}
           handleSaveHours={handleSaveHours}
+          handleBusinessHoursDel={handleBusinessHoursDel}
+          cancelAutoresponder={cancelAutoresponder}
+          handleBusinessHoursAdd={handleBusinessHoursAdd}
         />
       </div>
     </div>

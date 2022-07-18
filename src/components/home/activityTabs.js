@@ -1,6 +1,7 @@
-import React from 'react'
-import CardMedia1 from './../../assets/images/card-icon1.png'
-import CardMedia2 from './../../assets/images/card-icon2.svg'
+import React from "react";
+import CardMedia1 from "./../../assets/images/card-icon1.png";
+import CardMedia2 from "./../../assets/images/card-icon2.svg";
+import BroNotifcation from "../browserNotifications/index";
 
 const ActivityCardContent = () => {
   return (
@@ -21,9 +22,10 @@ const ActivityCardContent = () => {
           <div className="card-tav-content">
               <p> Visit our Help Centre </p>
           </div>
+          {/* <BroNotifcation /> */}
         </li>
     </ul>
-  )
-}
+  );
+};
 
-export default ActivityCardContent
+export default ActivityCardContent;
