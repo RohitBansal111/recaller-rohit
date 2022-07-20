@@ -7,15 +7,15 @@ const ActivityTabs = () => {
   return (
     <div className="activity-tabs">
       <Tabs
-        defaultActiveKey="activity"
+        defaultActiveKey="Campaigns"
         transition={false}
         id="noanim-tab-example"
-        className="mb-3"
+        className="mb-2"
       >
         {/* <Tab eventKey="activity" title="Activity Feed">
           <ActivityCardContent />
         </Tab> */}
-        <Tab eventKey="updates" title="Campaigns">
+        <Tab eventKey="Campaigns" title="Campaigns">
           <ActivityCardContent />
         </Tab>
         <Tab eventKey="highlight" title="Highlights">

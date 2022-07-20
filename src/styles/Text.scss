@@ -154,6 +154,7 @@
                 display: none;
               }
             }
+            
             .dropdown-menu {
               transform: none !important;
               right: 0px !important;
@@ -197,6 +198,11 @@
           .chat-textarea {
             width: 100%;
             background-color: $Theme-white;
+            .field-group{
+              .field-group{
+                padding:15px 10px 0px 10px;
+              }
+            }
             textarea {
               width: 100%;
               border: none;

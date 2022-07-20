@@ -1,30 +1,149 @@
-import React from "react";
-import CardMedia1 from "./../../assets/images/card-icon1.png";
-import CardMedia2 from "./../../assets/images/card-icon2.svg";
-import BroNotifcation from "../browserNotifications/index";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import { BsThreeDots } from "react-icons/bs";
+import Addcompaign from "./addCompaign";
+const ActivityCardContent = (props) => {
+  const [showAddCompaign, setshowAddCompaign] = useState(false);
+  const handleCompaignShow = () => {
+    setshowAddCompaign(true);
+  };
+  const handleCompaignClose = () => {
+    setshowAddCompaign(false);
+  };
 
-const ActivityCardContent = () => {
   return (
-    <ul className='card-listingtabs'>
+    <div className="recaller-list">
+      <div className="add-campaign-btn mb-2">
+        <Button onClick={handleCompaignShow}>Add Campaign </Button>
+      </div>
+      <ul className="card-listingtabs">
         <li>
-          <div className="card-tab-media">
-            <img src={CardMedia1} alt="Card Media 1" />
-          </div>
           <div className="card-tav-content">
-              <p> Welcome to your Recallr Activity Feed </p>
+            <p> Welcome to your Recallr Activity Feed </p>
+            <div className="more-action">
+              <Button
+                className="re-dots btn-more-option dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <BsThreeDots />
+              </Button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>Rename the campaign</li>
+                <li>View it Contacts</li>
+                <li>Fetch Reports</li>
+              </ul>
+            </div>
           </div>
         </li>
-        <hr className='listBreak'/>
         <li>
-          <div className="card-tab-media">
-            <img src={CardMedia2} alt="Card Media 2" />
-          </div>
           <div className="card-tav-content">
-              <p> Visit our Help Centre </p>
+            <p> Visit our Help Centre </p>
+            <div className="more-action">
+              <Button
+                className="re-dots btn-more-option dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <BsThreeDots />
+              </Button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>Rename the campaign</li>
+                <li>View it Contacts</li>
+                <li>Fetch Reports</li>
+              </ul>
+            </div>
           </div>
-          {/* <BroNotifcation /> */}
         </li>
-    </ul>
+        <li>
+          <div className="card-tav-content">
+            <p> Visit our Help Centre </p>
+            <div className="more-action">
+              <Button
+                className="re-dots btn-more-option dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <BsThreeDots />
+              </Button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>Rename the campaign</li>
+                <li>View it Contacts</li>
+                <li>Fetch Reports</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div className="card-tav-content">
+            <p> Visit our Help Centre </p>
+            <div className="more-action">
+              <Button
+                className="re-dots btn-more-option dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <BsThreeDots />
+              </Button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>Rename the campaign</li>
+                <li>View it Contacts</li>
+                <li>Fetch Reports</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div className="card-tav-content">
+            <p> Visit our Help Centre </p>
+            <div className="more-action">
+              <Button
+                className="re-dots btn-more-option dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <BsThreeDots />
+              </Button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>Rename the campaign</li>
+                <li>View it Contacts</li>
+                <li>Fetch Reports</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <Addcompaign
+        showAddCompaign={showAddCompaign}
+        handleCompaignClose={handleCompaignClose}
+        handleCompaignShow={handleCompaignShow}
+      />
+    </div>
   );
 };
 

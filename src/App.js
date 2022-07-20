@@ -7,6 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
+import Detail from "./pages/Detail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./components/layout";
 import "react-responsive-modal/styles.css";
@@ -207,6 +208,15 @@ function App({ component: Component, ...rest }) {
               </IsAuthenticated>
             }
           />
+          <Route
+          exact
+          path="/Detail"
+          element={
+            <IsAuthenticated>
+              <Detail />
+            </IsAuthenticated>
+          }
+        />
           <Route
             exact
             path="/whats-app"
