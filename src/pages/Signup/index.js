@@ -2,11 +2,43 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import Select from "react-select";
 const Signup = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
+  const communicator = [
+    {
+      label: "Plan Price : $3,828",
+      value: "Plan Price : $3,828",
+      color: "#00B8D9",
+      isFixed: true,
+    },
+    {
+      label: "Plan Price : $3,528",
+      value: "Plan Price : $3,528",
+    },
+    {
+      label: "Plan Price : $2,828",
+      value: "Plan Price : $2,828",
+    },
+  ];
 
+  const planOptions = [
+    {
+      label: "Communicator",
+      options: communicator,
+    },
+  ];
+  console.log(planOptions , "planOptions");
+  const planLabel = () => (
+    <div>
+      <span className="datalabel">{planOptions.map((item)=>{
+      return item.label
+      }
+      )}
+      </span>
+    </div>
+  )
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -55,67 +87,73 @@ const Signup = () => {
           </p>
         </div>
         <form className="main-form signup-form">
-        <div className="form-body ">
-          <div className="field-group flexFull">
-            <label htmlFor="name"> Name</label>
-            <input
-              name="name"
-              type="text"
-              className="form-control"
-              placeholder="Enter Your name"
-            />
-            <span className="spanError">{errors.name}</span>
-          </div>
-          <div className="field-group flexFull">
-            <label htmlFor="name"> Email Address </label>
-            <input
-              name="email"
-              type="email"
-              className="form-control"
-              placeholder="Enter email address"
-              value={data.email}
-            />
-            <span className="spanError">{errors.email}</span>
-          </div>
-          <div className="field-group flexFull">
-            <label htmlFor="name"> Password </label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-            />
-            <span className="spanError">{errors.password}</span>
-          </div>
-          <div className="field-group flexFull">
-            <label htmlFor="name"> Repeat Password </label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="Enter repeat password"
-            />
-            <span className="spanError">{errors.repeatpassword}</span>
-          </div>
-          <div className="field-group flexFull">
-            <label>
-              <input type="checkbox" />
-              <span>Accept our Terms and Conditions.</span>
-            </label>
-          </div>
-          <div className="account-field">
-          <h1>
-            Already have an account? <Link to="/Login">Sign in</Link>
-          </h1>
-        </div>
+          <div className="form-body ">
+            <div className="field-group flexFull">
+              <label htmlFor="name"> Name</label>
+              <input
+                name="name"
+                type="text"
+                className="form-control"
+                placeholder="Enter Your name"
+              />
+              <span className="spanError">{errors.name}</span>
+            </div>
+            <div className="field-group flexFull">
+              <label htmlFor="name"> Email Address </label>
+              <input
+                name="email"
+                type="email"
+                className="form-control"
+                placeholder="Enter email address"
+                value={data.email}
+              />
+              <span className="spanError">{errors.email}</span>
+            </div>
+            <div className="field-group flexFull selectplan">
+              <label htmlFor="Plan"> Selected Plan</label>
+              <Select
+                Value={communicator}
+                options={planOptions}
+                formatGroupLabel={planLabel}
+              />
+            </div>
+            <div className="field-group flexFull">
+              <label htmlFor="name"> Password </label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                placeholder="Enter password"
+              />
+              <span className="spanError">{errors.password}</span>
+            </div>
+            <div className="field-group flexFull">
+              <label htmlFor="name"> Repeat Password </label>
+              <input
+                name="password"
+                type="password"
+                className="form-control"
+                placeholder="Enter repeat password"
+              />
+              <span className="spanError">{errors.repeatpassword}</span>
+            </div>
+            <div className="field-group flexFull">
+              <label>
+                <input type="checkbox" />
+                <span>Accept our Terms and Conditions.</span>
+              </label>
+            </div>
+            <div className="account-field">
+              <h1>
+                Already have an account? <Link to="/Login">Sign in</Link>
+              </h1>
+            </div>
           </div>
           <div className="field-group flexFull submit-btn">
-        
             <button type="submit" className="btn btn-primary">
               Create account
             </button>
           </div>
-          
         </form>
       </div>
     </div>

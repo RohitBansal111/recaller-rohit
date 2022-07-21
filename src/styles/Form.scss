@@ -365,3 +365,18 @@
 	border-radius: 10px;
 	background-color: #655beb;
 }
+div{
+  &:focus,&:active{
+    box-shadow: none!important;
+    outline: none!important;
+  }
+}
+.datalabel{
+  font-size: 14px;
+  color: #655beb;
+}
+.selectplan{
+  div,span{
+    font-size: 14px;
+  }
+}
