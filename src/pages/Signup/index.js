@@ -2,10 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { userLoginApi } from "../../api/user";
-import { loginAction } from "../../redux/actions/loginAction";
 
-const Login = () => {
+const Signup = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -21,6 +19,10 @@ const Login = () => {
     const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     let formData = true;
     switch (true) {
+      case !data.name:
+        setErrors({ name: "Name field is required!" });
+        formData = false;
+        break;
       case !data.email:
         setErrors({ email: "Email field is required!" });
         formData = false;
@@ -33,40 +35,37 @@ const Login = () => {
         setErrors({ password: "Password is required!" });
         formData = false;
         break;
+      case !data.repeatpassword:
+        setErrors({ repeatpassword: "Repeat Password is required!" });
+        formData = false;
+        break;
       default:
         formData = true;
     }
     return formData;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isValid()) {
-      const res = await userLoginApi(data);
-      if (res && res.data && res.data.status === 200) {
-        toast.success("Login successful!");
-        dispatch(loginAction(res.data.data));
-        localStorage.setItem("token", res.data.data.jwt);
-        localStorage.setItem("userData", JSON.stringify(res.data.data));
-        navigate(`/`);
-      } else {
-        toast.error(res.data.message);
-      }
-    }
-  };
-
   return (
     <div className="form-page-layout">
-      <div className="center-form-box login-form-box">
-     
+      <div className="center-form-box signup-form">
         <div className="heading">
           <h2>Welcome,</h2>
           <p>
-            Please <b>sign in</b> to your account below.
+            It only takes a few seconds to <b>Create your account</b>
           </p>
         </div>
-        <form className="main-form" onSubmit={handleSubmit}>
-        <div className="form-body">
+        <form className="main-form signup-form">
+        <div className="form-body ">
+          <div className="field-group flexFull">
+            <label htmlFor="name"> Name</label>
+            <input
+              name="name"
+              type="text"
+              className="form-control"
+              placeholder="Enter Your name"
+            />
+            <span className="spanError">{errors.name}</span>
+          </div>
           <div className="field-group flexFull">
             <label htmlFor="name"> Email Address </label>
             <input
@@ -74,7 +73,6 @@ const Login = () => {
               type="email"
               className="form-control"
               placeholder="Enter email address"
-              onChange={handleChange}
               value={data.email}
             />
             <span className="spanError">{errors.email}</span>
@@ -86,40 +84,42 @@ const Login = () => {
               type="password"
               className="form-control"
               placeholder="Enter password"
-              onChange={handleChange}
-              value={data.password}
             />
             <span className="spanError">{errors.password}</span>
           </div>
-          <div className="field-group login-forget-password">
+          <div className="field-group flexFull">
+            <label htmlFor="name"> Repeat Password </label>
+            <input
+              name="password"
+              type="password"
+              className="form-control"
+              placeholder="Enter repeat password"
+            />
+            <span className="spanError">{errors.repeatpassword}</span>
+          </div>
+          <div className="field-group flexFull">
             <label>
               <input type="checkbox" />
-              <span>Keep me logged in</span>
+              <span>Accept our Terms and Conditions.</span>
             </label>
-          
           </div>
-          <div className="field-group account-field">
+          <div className="account-field">
           <h1>
-            No account? <Link to="/Signup">Sign up now</Link>
+            Already have an account? <Link to="/Login">Sign in</Link>
           </h1>
         </div>
-        </div>
+          </div>
           <div className="field-group flexFull submit-btn">
-          <div className="forget-password">
-          <Link to="/forgot-password" className="link-router">
-          Recover Password
-          </Link>
-        </div>
+        
             <button type="submit" className="btn btn-primary">
-              Login to Dashboard
+              Create account
             </button>
           </div>
           
-        
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

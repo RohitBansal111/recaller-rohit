@@ -35,7 +35,7 @@ const ActivityCardContent = (props) => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>Rename the campaign</li>
-                <li>View it Contacts</li>
+                <li>View Contacts</li>
                 <li>Fetch Reports</li>
               </ul>
             </div>
@@ -43,7 +43,7 @@ const ActivityCardContent = (props) => {
         </li>
         <li>
           <div className="card-tav-content">
-            <p> Visit our Help Centre </p>
+            <p>Recallr </p>
             <div className="more-action">
               <Button
                 className="re-dots btn-more-option dropdown-toggle"
@@ -59,7 +59,7 @@ const ActivityCardContent = (props) => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>Rename the campaign</li>
-                <li>View it Contacts</li>
+                <li>View Contacts</li>
                 <li>Fetch Reports</li>
               </ul>
             </div>
@@ -67,7 +67,7 @@ const ActivityCardContent = (props) => {
         </li>
         <li>
           <div className="card-tav-content">
-            <p> Visit our Help Centre </p>
+            <p> Test </p>
             <div className="more-action">
               <Button
                 className="re-dots btn-more-option dropdown-toggle"
@@ -83,7 +83,7 @@ const ActivityCardContent = (props) => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>Rename the campaign</li>
-                <li>View it Contacts</li>
+                <li>View Contacts</li>
                 <li>Fetch Reports</li>
               </ul>
             </div>
@@ -91,7 +91,7 @@ const ActivityCardContent = (props) => {
         </li>
         <li>
           <div className="card-tav-content">
-            <p> Visit our Help Centre </p>
+            <p> Honey Butter</p>
             <div className="more-action">
               <Button
                 className="re-dots btn-more-option dropdown-toggle"
@@ -107,7 +107,7 @@ const ActivityCardContent = (props) => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>Rename the campaign</li>
-                <li>View it Contacts</li>
+                <li>View Contacts</li>
                 <li>Fetch Reports</li>
               </ul>
             </div>
@@ -115,7 +115,7 @@ const ActivityCardContent = (props) => {
         </li>
         <li>
           <div className="card-tav-content">
-            <p> Visit our Help Centre </p>
+            <p> Toyaota </p>
             <div className="more-action">
               <Button
                 className="re-dots btn-more-option dropdown-toggle"
@@ -131,7 +131,7 @@ const ActivityCardContent = (props) => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>Rename the campaign</li>
-                <li>View it Contacts</li>
+                <li>View Contacts</li>
                 <li>Fetch Reports</li>
               </ul>
             </div>

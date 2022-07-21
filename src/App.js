@@ -36,6 +36,7 @@ import ScheduledMessages from "./pages/settings/localMessage/scheduled-messages"
 import Import from "./pages/contacts";
 import { userDetailApi } from "./api/user";
 import Login from "./pages/login";
+import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import EmailPage from "./pages/email";
@@ -90,6 +91,14 @@ function App({ component: Component, ...rest }) {
             </IsNotAuthenticated>
           }
         />
+        <Route
+        path="/Signup"
+        element={
+          <IsNotAuthenticated>
+            <Signup />
+          </IsNotAuthenticated>
+        }
+      />
         <Route
           path="/forgot-password"
           element={
