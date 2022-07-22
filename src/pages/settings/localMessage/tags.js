@@ -10,6 +10,7 @@ import {
 } from "../../../api/tag";
 import { Link } from "react-router-dom";
 import { MdChevronRight } from "react-icons/md";
+import Layout from "../../../components/layout";
 
 const ConversationTags = () => {
   const [openCreateTagModal, setOpenCreateTagModal] = useState(false);
@@ -126,6 +127,7 @@ const ConversationTags = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -176,6 +178,7 @@ const ConversationTags = () => {
         errors={errors}
       />
     </div>
+    </Layout>
   );
 };
 

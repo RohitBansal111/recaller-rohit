@@ -17,7 +17,7 @@ import {
 } from "../../api/filter";
 import Layout from "../../components/layout";
 
-const Import = () => {
+const Campaigncontact = () => {
   const [show, setShow] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
@@ -554,26 +554,11 @@ const Import = () => {
   };
 
   return (
-    <Layout>
-      <div className="page-header justify-flex-end">
-        {/* <h1>Imported Contacts</h1> */}
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="success"
-            id="dropdown-basic"
-            className="btn btn-medium btn-primary"
-          >
-            Add Contacts
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={handleUploadShow}>
-              Upload Spreadsheet
-            </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={handleShow}>
-              Manual Entry
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+   <Layout>
+      <div className="page-header justify-flex-start">
+            <div className="layoutheading">
+            <h1>Campaign Name</h1>
+            </div>
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
@@ -677,8 +662,8 @@ const Import = () => {
         setIsLoading={setIsLoading}
         setUploadModal={setUploadModal}
       />
-      </Layout>
+    </Layout>
   );
 };
 
-export default Import;
+export default Campaigncontact;

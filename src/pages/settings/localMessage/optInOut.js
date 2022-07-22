@@ -6,6 +6,7 @@ import {
   getOptInOutRequest,
 } from "../../../api/setting-Api/textOptSetting";
 import { MdChevronRight } from "react-icons/md";
+import Layout from "../../../components/layout";
 
 const OPTInOut = () => {
   const [optkeyWordSetting, setOptkeyWordSetting] = useState({});
@@ -53,6 +54,7 @@ const OPTInOut = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -135,6 +137,7 @@ const OPTInOut = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

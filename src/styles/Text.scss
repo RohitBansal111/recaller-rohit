@@ -124,6 +124,9 @@
       border-left: 1px solid lightgray;
       border-right: 1px solid lightgray;
       background-color: $Theme-white;
+      overflow-y: auto !important;
+      overflow-x: hidden;
+      height: calc(100vh - 73px);
       .all-discuss-section {
         height: 100%;
         position: relative;
@@ -193,8 +196,12 @@
           width: 94%;
           margin: auto;
           left: 3%;
-          min-height: 340px;
+          min-height:340px;
           background: #fff;
+          @media(max-width:1700px){
+            min-height: 200px;
+            max-height: 200px;
+          }
           .chat-textarea {
             width: 100%;
             background-color: $Theme-white;
@@ -336,6 +343,8 @@
     .chat-compassion-area {
       flex: 0 0 30%;
       background-color: $Theme-white;
+      overflow-y: auto!important;
+      height: calc(100vh - 75px);
       .user-compassion-details {
         padding: 15px;
         border-bottom: 1px solid lightgray;
@@ -536,8 +545,12 @@
     min-height: calc(100vh - 390px);
   }
   &.email-middle-screen {
-    max-height: calc(100vh - 500px);
-    min-height: calc(100vh - 500px);
+    max-height: calc(100vh - 555px);
+    min-height: calc(100vh - 555px);
+    @media(max-width:1700px){
+      max-height: calc(100vh - 225px);
+      min-height: calc(100vh - 225px);
+    }
   }
   .date-update {
     text-align: center;
@@ -653,7 +666,7 @@
     li {
       width: 100%;
       color: #333;
-      margin-bottom: 60px;
+      margin-bottom:25px;
       font-size: 13px;
       word-break: break-word;
       text-align: left;

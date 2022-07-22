@@ -36,6 +36,7 @@ import BulkEmailMessageModal from "../../models/bulkEmailMessageModal";
 import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
 import date from "date-and-time";
+import Layout from "../../components/layout";
 
 const EmailPage = () => {
   var today = new Date();
@@ -1100,6 +1101,7 @@ const EmailPage = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout text-page-content">
       {/* <div className="page-header justify-flex-end">
         <button
@@ -1385,6 +1387,7 @@ const EmailPage = () => {
         CancelEmoji={CancelEmoji}
       />
     </div>
+    </Layout>
   );
 };
 export default EmailPage;

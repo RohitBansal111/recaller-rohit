@@ -4,6 +4,7 @@ import EmailSenderModal from "../../../models/EmailSenderModal";
 import { useState } from "react";
 import { MdChevronRight } from "react-icons/md";
 import {createEmailSenderApi,getEmailSenderListApi} from '../../../api/emailMessage';
+import Layout from "../../../components/layout";
 
 const EmailSender = () => {
   const [show, setShow] = useState(false);
@@ -55,6 +56,7 @@ const EmailSender = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -129,6 +131,7 @@ const EmailSender = () => {
         addEmailSender={addEmailSender}
       />
     </div>
+    </Layout>
   );
 };
 

@@ -1,15 +1,17 @@
 :root {
   scroll-behavior: smooth;
 }
+
 html,
 body {
   font-family: "Poppins", sans-serif;
   color: #444444;
   background-color: $Body-color;
 }
+
 a {
   color: #444444;
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 
 a:hover {
@@ -25,13 +27,16 @@ h5,
 h6 {
   font-family: "Poppins", sans-serif;
 }
+
 button:focus {
   box-shadow: none !important;
   outline: none !important;
 }
+
 .text-right {
   text-align: right !important;
 }
+
 .justify-flex-end {
   justify-content: flex-end !important;
 }
@@ -43,17 +48,21 @@ button:focus {
     }
   }
 }
+
 .ck-balloon-panel {
   z-index: 9999 !important;
   left: 322px !important;
 }
+
 .middle-chat-screen ul li .chat-ui-box pre {
   white-space: break-spaces;
 }
+
 .attachedImage-box.email-emailEditor .ck-editor .ck-editor__editable {
   white-space: break-spaces;
   word-break: break-all;
 }
+
 .middle-chat-screen {
   ul {
     li {
@@ -65,6 +74,7 @@ button:focus {
               margin-left: 10px;
             }
           }
+
           ol {
             li {
               list-style: auto;
@@ -72,6 +82,7 @@ button:focus {
             }
           }
         }
+
         img {
           max-width: 270px;
         }
@@ -79,9 +90,11 @@ button:focus {
     }
   }
 }
+
 ul {
   padding: 0px;
   margin: 0px;
+
   li {
     list-style-type: none;
   }
@@ -90,9 +103,11 @@ ul {
 .modal-backdrop {
   display: none;
 }
+
 .modal-open .modal {
   background-color: #0000007d;
 }
+
 .listBreak {
   border-color: #eeeeee;
   margin-bottom: 0px;
@@ -105,10 +120,12 @@ ul {
 .data-notFound {
   @include flexAllCenter;
   min-height: 400px;
+
   @include Phone {
     min-height: 200px;
   }
 }
+
 .MuiLoadingButton-loadingIndicator {
   position: relative;
   left: 0px;
@@ -119,6 +136,7 @@ ul {
 .page-wrapper {
   display: flex;
   justify-content: space-between;
+
   .page-sidebar {
     background-color: #fff !important;
     width: 320px;
@@ -127,15 +145,18 @@ ul {
     min-width: 320px;
     position: relative;
   }
+
   .main-content {
     width: 100%;
     max-width: calc(100vw - 320px);
     width: 100%;
     overflow: hidden;
     background-color: #f5f5f5;
+
     .text-page-content {
       overflow: hidden;
     }
+
     .page-header {
       display: flex;
       align-items: center;
@@ -146,28 +167,35 @@ ul {
       border-bottom: rgba(0, 0, 0, 0.04) solid 1px;
       background: rgba(0, 0, 0, 0.01);
       box-sizing: border-box;
+
       &.subheading-bar {
         flex-direction: row;
         align-items: center;
         padding: 15px 20px;
         display: flex;
+
         h1 {
           margin-bottom: 0px;
         }
+
         p {
           color: #6c757d !important;
           margin: 0px;
         }
       }
+
       h1 {
         font-size: 24px;
         font-weight: 600;
       }
+
       .dropdown {
         position: relative;
+
         button {
           border-radius: 30px;
         }
+
         .dropdown-menu {
           inset: initial !important;
           transform: none !important;
@@ -180,24 +208,28 @@ ul {
           box-shadow: 0px 4px 5px #dcdcdc;
           padding: 10px;
           border: none;
+
           .dropdown-item {
             display: block;
             width: 100%;
             padding: 9px 10px;
             box-sizing: border-box;
             font-size: 15px;
+
             &:last-child {
               border-bottom: none !important;
             }
           }
         }
       }
+
       .header-text {
         p {
           a {
             color: #655beb;
             text-decoration: none;
             font-weight: 400;
+
             &:hover {
               text-decoration: none;
             }
@@ -225,17 +257,20 @@ span.spanError {
 
 .content-page-layout {
   height: 100%;
+
   .coming-soon {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center !important;
     align-items: center;
+
     img {
       width: 100%;
       max-width: 350px;
     }
   }
+
   .MuiBox-root {
     .MuiTabs-flexContainer {
       .MuiButtonBase-root {
@@ -243,20 +278,24 @@ span.spanError {
         font-size: 16px;
         font-family: "Poppins", sans-serif !important;
         text-transform: capitalize;
+
         &.Mui-selected {
           color: $Active-color;
         }
       }
     }
+
     .MuiTabs-indicator {
       background-color: $Active-color;
     }
+
     .tab-content {
       background-color: $Body-color;
       padding: 30px 20px;
     }
   }
 }
+
 .content-center-box {
   width: 70%;
   margin: auto;
@@ -267,15 +306,18 @@ span.spanError {
   border: 2px solid #39b54a;
   background-color: #e7f5e9;
 }
+
 .notification-bar {
   padding: 13px 20px;
   background-color: $TableColor;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   span {
     color: $Theme-white;
   }
+
   svg {
     fill: $Theme-white;
     cursor: pointer;
@@ -288,15 +330,18 @@ span.spanError {
   border-bottom: 1px solid #eee;
   height: 50px;
   margin-bottom: 0px !important;
+
   .nav-item {
     &:focus-visible {
       outline: 0px !important;
     }
+
     button {
       color: #bbb;
       font-size: 14px;
       font-weight: 500;
       height: 50px;
+
       &.active {
         color: $Active-color;
         font-weight: 500;
@@ -304,28 +349,35 @@ span.spanError {
         background-color: transparent;
         border-bottom: 2px solid $Active-color;
       }
+
       &:focus {
         border: 1px solid transparent;
       }
+
       &:hover {
         border: 1px solid transparent;
       }
+
       &:focus-visible {
         outline: 0px !important;
       }
     }
   }
 }
+
 .add-tag-contact {
   .main-form {
     display: block;
   }
 }
+
 .email-main-section {
   height: 100%;
+
   .chatbox-warpper {
     .inner-chatbox-area {
       padding: 0px;
+
       .chat-user-list {
         flex: 0 0 35%;
         background-color: transparent !important;
@@ -333,29 +385,35 @@ span.spanError {
     }
   }
 }
+
 .email-sender-content {
   background-color: #fff;
   padding: 20px;
+
   h2 {
     font-size: 23px;
     font-weight: 500;
     color: $HeadingColor;
   }
+
   p {
     color: $labelColor;
     font-size: 15px;
+
     a {
       color: $Active-color;
       font-weight: 600;
       text-decoration: none;
     }
   }
+
   h4 {
     color: $Icon-color;
     font-weight: 600;
     font-size: 21px;
     margin-top: 25px;
   }
+
   ul {
     li {
       color: $labelColor;
@@ -363,10 +421,12 @@ span.spanError {
     }
   }
 }
+
 .modal-para {
   color: $labelColor;
   font-size: 15px;
   text-align: center;
+
   a {
     color: $Active-color;
     font-weight: 600;
@@ -378,49 +438,60 @@ span.spanError {
 .select-tags-styles {
   display: flex;
   flex-direction: column;
-  > div {
+
+  >div {
     &:first-child {
       order: 2;
       margin-top: 4px;
     }
+
     &:last-child {
       order: 1;
     }
   }
 }
+
 .manageTem-modal {
   .modal-dialog {
     min-width: 850px !important;
+
     .modal-body {
       padding: 0px !important;
     }
+
     .modal-footer {
       padding: 0px !important;
+
       .manage-modal-action {
         margin: 0px;
       }
     }
   }
+
   .modal-footer {
     padding-bottom: 0px;
   }
 }
+
 .manage-template-body {
   .tab-content {
     border-left: 1px solid #dedede;
     padding: 10px;
     flex: 0 0 70%;
     position: relative;
+
     .tab-pane {
       min-height: 300px;
     }
   }
+
   .create_new {
     position: absolute;
     bottom: 0px;
     min-width: 30%;
     margin-bottom: 0px;
     border-top: 1px solid #dedede;
+
     .btn {
       color: #655beb !important;
       outline: 0;
@@ -435,9 +506,11 @@ span.spanError {
       text-align: center;
     }
   }
+
   .nav-pills {
     min-width: 30%;
     margin-right: 0px !important;
+
     .nav-link {
       cursor: pointer;
       font-size: 14px;
@@ -449,20 +522,25 @@ span.spanError {
       border-top: 1px solid #dedede;
       text-align: left;
       color: $Theme-dark;
+
       &.active {
         background-color: #eee;
       }
+
       &:hover {
         background-color: #eee;
       }
     }
+
     .main-form {
       padding: 5px 10px;
       border-bottom: 1px solid lightgray;
       height: 70px;
+
       .field-group {
         margin: 10px 0px;
       }
+
       .searchField {
         .form-control {
           border-radius: 30px;
@@ -471,14 +549,17 @@ span.spanError {
     }
   }
 }
+
 .manage-modal-action {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .btn {
     margin-bottom: 0px !important;
   }
+
   .right-actions {
     .btn-primary-outline {
       border: 1px solid #27dcbf !important;
@@ -488,17 +569,21 @@ span.spanError {
     }
   }
 }
+
 .edit-manage-template {
   padding: 10px;
+
   .page-footer {
     display: flex;
     align-items: center;
     justify-content: center;
+
     .btn-cancel {
       margin-right: 10px;
     }
   }
 }
+
 .emoji-picker-react {
   position: absolute !important;
   bottom: 0px;
@@ -511,14 +596,17 @@ span.spanError {
 .search-data-table {
   height: auto !important;
 }
+
 .search-data-table .rdt_TableBody div {
   white-space: break-spaces !important;
   padding: 3px 8px;
 }
+
 .setting-tpbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .savebtn {
     margin-left: 15px;
     font-size: 14px;
@@ -534,32 +622,21 @@ span.spanError {
 .ck-editor__editable_inline {
   max-height: 250px;
   overflow: auto;
+
   ul {
     padding-bottom: 25px;
   }
 }
-form.main-form
-  .field-group:first-child
-  .select-tags-styles
-  div
-  + div
-  span
-  + span
-  + div {
+
+form.main-form .field-group:first-child .select-tags-styles div+div span+span+div {
   position: relative;
   z-index: 0;
 }
-form.main-form
-  .field-group:first-child
-  .select-tags-styles
-  div
-  + div
-  span
-  + span
-  + div
-  + div {
+
+form.main-form .field-group:first-child .select-tags-styles div+div span+span+div+div {
   z-index: 999;
 }
+
 aside.emoji-picker-react {
   z-index: 9;
   bottom: 30px;
@@ -568,11 +645,14 @@ aside.emoji-picker-react {
 .attachedImageGallery {
   margin: 0px;
   padding: 0px;
+
   li {
     position: relative;
+
     img {
       max-width: 100%;
     }
+
     .btn {
       position: absolute;
       right: -25px;
@@ -580,26 +660,32 @@ aside.emoji-picker-react {
     }
   }
 }
+
 .imgshowpopup {
   display: flex;
   padding: 10px 10px 15px 10px;
   border: 1px solid #bbb;
   border-radius: 5px;
   min-height: 170px;
+
   ul.attachedImageGallery {
     max-width: 150px;
   }
+
   textarea {
     background-color: transparent;
     border: none !important;
+
     &:focus {
       border: none !important;
     }
   }
-  & + .action-icons {
+
+  &+.action-icons {
     margin-bottom: 3px !important;
   }
 }
+
 .main-form {
   .messageBoxModal {
     .imgshowpopup {
@@ -611,10 +697,12 @@ aside.emoji-picker-react {
     }
   }
 }
+
 .contact-data-table-main {
   table {
     tbody {
       position: relative;
+
       .circular-loading {
         position: absolute;
         right: 0px;
@@ -625,6 +713,7 @@ aside.emoji-picker-react {
         bottom: 0px;
         background: rgba(0, 0, 0, 0.05);
         overflow: hidden;
+
         span {
           position: absolute;
           top: 50%;
@@ -639,24 +728,29 @@ aside.emoji-picker-react {
 .emoji-cancel-button {
   position: absolute;
   top: 0;
+
   button.btn-action1 {
     min-width: 37px;
   }
 }
+
 .all-discuss-section {
   aside.emoji-picker-react {
     z-index: 9;
     bottom: 50px;
   }
+
   .emoji-cancel-button {
     position: relative;
     top: -11px;
     left: 0px;
+
     button.btn-action1 {
       min-width: auto;
     }
   }
 }
+
 .MuiPaper-root .MuiMenu-list .MuiMenuItem-root {
   display: flex;
   padding-top: 6px;
@@ -667,12 +761,14 @@ aside.emoji-picker-react {
   padding-right: 16px;
   justify-content: flex-start;
 }
+
 // .chat-textarea {
 .ck.ck-content p {
   margin-bottom: 0px !important;
   margin-top: 0px !important;
   // display: inline;
 }
+
 // &.Internal {
 //   textarea {
 //     min-height: 195.59px !important;
@@ -684,6 +780,7 @@ aside.emoji-picker-react {
   display: inline-flex;
   flex-wrap: wrap;
 }
+
 .main-content div::-webkit-scrollbar-track {
   border-radius: 20px;
 }
@@ -696,32 +793,44 @@ aside.emoji-picker-react {
   border-radius: 20px;
   background-color: #474949;
 }
-.inner-sidebar .sidebar-menu::-webkit-scrollbar-track {
+
+.inner-sidebar .sidebar-menu::-webkit-scrollbar-track,
+.user-list-main::-webkit-scrollbar-track,
+.price-page-layout::-webkit-scrollbar-track {
   border-radius: 20px;
 }
 
-.inner-sidebar .sidebar-menu::-webkit-scrollbar {
+.inner-sidebar .sidebar-menu::-webkit-scrollbar,
+.user-list-main::-webkit-scrollbar,
+.price-page-layout::-webkit-scrollbar {
   width: 8px;
 }
 
-.inner-sidebar .sidebar-menu::-webkit-scrollbar-thumb {
+.inner-sidebar .sidebar-menu::-webkit-scrollbar-thumb,
+.user-list-main::-webkit-scrollbar-thumb,
+.price-page-layout::-webkit-scrollbar-thumb {
   border-radius: 20px;
   background-color: #474949;
 }
-.search-main-section .search-data-table > div:first-child {
+
+.search-main-section .search-data-table>div:first-child {
   max-height: calc(100vh - 270px);
   overflow-y: auto;
 }
-.common-data-table > div:first-child {
+
+.common-data-table>div:first-child {
   max-height: calc(100vh - 210px);
   overflow-y: auto;
 }
+
 body {
   overflow-y: hidden;
 }
+
 .voice-record-upload {
   width: 100%;
   position: relative;
+
   .cl-icon {
     position: absolute;
     right: -15px;
@@ -732,24 +841,29 @@ body {
     line-height: 0px;
     width: 20px;
     height: 20px;
+
     svg {
       color: #fff;
     }
   }
+
   .remove-recording-action {
     left: auto;
     top: -15px;
     right: -15px;
   }
+
   .upload-voice-recording.bulk-upload {
     margin-top: 20px;
   }
 }
+
 .field-group.flexFull {
   position: relative;
 }
+
 .upload-voicemodal .voice-recorder-box {
-  & + .remove-recording-action {
+  &+.remove-recording-action {
     position: absolute;
     right: -12px;
     top: -5px;
@@ -760,6 +874,7 @@ body {
     width: 20px;
     height: 20px;
     border-radius: 25px;
+
     svg {
       fill: #fff;
       font-size: 15px;
@@ -771,4 +886,22 @@ body {
   border: 2px dashed #27dcbf !important;
   border-radius: 5px;
   background-color: #d4fff4;
+}
+
+.flex-half-field {
+  display: flex;
+  justify-content: space-between;
+  margin-left: -15px;
+  margin-right: -15px;
+
+  .flex-half {
+    width: 50%;
+    margin: 0px 15px;
+  }
+}
+
+.price-page-layout {
+  &+.page-wrapper {
+    display: none !important;
+  }
 }

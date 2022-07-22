@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { userDetailApi, userUpdateApi } from "../../../api/user";
+import Layout from "../../../components/layout";
 import { loginAction } from "../../../redux/actions/loginAction";
 
 const MyAccount = () => {
@@ -78,6 +79,7 @@ const MyAccount = () => {
     }
   };
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header">
         <h1>My Account</h1>
@@ -145,6 +147,7 @@ const MyAccount = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

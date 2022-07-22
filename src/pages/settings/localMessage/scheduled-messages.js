@@ -3,6 +3,7 @@ import ScheduledMessagesTable from "../../../components/settings/scheduled-messa
 import { MdChevronRight } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getScheduleMessageApi } from "../../../api/setting-Api/schMsgSetting";
+import Layout from "../../../components/layout";
 
 const ScheduledMessages = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const ScheduledMessages = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -48,6 +50,7 @@ const ScheduledMessages = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

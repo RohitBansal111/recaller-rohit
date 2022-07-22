@@ -1,5 +1,6 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
+import Layout from "../../components/layout";
 
 const SettingCards = [
   {
@@ -15,6 +16,7 @@ const SettingCards = [
 ];
 const Setting = () => {
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header">{/* <h1>Settings</h1> */}</div>
       <div className="setting-page-main">
@@ -39,6 +41,7 @@ const Setting = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

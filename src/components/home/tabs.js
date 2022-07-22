@@ -18,9 +18,6 @@ const ActivityTabs = () => {
         <Tab eventKey="Campaigns" title="Campaigns">
           <ActivityCardContent />
         </Tab>
-        <Tab eventKey="highlight" title="Highlights">
-          <ActivityCardContent />
-        </Tab>
       </Tabs>
     </div>
   );

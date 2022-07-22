@@ -4,6 +4,7 @@ import SMSMessageGraph from "../../../components/settings/sms-message-graph";
 import { MdChevronRight } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getUsageApi } from "../../../api/setting-Api/usage";
+import Layout from "../../../components/layout";
 
 const Usage = () => {
   const [messageData, setMessageData] = useState();
@@ -21,6 +22,7 @@ const Usage = () => {
   let longMonth = today.toLocaleString("en-us", { month: "long" });
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -63,6 +65,7 @@ const Usage = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

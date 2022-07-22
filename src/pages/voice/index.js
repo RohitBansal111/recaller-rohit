@@ -30,6 +30,7 @@ import BulkVoiceMessage from "../../models/bulkVoiceMessage";
 import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
 import date from "date-and-time";
+import Layout from "../../components/layout";
 
 const Voice = () => {
   const [openMessageModal, setOpenMessageModal] = useState(false);
@@ -761,6 +762,7 @@ const Voice = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout text-page-content">
       <div className="page-header justify-flex-end">
         <Dropdown>
@@ -947,6 +949,7 @@ const Voice = () => {
         clearUploadInput={clearUploadInput}
       />
     </div>
+    </Layout>
   );
 };
 

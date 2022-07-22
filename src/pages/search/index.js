@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchDataTable from "../../components/search/table";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { getSearch } from "../../api/search";
+import Layout from "../../components/layout";
 
 const Search = () => {
   const [search, setSearch] = useState({});
@@ -29,6 +30,7 @@ const Search = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header">{/* <h1>Search</h1> */}</div>
       <div className="search-main-section">
@@ -91,6 +93,7 @@ const Search = () => {
         {searchData && <SearchDataTable searchData={searchData} />}
       </div>
     </div>
+    </Layout>
   );
 };
 

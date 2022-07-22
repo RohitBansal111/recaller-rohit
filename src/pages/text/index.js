@@ -38,6 +38,7 @@ import { getCompaignApi } from "../../api/compaign";
 import { changeTimeZone } from "../../helper/getTimeZone";
 import date from "date-and-time";
 import { socket } from "../../helper/socket";
+import Layout from "../../components/layout";
 
 const TextPage = () => {
   var today = new Date();
@@ -1191,6 +1192,7 @@ const TextPage = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout text-page-content">
       {/* <div className="page-header justify-flex-end">
         <button
@@ -1481,6 +1483,7 @@ const TextPage = () => {
         imgref={imgref}
       />
     </div>
+    </Layout>
   );
 };
 

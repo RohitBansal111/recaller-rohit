@@ -35,8 +35,87 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const EmailChatBoot = (props) => {
+  const data = [
+    {
+      name: 'Page A',
+      uv:1500,
+    },
+    {
+      name: 'Page C',
+      uv: 1400,
+    },
+    {
+      name: 'Page B',
+      uv: 4000,
+    },
+    {
+      name: 'Page C',
+      uv: 1400,
+    },
+    {
+      name: 'Page D',
+      uv: 1800,
+    },
+    {
+      name: 'Page E',
+      uv: 1100,
+    },
+    {
+      name: 'Page F',
+      uv: 1100,
+    },
+    {
+      name: 'Page G',
+      uv: 1900,
+    },
+    {
+      name: 'Page G',
+      uv: 1600,
+    },
+    {
+      name: 'Page G',
+      uv: 1700,
+    },
+    {
+      name: 'Page G',
+      uv: 1100,
+    },
+    {
+      name: 'Page G',
+      uv: 1900,
+    },
+    {
+      name: 'Page G',
+      uv: 2100,
+    },
+    {
+      name: 'Page G',
+      uv: 1500,
+    },
+    {
+      name: 'Page G',
+      uv: 1800,
+    },
+    {
+      name: 'Page G',
+      uv: 1100,
+    },
+    {
+      name: 'Page G',
+      uv: 1400,
+    },
+    {
+      name: 'Page G',
+      uv: 1100,
+    },
+    {
+      name: 'Page G',
+      uv: 1500,
+    },
+  ];
   const location = useLocation();
 
   const userEmailMessageList = () => {
@@ -699,6 +778,38 @@ const EmailChatBoot = (props) => {
               </li>
             </ul>
           </div>
+
+
+
+            {/* Monthly credit usage column start */}
+            <div className="monthly-credit-use">
+            <h1>Monthly Credit usage</h1>
+            <div className="monthly-graph">
+            <ResponsiveContainer width={'99%'} height={150}>
+            <AreaChart
+              width={310}
+              height={150}
+              data={data}
+              margin={{
+                top: 5,
+                right: 0,
+                left: 0,
+                bottom: 5,
+              }}
+            >
+            <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="15%" stopColor="#28dcbf" stopOpacity={0.7}/>
+              <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
+            </linearGradient>
+          </defs>
+              <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
+            </AreaChart>
+            </ResponsiveContainer>
+            </div>
+          </div>
+ 
+          {/* Monthly credit usage column end */}
         </div>
         <ScheduleMessageModal
           showScheduleModal={props.showScheduleModal}

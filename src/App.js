@@ -37,11 +37,13 @@ import Import from "./pages/contacts";
 import { userDetailApi } from "./api/user";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
+import Campaigncontact from "./pages/Campaignscontact";
 import ForgotPassword from "./pages/forgot-password";
 import ResetPassword from "./pages/reset-password";
 import EmailPage from "./pages/email";
 import EmailSetting from "./pages/settings/email";
 import EmailSender from "./pages/settings/email/email-sender";
+import Price from "./pages/Price";
 import { socket } from "./helper/socket";
 import { Notifications } from "react-push-notification";
 
@@ -99,6 +101,14 @@ function App({ component: Component, ...rest }) {
           </IsNotAuthenticated>
         }
       />
+      <Route
+      path="/Price"
+      element={
+        <IsNotAuthenticated>
+          <Price />
+        </IsNotAuthenticated>
+      }
+    />
         <Route
           path="/forgot-password"
           element={
@@ -115,9 +125,6 @@ function App({ component: Component, ...rest }) {
             </IsNotAuthenticated>
           }
         />
-      </Routes>
-      <Layout>
-        <Routes>
           <Route
             exact
             path="/"
@@ -142,6 +149,15 @@ function App({ component: Component, ...rest }) {
             element={
               <IsAuthenticated>
                 <Import />
+              </IsAuthenticated>
+            }
+          />
+          <Route
+            exact
+            path="/viewcontacts"
+            element={
+              <IsAuthenticated>
+                <Campaigncontact />
               </IsAuthenticated>
             }
           />
@@ -308,7 +324,6 @@ function App({ component: Component, ...rest }) {
             }
           />
         </Routes>
-      </Layout>
       <ToastContainer limit={1}  />
       <Notifications />
     </Router>

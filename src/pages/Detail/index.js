@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import DetailTabs from "../../components/Detail/Detailtabs";
+import Layout from "../../components/layout";
 const Detail = (props) => {
   return (
+    <Layout>
     <div className="Detail-content">
       <div className="Detail-header">
         <h1>
@@ -13,6 +15,7 @@ const Detail = (props) => {
       </div>
      
     </div>
+    </Layout>
   );
 };
 

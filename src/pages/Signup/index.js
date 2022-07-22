@@ -29,16 +29,16 @@ const Signup = () => {
       options: communicator,
     },
   ];
-  console.log(planOptions , "planOptions");
+  console.log(planOptions, "planOptions");
   const planLabel = () => (
     <div>
-      <span className="datalabel">{planOptions.map((item)=>{
-      return item.label
-      }
-      )}
+      <span className="datalabel">
+        {planOptions.map((item) => {
+          return item.label;
+        })}
       </span>
     </div>
-  )
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -55,12 +55,28 @@ const Signup = () => {
         setErrors({ name: "Name field is required!" });
         formData = false;
         break;
+      case !data.lastname:
+        setErrors({ lastname: "Last Name field is required!" });
+        formData = false;
+        break;
       case !data.email:
         setErrors({ email: "Email field is required!" });
         formData = false;
         break;
       case data.email && !regex.test(data.email):
         setErrors({ email: "Please enter valid email address!" });
+        formData = false;
+        break;
+      case !data.phone:
+        setErrors({ phone: "Phone field is required!" });
+        formData = false;
+        break;
+      case !data.title:
+        setErrors({ title: "Title field is required!" });
+        formData = false;
+        break;
+      case !data.companyname:
+        setErrors({ companyname: "Company name field is required!" });
         formData = false;
         break;
       case !data.password:
@@ -88,8 +104,9 @@ const Signup = () => {
         </div>
         <form className="main-form signup-form">
           <div className="form-body ">
-            <div className="field-group flexFull">
-              <label htmlFor="name"> Name</label>
+          <div className="flex-half-field">
+            <div className="field-group flex-half">
+              <label htmlFor="name"> First Name</label>
               <input
                 name="name"
                 type="text"
@@ -98,7 +115,19 @@ const Signup = () => {
               />
               <span className="spanError">{errors.name}</span>
             </div>
-            <div className="field-group flexFull">
+            <div className="field-group flex-half">
+              <label htmlFor="name">Last Name</label>
+              <input
+                name="lastname"
+                type="text"
+                className="form-control"
+                placeholder="Enter Your last name"
+              />
+              <span className="spanError">{errors.lastname}</span>
+            </div>
+            </div>
+            <div className="flex-half-field">
+            <div className="field-group flex-half">
               <label htmlFor="name"> Email Address </label>
               <input
                 name="email"
@@ -109,15 +138,41 @@ const Signup = () => {
               />
               <span className="spanError">{errors.email}</span>
             </div>
-            <div className="field-group flexFull selectplan">
-              <label htmlFor="Plan"> Selected Plan</label>
-              <Select
-                Value={communicator}
-                options={planOptions}
-                formatGroupLabel={planLabel}
+            <div className="field-group flex-half">
+              <label htmlFor="name">Phone</label>
+              <input
+                name="phone"
+                type="number"
+                className="form-control"
+                placeholder="Enter phone Number"
               />
+              <span className="spanError">{errors.phone}</span>
             </div>
-            <div className="field-group flexFull">
+            </div>
+            <div className="flex-half-field">
+            <div className="field-group flex-half">
+              <label htmlFor="name">Title</label>
+              <input
+                name="title"
+                type="text"
+                className="form-control"
+                placeholder="Enter Your Title"
+              />
+              <span className="spanError">{errors.title}</span>
+            </div>
+            <div className="field-group flex-half">
+              <label htmlFor="name">Company Name</label>
+              <input
+                name="companyname"
+                type="text"
+                className="form-control"
+                placeholder="Enter Your Company name"
+              />
+              <span className="spanError">{errors.companyname}</span>
+            </div>
+            </div>
+            <div className="flex-half-field">
+            <div className="field-group flex-half">
               <label htmlFor="name"> Password </label>
               <input
                 name="password"
@@ -127,7 +182,7 @@ const Signup = () => {
               />
               <span className="spanError">{errors.password}</span>
             </div>
-            <div className="field-group flexFull">
+            <div className="field-group flex-half">
               <label htmlFor="name"> Repeat Password </label>
               <input
                 name="password"
@@ -136,6 +191,7 @@ const Signup = () => {
                 placeholder="Enter repeat password"
               />
               <span className="spanError">{errors.repeatpassword}</span>
+            </div>
             </div>
             <div className="field-group flexFull">
               <label>
@@ -151,7 +207,7 @@ const Signup = () => {
           </div>
           <div className="field-group flexFull submit-btn">
             <button type="submit" className="btn btn-primary">
-              Create account
+             <Link to="/Price">Create account</Link> 
             </button>
           </div>
         </form>

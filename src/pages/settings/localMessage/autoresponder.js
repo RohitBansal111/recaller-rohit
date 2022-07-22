@@ -12,6 +12,7 @@ import {
 } from "../../../api/setting-Api/autoResPonder";
 import { toast } from "react-toastify";
 import { MdChevronRight } from "react-icons/md";
+import Layout from "../../../components/layout";
 
 const Autoresponder = () => {
   const [businessHourModal, setBusinessHourModal] = useState(false);
@@ -220,6 +221,7 @@ const Autoresponder = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar setting-tpbar">
         <div className="header-text">
@@ -455,6 +457,7 @@ const Autoresponder = () => {
         />
       </div>
     </div>
+    </Layout>
   );
 };
 

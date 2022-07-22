@@ -4,6 +4,7 @@ import Switch from "@mui/material/Switch";
 import { useEffect, useState } from "react";
 import { MdChevronRight } from "react-icons/md";
 import { toast } from "react-toastify";
+import Layout from "../../../components/layout";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -54,6 +55,7 @@ const LocalMessages = () => {
   };
 
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -107,6 +109,7 @@ const LocalMessages = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

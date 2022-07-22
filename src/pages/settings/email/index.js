@@ -1,6 +1,7 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Link } from "react-router-dom";
 import { MdChevronRight } from "react-icons/md";
+import Layout from "../../../components/layout";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -13,6 +14,7 @@ const SettingCards = [
 ];
 const EmailSetting = () => {
   return (
+    <Layout>
     <div className="content-page-layout">
       <div className="page-header subheading-bar">
         <div className="header-text">
@@ -50,6 +52,7 @@ const EmailSetting = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 
