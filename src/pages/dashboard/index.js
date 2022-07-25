@@ -119,19 +119,19 @@ const Dashboard = (props) => {
               </div>
               <div className="voice-select">
                 <select>
-                  <option>select compaigns</option>
+                  <option>select Campaign</option>
                   <option value="2">2</option>
                 </select>
               </div>
             </div>
-            <div className="performance-body">
+            <div className="performance-body voice-value">
               <div className="performance-value-box">
                 <h2>Credit Usage</h2>
                 <div className="performance-value">
                   <span className="circle">
                     <BsFillRecordCircleFill />
                   </span>
-                  <span className="price-value">$984</span>
+                  <span className="price-value">984</span>
                   <span className="percentage-value">+14</span>
                 </div>
               </div>
@@ -149,16 +149,16 @@ const Dashboard = (props) => {
                     }}
                   >
                     <defs>
-                      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <linearGradient id="colorvoice" x1="0" y1="0" x2="0" y2="1">
                         <stop
                           offset="15%"
-                          stopColor="#f7b924"
+                          stopColor="#3ac47d"
                           stopOpacity={0.7}
                         />
                         <stop
-                          offset="80%"
-                          stopColor="#ffe3a2"
-                          stopOpacity={0.5}
+                          offset="100%"
+                          stopColor="#3ac47d"
+                          stopOpacity={0.1}
                         />
                       </linearGradient>
                     </defs>
@@ -166,9 +166,9 @@ const Dashboard = (props) => {
                       type="monotone"
                       strokeWidth={4}
                       dataKey="uv"
-                      stroke="#f7b924"
+                      stroke="#3ac47d"
                       fillOpacity={1}
-                      fill="url(#colorUv)"
+                      fill="url(#colorvoice)"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -201,7 +201,7 @@ const Dashboard = (props) => {
                             </div>
 
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">Recaller</div>
+                              <div className="pfield-heading">Delivered</div>
                               <div className="pfield-subheading">
                                 <Badge bg="secondary">$152</Badge>
                               </div>
@@ -233,7 +233,7 @@ const Dashboard = (props) => {
                             </div>
 
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">test</div>
+                              <div className="pfield-heading">failed</div>
                               <div className="pfield-subheading">
                                 <Badge bg="secondary">$132</Badge>
                               </div>
@@ -260,19 +260,19 @@ const Dashboard = (props) => {
             </div>
             <div className="voice-select">
               <select>
-                <option>select compaigns</option>
+                <option>select Campaign</option>
                 <option value="2">2</option>
               </select>
             </div>
           </div>
-          <div className="performance-body">
+          <div className="performance-body text-value">
             <div className="performance-value-box">
               <h2>Credit Usage</h2>
               <div className="performance-value">
                 <span className="circle">
                   <BsFillRecordCircleFill />
                 </span>
-                <span className="price-value">$984</span>
+                <span className="price-value">984</span>
                 <span className="percentage-value failed">+6%</span>
               </div>
             </div>
@@ -297,9 +297,9 @@ const Dashboard = (props) => {
                         stopOpacity={0.7}
                       />
                       <stop
-                        offset="80%"
+                        offset="100%"
                         stopColor="#f7b924"
-                        stopOpacity={0.5}
+                        stopOpacity={0.2}
                       />
                     </linearGradient>
                   </defs>
@@ -325,11 +325,11 @@ const Dashboard = (props) => {
                         <div className="pfield-progressbar">
                           <div className="progress-circle-wrapper">
                             <CircularProgressbar
-                              value={textpercentage}
-                              text={`${textpercentage}%`}
+                              value={voicepercentage}
+                              text={`${voicepercentage}%`}
                               styles={{
                                 path: {
-                                  stroke: "#d92550",
+                                  stroke: "#1b00ff",
                                 },
                                 text: {
                                   fill: "cadetblue",
@@ -341,7 +341,7 @@ const Dashboard = (props) => {
                           </div>
 
                           <div className="pfield-content-left">
-                            <div className="pfield-heading">Recaller</div>
+                            <div className="pfield-heading">Delivered</div>
                             <div className="pfield-subheading">
                               <Badge bg="secondary">$102</Badge>
                             </div>
@@ -373,7 +373,7 @@ const Dashboard = (props) => {
                           </div>
 
                           <div className="pfield-content-left">
-                            <div className="pfield-heading">test</div>
+                            <div className="pfield-heading">failed</div>
                             <div className="pfield-subheading">
                               <Badge bg="secondary">$132</Badge>
                             </div>
@@ -400,19 +400,19 @@ const Dashboard = (props) => {
           </div>
           <div className="voice-select">
             <select>
-              <option>select compaigns</option>
+              <option>select Campaign</option>
               <option value="2">2</option>
             </select>
           </div>
         </div>
-        <div className="performance-body">
+        <div className="performance-body Email-value">
           <div className="performance-value-box">
             <h2>Credit Usage</h2>
             <div className="performance-value">
               <span className="circle">
                 <BsFillRecordCircleFill />
               </span>
-              <span className="price-value">$984</span>
+              <span className="price-value">984</span>
               <span className="percentage-value">+14</span>
             </div>
           </div>
@@ -430,16 +430,16 @@ const Dashboard = (props) => {
                 }}
               >
                 <defs>
-                  <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="colorEmail" x1="0" y1="0" x2="0" y2="1">
                     <stop
                       offset="15%"
-                      stopColor="#f7b924"
+                      stopColor="#655beb"
                       stopOpacity={0.7}
                     />
                     <stop
-                      offset="80%"
-                      stopColor="#f7b924"
-                      stopOpacity={0.5}
+                      offset="100%"
+                      stopColor="#655beb"
+                      stopOpacity={0.2}
                     />
                   </linearGradient>
                 </defs>
@@ -447,9 +447,9 @@ const Dashboard = (props) => {
                   type="monotone"
                   strokeWidth={4}
                   dataKey="uv"
-                  stroke="#f7b924"
+                  stroke="#655beb"
                   fillOpacity={1}
-                  fill="url(#colorUv)"
+                  fill="url(#colorEmail)"
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -482,7 +482,7 @@ const Dashboard = (props) => {
                         </div>
 
                         <div className="pfield-content-left">
-                          <div className="pfield-heading">Recaller</div>
+                          <div className="pfield-heading">Delivered</div>
                           <div className="pfield-subheading">
                             <Badge bg="secondary">$152</Badge>
                           </div>
@@ -514,7 +514,7 @@ const Dashboard = (props) => {
                         </div>
 
                         <div className="pfield-content-left">
-                          <div className="pfield-heading">test</div>
+                          <div className="pfield-heading">failed</div>
                           <div className="pfield-subheading">
                             <Badge bg="secondary">$132</Badge>
                           </div>

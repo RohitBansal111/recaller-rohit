@@ -803,6 +803,7 @@ const EmailChatBoot = (props) => {
               <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
             </linearGradient>
           </defs>
+          <Tooltip />
               <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
             </AreaChart>
             </ResponsiveContainer>

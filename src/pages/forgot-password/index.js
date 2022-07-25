@@ -39,9 +39,10 @@ const ForgotPassword = () => {
 
   return (
     <div className="form-page-layout">
-      <div className="center-form-box">
-        <h2>Forgot Password</h2>
+      <div className="center-form-box forgetpassword">
+        <h2 className="text-center">Forgot Password</h2>
         <form className="main-form" onSubmit={handleSubmit}>
+        <div className="form-body">
           <div className="field-group flexFull">
             <label htmlFor="name"> Enter Email Address </label>
             <input
@@ -54,15 +55,14 @@ const ForgotPassword = () => {
             />
             <span className="spanError">{errors.email}</span>
           </div>
-          <div className="field-group flex-2">
+          </div>
+          <div className="field-group flexFull submit-btn">
+          <Link to="/login" className="link-router">
+          Back to Login
+        </Link>
             <button type="submit" className="btn btn-primary">
               Submit Now
             </button>
-          </div>
-          <div className="field-group flex-2 d-flex align-items-center">
-            <Link to="/login" className="link-router">
-              Back to Login
-            </Link>
           </div>
         </form>
       </div>
