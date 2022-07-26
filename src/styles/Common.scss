@@ -139,17 +139,16 @@ ul {
 
   .page-sidebar {
     background-color: #fff !important;
-    width: 320px;
+    width: 100%;
     min-height: 100vh;
     box-shadow: 3px 15px 5px -3px #b3b3b3ad;
-    min-width: 320px;
     position: relative;
   }
 
   .main-content {
     width: 100%;
-    max-width: calc(100vw - 320px);
-    width: 100%;
+    // max-width: calc(100vw - 320px);
+    // width: 100%;
     overflow: hidden;
     background-color: #f5f5f5;
 

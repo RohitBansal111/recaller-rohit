@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userDetailApi, userUpdateApi } from "../../../api/user";
 import Layout from "../../../components/layout";
@@ -10,7 +11,7 @@ const MyAccount = () => {
   const dispatch = useDispatch();
   const userDataa = useSelector((state) => state.Login.userData);
   const [addUser, setAddUser] = useState({});
-  
+
   const isValid = () => {
     let formData = true;
     switch (true) {
@@ -80,73 +81,92 @@ const MyAccount = () => {
   };
   return (
     <Layout>
-    <div className="content-page-layout">
-      <div className="page-header">
-        <h1>My Account</h1>
-      </div>
-      <div className="content-center-box">
-        <div className="account-form">
-          <form className="main-form" onSubmit={handleSubmit}>
-            <div className="field-group flex2">
-              <label>First Name</label>
-              <input
-                name="firstName"
-                type="text"
-                className="form-control"
-                placeholder="Enter first name"
-                value={addUser && addUser.firstName}
-                onChange={handleChange}
-              />
-              <span className="spanError">{errors.firstName}</span>
-            </div>
-            <div className="field-group flex2">
-              <label>Last Name</label>
-              <input
-                name="lastName"
-                type="text"
-                className="form-control"
-                placeholder="Enter last name"
-                value={addUser && addUser.lastName}
-                onChange={handleChange}
-              />
-              <span className="spanError">{errors.lastName}</span>
-            </div>
-            <div className="field-group flexFull">
-              <label>Email Address</label>
-              <input
-                name="email"
-                type="text"
-                className="form-control"
-                placeholder="Enter email address"
-                disabled
-                value={addUser && addUser.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="field-group flexFull">
-              <label>Phone</label>
-              <input
-                name="phone"
-                type="text"
-                className="form-control"
-                placeholder="Enter phone number"
-                value={addUser && addUser.phone}
-                onChange={handleChange}
-              />
-              <span className="spanError">{errors.phone}</span>
-            </div>
-            <div className="field-group btn-groups flexFull">
-              {/* <button type="button" className="btn btn-cancel">
+      <div className="content-page-layout myaccount-layout">
+        <div className="page-header">
+          <h1>My Account</h1>
+        </div>
+        <div className="content-center-box">
+          <div className="account-subheading">
+            <h2>User Information</h2>
+            <p>Here you can edit public information about yourself.</p>
+          </div>
+          <div className="account-form">
+            <form className="main-form" onSubmit={handleSubmit}>
+              <div className="field-group flex2">
+                <label>First Name</label>
+                <input
+                  name="firstName"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter first name"
+                  value={addUser && addUser.firstName}
+                  onChange={handleChange}
+                />
+                <span className="spanError">{errors.firstName}</span>
+              </div>
+              <div className="field-group flex2">
+                <label>Last Name</label>
+                <input
+                  name="lastName"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter last name"
+                  value={addUser && addUser.lastName}
+                  onChange={handleChange}
+                />
+                <span className="spanError">{errors.lastName}</span>
+              </div>
+              <div className="field-group  flex2">
+                <label>Email Address</label>
+                <input
+                  name="email"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter email address"
+                  disabled
+                  value={addUser && addUser.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="field-group  flex2">
+                <label>Phone</label>
+                <input
+                  name="phone"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter phone number"
+                  value={addUser && addUser.phone}
+                  onChange={handleChange}
+                />
+                <span className="spanError">{errors.phone}</span>
+              </div>
+              <div className="field-group  flex2 currentplan">
+                <div className="currentplan-field">
+                  <label>Current Plan</label>
+                  <input
+                    name="currentplan"
+                    type="text"
+                    className="form-control"
+                    value="319"
+                    disabled
+                  />
+                </div>
+                <span className="changeplan">
+                  <Link to="/Price">Change Plan</Link>
+                </span>
+              </div>
+              <div className="field-group btn-groups flexFull">
+                {/* <button type="button" className="btn btn-cancel">
                 Cancel
               </button> */}
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </div>
-          </form>
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </Layout>
   );
 };
