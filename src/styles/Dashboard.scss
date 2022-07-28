@@ -323,8 +323,29 @@
   .add-campaign-btn {
     width: 100%;
     text-align: right;
-    padding: 0px 15px;
-
+    padding:10px 15px 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dee2e6;
+    h1{
+      color: #655beb;
+      font-weight: 500;
+      margin-bottom: 0px;
+      font-size: 14px;
+      padding: 0px 15px;
+      position: relative;
+      &::after{
+        content: '';
+        border-bottom: 1px solid #655beb;
+        position: absolute;
+        bottom: -25px;
+        left: 0px;
+        right: 0px;
+        width: 100%;
+        height: 1px;
+      }
+    }
     .btn {}
   }
 }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ActivityTabs from "../../components/home/tabs";
 import OnlineReviewIcon from "./../../assets/svg/icon-placeholder-online-reviews.svg";
 import AnalyticsIcon from "./../../assets/svg/icon-placeholder-analytics.svg";
 import PerformanceIcon from "./../../assets/svg/icon-placeholder-performance.svg";
@@ -7,6 +6,7 @@ import { Link } from "react-router-dom";
 import { BsFillRecordCircleFill } from "react-icons/bs";
 import Layout from "../../components/layout";
 import { Badge } from "react-bootstrap";
+import Dasboardcmlist from '../../components/home/listCompaign';
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import {
@@ -534,7 +534,7 @@ const Dashboard = (props) => {
         </div>
         
         <div className="dashboard-multi-tabs">
-          <ActivityTabs />
+          <Dasboardcmlist />
         </div>
       </div>
     </Layout>

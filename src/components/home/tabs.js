@@ -1,7 +1,7 @@
 import React from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import ActivityCardContent from "./activityTabs";
+import ActivityCardContent from "./listCompaign";
 
 const ActivityTabs = () => {
   return (
@@ -14,10 +14,11 @@ const ActivityTabs = () => {
       >
         {/* <Tab eventKey="activity" title="Activity Feed">
           <ActivityCardContent />
-        </Tab> */}
+        </Tab> 
         <Tab eventKey="Campaigns" title="Campaigns">
           <ActivityCardContent />
         </Tab>
+        */}
       </Tabs>
     </div>
   );

@@ -4,7 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
 import Addcompaign from "./addCompaign";
 import { Link } from "react-router-dom";
-const ActivityCardContent = (props) => {
+const Campaignlist = (props) => {
   const [showAddCompaign, setshowAddCompaign] = useState(false);
   const handleCompaignShow = () => {
     setshowAddCompaign(true);
@@ -16,7 +16,9 @@ const ActivityCardContent = (props) => {
   return (
     <div className="recaller-list">
       <div className="add-campaign-btn mb-2">
-        <Button onClick={handleCompaignShow}>Add Campaign </Button>
+       <h1>
+       Campaign
+       </h1> <Button onClick={handleCompaignShow}>Add Campaign </Button>
       </div>
       <ul className="card-listingtabs">
         <li>
@@ -159,4 +161,4 @@ const ActivityCardContent = (props) => {
   );
 };
 
-export default ActivityCardContent;
+export default Campaignlist;
