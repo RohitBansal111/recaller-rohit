@@ -132,7 +132,6 @@ const Dashboard = (props) => {
                     <BsFillRecordCircleFill />
                   </span>
                   <span className="price-value">984</span>
-                  <span className="percentage-value">+14</span>
                 </div>
               </div>
               <div className="value-graph">
@@ -273,7 +272,6 @@ const Dashboard = (props) => {
                   <BsFillRecordCircleFill />
                 </span>
                 <span className="price-value">984</span>
-                <span className="percentage-value failed">+6%</span>
               </div>
             </div>
             <div className="value-graph">
@@ -413,7 +411,6 @@ const Dashboard = (props) => {
                 <BsFillRecordCircleFill />
               </span>
               <span className="price-value">984</span>
-              <span className="percentage-value">+14</span>
             </div>
           </div>
           <div className="value-graph">

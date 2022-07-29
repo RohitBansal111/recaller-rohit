@@ -323,19 +323,21 @@
   .add-campaign-btn {
     width: 100%;
     text-align: right;
-    padding:10px 15px 10px 0px;
+    padding: 10px 15px 10px 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #dee2e6;
-    h1{
+
+    h1 {
       color: #655beb;
       font-weight: 500;
       margin-bottom: 0px;
       font-size: 14px;
       padding: 0px 15px;
       position: relative;
-      &::after{
+
+      &::after {
         content: '';
         border-bottom: 1px solid #655beb;
         position: absolute;
@@ -346,6 +348,7 @@
         height: 1px;
       }
     }
+
     .btn {}
   }
 }
@@ -412,70 +415,169 @@
       }
 
       .more-action {
-        .dropdown-menu {
-          box-shadow: 3px 0px 8px #c9c9c9;
-          border: none;
+        display: flex;
+        align-items: center;
 
-          li {
-            color: grey;
-            font-size: 14px;
-            padding: 3px 10px;
-            cursor: pointer;
+        span {
+          margin-left: 10px;
+          border: 1px solid #DCDCDB;
+          background-color: #eee;
+          padding: 1px 5px;
+          border-radius: 2px;
+          transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+
+          &.edit {
+            svg {
+              font-size: 17px;
+              fill: #333;
+
+              path {
+                stroke: #333;
+              }
+            }
 
             &:hover {
-              background-color: lightgray;
-              color: $Active-color;
-            }
+              background: #333;
+              border: 1px solid #333;
 
+              svg {
+                fill: #ffffff;
+
+                path {
+                  stroke: #ffffff;
+                }
+              }
+            }
+          }
+
+          &.view {
             svg {
-              font-size: 18px;
-              margin-right: 4px;
+              font-size: 17px;
+              fill: #3ac47d;
+
+              path {
+                stroke: #3ac47d;
+              }
             }
 
-            &:last-child {
-              border-bottom: none !important;
+            &:hover {
+              background: #3ac47d;
+              border: 1px solid #3ac47d;
+
+              svg {
+                fill: #ffffff;
+
+                path {
+                  stroke: #ffffff;
+                }
+              }
+            }
+          }
+
+          &.delete {
+            svg {
+              fill: #d92550;
+
+              path {
+                stroke: #d92550;
+              }
+            }
+
+            &:hover {
+              background: #d92550;
+              border: 1px solid #d92550;
+
+              svg {
+                fill: #ffffff;
+
+                path {
+                  stroke: #ffffff;
+                }
+              }
+            }
+          }
+
+          &.report {
+            svg {
+              color: #655beb;
+            }
+
+            &:hover {
+              background: #655beb;
+              border: 1px solid #655beb;
+
+              svg {
+                color: #ffffff;
+
+              }
             }
           }
         }
 
-        .re-dots {
-          background-color: transparent !important;
-          border: none !important;
-          padding: 0px !important;
-          display: flex;
-          align-items: center;
+        // .dropdown-menu {
+        //   box-shadow: 3px 0px 8px #c9c9c9;
+        //   border: none;
 
-          span {
-            position: relative;
-            background: #16aaff;
-            margin: 0px 1px;
-            height: 9px;
-            width: 9px;
-            border-radius: 25px;
+        //   li {
+        //     color: grey;
+        //     font-size: 14px;
+        //     padding: 3px 10px;
+        //     cursor: pointer;
 
-            svg {
-              fill: #655beb;
-              font-size: 25px;
-            }
+        //     &:hover {
+        //       background-color: lightgray;
+        //       color: $Active-color;
+        //     }
 
-            &::after {
-              content: '';
-              position: absolute;
-              background: #ffffff;
-              left: 50%;
-              top: 50%;
-              margin: -3px 0 0 -3px;
-              display: block;
-              width: 5px;
-              height: 5px;
-              border-radius: 20px;
-            }
-          }
+        //     svg {
+        //       font-size: 18px;
+        //       margin-right: 4px;
+        //     }
 
-          &::after {
-            content: initial !important;
-          }
-        }
+        //     &:last-child {
+        //       border-bottom: none !important;
+        //     }
+        //   }
+        // }
+
+        // .re-dots {
+        //   background-color: transparent !important;
+        //   border: none !important;
+        //   padding: 0px !important;
+        //   display: flex;
+        //   align-items: center;
+
+        //   span {
+        //     position: relative;
+        //     background: #16aaff;
+        //     margin: 0px 1px;
+        //     height: 9px;
+        //     width: 9px;
+        //     border-radius: 25px;
+
+        //     svg {
+        //       fill: #655beb;
+        //       font-size: 25px;
+        //     }
+
+        //     &::after {
+        //       content: '';
+        //       position: absolute;
+        //       background: #ffffff;
+        //       left: 50%;
+        //       top: 50%;
+        //       margin: -3px 0 0 -3px;
+        //       display: block;
+        //       width: 5px;
+        //       height: 5px;
+        //       border-radius: 20px;
+        //     }
+        //   }
+
+        //   &::after {
+        //     content: initial !important;
+        //   }
+        // }
       }
     }
   }
@@ -867,32 +969,35 @@
           }
         }
       }
-      &.voice-value{
-        .performance-value-box{
-          .performance-value{
-            .circle{
-              svg{
+
+      &.voice-value {
+        .performance-value-box {
+          .performance-value {
+            .circle {
+              svg {
                 fill: #3ac47d;
               }
             }
           }
         }
 
-        }
-        &.Email-value{
-          .performance-value-box{
-            .performance-value{
-              .circle{
-                svg{
-                  fill: #655beb
-                }
+      }
+
+      &.Email-value {
+        .performance-value-box {
+          .performance-value {
+            .circle {
+              svg {
+                fill: #655beb
               }
-              .percentage-value{
-                color: #655beb;
-              }
+            }
+
+            .percentage-value {
+              color: #655beb;
             }
           }
         }
+      }
     }
   }
 }

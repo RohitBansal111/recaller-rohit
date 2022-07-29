@@ -176,8 +176,11 @@ const Price = () => {
               </div>
             </Col>
             <Col xs={2}>
-              <div className="card">
+              <div className="card starter-price">
                 <div className="card-header">
+                <div className="recm-title">
+                <h1>Our Recommendation</h1>
+              </div>
                   <div className="price-heading">
                     <h5 className="card-title">Starter</h5>
                     <div className="time-period">
