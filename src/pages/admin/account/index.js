@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { Button,Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userDetailApi, userUpdateApi } from "../../../api/user";
 import Layout from "../../../components/layout";
 import { loginAction } from "../../../redux/actions/loginAction";
-
+import ChangePasswordModal from "../../../models/Changepasswordmodal";
 const MyAccount = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const userDataa = useSelector((state) => state.Login.userData);
   const [addUser, setAddUser] = useState({});
-
+  const handlePasswordClose = () => {
+    setShowPassword(false);
+  };
+  const handlePasswordShow = () => {
+    setShowPassword(true);
+  };
   const isValid = () => {
     let formData = true;
     switch (true) {
@@ -25,9 +32,13 @@ const MyAccount = () => {
         break;
       case !addUser.phone:
         setErrors({ phone: "Phone field is required!" });
-
         formData = false;
         break;
+        case !addUser.password:
+          setErrors({ password: "Password is required!" });
+          formData = false;
+          break;
+
       default:
         formData = true;
     }
@@ -80,6 +91,7 @@ const MyAccount = () => {
     }
   };
   return (
+    <div>
     <Layout>
       <div className="content-page-layout myaccount-layout">
         <div className="page-header">
@@ -91,7 +103,7 @@ const MyAccount = () => {
             <p>Here you can edit public information about yourself.</p>
           </div>
           <div className="account-form">
-            <form className="main-form" onSubmit={handleSubmit}>
+            <form className="main-form">
               <div className="field-group flex2">
                 <label>First Name</label>
                 <input
@@ -104,6 +116,7 @@ const MyAccount = () => {
                 />
                 <span className="spanError">{errors.firstName}</span>
               </div>
+
               <div className="field-group flex2">
                 <label>Last Name</label>
                 <input
@@ -140,6 +153,39 @@ const MyAccount = () => {
                 />
                 <span className="spanError">{errors.phone}</span>
               </div>
+              <div className="field-group flex2">
+                <label htmlFor="name">Title</label>
+                <input
+                  name="title"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Your Title"
+                />
+                <span className="spanError">{errors.title}</span>
+              </div>
+              <div className="field-group flex2">
+              <label htmlFor="name">Company Name</label>
+              <input
+                name="companyname"
+                type="text"
+                className="form-control"
+                placeholder="Enter Your Company name"
+              />
+              <span className="spanError">{errors.companyname}</span>
+            </div>
+            <div className="field-group  flex2 password-field">
+            <div className="currentplan-field">
+              <label>Password</label>
+              <input
+                name="password"
+                type="text"
+                className="form-control"
+              />
+            </div>
+            <Button className="change-password" onClick={handlePasswordShow}>
+              Change Password
+            </Button>
+          </div>
               <div className="field-group  flex2 currentplan">
                 <div className="currentplan-field">
                   <label>Current Plan</label>
@@ -167,7 +213,14 @@ const MyAccount = () => {
           </div>
         </div>
       </div>
+    
     </Layout>
+    <ChangePasswordModal   
+    showPassword={showPassword}
+    handlePasswordClose={handlePasswordClose}
+    handlePasswordShow={handlePasswordShow}
+    /> 
+    </div>
   );
 };
 
