@@ -10,7 +10,13 @@ import Dasboardcmlist from "../../components/home/listCompaign";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import SelectCampaign from "../../components/contacts/selectCampaign";
-import { getCompaignApi } from "../../api/compaign";
+import {
+  addCompaignApi,
+  getCompaignApi,
+  updateCompaignApi,
+  deleteCompaignApi,
+} from "../../api/compaign";
+import { toast } from "react-toastify";
 
 import {
   AreaChart,
@@ -21,8 +27,15 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Addcompaign from "../../components/home/addCompaign";
 
 const Dashboard = (props) => {
+  const [showAddCompaign, setshowAddCompaign] = useState(false);
+  const [editCompaign, seteditCompaign] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [data, setData] = useState({});
+  const [camData, setCamData] = useState({});
+  const [edit, setEdit] = useState("");
   const [compaigns, setCompaigns] = useState([]);
   const [selectedCampaign, setSelectedCampaign] = useState({});
   useEffect(() => {
@@ -43,8 +56,78 @@ const Dashboard = (props) => {
       setCompaigns(data);
     }
   };
+  const handleCompaignShow = () => {
+    setshowAddCompaign(true);
+    seteditCompaign(false);
+    setEdit("");
+    // setCamData(false);
+  };
 
-  const data = [
+  const handleCompaignClose = () => {
+    setshowAddCompaign(false);
+  };
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+    setErrors({});
+  };
+  const handleEditClick = (data) => {
+    console.log(data.label, "data");
+    // setCamData(data.label);
+    setData({ name: data.label });
+    setEdit(data);
+    setshowAddCompaign(true);
+    seteditCompaign(true);
+  };
+  const iscampaignValid = () => {
+    let formData = true;
+    switch (true) {
+      case !data.name:
+        setErrors({ name: "Please Enter a Campaighn" });
+        formData = false;
+        break;
+      default:
+        formData = true;
+    }
+    return formData;
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (iscampaignValid()) {
+      const res = await addCompaignApi(data);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Campaign Addedd");
+        handleCompaignClose(false);
+        getContactCompaign();
+      } else {
+        toast.error(res.data.message);
+      }
+      setData("");
+    }
+  };
+  const handleEdit = async () => {
+    const res = await updateCompaignApi(edit.value, data);
+    if (res && res.data && res.data.status === 200) {
+      toast.success("Edit Compaign");
+      handleCompaignClose(false);
+      getContactCompaign();
+    } else {
+      toast.error(res.data.message);
+    }
+    setCamData("");
+  };
+
+  const handleDelete = async (data) => {
+    const res = await deleteCompaignApi(data.value, data);
+    if (res && res.data && res.data.status === 200) {
+      toast.error("Delete Compaign");
+      // handleCompaignClose(false);
+      getContactCompaign();
+    } else {
+      toast.error(res.data.message);
+    }
+    // setCamData("");
+  };
+  const dataGraph = [
     {
       name: "Page A",
       uv: 1500,
@@ -166,7 +249,7 @@ const Dashboard = (props) => {
                   <AreaChart
                     width={310}
                     height={120}
-                    data={data}
+                    data={dataGraph}
                     margin={{
                       top: 5,
                       right: 0,
@@ -311,7 +394,7 @@ const Dashboard = (props) => {
                   <AreaChart
                     width={310}
                     height={150}
-                    data={data}
+                    data={dataGraph}
                     margin={{
                       top: 5,
                       right: 0,
@@ -449,7 +532,7 @@ const Dashboard = (props) => {
                   <AreaChart
                     width={310}
                     height={150}
-                    data={data}
+                    data={dataGraph}
                     margin={{
                       top: 5,
                       right: 0,
@@ -568,7 +651,24 @@ const Dashboard = (props) => {
         </div>
 
         <div className="dashboard-multi-tabs">
-          <Dasboardcmlist compaigns={compaigns} />
+          <Dasboardcmlist
+            compaigns={compaigns}
+            handleCompaignShow={handleCompaignShow}
+            handleEditClick={handleEditClick}
+            handleDelete={handleDelete}
+          />
+          <Addcompaign
+            editCompaign={editCompaign}
+            showAddCompaign={showAddCompaign}
+            handleCompaignClose={handleCompaignClose}
+            handleCompaignShow={handleCompaignShow}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            data={data}
+            errors={errors}
+            camData={camData}
+            handleEdit={handleEdit}
+          />
         </div>
       </div>
     </Layout>
