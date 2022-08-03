@@ -1,4 +1,3 @@
-import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import styled from "styled-components";
 
@@ -31,7 +30,7 @@ const XButton = styled.button`
   }
 `;
 
-const SelectCampaign = (props) => {
+const NewMessageSelectTag = (props) => {
   const { isMulti, value, onChange } = props;
 
   const handleRemoveValue = (e) => {
@@ -60,8 +59,8 @@ const SelectCampaign = (props) => {
             ))
           : null}
       </ValuesContainer>
-      <CreatableSelect
-        // defaultValue={{ label: "Select compaigns" }}
+      <Select
+        defaultValue={"heelllll"}
         placeholder={"recallr123"}
         {...props}
         controlShouldRenderValue={!isMulti}
@@ -70,4 +69,6 @@ const SelectCampaign = (props) => {
   );
 };
 
-export default SelectCampaign;
+export default NewMessageSelectTag;
+
+// SelectCampaign
