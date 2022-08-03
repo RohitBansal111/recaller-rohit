@@ -216,6 +216,7 @@ const Signup = () => {
                 />
                 <span className="spanError">{errors.password}</span>
               </div>
+              
               <div className="field-group flex-half">
                 <label htmlFor="name"> Repeat Password </label>
                 <input
