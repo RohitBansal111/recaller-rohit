@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const Addcompaign = (props) => {
-  console.log(props, "props");
   return (
     <Modal
       className="normal-modal Addcompaign"
@@ -12,17 +11,25 @@ const Addcompaign = (props) => {
     >
       <Modal.Header>
         <Modal.Title>
-          <b>Add Compaign</b>
+          {/* <b>Add Compaign</b> */}
+          {props.editCompaign == true ? "Edit Compaign" : "Add Compaign"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="field-group flexFull">
-          <label> Compaign Name </label>
+          <label>
+            {" "}
+            {props.editCompaign == true
+              ? "Change Compaign Name"
+              : "Compaign Name"}{" "}
+          </label>
           <input
+            name="name"
             type="text"
             className="form-control"
-            placeholder="Enter compaign Name"
-            name="compaignName"
+            placeholder="Enter Campaign Name"
+            value={props.data.name}
+            onChange={props.handleChange}
           />
         </div>
       </Modal.Body>
@@ -30,9 +37,18 @@ const Addcompaign = (props) => {
         <Button onClick={props.handleCompaignClose} variant="secondary">
           Dismiss
         </Button>
-        <Button type="button" variant="primary">
-          Add Name
+        <Button
+          type="submit"
+          variant="primary"
+          value={props.data.name}
+          onClick={props.handleCompaignClose}
+          onClick={
+            props.editCompaign == true ? props.handleEdit : props.handleSubmit
+          }
+        >
+          {props.editCompaign == true ? "Edit Compaign" : "Add Compaign"}
         </Button>
+        <span className="spanError">{props.errors.name}</span>
       </Modal.Footer>
     </Modal>
   );

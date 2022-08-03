@@ -10,18 +10,12 @@ const animatedComponents = makeAnimated();
 
 const ContactModal = (props) => {
   const [compaigns, setCompaigns] = useState([]);
-  const [selectedCampaign, setSelectedCampaign] = useState(
-    {
+  const [selectedCampaign, setSelectedCampaign] = useState({});
+  useEffect(() => {
+    getContactCompaign();
+  }, [props.show]);
 
-    }
-  );
-  useEffect(()=>{
-    getContactCompaign()
-
-  },[props.show])
-
-  useEffect(()=>{
-  },[selectedCampaign])
+  useEffect(() => {}, [selectedCampaign]);
 
   const getContactCompaign = async () => {
     let res = await getCompaignApi();
@@ -34,8 +28,7 @@ const ContactModal = (props) => {
       });
 
       setCompaigns(data);
-      setSelectedCampaign({})
-
+      setSelectedCampaign({});
     }
   };
   return (
@@ -166,11 +159,11 @@ const ContactModal = (props) => {
             <div className="field-group flexFull">
               <label> Create Campaign </label>
               <SelectCampaign
-              isClearable={true}
-              onChange={setSelectedCampaign}
-              options={compaigns}
-              value={selectedCampaign}
-            />
+                isClearable={true}
+                onChange={setSelectedCampaign}
+                options={compaigns}
+                value={selectedCampaign}
+              />
               {/* <input
                 type="text"
                 className="form-control"
@@ -190,7 +183,12 @@ const ContactModal = (props) => {
           <LoadingButton
             loadingPosition="center"
             loading={props.loading}
-            onClick={(e)=>{props.handleSubmit(e,selectedCampaign?selectedCampaign.value:'')}}
+            onClick={(e) => {
+              props.handleSubmit(
+                e,
+                selectedCampaign ? selectedCampaign.value : ""
+              );
+            }}
             className="btn btn-primary"
             variant="contained"
             // minFileSize: "500000",

@@ -1,4 +1,4 @@
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import styled from "styled-components";
 
@@ -61,6 +61,7 @@ const SelectCampaign = (props) => {
           : null}
       </ValuesContainer>
       <CreatableSelect
+        // defaultValue={{ label: "Select compaigns" }}
         placeholder={"recallr123"}
         {...props}
         controlShouldRenderValue={!isMulti}

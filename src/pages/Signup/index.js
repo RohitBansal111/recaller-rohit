@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+// import signup from "../../api/user";
 import Select from "react-select";
+import { signup } from "../../api/user";
 const Signup = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
@@ -51,12 +53,12 @@ const Signup = () => {
     const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     let formData = true;
     switch (true) {
-      case !data.name:
-        setErrors({ name: "Name field is required!" });
+      case !data.firstName:
+        setErrors({ firstName: "First Name field is required!" });
         formData = false;
         break;
-      case !data.lastname:
-        setErrors({ lastname: "Last Name field is required!" });
+      case !data.lastName:
+        setErrors({ lastName: "Last Name field is required!" });
         formData = false;
         break;
       case !data.email:
@@ -75,16 +77,20 @@ const Signup = () => {
         setErrors({ title: "Title field is required!" });
         formData = false;
         break;
-      case !data.companyname:
-        setErrors({ companyname: "Company name field is required!" });
+      case !data.companyName:
+        setErrors({ companyName: "Company name field is required!" });
         formData = false;
         break;
       case !data.password:
         setErrors({ password: "Password is required!" });
         formData = false;
         break;
-      case !data.repeatpassword:
-        setErrors({ repeatpassword: "Repeat Password is required!" });
+      case data.password !== data.repeatPassword:
+        setErrors({ repeatPassword: "Repeat Password is required!" });
+        formData = false;
+        break;
+      case !data.checkbox:
+        setErrors({ checkbox: "Accept Term & Conditions" });
         formData = false;
         break;
       default:
@@ -92,6 +98,19 @@ const Signup = () => {
     }
     return formData;
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isValid()) {
+      const res = await signup(data);
+      if (res && res.data && res.data.status === 200) {
+        toast.success("Register successful!");
+        navigate(`/price`);
+      } else {
+        toast.error(res.data.message);
+      }
+    }
+  };
+  console.log(errors, "Sighnnnnn");
 
   return (
     <div className="form-page-layout">
@@ -102,28 +121,32 @@ const Signup = () => {
             It only takes a few seconds to <b>Create your account</b>
           </p>
         </div>
-        <form className="main-form signup-form">
+        <form className="main-form signup-form" onSubmit={handleSubmit}>
           <div className="form-body ">
             <div className="flex-half-field">
               <div className="field-group flex-half">
                 <label htmlFor="name"> First Name</label>
                 <input
-                  name="name"
+                  name="firstName"
                   type="text"
                   className="form-control"
-                  placeholder="Enter Your name"
+                  placeholder="Enter Your First Name"
+                  value={data.firstName}
+                  onChange={handleChange}
                 />
-                <span className="spanError">{errors.name}</span>
+                <span className="spanError">{errors.firstName}</span>
               </div>
               <div className="field-group flex-half">
                 <label htmlFor="name">Last Name</label>
                 <input
-                  name="lastname"
+                  name="lastName"
                   type="text"
                   className="form-control"
-                  placeholder="Enter Your last name"
+                  placeholder="Enter Your Last Name"
+                  value={data.lastName}
+                  onChange={handleChange}
                 />
-                <span className="spanError">{errors.lastname}</span>
+                <span className="spanError">{errors.lastName}</span>
               </div>
             </div>
             <div className="flex-half-field">
@@ -135,6 +158,8 @@ const Signup = () => {
                   className="form-control"
                   placeholder="Enter email address"
                   value={data.email}
+                  onChange={handleChange}
+                  autoComplete="new-password"
                 />
                 <span className="spanError">{errors.email}</span>
               </div>
@@ -145,6 +170,8 @@ const Signup = () => {
                   type="number"
                   className="form-control"
                   placeholder="Enter phone Number"
+                  value={data.phone}
+                  onChange={handleChange}
                 />
                 <span className="spanError">{errors.phone}</span>
               </div>
@@ -157,18 +184,22 @@ const Signup = () => {
                   type="text"
                   className="form-control"
                   placeholder="Enter Your Title"
+                  value={data.title}
+                  onChange={handleChange}
                 />
                 <span className="spanError">{errors.title}</span>
               </div>
               <div className="field-group flex-half">
                 <label htmlFor="name">Company Name</label>
                 <input
-                  name="companyname"
+                  name="companyName"
                   type="text"
                   className="form-control"
                   placeholder="Enter Your Company name"
+                  value={data.companyName}
+                  onChange={handleChange}
                 />
-                <span className="spanError">{errors.companyname}</span>
+                <span className="spanError">{errors.companyName}</span>
               </div>
             </div>
             <div className="flex-half-field">
@@ -179,24 +210,37 @@ const Signup = () => {
                   type="password"
                   className="form-control"
                   placeholder="Enter password"
+                  autoComplete="new-password"
+                  value={data.password}
+                  onChange={handleChange}
                 />
                 <span className="spanError">{errors.password}</span>
               </div>
               <div className="field-group flex-half">
                 <label htmlFor="name"> Repeat Password </label>
                 <input
-                  name="password"
+                  name="repeatPassword"
                   type="password"
                   className="form-control"
                   placeholder="Enter repeat password"
+                  value={data.repeatPassword}
+                  onChange={handleChange}
                 />
-                <span className="spanError">{errors.repeatpassword}</span>
+                <span className="spanError">{errors.repeatPassword}</span>
               </div>
             </div>
             <div className="field-group flexFull">
               <label>
-                <input type="checkbox" />
+                <input
+                  id="checkbox"
+                  name="checkbox"
+                  type="checkbox"
+                  // checked={data.checkbox}
+                  value={data.checkbox}
+                  onChange={handleChange}
+                />
                 <span>Accept our Terms and Conditions.</span>
+                <span className="spanError">{errors.checkbox}</span>
               </label>
             </div>
             <div className="account-field">
@@ -207,7 +251,8 @@ const Signup = () => {
           </div>
           <div className="field-group flexFull submit-btn">
             <button type="submit" className="btn btn-primary">
-              <Link to="/Price">Create account</Link>
+              {/* <Link to="/Price">Create account</Link> */}
+              Create account
             </button>
           </div>
         </form>
