@@ -739,7 +739,6 @@ const TextPage = () => {
       ) {
         setMessages(res.data.data);
       }
-  
     }
     const res = await getMessageApi(id);
     if (res && res.data && res.data.status === 200) {
@@ -795,16 +794,16 @@ const TextPage = () => {
     setEditContactName(true);
   };
 
-  const handleConDataEdit = async (e,selectedCampaign) => {
-    e.preventDefault()
+  const handleConDataEdit = async (e, selectedCampaign) => {
+    e.preventDefault();
     let editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
       phoneSubs: editContact.phoneSubs,
       emailSubs: editContact.emailSubs,
     };
-    if(selectedCampaign){
-      editData.compaign=selectedCampaign
+    if (selectedCampaign) {
+      editData.compaign = selectedCampaign;
     }
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
@@ -1193,8 +1192,8 @@ const TextPage = () => {
 
   return (
     <Layout>
-    <div className="content-page-layout text-page-content">
-      {/* <div className="page-header justify-flex-end">
+      <div className="content-page-layout text-page-content">
+        {/* <div className="page-header justify-flex-end">
         <button
           type="button"
           className="btn btn-medium btn-primary"
@@ -1203,84 +1202,170 @@ const TextPage = () => {
           New Message
         </button>
       </div> */}
-      <div className="page-header justify-flex-end">
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="success"
-            id="dropdown-basic"
-            className="btn btn-medium btn-primary"
-          >
-            New Message
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={handleNewMessage}>
-              Individual Message
-            </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
-              Bulk Campaign Message
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-      <div className="text-main-section">
-        <ChatBoot
-          selecteduser={selecteduser}
-          replacefunc={replacefunc}
-          openManageTagModal={openManageTagModal}
-          openCreateTagModal={openCreateTagModal}
-          onClick={handleManageTag}
-          handleCloseCTModal={handleCloseCTModal}
-          handleCloseManageModal={handleCloseManageModal}
-          addTags={addTags}
-          handleChange={handleChange}
-          handleClick={handleClick}
-          handleCMModal={handleCMModal}
-          openEditTagModal={openEditTagModal}
-          handleCloseETModal={handleCloseETModal}
-          handleEditChange={handleEditChange}
-          handleEdit={handleEdit}
-          editTags={addTags}
-          tags={tags}
-          handleEditClick={handleEditClick}
-          handleDelModal={handleDelModal}
-          openDelTagModal={openDelTagModal}
-          handleDeleteTags={handleDeleteTags}
-          handleCloseDeleteModal={handleCloseDeleteModal}
-          handleSelectedTagItems={handleSelectedTagItems}
-          newAray={selectedTags}
-          handleSelectDel={handleSelectDel}
-          conversationTags={conversationTags}
-          onHandleChange={onHandleChange}
-          sendMessage={sendMessage}
-          onHandleClick={onHandleClick}
+        <div className="page-header justify-flex-end">
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              className="btn btn-medium btn-primary"
+            >
+              New Message
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#" onClick={handleNewMessage}>
+                Individual Message
+              </Dropdown.Item>
+              <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
+                Bulk Campaign Message
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="text-main-section">
+          <ChatBoot
+            selecteduser={selecteduser}
+            replacefunc={replacefunc}
+            openManageTagModal={openManageTagModal}
+            openCreateTagModal={openCreateTagModal}
+            onClick={handleManageTag}
+            handleCloseCTModal={handleCloseCTModal}
+            handleCloseManageModal={handleCloseManageModal}
+            addTags={addTags}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            handleCMModal={handleCMModal}
+            openEditTagModal={openEditTagModal}
+            handleCloseETModal={handleCloseETModal}
+            handleEditChange={handleEditChange}
+            handleEdit={handleEdit}
+            editTags={addTags}
+            tags={tags}
+            handleEditClick={handleEditClick}
+            handleDelModal={handleDelModal}
+            openDelTagModal={openDelTagModal}
+            handleDeleteTags={handleDeleteTags}
+            handleCloseDeleteModal={handleCloseDeleteModal}
+            handleSelectedTagItems={handleSelectedTagItems}
+            newAray={selectedTags}
+            handleSelectDel={handleSelectDel}
+            conversationTags={conversationTags}
+            onHandleChange={onHandleChange}
+            sendMessage={sendMessage}
+            onHandleClick={onHandleClick}
+            errors={errors}
+            userMessageList={messages}
+            openChatClick={openChatClick}
+            chatData={chatMessages}
+            searchValue={searchState}
+            handleSearchChange={(e) => setSearchState(e.target.value)}
+            handleContactEditModal={handleContactEditModal}
+            handleCloseContactModal={handleCloseContactModal}
+            openContactModal={openContactModal}
+            editContact={editContact}
+            handleEditContactChange={handleEditContactChange}
+            handleConDataEdit={handleConDataEdit}
+            editCName={editCName}
+            handleUserNameEdit={handleUserNameEdit}
+            handleEditUserName={handleEditUserName}
+            editContactName={editContactName}
+            loading={loading}
+            handleOptOut={handleOptOut}
+            divRef={divRef}
+            showScheduleModal={showScheduleModal}
+            handleCloseSchedultModal={handleCloseSchedultModal}
+            showCreateTemplateModal={showCreateTemplateModal}
+            handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+            showManageeTemplateModal={showNewManageeTemplateModal}
+            handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
+            handleScheduleModal={handleScheduleModal}
+            handleCreateTemplate={handleCreateTemplate}
+            handleManageTemplate={handleNewManageTemplate}
+            templateName={templateName}
+            handleTemplateName={handleTemplateName}
+            templateTags={templateTags}
+            handleTemplateTagChange={handleTemplateTagChange}
+            templateMessage={templateMessage}
+            handleTempMessageChange={handleTempMessageChange}
+            handleTemplateSubmit={handleTemplateSubmit}
+            templateData={templateData}
+            handleTempTitleClick={handleTempTitleClick}
+            handleTempShowClick={handleTempShowClick}
+            templateDataState={templateDataState}
+            handleSingleTempInsert={handleSingleTempInsert}
+            handleEditTemplate={handleEditTemplate}
+            editmanageTemplate={editmanageTemplate}
+            handleTempEditCancel={handleTempEditCancel}
+            editTempData={editTempData}
+            templateEditTags={templateEditTags}
+            handleEditTempChange={handleEditTempChange}
+            handleTempEditSave={handleTempEditSave}
+            handleTempRemove={handleTempRemove}
+            handleEditTemplateTagChange={handleEditTemplateTagChange}
+            dateSelected={dateSelected}
+            handleDateChange={handleDateChange}
+            handleTempDelModal={handleTempDelModal}
+            handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+            showDeleteTempModal={deleteTempComfirmation}
+            handleChatBotEmojiOpen={handleChatBotEmojiOpen}
+            onChatBotEmojiClick={onChatBotEmojiClick}
+            onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
+            handleImageOpen={handleImageOpen}
+            selectedImage={selectedImage}
+            handleImageCancel={handleImageCancel}
+            handleImageChange={handleImageChange}
+            handleScheduleSubmit={handleScheduleSubmit}
+            showReScheduleModal={showReScheduleModal}
+            handleCloseReSchedultModal={handleCloseReSchedultModal}
+            reScheduleData={reScheduleData}
+            handleReSchedule={handleReSchedule}
+            handleReSchaduleChange={handleReSchaduleChange}
+            handleReSubmit={handleReSubmit}
+            handleCancelReSchedultModal={handleCancelReSchedultModal}
+            cancelRescheDule={cancelRescheDule}
+            searchTemplateValue={searchTemplateValue}
+            handleSearchTempChange={(e) =>
+              setSearchTemplateValue(e.target.value)
+            }
+            handleNoReSchedultModal={handleNoReSchedultModal}
+            handleDeleteReSchedultModal={handleDeleteReSchedultModal}
+            scheduledData={scheduledData}
+            handleReSchaduleData={handleReSchaduleData}
+            openMessageModal={openMessageModal}
+            handleDeleteRechaduletitle={handleDeleteRechaduletitle}
+            CancelEmoji={CancelEmoji}
+            selectedImageData={selectedImageData}
+            singleimgref={singleimgref}
+            showReScheduleTitleModal={showReScheduleTitleModal}
+            handleCloseReSchedulTitle={handleCloseReSchedulTitle}
+            reScheduleTitle={reScheduleTitle}
+            handleReSchaduleTChange={handleReSchaduleTChange}
+            handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
+            handleReTitleSubmit={handleReTitleSubmit}
+          />
+        </div>
+        <MessageModal
+          open={openMessageModal}
+          handleCloseMessageModal={handleCloseMessageModal}
+          options={rowsData}
+          handleSendClick={handleSendClick}
+          sendNewMessage={sendNewMessage}
+          handleNewMChange={handleNewMChange}
+          handleSelectChange={handleSelectChange}
+          selected={selected}
+          handlePreview={handlePreview}
+          preview={preview}
+          handleBackMessageModal={handleBackMessageModal}
           errors={errors}
-          userMessageList={messages}
-          openChatClick={openChatClick}
-          chatData={chatMessages}
-          searchValue={searchState}
-          handleSearchChange={(e) => setSearchState(e.target.value)}
-          handleContactEditModal={handleContactEditModal}
-          handleCloseContactModal={handleCloseContactModal}
-          openContactModal={openContactModal}
-          editContact={editContact}
-          handleEditContactChange={handleEditContactChange}
-          handleConDataEdit={handleConDataEdit}
-          editCName={editCName}
-          handleUserNameEdit={handleUserNameEdit}
-          handleEditUserName={handleEditUserName}
-          editContactName={editContactName}
           loading={loading}
-          handleOptOut={handleOptOut}
-          divRef={divRef}
           showScheduleModal={showScheduleModal}
           handleCloseSchedultModal={handleCloseSchedultModal}
           showCreateTemplateModal={showCreateTemplateModal}
           handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-          showManageeTemplateModal={showNewManageeTemplateModal}
-          handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
+          showManageeTemplateModal={showManageeTemplateModal}
+          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
           handleScheduleModal={handleScheduleModal}
           handleCreateTemplate={handleCreateTemplate}
-          handleManageTemplate={handleNewManageTemplate}
+          handleManageTemplate={handleManageTemplate}
           templateName={templateName}
           handleTemplateName={handleTemplateName}
           templateTags={templateTags}
@@ -1289,200 +1374,116 @@ const TextPage = () => {
           handleTempMessageChange={handleTempMessageChange}
           handleTemplateSubmit={handleTemplateSubmit}
           templateData={templateData}
-          handleTempTitleClick={handleTempTitleClick}
-          handleTempShowClick={handleTempShowClick}
           templateDataState={templateDataState}
-          handleSingleTempInsert={handleSingleTempInsert}
-          handleEditTemplate={handleEditTemplate}
+          handleTempInsert={handleTempInsert}
+          handleTempTitleClick={handleNewTempTitleClick}
+          handleTempShowClick={handleTempShowClick}
           editmanageTemplate={editmanageTemplate}
+          handleEditTemplate={handleEditTemplate}
           handleTempEditCancel={handleTempEditCancel}
           editTempData={editTempData}
-          templateEditTags={templateEditTags}
           handleEditTempChange={handleEditTempChange}
+          templateEditTags={templateEditTags}
           handleTempEditSave={handleTempEditSave}
           handleTempRemove={handleTempRemove}
           handleEditTemplateTagChange={handleEditTemplateTagChange}
+          searchValue={searchState}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
+          replacefunc={replacefunc}
           dateSelected={dateSelected}
           handleDateChange={handleDateChange}
           handleTempDelModal={handleTempDelModal}
           handleCloseDeleteTempModal={handleCloseDeleteTempModal}
           showDeleteTempModal={deleteTempComfirmation}
-          handleChatBotEmojiOpen={handleChatBotEmojiOpen}
-          onChatBotEmojiClick={onChatBotEmojiClick}
-          onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
-          handleImageOpen={handleImageOpen}
-          selectedImage={selectedImage}
-          handleImageCancel={handleImageCancel}
-          handleImageChange={handleImageChange}
+          handleEmojiOpen={handleEmojiOpen}
+          onEmojiClick={onEmojiClick}
+          onShowEmojiOpen={onShowEmoji}
+          savelistToMessageClick={savelistToMessageClick}
+          selecteduser={selecteduser}
+          handleImageOpen={handleNewImageOpen}
+          selectedImage={selectedNewImage}
+          handleNewImageCancel={handleNewImageCancel}
+          handleImageChange={handleNewImageChange}
           handleScheduleSubmit={handleScheduleSubmit}
-          showReScheduleModal={showReScheduleModal}
-          handleCloseReSchedultModal={handleCloseReSchedultModal}
-          reScheduleData={reScheduleData}
-          handleReSchedule={handleReSchedule}
-          handleReSchaduleChange={handleReSchaduleChange}
-          handleReSubmit={handleReSubmit}
-          handleCancelReSchedultModal={handleCancelReSchedultModal}
-          cancelRescheDule={cancelRescheDule}
-          searchTemplateValue={searchTemplateValue}
-          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
-          handleNoReSchedultModal={handleNoReSchedultModal}
-          handleDeleteReSchedultModal={handleDeleteReSchedultModal}
           scheduledData={scheduledData}
           handleReSchaduleData={handleReSchaduleData}
-          openMessageModal={openMessageModal}
-          handleDeleteRechaduletitle={handleDeleteRechaduletitle}
           CancelEmoji={CancelEmoji}
-          selectedImageData={selectedImageData}
-          singleimgref={singleimgref}
-          showReScheduleTitleModal={showReScheduleTitleModal}
-          handleCloseReSchedulTitle={handleCloseReSchedulTitle}
-          reScheduleTitle={reScheduleTitle}
-          handleReSchaduleTChange={handleReSchaduleTChange}
-          handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
-          handleReTitleSubmit={handleReTitleSubmit}
+          selectedNewImageData={selectedNewImageData}
+          imgref={imgref}
+        />
+        <BulkMessageModal
+          open={openBulkMessageModal}
+          handleCloseMessageModal={handleCloseBulkMessageModal}
+          options={compaign}
+          handleSendBulkClick={handleSendBulkClick}
+          sendNewMessage={sendNewMessage}
+          handleNewMChange={handleNewMChange}
+          handleBulkSelectChange={handleBulkSelectChange}
+          selected={bulkSelected}
+          handlePreview={handlePreview}
+          preview={preview}
+          handleBackMessageModal={handleBackMessageModal}
+          errors={errors}
+          loading={loading}
+          showScheduleModal={showScheduleModal}
+          handleCloseSchedultModal={handleCloseSchedultModal}
+          showCreateTemplateModal={showCreateTemplateModal}
+          handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+          showManageeTemplateModal={showManageeTemplateModal}
+          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          handleScheduleModal={handleScheduleModal}
+          handleCreateTemplate={handleCreateTemplate}
+          handleManageTemplate={handleManageTemplate}
+          templateName={templateName}
+          handleTemplateName={handleTemplateName}
+          templateTags={templateTags}
+          handleTemplateTagChange={handleTemplateTagChange}
+          templateMessage={templateMessage}
+          handleTempMessageChange={handleTempMessageChange}
+          handleTemplateSubmit={handleTemplateSubmit}
+          templateData={templateData}
+          templateDataState={templateDataState}
+          handleTempInsert={handleTempInsert}
+          handleTempTitleClick={handleNewTempTitleClick}
+          handleTempShowClick={handleTempShowClick}
+          editmanageTemplate={editmanageTemplate}
+          handleEditTemplate={handleEditTemplate}
+          handleTempEditCancel={handleTempEditCancel}
+          editTempData={editTempData}
+          handleEditTempChange={handleEditTempChange}
+          templateEditTags={templateEditTags}
+          handleTempEditSave={handleTempEditSave}
+          handleTempRemove={handleTempRemove}
+          handleEditTemplateTagChange={handleEditTemplateTagChange}
+          searchValue={searchState}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
+          replacefunc={replacefunc}
+          dateSelected={dateSelected}
+          handleDateChange={handleDateChange}
+          handleTempDelModal={handleTempDelModal}
+          handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+          showDeleteTempModal={deleteTempComfirmation}
+          handleEmojiOpen={handleEmojiOpen}
+          onEmojiClick={onEmojiClick}
+          onShowEmojiOpen={onShowEmoji}
+          savelistToMessageClick={savelistToMessageClick}
+          selecteduser={selecteduser}
+          handleImageOpen={handleNewImageOpen}
+          selectedImage={selectedNewImage}
+          handleNewImageCancel={handleNewImageCancel}
+          handleImageChange={handleNewImageChange}
+          handleScheduleSubmit={handleScheduleSubmit}
+          scheduledData={scheduledData}
+          handleReSchaduleData={handleReSchaduleData}
+          CancelEmoji={CancelEmoji}
+          selectedNewImageData={selectedNewImageData}
+          imgref={imgref}
         />
       </div>
-      <MessageModal
-        open={openMessageModal}
-        handleCloseMessageModal={handleCloseMessageModal}
-        options={rowsData}
-        handleSendClick={handleSendClick}
-        sendNewMessage={sendNewMessage}
-        handleNewMChange={handleNewMChange}
-        handleSelectChange={handleSelectChange}
-        selected={selected}
-        handlePreview={handlePreview}
-        preview={preview}
-        handleBackMessageModal={handleBackMessageModal}
-        errors={errors}
-        loading={loading}
-        showScheduleModal={showScheduleModal}
-        handleCloseSchedultModal={handleCloseSchedultModal}
-        showCreateTemplateModal={showCreateTemplateModal}
-        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-        showManageeTemplateModal={showManageeTemplateModal}
-        handleCloseManageTemplateModal={handleCloseManageTemplateModal}
-        handleScheduleModal={handleScheduleModal}
-        handleCreateTemplate={handleCreateTemplate}
-        handleManageTemplate={handleManageTemplate}
-        templateName={templateName}
-        handleTemplateName={handleTemplateName}
-        templateTags={templateTags}
-        handleTemplateTagChange={handleTemplateTagChange}
-        templateMessage={templateMessage}
-        handleTempMessageChange={handleTempMessageChange}
-        handleTemplateSubmit={handleTemplateSubmit}
-        templateData={templateData}
-        templateDataState={templateDataState}
-        handleTempInsert={handleTempInsert}
-        handleTempTitleClick={handleNewTempTitleClick}
-        handleTempShowClick={handleTempShowClick}
-        editmanageTemplate={editmanageTemplate}
-        handleEditTemplate={handleEditTemplate}
-        handleTempEditCancel={handleTempEditCancel}
-        editTempData={editTempData}
-        handleEditTempChange={handleEditTempChange}
-        templateEditTags={templateEditTags}
-        handleTempEditSave={handleTempEditSave}
-        handleTempRemove={handleTempRemove}
-        handleEditTemplateTagChange={handleEditTemplateTagChange}
-        searchValue={searchState}
-        searchTemplateValue={searchTemplateValue}
-        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
-        handleSearchChange={(e) => setSearchState(e.target.value)}
-        replacefunc={replacefunc}
-        dateSelected={dateSelected}
-        handleDateChange={handleDateChange}
-        handleTempDelModal={handleTempDelModal}
-        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
-        showDeleteTempModal={deleteTempComfirmation}
-        handleEmojiOpen={handleEmojiOpen}
-        onEmojiClick={onEmojiClick}
-        onShowEmojiOpen={onShowEmoji}
-        savelistToMessageClick={savelistToMessageClick}
-        selecteduser={selecteduser}
-        handleImageOpen={handleNewImageOpen}
-        selectedImage={selectedNewImage}
-        handleNewImageCancel={handleNewImageCancel}
-        handleImageChange={handleNewImageChange}
-        handleScheduleSubmit={handleScheduleSubmit}
-        scheduledData={scheduledData}
-        handleReSchaduleData={handleReSchaduleData}
-        CancelEmoji={CancelEmoji}
-        selectedNewImageData={selectedNewImageData}
-        imgref={imgref}
-      />
-      <BulkMessageModal
-        open={openBulkMessageModal}
-        handleCloseMessageModal={handleCloseBulkMessageModal}
-        options={compaign}
-        handleSendBulkClick={handleSendBulkClick}
-        sendNewMessage={sendNewMessage}
-        handleNewMChange={handleNewMChange}
-        handleBulkSelectChange={handleBulkSelectChange}
-        selected={bulkSelected}
-        handlePreview={handlePreview}
-        preview={preview}
-        handleBackMessageModal={handleBackMessageModal}
-        errors={errors}
-        loading={loading}
-        showScheduleModal={showScheduleModal}
-        handleCloseSchedultModal={handleCloseSchedultModal}
-        showCreateTemplateModal={showCreateTemplateModal}
-        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-        showManageeTemplateModal={showManageeTemplateModal}
-        handleCloseManageTemplateModal={handleCloseManageTemplateModal}
-        handleScheduleModal={handleScheduleModal}
-        handleCreateTemplate={handleCreateTemplate}
-        handleManageTemplate={handleManageTemplate}
-        templateName={templateName}
-        handleTemplateName={handleTemplateName}
-        templateTags={templateTags}
-        handleTemplateTagChange={handleTemplateTagChange}
-        templateMessage={templateMessage}
-        handleTempMessageChange={handleTempMessageChange}
-        handleTemplateSubmit={handleTemplateSubmit}
-        templateData={templateData}
-        templateDataState={templateDataState}
-        handleTempInsert={handleTempInsert}
-        handleTempTitleClick={handleNewTempTitleClick}
-        handleTempShowClick={handleTempShowClick}
-        editmanageTemplate={editmanageTemplate}
-        handleEditTemplate={handleEditTemplate}
-        handleTempEditCancel={handleTempEditCancel}
-        editTempData={editTempData}
-        handleEditTempChange={handleEditTempChange}
-        templateEditTags={templateEditTags}
-        handleTempEditSave={handleTempEditSave}
-        handleTempRemove={handleTempRemove}
-        handleEditTemplateTagChange={handleEditTemplateTagChange}
-        searchValue={searchState}
-        searchTemplateValue={searchTemplateValue}
-        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
-        handleSearchChange={(e) => setSearchState(e.target.value)}
-        replacefunc={replacefunc}
-        dateSelected={dateSelected}
-        handleDateChange={handleDateChange}
-        handleTempDelModal={handleTempDelModal}
-        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
-        showDeleteTempModal={deleteTempComfirmation}
-        handleEmojiOpen={handleEmojiOpen}
-        onEmojiClick={onEmojiClick}
-        onShowEmojiOpen={onShowEmoji}
-        savelistToMessageClick={savelistToMessageClick}
-        selecteduser={selecteduser}
-        handleImageOpen={handleNewImageOpen}
-        selectedImage={selectedNewImage}
-        handleNewImageCancel={handleNewImageCancel}
-        handleImageChange={handleNewImageChange}
-        handleScheduleSubmit={handleScheduleSubmit}
-        scheduledData={scheduledData}
-        handleReSchaduleData={handleReSchaduleData}
-        CancelEmoji={CancelEmoji}
-        selectedNewImageData={selectedNewImageData}
-        imgref={imgref}
-      />
-    </div>
     </Layout>
   );
 };

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // import signup from "../../api/user";
-import Select from "react-select";
 import { signup } from "../../api/user";
 const Signup = () => {
   const [data, setData] = useState({});

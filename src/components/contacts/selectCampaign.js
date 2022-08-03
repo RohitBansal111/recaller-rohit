@@ -60,7 +60,7 @@ const NewMessageSelectTag = (props) => {
           : null}
       </ValuesContainer>
       <Select
-        defaultValue={"heelllll"}
+        // defaultValue={"heelllll"}
         placeholder={"recallr123"}
         {...props}
         controlShouldRenderValue={!isMulti}
