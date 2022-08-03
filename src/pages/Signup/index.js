@@ -8,6 +8,7 @@ import { signup } from "../../api/user";
 const Signup = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
+  const [check, setCheck] = useState(false);
   const communicator = [
     {
       label: "Plan Price : $3,828",
@@ -48,7 +49,8 @@ const Signup = () => {
     setData({ ...data, [e.target.name]: e.target.value });
     setErrors({});
   };
-
+  console.log(data, "datttt");
+  console.log(check, "check");
   const isValid = () => {
     const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     let formData = true;
@@ -89,7 +91,7 @@ const Signup = () => {
         setErrors({ repeatPassword: "Repeat Password is required!" });
         formData = false;
         break;
-      case !data.checkbox:
+      case !check:
         setErrors({ checkbox: "Accept Term & Conditions" });
         formData = false;
         break;
@@ -216,7 +218,7 @@ const Signup = () => {
                 />
                 <span className="spanError">{errors.password}</span>
               </div>
-              
+
               <div className="field-group flex-half">
                 <label htmlFor="name"> Repeat Password </label>
                 <input
@@ -236,9 +238,9 @@ const Signup = () => {
                   id="checkbox"
                   name="checkbox"
                   type="checkbox"
-                  // checked={data.checkbox}
-                  value={data.checkbox}
-                  onChange={handleChange}
+                  checked={check}
+                  // value={data.checkbox}
+                  onChange={() => setCheck(!check)}
                 />
                 <span>Accept our Terms and Conditions.</span>
                 <span className="spanError">{errors.checkbox}</span>
