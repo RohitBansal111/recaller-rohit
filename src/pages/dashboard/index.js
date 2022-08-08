@@ -60,6 +60,7 @@ const Dashboard = (props) => {
     setshowAddCompaign(true);
     seteditCompaign(false);
     setEdit("");
+    setData({});
     // setCamData(false);
   };
 
@@ -127,6 +128,8 @@ const Dashboard = (props) => {
     }
     // setCamData("");
   };
+
+  const handleView = async () => {};
   const dataGraph = [
     {
       name: "Page A",
@@ -651,12 +654,6 @@ const Dashboard = (props) => {
         </div>
 
         <div className="dashboard-multi-tabs">
-          <Dasboardcmlist
-            compaigns={compaigns}
-            handleCompaignShow={handleCompaignShow}
-            handleEditClick={handleEditClick}
-            handleDelete={handleDelete}
-          />
           <Addcompaign
             editCompaign={editCompaign}
             showAddCompaign={showAddCompaign}
@@ -668,6 +665,12 @@ const Dashboard = (props) => {
             errors={errors}
             camData={camData}
             handleEdit={handleEdit}
+          />
+          <Dasboardcmlist
+            compaigns={compaigns}
+            handleCompaignShow={handleCompaignShow}
+            handleEditClick={handleEditClick}
+            handleDelete={handleDelete}
           />
         </div>
       </div>

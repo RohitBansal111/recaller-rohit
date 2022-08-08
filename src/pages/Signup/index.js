@@ -103,9 +103,11 @@ const Signup = () => {
     e.preventDefault();
     if (isValid()) {
       const res = await signup(data);
+
       if (res && res.data && res.data.status === 200) {
         toast.success("Register successful!");
-        navigate(`/price`);
+        console.log(res);
+        // navigate(`/price`);
       } else {
         toast.error(res.data.message);
       }

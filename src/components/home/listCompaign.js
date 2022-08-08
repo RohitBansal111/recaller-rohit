@@ -38,6 +38,7 @@ const Campaignlist = (props) => {
                     <span className="delete" data-tip="Delete">
                       <RiDeleteBinLine
                         onClick={() => props.handleDelete(data)}
+                        Delete
                       />
                       <ReactTooltip />
                     </span>

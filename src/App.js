@@ -94,21 +94,21 @@ function App({ component: Component, ...rest }) {
           }
         />
         <Route
-        path="/Signup"
-        element={
-          <IsNotAuthenticated>
-            <Signup />
-          </IsNotAuthenticated>
-        }
-      />
-      <Route
-      path="/Price"
-      element={
-        <IsNotAuthenticated>
-          <Price />
-        </IsNotAuthenticated>
-      }
-    />
+          path="/Signup"
+          element={
+            <IsNotAuthenticated>
+              <Signup />
+            </IsNotAuthenticated>
+          }
+        />
+        <Route
+          path="/Price"
+          element={
+            <IsNotAuthenticated>
+              <Price />
+            </IsNotAuthenticated>
+          }
+        />
         <Route
           path="/forgot-password"
           element={
@@ -125,115 +125,115 @@ function App({ component: Component, ...rest }) {
             </IsNotAuthenticated>
           }
         />
-          <Route
-            exact
-            path="/"
-            element={
-              <IsAuthenticated>
-                <Dashboard />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/auth/:token"
-            element={
-              <IsAuthenticated>
-                <Auth />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/contacts"
-            element={
-              <IsAuthenticated>
-                <Import />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/viewcontacts"
-            element={
-              <IsAuthenticated>
-                <Campaigncontact />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/recallr-AI"
-            element={
-              <IsAuthenticated>
-                <RecallrAI />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings"
-            element={
-              <IsAuthenticated>
-                <Setting />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/text"
-            element={
-              <IsAuthenticated>
-                <LocalMessages />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/text"
-            element={
-              <IsAuthenticated>
-                <TextPage />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/email"
-            element={
-              <IsAuthenticated>
-                <EmailPage />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/search"
-            element={
-              <IsAuthenticated>
-                <Search />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/voice"
-            element={
-              <IsAuthenticated>
-                <Voice />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/messenger"
-            element={
-              <IsAuthenticated>
-                <Messenger />
-              </IsAuthenticated>
-            }
-          />
-          <Route
+        <Route
+          exact
+          path="/"
+          element={
+            <IsAuthenticated>
+              <Dashboard />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/auth/:token"
+          element={
+            <IsAuthenticated>
+              <Auth />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/contacts"
+          element={
+            <IsAuthenticated>
+              <Import />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/viewcontacts"
+          element={
+            <IsAuthenticated>
+              <Campaigncontact />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/recallr-AI"
+          element={
+            <IsAuthenticated>
+              <RecallrAI />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings"
+          element={
+            <IsAuthenticated>
+              <Setting />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/text"
+          element={
+            <IsAuthenticated>
+              <LocalMessages />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/text"
+          element={
+            <IsAuthenticated>
+              <TextPage />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/email"
+          element={
+            <IsAuthenticated>
+              <EmailPage />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/search"
+          element={
+            <IsAuthenticated>
+              <Search />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/voice"
+          element={
+            <IsAuthenticated>
+              <Voice />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/messenger"
+          element={
+            <IsAuthenticated>
+              <Messenger />
+            </IsAuthenticated>
+          }
+        />
+        <Route
           exact
           path="/Detail"
           element={
@@ -242,89 +242,89 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
-          <Route
-            exact
-            path="/whats-app"
-            element={
-              <IsAuthenticated>
-                <WhatsApp />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/admin/account"
-            element={
-              <IsAuthenticated>
-                <MyAccount />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/text/autoresponder"
-            element={
-              <IsAuthenticated>
-                <AutoResponder />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/text/usage"
-            element={
-              <IsAuthenticated>
-                <Usage />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/text/conversation-tags"
-            element={
-              <IsAuthenticated>
-                <ConversationTags />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/text/opt-in-out"
-            element={
-              <IsAuthenticated>
-                <OPTInOut />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/text/scheduled-messages"
-            element={
-              <IsAuthenticated>
-                <ScheduledMessages />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/email"
-            element={
-              <IsAuthenticated>
-                <EmailSetting />
-              </IsAuthenticated>
-            }
-          />
-          <Route
-            exact
-            path="/settings/email/email-sender"
-            element={
-              <IsAuthenticated>
-                <EmailSender />
-              </IsAuthenticated>
-            }
-          />
-        </Routes>
-      <ToastContainer limit={1}  />
+        <Route
+          exact
+          path="/whats-app"
+          element={
+            <IsAuthenticated>
+              <WhatsApp />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/admin/account"
+          element={
+            <IsAuthenticated>
+              <MyAccount />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/text/autoresponder"
+          element={
+            <IsAuthenticated>
+              <AutoResponder />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/text/usage"
+          element={
+            <IsAuthenticated>
+              <Usage />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/text/conversation-tags"
+          element={
+            <IsAuthenticated>
+              <ConversationTags />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/text/opt-in-out"
+          element={
+            <IsAuthenticated>
+              <OPTInOut />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/text/scheduled-messages"
+          element={
+            <IsAuthenticated>
+              <ScheduledMessages />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/email"
+          element={
+            <IsAuthenticated>
+              <EmailSetting />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/settings/email/email-sender"
+          element={
+            <IsAuthenticated>
+              <EmailSender />
+            </IsAuthenticated>
+          }
+        />
+      </Routes>
+      <ToastContainer limit={1} />
       <Notifications />
     </Router>
   );

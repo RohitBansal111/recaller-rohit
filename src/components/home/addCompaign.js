@@ -14,6 +14,15 @@ const Addcompaign = (props) => {
           {/* <b>Add Compaign</b> */}
           {props.editCompaign == true ? "Edit Compaign" : "Add Compaign"}
         </Modal.Title>
+        <div className="field-group flexFull">
+          <label>
+            {/* {props.editCompaign == true ? (
+              <input id="checkbox" name="checkbox" type="checkbox" />
+            ) : (
+              ""
+            )} */}
+          </label>
+        </div>
       </Modal.Header>
       <Modal.Body>
         <div className="field-group flexFull">
@@ -27,7 +36,7 @@ const Addcompaign = (props) => {
             name="name"
             type="text"
             className="form-control"
-            placeholder="Enter Campaign Name"
+            placeholder={"Enter Campaign Name"}
             value={props.data.name}
             onChange={props.handleChange}
           />

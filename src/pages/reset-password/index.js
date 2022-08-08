@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { resetPasswordApi } from "../../api/user";
+// import { resetPasswordApi } from "../.. /api/user";
 
 const ResetPassword = () => {
   const [resetPass, setResetPass] = useState({});
   const [errors, setErrors] = useState({});
-
   const navigate = useNavigate();
   const { userId, pwToken } = useParams();
   const handleChange = (e) => {
