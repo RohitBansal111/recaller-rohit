@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import Switch from "@mui/material/Switch";
+import { toast } from "react-toastify";
+const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const Addcompaign = (props) => {
   return (
@@ -13,6 +16,20 @@ const Addcompaign = (props) => {
         <Modal.Title>
           {/* <b>Add Compaign</b> */}
           {props.editCompaign == true ? "Edit Compaign" : "Add Compaign"}
+          {props.editCompaign == true ? (
+            <span className="switch-button">
+              <Switch
+                checked={props.data.toggle == false ? false : true}
+                value={props.data.toggle == false ? false : true}
+                {...label}
+                name="toggle"
+                onChange={props.handleChange}
+                // onChange={props.handleChange}
+              />
+            </span>
+          ) : (
+            ""
+          )}
         </Modal.Title>
         <div className="field-group flexFull">
           <label>
