@@ -56,59 +56,59 @@ const LocalMessages = () => {
 
   return (
     <Layout>
-    <div className="content-page-layout">
-      <div className="page-header subheading-bar">
-        <div className="header-text">
-          <h1>Settings</h1>
-          <p>
-            {<Link to={"/settings"}>Settings</Link>}
-            <MdChevronRight />
-            Text
-          </p>
+      <div className="content-page-layout">
+        <div className="page-header subheading-bar">
+          <div className="header-text">
+            <h1>Settings</h1>
+            <p>
+              {<Link to={"/settings"}>Settings</Link>}
+              <MdChevronRight />
+              Text
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="setting-page-main">
-        <div className="setting-card-listing">
-          <ul>
-            {SettingCards.map((item, index) => {
-              return (
-                <li key={index}>
-                  <div className="notification-div">
-                    <div className="notification-toggle">
-                      <Link to={item.path}>
-                        <div className="button-box-text">
-                          <h3>{item.title}</h3>
-                          <p> {item.description} </p>
-                        </div>
-                        <div className="rightChevronIcon">
-                          {!item.extraField && (
-                            <span className="button-box-arrow">
-                              <ChevronRightIcon />
+        <div className="setting-page-main">
+          <div className="setting-card-listing">
+            <ul>
+              {SettingCards.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="notification-div">
+                      <div className="notification-toggle">
+                        <Link to={item.path}>
+                          <div className="button-box-text">
+                            <h3>{item.title}</h3>
+                            <p> {item.description} </p>
+                          </div>
+                          <div className="rightChevronIcon">
+                            {!item.extraField && (
+                              <span className="button-box-arrow">
+                                <ChevronRightIcon />
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                        <div>
+                          {item.extraField && (
+                            <span className="switch-button">
+                              <Switch
+                                checked={checked}
+                                onChange={handleSwitchChange}
+                                defaultChecked
+                                {...label}
+                              />
                             </span>
                           )}
                         </div>
-                      </Link>
-                      <div>
-                        {item.extraField && (
-                          <span className="switch-button">
-                            <Switch
-                              checked={checked}
-                              onChange={handleSwitchChange}
-                              defaultChecked
-                              {...label}
-                            />
-                          </span>
-                        )}
                       </div>
                     </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
     </Layout>
   );
 };

@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import OnlineReviewIcon from "./../../assets/svg/icon-placeholder-online-reviews.svg";
 import AnalyticsIcon from "./../../assets/svg/icon-placeholder-analytics.svg";
 import PerformanceIcon from "./../../assets/svg/icon-placeholder-performance.svg";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { BsFillRecordCircleFill } from "react-icons/bs";
 import Layout from "../../components/layout";
 import { Badge } from "react-bootstrap";
 import Dasboardcmlist from "../../components/home/listCompaign";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import SelectCampaign from "../../components/contacts/selectCampaign";
+// import SelectCampaign from "../../componsetCheckedents/contacts/selectCampaign";
 import Addcompaign from "../../components/home/addCompaign";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   addCompaignApi,
   getCompaignApi,
@@ -18,6 +20,7 @@ import {
   deleteCompaignApi,
 } from "../../api/compaign";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 import {
   AreaChart,
@@ -38,6 +41,10 @@ const Dashboard = (props) => {
   const [edit, setEdit] = useState("");
   const [compaigns, setCompaigns] = useState([]);
   const [selectedCampaign, setSelectedCampaign] = useState({});
+  const [checked, setChecked] = useState(false);
+
+  const userDataa = useSelector((state) => state.Login.userData);
+
   useEffect(() => {
     getContactCompaign();
   }, [props.show]);
@@ -50,17 +57,20 @@ const Dashboard = (props) => {
       let data = res.data.data.map(function (item) {
         return {
           value: item._id,
+          toggle: item.toggle == false ? false : true,
           label: item.name,
         };
       });
       setCompaigns(data);
     }
+    // console.log("togglessss", res.label);
   };
   const handleCompaignShow = () => {
     setshowAddCompaign(true);
     seteditCompaign(false);
     setEdit("");
     setData({});
+
     // setCamData(false);
   };
 
@@ -68,13 +78,23 @@ const Dashboard = (props) => {
     setshowAddCompaign(false);
   };
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-    setErrors({});
+    console.log("data::::", { ...data, [e.target.name]: e.target.value });
+    if (e.target.name == "toggle")
+      setData({
+        ...data,
+        [e.target.name]: e.target.value == "true" ? false : true,
+      });
+    else {
+      setData({ ...data, [e.target.name]: e.target.value });
+      setErrors({});
+    }
   };
   const handleEditClick = (data) => {
     console.log(data.label, "data");
+    console.log(data.toggle, "togglehandle click");
+
     // setCamData(data.label);
-    setData({ name: data.label });
+    setData({ ...data, name: data.label, toggle: data.toggle });
     setEdit(data);
     setshowAddCompaign(true);
     seteditCompaign(true);
@@ -115,21 +135,38 @@ const Dashboard = (props) => {
       toast.error(res.data.message);
     }
     setCamData("");
+    console.log(edit.label, "label");
   };
 
   const handleDelete = async (data) => {
-    const res = await deleteCompaignApi(data.value, data);
-    if (res && res.data && res.data.status === 200) {
-      toast.error("Delete Compaign");
-      // handleCompaignClose(false);
-      getContactCompaign();
-    } else {
-      toast.error(res.data.message);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#27dcbf",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await deleteCompaignApi(data.value, data);
+        if (res && res.data && res.data.status === 200) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          // toast.error("Delete Compaign");
+          // handleCompaignClose(false);
+          getContactCompaign();
+        } else {
+          toast.error(res.data.message);
+        }
+      }
+    });
+
     // setCamData("");
   };
 
-  const handleView = async () => {};
+  // const handleView = async () => {
+  //   navigate("/contacts");
+  // };
   const dataGraph = [
     {
       name: "Page A",
@@ -212,12 +249,14 @@ const Dashboard = (props) => {
   const voicelatestpercentage = 15;
 
   const textpercentage = 6;
+
   return (
     <Layout>
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>
-            Welcome To Your Recallr Dashboard <span> {"Company Name"} </span>
+            Welcome To Your Recallr Dashboard{" "}
+            <span> {userDataa ? userDataa.companyName : ""} </span>
           </h1>
         </div>
         <div className="dahboard-performace-card-box">
@@ -228,13 +267,14 @@ const Dashboard = (props) => {
                 <h2>Voice</h2>
               </div>
               <div className="voice-select">
-                <SelectCampaign
-                  onChange={setSelectedCampaign}
-                  options={compaigns}
-                  // defaultValue={{ label: "Select compaigns", compaigns: 0 }}
-                  // placeholder="Select Side"
-                  value={selectedCampaign}
-                />
+                <select>
+                  <option>select Campaign</option>
+                  {compaigns.map((option, index) => (
+                    <option key={index} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="performance-body voice-value">
@@ -378,7 +418,11 @@ const Dashboard = (props) => {
               <div className="voice-select">
                 <select>
                   <option>select Campaign</option>
-                  <option value="2">2</option>
+                  {compaigns.map((option, index) => (
+                    <option key={index} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -516,7 +560,11 @@ const Dashboard = (props) => {
               <div className="voice-select">
                 <select>
                   <option>select Campaign</option>
-                  <option value="2">2</option>
+                  {compaigns.map((option, index) => (
+                    <option key={index} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -665,6 +713,8 @@ const Dashboard = (props) => {
             errors={errors}
             camData={camData}
             handleEdit={handleEdit}
+            checked={checked}
+            // handleView={handleView}
           />
           <Dasboardcmlist
             compaigns={compaigns}
