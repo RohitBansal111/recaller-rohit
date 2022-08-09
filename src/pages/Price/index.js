@@ -8,12 +8,14 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 import Logo from "../../assets/images/logo.svg";
 import { loadStripe } from "@stripe/stripe-js";
+
 import {
   CardElement,
   Elements,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import Cookies from 'js-cookie'
 import { Button, Row, Col, Modal } from "react-bootstrap";
 import { CreateSubscription } from "../../api/plans";
 const stripePromise = loadStripe(
@@ -41,12 +43,14 @@ const Price = () => {
   };
 
   const hnadleSub_Button = (sub_name, sub_price) => {
+    
     setData({
       ...data,
       amount: Number(sub_price) * 100,
       name: sub_name,
     });
-    setOpen(true);
+   setOpen(true);
+
   };
   const handleClose = () => {
     setOpen(false);
@@ -331,7 +335,7 @@ const Price = () => {
                     </ul>
                     <Button
                       onClick={() => {
-                        console.log("ggggg");
+                        
                         hnadleSub_Button("starter", 149);
                       }}
                     >
@@ -592,6 +596,7 @@ const CARD_ELEMENT_OPTIONS = {
 const CheckoutForm = ({ planName, handleClose, type }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate()
 
   const [details, setDetails] = useState({
     name: "",
@@ -635,31 +640,34 @@ const CheckoutForm = ({ planName, handleClose, type }) => {
           type: type,
         };
         const res = await CreateSubscription(dataAll);
-        console.log(res);
-        // const { client_secret, status } = res.data;
+        
+         const { client_secret, status } = res.data;
 
-        // if (status === "requires_action") {
-        //   stripe.confirmCardPayment(client_secret).then(function (result) {
-        //     if (result.error) {
-        //       console.log(result.error.message);
+        if (status === "requires_action") {
+          stripe.confirmCardPayment(client_secret).then(function (result) {
+            if (result.error) {
+              console.log(result.error.message);
 
-        //       setLoading(false);
-        //       // Display error message in your UI.
-        //       // The card was declined (i.e. insufficient funds, card has expired, etc)
-        //     } else {
-        //       // Show a success message to your customer
+              setLoading(false);
+              // Display error message in your UI.
+              // The card was declined (i.e. insufficient funds, card has expired, etc)
+            } else {
+              // Show a success message to your customer
+              Cookies.remove('token')
+            handleClose();
+             setLoading(false);
+              navigate('/login')
+            }
+          });
+        } else {
+          Cookies.remove('token')
+         handleClose();
+          setLoading(false);
+          navigate('/login')
 
-        //       handleClose();
-        //       setLoading(false);
-        //     }
-        //   });
-        // } else {
-        //   handleClose();
-        //   setLoading(false);
-
-        //   // No additional information was needed
-        //   // Show a success message to your customer
-        // }
+          // No additional information was needed
+          // Show a success message to your customer
+        }
       }
     } catch (error) {
       console.log(error);

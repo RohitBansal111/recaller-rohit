@@ -1,8 +1,10 @@
 import axios from "axios";
+import Cookies from 'js-cookie'
 
 const CreateSubscription = async (data) => {
   try {
-    const AUTH_TOKEN = localStorage.getItem("token");
+    const AUTH_TOKEN = Cookies.get('token')
+    console.log(AUTH_TOKEN)
     axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
     const result = await axios.post(
       `${process.env.REACT_APP_API_URL}/payment/createPayment`,
