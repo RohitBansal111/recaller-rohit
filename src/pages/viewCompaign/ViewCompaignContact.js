@@ -1,13 +1,14 @@
 /* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import EnhancedTable from "../../components/contacts/data-table";
+// import EnhancedTable from "../../components/contacts/data-table";
 import FilterTabs from "../../components/contacts/Filtertabs";
 import ContactModal from "../../models/contactModel";
 import UploadSpreadsheetModal from "../../models/uploadSpreadsheetModal";
 import { createApi, deleteApi, getContactApi } from "../../api/contact";
 import { toast } from "react-toastify";
-import { getCompaignApi } from "../../api/compaign";
+import { contactCompaignApi, getCompaignApi } from "../../api/compaign";
+
 import {
   addContactFilter,
   deleteContactFilterApi,
@@ -16,8 +17,11 @@ import {
   applyContactFilterApi,
 } from "../../api/filter";
 import Layout from "../../components/layout";
+import { useParams } from "react-router-dom";
+import ContactCompaign from "../../components/contacts/ContactCompaign";
+import CompaignFilter from "../../components/contacts/CompaignFilter";
 
-const Import = () => {
+const ViewCompaignContact = () => {
   const [show, setShow] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [addContact, setAddContact] = useState({});
@@ -53,7 +57,25 @@ const Import = () => {
   const [totalRowsData, setTotalRowsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tabKeySet, setTabKeySet] = useState("all");
+  const [compaignContact, setCompaignContact] = useState({});
+  const [viewList, setViewList] = useState();
+  const { id } = useParams();
+  const [rows, setCampaignContacts] = useState([]);
 
+  useEffect(() => {
+    setViewList(id);
+    viewCompaignList(id);
+  }, [id]);
+  console.log(viewList, "view");
+  const viewCompaignList = async (id) => {
+    const res = await contactCompaignApi(id);
+    let compaignId = res.data.data;
+    if (compaignId && compaignId.contactCompaighn) {
+      setCampaignContacts(compaignId.contactCompaighn);
+      console.log(res, "setDataaaaa");
+    }
+    setCompaignContact(compaignId);
+  };
   const handleClose = () => {
     setShow(false);
     setSelectCompaign(null);
@@ -312,6 +334,7 @@ const Import = () => {
         return { value: item._id, label: item.name };
       });
       setCompaigns(data);
+      console.log(res, "getContactCompaign");
     }
   };
 
@@ -555,6 +578,8 @@ const Import = () => {
 
   return (
     <Layout>
+      <h2> Campaign Name :-{compaignContact.name}</h2>
+
       <div className="page-header justify-flex-end">
         {/* <h1>Imported Contacts</h1> */}
         <Dropdown>
@@ -577,9 +602,9 @@ const Import = () => {
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
-        <FilterTabs
+        <CompaignFilter
           totalRecords={totalRowsData ? totalRowsData : 0}
-          compaign={compaign}
+          rows={rows}
           handleTagsClick={handleTagsClick}
           handleAllTagsData={handleAllTagsData}
           handleFilterCancel={handleFilterCancel}
@@ -623,7 +648,15 @@ const Import = () => {
         />
       </div>
       <div className="contact-data-table-main">
-        <EnhancedTable
+        <ContactCompaign
+          handleContactDeleteV={handleContactDeleteV}
+          handleDeleteContact={() => setIsOpenDelete(true)}
+          showDeleteContactModal={isOpenDelete}
+          handleCloseDeleteModal={() => setIsOpenDelete(false)}
+          compaignContact={compaignContact}
+          rows={rows}
+        />
+        {/* <EnhancedTable
           rowsData={rowsData}
           handleContactDeleteV={handleContactDeleteV}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
@@ -648,7 +681,8 @@ const Import = () => {
           isLoading={isLoading}
           totalRecords={totalRowsData ? totalRowsData : 0}
           compaign={compaign}
-        />
+          compaignContact={compaignContact}
+        /> */}
       </div>
 
       <ContactModal
@@ -681,4 +715,4 @@ const Import = () => {
   );
 };
 
-export default Import;
+export default ViewCompaignContact;

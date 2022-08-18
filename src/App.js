@@ -34,6 +34,10 @@ import ConversationTags from "./pages/settings/localMessage/tags";
 import OPTInOut from "./pages/settings/localMessage/optInOut";
 import ScheduledMessages from "./pages/settings/localMessage/scheduled-messages";
 import Import from "./pages/contacts";
+// import ImportCompaign from "./pages/viewCompaigns";
+// import ViewCompaign from "./components/viewCompaign/ViewCompaign";
+// import ViewCompaign from "./pages/viewCompaign/viewCompaign";
+
 import { userDetailApi } from "./api/user";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
@@ -46,6 +50,8 @@ import EmailSender from "./pages/settings/email/email-sender";
 import Price from "./pages/Price";
 import { socket } from "./helper/socket";
 import { Notifications } from "react-push-notification";
+import ViewCompaign from "./pages/viewCompaign/ViewCompaign";
+import ViewCompaignContact from "./pages/viewCompaign/ViewCompaignContact";
 
 const IsAuthenticated = ({ children }) => {
   const user = localStorage.getItem("token");
@@ -149,6 +155,17 @@ function App({ component: Component, ...rest }) {
           element={
             <IsAuthenticated>
               <Import />
+            </IsAuthenticated>
+          }
+        />
+        <Route
+          exact
+          path="/ViewCompaign/:id"
+          element={
+            <IsAuthenticated>
+              {/* <ViewCompaign /> */}
+              {/* <Import /> */}
+              <ViewCompaignContact />
             </IsAuthenticated>
           }
         />

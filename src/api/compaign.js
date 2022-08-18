@@ -62,5 +62,26 @@ const deleteCompaignApi = async (id, data) => {
     return { data: err.response.data };
   }
 };
+const contactCompaignApi = async (id, data) => {
+  try {
+    const AUTH_TOKEN = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/compaign/getCompaign/${id}`,
+      data
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
 
-export { getCompaignApi, addCompaignApi, updateCompaignApi, deleteCompaignApi };
+export {
+  getCompaignApi,
+  addCompaignApi,
+  updateCompaignApi,
+  deleteCompaignApi,
+  contactCompaignApi,
+};

@@ -28,7 +28,7 @@ const Campaignlist = (props) => {
                       <ReactTooltip />
                     </span>
                     <span className="view" data-tip="view">
-                      <GrView onClick={() => props.handleView(data)} />
+                      <GrView onClick={() => props.viewContactCompaign(data)} />
                       <ReactTooltip />
                     </span>
                     <span className="report" data-tip="Report">

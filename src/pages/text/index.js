@@ -532,6 +532,8 @@ const TextPage = () => {
     const estTime = date.format(todayy, "hh:mm A");
     const estTime1 = date.format(todayy, "hh:mm A", true);
 
+    console.log("fhfhfhffhfhfhffhfhfh");
+    console.log(selecteduser.contact);
     // if (estTime >= 8 && estTime <= 20) {
     const res = await sendSingleMessageApi(obj);
 
