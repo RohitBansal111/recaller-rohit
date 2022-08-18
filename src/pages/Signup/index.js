@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie'
 // import signup from "../../api/user";
 import { signup } from "../../api/user";
 const Signup = () => {
@@ -105,9 +106,9 @@ const Signup = () => {
       const res = await signup(data);
 
       if (res && res.data && res.data.status === 200) {
-        toast.success("Register successful!");
-        console.log(res);
-        // navigate(`/price`);
+        toast.success("Register successful!"); 
+        Cookies.set('token', res?.data?.response.jwt , { expires: 1 })
+        navigate(`/price`);
       } else {
         toast.error(res.data.message);
       }
