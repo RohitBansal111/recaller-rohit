@@ -1,0 +1,136 @@
+.common-data-table {
+  .rdt_Table {
+    .rdt_TableHeadRow {
+      background-color: #edf8f3;
+      .rdt_TableCol_Sortable {
+        color: $HeadingColor;
+        opacity: 1;
+        font-size: 14px;
+        span {
+          margin-left: 5px;
+        }
+      }
+    }
+    .rdt_TableBody{
+      .form-control{
+        font-size: 14px;
+      }
+    }
+  }
+}
+.tags-data-table{
+  .MuiTableRow-root{
+    .MuiTableCell-root{
+      span{
+        border-width: 1px;
+        border-style: solid;
+        padding: 5px 10px;
+        border-radius: 21px;
+        font-weight: 500;
+        svg{
+          font-size: 17px;
+        }
+      }
+    }
+  }
+  .table-action{
+    svg{
+      fill: #a0a0a0;
+      margin: 0px 10px;
+      cursor: pointer;
+    }
+  }
+  .MuiTablePagination-root{
+    .MuiToolbar-root{
+      background-color: $Theme-white;
+      border-top: 1px solid #0000001f;
+    }
+  }
+}
+.Spreadsheet-data-table{
+  .rdt_TableHead{
+    .rdt_TableHeadRow{
+      .rdt_TableCol{
+        &:first-child{
+          max-width: 50px;
+          min-width: 90px;
+        }
+      }
+    }
+  }
+  .rdt_TableBody{
+    .rdt_TableRow{
+      .rdt_TableCell{
+        &:first-child{
+          max-width: 50px;
+          min-width: 90px;
+        }
+      }
+    }
+  }
+}
+
+// Apex Chart
+.apexcharts-canvas{
+  .apexcharts-legend{
+    width: 100% !important;
+  }
+}
+
+// Search page
+.searchDataTable{
+  .rdt_Table{
+    .rdt_TableHead{
+      .rdt_TableHeadRow{
+        .rdt_TableCol{
+          &:first-child{
+            width: 10%;
+            max-width: 180px;
+          }
+          &:nth-child(2){
+            width: 40%;
+            max-width: 450px;
+          }
+          &:nth-child(3){
+            width: 40%;
+            max-width: 600px;
+          }
+        }
+      }
+    }
+    .rdt_TableBody{
+      .rdt_TableRow{
+        .rdt_TableCell{
+          &:first-child{
+            width: 10%;
+            max-width: 180px;
+          }
+          &:nth-child(2){
+            width: 40%;
+            max-width: 450px;
+          }
+          &:nth-child(3){
+            width: 40%;
+            max-width: 600px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.wizard-main-content{
+  .table-responsive{
+    max-height: 350px;
+    overflow-y: auto;
+    thead{
+      tr{
+        th{
+          white-space: nowrap;
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
