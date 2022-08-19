@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import OnlineReviewIcon from "./../../assets/svg/icon-placeholder-online-reviews.svg";
 import AnalyticsIcon from "./../../assets/svg/icon-placeholder-analytics.svg";
 import PerformanceIcon from "./../../assets/svg/icon-placeholder-performance.svg";
-import { Link, Navigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BsFillRecordCircleFill } from "react-icons/bs";
 import Layout from "../../components/layout";
 import { Badge } from "react-bootstrap";
@@ -18,6 +18,7 @@ import {
   getCompaignApi,
   updateCompaignApi,
   deleteCompaignApi,
+  contactCompaignApi,
 } from "../../api/compaign";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -31,10 +32,15 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+// import ViewCompaign from "../../components/viewCompaign/ViewCompaign";
 
 const Dashboard = (props) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [showAddCompaign, setshowAddCompaign] = useState(false);
   const [editCompaign, seteditCompaign] = useState(false);
+  const [viewCompaign, setViewCompaign] = useState(false);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({});
   const [camData, setCamData] = useState({});
@@ -42,6 +48,7 @@ const Dashboard = (props) => {
   const [compaigns, setCompaigns] = useState([]);
   const [selectedCampaign, setSelectedCampaign] = useState({});
   const [checked, setChecked] = useState(false);
+  const [view, setView] = useState();
 
   const userDataa = useSelector((state) => state.Login.userData);
 
@@ -50,6 +57,9 @@ const Dashboard = (props) => {
   }, [props.show]);
 
   useEffect(() => {}, [selectedCampaign]);
+  useEffect(() => {
+    viewContactCompaign();
+  }, [props.show]);
 
   const getContactCompaign = async () => {
     let res = await getCompaignApi();
@@ -64,6 +74,21 @@ const Dashboard = (props) => {
       setCompaigns(data);
     }
     // console.log("togglessss", res.label);
+  };
+  const viewContactCompaign = async (item) => {
+    console.log(item, "kkkkkkkkkkkkk");
+    let res = await contactCompaignApi(item.value);
+    if (res && res.data && res.data.status === 200) {
+      console.log(res.data.data, "res.data.data");
+      let compaignId = res.data.data._id;
+      setView(compaignId);
+      // setshowAddCompaign(true);
+      setViewCompaign(true);
+      navigate(`/ViewCompaign/${item.value}`);
+
+      // seteditCompaign(true);
+    }
+    console.log("view contactCompaign", res);
   };
   const handleCompaignShow = () => {
     setshowAddCompaign(true);
@@ -705,6 +730,7 @@ const Dashboard = (props) => {
           <Addcompaign
             editCompaign={editCompaign}
             showAddCompaign={showAddCompaign}
+            viewCompaign={viewCompaign}
             handleCompaignClose={handleCompaignClose}
             handleCompaignShow={handleCompaignShow}
             handleChange={handleChange}
@@ -721,7 +747,9 @@ const Dashboard = (props) => {
             handleCompaignShow={handleCompaignShow}
             handleEditClick={handleEditClick}
             handleDelete={handleDelete}
+            viewContactCompaign={viewContactCompaign}
           />
+          {/* <ViewCompaign editCompaign={editCompaign} /> */}
         </div>
       </div>
     </Layout>

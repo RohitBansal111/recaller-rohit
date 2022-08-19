@@ -7,10 +7,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { RootReducer } from "./rootReducer";
 
+
 const store = createStore(RootReducer);
-
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
@@ -18,6 +16,7 @@ root.render(
     <App />
   </React.StrictMode>
 </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
