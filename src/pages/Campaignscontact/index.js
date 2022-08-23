@@ -157,15 +157,15 @@ const Campaigncontact = () => {
     return formData;
   };
 
-  const handleSubmit = async (e,selectedCampaign) => {
+  const handleSubmit = async (e, selectedCampaign) => {
     if (isValid()) {
-     if(!selectedCampaign){
-      setErrors({ compaign: "Please enter your Campaign" });
-      return
-     }
+      if (!selectedCampaign) {
+        setErrors({ compaign: "Please enter your Campaign" });
+        return;
+      }
       setLoading(true);
       setIsLoading(true);
-      let res = await createApi({...addContact,compaign:selectedCampaign});
+      let res = await createApi({ ...addContact, compaign: selectedCampaign });
       if (res && res.data && res.data.status === 200) {
         setShow(false);
         setAddContact({});
@@ -214,7 +214,7 @@ const Campaigncontact = () => {
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
-      console.log("campaign data:::",res.data.data)
+      console.log("campaign data:::", res.data.data);
       setRowsData(res.data.data);
       setTotalRowsData(res.data.data.length);
     }
@@ -554,11 +554,11 @@ const Campaigncontact = () => {
   };
 
   return (
-   <Layout>
+    <Layout>
       <div className="page-header justify-flex-start">
-            <div className="layoutheading">
-            <h1>Campaign Name</h1>
-            </div>
+        <div className="layoutheading">
+          <h1>Campaign Name</h1>
+        </div>
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
@@ -636,7 +636,7 @@ const Campaigncontact = () => {
         />
       </div>
 
-      <ContactModal 
+      <ContactModal
         show={show}
         loading={loading}
         handleClose={handleClose}

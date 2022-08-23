@@ -283,6 +283,7 @@ const Dashboard = (props) => {
             Welcome To Your Recallr Dashboard{" "}
             <span> {userDataa ? userDataa.companyName : ""} </span>
           </h1>
+          {console.log(userDataa.companyName, "companyName")}
         </div>
         <div className="dahboard-performace-card-box">
           <div className="performance-card">

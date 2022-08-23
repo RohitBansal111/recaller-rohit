@@ -622,7 +622,7 @@ const Import = () => {
           tabsKey={tabKeySet}
         />
       </div>
-      <div className="contact-data-table-main">
+      <div className="">
         <EnhancedTable
           rowsData={rowsData}
           handleContactDeleteV={handleContactDeleteV}

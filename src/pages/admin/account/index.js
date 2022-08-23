@@ -40,9 +40,10 @@ const MyAccount = () => {
         formData = false;
         break;
       case !addUser.companyName:
-        setErrors({ companyName: "companyName field Required" });
+        setErrors({ companyName: "company Name field Required" });
         formData = false;
         break;
+      default:
         formData = true;
     }
     return formData;
@@ -87,6 +88,7 @@ const MyAccount = () => {
         userData.firstName = data.firstName;
         userData.lastName = data.lastName;
         userData.phone = data.phone;
+        userData.companyName = data.companyName;
         localStorage.setItem("userData", JSON.stringify(userData));
         dispatch(loginAction(userData));
         setAddUser(userData);
@@ -128,6 +130,7 @@ const MyAccount = () => {
         userData.firstName = data.firstName;
         userData.lastName = data.lastName;
         userData.phone = data.phone;
+        userData.companyName = data.companyName;
         localStorage.setItem("userData", JSON.stringify(userData));
         dispatch(loginAction(userData));
         setAddUser(userData);
@@ -216,14 +219,14 @@ const MyAccount = () => {
                 <div className="field-group flex2">
                   <label htmlFor="name">Company Name</label>
                   <input
-                    name="companyname"
+                    name="companyName"
                     type="text"
                     className="form-control"
                     placeholder="Enter Your Company name"
                     value={addUser && addUser.companyName}
                     onChange={handleChange}
                   />
-                  <span className="spanError">{errors.companyname}</span>
+                  <span className="spanError">{errors.companyName}</span>
                 </div>
 
                 <div className="field-group  flex2 currentplan">

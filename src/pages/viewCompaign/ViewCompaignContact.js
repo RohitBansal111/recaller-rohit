@@ -236,9 +236,9 @@ const ViewCompaignContact = () => {
   const getData = async () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
-      console.log("campaign data:::", res.data.data);
-      setRowsData(res.data.data);
-      setTotalRowsData(res.data.data.length);
+      let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
+      setRowsData(arr);
+      setTotalRowsData(arr.length);
     }
     getContactCompaign();
   };
@@ -648,9 +648,9 @@ const ViewCompaignContact = () => {
         />
       </div>
       <div className="contact-data-table-main">
-        <ContactCompaign
+        <ContactCompaignsetIsOpenDelete
           handleContactDeleteV={handleContactDeleteV}
-          handleDeleteContact={() => setIsOpenDelete(true)}
+          handleDeleteContact={() => true}
           showDeleteContactModal={isOpenDelete}
           handleCloseDeleteModal={() => setIsOpenDelete(false)}
           compaignContact={compaignContact}
