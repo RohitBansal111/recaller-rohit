@@ -648,9 +648,9 @@ const ViewCompaignContact = () => {
         />
       </div>
       <div className="contact-data-table-main">
-        <ContactCompaignsetIsOpenDelete
+        <ContactCompaign
           handleContactDeleteV={handleContactDeleteV}
-          handleDeleteContact={() => true}
+          handleDeleteContact={() => setIsOpenDelete(true)}
           showDeleteContactModal={isOpenDelete}
           handleCloseDeleteModal={() => setIsOpenDelete(false)}
           compaignContact={compaignContact}
