@@ -869,7 +869,12 @@
         .performance-value {
           display: flex;
           align-items: center;
-
+          .text2{
+            position: relative;
+            top: 5px;
+            left: 15px;
+            color: grey;
+          }
           .circle {
             svg {
               font-size: 40px;
@@ -895,16 +900,12 @@
           }
         }
       }
-
-      .value-graph {}
-
       .top-performance-field {
         padding: 1.25rem;
 
         h2 {
           color: #6c757d;
           font-size: 14px;
-          text-transform: uppercase;
           opacity: 0.9;
           font-weight: 400;
           margin-bottom: 10px;
@@ -931,6 +932,19 @@
                     .progress-circle-wrapper {
                       width: 54px;
                       margin-right: 16px;
+                      width: 45px;
+                      height: 45px;
+                      background-color: grey;
+                      border-radius: 50%;
+                      @include flexAllCenter;
+                      svg{
+                        padding: 4px;
+                        width: 35px;
+                        height: 35px;
+                        path{
+                          fill: #fff;
+                        }
+                      }
                     }
 
                     .pfield-content-left {

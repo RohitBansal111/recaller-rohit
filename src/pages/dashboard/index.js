@@ -12,6 +12,9 @@ import "react-circular-progressbar/dist/styles.css";
 // import SelectCampaign from "../../componsetCheckedents/contacts/selectCampaign";
 import Addcompaign from "../../components/home/addCompaign";
 import { useDispatch, useSelector } from "react-redux";
+import VoiceIcon from "../../assets/svg-icons/voiceIcon";
+import TextIcon from "../../assets/svg-icons/textIcon";
+import EmailIcon from "../../assets/svg-icons/emailIcon";
 
 import {
   addCompaignApi,
@@ -305,12 +308,12 @@ const Dashboard = (props) => {
             </div>
             <div className="performance-body text-value">
               <div className="performance-value-box">
-                <h2>Credit Usage</h2>
                 <div className="performance-value">
-                  <span className="circle">
+                  {/* <span className="circle">
                     <BsFillRecordCircleFill />
-                  </span>
-                  <span className="price-value">984</span>
+                  </span> */}
+                  <span className="price-value">Aug. 984</span>
+                  <span className="text2">Credits Deployed</span>
                 </div>
               </div>
               <div className="value-graph">
@@ -353,7 +356,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className="top-performance-field">
-                <h2>Recent campaigns performance</h2>
+                <h2>Credit Balance</h2>
                 <div className="per-field">
                   <div className="comp-pfield">
                     <ul>
@@ -361,26 +364,12 @@ const Dashboard = (props) => {
                         <div className="pfield-content-wrapper">
                           <div className="pfield-progressbar">
                             <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicepercentage}
-                                text={`${voicepercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#1b00ff",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
+                              <TextIcon />
                             </div>
-
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">Delivered</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$102</Badge>
+                              <div className="pfield-heading">
+                                <h4>Text</h4>
+                                <span>Credit Deployed</span>
                               </div>
                             </div>
                           </div>
@@ -393,26 +382,30 @@ const Dashboard = (props) => {
                         <div className="pfield-content-wrapper">
                           <div className="pfield-progressbar">
                             <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicelatestpercentage}
-                                text={`${voicelatestpercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#d92550",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
+                              <VoiceIcon />
                             </div>
-
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">failed</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$132</Badge>
+                              <div className="pfield-heading">
+                                <h4>Voice</h4>
+                                <span>Credit Deployed</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pfield-content-right">
+                            <span>252</span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="pfield-content-wrapper">
+                          <div className="pfield-progressbar">
+                            <div className="progress-circle-wrapper">
+                              <EmailIcon />
+                            </div>
+                            <div className="pfield-content-left">
+                              <div className="pfield-heading">
+                                <h4>Email</h4>
+                                <span>Credit Deployed</span>
                               </div>
                             </div>
                           </div>
