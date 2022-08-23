@@ -274,12 +274,16 @@ const Dashboard = (props) => {
   const voicelatestpercentage = 15;
 
   const textpercentage = 6;
+  
 
   return (
     <Layout>
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>
+            {
+              console.log( userDataa)
+            }
             Welcome To Your Recallr Dashboard{" "}
             <span> {userDataa ? userDataa.companyName : ""} </span>
           </h1>
