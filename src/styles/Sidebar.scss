@@ -120,7 +120,7 @@
     .btn {
       padding: 15px 20px 15px 55px;
       width: 100%;
-      background-color: $Theme-dark;
+      background-color: #343a40 !important;
       color: $Theme-white;
       border: none;
       border-top: rgba(0, 0, 0, 0.04) solid 1px;
@@ -128,7 +128,6 @@
       border-radius: 0px !important;
       align-items: center;
       justify-content: flex-start;
-
       span {
         color: #fff !important;
       }
@@ -142,10 +141,7 @@
       &:hover {
         border: none !important;
         border-top: rgba(0, 0, 0, 0.04) solid 1px;
-
-        span {
-          color: $Active-color;
-        }
+        color: $Theme-white;
       }
 
       &::after {

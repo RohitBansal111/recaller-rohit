@@ -12,6 +12,11 @@ import "react-circular-progressbar/dist/styles.css";
 // import SelectCampaign from "../../componsetCheckedents/contacts/selectCampaign";
 import Addcompaign from "../../components/home/addCompaign";
 import { useDispatch, useSelector } from "react-redux";
+import VoiceIcon from "../../assets/svg-icons/voiceIcon";
+import TextIcon from "../../assets/svg-icons/textIcon";
+import EmailIcon from "../../assets/svg-icons/emailIcon";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import {
   addCompaignApi,
@@ -290,180 +295,29 @@ const Dashboard = (props) => {
           {console.log(userDataa.companyName, "companyName")}
         </div>
         <div className="dahboard-performace-card-box">
-          <div className="performance-card">
-            <div className="performance-header">
-              <div className="card-media">
-                <img src={OnlineReviewIcon} alt="Online Reviews" />
-                <h2>Voice</h2>
-              </div>
-              <div className="voice-select">
-                <select>
-                  <option>select Campaign</option>
-                  {compaigns.map((option, index) => (
-                    <option key={index} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="performance-body voice-value">
-              <div className="performance-value-box">
-                <h2>Credit Usage</h2>
-                <div className="performance-value">
-                  <span className="circle">
-                    <BsFillRecordCircleFill />
-                  </span>
-                  <span className="price-value">984</span>
-                </div>
-              </div>
-              <div className="value-graph">
-                <ResponsiveContainer width={"99.9%"} height={150}>
-                  <AreaChart
-                    width={310}
-                    height={120}
-                    data={dataGraph}
-                    margin={{
-                      top: 5,
-                      right: 0,
-                      left: 0,
-                      bottom: 5,
-                    }}
-                  >
-                    <defs>
-                      <linearGradient
-                        id="colorvoice"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="15%"
-                          stopColor="#3ac47d"
-                          stopOpacity={0.7}
-                        />
-                        <stop
-                          offset="100%"
-                          stopColor="#3ac47d"
-                          stopOpacity={0.1}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      strokeWidth={4}
-                      dataKey="uv"
-                      stroke="#3ac47d"
-                      fillOpacity={1}
-                      fill="url(#colorvoice)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-
-              <div className="top-performance-field">
-                <h2>Recent campaigns performance</h2>
-                <div className="per-field">
-                  <div className="comp-pfield">
-                    <ul>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicepercentage}
-                                text={`${voicepercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#1b00ff",
-                                    textcolor: "cadetblue",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
-                            </div>
-
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">Delivered</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$152</Badge>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>752</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicelatestpercentage}
-                                text={`${voicelatestpercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#d92550",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
-                            </div>
-
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">failed</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$132</Badge>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>552</span>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
-                <img src={AnalyticsIcon} alt="Analytics" />
-                <h2>text</h2>
+                <CloudDownloadIcon />
+                <h2 className="ml-1">Download Report</h2>
               </div>
-              <div className="voice-select">
-                <select>
-                  <option>select Campaign</option>
-                  {compaigns.map((option, index) => (
-                    <option key={index} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+              <div className="db-report-details">
+                <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <li class="nav-item"><a data-toggle="tab" href="#tabs-eg-77" class="nav-link">Current</a></li>
+                  <li class="nav-item"><a data-toggle="tab" href="#tabs-eg-88" class="nav-link second-tab-toggle active">Last</a>
+                  </li>
+                </ul>
               </div>
             </div>
             <div className="performance-body text-value">
               <div className="performance-value-box">
-                <h2>Credit Usage</h2>
                 <div className="performance-value">
-                  <span className="circle">
+                  {/* <span className="circle">
                     <BsFillRecordCircleFill />
-                  </span>
-                  <span className="price-value">984</span>
+                  </span> */}
+                  <span className="price-value"><span className="month43">Aug.</span> 984</span>
+                  <span className="text2">Credits Deployed</span>
                 </div>
               </div>
               <div className="value-graph">
@@ -506,7 +360,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className="top-performance-field">
-                <h2>Recent campaigns performance</h2>
+                <h2>Credit Balance</h2>
                 <div className="per-field">
                   <div className="comp-pfield">
                     <ul>
@@ -514,31 +368,20 @@ const Dashboard = (props) => {
                         <div className="pfield-content-wrapper">
                           <div className="pfield-progressbar">
                             <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicepercentage}
-                                text={`${voicepercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#1b00ff",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
+                              <TextIcon />
                             </div>
-
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">Delivered</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$102</Badge>
+                              <div className="pfield-heading">
+                                <h4>Text</h4>
+                                <span>Credit Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>152</span>
+                            <span>
+                              <small>$</small> 152 
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span> 
+                            </span>
                           </div>
                         </div>
                       </li>
@@ -546,115 +389,51 @@ const Dashboard = (props) => {
                         <div className="pfield-content-wrapper">
                           <div className="pfield-progressbar">
                             <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicelatestpercentage}
-                                text={`${voicelatestpercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#d92550",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
+                              <VoiceIcon />
                             </div>
-
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">failed</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$132</Badge>
+                              <div className="pfield-heading">
+                                <h4>Voice</h4>
+                                <span>Credit Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>252</span>
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance loss"><KeyboardArrowDownIcon /></span>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="pfield-content-wrapper">
+                          <div className="pfield-progressbar">
+                            <div className="progress-circle-wrapper">
+                              <EmailIcon />
+                            </div>
+                            <div className="pfield-content-left">
+                              <div className="pfield-heading">
+                                <h4>Email</h4>
+                                <span>Credit Deployed</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pfield-content-right">
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span>
+                            </span>
                           </div>
                         </div>
                       </li>
                     </ul>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="performance-card">
-            <div className="performance-header">
-              <div className="card-media">
-                <img src={PerformanceIcon} alt="Performance" />
-                <h2>Email</h2>
-              </div>
-              <div className="voice-select">
-                <select>
-                  <option>select Campaign</option>
-                  {compaigns.map((option, index) => (
-                    <option key={index} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="performance-body Email-value">
-              <div className="performance-value-box">
-                <h2>Credit Usage</h2>
-                <div className="performance-value">
-                  <span className="circle">
-                    <BsFillRecordCircleFill />
-                  </span>
-                  <span className="price-value">984</span>
-                </div>
-              </div>
-              <div className="value-graph">
-                <ResponsiveContainer width={"99.9%"} height={150}>
-                  <AreaChart
-                    width={310}
-                    height={150}
-                    data={dataGraph}
-                    margin={{
-                      top: 5,
-                      right: 0,
-                      left: 0,
-                      bottom: 5,
-                    }}
-                  >
-                    <defs>
-                      <linearGradient
-                        id="colorEmail"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="15%"
-                          stopColor="#655beb"
-                          stopOpacity={0.7}
-                        />
-                        <stop
-                          offset="100%"
-                          stopColor="#655beb"
-                          stopOpacity={0.2}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      strokeWidth={4}
-                      dataKey="uv"
-                      stroke="#655beb"
-                      fillOpacity={1}
-                      fill="url(#colorEmail)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
               </div>
 
               <div className="top-performance-field">
-                <h2>Recent campaigns performance</h2>
+                <h2>Last Month Highlights</h2>
                 <div className="per-field">
                   <div className="comp-pfield">
                     <ul>
@@ -662,32 +441,20 @@ const Dashboard = (props) => {
                         <div className="pfield-content-wrapper">
                           <div className="pfield-progressbar">
                             <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicepercentage}
-                                text={`${voicepercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#1b00ff",
-                                    textcolor: "cadetblue",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
+                              <TextIcon />
                             </div>
-
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">Delivered</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$152</Badge>
+                              <div className="pfield-heading">
+                                <h4>Text</h4>
+                                <span>Credit Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>752</span>
+                            <span>
+                              <small>$</small> 152 
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span> 
+                            </span>
                           </div>
                         </div>
                       </li>
@@ -695,31 +462,41 @@ const Dashboard = (props) => {
                         <div className="pfield-content-wrapper">
                           <div className="pfield-progressbar">
                             <div className="progress-circle-wrapper">
-                              <CircularProgressbar
-                                value={voicelatestpercentage}
-                                text={`${voicelatestpercentage}%`}
-                                styles={{
-                                  path: {
-                                    stroke: "#d92550",
-                                  },
-                                  text: {
-                                    fill: "cadetblue",
-                                    fontSize: "25px",
-                                    fontWeight: "500",
-                                  },
-                                }}
-                              />
+                              <VoiceIcon />
                             </div>
-
                             <div className="pfield-content-left">
-                              <div className="pfield-heading">failed</div>
-                              <div className="pfield-subheading">
-                                <Badge bg="secondary">$132</Badge>
+                              <div className="pfield-heading">
+                                <h4>Voice</h4>
+                                <span>Credit Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>552</span>
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance loss"><KeyboardArrowDownIcon /></span>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="pfield-content-wrapper">
+                          <div className="pfield-progressbar">
+                            <div className="progress-circle-wrapper">
+                              <EmailIcon />
+                            </div>
+                            <div className="pfield-content-left">
+                              <div className="pfield-heading">
+                                <h4>Email</h4>
+                                <span>Credit Deployed</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pfield-content-right">
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span>
+                            </span>
                           </div>
                         </div>
                       </li>
@@ -727,6 +504,7 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

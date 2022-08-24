@@ -348,8 +348,9 @@
         height: 1px;
       }
     }
-
-    .btn {}
+    .btn {
+      color: #343a40 !important;
+    }
   }
 }
 
@@ -453,16 +454,16 @@
           &.view {
             svg {
               font-size: 17px;
-              fill: #3ac47d;
+              fill: #36ddbf;
 
               path {
-                stroke: #3ac47d;
+                stroke: #36ddbf;
               }
             }
 
             &:hover {
-              background: #3ac47d;
-              border: 1px solid #3ac47d;
+              background: #36ddbf;
+              border: 1px solid #36ddbf; 
 
               svg {
                 fill: #ffffff;
@@ -499,12 +500,12 @@
 
           &.report {
             svg {
-              color: #655beb;
+              color: #6255ed;
             }
 
             &:hover {
-              background: #655beb;
-              border: 1px solid #655beb;
+              background: #6255ed;
+              border: 1px solid #6255ed;
 
               svg {
                 color: #ffffff;
@@ -802,7 +803,7 @@
     background-clip: border-box;
     border: 1px solid #dee2e6;
     border-radius: 10px;
-    width: 33.3%;
+    width: 100%;
     margin: 0px 7.5px;
 
     .performance-header {
@@ -834,23 +835,34 @@
         }
       }
 
-      .voice-select {
-        select {
-          border: 1px solid #ced4da;
-          border-radius: 0.25rem;
-          background-color: #fff;
-          padding: 2px 5px;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 1.5;
-          color: #212529;
-          text-transform: capitalize;
-          transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      .db-report-details{
+        // select {
+        //   border: 1px solid #ced4da;
+        //   border-radius: 0.25rem;
+        //   background-color: #fff;
+        //   padding: 2px 5px;
+        //   font-size: 14px;
+        //   font-weight: 400;
+        //   line-height: 1.5;
+        //   color: #212529;
+        //   text-transform: capitalize;
+        //   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
-          &:focus,
-          &:focus-visible {
-            outline: none;
-            box-shadow: none;
+        //   &:focus,
+        //   &:focus-visible {
+        //     outline: none;
+        //     box-shadow: none;
+        //   }
+        // }
+        .nav{
+          .nav-item{
+            .nav-link{
+              text-transform: none;
+              width: 100%;
+              display: block;
+              color: #495057;
+              font-weight: 600;
+            }
           }
         }
       }
@@ -869,7 +881,12 @@
         .performance-value {
           display: flex;
           align-items: center;
-
+          .text2{
+            position: relative;
+            top: 5px;
+            left: 15px;
+            color: #9da1a5;
+          }
           .circle {
             svg {
               font-size: 40px;
@@ -882,6 +899,11 @@
             font-size: 2.5rem;
             font-weight: bold;
             color: #495057;
+            .month43{
+              font-size: 26px;
+              font-weight: 400;
+              color: #9da1a5;
+            }
           }
 
           .percentage-value {
@@ -895,16 +917,12 @@
           }
         }
       }
-
-      .value-graph {}
-
       .top-performance-field {
         padding: 1.25rem;
 
         h2 {
           color: #6c757d;
           font-size: 14px;
-          text-transform: uppercase;
           opacity: 0.9;
           font-weight: 400;
           margin-bottom: 10px;
@@ -918,6 +936,7 @@
 
               li {
                 padding: 8px 0px;
+                margin-bottom: 10px;
 
                 .pfield-content-wrapper {
                   display: flex;
@@ -931,6 +950,19 @@
                     .progress-circle-wrapper {
                       width: 54px;
                       margin-right: 16px;
+                      width: 45px;
+                      height: 45px;
+                      background-color: #9da1a5;
+                      border-radius: 50%;
+                      @include flexAllCenter;
+                      svg{
+                        padding: 6px;
+                        width: 35px;
+                        height: 35px;
+                        path{
+                          fill: #fff;
+                        }
+                      }
                     }
 
                     .pfield-content-left {
@@ -939,6 +971,18 @@
                         font-weight: bold;
                         font-size: .9rem;
                         text-transform: capitalize;
+                        h4{
+                          font-size: 20px;
+                          font-weight: 600;
+                          padding-bottom: 0px;
+                          margin-bottom: 0px;
+                          color: #343a40 !important;
+                        }
+                        span{
+                          font-weight: 400;
+                          color: #9da1a5;
+                          font-size: 15px;
+                        }
                       }
 
                       .pfield-subheading {
@@ -957,10 +1001,33 @@
                   }
 
                   .pfield-content-right {
+                    small{
+                      color: #6c757d!important;
+                      font-size: 16px;
+                      margin-right: 2px;
+                    }
                     span {
-                      font-size: .95rem;
-                      color: #444054;
-                      font-weight: 400;
+                      font-size: 20px;
+                      color: #6c757d!important;
+                      font-weight: 500;
+                    }
+                    .active-performance{
+                      margin-left: 3px;
+                      &.profit{
+                        svg{
+                          transform: rotate(180deg);
+                          path{
+                            fill: #36ddbf!important;
+                          }
+                        }
+                      }
+                      &.loss{ 
+                        svg{
+                          path{
+                            fill: #d92550!important;
+                          }
+                        }
+                      }
                     }
                   }
                 }
