@@ -47,9 +47,6 @@ function getComparator(order, orderBy) {
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -395,25 +392,6 @@ export default function EnhancedTable(props) {
   const loadContacts = () => {
     let filtered = "";
     filtered =
-      // props.filterByCompaigns.length > 0
-      //   ? props.filterByCompaigns.filter(
-      //       (contact) =>
-      //         contact.firstName
-      //           .toLowerCase()
-      //           .startsWith(props.value.toLowerCase()) ||
-      //         contact.firstName
-      //           .toLowerCase()
-      //           .startsWith(props.value.toLowerCase()) ||
-      //         contact.lastName.toLowerCase().startsWith(props.value) ||
-      //         contact.phone.startsWith(props.value) ||
-      //         // contact.country.startsWith(props.value) ||
-      //         // contact.state.startsWith(props.value) ||
-      //         // contact.city.startsWith(props.value) ||
-      //         // contact.zipcode.startsWith(props.value) ||
-      //         // contact.address.startsWith(props.value) ||
-      //         contact.email.toLowerCase().startsWith(props.value)
-      //     )
-      //   :
       rowsData &&
       rowsData.filter(
         (contact) =>

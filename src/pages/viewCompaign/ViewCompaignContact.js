@@ -20,6 +20,7 @@ import Layout from "../../components/layout";
 import { useParams } from "react-router-dom";
 import ContactCompaign from "../../components/contacts/ContactCompaign";
 import CompaignFilter from "../../components/contacts/CompaignFilter";
+import EnhancedTable from "../../components/contacts/data-table";
 
 const ViewCompaignContact = () => {
   const [show, setShow] = useState(false);
@@ -66,13 +67,11 @@ const ViewCompaignContact = () => {
     setViewList(id);
     viewCompaignList(id);
   }, [id]);
-  console.log(viewList, "view");
   const viewCompaignList = async (id) => {
     const res = await contactCompaignApi(id);
     let compaignId = res.data.data;
     if (compaignId && compaignId.contactCompaighn) {
       setCampaignContacts(compaignId.contactCompaighn);
-      console.log(res, "setDataaaaa");
     }
     setCompaignContact(compaignId);
   };
@@ -276,22 +275,15 @@ const ViewCompaignContact = () => {
     setSelected([]);
   };
 
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex == -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex == 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex == selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+  const handleClick = (check, data) => {
+    let newSelected = [...selected];
+    if (check) {
+      newSelected.push(data.contactid);
+    } else {
+      let index = newSelected.indexOf(data.contactid);
+      newSelected.splice(index, 1);
     }
+
     setSelected(newSelected);
   };
 
@@ -306,7 +298,6 @@ const ViewCompaignContact = () => {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0
       ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length)
@@ -334,7 +325,6 @@ const ViewCompaignContact = () => {
         return { value: item._id, label: item.name };
       });
       setCompaigns(data);
-      console.log(res, "getContactCompaign");
     }
   };
 
@@ -649,12 +639,32 @@ const ViewCompaignContact = () => {
       </div>
       <div className="contact-data-table-main">
         <ContactCompaign
+          rowsData={rowsData}
           handleContactDeleteV={handleContactDeleteV}
           handleDeleteContact={() => setIsOpenDelete(true)}
           showDeleteContactModal={isOpenDelete}
           handleCloseDeleteModal={() => setIsOpenDelete(false)}
           compaignContact={compaignContact}
           rows={rows}
+          isSelected={isSelected}
+          emptyRows={emptyRows}
+          handleClick={handleClick}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          handleSelectAllClick={handleSelectAllClick}
+          handleRequestSort={handleRequestSort}
+          order={order}
+          orderBy={orderBy}
+          selected={selected}
+          dense={dense}
+          value={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
+          filterByCompaigns={filterByCompaigns}
+          isLoading={isLoading}
+          totalRecords={totalRowsData ? totalRowsData : 0}
+          compaign={compaign}
         />
         {/* <EnhancedTable
           rowsData={rowsData}
