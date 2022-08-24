@@ -267,6 +267,7 @@ const ViewCompaignContact = () => {
   };
 
   const handleSelectAllClick = (event) => {
+    console.log("qwery", event.target.checked);
     if (event.target.checked) {
       const newSelecteds = rowsData && rowsData.map((n) => n.contactid);
       setSelected(newSelecteds);
