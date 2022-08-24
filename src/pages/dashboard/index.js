@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import VoiceIcon from "../../assets/svg-icons/voiceIcon";
 import TextIcon from "../../assets/svg-icons/textIcon";
 import EmailIcon from "../../assets/svg-icons/emailIcon";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import {
   addCompaignApi,
@@ -292,19 +294,16 @@ const Dashboard = (props) => {
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
-                <img src={AnalyticsIcon} alt="Analytics" />
-                <h2>Email, Text, Voice</h2>
+                <CloudDownloadIcon />
+                <h2 className="ml-1">Download Report</h2>
               </div>
-              {/* <div className="voice-select">
-                <select>
-                  <option>select Campaign</option>
-                  {compaigns.map((option, index) => (
-                    <option key={index} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
+              <div className="db-report-details">
+                <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <li class="nav-item"><a data-toggle="tab" href="#tabs-eg-77" class="nav-link">Current</a></li>
+                  <li class="nav-item"><a data-toggle="tab" href="#tabs-eg-88" class="nav-link second-tab-toggle active">Last</a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div className="performance-body text-value">
               <div className="performance-value-box">
@@ -374,7 +373,10 @@ const Dashboard = (props) => {
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>152 </span>
+                            <span>
+                              <small>$</small> 152 
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span> 
+                            </span>
                           </div>
                         </div>
                       </li>
@@ -392,7 +394,10 @@ const Dashboard = (props) => {
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>252</span>
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance loss"><KeyboardArrowDownIcon /></span>
+                            </span>
                           </div>
                         </div>
                       </li>
@@ -410,7 +415,10 @@ const Dashboard = (props) => {
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>252</span>
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span>
+                            </span>
                           </div>
                         </div>
                       </li>
@@ -418,6 +426,80 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </div>
+
+              <div className="top-performance-field">
+                <h2>Last Month Highlights</h2>
+                <div className="per-field">
+                  <div className="comp-pfield">
+                    <ul>
+                      <li>
+                        <div className="pfield-content-wrapper">
+                          <div className="pfield-progressbar">
+                            <div className="progress-circle-wrapper">
+                              <TextIcon />
+                            </div>
+                            <div className="pfield-content-left">
+                              <div className="pfield-heading">
+                                <h4>Text</h4>
+                                <span>Credit Deployed</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pfield-content-right">
+                            <span>
+                              <small>$</small> 152 
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span> 
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="pfield-content-wrapper">
+                          <div className="pfield-progressbar">
+                            <div className="progress-circle-wrapper">
+                              <VoiceIcon />
+                            </div>
+                            <div className="pfield-content-left">
+                              <div className="pfield-heading">
+                                <h4>Voice</h4>
+                                <span>Credit Deployed</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pfield-content-right">
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance loss"><KeyboardArrowDownIcon /></span>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="pfield-content-wrapper">
+                          <div className="pfield-progressbar">
+                            <div className="progress-circle-wrapper">
+                              <EmailIcon />
+                            </div>
+                            <div className="pfield-content-left">
+                              <div className="pfield-heading">
+                                <h4>Email</h4>
+                                <span>Credit Deployed</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pfield-content-right">
+                            <span>
+                              <small>$</small> 252
+                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

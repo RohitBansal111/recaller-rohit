@@ -348,8 +348,9 @@
         height: 1px;
       }
     }
-
-    .btn {}
+    .btn {
+      color: #343a40 !important;
+    }
   }
 }
 
@@ -499,12 +500,12 @@
 
           &.report {
             svg {
-              color: #655beb;
+              color: #6255ed;
             }
 
             &:hover {
-              background: #655beb;
-              border: 1px solid #655beb;
+              background: #6255ed;
+              border: 1px solid #6255ed;
 
               svg {
                 color: #ffffff;
@@ -834,23 +835,34 @@
         }
       }
 
-      .voice-select {
-        select {
-          border: 1px solid #ced4da;
-          border-radius: 0.25rem;
-          background-color: #fff;
-          padding: 2px 5px;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 1.5;
-          color: #212529;
-          text-transform: capitalize;
-          transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      .db-report-details{
+        // select {
+        //   border: 1px solid #ced4da;
+        //   border-radius: 0.25rem;
+        //   background-color: #fff;
+        //   padding: 2px 5px;
+        //   font-size: 14px;
+        //   font-weight: 400;
+        //   line-height: 1.5;
+        //   color: #212529;
+        //   text-transform: capitalize;
+        //   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
-          &:focus,
-          &:focus-visible {
-            outline: none;
-            box-shadow: none;
+        //   &:focus,
+        //   &:focus-visible {
+        //     outline: none;
+        //     box-shadow: none;
+        //   }
+        // }
+        .nav{
+          .nav-item{
+            .nav-link{
+              text-transform: none;
+              width: 100%;
+              display: block;
+              color: #495057;
+              font-weight: 600;
+            }
           }
         }
       }
@@ -989,10 +1001,33 @@
                   }
 
                   .pfield-content-right {
+                    small{
+                      color: #6c757d!important;
+                      font-size: 16px;
+                      margin-right: 2px;
+                    }
                     span {
-                      font-size: .95rem;
-                      color: #444054;
-                      font-weight: 400;
+                      font-size: 20px;
+                      color: #6c757d!important;
+                      font-weight: 500;
+                    }
+                    .active-performance{
+                      margin-left: 3px;
+                      &.profit{
+                        svg{
+                          transform: rotate(180deg);
+                          path{
+                            fill: #36ddbf!important;
+                          }
+                        }
+                      }
+                      &.loss{ 
+                        svg{
+                          path{
+                            fill: #d92550!important;
+                          }
+                        }
+                      }
                     }
                   }
                 }
