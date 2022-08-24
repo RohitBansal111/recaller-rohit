@@ -312,7 +312,7 @@ const Dashboard = (props) => {
                   {/* <span className="circle">
                     <BsFillRecordCircleFill />
                   </span> */}
-                  <span className="price-value">Aug. 984</span>
+                  <span className="price-value"><span className="month43">Aug.</span> 984</span>
                   <span className="text2">Credits Deployed</span>
                 </div>
               </div>
@@ -374,7 +374,7 @@ const Dashboard = (props) => {
                             </div>
                           </div>
                           <div className="pfield-content-right">
-                            <span>152</span>
+                            <span>152 </span>
                           </div>
                         </div>
                       </li>
