@@ -242,9 +242,10 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function ContactCompaign(props) {
-  const { rowsData } = props;
+  console.log("CompaignContact", props.contactCompaighn);
+  console.log("rows", props.rows);
 
-  console.log(props.rows, "rowss");
+  const { rowsData } = props;
 
   const loadContacts = () => {
     let filtered = "";
@@ -373,38 +374,3 @@ export default function ContactCompaign(props) {
     </Box>
   );
 }
-
-//    <TableRow
-// hover
-// onClick={(event) => handleClick(event, row.firstName)}
-// role="checkbox"
-// aria-checked={isItemSelected}
-// tabIndex={-1}
-// key={row.firstName}
-// selected={isItemSelected}
-// >
-// <TableCell padding="checkbox">
-//   <Checkbox
-//     color="primary"
-//     checked={isItemSelected}
-//     inputProps={{
-//       "aria-labelledby": labelId,
-//     }}
-//   />
-// </TableCell>
-// <TableCell
-//   component="th"
-//   id={labelId}
-//   scope="row"
-//   padding="none"
-// >
-//   {row.firstName}
-// </TableCell>
-// <TableCell align="right">{row.lastName}</TableCell>
-// <TableCell align="right">{row.email}</TableCell>
-// <TableCell align="right">{row.homePhone}</TableCell>
-// <TableCell align="right">{row.phone}</TableCell>
-// <TableCell align="right">
-//   {moment(row && row.createdAt).format("DD/MM/YYYY")}
-// </TableCell>
-// </TableRow>

@@ -60,8 +60,14 @@ const UploadSpreadsheetModal = (props) => {
     if (loadingCsvdata) {
       setLoadingCsvData(false);
       if (csvData) {
-        console.log("csv data ::::",csvData)
-        const validKeyNames = ["First Name", "Last Name", "Mobile Phone", "Email","Home Phone"];
+        console.log("csv data ::::", csvData);
+        const validKeyNames = [
+          "First Name",
+          "Last Name",
+          "Mobile Phone",
+          "Email",
+          "Home Phone",
+        ];
         let keysData = Object.keys(csvData[0]).every((e) =>
           validKeyNames.includes(e)
         );
@@ -104,11 +110,11 @@ const UploadSpreadsheetModal = (props) => {
     const arr = [];
     csvData.map((item) => {
       const obj = {
-        [selectedFirstName]: item['First Name'],
-        [selectedLastName]: item['Last Name'],
-        [selectedPhone]: item['Mobile Phone'],
-        [selectedEmail]: item.Email,//item['First Name']     setSelectedHomePhone("Home Phone");
-        [selectedHomePhone]: item['Home Phone'],
+        [selectedFirstName]: item["First Name"],
+        [selectedLastName]: item["Last Name"],
+        [selectedPhone]: item["Mobile Phone"],
+        [selectedEmail]: item.Email, //item['First Name']     setSelectedHomePhone("Home Phone");
+        [selectedHomePhone]: item["Home Phone"],
       };
       return arr.push(obj);
     });

@@ -20,7 +20,6 @@ import Layout from "../../components/layout";
 import { useParams } from "react-router-dom";
 import ContactCompaign from "../../components/contacts/ContactCompaign";
 import CompaignFilter from "../../components/contacts/CompaignFilter";
-import EnhancedTable from "../../components/contacts/data-table";
 
 const ViewCompaignContact = () => {
   const [show, setShow] = useState(false);
@@ -73,6 +72,7 @@ const ViewCompaignContact = () => {
     if (compaignId && compaignId.contactCompaighn) {
       setCampaignContacts(compaignId.contactCompaighn);
     }
+    console.log("viewC", res.data.data);
     setCompaignContact(compaignId);
   };
   const handleClose = () => {
@@ -233,12 +233,20 @@ const ViewCompaignContact = () => {
   };
 
   const getData = async () => {
-    let res = await getContactApi();
-    if (res && res.data && res.data.status === 200) {
-      let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
-      setRowsData(arr);
-      setTotalRowsData(arr.length);
+    let res = await contactCompaignApi(id);
+    let compaignId = res.data.data;
+    if (compaignId && compaignId.contactCompaighn) {
+      setCampaignContacts(compaignId.contactCompaighn);
     }
+    console.log("arrr", res.data.data);
+    setCompaignContact(compaignId);
+    // if (res && res.data && res.data.status === 200) {
+    //   // let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
+    //   let arr = res.data.data.filter((w) => w.compaignId.id === id);
+    //   setRowsData(arr);
+    //   setTotalRowsData(arr.length);
+    //   console.log("arrrr:::::", res.data.data);
+    // }
     getContactCompaign();
   };
 
@@ -325,6 +333,7 @@ const ViewCompaignContact = () => {
       let data = res.data.data.map(function (item) {
         return { value: item._id, label: item.name };
       });
+      // console.log("arrr", res.data.data);
       setCompaigns(data);
     }
   };
@@ -667,33 +676,6 @@ const ViewCompaignContact = () => {
           totalRecords={totalRowsData ? totalRowsData : 0}
           compaign={compaign}
         />
-        {/* <EnhancedTable
-          rowsData={rowsData}
-          handleContactDeleteV={handleContactDeleteV}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          handleChangePage={handleChangePage}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          dense={dense}
-          emptyRows={emptyRows}
-          handleClick={handleClick}
-          isSelected={isSelected}
-          order={order}
-          orderBy={orderBy}
-          handleRequestSort={handleRequestSort}
-          handleSelectAllClick={handleSelectAllClick}
-          selected={selected}
-          handleCloseDeleteModal={() => setIsOpenDelete(false)}
-          handleDeleteContact={() => setIsOpenDelete(true)}
-          showDeleteContactModal={isOpenDelete}
-          value={searchState}
-          handleSearchChange={(e) => setSearchState(e.target.value)}
-          filterByCompaigns={filterByCompaigns}
-          isLoading={isLoading}
-          totalRecords={totalRowsData ? totalRowsData : 0}
-          compaign={compaign}
-          compaignContact={compaignContact}
-        /> */}
       </div>
 
       <ContactModal

@@ -15,8 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import VoiceIcon from "../../assets/svg-icons/voiceIcon";
 import TextIcon from "../../assets/svg-icons/textIcon";
 import EmailIcon from "../../assets/svg-icons/emailIcon";
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AdjustIcon from "@mui/icons-material/Adjust";
 
 import {
   addCompaignApi,
@@ -279,23 +280,19 @@ const Dashboard = (props) => {
   const voicelatestpercentage = 15;
 
   const textpercentage = 6;
-  
 
   return (
     <Layout>
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>
-            {
-              console.log( userDataa)
-            }
+            {console.log(userDataa)}
             Welcome To Your Recallr Dashboard{" "}
             <span> {userDataa ? userDataa.companyName : ""} </span>
           </h1>
           {console.log(userDataa.companyName, "companyName")}
         </div>
         <div className="dahboard-performace-card-box">
-
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
@@ -304,8 +301,19 @@ const Dashboard = (props) => {
               </div>
               <div className="db-report-details">
                 <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <li class="nav-item"><a data-toggle="tab" href="#tabs-eg-77" class="nav-link">Current</a></li>
-                  <li class="nav-item"><a data-toggle="tab" href="#tabs-eg-88" class="nav-link second-tab-toggle active">Last</a>
+                  <li class="nav-item">
+                    <a data-toggle="tab" href="#tabs-eg-77" class="nav-link">
+                      Current
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      data-toggle="tab"
+                      href="#tabs-eg-88"
+                      class="nav-link second-tab-toggle active"
+                    >
+                      Last
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -316,7 +324,9 @@ const Dashboard = (props) => {
                   {/* <span className="circle">
                     <BsFillRecordCircleFill />
                   </span> */}
-                  <span className="price-value"><span className="month43">Aug.</span> 984</span>
+                  <span className="price-value">
+                    <span className="month43">Aug.</span> 984
+                  </span>
                   <span className="text2">Credits Deployed</span>
                 </div>
               </div>
@@ -373,14 +383,16 @@ const Dashboard = (props) => {
                             <div className="pfield-content-left">
                               <div className="pfield-heading">
                                 <h4>Text</h4>
-                                <span>Credit Deployed</span>
+                                <span>Credits Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
                             <span>
-                              <small>$</small> 152 
-                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span> 
+                              <small>$</small> 152
+                              <span className="active-performance profit">
+                                <KeyboardArrowDownIcon />
+                              </span>
                             </span>
                           </div>
                         </div>
@@ -394,14 +406,16 @@ const Dashboard = (props) => {
                             <div className="pfield-content-left">
                               <div className="pfield-heading">
                                 <h4>Voice</h4>
-                                <span>Credit Deployed</span>
+                                <span>Credits Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
                             <span>
                               <small>$</small> 252
-                              <span className="active-performance loss"><KeyboardArrowDownIcon /></span>
+                              <span className="active-performance loss">
+                                <KeyboardArrowDownIcon />
+                              </span>
                             </span>
                           </div>
                         </div>
@@ -415,14 +429,16 @@ const Dashboard = (props) => {
                             <div className="pfield-content-left">
                               <div className="pfield-heading">
                                 <h4>Email</h4>
-                                <span>Credit Deployed</span>
+                                <span>Credits Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
                             <span>
                               <small>$</small> 252
-                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span>
+                              <span className="active-performance zero">
+                                <AdjustIcon />
+                              </span>
                             </span>
                           </div>
                         </div>
@@ -446,14 +462,16 @@ const Dashboard = (props) => {
                             <div className="pfield-content-left">
                               <div className="pfield-heading">
                                 <h4>Text</h4>
-                                <span>Credit Deployed</span>
+                                <span>Credits Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
                             <span>
-                              <small>$</small> 152 
-                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span> 
+                              <small>$</small> 152
+                              <span className="active-performance profit">
+                                <KeyboardArrowDownIcon />
+                              </span>
                             </span>
                           </div>
                         </div>
@@ -467,14 +485,16 @@ const Dashboard = (props) => {
                             <div className="pfield-content-left">
                               <div className="pfield-heading">
                                 <h4>Voice</h4>
-                                <span>Credit Deployed</span>
+                                <span>Credits Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
                             <span>
                               <small>$</small> 252
-                              <span className="active-performance loss"><KeyboardArrowDownIcon /></span>
+                              <span className="active-performance loss">
+                                <KeyboardArrowDownIcon />
+                              </span>
                             </span>
                           </div>
                         </div>
@@ -488,14 +508,16 @@ const Dashboard = (props) => {
                             <div className="pfield-content-left">
                               <div className="pfield-heading">
                                 <h4>Email</h4>
-                                <span>Credit Deployed</span>
+                                <span>Credits Deployed</span>
                               </div>
                             </div>
                           </div>
                           <div className="pfield-content-right">
                             <span>
                               <small>$</small> 252
-                              <span className="active-performance profit"><KeyboardArrowDownIcon /></span>
+                              <span className="active-performance profit">
+                                <KeyboardArrowDownIcon />
+                              </span>
                             </span>
                           </div>
                         </div>
@@ -504,7 +526,6 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
