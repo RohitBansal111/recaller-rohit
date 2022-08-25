@@ -19,6 +19,7 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AdjustIcon from "@mui/icons-material/Adjust";
 
+
 import {
   addCompaignApi,
   getCompaignApi,
@@ -302,227 +303,281 @@ const Dashboard = (props) => {
               <div className="db-report-details">
                 <ul class="nav nav-tabs" id="nav-tab" role="tablist">
                   <li class="nav-item">
-                    <a data-toggle="tab" href="#tabs-eg-77" class="nav-link">
+                    <a class="nav-link active" id="nav-current-tab" data-bs-toggle="tab" data-bs-target="#nav-current" type="button" role="tab" aria-controls="nav-current" aria-selected="true">
                       Current
                     </a>
                   </li>
                   <li class="nav-item">
                     <a
-                      data-toggle="tab"
-                      href="#tabs-eg-88"
-                      class="nav-link second-tab-toggle active"
-                    >
+                       class="nav-link" id="nav-last-tab" data-bs-toggle="tab" data-bs-target="#nav-last" type="button" role="tab" aria-controls="nav-last" aria-selected="true">
                       Last
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="performance-body text-value">
-              <div className="performance-value-box">
-                <div className="performance-value">
-                  {/* <span className="circle">
-                    <BsFillRecordCircleFill />
-                  </span> */}
-                  <span className="price-value">
-                    <span className="month43">Aug.</span> 984
-                  </span>
-                  <span className="text2">Credits Deployed</span>
-                </div>
-              </div>
-              <div className="value-graph">
-                <ResponsiveContainer width={"99.9%"} height={150}>
-                  <AreaChart
-                    width={310}
-                    height={150}
-                    data={dataGraph}
-                    margin={{
-                      top: 5,
-                      right: 0,
-                      left: 0,
-                      bottom: 5,
-                    }}
-                  >
-                    <defs>
-                      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                        <stop
-                          offset="15%"
-                          stopColor="#f7b924"
-                          stopOpacity={0.7}
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-current" role="tabpanel" aria-labelledby="nav-current-tab">
+                <div className="performance-body text-value">
+                  <div className="performance-value-box">
+                    <div className="performance-value">
+                      {/* <span className="circle">
+                        <BsFillRecordCircleFill />
+                      </span> */}
+                      <span className="price-value">
+                        <span className="month43">Aug.</span> 984
+                      </span>
+                      <span className="text2">Credits Deployed</span>
+                    </div>
+                  </div>
+                  <div className="value-graph">
+                    <ResponsiveContainer width={"99.9%"} height={150}>
+                      <AreaChart
+                        width={310}
+                        height={150}
+                        data={dataGraph}
+                        margin={{
+                          top: 5,
+                          right: 0,
+                          left: 0,
+                          bottom: 5,
+                        }}
+                      >
+                        <defs>
+                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop
+                              offset="15%"
+                              stopColor="#f7b924"
+                              stopOpacity={0.7}
+                            />
+                            <stop
+                              offset="100%"
+                              stopColor="#f7b924"
+                              stopOpacity={0.2}
+                            />
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          type="monotone"
+                          strokeWidth={4}
+                          dataKey="uv"
+                          stroke="#f7b924"
+                          fillOpacity={1}
+                          fill="url(#colorUv)"
                         />
-                        <stop
-                          offset="100%"
-                          stopColor="#f7b924"
-                          stopOpacity={0.2}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      strokeWidth={4}
-                      dataKey="uv"
-                      stroke="#f7b924"
-                      fillOpacity={1}
-                      fill="url(#colorUv)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
 
-              <div className="top-performance-field">
-                <h2>Credit Balance</h2>
-                <div className="per-field">
-                  <div className="comp-pfield">
-                    <ul>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <TextIcon />
-                            </div>
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">
-                                <h4>Text</h4>
-                                <span>Credits Deployed</span>
+                  <div className="top-performance-field">
+                    <h2>Credit Balance</h2>
+                    <div className="per-field">
+                      <div className="comp-pfield">
+                        <ul>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <TextIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Text</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span>
+                                  <small>$</small> 152
+                                  <span className="active-performance profit">
+                                    <KeyboardArrowDownIcon />
+                                  </span>
+                                </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>
-                              <small>$</small> 152
-                              <span className="active-performance profit">
-                                <KeyboardArrowDownIcon />
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <VoiceIcon />
-                            </div>
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">
-                                <h4>Voice</h4>
-                                <span>Credits Deployed</span>
+                          </li>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <VoiceIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Voice</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span>
+                                  <small>$</small> 252
+                                  <span className="active-performance loss">
+                                    <KeyboardArrowDownIcon />
+                                  </span>
+                                </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>
-                              <small>$</small> 252
-                              <span className="active-performance loss">
-                                <KeyboardArrowDownIcon />
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <EmailIcon />
-                            </div>
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">
-                                <h4>Email</h4>
-                                <span>Credits Deployed</span>
+                          </li>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <EmailIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Email</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span className="d-flex align-items-center">
+                                  <small>$</small> 252
+                                  <span className="active-performance zero">
+                                    <i class="fa-solid fa-circle-dot"></i>
+                                  </span>
+                                </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>
-                              <small>$</small> 252
-                              <span className="active-performance zero">
-                                <AdjustIcon />
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="tab-pane fade" id="nav-last" role="tabpanel" aria-labelledby="nav-last-tab">
+              <div className="performance-body text-value">
+                  <div className="performance-value-box">
+                    <div className="performance-value">
+                      {/* <span className="circle">
+                        <BsFillRecordCircleFill />
+                      </span> */}
+                      <span className="price-value">
+                        <span className="month43">Aug.</span> 984
+                      </span>
+                      <span className="text2">Credits Deployed</span>
+                    </div>
+                  </div>
+                  <div className="value-graph">
+                    <ResponsiveContainer width={"99.9%"} height={150}>
+                      <AreaChart
+                        width={310}
+                        height={150}
+                        data={dataGraph}
+                        margin={{
+                          top: 5,
+                          right: 0,
+                          left: 0,
+                          bottom: 5,
+                        }}
+                      >
+                        <defs>
+                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop
+                              offset="15%"
+                              stopColor="#f7b924"
+                              stopOpacity={0.7}
+                            />
+                            <stop
+                              offset="100%"
+                              stopColor="#f7b924"
+                              stopOpacity={0.2}
+                            />
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          type="monotone"
+                          strokeWidth={4}
+                          dataKey="uv"
+                          stroke="#f7b924"
+                          fillOpacity={1}
+                          fill="url(#colorUv)"
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
 
-              <div className="top-performance-field">
-                <h2>Last Month Highlights</h2>
-                <div className="per-field">
-                  <div className="comp-pfield">
-                    <ul>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <TextIcon />
-                            </div>
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">
-                                <h4>Text</h4>
-                                <span>Credits Deployed</span>
+                  <div className="top-performance-field">
+                    <h2>Last Month Highlights</h2>
+                    <div className="per-field">
+                      <div className="comp-pfield">
+                        <ul>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <TextIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Text</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span>
+                                  <small>$</small> 152
+                                  <span className="active-performance profit">
+                                    <KeyboardArrowDownIcon />
+                                  </span>
+                                </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>
-                              <small>$</small> 152
-                              <span className="active-performance profit">
-                                <KeyboardArrowDownIcon />
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <VoiceIcon />
-                            </div>
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">
-                                <h4>Voice</h4>
-                                <span>Credits Deployed</span>
+                          </li>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <VoiceIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Voice</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span>
+                                  <small>$</small> 252
+                                  <span className="active-performance loss">
+                                    <KeyboardArrowDownIcon />
+                                  </span>
+                                </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>
-                              <small>$</small> 252
-                              <span className="active-performance loss">
-                                <KeyboardArrowDownIcon />
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="pfield-content-wrapper">
-                          <div className="pfield-progressbar">
-                            <div className="progress-circle-wrapper">
-                              <EmailIcon />
-                            </div>
-                            <div className="pfield-content-left">
-                              <div className="pfield-heading">
-                                <h4>Email</h4>
-                                <span>Credits Deployed</span>
+                          </li>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <EmailIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Email</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span className="d-flex align-items-center">
+                                  <small>$</small> 252
+                                  <span className="active-performance zero">
+                                    <i class="fa-solid fa-circle-dot"></i>
+                                  </span>
+                                </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="pfield-content-right">
-                            <span>
-                              <small>$</small> 252
-                              <span className="active-performance profit">
-                                <KeyboardArrowDownIcon />
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
