@@ -8,6 +8,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import EditFilter from "./edit-filter";
 
 const CompaignFilter = (props) => {
+  console.log("rows", props.rows);
   return (
     <div className="filter-tabs">
       <Tabs

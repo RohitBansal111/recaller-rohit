@@ -242,10 +242,9 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function ContactCompaign(props) {
-  console.log("CompaignContact", props.contactCompaighn);
-  console.log("rows", props.rows);
-
   const { rowsData } = props;
+
+  console.log(props.rows, "rowss");
 
   const loadContacts = () => {
     let filtered = "";

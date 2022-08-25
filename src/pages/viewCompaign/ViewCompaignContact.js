@@ -72,7 +72,6 @@ const ViewCompaignContact = () => {
     if (compaignId && compaignId.contactCompaighn) {
       setCampaignContacts(compaignId.contactCompaighn);
     }
-    console.log("viewC", res.data.data);
     setCompaignContact(compaignId);
   };
   const handleClose = () => {
@@ -233,20 +232,13 @@ const ViewCompaignContact = () => {
   };
 
   const getData = async () => {
-    let res = await contactCompaignApi(id);
-    let compaignId = res.data.data;
-    if (compaignId && compaignId.contactCompaighn) {
-      setCampaignContacts(compaignId.contactCompaighn);
+    let res = await getContactApi();
+    if (res && res.data && res.data.status === 200) {
+      // let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
+      let arr = res.data.data.filter((w) => w.compaignId.id === id);
+      setRowsData(arr);
+      setTotalRowsData(arr.length);
     }
-    console.log("arrr", res.data.data);
-    setCompaignContact(compaignId);
-    // if (res && res.data && res.data.status === 200) {
-    //   // let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
-    //   let arr = res.data.data.filter((w) => w.compaignId.id === id);
-    //   setRowsData(arr);
-    //   setTotalRowsData(arr.length);
-    //   console.log("arrrr:::::", res.data.data);
-    // }
     getContactCompaign();
   };
 
@@ -333,7 +325,6 @@ const ViewCompaignContact = () => {
       let data = res.data.data.map(function (item) {
         return { value: item._id, label: item.name };
       });
-      // console.log("arrr", res.data.data);
       setCompaigns(data);
     }
   };
@@ -355,7 +346,8 @@ const ViewCompaignContact = () => {
   const applyFilter = async (data) => {
     const response = await applyContactFilterApi(data);
     if (response && response.data && response.data.results) {
-      setRowsData(response.data.results ? response.data.results : []);
+      let arr = response.data.results.filter((w) => w.compaignId.id === id);
+      setRowsData(arr);
     }
   };
 
