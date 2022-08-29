@@ -39,6 +39,7 @@ import { changeTimeZone } from "../../helper/getTimeZone";
 import date from "date-and-time";
 import { socket } from "../../helper/socket";
 import Layout from "../../components/layout";
+import ProgressBar from "../../components/text/ProgreeBar";
 
 const TextPage = () => {
   var today = new Date();
@@ -1209,13 +1210,16 @@ const TextPage = () => {
             <Dropdown.Toggle
               variant="success"
               id="dropdown-basic"
-              className="btn btn-medium btn-primary"
+              className="btn btn-medium btn-primary-dashboard"
             >
               New Message
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="#" onClick={handleNewMessage}>
                 Individual Message
+              </Dropdown.Item>
+              <Dropdown.Item href="#" onClick={handleNewMessage}>
+                Recet Password
               </Dropdown.Item>
               <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
                 Bulk Campaign Message

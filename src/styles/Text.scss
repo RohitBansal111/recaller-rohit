@@ -157,7 +157,7 @@
                 display: none;
               }
             }
-            
+
             .dropdown-menu {
               transform: none !important;
               right: 0px !important;
@@ -196,18 +196,18 @@
           width: 94%;
           margin: auto;
           left: 3%;
-          min-height:340px;
+          min-height: 340px;
           background: #fff;
-          @media(max-width:1700px){
+          @media (max-width: 1700px) {
             min-height: 200px;
             max-height: 200px;
           }
           .chat-textarea {
             width: 100%;
             background-color: $Theme-white;
-            .field-group{
-              .field-group{
-                padding:15px 10px 0px 10px;
+            .field-group {
+              .field-group {
+                padding: 15px 10px 0px 10px;
               }
             }
             textarea {
@@ -343,7 +343,7 @@
     .chat-compassion-area {
       flex: 0 0 30%;
       background-color: $Theme-white;
-      overflow-y: auto!important;
+      overflow-y: auto !important;
       height: calc(100vh - 75px);
       .user-compassion-details {
         padding: 15px;
@@ -547,7 +547,7 @@
   &.email-middle-screen {
     max-height: calc(100vh - 555px);
     min-height: calc(100vh - 555px);
-    @media(max-width:1700px){
+    @media (max-width: 1700px) {
       max-height: calc(100vh - 225px);
       min-height: calc(100vh - 225px);
     }
@@ -666,7 +666,7 @@
     li {
       width: 100%;
       color: #333;
-      margin-bottom:25px;
+      margin-bottom: 25px;
       font-size: 13px;
       word-break: break-word;
       text-align: left;
@@ -697,7 +697,7 @@
           }
         }
         &.user {
-          background-color: #edf8fe;
+          background-color: #e9f4f2;
           border-color: #bafffc;
           margin-bottom: 2px;
           display: inline-block;

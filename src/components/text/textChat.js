@@ -45,6 +45,7 @@ const TextChat = (props) => {
                     ) : (
                       <pre>{item.message.trim()}</pre>
                     )}
+
                     {item.imageUrl ? (
                       <>
                         <img src={item.imageUrl} alt="img"></img>
