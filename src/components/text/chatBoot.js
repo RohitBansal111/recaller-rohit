@@ -24,12 +24,12 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
-import { Link } from "react-router-dom";
-import PlaceholderImage from "./../../assets/images/placeholder.jpg";
+import ApexCharts from "apexcharts";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 import {
   AreaChart,
@@ -40,8 +40,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import ProgressBar from "./ProgreeBar";
-import Progressbar from "./ProgreeBar";
+import VoiceProgressBar from "./ProgreeBar";
 
 const ChatBoot = (props) => {
   const data = [
@@ -174,6 +173,46 @@ const ChatBoot = (props) => {
       );
     });
     return chatList;
+  };
+
+  var options = {
+    series: [
+      {
+        name: "series1",
+        data: [31, 40, 28, 51, 42, 109, 100],
+      },
+      {
+        name: "series2",
+        data: [11, 32, 45, 32, 34, 52, 41],
+      },
+    ],
+    chart: {
+      height: 350,
+      type: "area",
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    xaxis: {
+      type: "datetime",
+      categories: [
+        "2018-09-19T00:00:00.000Z",
+        "2018-09-19T01:30:00.000Z",
+        "2018-09-19T02:30:00.000Z",
+        "2018-09-19T03:30:00.000Z",
+        "2018-09-19T04:30:00.000Z",
+        "2018-09-19T05:30:00.000Z",
+        "2018-09-19T06:30:00.000Z",
+      ],
+    },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy HH:mm",
+      },
+    },
   };
 
   return (
@@ -719,64 +758,31 @@ const ChatBoot = (props) => {
               </div>
             </div>
           )}
-          <Progressbar />
-          <div className="monthly-balance-box">
-            <h4>Monthly Balance</h4>
-            <ul>
-              <li>
-                <b>Credit used</b>
-                <span>$1900</span>
-              </li>
-              <li>
-                <b>Credit balance</b>
-                <span>$75000</span>
-              </li>
-            </ul>
-          </div>
+          <VoiceProgressBar />
           {/* Monthly credit usage column start */}
           <div className="monthly-credit-use">
             <h1>Monthly Credit usage</h1>
             <div className="monthly-graph">
-              <ResponsiveContainer width={"99%"} height={150}>
-                <AreaChart
-                  width={310}
-                  height={150}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 0,
-                    left: 0,
-                    bottom: 5,
-                  }}
-                >
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="15%"
-                        stopColor="#28dcbf"
-                        stopOpacity={0.7}
-                      />
-                      <stop
-                        offset="80%"
-                        stopColor="#41e3c926"
-                        stopOpacity={0.5}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    strokeWidth={4}
-                    dataKey="uv"
-                    stroke="#28dcbf"
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
+              <ApexCharts options={options} />
             </div>
           </div>
           {/* Monthly credit usage column end */}
+          <div className="monthly-balance-box">
+            <ul>
+              <li>
+                <b>Credit used</b>
+                <h4>45%</h4>
+                <ProgressBar now={40} />
+                <span>Delivered</span>
+              </li>
+              <li>
+                <b>Credit balance</b>
+                <h4>45%</h4>
+                <ProgressBar now={60} />
+                <span>Falled</span>
+              </li>
+            </ul>
+          </div>
         </div>
         <ScheduleMessageModal
           showScheduleModal={props.showScheduleModal}

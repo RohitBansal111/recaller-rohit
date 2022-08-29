@@ -416,7 +416,7 @@
         }
       }
       .monthly-balance-box {
-        background-color: #f2f2f2;
+        background-color: #fff;
         padding: 20px;
         margin: 20px 0px;
         border-radius: 3px;
@@ -428,21 +428,41 @@
           margin-bottom: 25px;
         }
         ul {
-          display: flex;
+          display: block;
           padding: 0px;
-          justify-content: space-between;
         }
         li {
-          flex: 1;
           color: #474949;
           font-weight: 500;
           font-size: 15px;
           span {
             display: block;
+            color: grey;
+            padding-top: 2px;
+          }
+          h4 {
+            text-align: left;
+            margin-bottom: 5px;
+            margin-top: 10px;
           }
           & + li {
             b {
               color: #474a4a;
+            }
+          }
+          &:first-child {
+            margin-bottom: 20px;
+            .progress {
+              .progress-bar {
+                background-color: #343a40;
+              }
+            }
+          }
+          &:last-child {
+            .progress {
+              .progress-bar {
+                background-color: #dd3f6b;
+              }
             }
           }
         }
@@ -530,6 +550,10 @@
       }
     }
   }
+}
+.progress {
+  background-color: #d7d9db !important;
+  height: 10px !important;
 }
 .middle-chat-screen {
   width: 100%;

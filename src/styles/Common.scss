@@ -62,7 +62,23 @@ button:focus {
   white-space: break-spaces;
   word-break: break-all;
 }
-
+.voice-progress-bar {
+  border-top: 1px solid lightgray;
+  .voice34 {
+    .progress {
+      .progress-bar {
+        background-color: #343a40;
+      }
+    }
+  }
+  .usage34 {
+    .progress {
+      .progress-bar {
+        background-color: #929599;
+      }
+    }
+  }
+}
 .middle-chat-screen {
   ul {
     li {

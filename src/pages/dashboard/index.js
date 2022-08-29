@@ -19,7 +19,6 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AdjustIcon from "@mui/icons-material/Adjust";
 
-
 import {
   addCompaignApi,
   getCompaignApi,
@@ -301,23 +300,45 @@ const Dashboard = (props) => {
                 <h2 className="ml-1">Download Report</h2>
               </div>
               <div className="db-report-details">
-                <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="nav-current-tab" data-bs-toggle="tab" data-bs-target="#nav-current" type="button" role="tab" aria-controls="nav-current" aria-selected="true">
+                <ul className="nav nav-tabs" id="nav-tab" role="tablist">
+                  <li className="nav-item">
+                    <a
+                      className="nav-link active"
+                      id="nav-current-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-current"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-current"
+                      aria-selected="true"
+                    >
                       Current
                     </a>
                   </li>
-                  <li class="nav-item">
+                  <li className="nav-item">
                     <a
-                       class="nav-link" id="nav-last-tab" data-bs-toggle="tab" data-bs-target="#nav-last" type="button" role="tab" aria-controls="nav-last" aria-selected="true">
+                      className="nav-link"
+                      id="nav-last-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-last"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-last"
+                      aria-selected="true"
+                    >
                       Last
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-current" role="tabpanel" aria-labelledby="nav-current-tab">
+            <div className="tab-content" id="nav-tabContent">
+              <div
+                className="tab-pane fade show active"
+                id="nav-current"
+                role="tabpanel"
+                aria-labelledby="nav-current-tab"
+              >
                 <div className="performance-body text-value">
                   <div className="performance-value-box">
                     <div className="performance-value">
@@ -344,7 +365,13 @@ const Dashboard = (props) => {
                         }}
                       >
                         <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                          <linearGradient
+                            id="colorUv"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                          >
                             <stop
                               offset="15%"
                               stopColor="#f7b924"
@@ -437,7 +464,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small>$</small> 252
                                   <span className="active-performance zero">
-                                    <i class="fa-solid fa-circle-dot"></i>
+                                    <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
@@ -449,8 +476,13 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </div>
-              <div class="tab-pane fade" id="nav-last" role="tabpanel" aria-labelledby="nav-last-tab">
-              <div className="performance-body text-value">
+              <div
+                className="tab-pane fade"
+                id="nav-last"
+                role="tabpanel"
+                aria-labelledby="nav-last-tab"
+              >
+                <div className="performance-body text-value">
                   <div className="performance-value-box">
                     <div className="performance-value">
                       {/* <span className="circle">
@@ -476,7 +508,13 @@ const Dashboard = (props) => {
                         }}
                       >
                         <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                          <linearGradient
+                            id="colorUv"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                          >
                             <stop
                               offset="15%"
                               stopColor="#f7b924"
@@ -569,7 +607,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small>$</small> 252
                                   <span className="active-performance zero">
-                                    <i class="fa-solid fa-circle-dot"></i>
+                                    <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>

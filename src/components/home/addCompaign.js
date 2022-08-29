@@ -67,7 +67,7 @@ const Addcompaign = (props) => {
           type="submit"
           variant="primary"
           value={props.data.name}
-          onClick={props.handleCompaignClose}
+          // onClick={props.handleCompaignClose}
           onClick={
             props.editCompaign == true ? props.handleEdit : props.handleSubmit
           }

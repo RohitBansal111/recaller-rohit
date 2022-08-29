@@ -1219,7 +1219,7 @@ const TextPage = () => {
                 Individual Message
               </Dropdown.Item>
               <Dropdown.Item href="#" onClick={handleNewMessage}>
-                Recet Password
+                Recover Password
               </Dropdown.Item>
               <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
                 Bulk Campaign Message
