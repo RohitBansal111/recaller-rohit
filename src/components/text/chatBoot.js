@@ -24,7 +24,7 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
-import ApexCharts from "apexcharts";
+import Chart from "react-apexcharts";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
@@ -763,7 +763,7 @@ const ChatBoot = (props) => {
           <div className="monthly-credit-use">
             <h1>Monthly Credit usage</h1>
             <div className="monthly-graph">
-              <ApexCharts options={options} />
+                <Chart options={options} />
             </div>
           </div>
           {/* Monthly credit usage column end */}
