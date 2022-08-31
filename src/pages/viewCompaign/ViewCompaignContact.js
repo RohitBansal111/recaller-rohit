@@ -235,7 +235,7 @@ const ViewCompaignContact = () => {
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
       // let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
-      let arr = res.data.data.filter((w) => w.compaignId.id === id);
+      let arr = res.data.data.filter((w) => w.compaignId.id == id);
       setRowsData(arr);
       setTotalRowsData(arr.length);
     }
