@@ -1,0 +1,59 @@
+.btn-medium {
+  padding: 8px 20px !important;
+  height: auto;
+  min-height: 40px;
+  cursor: pointer !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+.btn-primary {
+  background-color: $AddSubmitButton-color;
+  color: $Theme-white;
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+}
+.btn-primary-outline {
+  background-color: $Theme-white;
+  color: $AddSubmitButton-color;
+  border: 1px solid $AddSubmitButton-color;
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+}
+.btn {
+  border: none !important;
+}
+.btn-cancel {
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+  color: $HeadingColor;
+  background-color: $CommonBorder;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+// button.Mui-disabled{
+//   background-color: #000 !important;
+//   color: #ffffff !important;
+//   border: 1px solid #000000 !important;
+//   opacity: 1 !important;
+//   cursor: not-allowed !important;
+// }
+.wizard-main-content {
+  .main-form {
+    .proceedbtn:disabled {
+      background-color: #000 !important;
+      color: #ffffff !important;
+      border: 1px solid #000000 !important;
+      opacity: 1 !important;
+      cursor: not-allowed !important;
+      pointer-events: all;
+    }
+  }
+}

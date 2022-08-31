@@ -1,0 +1,211 @@
+.wizard-main-content {
+  .wizard-steps-bar {
+    padding: 0px;
+    li {
+      color: #333;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+  }
+  p{
+    color: #777;
+  }
+  .fileInfo{
+    background-color: $AddSubmitButton-color;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: $Theme-white;
+    margin-bottom: 20px;
+  }
+  .note-form-control{
+    textarea{
+      margin-bottom: 20px;
+    }
+    h3{
+      margin-bottom: 0px !important;
+    }
+    .add-note-bttn{
+      button{
+        border: none;
+        background-color: transparent;
+        color: $Active-color;
+        font-size: 15px;
+        padding: 0px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        svg{
+          font-size: 22px;
+        }
+      }
+    }
+  }
+  .upload-drag-section {
+    border: 2px dashed #bbb;
+    border-radius: 5px;
+    background: #fff;
+    padding: 40px;
+    font-size: 18px;
+    color: #777;
+    width: 100%;
+    &.fileAdded{
+      border: 2px solid $AddSubmitButton-color;
+      background-color: #e7f5e9;
+      .material-icons{
+        color: $AddSubmitButton-color;
+      }
+      h3{
+        color: $AddSubmitButton-color;
+      }
+      .select-file{
+        span{
+          color: $Active-color;
+        }
+      }
+    }
+    .material-icons {
+      font-size: 50px;
+    }
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    h4 {
+      color: #777;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .select-file {
+      position: relative;
+      color: $AddSubmitButton-color;
+      cursor: pointer;
+      span {
+        color: $AddSubmitButton-color;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: underline;
+      }
+      input {
+        position: absolute;
+        top: 0px;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 99;
+        max-width: 90px;
+        left: 40%;
+      }
+    }
+  }
+}
+.multi-checkbox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .checkbox-box{
+    position: relative;
+    input{
+      margin-right: 10px;
+      position: absolute;
+      top: 5px;
+      width: 20px;
+      height: 17px;
+    }
+    label{
+      padding-left: 30px;
+      cursor: pointer;
+    }
+  }
+}
+#progress-bar-container{
+  ul{
+    padding-top: 15px;
+    z-index: 999;
+    width: 100%;
+    li{
+      list-style: none;
+      float: left;
+      width: 25%;
+      text-align: center;
+      color: #aaa;
+      text-transform: uppercase;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all ease 0.2s;
+      vertical-align: bottom;
+      height: 60px;
+      position: relative;
+      color: #444;
+      .step-inner{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        font-size: 14px;
+        top: -23px;
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: 500;
+      }
+      &::after{
+        content: " ";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background-color: #777;
+        margin: auto;
+        border: 7px solid #fff;
+        border-radius: 50%;
+        margin-top: 40px;
+        box-shadow: 0 2px 13px -1px rgba(0, 0, 0, 0.2);
+        transition: all ease 0.25s;
+        position: absolute;
+        top: -32px;
+        z-index: 9999;
+        left: 40%;
+      }
+      &.active{
+        &::after{
+          border-color: $Active-color;
+        }
+        .step-inner{
+          color: $Active-color;
+        }
+      }
+    }
+  }
+  #line{
+    width: 90%;
+    margin: auto;
+    background-color: $Active-lightColor;
+    height: 6px;
+    position: absolute;
+    left: 5%;
+    top: 57px;
+    z-index: 1;
+    border-radius: 50px;
+    transition: all ease 0.75s;
+    #line-progress{
+      content: " ";
+      height: 100%;
+      background-color: $Active-color;
+      background: linear-gradient(to right #207893 0%, #2ea3b7 100%);
+      position: absolute;
+      z-index: 2;
+      border-radius: 50px;
+      transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25);
+    }
+    .onethirdPart{
+      width: 17%;
+    }
+    .halfPart{
+      width: 40%;
+    }
+    .oneForthPart{
+      width: 65%;
+    }
+    .fullBarPart{
+      width: 100%;
+    }
+  }
+}
