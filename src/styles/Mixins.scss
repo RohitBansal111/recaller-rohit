@@ -1,0 +1,31 @@
+// Mixins
+@mixin flexAllCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flexStartBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+@mixin flexCenterStart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+@mixin flexCenterBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin flexEndBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+@mixin buttonTransparent {
+  border: none;
+  cursor: pointer;
+  background-color: $transparent;
+}

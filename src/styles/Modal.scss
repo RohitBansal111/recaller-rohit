@@ -1,0 +1,92 @@
+.normal-modal {
+  .modal-dialog {
+    min-width: 610px;
+    .modal-content {
+      .modal-header {
+        justify-content: center;
+        .modal-title {
+          font-size: 22px;
+        }
+        .btn-close {
+          position: absolute;
+          right: 20px;
+        }
+      }
+      .modal-body {
+        padding: 30px;
+        h2 {
+          font-size: 16px;
+          font-weight: 500;
+          margin-bottom: 15px;
+          margin-top: 25px;
+        }
+        h3 {
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 15px;
+        }
+      }
+      .modal-footer {
+        display: flex;
+        justify-content: center;
+        border: none;
+        .btn {
+          width: auto;
+          padding: 10px 20px !important;
+          height: auto;
+          margin: 10px;
+          border-radius: 30px !important;
+          min-width: 120px;
+          font-weight: 600 !important;
+          font-family: "Poppins", sans-serif !important;
+          text-transform: capitalize;
+          &:hover {
+            border: none !important;
+          }
+        }
+      }
+    }
+  }
+  .MuiBox-root {
+    .MuiStepper-horizontal {
+      position: relative;
+      .MuiStep-horizontal {
+        position: absolute;
+      }
+    }
+  }
+}
+
+// React responsive modal
+
+.react-responsive-modal-modal {
+  margin: 0px !important;
+  min-width: 720px !important;
+  max-width: 720px !important;
+  padding: 0px !important;
+  border-radius: 5px;
+  overflow-x: hidden;
+  .modal-header {
+    h3 {
+      font-size: 20px;
+      margin: 0px;
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  .modal-body {
+    padding: 30px;
+    .timeZone {
+      svg {
+        fill: $Icon-color;
+        font-size: 27px;
+        padding-left: 10px;
+      }
+    }
+  }
+  input:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
+}

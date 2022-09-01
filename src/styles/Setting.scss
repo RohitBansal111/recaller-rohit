@@ -1,0 +1,168 @@
+.setting-page-main {
+  padding: 30px 20px;
+  .setting-card-listing {
+    ul {
+      padding-left: 0px;
+      @include flexStartBetween;
+      flex-wrap: wrap;
+      li {
+        flex: 0 0 47%;
+        background-color: $Theme-white;
+        padding: 20px;
+        border-radius: 4px;
+        border: 1px solid #eae9e9;
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        &:hover {
+          border-color: $Active-lightColor;
+        }
+        a {
+          @include flexCenterBetween;
+          text-decoration: none;
+          width: 100%;
+        }
+        .button-box-text {
+          h3 {
+            display: inline-block;
+            color: $HeadingColor;
+            font-weight: 500;
+            margin: 0 0 5px;
+            font-size: 20px;
+          }
+          p {
+            color: #777;
+            font-size: 14px;
+            margin: 0;
+            font-weight: 400;
+          }
+        }
+        .button-box-arrow {
+          color: #777;
+          font-size: 48px;
+          font-weight: 400;
+          line-height: 35px;
+          svg {
+            width: 32px;
+            height: 32px;
+          }
+        }
+        // .notification-div {
+        //     display: flex;
+        //     justify-content: space-between;
+        // }
+      }
+    }
+  }
+}
+.notification-toggle {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.setting-message-container {
+  width: 100%;
+  background-color: #fff;
+  width: 70%;
+  margin: 30px auto;
+  max-width: 800px;
+  .setting-inner-container {
+    padding: 30px;
+    h3 {
+      color: #333333;
+      font-size: 20px;
+      font-weight: 500;
+      margin: 0;
+    }
+    .add-business-hour {
+      h3 {
+        margin-bottom: 15px;
+      }
+    }
+    .addAuto-response-bar {
+      .auto-response-list {
+        .btn-autoReply {
+          color: $Active-color;
+          border: none !important;
+          font-size: 14px !important;
+          display: block;
+          margin: 5px 0px;
+          svg {
+            font-size: 21px;
+          }
+        }
+        .autoresponder-input-field {
+          .main-form {
+            display: block;
+            label {
+              color: $labelColor;
+              font-size: 14px;
+            }
+            .field-group {
+              display: flex;
+              align-items: center;
+              margin-top: 3px;
+              .btn-icon {
+                cursor: pointer;
+                svg {
+                  fill: $Icon-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .auto-reply-business-hour {
+      margin-bottom: 10px;
+      .heading-info {
+        h3 {
+          margin-top: 15px;
+          margin-bottom: 10px;
+          button {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+.setting-page-main {
+  .card-body {
+    padding: 50px 20px;
+    .sms-progressbar {
+      .MuiLinearProgress-root {
+        height: 25px;
+        border-radius: 5px;
+        background-color: #ccc;
+        .MuiLinearProgress-bar {
+          background-color: $Active-color;
+        }
+      }
+    }
+  }
+}
+.common-card-ui {
+  background-color: $Theme-white;
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $Theme-white;
+    padding: 15px;
+    h3 {
+      font-size: 18px;
+      margin: 0px;
+    }
+    p {
+      font-size: 16px;
+      color: #6c757d !important;
+      margin: 0px;
+    }
+  }
+  .card-body {
+    .content-body {
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.search-main-section {
+  padding: 40px 20px;
+  .search-filter {
+    margin-bottom: 20px;
+    form {
+      @include flexEndBetween;
+      .field-group {
+        flex: 0 0 23%;
+      }
+    }
+  }
+}
