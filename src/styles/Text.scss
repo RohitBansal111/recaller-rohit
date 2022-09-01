@@ -157,7 +157,7 @@
                 display: none;
               }
             }
-            
+
             .dropdown-menu {
               transform: none !important;
               right: 0px !important;
@@ -199,6 +199,7 @@
           min-height:340px;
           background: #fff;
           @media(max-width:1700px){
+
             min-height: 200px;
             max-height: 200px;
           }
@@ -416,7 +417,7 @@
         }
       }
       .monthly-balance-box {
-        background-color: #f2f2f2;
+        background-color: #fff;
         padding: 20px;
         margin: 20px 0px;
         border-radius: 3px;
@@ -428,23 +429,49 @@
           margin-bottom: 25px;
         }
         ul {
-          display: flex;
+
+          display: block;
           padding: 0px;
-          justify-content: space-between;
         }
         li {
-          flex: 1;
+
           color: #474949;
           font-weight: 500;
           font-size: 15px;
           span {
             display: block;
+
+            color: grey;
+            padding-top: 2px;
+          }
+          h4 {
+            text-align: left;
+            margin-bottom: 5px;
+            margin-top: 10px;
+
           }
           & + li {
             b {
               color: #474a4a;
             }
           }
+
+          &:first-child {
+            margin-bottom: 20px;
+            .progress {
+              .progress-bar {
+                background-color: #343a40;
+              }
+            }
+          }
+          &:last-child {
+            .progress {
+              .progress-bar {
+                background-color: #dd3f6b;
+              }
+            }
+          }
+
         }
       }
       .conversation-tags {
@@ -531,6 +558,12 @@
     }
   }
 }
+
+.progress {
+  background-color: #d7d9db !important;
+  height: 10px !important;
+}
+
 .middle-chat-screen {
   width: 100%;
   height: 100%;
@@ -547,7 +580,7 @@
   &.email-middle-screen {
     max-height: calc(100vh - 555px);
     min-height: calc(100vh - 555px);
-    @media(max-width:1700px){
+    @media (max-width: 1700px) {
       max-height: calc(100vh - 225px);
       min-height: calc(100vh - 225px);
     }
@@ -666,7 +699,7 @@
     li {
       width: 100%;
       color: #333;
-      margin-bottom:25px;
+      margin-bottom: 25px;
       font-size: 13px;
       word-break: break-word;
       text-align: left;
@@ -697,7 +730,7 @@
           }
         }
         &.user {
-          background-color: #edf8fe;
+          background-color: #e9f4f2;
           border-color: #bafffc;
           margin-bottom: 2px;
           display: inline-block;
@@ -722,6 +755,7 @@
               background-color: transparent;
               margin-left: -30px;
               opacity: 1;
+
               position: absolute;
               left: 0px;
               top: 50%;

@@ -3,7 +3,9 @@ import React from 'react'
 const WhatsAppIcon = () => {
   return (
     <svg version="1.1" id="Bold" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-    width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+
+    width="512px" height="512px" viewBox="0 0 512 512" enableBackground="new 0 0 512 512">
+
 <path fill="#626A6D" d="M373.482,305.216l-0.191,1.601c-46.912-23.382-51.819-26.496-57.878-17.408
    c-4.202,6.293-16.448,20.565-20.139,24.789c-3.733,4.16-7.445,4.48-13.781,1.6c-6.399-3.199-26.944-9.92-51.264-31.68
    c-18.944-16.96-31.659-37.76-35.414-44.16c-6.25-10.794,6.827-12.33,18.731-34.858c2.133-4.48,1.045-8-0.534-11.179

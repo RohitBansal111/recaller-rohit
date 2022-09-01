@@ -24,90 +24,106 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
-import { Link } from "react-router-dom";
-import PlaceholderImage from "./../../assets/images/placeholder.jpg";
+
+import Chart from "react-apexcharts";
+
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+import ProgressBar from "react-bootstrap/ProgressBar";
+
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import VoiceProgressBar from "./ProgreeBar";
+
 
 const ChatBoot = (props) => {
   const data = [
     {
-      name: 'Page A',
-      uv:1500,
-    },
-    {
-      name: 'Page C',
-      uv: 1400,
-    },
-    {
-      name: 'Page B',
-      uv: 4000,
-    },
-    {
-      name: 'Page C',
-      uv: 1400,
-    },
-    {
-      name: 'Page D',
-      uv: 1800,
-    },
-    {
-      name: 'Page E',
-      uv: 1100,
-    },
-    {
-      name: 'Page F',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
-      uv: 1900,
-    },
-    {
-      name: 'Page G',
-      uv: 1600,
-    },
-    {
-      name: 'Page G',
-      uv: 1700,
-    },
-    {
-      name: 'Page G',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
-      uv: 1900,
-    },
-    {
-      name: 'Page G',
-      uv: 2100,
-    },
-    {
-      name: 'Page G',
+
+      name: "Page A",
       uv: 1500,
     },
     {
-      name: 'Page G',
-      uv: 1800,
-    },
-    {
-      name: 'Page G',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
+      name: "Page C",
       uv: 1400,
     },
     {
-      name: 'Page G',
+      name: "Page B",
+      uv: 4000,
+    },
+    {
+      name: "Page C",
+      uv: 1400,
+    },
+    {
+      name: "Page D",
+      uv: 1800,
+    },
+    {
+      name: "Page E",
       uv: 1100,
     },
     {
-      name: 'Page G',
+      name: "Page F",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1900,
+    },
+    {
+      name: "Page G",
+      uv: 1600,
+    },
+    {
+      name: "Page G",
+      uv: 1700,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1900,
+    },
+    {
+      name: "Page G",
+      uv: 2100,
+    },
+    {
+      name: "Page G",
+      uv: 1500,
+    },
+    {
+      name: "Page G",
+      uv: 1800,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1400,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+
       uv: 1500,
     },
   ];
@@ -145,7 +161,11 @@ const ChatBoot = (props) => {
           </h5>
           <p className="noti_wrap">
             <span>{item.message.slice(0, 30).concat("...")}</span>
-           { item.count > 0 && <span className="notification_cstm">{item.count}</span>}
+
+            {item.count > 0 && (
+              <span className="notification_cstm">{item.count}</span>
+            )}
+
           </p>
           <div className="chat-tag">
             {item.contact.tags.length > 0
@@ -162,6 +182,36 @@ const ChatBoot = (props) => {
     });
     return chatList;
   };
+
+
+  var options = {
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+    },
+    tooltip: {
+      x: {
+        format: 'dd/MM/yy HH:mm'
+      },
+    },
+  };
+  var series = [{
+    name: 'series1',
+    data: [31, 40, 28, 51, 42, 109, 100]
+  }, {
+    name: 'series2',
+    data: [11, 32, 45, 32, 34, 52, 41]
+  }];
 
   return (
     <div className="chatbox-warpper">
@@ -554,7 +604,13 @@ const ChatBoot = (props) => {
             <ul className="personal-info">
               <li>
                 <h5>Phone Number</h5>
-                <p>{props.selecteduser && props.selecteduser.contact && props.selecteduser.contact.phone}</p>
+
+                <p>
+                  {props.selecteduser &&
+                    props.selecteduser.contact &&
+                    props.selecteduser.contact.phone}
+                </p>
+
               </li>
               <li>
                 <h5>Subscription</h5>
@@ -702,51 +758,33 @@ const ChatBoot = (props) => {
               </div>
             </div>
           )}
+
+          <VoiceProgressBar />
+          {/* Monthly credit usage column start */}
+          <div className="monthly-credit-use">
+            <h1>Monthly Credit usage</h1>
+            <div className="monthly-graph">
+                <Chart options={options} series={series} type="area" />
+            </div>
+          </div>
+          {/* Monthly credit usage column end */}
           <div className="monthly-balance-box">
-            <h4>Monthly Balance</h4>
             <ul>
               <li>
                 <b>Credit used</b>
-                <span>$1900</span>
+                <h4>45%</h4>
+                <ProgressBar now={40} />
+                <span>Delivered</span>
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>$75000</span>
+                <h4>45%</h4>
+                <ProgressBar now={60} />
+                <span>Falled</span>
               </li>
             </ul>
           </div>
 
-
-           {/* Monthly credit usage column start */}
-           <div className="monthly-credit-use">
-           <h1>Monthly Credit usage</h1>
-           <div className="monthly-graph">
-           <ResponsiveContainer width={'99%'} height={150}>
-           <AreaChart
-             width={310}
-             height={150}
-             data={data}
-             margin={{
-               top: 5,
-               right: 0,
-               left: 0,
-               bottom: 5,
-             }}
-           >
-           <defs>
-           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-             <stop offset="15%" stopColor="#28dcbf" stopOpacity={0.7}/>
-             <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
-           </linearGradient>
-         </defs>
-         <Tooltip />
-             <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
-           </AreaChart>
-           </ResponsiveContainer>
-           </div>
-         </div>
-
-         {/* Monthly credit usage column end */}
         </div>
         <ScheduleMessageModal
           showScheduleModal={props.showScheduleModal}

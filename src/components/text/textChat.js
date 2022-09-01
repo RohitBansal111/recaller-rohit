@@ -17,8 +17,6 @@ const TextChat = (props) => {
   var dddd = new Date().toISOString().substring(0, 10);
   var ssss = today.getHours() + ":" + today.getMinutes();
 
-  
-
   return (
     <ScrollToBottom className="middle-chat-screen">
       <ul ref={props.divRef}>
@@ -51,11 +49,14 @@ const TextChat = (props) => {
                         </button>
                         </Tooltip>
 
+
+                
                         <pre>{item.message.trim()}</pre>
                       </div>
                     ) : (
                       <pre>{item.message.trim()}</pre>
                     )}
+
                     {item.imageUrl ? (
                       <>
                         <img src={item.imageUrl} alt="img"></img>
@@ -66,9 +67,11 @@ const TextChat = (props) => {
                   </div>
                   <span>
                     <b>
+
                     
                       {item.sender === 1 && "user chat-ui-box"
                         ? <>{item.status ?item.status.charAt(0).toUpperCase() + item.status.slice(1)+'  ':userData.firstName + " " + userData.lastName + " "}</>
+
                         : "" || (item.sender === 2 && "client chat-ui-box")
                         ? props.selecteduser.contact.firstName +
                           " " +
@@ -76,6 +79,7 @@ const TextChat = (props) => {
                           " "
                         : ""}
                     </b>
+
 
                     {timeAgo(item.updatedAt)}
                   </span>
