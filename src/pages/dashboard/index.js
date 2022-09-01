@@ -202,31 +202,31 @@ const Dashboard = (props) => {
   // };
   const dataGraph = [
     {
-      name: "Page A",
+      name: "Jan",
       uv: 1500,
     },
     {
-      name: "Page C",
+      name: "Feb",
       uv: 1400,
     },
     {
-      name: "Page B",
+      name: "Mar",
       uv: 3000,
     },
     {
-      name: "Page C",
+      name: "Apr",
       uv: 2400,
     },
     {
-      name: "Page D",
+      name: "May",
       uv: 1800,
     },
     {
-      name: "Page E",
+      name: "Jun",
       uv: 1100,
     },
     {
-      name: "Page F",
+      name: "Jul",
       uv: 1100,
     },
     {
@@ -234,48 +234,24 @@ const Dashboard = (props) => {
       uv: 1900,
     },
     {
-      name: "Page G",
+      name: "Aug",
       uv: 1600,
     },
     {
-      name: "Page G",
+      name: "Sep",
       uv: 1700,
     },
     {
-      name: "Page G",
+      name: "Oct",
       uv: 1100,
     },
     {
-      name: "Page G",
+      name: "Nov",
       uv: 1900,
     },
     {
-      name: "Page G",
+      name: "Dec",
       uv: 2100,
-    },
-    {
-      name: "Page G",
-      uv: 1500,
-    },
-    {
-      name: "Page G",
-      uv: 1800,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1400,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1500,
     },
   ];
   const voicepercentage = 72;
@@ -347,29 +323,12 @@ const Dashboard = (props) => {
                           bottom: 5,
                         }}
                       >
-                        <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop
-                              offset="15%"
-                              stopColor="#f7b924"
-                              stopOpacity={0.7}
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="#f7b924"
-                              stopOpacity={0.2}
-                            />
-                          </linearGradient>
-                        </defs>
-                        <Area
-                          type="monotone"
-                          strokeWidth={4}
-                          dataKey="uv"
-                          stroke="#f7b924"
-                          fillOpacity={1}
-                          fill="url(#colorUv)"
-                        />
-                      </AreaChart>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Area type="monotone" dataKey="uv" stroke="#f7b924" fill="#f7b924 " />
+                    </AreaChart>
                     </ResponsiveContainer>
                   </div>
 
@@ -488,29 +447,13 @@ const Dashboard = (props) => {
                           bottom: 5,
                         }}
                       >
-                        <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop
-                              offset="15%"
-                              stopColor="#d92550"
-                              stopOpacity={0.7}
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="#d92550"
-                              stopOpacity={0.2}
-                            />
-                          </linearGradient>
-                        </defs>
-                        <Area
-                          type="monotone"
-                          strokeWidth={4}
-                          dataKey="uv"
-                          stroke="#d92550"
-                          fillOpacity={1}
-                          fill="url(#colorUv)"
-                        />
-                      </AreaChart>
+                         <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Area type="monotone" dataKey="uv" stroke="#da624a" fill="#da624a " />
+                    </AreaChart>
+
                     </ResponsiveContainer>
                   </div>
 
