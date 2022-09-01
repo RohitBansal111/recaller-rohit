@@ -1069,7 +1069,7 @@ const TextPage = () => {
       if (res && res.data && res.data.status) {
         setImageUrl(res.data);
       }
-      console.log("resData",res)
+
     }
   };
 

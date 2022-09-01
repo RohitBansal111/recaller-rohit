@@ -4,19 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userLoginApi } from "../../api/user";
 import { loginAction } from "../../redux/actions/loginAction";
+
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 const Login = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false)
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleHidePassword = () => setShowPassword(!showPassword)
-
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     setErrors({});
@@ -100,6 +99,7 @@ const Login = () => {
                   <VisibilityOffIcon onClick={handleHidePassword} />
               </div>
             </div>
+
             <span className="spanError">{errors.password}</span>
           </div>
           <div className="field-group login-forget-password">

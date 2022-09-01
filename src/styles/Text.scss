@@ -721,7 +721,7 @@
               padding: 0px;
               background-color: transparent;
               margin-left: -30px;
-              opacity: 0;
+              opacity: 1;
               position: absolute;
               left: 0px;
               top: 50%;
@@ -733,11 +733,6 @@
                 svg {
                   fill: #655beb;
                 }
-              }
-            }
-            &:hover {
-              button {
-                opacity: 1;
               }
             }
             pre {

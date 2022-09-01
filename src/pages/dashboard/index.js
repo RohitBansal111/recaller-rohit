@@ -91,7 +91,8 @@ const Dashboard = (props) => {
       setView(compaignId);
       // setshowAddCompaign(true);
       setViewCompaign(true);
-      navigate(`/ViewCompaign/{item.value}`);
+      navigate(`/ViewCompaign/${item.value}`);
+
 
       // seteditCompaign(true);
     }
@@ -297,7 +298,9 @@ const Dashboard = (props) => {
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
+
                 <img src="/cloud-icon.svg" />
+
                 <h2 className="ml-1">Download Report</h2>
               </div>
               <div className="db-report-details">
@@ -326,6 +329,7 @@ const Dashboard = (props) => {
                       </span> */}
                       <span className="price-value">
                         <span className="month43">Aug.</span> 984/1000
+
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -389,7 +393,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
+
                                   <small></small> 152
+
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -412,7 +418,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
+
                                   <small></small> 252
+
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -435,7 +443,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
+
                                   <small></small> 252
+
                                   <span className="active-performance zero">
                                     <i class="fa-solid fa-circle-dot"></i>
                                   </span>
@@ -457,13 +467,16 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
+
                         <span className="month43">July. </span> 59/1000
+
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
                   <div className="value-graph">
                     <ResponsiveContainer width={"99.9%"} height={150} >
+
                       <AreaChart
                         width={310}
                         height={150}
@@ -544,7 +557,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 252
+                                  <small></small> 25
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -567,6 +580,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
+
                                   <small></small> 252
                                   <span className="active-performance zero">
                                     <i class="fa-solid fa-circle-dot"></i>
