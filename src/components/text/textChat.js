@@ -6,7 +6,7 @@ import { timeAgo } from "../../helper/timerFuntion";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import {Tooltip} from '@mui/material';
-
+import axios from "axios";
 import moment from 'moment'
 
 const TextChat = (props) => {
@@ -16,7 +16,18 @@ const TextChat = (props) => {
   var dddd = new Date().toISOString().substring(0, 10);
   var ssss = today.getHours() + ":" + today.getMinutes();
 
+const handleIamgeUrl=async(data)=>{
+let imageBlob = (await axios.get(data, { responseType: 'blob' })).data
+return await blobToBase64(imageBlob)
+}
   
+function blobToBase64(blob) {
+  return new Promise((resolve, _) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
 
   return (
     <ScrollToBottom className="middle-chat-screen">
@@ -55,9 +66,9 @@ const TextChat = (props) => {
                     ) : (
                       <pre>{item.message.trim()}</pre>
                     )}
-                    {item.imageUrl ? (
+                    {item?.imageUrl ? (
                       <>
-                        <img src={item.imageUrl} alt="img"></img>
+                        <img src={item?.imageUrl} alt="img" />
                       </>
                     ) : (
                       ""
