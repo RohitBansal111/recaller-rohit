@@ -228,10 +228,6 @@ const Dashboard = (props) => {
       uv: 1100,
     },
     {
-      name: "Page G",
-      uv: 1900,
-    },
-    {
       name: "Aug",
       uv: 1600,
     },
