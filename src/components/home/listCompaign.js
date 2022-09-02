@@ -5,6 +5,7 @@ import { GrView } from "react-icons/gr";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import ReactTooltip from "react-tooltip";
+import Tooltip from "@mui/material/Tooltip";
 
 const Campaignlist = (props) => {
   return (
@@ -21,27 +22,91 @@ const Campaignlist = (props) => {
                 <div className="card-tav-content">
                   <p>{data.label}</p>
                   <div className="more-action">
-                    <span className="edit" data-tip="Edit">
-                      <BiEdit onClick={() => props.handleEditClick(data)}>
-                        Edit Compaign
-                      </BiEdit>
-                      <ReactTooltip />
-                    </span>
-                    <span className="view" data-tip="view">
-                      <GrView onClick={() => props.viewContactCompaign(data)} />
-                      <ReactTooltip />
-                    </span>
-                    <span className="report" data-tip="Report">
-                      <TbReportAnalytics />
-                      <ReactTooltip />
-                    </span>
-                    <span className="delete" data-tip="Delete">
-                      <RiDeleteBinLine
-                        onClick={() => props.handleDelete(data)}
-                        Delete
-                      />
-                      <ReactTooltip />
-                    </span>
+                    <Tooltip
+                      title="Edit"
+                      placement="top"
+                      componentsProps={{
+                        tooltip: {
+                          sx: {
+                            color: "white",
+                            backgroundColor: "black",
+                            fontSize: "18px",
+                            padding: "15px",
+                          },
+                        },
+                      }}
+                      arrow
+                    >
+                      <span className="edit">
+                        <BiEdit onClick={() => props.handleEditClick(data)}>
+                          Edit Compaign
+                        </BiEdit>
+                      </span>
+                    </Tooltip>
+
+                    <Tooltip
+                      title="View"
+                      placement="top"
+                      componentsProps={{
+                        tooltip: {
+                          sx: {
+                            color: "white",
+                            backgroundColor: "black",
+                            fontSize: "18px",
+                            padding: "15px",
+                          },
+                        },
+                      }}
+                      arrow
+                    >
+                      <span className="view">
+                        <BiEdit onClick={() => props.viewContactCompaign(data)}>
+                          View Compaign
+                        </BiEdit>
+                      </span>
+                    </Tooltip>
+
+                    <Tooltip
+                      title="Report"
+                      placement="top"
+                      componentsProps={{
+                        tooltip: {
+                          sx: {
+                            color: "white",
+                            backgroundColor: "black",
+                            fontSize: "18px",
+                            padding: "15px",
+                          },
+                        },
+                      }}
+                      arrow
+                    >
+                      <span className="report">
+                        <TbReportAnalytics />
+                      </span>
+                    </Tooltip>
+
+                    <Tooltip
+                      title="Delete"
+                      placement="top"
+                      componentsProps={{
+                        tooltip: {
+                          sx: {
+                            color: "white",
+                            backgroundColor: "black",
+                            fontSize: "18px",
+                            padding: "15px",
+                          },
+                        },
+                      }}
+                      arrow
+                    >
+                      <span className="delete">
+                        <BiEdit onClick={() => props.handleDelete(data)}>
+                          Delete Compaign
+                        </BiEdit>
+                      </span>
+                    </Tooltip>
                   </div>
                 </div>
               </li>
