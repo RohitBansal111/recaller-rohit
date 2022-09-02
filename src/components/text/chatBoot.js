@@ -759,31 +759,77 @@ const ChatBoot = (props) => {
             </div>
           )}
 
-          <VoiceProgressBar />
-          {/* Monthly credit usage column start */}
-          <div className="monthly-credit-use">
-            <h1>Monthly Credit usage</h1>
-            <div className="monthly-graph">
-                <Chart options={options} series={series} type="area" />
-            </div>
+{          // <VoiceProgressBar />
+          // {/* Monthly credit usage column start */}
+          // <div className="monthly-credit-use">
+          //   <h1>Monthly Credit usage</h1>
+          //   <div className="monthly-graph">
+          //       <Chart options={options} series={series} type="area" />
+          //   </div>
+          // </div>
+          // {/* Monthly credit usage column end */}
+          // <div className="monthly-balance-box">
+          //   <ul>
+          //     <li>
+          //       <b>Credit used</b>
+          //       <h4>45%</h4>
+          //       <ProgressBar now={40} />
+          //       <span>Delivered</span>
+          //     </li>
+          //     <li>
+          //       <b>Credit balance</b>
+          //       <h4>45%</h4>
+          //       <ProgressBar now={60} />
+          //       <span>Falled</span>
+          //     </li>
+          //   </ul>
+          // </div>
+        },
+        <div className="monthly-balance-box">
+        <h4>Monthly Balance</h4>
+        <ul>
+          <li>
+            <b>Credit used</b>
+            <span>$1900</span>
+          </li>
+          <li>
+            <b>Credit balance</b>
+            <span>$75000</span>
+          </li>
+        </ul>
+      </div>
+      
+
+      {/* Monthly credit usage column start */}
+        <div className="monthly-credit-use">
+          <h1>Monthly Credit usage</h1>
+          <div className="monthly-graph">
+          <ResponsiveContainer width={'99%'} height={150}>
+          <AreaChart
+            width={310}
+            height={150}
+            data={data}
+            margin={{
+              top: 5,
+              right: 0,    
+              left: 0,
+              bottom: 5,
+            }}
+          >
+          <defs>
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="15%" stopColor="#28dcbf" stopOpacity={0.7}/>
+            <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
+          </linearGradient>
+        </defs>
+        <Tooltip />
+            <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
+          </AreaChart>
+          </ResponsiveContainer>
           </div>
-          {/* Monthly credit usage column end */}
-          <div className="monthly-balance-box">
-            <ul>
-              <li>
-                <b>Credit used</b>
-                <h4>45%</h4>
-                <ProgressBar now={40} />
-                <span>Delivered</span>
-              </li>
-              <li>
-                <b>Credit balance</b>
-                <h4>45%</h4>
-                <ProgressBar now={60} />
-                <span>Falled</span>
-              </li>
-            </ul>
-          </div>
+        </div>
+
+        {/* Monthly credit usage column end */}
 
         </div>
         <ScheduleMessageModal

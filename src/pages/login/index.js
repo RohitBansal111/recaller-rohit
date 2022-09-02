@@ -14,6 +14,8 @@ const Login = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false)
+  const [check, setCheck] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleHidePassword = () => setShowPassword(!showPassword)
@@ -38,6 +40,10 @@ const Login = () => {
         break;
       case !data.password:
         setErrors({ password: "Password is required!" });
+        formData = false;
+        break;
+        case !check:
+        setErrors({ checkbox: "Please Select Check Box" });
         formData = false;
         break;
       default:
@@ -110,8 +116,15 @@ const Login = () => {
           </div>
           <div className="field-group login-forget-password">
             <label>
-              <input type="checkbox" />
+              <input  
+              id="checkbox"
+              name="checkbox"
+              checked={check}
+              // value={data.checkbox}
+              onChange={() => setCheck(!check)}
+              type="checkbox" />
               <span>Keep me logged in</span>
+              <span className="spanError">{errors.checkbox}</span>
             </label>
           
           </div>
