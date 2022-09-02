@@ -63,6 +63,24 @@ button:focus {
   word-break: break-all;
 }
 
+.voice-progress-bar {
+  border-top: 1px solid lightgray;
+  .voice34 {
+    .progress {
+      .progress-bar {
+        background-color: #343a40;
+      }
+    }
+  }
+  .usage34 {
+    .progress {
+      .progress-bar {
+        background-color: #929599;
+      }
+    }
+  }
+}
+
 .middle-chat-screen {
   ul {
     li {
@@ -920,3 +938,38 @@ body {
     display: none !important;
   }
 }
+
+
+
+
+// Login
+.passowrd-field-wrap{
+  position: relative;
+  .show-password-icons{
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    svg{
+      cursor: pointer;
+      &:nth-child(1){
+        display: none;
+      }
+      &:nth-child(2){
+        display: block;
+      }
+    }
+    &.showPsw{
+      svg{
+        cursor: pointer;
+        &:nth-child(2){
+          display: none;
+        }
+        &:nth-child(1){
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+

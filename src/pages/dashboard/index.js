@@ -18,8 +18,6 @@ import EmailIcon from "../../assets/svg-icons/emailIcon";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AdjustIcon from "@mui/icons-material/Adjust";
-
-
 import {
   addCompaignApi,
   getCompaignApi,
@@ -93,7 +91,6 @@ const Dashboard = (props) => {
       setViewCompaign(true);
       navigate(`/ViewCompaign/${item.value}`);
 
-      // seteditCompaign(true);
     }
     console.log("view contactCompaign", res);
   };
@@ -201,31 +198,33 @@ const Dashboard = (props) => {
   // };
   const dataGraph = [
     {
-      name: "Page A",
+
+      name: "Jan",
       uv: 1500,
     },
     {
-      name: "Page C",
+      name: "Feb",
       uv: 1400,
     },
     {
-      name: "Page B",
+      name: "Mar",
       uv: 3000,
     },
     {
-      name: "Page C",
+      name: "Apr",
       uv: 2400,
     },
     {
-      name: "Page D",
+      name: "May",
       uv: 1800,
     },
     {
-      name: "Page E",
+      name: "Jun",
       uv: 1100,
     },
     {
-      name: "Page F",
+      name: "Jul",
+
       uv: 1100,
     },
     {
@@ -233,49 +232,26 @@ const Dashboard = (props) => {
       uv: 1900,
     },
     {
-      name: "Page G",
+      name: "Aug",
       uv: 1600,
     },
     {
-      name: "Page G",
+      name: "Sep",
       uv: 1700,
     },
     {
-      name: "Page G",
+      name: "Oct",
       uv: 1100,
     },
     {
-      name: "Page G",
+      name: "Nov",
       uv: 1900,
     },
     {
-      name: "Page G",
+      name: "Dec",
       uv: 2100,
-    },
-    {
-      name: "Page G",
-      uv: 1500,
-    },
-    {
-      name: "Page G",
-      uv: 1800,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1400,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1500,
-    },
+    }
+
   ];
   const voicepercentage = 72;
   const voicelatestpercentage = 15;
@@ -297,7 +273,10 @@ const Dashboard = (props) => {
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
-                <CloudDownloadIcon />
+
+
+                <img src="/cloud-icon.svg" />
+
                 <h2 className="ml-1">Download Report</h2>
               </div>
               <div className="db-report-details">
@@ -310,14 +289,17 @@ const Dashboard = (props) => {
                   <li class="nav-item">
                     <a
                        class="nav-link" id="nav-last-tab" data-bs-toggle="tab" data-bs-target="#nav-last" type="button" role="tab" aria-controls="nav-last" aria-selected="true">
+
                       Last
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
+
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="nav-current" role="tabpanel" aria-labelledby="nav-current-tab">
+
                 <div className="performance-body text-value">
                   <div className="performance-value-box">
                     <div className="performance-value">
@@ -325,7 +307,10 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">Aug.</span> 984
+
+                        <span className="month43">Aug.</span> 984/1000
+
+
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -343,29 +328,14 @@ const Dashboard = (props) => {
                           bottom: 5,
                         }}
                       >
-                        <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop
-                              offset="15%"
-                              stopColor="#f7b924"
-                              stopOpacity={0.7}
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="#f7b924"
-                              stopOpacity={0.2}
-                            />
-                          </linearGradient>
-                        </defs>
-                        <Area
-                          type="monotone"
-                          strokeWidth={4}
-                          dataKey="uv"
-                          stroke="#f7b924"
-                          fillOpacity={1}
-                          fill="url(#colorUv)"
-                        />
-                      </AreaChart>
+
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Area type="monotone" dataKey="uv" stroke="#f7b924" fill="#f7b924 " />
+                    </AreaChart>
+
                     </ResponsiveContainer>
                   </div>
 
@@ -389,7 +359,10 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small>$</small> 152
+
+                                  <small></small> 152
+
+
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -412,7 +385,11 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small>$</small> 252
+
+
+                                  <small></small> 252
+
+
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -435,9 +412,13 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-                                  <small>$</small> 252
+
+
+                                  <small></small> 252
+
                                   <span className="active-performance zero">
                                     <i class="fa-solid fa-circle-dot"></i>
+
                                   </span>
                                 </span>
                               </div>
@@ -449,21 +430,30 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </div>
+
               <div class="tab-pane fade" id="nav-last" role="tabpanel" aria-labelledby="nav-last-tab">
               <div className="performance-body text-value">
+
                   <div className="performance-value-box">
                     <div className="performance-value">
                       {/* <span className="circle">
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">Aug.</span> 984
+
+
+                        <span className="month43">July. </span> 59/1000
+
+
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
                   <div className="value-graph">
-                    <ResponsiveContainer width={"99.9%"} height={150}>
+
+                    <ResponsiveContainer width={"99.9%"} height={150} >
+
+
                       <AreaChart
                         width={310}
                         height={150}
@@ -475,29 +465,15 @@ const Dashboard = (props) => {
                           bottom: 5,
                         }}
                       >
-                        <defs>
-                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop
-                              offset="15%"
-                              stopColor="#f7b924"
-                              stopOpacity={0.7}
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="#f7b924"
-                              stopOpacity={0.2}
-                            />
-                          </linearGradient>
-                        </defs>
-                        <Area
-                          type="monotone"
-                          strokeWidth={4}
-                          dataKey="uv"
-                          stroke="#f7b924"
-                          fillOpacity={1}
-                          fill="url(#colorUv)"
-                        />
-                      </AreaChart>
+
+                         <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Area type="monotone" dataKey="uv" stroke="#da624a" fill="#da624a " />
+                    </AreaChart>
+
+
                     </ResponsiveContainer>
                   </div>
 
@@ -521,7 +497,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small>$</small> 152
+
+                                  <small></small> 152
+
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -544,7 +522,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small>$</small> 252
+
+                                  <small></small> 25
+
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -567,9 +547,12 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-                                  <small>$</small> 252
+
+
+                                  <small></small> 252
                                   <span className="active-performance zero">
                                     <i class="fa-solid fa-circle-dot"></i>
+
                                   </span>
                                 </span>
                               </div>

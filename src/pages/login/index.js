@@ -5,12 +5,19 @@ import { toast } from "react-toastify";
 import { userLoginApi } from "../../api/user";
 import { loginAction } from "../../redux/actions/loginAction";
 
+
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+
 const Login = () => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
-
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleHidePassword = () => setShowPassword(!showPassword)
+
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -81,14 +88,24 @@ const Login = () => {
           </div>
           <div className="field-group flexFull">
             <label htmlFor="name"> Password </label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              onChange={handleChange}
-              value={data.password}
-            />
+
+            <div className="passowrd-field-wrap">
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                placeholder="Enter password"
+                onChange={handleChange}
+                value={data.password}
+              />
+              <div className={showPassword ? "show-password-icons showPsw" : "show-password-icons"}>
+                  <RemoveRedEyeIcon onClick={handleHidePassword} />
+                  <VisibilityOffIcon onClick={handleHidePassword} />
+              </div>
+            </div>
+
+
+            
             <span className="spanError">{errors.password}</span>
           </div>
           <div className="field-group login-forget-password">
