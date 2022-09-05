@@ -45,11 +45,9 @@ import {
 } from "recharts";
 import VoiceProgressBar from "./ProgreeBar";
 
-
 const ChatBoot = (props) => {
   const data = [
     {
-
       name: "Page A",
       uv: 1500,
     },
@@ -165,7 +163,6 @@ const ChatBoot = (props) => {
             {item.count > 0 && (
               <span className="notification_cstm">{item.count}</span>
             )}
-
           </p>
           <div className="chat-tag">
             {item.contact.tags.length > 0
@@ -183,35 +180,45 @@ const ChatBoot = (props) => {
     return chatList;
   };
 
-
   var options = {
     chart: {
       height: 350,
-      type: 'area'
+      type: "area",
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     stroke: {
-      curve: 'smooth'
+      curve: "smooth",
     },
     xaxis: {
-      type: 'datetime',
-      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+      type: "datetime",
+      categories: [
+        "2018-09-19T00:00:00.000Z",
+        "2018-09-19T01:30:00.000Z",
+        "2018-09-19T02:30:00.000Z",
+        "2018-09-19T03:30:00.000Z",
+        "2018-09-19T04:30:00.000Z",
+        "2018-09-19T05:30:00.000Z",
+        "2018-09-19T06:30:00.000Z",
+      ],
     },
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm'
+        format: "dd/MM/yy HH:mm",
       },
     },
   };
-  var series = [{
-    name: 'series1',
-    data: [31, 40, 28, 51, 42, 109, 100]
-  }, {
-    name: 'series2',
-    data: [11, 32, 45, 32, 34, 52, 41]
-  }];
+  var series = [
+    {
+      name: "series1",
+      data: [31, 40, 28, 51, 42, 109, 100],
+    },
+    {
+      name: "series2",
+      data: [11, 32, 45, 32, 34, 52, 41],
+    },
+  ];
 
   return (
     <div className="chatbox-warpper">
@@ -610,7 +617,6 @@ const ChatBoot = (props) => {
                     props.selecteduser.contact &&
                     props.selecteduser.contact.phone}
                 </p>
-
               </li>
               <li>
                 <h5>Subscription</h5>
@@ -759,78 +765,31 @@ const ChatBoot = (props) => {
             </div>
           )}
 
-{          // <VoiceProgressBar />
-          // {/* Monthly credit usage column start */}
-          // <div className="monthly-credit-use">
-          //   <h1>Monthly Credit usage</h1>
-          //   <div className="monthly-graph">
-          //       <Chart options={options} series={series} type="area" />
-          //   </div>
-          // </div>
-          // {/* Monthly credit usage column end */}
-          // <div className="monthly-balance-box">
-          //   <ul>
-          //     <li>
-          //       <b>Credit used</b>
-          //       <h4>45%</h4>
-          //       <ProgressBar now={40} />
-          //       <span>Delivered</span>
-          //     </li>
-          //     <li>
-          //       <b>Credit balance</b>
-          //       <h4>45%</h4>
-          //       <ProgressBar now={60} />
-          //       <span>Falled</span>
-          //     </li>
-          //   </ul>
-          // </div>
-        },
-        <div className="monthly-balance-box">
-        <h4>Monthly Balance</h4>
-        <ul>
-          <li>
-            <b>Credit used</b>
-            <span>$1900</span>
-          </li>
-          <li>
-            <b>Credit balance</b>
-            <span>$75000</span>
-          </li>
-        </ul>
-      </div>
-      
-
-      {/* Monthly credit usage column start */}
-        <div className="monthly-credit-use">
-          <h1>Monthly Credit usage</h1>
-          <div className="monthly-graph">
-          <ResponsiveContainer width={'99%'} height={150}>
-          <AreaChart
-            width={310}
-            height={150}
-            data={data}
-            margin={{
-              top: 5,
-              right: 0,    
-              left: 0,
-              bottom: 5,
-            }}
-          >
-          <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="15%" stopColor="#28dcbf" stopOpacity={0.7}/>
-            <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
-          </linearGradient>
-        </defs>
-        <Tooltip />
-            <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
-          </AreaChart>
-          </ResponsiveContainer>
+          <VoiceProgressBar />
+          {/* Monthly credit usage column start */}
+          <div className="monthly-credit-use">
+            <h1>Monthly Credit usage</h1>
+            <div className="monthly-graph">
+              <Chart options={options} series={series} type="area" />
+            </div>
           </div>
-        </div>
-
-        {/* Monthly credit usage column end */}
-
+          {/* Monthly credit usage column end */}
+          <div className="monthly-balance-box">
+            <ul>
+              <li>
+                <b>Credit used</b>
+                <h4>{props?.countData?.deliver}%</h4>
+                <ProgressBar now={props?.countData?.deliver} />
+                <span>Delivered</span>
+              </li>
+              <li>
+                <b>Credit balance</b>
+                <h4>{props?.countData?.failed}%</h4>
+                <ProgressBar now={props?.countData?.failed} />
+                <span>Falled</span>
+              </li>
+            </ul>
+          </div>
         </div>
         <ScheduleMessageModal
           showScheduleModal={props.showScheduleModal}
