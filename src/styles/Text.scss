@@ -126,7 +126,7 @@
       background-color: $Theme-white;
       overflow-y: auto !important;
       overflow-x: hidden;
-      height: calc(100vh - 73px);
+      height: calc(100vh - 80px);
       .all-discuss-section {
         height: 100%;
         position: relative;
@@ -578,11 +578,11 @@
     min-height: calc(100vh - 390px);
   }
   &.email-middle-screen {
-    max-height: calc(100vh - 555px);
-    min-height: calc(100vh - 555px);
+    max-height: calc(100vh - 570px);
+    min-height: calc(100vh - 570px);
     @media (max-width: 1700px) {
-      max-height: calc(100vh - 225px);
-      min-height: calc(100vh - 225px);
+      max-height: calc(100vh - 340px);
+      min-height: calc(100vh - 340px);
     }
   }
   .date-update {
