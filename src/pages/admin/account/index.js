@@ -7,7 +7,9 @@ import { userDetailApi, userUpdateApi } from "../../../api/user";
 import Layout from "../../../components/layout";
 import { loginAction } from "../../../redux/actions/loginAction";
 import ChangePasswordModal from "../../../models/Changepasswordmodal";
+import { useNavigate } from "react-router-dom";
 const MyAccount = () => {
+  const navigate =useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -141,6 +143,12 @@ const MyAccount = () => {
       }
     }
   };
+  const handlereroute =()=>{
+localStorage.removeItem('token')
+localStorage.removeItem('userData')
+navigate('/Price')
+
+  }
   return (
     <div>
       <Layout>
@@ -236,12 +244,14 @@ const MyAccount = () => {
                       name="currentplan"
                       type="text"
                       className="form-control"
-                      value="319"
+                      placeholder="User Plan will Shown Here "
+                      value={`${addUser && addUser.subscriptionPlan} Plan`}
                       disabled
                     />
                   </div>
-                  <span className="changeplan">
-                    <Link to="/Price">Change Plan</Link>
+                
+                  <span className="changeplan"  onClick={()=>handlereroute()}>
+                  Change Plan
                   </span>
                 </div>
                 <div className="field-group  flex2 password-field">
