@@ -341,7 +341,7 @@ function App({ component: Component, ...rest }) {
           }
         />
       </Routes>
-      <ToastContainer limit={1} />
+      <ToastContainer limit={1} closeButton={false} />
       <Notifications />
     </Router>
   );

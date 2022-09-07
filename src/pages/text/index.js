@@ -23,6 +23,7 @@ import {
   sendBulkMessageApi,
   sendMessageApi,
   sendSingleMessageApi,
+  countMessageApi,
 } from "../../api/textMessage";
 import {
   deleteTemplate,
@@ -118,6 +119,7 @@ const TextPage = () => {
   const [reScheduleTitle, setReScheduleTitle] = useState({});
   const [searchTemplateValue, setSearchTemplateValue] = useState("");
   const [compaign, setCompaigns] = useState([]);
+  const [countData, setCountData] = useState();
 
   const divRef = useRef(null);
 
@@ -383,6 +385,7 @@ const TextPage = () => {
     getMessage();
     getTemplate();
     getContactCompaign();
+    getCountMessage();
   }, []);
 
   const handleClick = async () => {
@@ -1193,6 +1196,21 @@ const TextPage = () => {
     });
     setShowReScheduleTitleModal(false);
   };
+  const getCountMessage = async () => {
+    let res = await countMessageApi();
+    if (res && res.data && res.status == 200) {
+      // console.log("qq", res.data);
+      let totel_data = Number(res?.data?.deliver) + Number(res?.data?.failed);
+      var del = ((Number(res?.data?.deliver) / totel_data) * 100).toFixed(0);
+      var fail = ((Number(res?.data?.failed) / totel_data) * 100).toFixed(0);
+
+      let data_value = {
+        deliver: del,
+        failed: fail,
+      };
+      setCountData(data_value);
+    }
+  };
 
   return (
     <Layout>
@@ -1350,6 +1368,7 @@ const TextPage = () => {
             handleReSchaduleTChange={handleReSchaduleTChange}
             handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
             handleReTitleSubmit={handleReTitleSubmit}
+            countData={countData}
           />
         </div>
         <MessageModal
