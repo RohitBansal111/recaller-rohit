@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 // import signup from "../../api/user";
 import { signup } from "../../api/user";
 const Signup = () => {
@@ -49,8 +49,7 @@ const Signup = () => {
     setData({ ...data, [e.target.name]: e.target.value });
     setErrors({});
   };
-  console.log(data, "datttt");
-  console.log(check, "check");
+
   const isValid = () => {
     const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     let formData = true;
@@ -106,8 +105,13 @@ const Signup = () => {
       const res = await signup(data);
 
       if (res && res.data && res.data.status === 200) {
-        toast.success("Register successful!"); 
-        Cookies.set('token', res?.data?.response.jwt , { expires: 1 })
+        toast.success("Register successful!");
+        let dataSend = {
+          name: `${res.data.response.firstName} ${res.data.response.lastName}`,
+          email: res.data.response.email,
+        };
+        Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
+        Cookies.set("token", res?.data?.response.jwt, { expires: 1 });
         navigate(`/price`);
       } else {
         toast.error(res.data.message);

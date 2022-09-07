@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
@@ -15,9 +15,9 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { Button, Row, Col, Modal } from "react-bootstrap";
-import { CreateSubscription } from "../../api/plans";
+import { CreateSubscription, CreateSubscriptionFree } from "../../api/plans";
 const stripePromise = loadStripe(
   "pk_test_51JPsinAhUO0LEMorfVu3TFyzUWo3i1n7jowbZqsf0BI0cK9mL4Leg2p7Kz1J1L4J3Rn9FdnWAXTVnq586ECRbrUL00aTx3yEWY"
 );
@@ -25,6 +25,8 @@ const stripePromise = loadStripe(
 const Price = () => {
   const [monthisActive, setmonthisActive] = useState(true);
   const [open, setOpen] = useState();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     name: "no data",
     price: 0,
@@ -43,17 +45,29 @@ const Price = () => {
   };
 
   const hnadleSub_Button = (sub_name, sub_price) => {
-    
     setData({
       ...data,
       amount: Number(sub_price) * 100,
       name: sub_name,
     });
-   setOpen(true);
-
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleFreeData = async () => {
+    const res = await CreateSubscriptionFree();
+    if (res.status) {
+      toast.success(res.data.massage);
+      Cookies.remove("token");
+      handleClose();
+      setLoading(false);
+      navigate("/login");
+    } else {
+      toast.error(res.data.massage);
+      setLoading(false);
+    }
   };
 
   const { name, price } = data;
@@ -69,6 +83,8 @@ const Price = () => {
               planName={name}
               handleClose={handleClose}
               type={type}
+              loading={loading}
+              setLoading={setLoading}
             />
           </Elements>
         </Modal.Body>
@@ -225,7 +241,13 @@ const Price = () => {
                         </span>
                       </li>
                     </ul>
-                    <Button>Get Started</Button>
+                    <Button
+                      onClick={() => {
+                        handleFreeData();
+                      }}
+                    >
+                      Get Started
+                    </Button>
                   </div>
                 </div>
               </Col>
@@ -335,7 +357,6 @@ const Price = () => {
                     </ul>
                     <Button
                       onClick={() => {
-                        
                         hnadleSub_Button("starter", 149);
                       }}
                     >
@@ -593,16 +614,15 @@ const CARD_ELEMENT_OPTIONS = {
   },
 };
 
-const CheckoutForm = ({ planName, handleClose, type }) => {
+const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
   const [details, setDetails] = useState({
     name: "",
     email: "",
   });
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -625,13 +645,10 @@ const CheckoutForm = ({ planName, handleClose, type }) => {
       });
 
       if (result.error) {
-        console.log(result.error.message);
+        toast.error(result.error.message);
 
         setLoading(false);
       } else {
-        console.warn("pay Success");
-        console.log(result);
-
         let dataAll = {
           payment_method: result.paymentMethod.id,
           email: details.email,
@@ -640,42 +657,56 @@ const CheckoutForm = ({ planName, handleClose, type }) => {
           type: type,
         };
         const res = await CreateSubscription(dataAll);
-        
-         const { client_secret, status } = res.data;
+
+        const { client_secret, status } = res.data;
 
         if (status === "requires_action") {
           stripe.confirmCardPayment(client_secret).then(function (result) {
-            if (result.error) {
-              console.log(result.error.message);
+            if (result.status == false) {
+              toast.error(result.error);
 
               setLoading(false);
               // Display error message in your UI.
               // The card was declined (i.e. insufficient funds, card has expired, etc)
             } else {
               // Show a success message to your customer
-              Cookies.remove('token')
-            handleClose();
-             setLoading(false);
-              navigate('/login')
+              toast.success(result.massage);
+              Cookies.remove("token");
+              handleClose();
+              setLoading(false);
+              navigate("/login");
             }
           });
         } else {
-          Cookies.remove('token')
-         handleClose();
-          setLoading(false);
-          navigate('/login')
+          if (!res.status) {
+            toast.error("SomeThing went wrong try again");
+            setLoading(false);
+          } else {
+            toast.success(res.data.status);
+            handleClose();
+            setLoading(false);
+            navigate("/login");
+          }
 
           // No additional information was needed
           // Show a success message to your customer
         }
       }
     } catch (error) {
-      console.log(error);
-
+      toast.error("SomeThing went wrong try again");
       handleClose();
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const userData = JSON.parse(Cookies.get("userData"));
+    setDetails({
+      ...details,
+      name:userData.name,
+      email: userData.email,
+    })
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>

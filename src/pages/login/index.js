@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userLoginApi } from "../../api/user";
 import { loginAction } from "../../redux/actions/loginAction";
-
+import Cookies from 'js-cookie'
 
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -57,11 +57,19 @@ const Login = () => {
     if (isValid()) {
       const res = await userLoginApi(data);
       if (res && res.data && res.data.status === 200) {
-        toast.success("Login successful!");
-        dispatch(loginAction(res.data.data));
-        localStorage.setItem("token", res.data.data.jwt);
-        localStorage.setItem("userData", JSON.stringify(res.data.data));
-        navigate(`/`);
+        console.log(res.data.data.subscription_status)
+        if(res.data.data.subscription_status){
+      toast.success("Login successful!");
+       dispatch(loginAction(res.data.data));
+       localStorage.setItem("token", res.data.data.jwt);
+       localStorage.setItem("userData", JSON.stringify(res.data.data));
+       navigate(`/`);
+        }else{
+          toast.success("Login successful!");
+          Cookies.set('token', res.data.data.jwt , { expires: 1 })
+          navigate(`/price`);
+        }
+      
       } else {
         toast.error(res.data.message);
       }
