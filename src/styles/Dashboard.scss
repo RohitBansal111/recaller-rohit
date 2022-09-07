@@ -827,7 +827,7 @@
         }
 
         h2 {
-          color: rgba(31, 10, 6, 0.6);
+          color:#9da1a5;
           font-size: 1.1rem;
           margin-bottom: 0px;
           margin-left: 8px;
@@ -861,6 +861,17 @@
           .nav-item {
             position: relative;
             padding: 10px 0px;
+            &:last-child{
+              .nav-link{
+
+                color: #82ca9d;
+                &.active{
+                  &::before{
+                    background-color: #82ca9d;
+                  }
+                }
+              }
+            }
             .nav-link {
               text-transform: none;
               width: 100%;
@@ -945,6 +956,13 @@
           }
         }
       }
+      .value-graph{
+        padding-right: 15px;
+      }
+      .last-value-graph {
+        overflow-x: auto;
+        padding-right: 15px;
+    }
       .top-performance-field {
         padding: 1.25rem;
 
