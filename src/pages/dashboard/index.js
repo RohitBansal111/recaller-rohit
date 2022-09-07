@@ -38,7 +38,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 // import ViewCompaign from "../../components/viewCompaign/ViewCompaign";
-
+import Currentgraph from "../../components/Dashboard/Currentgraph";
+import Lastgraph from "../../components/Dashboard/Lastgraph";
+import Yeargraph from "../../components/Dashboard/yeargraph";
 const Dashboard = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -197,57 +199,7 @@ const Dashboard = (props) => {
   // const handleView = async () => {
   //   navigate("/contacts");
   // };
-  const dataGraph = [
-    {
-      name: "Jan",
-      uv: 1500,
-    },
-    {
-      name: "Feb",
-      uv: 1400,
-    },
-    {
-      name: "Mar",
-      uv: 3000,
-    },
-    {
-      name: "Apr",
-      uv: 2400,
-    },
-    {
-      name: "May",
-      uv: 1800,
-    },
-    {
-      name: "Jun",
-      uv: 1100,
-    },
-    {
-      name: "Jul",
 
-      uv: 1100,
-    },
-    {
-      name: "Aug",
-      uv: 1600,
-    },
-    {
-      name: "Sep",
-      uv: 1700,
-    },
-    {
-      name: "Oct",
-      uv: 1100,
-    },
-    {
-      name: "Nov",
-      uv: 1900,
-    },
-    {
-      name: "Dec",
-      uv: 2100,
-    },
-  ];
   const voicepercentage = 72;
   const voicelatestpercentage = 15;
 
@@ -302,6 +254,20 @@ const Dashboard = (props) => {
                       Last
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="nav-year-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-year"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-year"
+                      aria-selected="true"
+                    >
+                      Year
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -320,36 +286,14 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">Aug.</span> 984/1000
+                        <span className="month43">September.</span> 984/1000
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
+
                   <div className="value-graph">
-                    <ResponsiveContainer width={"99.9%"} height={150}>
-                      <AreaChart
-                        width={310}
-                        height={150}
-                        data={dataGraph}
-                        margin={{
-                          top: 5,
-                          right: 0,
-                          left: 0,
-                          bottom: 5,
-                        }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Area
-                          type="monotone"
-                          dataKey="uv"
-                          stroke="#f7b924"
-                          fill="#f7b924 "
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                    <Currentgraph />
                   </div>
 
                   <div className="top-performance-field">
@@ -446,36 +390,116 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">July. </span> 59/1000
+                        <span className="month43">July. </span> 1159/2400
+                      </span>
+                      <span className="text2">Credits Deployed</span>
+                    </div>
+                  </div>
+                  <div className="last-value-graph">
+                    <Lastgraph />
+                  </div>
+
+                  <div className="top-performance-field">
+                    <h2>Last Month Highlights</h2>
+                    <div className="per-field">
+                      <div className="comp-pfield">
+                        <ul>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <TextIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Text</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span>
+                                  <small></small> 152
+                                  <span className="active-performance profit">
+                                    <KeyboardArrowDownIcon />
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <VoiceIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Voice</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span>
+                                  <small></small> 25
+                                  <span className="active-performance loss">
+                                    <KeyboardArrowDownIcon />
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="pfield-content-wrapper">
+                              <div className="pfield-progressbar">
+                                <div className="progress-circle-wrapper">
+                                  <EmailIcon />
+                                </div>
+                                <div className="pfield-content-left">
+                                  <div className="pfield-heading">
+                                    <h4>Email</h4>
+                                    <span>Credits Deployed</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="pfield-content-right">
+                                <span className="d-flex align-items-center">
+                                  <small></small> 252
+                                  <span className="active-performance zero">
+                                    <i class="fa-solid fa-circle-dot"></i>
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tab-pane fade"
+                id="nav-year"
+                role="tabpanel"
+                aria-labelledby="nav-year-tab"
+              >
+                <div className="performance-body text-value">
+                  <div className="performance-value-box">
+                    <div className="performance-value">
+                      {/* <span className="circle">
+                      <BsFillRecordCircleFill />
+                    </span> */}
+                      <span className="price-value">
+                        <span className="month43">August. </span> 2250/3000
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
                   <div className="value-graph">
-                    <ResponsiveContainer width={"99.9%"} height={150}>
-                      <AreaChart
-                        width={310}
-                        height={150}
-                        data={dataGraph}
-                        margin={{
-                          top: 5,
-                          right: 0,
-                          left: 0,
-                          bottom: 5,
-                        }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Area
-                          type="monotone"
-                          dataKey="uv"
-                          stroke="#da624a"
-                          fill="#da624a "
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                    <Yeargraph />
                   </div>
 
                   <div className="top-performance-field">
