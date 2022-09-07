@@ -493,7 +493,7 @@ const Dashboard = (props) => {
                       <BsFillRecordCircleFill />
                     </span> */}
                       <span className="price-value">
-                        <span className="month43">August. </span> 2250/3000
+                        <span className="month43">2022. </span> 2250/3000
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
