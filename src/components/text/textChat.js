@@ -6,7 +6,7 @@ import { timeAgo } from "../../helper/timerFuntion";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import {Tooltip} from '@mui/material';
-
+import axios from "axios";
 import moment from 'moment'
 
 
@@ -16,6 +16,8 @@ const TextChat = (props) => {
   var today = new Date();
   var dddd = new Date().toISOString().substring(0, 10);
   var ssss = today.getHours() + ":" + today.getMinutes();
+
+  
 
   return (
     <ScrollToBottom className="middle-chat-screen">
@@ -56,10 +58,9 @@ const TextChat = (props) => {
                     ) : (
                       <pre>{item.message.trim()}</pre>
                     )}
-
                     {item.imageUrl ? (
                       <>
-                        <img src={item.imageUrl} alt="img"></img>
+                        <img src={item?.imageUrl} alt="img" />
                       </>
                     ) : (
                       ""
