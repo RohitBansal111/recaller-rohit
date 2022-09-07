@@ -90,7 +90,6 @@ const Dashboard = (props) => {
       // setshowAddCompaign(true);
       setViewCompaign(true);
       navigate(`/ViewCompaign/${item.value}`);
-
     }
     console.log("view contactCompaign", res);
   };
@@ -105,6 +104,7 @@ const Dashboard = (props) => {
 
   const handleCompaignClose = () => {
     setshowAddCompaign(false);
+    setErrors("");
   };
   const handleChange = (e) => {
     console.log("data::::", { ...data, [e.target.name]: e.target.value });
@@ -152,6 +152,7 @@ const Dashboard = (props) => {
         toast.error(res.data.message);
       }
       setData("");
+      setErrors("");
     }
   };
   const handleEdit = async () => {
@@ -198,7 +199,6 @@ const Dashboard = (props) => {
   // };
   const dataGraph = [
     {
-
       name: "Jan",
       uv: 1500,
     },
@@ -246,8 +246,7 @@ const Dashboard = (props) => {
     {
       name: "Dec",
       uv: 2100,
-    }
-
+    },
   ];
   const voicepercentage = 72;
   const voicelatestpercentage = 15;
@@ -269,8 +268,6 @@ const Dashboard = (props) => {
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
-
-
                 <img src="/cloud-icon.svg" />
 
                 <h2 className="ml-1">Download Report</h2>
@@ -278,14 +275,30 @@ const Dashboard = (props) => {
               <div className="db-report-details">
                 <ul class="nav nav-tabs" id="nav-tab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="nav-current-tab" data-bs-toggle="tab" data-bs-target="#nav-current" type="button" role="tab" aria-controls="nav-current" aria-selected="true">
+                    <a
+                      class="nav-link active"
+                      id="nav-current-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-current"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-current"
+                      aria-selected="true"
+                    >
                       Current
                     </a>
                   </li>
                   <li class="nav-item">
                     <a
-                       class="nav-link" id="nav-last-tab" data-bs-toggle="tab" data-bs-target="#nav-last" type="button" role="tab" aria-controls="nav-last" aria-selected="true">
-
+                      class="nav-link"
+                      id="nav-last-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-last"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-last"
+                      aria-selected="true"
+                    >
                       Last
                     </a>
                   </li>
@@ -294,8 +307,12 @@ const Dashboard = (props) => {
             </div>
 
             <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-current" role="tabpanel" aria-labelledby="nav-current-tab">
-
+              <div
+                class="tab-pane fade show active"
+                id="nav-current"
+                role="tabpanel"
+                aria-labelledby="nav-current-tab"
+              >
                 <div className="performance-body text-value">
                   <div className="performance-value-box">
                     <div className="performance-value">
@@ -303,10 +320,7 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-
                         <span className="month43">Aug.</span> 984/1000
-
-
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -324,14 +338,17 @@ const Dashboard = (props) => {
                           bottom: 5,
                         }}
                       >
-
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area type="monotone" dataKey="uv" stroke="#f7b924" fill="#f7b924 " />
-                    </AreaChart>
-
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Area
+                          type="monotone"
+                          dataKey="uv"
+                          stroke="#f7b924"
+                          fill="#f7b924 "
+                        />
+                      </AreaChart>
                     </ResponsiveContainer>
                   </div>
 
@@ -355,10 +372,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-
                                   <small></small> 152
-
-
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -381,11 +395,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-
-
                                   <small></small> 252
-
-
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -408,13 +418,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-
-
                                   <small></small> 252
-
                                   <span className="active-performance zero">
                                     <i class="fa-solid fa-circle-dot"></i>
-
                                   </span>
                                 </span>
                               </div>
@@ -427,29 +433,26 @@ const Dashboard = (props) => {
                 </div>
               </div>
 
-              <div class="tab-pane fade" id="nav-last" role="tabpanel" aria-labelledby="nav-last-tab">
-              <div className="performance-body text-value">
-
+              <div
+                class="tab-pane fade"
+                id="nav-last"
+                role="tabpanel"
+                aria-labelledby="nav-last-tab"
+              >
+                <div className="performance-body text-value">
                   <div className="performance-value-box">
                     <div className="performance-value">
                       {/* <span className="circle">
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-
-
                         <span className="month43">July. </span> 59/1000
-
-
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
                   <div className="value-graph">
-
-                    <ResponsiveContainer width={"99.9%"} height={150} >
-
-
+                    <ResponsiveContainer width={"99.9%"} height={150}>
                       <AreaChart
                         width={310}
                         height={150}
@@ -461,15 +464,17 @@ const Dashboard = (props) => {
                           bottom: 5,
                         }}
                       >
-
-                         <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Area type="monotone" dataKey="uv" stroke="#da624a" fill="#da624a " />
-                    </AreaChart>
-
-
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Area
+                          type="monotone"
+                          dataKey="uv"
+                          stroke="#da624a"
+                          fill="#da624a "
+                        />
+                      </AreaChart>
                     </ResponsiveContainer>
                   </div>
 
@@ -493,9 +498,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-
                                   <small></small> 152
-
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -518,9 +521,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-
                                   <small></small> 25
-
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -543,12 +544,9 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-
-
                                   <small></small> 252
                                   <span className="active-performance zero">
                                     <i class="fa-solid fa-circle-dot"></i>
-
                                   </span>
                                 </span>
                               </div>

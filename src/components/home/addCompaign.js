@@ -70,6 +70,7 @@ const Addcompaign = (props) => {
           onClick={
             props.editCompaign == true ? props.handleEdit : props.handleSubmit
           }
+          disabled={!props.data.name}
         >
           {props.editCompaign == true ? "Edit Compaign" : "Add Compaign"}
         </Button>
