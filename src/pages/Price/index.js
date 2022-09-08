@@ -23,6 +23,7 @@ const stripePromise = loadStripe(
 );
 
 const Price = () => {
+  const navigate=useNavigate()
   const [monthisActive, setmonthisActive] = useState(true);
   const [open, setOpen] = useState();
   const navigate = useNavigate();
@@ -93,8 +94,10 @@ const Price = () => {
         <div className="price-page-layout">
           <div className="subscribe-price-headerbar">
             <div className="headerbar">
-              <div className="logo">
-                <img src={Logo} alt="Recallr" />
+              <div className="logo" onClick={()=>{
+                navigate('/')
+              }}>
+                <img src={Logo} alt="Recallr"   />
               </div>
             </div>
             <div className="header-title">
