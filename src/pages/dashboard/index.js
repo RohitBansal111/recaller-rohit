@@ -205,6 +205,12 @@ const Dashboard = (props) => {
 
   const textpercentage = 6;
 
+
+  useEffect(()=>{
+console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
+  },[])
+  
+
   return (
     <Layout>
       <div className="dashboard-content">
@@ -240,7 +246,7 @@ const Dashboard = (props) => {
                       Current
                     </a>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <a
                       className="nav-link"
                       id="nav-last-tab"
@@ -267,7 +273,7 @@ const Dashboard = (props) => {
                     >
                       Year
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>
@@ -288,7 +294,8 @@ const Dashboard = (props) => {
                       <span className="price-value">
                         <span className="month43">September.</span> 984/1000
                       </span>
-                      <span className="text2">Credits Deployed</span>
+                      <span className="text2">
+                        Credits Deployed</span>
                     </div>
                   </div>
 
