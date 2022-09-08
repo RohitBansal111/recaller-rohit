@@ -861,17 +861,17 @@
           .nav-item {
             position: relative;
             padding: 10px 0px;
-            &:last-child{
-              .nav-link{
+            // &:last-child{
+            //   .nav-link{
 
-                color: #82ca9d;
-                &.active{
-                  &::before{
-                    background-color: #82ca9d;
-                  }
-                }
-              }
-            }
+            //     color: #82ca9d;
+            //     &.active{
+            //       &::before{
+            //         background-color: #82ca9d;
+            //       }
+            //     }
+            //   }
+            // }
             .nav-link {
               text-transform: none;
               width: 100%;
