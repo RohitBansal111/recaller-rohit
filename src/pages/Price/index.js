@@ -26,7 +26,6 @@ const Price = () => {
   const navigate=useNavigate()
   const [monthisActive, setmonthisActive] = useState(true);
   const [open, setOpen] = useState();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     name: "no data",

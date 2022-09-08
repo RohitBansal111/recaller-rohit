@@ -8,8 +8,9 @@ import Layout from "../../../components/layout";
 import { loginAction } from "../../../redux/actions/loginAction";
 import ChangePasswordModal from "../../../models/Changepasswordmodal";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 const MyAccount = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -143,12 +144,18 @@ const MyAccount = () => {
       }
     }
   };
-  const handlereroute =()=>{
-localStorage.removeItem('token')
-localStorage.removeItem('userData')
-navigate('/Price')
-
-  }
+  const handlereroute = (first, last, email) => {
+    let token = localStorage.getItem("token");
+    let dataSend = {
+      name: `${first} ${last}`,
+      email: email,
+    };
+    Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
+    Cookies.set("token", token, { expires: 1 });
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    navigate("/Price");
+  };
   return (
     <div>
       <Layout>
@@ -249,9 +256,18 @@ navigate('/Price')
                       disabled
                     />
                   </div>
-                
-                  <span className="changeplan"  onClick={()=>handlereroute()}>
-                  Change Plan
+
+                  <span
+                    className="changeplan"
+                    onClick={() =>
+                      handlereroute(
+                        addUser.firstName,
+                        addUser.lastName,
+                        addUser.email
+                      )
+                    }
+                  >
+                    Change Plan
                   </span>
                 </div>
                 <div className="field-group  flex2 password-field">
