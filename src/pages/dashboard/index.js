@@ -205,6 +205,12 @@ const Dashboard = (props) => {
 
   const textpercentage = 6;
 
+
+  useEffect(()=>{
+console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
+  },[])
+  
+
   return (
     <Layout>
       <div className="dashboard-content">
@@ -220,15 +226,15 @@ const Dashboard = (props) => {
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
-                <img src="/cloud-icon.svg" />
+                <img src="/cloud-icon.svg" alt="cloud icon" />
 
                 <h2 className="ml-1">Download Report</h2>
               </div>
               <div className="db-report-details">
-                <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <li class="nav-item">
+                <ul className="nav nav-tabs" id="nav-tab" role="tablist">
+                  <li className="nav-item">
                     <a
-                      class="nav-link active"
+                      className="nav-link active"
                       id="nav-current-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-current"
@@ -240,9 +246,9 @@ const Dashboard = (props) => {
                       Current
                     </a>
                   </li>
-                  <li class="nav-item">
+                  {/* <li className="nav-item">
                     <a
-                      class="nav-link"
+                      className="nav-link"
                       id="nav-last-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-last"
@@ -254,9 +260,9 @@ const Dashboard = (props) => {
                       Last
                     </a>
                   </li>
-                  <li class="nav-item">
+                  <li className="nav-item">
                     <a
-                      class="nav-link"
+                      className="nav-link"
                       id="nav-year-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-year"
@@ -267,14 +273,14 @@ const Dashboard = (props) => {
                     >
                       Year
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>
 
-            <div class="tab-content" id="nav-tabContent">
+            <div className="tab-content" id="nav-tabContent">
               <div
-                class="tab-pane fade show active"
+                className="tab-pane fade show active"
                 id="nav-current"
                 role="tabpanel"
                 aria-labelledby="nav-current-tab"
@@ -288,12 +294,17 @@ const Dashboard = (props) => {
                       <span className="price-value">
                         <span className="month43">September.</span> 984/1000
                       </span>
-                      <span className="text2">Credits Deployed</span>
+                      <span className="text2">
+                        Credits Deployed</span>
                     </div>
                   </div>
 
                   <div className="value-graph">
                     <Currentgraph />
+
+                    {
+                      //       <div id="dashboard-sparkline-carousel-3"></div>
+                    }
                   </div>
 
                   <div className="top-performance-field">
@@ -364,7 +375,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small></small> 252
                                   <span className="active-performance zero">
-                                    <i class="fa-solid fa-circle-dot"></i>
+                                    <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
@@ -378,7 +389,7 @@ const Dashboard = (props) => {
               </div>
 
               <div
-                class="tab-pane fade"
+                className="tab-pane fade"
                 id="nav-last"
                 role="tabpanel"
                 aria-labelledby="nav-last-tab"
@@ -467,7 +478,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small></small> 252
                                   <span className="active-performance zero">
-                                    <i class="fa-solid fa-circle-dot"></i>
+                                    <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
@@ -481,7 +492,7 @@ const Dashboard = (props) => {
               </div>
 
               <div
-                class="tab-pane fade"
+                className="tab-pane fade"
                 id="nav-year"
                 role="tabpanel"
                 aria-labelledby="nav-year-tab"
@@ -570,7 +581,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small></small> 252
                                   <span className="active-performance zero">
-                                    <i class="fa-solid fa-circle-dot"></i>
+                                    <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>

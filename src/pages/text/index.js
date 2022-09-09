@@ -1237,11 +1237,6 @@ const TextPage = () => {
               <Dropdown.Item href="#" onClick={handleNewMessage}>
                 Individual Message
               </Dropdown.Item>
-
-              <Dropdown.Item href="#" onClick={handleNewMessage}>
-                Recover Password
-              </Dropdown.Item>
-
               <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
                 Bulk Campaign Message
               </Dropdown.Item>
