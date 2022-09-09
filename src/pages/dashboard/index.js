@@ -205,11 +205,12 @@ const Dashboard = (props) => {
 
   const textpercentage = 6;
 
-
-  useEffect(()=>{
-console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
-  },[])
-  
+  useEffect(() => {
+    console.log(
+      "qqqq",
+      document.getElementById("dashboard-sparkline-carousel-3")
+    );
+  }, []);
 
   return (
     <Layout>
@@ -286,6 +287,7 @@ console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
                 aria-labelledby="nav-current-tab"
               >
                 <div className="performance-body text-value">
+                  g
                   <div className="performance-value-box">
                     <div className="performance-value">
                       {/* <span className="circle">
@@ -294,19 +296,16 @@ console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
                       <span className="price-value">
                         <span className="month43">September.</span> 984/1000
                       </span>
-                      <span className="text2">
-                        Credits Deployed</span>
+                      <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
-
                   <div className="value-graph">
-                    <Currentgraph />
-
                     {
-                      //       <div id="dashboard-sparkline-carousel-3"></div>
+                      // <Currentgraph />
                     }
-                  </div>
 
+                    <div id="dashboard-sparkline-carousel-3"></div>
+                  </div>
                   <div className="top-performance-field">
                     <h2>Credit Balance</h2>
                     <div className="per-field">
