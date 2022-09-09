@@ -112,6 +112,7 @@ const Currentgraph = () => {
           format: "dd/MM/yy HH:mm",
         },
       },
+      colors: ["#f7b924"],
     },
   });
 
