@@ -25,6 +25,7 @@ import {
   deleteCompaignApi,
   contactCompaignApi,
 } from "../../api/compaign";
+import { GetSubscriptionData } from "../../api/plans";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
@@ -41,6 +42,7 @@ import {
 import Currentgraph from "../../components/Dashboard/Currentgraph";
 import Lastgraph from "../../components/Dashboard/Lastgraph";
 import Yeargraph from "../../components/Dashboard/yeargraph";
+import moment from 'moment'
 const Dashboard = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -56,6 +58,7 @@ const Dashboard = (props) => {
   const [selectedCampaign, setSelectedCampaign] = useState({});
   const [checked, setChecked] = useState(false);
   const [view, setView] = useState();
+  const [subData, setSubData] = useState({});
 
   const userDataa = useSelector((state) => state.Login.userData);
 
@@ -65,7 +68,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {}, [selectedCampaign]);
   useEffect(() => {
-    viewContactCompaign();
+    //  viewContactCompaign();
   }, [props.show]);
 
   const getContactCompaign = async () => {
@@ -205,11 +208,17 @@ const Dashboard = (props) => {
 
   const textpercentage = 6;
 
+  useEffect(() => {
+    const handleGetData = async () => {
+      let res = await GetSubscriptionData();
 
-  useEffect(()=>{
-console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
-  },[])
-  
+      if (res && res.data && res.status == 200) {
+        console.log("qqq", res.data.data);
+        setSubData(res?.data?.data);
+      }
+    };
+    return () => handleGetData();
+  }, []);
 
   return (
     <Layout>
@@ -292,10 +301,15 @@ console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">September.</span> 984/1000
+                        <span className="month43">{moment().format('MMMM')} .</span>{" "}
+                        {Number(subData?.sms_cridit_used) +
+                          Number(subData?.voice_cridit_used) +
+                          Number(subData?.email_cridit_used) || 0}
+                        /{Number(subData?.email_cridit) +
+                          Number(subData?.sms_cridit) +
+                          Number(subData?.voice_cridit) || 0}
                       </span>
-                      <span className="text2">
-                        Credits Deployed</span>
+                      <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
 
@@ -327,7 +341,8 @@ console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 152
+                                  <small></small>{" "}
+                                  {subData?.sms_cridit_used || 0}
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -350,7 +365,8 @@ console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 252
+                                  <small></small>{" "}
+                                  {subData?.voice_cridit_used || 0}
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -373,7 +389,8 @@ console.log('qqqq',document.getElementById("dashboard-sparkline-carousel-3"))
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-                                  <small></small> 252
+                                  <small></small>{" "}
+                                  {subData?.email_cridit_used || 0}
                                   <span className="active-performance zero">
                                     <i className="fa-solid fa-circle-dot"></i>
                                   </span>

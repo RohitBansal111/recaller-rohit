@@ -34,4 +34,20 @@ const CreateSubscriptionFree = async () => {
   }
 };
 
-export { CreateSubscription,CreateSubscriptionFree };
+const GetSubscriptionData=async()=>{
+  try {
+    const AUTH_TOKEN = Cookies.get('token')
+    console.log(AUTH_TOKEN)
+    axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/payment/sub-data`,
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+}
+
+export { CreateSubscription,CreateSubscriptionFree ,GetSubscriptionData };

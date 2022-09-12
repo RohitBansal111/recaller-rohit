@@ -681,7 +681,7 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
           });
         } else {
           if (!res.status) {
-            toast.error("SomeThing went wrong try again");
+            toast.error(res.data.massage || "SomeThing Went Wrong");
             setLoading(false);
           } else {
             toast.success(res.data.status);
