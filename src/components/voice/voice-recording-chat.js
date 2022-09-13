@@ -10,7 +10,10 @@ import { dateSince } from "../../helper/dateFunction";
 
 const VoiceRecordingChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
   return (
     <ScrollToBottom className="middle-chat-screen voice-chat-screen">
       <ul ref={props.divRef}>
@@ -44,7 +47,7 @@ const VoiceRecordingChat = (props) => {
                   <span>
                     <b>
                       {item.sender === 1 && "user chat-ui-box"
-                        ? userData.firstName + "" + userData.lastName + " "
+                        ? capitalizeFirstLetter(item.status) +' '
                         : "" || (item.sender === 2 && "client chat-ui-box")
                         ? props.selecteduser.contact.firstName +
                           " " +

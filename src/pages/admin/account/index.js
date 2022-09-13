@@ -73,7 +73,7 @@ const MyAccount = () => {
     });
     setErrors({});
   };
-
+  const toastId = React.useRef(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isValid()) {
@@ -85,8 +85,11 @@ const MyAccount = () => {
         companyName: addUser.companyName,
       };
       const res = await userUpdateApi(userDataa.id, data);
+
       if (res && res.data && res.data.status === 200) {
-        toast.success(res.data.message);
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success(res.data.message);
+        }
         let userData = JSON.parse(localStorage.getItem("userData"));
         userData.firstName = data.firstName;
         userData.lastName = data.lastName;
