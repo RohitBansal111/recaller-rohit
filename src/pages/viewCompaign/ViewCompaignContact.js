@@ -232,11 +232,10 @@ const ViewCompaignContact = () => {
   };
 
   const getData = async () => {
-    
     let res = await getContactApi();
-   
+
     if (res && res.data && res.data.status == 200) {
-       let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
+      let arr = res?.data?.data?.filter((w) => w?.compaignId?.id == id);
       setRowsData(arr);
       setTotalRowsData(arr.length);
     }
@@ -304,13 +303,16 @@ const ViewCompaignContact = () => {
     page > 0
       ? Math.max(0, (1 + page) * rowsPerPage - rowsData && rowsData.length)
       : 0;
+  const toastId = React.useRef(null);
 
   const handleContactDeleteV = async () => {
     const data = { contacts: JSON.stringify(selected) };
     const res = await deleteApi(data);
     if (res && res.data && res.data.status === 200) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Contact Deleted Successfully");
+      }
       getData();
-      toast.success("Contact Deleted Successfully");
       setIsOpenDelete(false);
       setSelected([]);
     }
@@ -436,11 +438,13 @@ const ViewCompaignContact = () => {
 
       const res = await addContactFilter(obj);
       if (res && res.data && res.data.status === 200) {
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success(res.data.message);
+        }
         setShowAddFilterModal(false);
         setProperties("");
         setRules("");
         setInputValue("");
-        toast.success(res.data.message);
         getContactFilter();
         setFilterName("");
         setErrors({});
@@ -538,9 +542,11 @@ const ViewCompaignContact = () => {
   const handleDeleteFilter = async () => {
     const res = await deleteContactFilterApi(editFilterValue._id);
     if (res && res.data && res.data.status === 200) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success(res.data.message);
+      }
       setEditFilter(false);
       setShowSelect(false);
-      toast.success(res.data.message);
       handleAllTagsData();
       getContactFilter();
       getData();
