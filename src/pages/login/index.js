@@ -56,7 +56,6 @@ const Login = () => {
     e.preventDefault();
     if (isValid()) {
       const res = await userLoginApi(data);
-
       if (res && res.data && res.data.status === 200) {
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.success("Login Successful");
@@ -65,6 +64,8 @@ const Login = () => {
        dispatch(loginAction(res.data.data));
        localStorage.setItem("token", res.data.data.jwt);
        localStorage.setItem("userData", JSON.stringify(res.data.data));
+       Cookies.remove('token')
+       Cookies.remove('userData')
        navigate(`/`);
         }else{
           Cookies.set('token', res.data.data.jwt , { expires: 1 })

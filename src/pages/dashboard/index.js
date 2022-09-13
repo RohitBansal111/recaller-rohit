@@ -211,9 +211,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     const handleGetData = async () => {
       let res = await GetSubscriptionData();
-
       if (res && res.data && res.status == 200) {
-        console.log("qqq", res.data.data);
         setSubData(res?.data?.data);
       }
     };
