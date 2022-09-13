@@ -287,7 +287,6 @@ const Dashboard = (props) => {
                 aria-labelledby="nav-current-tab"
               >
                 <div className="performance-body text-value">
-                  g
                   <div className="performance-value-box">
                     <div className="performance-value">
                       {/* <span className="circle">
@@ -300,11 +299,11 @@ const Dashboard = (props) => {
                     </div>
                   </div>
                   <div className="value-graph">
-                    {
-                      // <Currentgraph />
-                    }
+                    <Currentgraph />
 
-                    <div id="dashboard-sparkline-carousel-3"></div>
+                    {
+                      // <div id="dashboard-sparkline-carousel-3"></div>
+                    }
                   </div>
                   <div className="top-performance-field">
                     <h2>Credit Balance</h2>
