@@ -42,7 +42,7 @@ import {
 import Currentgraph from "../../components/Dashboard/Currentgraph";
 import Lastgraph from "../../components/Dashboard/Lastgraph";
 import Yeargraph from "../../components/Dashboard/yeargraph";
-import moment from 'moment'
+import moment from "moment";
 const Dashboard = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -299,11 +299,14 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">{moment().format('MMMM')} .</span>{" "}
+                        <span className="month43">
+                          {moment().format("MMMM")} .
+                        </span>{" "}
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
                           Number(subData?.email_cridit_used) || 0}
-                        /{Number(subData?.email_cridit) +
+                        /
+                        {Number(subData?.email_cridit) +
                           Number(subData?.sms_cridit) +
                           Number(subData?.voice_cridit) || 0}
                       </span>
