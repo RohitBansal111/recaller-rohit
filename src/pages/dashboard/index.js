@@ -106,7 +106,6 @@ const Dashboard = (props) => {
 
   const handleCompaignClose = () => {
     setshowAddCompaign(false);
-    setErrors("");
   };
   const handleChange = (e) => {
     console.log("data::::", { ...data, [e.target.name]: e.target.value });
@@ -154,7 +153,6 @@ const Dashboard = (props) => {
         toast.error(res.data.message);
       }
       setData("");
-      setErrors("");
     }
   };
   const handleEdit = async () => {
@@ -205,13 +203,6 @@ const Dashboard = (props) => {
 
   const textpercentage = 6;
 
-  useEffect(() => {
-    console.log(
-      "qqqq",
-      document.getElementById("dashboard-sparkline-carousel-3")
-    );
-  }, []);
-
   return (
     <Layout>
       <div className="dashboard-content">
@@ -227,15 +218,15 @@ const Dashboard = (props) => {
           <div className="performance-card">
             <div className="performance-header">
               <div className="card-media">
-                <img src="/cloud-icon.svg" alt="cloud icon" />
+                <img src="/cloud-icon.svg" />
 
                 <h2 className="ml-1">Download Report</h2>
               </div>
               <div className="db-report-details">
-                <ul className="nav nav-tabs" id="nav-tab" role="tablist">
-                  <li className="nav-item">
+                <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <li class="nav-item">
                     <a
-                      className="nav-link active"
+                      class="nav-link active"
                       id="nav-current-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-current"
@@ -247,9 +238,9 @@ const Dashboard = (props) => {
                       Current
                     </a>
                   </li>
-                  {/* <li className="nav-item">
+                  <li class="nav-item">
                     <a
-                      className="nav-link"
+                      class="nav-link"
                       id="nav-last-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-last"
@@ -261,9 +252,9 @@ const Dashboard = (props) => {
                       Last
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li class="nav-item">
                     <a
-                      className="nav-link"
+                      class="nav-link"
                       id="nav-year-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#nav-year"
@@ -274,14 +265,14 @@ const Dashboard = (props) => {
                     >
                       Year
                     </a>
-                  </li> */}
+                  </li>
                 </ul>
               </div>
             </div>
 
-            <div className="tab-content" id="nav-tabContent">
+            <div class="tab-content" id="nav-tabContent">
               <div
-                className="tab-pane fade show active"
+                class="tab-pane fade show active"
                 id="nav-current"
                 role="tabpanel"
                 aria-labelledby="nav-current-tab"
@@ -298,13 +289,11 @@ const Dashboard = (props) => {
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
+
                   <div className="value-graph">
                     <Currentgraph />
-
-                    {
-                      // <div id="dashboard-sparkline-carousel-3"></div>
-                    }
                   </div>
+
                   <div className="top-performance-field">
                     <h2>Credit Balance</h2>
                     <div className="per-field">
@@ -373,7 +362,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small></small> 252
                                   <span className="active-performance zero">
-                                    <i className="fa-solid fa-circle-dot"></i>
+                                    <i class="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
@@ -387,7 +376,7 @@ const Dashboard = (props) => {
               </div>
 
               <div
-                className="tab-pane fade"
+                class="tab-pane fade"
                 id="nav-last"
                 role="tabpanel"
                 aria-labelledby="nav-last-tab"
@@ -399,7 +388,7 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">August. </span> 59/1000
+                        <span className="month43">July. </span> 1159/2400
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -476,7 +465,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small></small> 252
                                   <span className="active-performance zero">
-                                    <i className="fa-solid fa-circle-dot"></i>
+                                    <i class="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
@@ -490,7 +479,7 @@ const Dashboard = (props) => {
               </div>
 
               <div
-                className="tab-pane fade"
+                class="tab-pane fade"
                 id="nav-year"
                 role="tabpanel"
                 aria-labelledby="nav-year-tab"
@@ -502,7 +491,7 @@ const Dashboard = (props) => {
                       <BsFillRecordCircleFill />
                     </span> */}
                       <span className="price-value">
-                        <span className="month43">2022. </span> 2250/3000
+                        <span className="month43">August. </span> 2250/3000
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -579,7 +568,7 @@ const Dashboard = (props) => {
                                 <span className="d-flex align-items-center">
                                   <small></small> 252
                                   <span className="active-performance zero">
-                                    <i className="fa-solid fa-circle-dot"></i>
+                                    <i class="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
