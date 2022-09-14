@@ -861,27 +861,22 @@
           .nav-item {
             position: relative;
             padding: 10px 0px;
-            &:last-child{
-              .nav-link{
-
-                color: #82ca9d;
-                &.active{
-                  &::before{
-                    background-color: #82ca9d;
-                  }
-                }
+            &:first-child{
+              .nav-link {
+              color: #495057;
               }
             }
             .nav-link {
               text-transform: none;
               width: 100%;
               display: block;
-              color: #495057;
+              color: #9da1a5;
               font-weight: 600;
               border: none;
               padding: 13px;
+              
               &.active{
-                color: #da624a;
+                
                 &::before{
                   transform: scale(1);
                   opacity: 1;
@@ -892,7 +887,7 @@
               &:before{
                 content: '';
                 border-radius: 15px;
-                background: #da624a;
+                background: #495057;
                 transition: all .2s;
                 height: 4px;
                 width: 100%;
