@@ -172,9 +172,11 @@ const ContactModal = (props) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Dismiss
-          </Button>
+          {
+            // <Button variant="secondary" onClick={props.handleClose}>
+            //   Dismiss
+            // </Button>
+          }
           <LoadingButton
             loadingPosition="center"
             loading={props.loading}
