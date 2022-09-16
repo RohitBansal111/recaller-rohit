@@ -180,10 +180,17 @@ const ChatBoot = (props) => {
     return chatList;
   };
 
-  var options = {
+  const options = {
     chart: {
       height: 350,
       type: "area",
+    },
+    title: {
+      text: "Credits Deployed: 745",
+      align: "left",
+      style: {
+        fontSize: "14px",
+      },
     },
     dataLabels: {
       enabled: false,
@@ -192,31 +199,213 @@ const ChatBoot = (props) => {
       curve: "smooth",
     },
     xaxis: {
-      type: "datetime",
-      categories: [
-        "2018-09-19T00:00:00.000Z",
-        "2018-09-19T01:30:00.000Z",
-        "2018-09-19T02:30:00.000Z",
-        "2018-09-19T03:30:00.000Z",
-        "2018-09-19T04:30:00.000Z",
-        "2018-09-19T05:30:00.000Z",
-        "2018-09-19T06:30:00.000Z",
-      ],
+      labels: {
+        format: "MM",
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
     },
+
+    yaxis: {
+      tickAmount: 4,
+      floating: false,
+
+      labels: {
+        offsetY: -7,
+        offsetX: 0,
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+
     tooltip: {
       x: {
-        format: "dd/MM/yy HH:mm",
+        format: "yyyy",
+      },
+      fixed: {
+        enabled: false,
+        position: "topRight",
       },
     },
   };
-  var series = [
+  const series = [
     {
-      name: "series1",
-      data: [31, 40, 28, 51, 42, 109, 100],
+      name: "Text",
+      data: [
+        {
+          x: 1,
+          y: 322,
+        },
+        {
+          x: 2,
+          y: 324,
+        },
+        {
+          x: 3,
+          y: 329,
+        },
+        {
+          x: 4,
+          y: 342,
+        },
+        {
+          x: 5,
+          y: 348,
+        },
+        {
+          x: 6,
+          y: 334,
+        },
+        {
+          x: 7,
+          y: 325,
+        },
+        {
+          x: 8,
+          y: 316,
+        },
+        {
+          x: 9,
+          y: 318,
+        },
+        {
+          x: 10,
+          y: 330,
+        },
+        {
+          x: 11,
+          y: 355,
+        },
+        {
+          x: 12,
+          y: 366,
+        },
+        {
+          x: 13,
+          y: 337,
+        },
+        {
+          x: 14,
+          y: 352,
+        },
+        {
+          x: 15,
+          y: 377,
+        },
+        {
+          x: 16,
+          y: 383,
+        },
+        {
+          x: 17,
+          y: 344,
+        },
+        {
+          x: 18,
+          y: 366,
+        },
+        {
+          x: 19,
+          y: 389,
+        },
+        {
+          x: 20,
+          y: 334,
+        },
+      ],
     },
     {
-      name: "series2",
-      data: [11, 32, 45, 32, 34, 52, 41],
+      name: "Voice",
+      data: [
+        {
+          x: 1,
+          y: 162,
+        },
+        {
+          x: 2,
+          y: 90,
+        },
+        {
+          x: 3,
+          y: 50,
+        },
+        {
+          x: 4,
+          y: 77,
+        },
+        {
+          x: 5,
+          y: 35,
+        },
+        {
+          x: 6,
+          y: -45,
+        },
+        {
+          x: 7,
+          y: -88,
+        },
+        {
+          x: 8,
+          y: -120,
+        },
+        {
+          x: 9,
+          y: -156,
+        },
+        {
+          x: 10,
+          y: -123,
+        },
+        {
+          x: 11,
+          y: -88,
+        },
+        {
+          x: 12,
+          y: -66,
+        },
+        {
+          x: 13,
+          y: -45,
+        },
+        {
+          x: 14,
+          y: -29,
+        },
+        {
+          x: 15,
+          y: -45,
+        },
+        {
+          x: 16,
+          y: -88,
+        },
+        {
+          x: 17,
+          y: -132,
+        },
+        {
+          x: 18,
+          y: -146,
+        },
+        {
+          x: 19,
+          y: -169,
+        },
+        {
+          x: 20,
+          y: -184,
+        },
+      ],
     },
   ];
 
@@ -765,68 +954,53 @@ const ChatBoot = (props) => {
             </div>
           )}
 
-          {
-            // <VoiceProgressBar />
-          }
-
           <div className="monthly-balance-box">
             <h4>Monthly Balance</h4>
-            <ul>
-              <li>
-                <b>Credit used</b>
-                <span>$1900</span>
-              </li>
-              <li>
-                <b>Credit balance</b>
-                <span>$75000</span>
-              </li>
-            </ul>
+            {<VoiceProgressBar />}
+            {
+              // <ul>
+              //   <li>
+              //     <b>Credit used</b>
+              //     <span>$1900</span>
+              //   </li>
+              //   <li>
+              //     <b>Credit balance</b>
+              //     <span>$75000</span>
+              //   </li>
+              // </ul>
+            }
           </div>
 
           {/* Monthly credit usage column start */}
           <div className="monthly-credit-use">
             <h1>Monthly Credit usage</h1>
             <div className="monthly-graph">
-              <ResponsiveContainer width={"99%"} height={150}>
-                <AreaChart
-                  width={310}
-                  height={150}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 0,
-                    left: 0,
-                    bottom: 5,
-                  }}
-                >
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="15%"
-                        stopColor="#28dcbf"
-                        stopOpacity={0.7}
-                      />
-                      <stop
-                        offset="80%"
-                        stopColor="#41e3c926"
-                        stopOpacity={0.5}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    strokeWidth={4}
-                    dataKey="uv"
-                    stroke="#28dcbf"
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
+              <Chart options={options} series={series} type="area" />
+            </div>
+            <div className="monthly-progressbar">
+              <h2>Perfromance</h2>
+              <div className="mn-progressbar">
+                <div className="progressbar-field delfield">
+                  <div className="voice-heading">
+                    <h4>65%</h4>
+                  </div>
+                  <ProgressBar now={65} />
+                  <div className="voice-value">
+                    <h5>Delivered</h5>
+                  </div>
+                </div>
+                <div className="progressbar-field flfield">
+                  <div className="voice-heading">
+                    <h4>22%</h4>
+                  </div>
+                  <ProgressBar now={40} />
+                  <div className="voice-value">
+                    <h5>Failed</h5>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
           {/* Monthly credit usage column start */}
 
           {

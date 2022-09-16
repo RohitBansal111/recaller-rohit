@@ -419,7 +419,7 @@
       .monthly-balance-box {
         background-color: #fff;
         padding: 20px;
-        margin: 20px 0px;
+        margin: 0px 0px 20px;
         border-radius: 3px;
         margin-bottom: 0;
         h4 {
@@ -551,6 +551,38 @@
                 font-weight: 700;
                 cursor: pointer;
               }
+            }
+          }
+        }
+&.voice-progress-bar{
+  padding-bottom: 0px;
+          .voice-heading{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            h5{
+              margin-bottom: 0px;
+              font-size: 14.4px;
+              font-weight: bold;
+            }
+            h4{
+              margin-bottom: 0px;
+              font-size: 28.8px;
+              font-weight: bold;
+              color: #929499;
+            }
+          }
+          .voice-value{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        margin-top: 5.3px;
+            h5,h4{
+              margin-bottom: 0px;
+              color: #495057;
+              font-size: 14.4px;
+              opacity: 0.5;
             }
           }
         }
@@ -731,7 +763,10 @@
         }
         &.user {
           background-color: #e9f4f2;
-          border-color: #bafffc;
+          border-color: transparent;
+           border-radius: 30px; 
+           border-top-left-radius: 30px;
+           border-top-right-radius: 0.35rem;
           margin-bottom: 2px;
           display: inline-block;
           position: relative;
@@ -1169,6 +1204,80 @@
     // top: -5px;
     svg {
       fill: #ffffff;
+    }
+  }
+}
+.page-wrapper{
+  .text-page-content{
+    .page-header{
+      .dropdown{
+        .btn{
+          transition: color 0.15s,background-color 0.15s,border-color 0.15s,box-shadow 0.15s;
+          font-size: 0.8rem!important;
+    font-weight: 500!important;
+    border: 1px solid transparent!important;
+    padding: 0.375rem 0.75rem!important;
+    line-height: 1.5!important;
+    border-radius: 0.25rem!important;
+    min-height: auto;
+    &::after{
+      position: relative;
+    top: 2px;
+    opacity: .8;
+    margin-left: 5px
+    }
+        }
+      }
+    }
+  }
+}
+.monthly-progressbar{
+  h2{
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: rgba(31,10,6,0.6);
+  }
+  .mn-progressbar{
+    display: flex;
+    align-items: center;
+    .progressbar-field{
+      width: 48%;
+      &:first-child{
+        margin-right: 10px;
+      }
+      &:last-child{
+        margin-left: 10px;
+      }
+      .voice-heading{
+        h4{
+          color: #343a40;
+          font-size: 28.8px;
+          font-weight: bold;
+          margin-bottom: 0px;
+        }
+      }
+      .voice-value{
+        opacity: 0.5;
+        margin-top: 5px;
+        h5{
+          font-size: 14.4px;
+          color: #495057;
+        }
+      }
+      &.delfield{
+        .progress{
+          .progress-bar{
+            background-color:#343a40 ;
+          }
+        }
+      }
+      &.flfield{
+        .progress{
+          .progress-bar{
+            background-color:#dd3f6d;
+          }
+        }
+      }
     }
   }
 }
