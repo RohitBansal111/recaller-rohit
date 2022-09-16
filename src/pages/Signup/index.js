@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 // import signup from "../../api/user";
 import { signup } from "../../api/user";
 const Signup = () => {
@@ -53,6 +53,9 @@ const Signup = () => {
   console.log(check, "check");
   const isValid = () => {
     const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+    const passwordRegex = new RegExp(
+      "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+    );
     let formData = true;
     switch (true) {
       case !data.firstName:
@@ -87,8 +90,15 @@ const Signup = () => {
         setErrors({ password: "Password is required!" });
         formData = false;
         break;
+      case data.password && !passwordRegex.test(data.password):
+        setErrors({
+          password:
+            ".At least one upper case('A-Z'),At least one lower case English letter('a-z'),At least one digit(0-9),At least one special character,('#?!@$%^&*-'),Minimum eight in length (8)",
+        });
+        formData = false;
+        break;
       case data.password !== data.repeatPassword:
-        setErrors({ repeatPassword: "Repeat Password is required!" });
+        setErrors({ repeatPassword: "Password should be same" });
         formData = false;
         break;
       case !check:
@@ -106,8 +116,8 @@ const Signup = () => {
       const res = await signup(data);
 
       if (res && res.data && res.data.status === 200) {
-        toast.success("Register successful!"); 
-        Cookies.set('token', res?.data?.response.jwt , { expires: 1 })
+        toast.success("Register successful!");
+        Cookies.set("token", res?.data?.response.jwt, { expires: 1 });
         navigate(`/price`);
       } else {
         toast.error(res.data.message);
