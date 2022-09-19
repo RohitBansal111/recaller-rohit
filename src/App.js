@@ -110,9 +110,7 @@ function App({ component: Component, ...rest }) {
         <Route
           path="/Price"
           element={
-            <IsNotAuthenticated>
               <Price />
-            </IsNotAuthenticated>
           }
         />
         <Route
