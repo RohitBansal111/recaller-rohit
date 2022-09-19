@@ -18,6 +18,7 @@ import {
 import Cookies from "js-cookie";
 import { Button, Row, Col, Modal } from "react-bootstrap";
 import { CreateSubscription } from "../../api/plans";
+import TopUp from "../../components/price/TopUp";
 const stripePromise = loadStripe(
   "pk_test_51JPsinAhUO0LEMorfVu3TFyzUWo3i1n7jowbZqsf0BI0cK9mL4Leg2p7Kz1J1L4J3Rn9FdnWAXTVnq586ECRbrUL00aTx3yEWY"
 );
@@ -32,7 +33,14 @@ const Price = () => {
   const [type, setType] = useState("month");
   const [annualisActive, setannualisActive] = useState(false);
   const [smsisActive, setsmsisActive] = useState(false);
+
+  const [isSms, setIsSms] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isVoice, setIsVoice] = useState(false);
+  const [tyeOfPage, settypeOfPage] = useState("sub");
+
   const monthlytoggleClass = () => {
+    settypeOfPage("sub");
     setmonthisActive(true);
     setannualisActive(false);
     setsmsisActive(false);
@@ -43,14 +51,18 @@ const Price = () => {
     setmonthisActive(false);
     setsmsisActive(false);
     setType("year");
+    settypeOfPage("sub");
   };
 
   const smstoggleClass = () => {
-    setannualisActive(false);
+    settypeOfPage("topup");
+
     setmonthisActive(false);
+    setannualisActive(false);
     setsmsisActive(true);
     setType("sms");
   };
+
   const hnadleSub_Button = (sub_name, sub_price) => {
     setData({
       ...data,
@@ -80,512 +92,527 @@ const Price = () => {
           </Elements>
         </Modal.Body>
       </Modal>
-      <div className="form-page-layout subscribe-pricing-list">
-        <div className="price-page-layout">
-          <div className="subscribe-price-headerbar">
-            <div className="headerbar">
-              <div className="logo">
-                <img src={Logo} alt="Recallr" />
+      {tyeOfPage == "sub" ? (
+        <div className="form-page-layout subscribe-pricing-list">
+          <div className="price-page-layout">
+            <div className="subscribe-price-headerbar">
+              <div className="headerbar">
+                <div className="logo">
+                  <img src={Logo} alt="Recallr" />
+                </div>
+              </div>
+              <div className="header-title">
+                <h1>Select the package that best suits your needs</h1>
+                <p>Pay Monthly or save big with an annual Subscription</p>
               </div>
             </div>
-            <div className="header-title">
-              <h1>Select the package that best suits your needs</h1>
-              <p>Pay Monthly or save big with an annual Subscription</p>
+            <div className="subscribe-mbtn">
+              <Button
+                className={monthisActive ? "active" : null}
+                onClick={monthlytoggleClass}
+              >
+                Monthly
+              </Button>
+              <Button
+                className={annualisActive ? "active" : null}
+                onClick={annualtoggleClass}
+              >
+                annual
+              </Button>
+              <Button
+                className={smsisActive ? "active" : null}
+                onClick={smstoggleClass}
+              >
+                Top Up
+              </Button>
+            </div>
+            <div className="subscribe-list">
+              <Row>
+                <Col xs={4}>
+                  <div className="card pricing-list">
+                    <div className="card-header">
+                      <div className="price-heading"></div>
+                    </div>
+                    <div className="card-body">
+                      <ul>
+                        <li>SMS</li>
+                        <li>SMS Credits p/m</li>
+                        <li>MMS</li>
+                        <li>MMS Credits p/m</li>
+                        <li>Text Templates</li>
+                        <li>Text Keywords</li>
+                        <li>Email</li>
+                        <li>Email Credits</li>
+                        <li>Email Keywords</li>
+                        <li>Email Templates</li>
+                        <li>CRM</li>
+                        <li>Custom AI Chatbot</li>
+                        <li>Recall Search Engine</li>
+                        <li>3 Recallr Searches P/M</li>
+                        <li>Recallr Predictive AI</li>
+                        <li>Widget</li>
+                        <li>CRM Integration</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Col>
+
+                {/* Free Sub */}
+                <Col xs={2}>
+                  <div className="card">
+                    <div className="card-header free-price-list">
+                      <div className="price-heading">
+                        <h5 className="card-title">Free</h5>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <ul>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>3</span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                      </ul>
+                      <Button>Get Started</Button>
+                    </div>
+                  </div>
+                </Col>
+
+                {/* 149 Sub  */}
+                <Col xs={2}>
+                  <div className="card starter-price">
+                    <div className="card-header">
+                      <div className="recm-title">
+                        <h1>Our Recommendation</h1>
+                      </div>
+                      <div className="price-heading">
+                        <h5 className="card-title">Starter</h5>
+                        <div className="time-period">
+                          <h6
+                            className={
+                              monthisActive ? "monthly active" : "monthly"
+                            }
+                          >
+                            <sup>$</sup>149<small>/mo</small>
+                          </h6>
+                          <h6
+                            className={
+                              annualisActive ? "yearly active" : "yearly"
+                            }
+                          >
+                            <sup>$</sup>1,430<small>/yr</small>
+                          </h6>
+
+                          {
+                            // <h6 className={smsisActive ? "sms active" : "sms"}>
+                            //   <sup>$</sup>149<small>/yr</small>
+                            // </h6>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <ul>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>500</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>500</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>3</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>500</span>
+                        </li>
+                        <li>
+                          <span>3</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>Unlimited</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                      </ul>
+                      <Button
+                        onClick={() => {
+                          hnadleSub_Button("starter", 149);
+                        }}
+                      >
+                        Get Started
+                      </Button>
+                    </div>
+                  </div>
+                </Col>
+
+                {/* 319 Subscription */}
+                <Col xs={2}>
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="price-heading">
+                        <h5 className="card-title">Communicator</h5>
+                        <div className="time-period">
+                          <h6
+                            className={
+                              monthisActive ? "monthly active" : "monthly"
+                            }
+                          >
+                            <sup>$</sup>319<small>/mo</small>
+                          </h6>
+                          <h6
+                            className={
+                              annualisActive ? "yearly active" : "yearly"
+                            }
+                          >
+                            <sup>$</sup>3,828<small>/yr</small>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <ul>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>1500</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>1500</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>5</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>1500</span>
+                        </li>
+                        <li>
+                          <span>5</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>Unlimited</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                      </ul>
+                      <Button
+                        onClick={() => {
+                          hnadleSub_Button("communicator", 149);
+                        }}
+                      >
+                        Get Started
+                      </Button>
+                    </div>
+                  </div>
+                </Col>
+
+                {/* 649 Subscription */}
+                <Col xs={2}>
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="price-heading">
+                        <h5 className="card-title">Hyper</h5>
+                        <div className="time-period">
+                          <h6
+                            className={
+                              monthisActive ? "monthly active" : "monthly"
+                            }
+                          >
+                            <sup>$</sup>649<small>/mo.</small>
+                          </h6>
+                          <h6
+                            className={
+                              annualisActive ? "yearly active" : "yearly"
+                            }
+                          >
+                            <sup>$</sup>7788<small>/yr</small>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <ul>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>5000</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>5000</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>10</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>5000</span>
+                        </li>
+                        <li>
+                          <span>10</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <MdClose />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>Unlimited</span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                        <li>
+                          <span>
+                            <FiCheck />
+                          </span>
+                        </li>
+                      </ul>
+                      <Button
+                        onClick={() => {
+                          hnadleSub_Button("hyper", 149);
+                        }}
+                      >
+                        Get Started
+                      </Button>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
             </div>
           </div>
-          <div className="subscribe-mbtn">
-            <Button
-              className={monthisActive ? "active" : null}
-              onClick={monthlytoggleClass}
-            >
-              Monthly
-            </Button>
-            <Button
-              className={annualisActive ? "active" : null}
-              onClick={annualtoggleClass}
-            >
-              annual
-            </Button>
-            <Button
-              className={smsisActive ? "active" : null}
-              onClick={smstoggleClass}
-            >
-              Top Up
-            </Button>
-          </div>
-          <div className="subscribe-list">
-            <Row>
-              <Col xs={4}>
-                <div className="card pricing-list">
-                  <div className="card-header">
-                    <div className="price-heading"></div>
-                  </div>
-                  <div className="card-body">
-                    <ul>
-                      <li>SMS</li>
-                      <li>SMS Credits p/m</li>
-                      <li>MMS</li>
-                      <li>MMS Credits p/m</li>
-                      <li>Text Templates</li>
-                      <li>Text Keywords</li>
-                      <li>Email</li>
-                      <li>Email Credits</li>
-                      <li>Email Keywords</li>
-                      <li>Email Templates</li>
-                      <li>CRM</li>
-                      <li>Custom AI Chatbot</li>
-                      <li>Recall Search Engine</li>
-                      <li>3 Recallr Searches P/M</li>
-                      <li>Recallr Predictive AI</li>
-                      <li>Widget</li>
-                      <li>CRM Integration</li>
-                    </ul>
-                  </div>
-                </div>
-              </Col>
-
-              {/* Free Sub */}
-              <Col xs={2}>
-                <div className="card">
-                  <div className="card-header free-price-list">
-                    <div className="price-heading">
-                      <h5 className="card-title">Free</h5>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <ul>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>3</span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                    </ul>
-                    <Button>Get Started</Button>
-                  </div>
-                </div>
-              </Col>
-
-              {/* 149 Sub  */}
-              <Col xs={2}>
-                <div className="card starter-price">
-                  <div className="card-header">
-                    <div className="recm-title">
-                      <h1>Our Recommendation</h1>
-                    </div>
-                    <div className="price-heading">
-                      <h5 className="card-title">Starter</h5>
-                      <div className="time-period">
-                        <h6
-                          className={
-                            monthisActive ? "monthly active" : "monthly"
-                          }
-                        >
-                          <sup>$</sup>149<small>/mo</small>
-                        </h6>
-                        <h6
-                          className={
-                            annualisActive ? "yearly active" : "yearly"
-                          }
-                        >
-                          <sup>$</sup>1,430<small>/yr</small>
-                        </h6>
-
-                        <h6 className={smsisActive ? "sms active" : "sms"}>
-                          <sup>$</sup>149<small>/yr</small>
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <ul>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>500</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>500</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>3</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>500</span>
-                      </li>
-                      <li>
-                        <span>3</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>Unlimited</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                    </ul>
-                    <Button
-                      onClick={() => {
-                        hnadleSub_Button("starter", 149);
-                      }}
-                    >
-                      Get Started
-                    </Button>
-                  </div>
-                </div>
-              </Col>
-
-              {/* 319 Subscription */}
-              <Col xs={2}>
-                <div className="card">
-                  <div className="card-header">
-                    <div className="price-heading">
-                      <h5 className="card-title">Communicator</h5>
-                      <div className="time-period">
-                        <h6
-                          className={
-                            monthisActive ? "monthly active" : "monthly"
-                          }
-                        >
-                          <sup>$</sup>319<small>/mo</small>
-                        </h6>
-                        <h6
-                          className={
-                            annualisActive ? "yearly active" : "yearly"
-                          }
-                        >
-                          <sup>$</sup>3,828<small>/yr</small>
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <ul>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>1500</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>1500</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>5</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>1500</span>
-                      </li>
-                      <li>
-                        <span>5</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>Unlimited</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                    </ul>
-                    <Button
-                      onClick={() => {
-                        hnadleSub_Button("communicator", 149);
-                      }}
-                    >
-                      Get Started
-                    </Button>
-                  </div>
-                </div>
-              </Col>
-
-              {/* 649 Subscription */}
-              <Col xs={2}>
-                <div className="card">
-                  <div className="card-header">
-                    <div className="price-heading">
-                      <h5 className="card-title">Hyper</h5>
-                      <div className="time-period">
-                        <h6
-                          className={
-                            monthisActive ? "monthly active" : "monthly"
-                          }
-                        >
-                          <sup>$</sup>649<small>/mo.</small>
-                        </h6>
-                        <h6
-                          className={
-                            annualisActive ? "yearly active" : "yearly"
-                          }
-                        >
-                          <sup>$</sup>7788<small>/yr</small>
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <ul>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>5000</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>5000</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>10</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>5000</span>
-                      </li>
-                      <li>
-                        <span>10</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <MdClose />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>Unlimited</span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                      <li>
-                        <span>
-                          <FiCheck />
-                        </span>
-                      </li>
-                    </ul>
-                    <Button
-                      onClick={() => {
-                        hnadleSub_Button("hyper", 149);
-                      }}
-                    >
-                      Get Started
-                    </Button>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <TopUp
+            monthlytoggleClass={monthlytoggleClass}
+            smstoggleClass={smstoggleClass}
+            monthisActive={monthisActive}
+            annualisActive={annualisActive}
+            smsisActive={smsisActive}
+            annualtoggleClass={annualtoggleClass}
+          />
+        </>
+      )}
     </>
   );
 };
