@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState , useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -26,7 +26,7 @@ import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 
 import Chart from "react-apexcharts";
-
+import { GetSubscriptionData } from "../../api/plans";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
@@ -46,6 +46,7 @@ import {
 import VoiceProgressBar from "./ProgreeBar";
 
 const ChatBoot = (props) => {
+  const [subData, setSubData] = useState({});
   const data = [
     {
       name: "Page A",
@@ -180,17 +181,10 @@ const ChatBoot = (props) => {
     return chatList;
   };
 
-  const options = {
+  var options = {
     chart: {
       height: 350,
       type: "area",
-    },
-    title: {
-      text: "Credits Deployed: 745",
-      align: "left",
-      style: {
-        fontSize: "14px",
-      },
     },
     dataLabels: {
       enabled: false,
@@ -199,216 +193,45 @@ const ChatBoot = (props) => {
       curve: "smooth",
     },
     xaxis: {
-      labels: {
-        format: "MM",
-      },
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
+      type: "datetime",
+      categories: [
+        "2018-09-19T00:00:00.000Z",
+        "2018-09-19T01:30:00.000Z",
+        "2018-09-19T02:30:00.000Z",
+        "2018-09-19T03:30:00.000Z",
+        "2018-09-19T04:30:00.000Z",
+        "2018-09-19T05:30:00.000Z",
+        "2018-09-19T06:30:00.000Z",
+      ],
     },
-
-    yaxis: {
-      tickAmount: 4,
-      floating: false,
-
-      labels: {
-        offsetY: -7,
-        offsetX: 0,
-      },
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-    },
-
     tooltip: {
       x: {
-        format: "yyyy",
-      },
-      fixed: {
-        enabled: false,
-        position: "topRight",
+        format: "dd/MM/yy HH:mm",
       },
     },
   };
-  const series = [
+  var series = [
     {
-      name: "Text",
-      data: [
-        {
-          x: 1,
-          y: 322,
-        },
-        {
-          x: 2,
-          y: 324,
-        },
-        {
-          x: 3,
-          y: 329,
-        },
-        {
-          x: 4,
-          y: 342,
-        },
-        {
-          x: 5,
-          y: 348,
-        },
-        {
-          x: 6,
-          y: 334,
-        },
-        {
-          x: 7,
-          y: 325,
-        },
-        {
-          x: 8,
-          y: 316,
-        },
-        {
-          x: 9,
-          y: 318,
-        },
-        {
-          x: 10,
-          y: 330,
-        },
-        {
-          x: 11,
-          y: 355,
-        },
-        {
-          x: 12,
-          y: 366,
-        },
-        {
-          x: 13,
-          y: 337,
-        },
-        {
-          x: 14,
-          y: 352,
-        },
-        {
-          x: 15,
-          y: 377,
-        },
-        {
-          x: 16,
-          y: 383,
-        },
-        {
-          x: 17,
-          y: 344,
-        },
-        {
-          x: 18,
-          y: 366,
-        },
-        {
-          x: 19,
-          y: 389,
-        },
-        {
-          x: 20,
-          y: 334,
-        },
-      ],
+      name: "series1",
+      data: [31, 40, 28, 51, 42, 109, 100],
     },
     {
-      name: "Voice",
-      data: [
-        {
-          x: 1,
-          y: 162,
-        },
-        {
-          x: 2,
-          y: 90,
-        },
-        {
-          x: 3,
-          y: 50,
-        },
-        {
-          x: 4,
-          y: 77,
-        },
-        {
-          x: 5,
-          y: 35,
-        },
-        {
-          x: 6,
-          y: -45,
-        },
-        {
-          x: 7,
-          y: -88,
-        },
-        {
-          x: 8,
-          y: -120,
-        },
-        {
-          x: 9,
-          y: -156,
-        },
-        {
-          x: 10,
-          y: -123,
-        },
-        {
-          x: 11,
-          y: -88,
-        },
-        {
-          x: 12,
-          y: -66,
-        },
-        {
-          x: 13,
-          y: -45,
-        },
-        {
-          x: 14,
-          y: -29,
-        },
-        {
-          x: 15,
-          y: -45,
-        },
-        {
-          x: 16,
-          y: -88,
-        },
-        {
-          x: 17,
-          y: -132,
-        },
-        {
-          x: 18,
-          y: -146,
-        },
-        {
-          x: 19,
-          y: -169,
-        },
-        {
-          x: 20,
-          y: -184,
-        },
-      ],
+      name: "series2",
+      data: [11, 32, 45, 32, 34, 52, 41],
     },
   ];
 
+
+  useEffect(() => {
+    const handleGetData = async () => {
+      let res = await GetSubscriptionData();
+      if (res && res.data && res.status == 200) {
+      
+        setSubData(res?.data?.data);
+      }
+    };
+    return () => handleGetData();
+  }, []);
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -954,53 +777,68 @@ const ChatBoot = (props) => {
             </div>
           )}
 
+          {
+            // <VoiceProgressBar />
+          }
+
           <div className="monthly-balance-box">
             <h4>Monthly Balance</h4>
-            {<VoiceProgressBar />}
-            {
-              // <ul>
-              //   <li>
-              //     <b>Credit used</b>
-              //     <span>$1900</span>
-              //   </li>
-              //   <li>
-              //     <b>Credit balance</b>
-              //     <span>$75000</span>
-              //   </li>
-              // </ul>
-            }
+            <ul>
+              <li>
+                <b>Credit used</b>
+                <span>${subData.sms_cridit_used}</span>
+              </li>
+              <li>
+                <b>Credit balance</b>
+                <span>${subData.sms_cridit_remain}</span>
+              </li>
+            </ul>
           </div>
 
           {/* Monthly credit usage column start */}
           <div className="monthly-credit-use">
             <h1>Monthly Credit usage</h1>
             <div className="monthly-graph">
-              <Chart options={options} series={series} type="area" />
-            </div>
-            <div className="monthly-progressbar">
-              <h2>Perfromance</h2>
-              <div className="mn-progressbar">
-                <div className="progressbar-field delfield">
-                  <div className="voice-heading">
-                    <h4>65%</h4>
-                  </div>
-                  <ProgressBar now={65} />
-                  <div className="voice-value">
-                    <h5>Delivered</h5>
-                  </div>
-                </div>
-                <div className="progressbar-field flfield">
-                  <div className="voice-heading">
-                    <h4>22%</h4>
-                  </div>
-                  <ProgressBar now={40} />
-                  <div className="voice-value">
-                    <h5>Failed</h5>
-                  </div>
-                </div>
-              </div>
+              <ResponsiveContainer width={"99%"} height={150}>
+                <AreaChart
+                  width={310}
+                  height={150}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 0,
+                    left: 0,
+                    bottom: 5,
+                  }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="15%"
+                        stopColor="#28dcbf"
+                        stopOpacity={0.7}
+                      />
+                      <stop
+                        offset="80%"
+                        stopColor="#41e3c926"
+                        stopOpacity={0.5}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    strokeWidth={4}
+                    dataKey="uv"
+                    stroke="#28dcbf"
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </div>
+
           {/* Monthly credit usage column start */}
 
           {
