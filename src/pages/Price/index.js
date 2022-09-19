@@ -15,7 +15,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { Button, Row, Col, Modal } from "react-bootstrap";
 import { CreateSubscription } from "../../api/plans";
 const stripePromise = loadStripe(
@@ -31,26 +31,33 @@ const Price = () => {
   });
   const [type, setType] = useState("month");
   const [annualisActive, setannualisActive] = useState(false);
+  const [smsisActive, setsmsisActive] = useState(false);
   const monthlytoggleClass = () => {
     setmonthisActive(true);
     setannualisActive(false);
+    setsmsisActive(false);
     setType("month");
   };
   const annualtoggleClass = () => {
     setannualisActive(true);
     setmonthisActive(false);
+    setsmsisActive(false);
     setType("year");
   };
 
+  const smstoggleClass = () => {
+    setannualisActive(false);
+    setmonthisActive(false);
+    setsmsisActive(true);
+    setType("sms");
+  };
   const hnadleSub_Button = (sub_name, sub_price) => {
-    
     setData({
       ...data,
       amount: Number(sub_price) * 100,
       name: sub_name,
     });
-   setOpen(true);
-
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -98,6 +105,12 @@ const Price = () => {
               onClick={annualtoggleClass}
             >
               annual
+            </Button>
+            <Button
+              className={smsisActive ? "active" : null}
+              onClick={smstoggleClass}
+            >
+              Top Up
             </Button>
           </div>
           <div className="subscribe-list">
@@ -254,6 +267,10 @@ const Price = () => {
                         >
                           <sup>$</sup>1,430<small>/yr</small>
                         </h6>
+
+                        <h6 className={smsisActive ? "sms active" : "sms"}>
+                          <sup>$</sup>149<small>/yr</small>
+                        </h6>
                       </div>
                     </div>
                   </div>
@@ -335,7 +352,6 @@ const Price = () => {
                     </ul>
                     <Button
                       onClick={() => {
-                        
                         hnadleSub_Button("starter", 149);
                       }}
                     >
@@ -596,7 +612,7 @@ const CARD_ELEMENT_OPTIONS = {
 const CheckoutForm = ({ planName, handleClose, type }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [details, setDetails] = useState({
     name: "",
@@ -640,8 +656,8 @@ const CheckoutForm = ({ planName, handleClose, type }) => {
           type: type,
         };
         const res = await CreateSubscription(dataAll);
-        
-         const { client_secret, status } = res.data;
+
+        const { client_secret, status } = res.data;
 
         if (status === "requires_action") {
           stripe.confirmCardPayment(client_secret).then(function (result) {
@@ -653,17 +669,17 @@ const CheckoutForm = ({ planName, handleClose, type }) => {
               // The card was declined (i.e. insufficient funds, card has expired, etc)
             } else {
               // Show a success message to your customer
-              Cookies.remove('token')
-            handleClose();
-             setLoading(false);
-              navigate('/login')
+              Cookies.remove("token");
+              handleClose();
+              setLoading(false);
+              navigate("/login");
             }
           });
         } else {
-          Cookies.remove('token')
-         handleClose();
+          Cookies.remove("token");
+          handleClose();
           setLoading(false);
-          navigate('/login')
+          navigate("/login");
 
           // No additional information was needed
           // Show a success message to your customer
