@@ -115,7 +115,7 @@ function App({ component: Component, ...rest }) {
             </IsNotAuthenticated>
           }
         />
-      
+
         <Route
           path="/forgot-password"
           element={
