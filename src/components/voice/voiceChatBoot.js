@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState , useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,9 +15,11 @@ import WifiIcon from "@material-ui/icons/Wifi";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import { GetSubscriptionData } from "../../api/plans";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const VoiceChatBoot = (props) => {
+  const [subData, setSubData] = useState({});
   const userVoiceMessageList = () => {
     let filtered = [];
     filtered =
@@ -140,6 +142,15 @@ const VoiceChatBoot = (props) => {
       uv: 1500,
     },
   ];
+  useEffect(() => {
+    const handleGetData = async () => {
+      let res = await GetSubscriptionData();
+      if (res && res.data && res.status == 200) {
+        setSubData(res?.data?.data);
+      }
+    };
+    return () => handleGetData();
+  }, []);
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -590,11 +601,11 @@ const VoiceChatBoot = (props) => {
             <ul>
               <li>
                 <b>Credit used</b>
-                <span>$1900</span>
+                <span>${subData?.voice_cridit_used||0}</span>
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>$75000</span>
+                <span>${subData?.voice_cridit_remain||0}</span>
               </li>
             </ul>
           </div>
