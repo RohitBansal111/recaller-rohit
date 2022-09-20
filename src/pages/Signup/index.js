@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 // import signup from "../../api/user";
 import { signup } from "../../api/user";
 const Signup = () => {
@@ -88,7 +88,7 @@ const Signup = () => {
         formData = false;
         break;
       case data.password !== data.repeatPassword:
-        setErrors({ repeatPassword: "Repeat Password is required!" });
+        setErrors({ repeatPassword: "Those passwords didn't match.Try again" });
         formData = false;
         break;
       case !check:
@@ -106,8 +106,8 @@ const Signup = () => {
       const res = await signup(data);
 
       if (res && res.data && res.data.status === 200) {
-        toast.success("Register successful!"); 
-        Cookies.set('token', res?.data?.response.jwt , { expires: 1 })
+        toast.success("Register successful!");
+        Cookies.set("token", res?.data?.response.jwt, { expires: 1 });
         navigate(`/price`);
       } else {
         toast.error(res.data.message);

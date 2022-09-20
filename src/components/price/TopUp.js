@@ -137,7 +137,7 @@ const TopUp = ({
             className={annualisActive ? "active" : null}
             onClick={annualtoggleClass}
           >
-            annual
+            Annual
           </Button>
           <Button
             className={smsisActive ? "active" : null}
