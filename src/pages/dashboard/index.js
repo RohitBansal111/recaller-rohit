@@ -44,6 +44,8 @@ import Lastgraph from "../../components/Dashboard/Lastgraph";
 import Yeargraph from "../../components/Dashboard/yeargraph";
 import moment from "moment";
 const Dashboard = (props) => {
+  const toastId = React.useRef(null);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -150,7 +152,10 @@ const Dashboard = (props) => {
     if (iscampaignValid()) {
       const res = await addCompaignApi(data);
       if (res && res.data && res.data.status === 200) {
-        toast.success("Campaign Addedd");
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success("Campaign Added");
+        }
+
         handleCompaignClose(false);
         getContactCompaign();
       } else {
@@ -163,7 +168,10 @@ const Dashboard = (props) => {
   const handleEdit = async () => {
     const res = await updateCompaignApi(edit.value, data);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Edit Compaign");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Edit Compaign");
+      }
+
       handleCompaignClose(false);
       getContactCompaign();
     } else {

@@ -6,25 +6,23 @@ import SelectCampaign from "../components/contacts/selectCampaign";
 
 const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
   const [compaigns, setCompaigns] = useState([]);
-  const [selectedCampaign, setSelectedCampaign] = useState(
-    {
-      value: props.editContact.compaignId
-        ? props.editContact.compaignId.name
-        : "",
-      label: props.editContact.compaignId
-        ? props.editContact.compaignId.name
-        : "",
-    }
-  );
+  const [selectedCampaign, setSelectedCampaign] = useState({
+    value: props.editContact.compaignId
+      ? props.editContact.compaignId.name
+      : "",
+    label: props.editContact.compaignId
+      ? props.editContact.compaignId.name
+      : "",
+  });
 
-  useEffect(()=>{
-    getContactCompaign()
-    console.log("selected campaign :::",selectedCampaign)
-  },[open])
+  useEffect(() => {
+    getContactCompaign();
+    console.log("selected campaign :::", selectedCampaign);
+  }, [open]);
 
-  useEffect(()=>{
-    console.log("selected campaign :::",selectedCampaign)
-  },[selectedCampaign])
+  useEffect(() => {
+    console.log("selected campaign :::", selectedCampaign);
+  }, [selectedCampaign]);
   console.log("edit contact data ::::::", props);
   const getContactCompaign = async () => {
     let res = await getCompaignApi();
@@ -37,14 +35,14 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
       });
 
       setCompaigns(data);
-      setSelectedCampaign(  {
+      setSelectedCampaign({
         value: props.editContact.compaignId
           ? props.editContact.compaignId.name
           : "",
         label: props.editContact.compaignId
           ? props.editContact.compaignId.name
           : "",
-      })
+      });
     }
   };
   return (
@@ -127,7 +125,8 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
               options={compaigns}
               value={selectedCampaign}
             />
-            {/* <span className="spanError">{props.errors.bulkSelected}</span> */}
+            <span className="spanError">{props?.errors?.bulkSelected}</span>
+
             {/* <div className="foem-field-inner">
             <input
                 type="text"
@@ -151,7 +150,12 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={(e)=>props.handleConDataEdit(e,selectedCampaign?selectedCampaign.value:'')}
+              onClick={(e) =>
+                props.handleConDataEdit(
+                  e,
+                  selectedCampaign ? selectedCampaign.value : ""
+                )
+              }
             >
               {" "}
               Save{" "}

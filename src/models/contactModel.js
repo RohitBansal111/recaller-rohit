@@ -152,7 +152,7 @@ const ContactModal = (props) => {
             </div> */}
 
             <div className="field-group flexFull">
-              <label> Create Campaign </label>
+              <label> Campaign </label>
               <SelectCampaign
                 isClearable={true}
                 onChange={setSelectedCampaign}
