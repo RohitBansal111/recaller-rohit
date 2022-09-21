@@ -220,17 +220,16 @@ const ChatBoot = (props) => {
       data: [11, 32, 45, 32, 34, 52, 41],
     },
   ];
-
+  const handleGetData = async () => {
+    let res = await GetSubscriptionData();
+    if (res && res.data && res.status == 200) {
+    
+      setSubData(res?.data?.data);
+    }
+  };
 
   useEffect(() => {
-    const handleGetData = async () => {
-      let res = await GetSubscriptionData();
-      if (res && res.data && res.status == 200) {
-      
-        setSubData(res?.data?.data);
-      }
-    };
-    return () => handleGetData();
+    handleGetData();
   }, []);
   return (
     <div className="chatbox-warpper">
