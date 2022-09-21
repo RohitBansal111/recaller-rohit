@@ -326,9 +326,6 @@ const Dashboard = (props) => {
                   <div className="value-graph">
                     <Currentgraph />
 
-                    {
-                      // <div id="dashboard-sparkline-carousel-3"></div>
-                    }
                   </div>
                   <div className="top-performance-field">
                     <h2>Credit Balance</h2>
