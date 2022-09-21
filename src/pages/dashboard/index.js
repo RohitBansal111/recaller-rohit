@@ -311,7 +311,7 @@ const Dashboard = (props) => {
                       <span className="price-value">
                         <span className="month43">
                           {moment().format("MMMM")} .
-                        </span>{" "}
+                        </span>
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
                           Number(subData?.email_cridit_used) || 0}
