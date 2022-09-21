@@ -24,7 +24,7 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
-
+import { BsChevronRight } from "react-icons/bs";
 import Chart from "react-apexcharts";
 import ReactApexChart from "react-apexcharts";
 
@@ -129,7 +129,7 @@ const ChatBoot = (props) => {
   const series = [
     {
       name: "Text",
-      data: [31, 40, 28, 51, 42, 109, 100],
+      data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
     {
       name: "Voice",
@@ -137,6 +137,7 @@ const ChatBoot = (props) => {
     },
   ];
   const options = {
+    colors: ["#28dcbf", "#f7b924"],
     chart: {
       height: 350,
       type: "area",
@@ -151,15 +152,87 @@ const ChatBoot = (props) => {
       curve: "smooth",
     },
     xaxis: {
-      type: "datetime",
-      categories: [
-        "2018-09-19T00:00:00.000Z",
-        "2018-09-19T01:30:00.000Z",
-        "2018-09-19T02:30:00.000Z",
-        "2018-09-19T03:30:00.000Z",
-        "2018-09-19T04:30:00.000Z",
-        "2018-09-19T05:30:00.000Z",
-        "2018-09-19T06:30:00.000Z",
+      data: [
+        {
+          x: 1,
+          y: 322,
+        },
+        {
+          x: 2,
+          y: 324,
+        },
+        {
+          x: 3,
+          y: 329,
+        },
+        {
+          x: 4,
+          y: 342,
+        },
+        {
+          x: 5,
+          y: 348,
+        },
+        {
+          x: 6,
+          y: 334,
+        },
+        {
+          x: 7,
+          y: 325,
+        },
+        {
+          x: 8,
+          y: 316,
+        },
+        {
+          x: 9,
+          y: 318,
+        },
+        {
+          x: 10,
+          y: 330,
+        },
+        {
+          x: 11,
+          y: 355,
+        },
+        {
+          x: 12,
+          y: 366,
+        },
+        {
+          x: 13,
+          y: 337,
+        },
+        {
+          x: 14,
+          y: 352,
+        },
+        {
+          x: 15,
+          y: 377,
+        },
+        {
+          x: 16,
+          y: 383,
+        },
+        {
+          x: 17,
+          y: 344,
+        },
+        {
+          x: 18,
+          y: 366,
+        },
+        {
+          x: 19,
+          y: 389,
+        },
+        {
+          x: 20,
+          y: 334,
+        },
       ],
     },
     tooltip: {
@@ -903,9 +976,71 @@ const ChatBoot = (props) => {
               )}
             </ul>
           </div>
-          {!props.selecteduser ? (
-            ""
-          ) : (
+          {!props.selecteduser ? "" : ""}
+
+          {
+            // <div className="monthly-balance-box">
+            //   <h4>Monthly Balance</h4>
+            //   {<VoiceProgressBar />}
+            //   {
+            //     // <ul>
+            //     //   <li>
+            //     //     <b>Credit used</b>
+            //     //     <span>$1900</span>
+            //     //   </li>
+            //     //   <li>
+            //     //     <b>Credit balance</b>
+            //     //     <span>$75000</span>
+            //     //   </li>
+            //     // </ul>
+            //   }
+            // </div>
+          }
+
+          {/* Monthly credit usage column start */}
+          <div className="monthly-credit-use">
+            <h1>
+              Text Credits Deployed:745{" "}
+              <button className="downarrow">
+                <BsChevronRight />
+              </button>
+            </h1>
+
+            <div className="monthly-graph">
+              {
+                // <Chart options={options} series={series} type="area" />
+              }
+              <ReactApexChart
+                options={options}
+                series={series}
+                type="area"
+                height={350}
+              />
+            </div>
+            <div className="monthly-progressbar">
+              <h2>Text Performance</h2>
+              <div className="mn-progressbar">
+                <div className="progressbar-field delfield">
+                  <div className="voice-heading">
+                    <h4>65%</h4>
+                  </div>
+                  <ProgressBar now={65} />
+                  <div className="voice-value">
+                    <h5>Delivered</h5>
+                  </div>
+                </div>
+                <div className="progressbar-field flfield">
+                  <div className="voice-heading">
+                    <h4>22%</h4>
+                  </div>
+                  <ProgressBar now={40} />
+                  <div className="voice-value">
+                    <h5>Failed</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="conversation-tags">
               <h4>Conversation Tags</h4>
               <div className="dropdown">
@@ -972,6 +1107,7 @@ const ChatBoot = (props) => {
                     </button>
                   </li>
                 </ul>
+
                 <ConversationTagModal
                   open={props.openManageTagModal}
                   handleCloseManageModal={props.handleCloseManageModal}
@@ -994,62 +1130,6 @@ const ChatBoot = (props) => {
                   handleCloseDeleteModal={props.handleCloseDeleteModal}
                   errors={props.errors}
                 />
-              </div>
-            </div>
-          )}
-
-          <div className="monthly-balance-box">
-            <h4>Monthly Balance</h4>
-            {<VoiceProgressBar />}
-            {
-              // <ul>
-              //   <li>
-              //     <b>Credit used</b>
-              //     <span>$1900</span>
-              //   </li>
-              //   <li>
-              //     <b>Credit balance</b>
-              //     <span>$75000</span>
-              //   </li>
-              // </ul>
-            }
-          </div>
-
-          {/* Monthly credit usage column start */}
-          <div className="monthly-credit-use">
-            <h1>Monthly Credit usage</h1>
-            <div className="monthly-graph">
-              {
-                // <Chart options={options} series={series} type="area" />
-              }
-              <ReactApexChart
-                options={options}
-                series={series}
-                type="area"
-                height={350}
-              />
-            </div>
-            <div className="monthly-progressbar">
-              <h2>Perfromance</h2>
-              <div className="mn-progressbar">
-                <div className="progressbar-field delfield">
-                  <div className="voice-heading">
-                    <h4>65%</h4>
-                  </div>
-                  <ProgressBar now={65} />
-                  <div className="voice-value">
-                    <h5>Delivered</h5>
-                  </div>
-                </div>
-                <div className="progressbar-field flfield">
-                  <div className="voice-heading">
-                    <h4>22%</h4>
-                  </div>
-                  <ProgressBar now={40} />
-                  <div className="voice-value">
-                    <h5>Failed</h5>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

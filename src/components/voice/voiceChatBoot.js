@@ -15,6 +15,10 @@ import WifiIcon from "@material-ui/icons/Wifi";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import ReactApexChart from "react-apexcharts";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import { BsChevronRight } from "react-icons/bs";
+
 import {
   AreaChart,
   Area,
@@ -70,84 +74,122 @@ const VoiceChatBoot = (props) => {
     });
     return chatList;
   };
-  const data = [
+  const series = [
     {
-      name: "Page A",
-      uv: 1500,
+      name: "Voice",
+      data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
     {
-      name: "Page C",
-      uv: 1400,
-    },
-    {
-      name: "Page B",
-      uv: 4000,
-    },
-    {
-      name: "Page C",
-      uv: 1400,
-    },
-    {
-      name: "Page D",
-      uv: 1800,
-    },
-    {
-      name: "Page E",
-      uv: 1100,
-    },
-    {
-      name: "Page F",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1900,
-    },
-    {
-      name: "Page G",
-      uv: 1600,
-    },
-    {
-      name: "Page G",
-      uv: 1700,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1900,
-    },
-    {
-      name: "Page G",
-      uv: 2100,
-    },
-    {
-      name: "Page G",
-      uv: 1500,
-    },
-    {
-      name: "Page G",
-      uv: 1800,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1400,
-    },
-    {
-      name: "Page G",
-      uv: 1100,
-    },
-    {
-      name: "Page G",
-      uv: 1500,
+      name: "Text",
+      data: [0],
     },
   ];
+  const options = {
+    colors: ["#f7b924", "#28dcbf"],
+
+    chart: {
+      height: 350,
+      type: "area",
+      toolbar: {
+        show: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    xaxis: {
+      data: [
+        {
+          x: 1,
+          y: 322,
+        },
+        {
+          x: 2,
+          y: 324,
+        },
+        {
+          x: 3,
+          y: 329,
+        },
+        {
+          x: 4,
+          y: 342,
+        },
+        {
+          x: 5,
+          y: 348,
+        },
+        {
+          x: 6,
+          y: 334,
+        },
+        {
+          x: 7,
+          y: 325,
+        },
+        {
+          x: 8,
+          y: 316,
+        },
+        {
+          x: 9,
+          y: 318,
+        },
+        {
+          x: 10,
+          y: 330,
+        },
+        {
+          x: 11,
+          y: 355,
+        },
+        {
+          x: 12,
+          y: 366,
+        },
+        {
+          x: 13,
+          y: 337,
+        },
+        {
+          x: 14,
+          y: 352,
+        },
+        {
+          x: 15,
+          y: 377,
+        },
+        {
+          x: 16,
+          y: 383,
+        },
+        {
+          x: 17,
+          y: 344,
+        },
+        {
+          x: 18,
+          y: 366,
+        },
+        {
+          x: 19,
+          y: 389,
+        },
+        {
+          x: 20,
+          y: 334,
+        },
+      ],
+    },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy HH:mm",
+      },
+    },
+  };
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -499,9 +541,50 @@ const VoiceChatBoot = (props) => {
               )}
             </ul>
           </div>
-          {!props.selecteduser ? (
-            ""
-          ) : (
+          {!props.selecteduser ? "" : ""}
+          <div className="monthly-credit-use">
+            <h1>
+              Voice Credits Deployed:745{" "}
+              <button className="downarrow">
+                <BsChevronRight />
+              </button>
+            </h1>
+
+            <div className="monthly-graph">
+              {
+                // <Chart options={options} series={series} type="area" />
+              }
+              <ReactApexChart
+                options={options}
+                series={series}
+                type="area"
+                height={350}
+              />
+            </div>
+            <div className="monthly-progressbar">
+              <h2>Voice Performance</h2>
+              <div className="mn-progressbar">
+                <div className="progressbar-field delfield">
+                  <div className="voice-heading">
+                    <h4>65%</h4>
+                  </div>
+                  <ProgressBar now={65} />
+                  <div className="voice-value">
+                    <h5>Delivered</h5>
+                  </div>
+                </div>
+                <div className="progressbar-field flfield">
+                  <div className="voice-heading">
+                    <h4>22%</h4>
+                  </div>
+                  <ProgressBar now={40} />
+                  <div className="voice-value">
+                    <h5>Failed</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="conversation-tags">
               <h4>Conversation Tags</h4>
               <div className="dropdown">
@@ -568,6 +651,7 @@ const VoiceChatBoot = (props) => {
                     </button>
                   </li>
                 </ul>
+
                 <ConversationTagModal
                   open={props.openManageTagModal}
                   handleCloseManageModal={props.handleCloseManageModal}
@@ -592,66 +676,7 @@ const VoiceChatBoot = (props) => {
                 />
               </div>
             </div>
-          )}
-          <div className="monthly-balance-box">
-            <h4>Monthly Balance</h4>
-            <ul>
-              <li>
-                <b>Credit used</b>
-                <span>$1900</span>
-              </li>
-              <li>
-                <b>Credit balance</b>
-                <span>$75000</span>
-              </li>
-            </ul>
           </div>
-
-          {/* Monthly credit usage column start */}
-          <div className="monthly-credit-use">
-            <h1>Monthly Credit usage</h1>
-            <div className="monthly-graph">
-              <ResponsiveContainer width={"99%"} height={150}>
-                <AreaChart
-                  width={310}
-                  height={150}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 0,
-                    left: 0,
-                    bottom: 5,
-                  }}
-                >
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="15%"
-                        stopColor="#28dcbf"
-                        stopOpacity={0.7}
-                      />
-                      <stop
-                        offset="80%"
-                        stopColor="#41e3c926"
-                        stopOpacity={0.5}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    strokeWidth={4}
-                    dataKey="uv"
-                    stroke="#28dcbf"
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Monthly credit usage column end */}
         </div>
       </div>
     </div>
