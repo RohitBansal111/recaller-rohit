@@ -44,11 +44,11 @@ const SideNavMenu = [
     menuIcon: <TextIcon />,
     menuTitle: "Text",
   },
-  {
-    path: "/email",
-    menuIcon: <EmailIcon />,
-    menuTitle: "Email",
-  },
+  // {
+  //   path: "/email",
+  //   menuIcon: <EmailIcon />,
+  //   menuTitle: "Email",
+  // },
   {
     path: "/voice",
     menuIcon: <VoiceIcon />,
