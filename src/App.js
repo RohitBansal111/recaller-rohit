@@ -196,6 +196,7 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
+        
         <Route
           exact
           path="/settings/text"
