@@ -314,11 +314,11 @@ const Dashboard = (props) => {
                         </span>
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.email_cridit_used) || 0}
+                          Number(subData?.email_cridit_used) }
                         /
                         {Number(subData?.email_cridit) +
                           Number(subData?.sms_cridit) +
-                          Number(subData?.voice_cridit) || 0}
+                          Number(subData?.voice_cridit) }
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
