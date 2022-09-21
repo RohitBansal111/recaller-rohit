@@ -107,14 +107,8 @@ function App({ component: Component, ...rest }) {
             </IsNotAuthenticated>
           }
         />
-        <Route
-          path="/Price"
-          element={
-            <IsNotAuthenticated>
-              <Price />
-            </IsNotAuthenticated>
-          }
-        />
+        <Route path="/Price" element={<Price />} />
+
         <Route
           path="/forgot-password"
           element={
@@ -158,6 +152,7 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
+        
         <Route
           exact
           path="/ViewCompaign/:id"
@@ -196,7 +191,6 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
-        
         <Route
           exact
           path="/settings/text"
