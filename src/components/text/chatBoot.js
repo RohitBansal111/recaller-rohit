@@ -26,6 +26,7 @@ import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 
 import Chart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
 
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
@@ -125,6 +126,49 @@ const ChatBoot = (props) => {
       uv: 1500,
     },
   ];
+  const series = [
+    {
+      name: "Text",
+      data: [31, 40, 28, 51, 42, 109, 100],
+    },
+    {
+      name: "Voice",
+      data: [0],
+    },
+  ];
+  const options = {
+    chart: {
+      height: 350,
+      type: "area",
+      toolbar: {
+        show: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    xaxis: {
+      type: "datetime",
+      categories: [
+        "2018-09-19T00:00:00.000Z",
+        "2018-09-19T01:30:00.000Z",
+        "2018-09-19T02:30:00.000Z",
+        "2018-09-19T03:30:00.000Z",
+        "2018-09-19T04:30:00.000Z",
+        "2018-09-19T05:30:00.000Z",
+        "2018-09-19T06:30:00.000Z",
+      ],
+    },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy HH:mm",
+      },
+    },
+  };
+
   const userMessageList = () => {
     let filtered = [];
     filtered =
@@ -180,235 +224,233 @@ const ChatBoot = (props) => {
     return chatList;
   };
 
-  const options = {
-    chart: {
-      height: 350,
-      type: "area",
-    },
-    title: {
-      text: "Credits Deployed: 745",
-      align: "left",
-      style: {
-        fontSize: "14px",
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    xaxis: {
-      labels: {
-        format: "MM",
-      },
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-    },
-
-    yaxis: {
-      tickAmount: 4,
-      floating: false,
-
-      labels: {
-        offsetY: -7,
-        offsetX: 0,
-      },
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-    },
-
-    tooltip: {
-      x: {
-        format: "yyyy",
-      },
-      fixed: {
-        enabled: false,
-        position: "topRight",
-      },
-    },
-  };
-  const series = [
-    {
-      name: "Text",
-      data: [
-        {
-          x: 1,
-          y: 322,
-        },
-        {
-          x: 2,
-          y: 324,
-        },
-        {
-          x: 3,
-          y: 329,
-        },
-        {
-          x: 4,
-          y: 342,
-        },
-        {
-          x: 5,
-          y: 348,
-        },
-        {
-          x: 6,
-          y: 334,
-        },
-        {
-          x: 7,
-          y: 325,
-        },
-        {
-          x: 8,
-          y: 316,
-        },
-        {
-          x: 9,
-          y: 318,
-        },
-        {
-          x: 10,
-          y: 330,
-        },
-        {
-          x: 11,
-          y: 355,
-        },
-        {
-          x: 12,
-          y: 366,
-        },
-        {
-          x: 13,
-          y: 337,
-        },
-        {
-          x: 14,
-          y: 352,
-        },
-        {
-          x: 15,
-          y: 377,
-        },
-        {
-          x: 16,
-          y: 383,
-        },
-        {
-          x: 17,
-          y: 344,
-        },
-        {
-          x: 18,
-          y: 366,
-        },
-        {
-          x: 19,
-          y: 389,
-        },
-        {
-          x: 20,
-          y: 334,
-        },
-      ],
-    },
-    {
-      name: "Voice",
-      data: [
-        {
-          x: 1,
-          y: 162,
-        },
-        {
-          x: 2,
-          y: 90,
-        },
-        {
-          x: 3,
-          y: 50,
-        },
-        {
-          x: 4,
-          y: 77,
-        },
-        {
-          x: 5,
-          y: 35,
-        },
-        {
-          x: 6,
-          y: -45,
-        },
-        {
-          x: 7,
-          y: -88,
-        },
-        {
-          x: 8,
-          y: -120,
-        },
-        {
-          x: 9,
-          y: -156,
-        },
-        {
-          x: 10,
-          y: -123,
-        },
-        {
-          x: 11,
-          y: -88,
-        },
-        {
-          x: 12,
-          y: -66,
-        },
-        {
-          x: 13,
-          y: -45,
-        },
-        {
-          x: 14,
-          y: -29,
-        },
-        {
-          x: 15,
-          y: -45,
-        },
-        {
-          x: 16,
-          y: -88,
-        },
-        {
-          x: 17,
-          y: -132,
-        },
-        {
-          x: 18,
-          y: -146,
-        },
-        {
-          x: 19,
-          y: -169,
-        },
-        {
-          x: 20,
-          y: -184,
-        },
-      ],
-    },
-  ];
-
+  {
+    // const options = {
+    //   chart: {
+    //     height: 350,
+    //     type: "area",
+    //   },
+    //   title: {
+    //     text: "Credits Deployed: 745",
+    //     align: "left",
+    //     style: {
+    //       fontSize: "14px",
+    //     },
+    //   },
+    //   dataLabels: {
+    //     enabled: false,
+    //   },
+    //   stroke: {
+    //     curve: "smooth",
+    //   },
+    //   xaxis: {
+    //     labels: {
+    //       format: "MM",
+    //     },
+    //     axisBorder: {
+    //       show: false,
+    //     },
+    //     axisTicks: {
+    //       show: false,
+    //     },
+    //   },
+    //   yaxis: {
+    //     tickAmount: 4,
+    //     floating: false,
+    //     labels: {
+    //       offsetY: -7,
+    //       offsetX: 0,
+    //     },
+    //     axisBorder: {
+    //       show: false,
+    //     },
+    //     axisTicks: {
+    //       show: false,
+    //     },
+    //   },
+    //   tooltip: {
+    //     x: {
+    //       format: "yyyy",
+    //     },
+    //     fixed: {
+    //       enabled: false,
+    //       position: "topRight",
+    //     },
+    //   },
+    // };
+    // const series = [
+    //   {
+    //     name: "Text",
+    //     data: [
+    //       {
+    //         x: 1,
+    //         y: 322,
+    //       },
+    //       {
+    //         x: 2,
+    //         y: 324,
+    //       },
+    //       {
+    //         x: 3,
+    //         y: 329,
+    //       },
+    //       {
+    //         x: 4,
+    //         y: 342,
+    //       },
+    //       {
+    //         x: 5,
+    //         y: 348,
+    //       },
+    //       {
+    //         x: 6,
+    //         y: 334,
+    //       },
+    //       {
+    //         x: 7,
+    //         y: 325,
+    //       },
+    //       {
+    //         x: 8,
+    //         y: 316,
+    //       },
+    //       {
+    //         x: 9,
+    //         y: 318,
+    //       },
+    //       {
+    //         x: 10,
+    //         y: 330,
+    //       },
+    //       {
+    //         x: 11,
+    //         y: 355,
+    //       },
+    //       {
+    //         x: 12,
+    //         y: 366,
+    //       },
+    //       {
+    //         x: 13,
+    //         y: 337,
+    //       },
+    //       {
+    //         x: 14,
+    //         y: 352,
+    //       },
+    //       {
+    //         x: 15,
+    //         y: 377,
+    //       },
+    //       {
+    //         x: 16,
+    //         y: 383,
+    //       },
+    //       {
+    //         x: 17,
+    //         y: 344,
+    //       },
+    //       {
+    //         x: 18,
+    //         y: 366,
+    //       },
+    //       {
+    //         x: 19,
+    //         y: 389,
+    //       },
+    //       {
+    //         x: 20,
+    //         y: 334,
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     name: "Voice",
+    //     data: [
+    //       {
+    //         x: 1,
+    //         y: 162,
+    //       },
+    //       {
+    //         x: 2,
+    //         y: 90,
+    //       },
+    //       {
+    //         x: 3,
+    //         y: 50,
+    //       },
+    //       {
+    //         x: 4,
+    //         y: 77,
+    //       },
+    //       {
+    //         x: 5,
+    //         y: 35,
+    //       },
+    //       {
+    //         x: 6,
+    //         y: -45,
+    //       },
+    //       {
+    //         x: 7,
+    //         y: -88,
+    //       },
+    //       {
+    //         x: 8,
+    //         y: -120,
+    //       },
+    //       {
+    //         x: 9,
+    //         y: -156,
+    //       },
+    //       {
+    //         x: 10,
+    //         y: -123,
+    //       },
+    //       {
+    //         x: 11,
+    //         y: -88,
+    //       },
+    //       {
+    //         x: 12,
+    //         y: -66,
+    //       },
+    //       {
+    //         x: 13,
+    //         y: -45,
+    //       },
+    //       {
+    //         x: 14,
+    //         y: -29,
+    //       },
+    //       {
+    //         x: 15,
+    //         y: -45,
+    //       },
+    //       {
+    //         x: 16,
+    //         y: -88,
+    //       },
+    //       {
+    //         x: 17,
+    //         y: -132,
+    //       },
+    //       {
+    //         x: 18,
+    //         y: -146,
+    //       },
+    //       {
+    //         x: 19,
+    //         y: -169,
+    //       },
+    //       {
+    //         x: 20,
+    //         y: -184,
+    //       },
+    //     ],
+    //   },
+    // ];
+  }
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -444,52 +486,54 @@ const ChatBoot = (props) => {
                     props.selecteduser.contact.lastName
                   : ""}
               </h4>
-              <div className="header-action">
-                <button
-                  className="btn btn-more-option dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <MoreVertIcon />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton2"
-                >
-                  <li onClick={props.handleMute}>
-                    {" "}
-                    <NotificationsOffIcon /> Mute
-                  </li>
-                  <li
-                    onClick={() =>
-                      props.handleOptOut(
-                        props.selecteduser.contact.phoneSubs == "opted-in"
-                          ? "opted-out"
-                          : "opted-in"
-                      )
-                    }
-                  >
-                    {props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.phoneSubs == "opted-in" ? (
-                      <WifiOffIcon />
-                    ) : (
-                      <WifiIcon />
-                    )}
-                    {props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.phoneSubs == "opted-in"
-                      ? "Opted Out"
-                      : "Opted In"}
-                  </li>
-                  <li onClick={props.handleBlock}>
-                    {" "}
-                    <BlockIcon /> Block
-                  </li>
-                </ul>
-              </div>
+              {
+                // <div className="header-action">
+                //   <button
+                //     className="btn btn-more-option dropdown-toggle"
+                //     type="button"
+                //     id="dropdownMenuButton2"
+                //     data-bs-toggle="dropdown"
+                //     aria-expanded="false"
+                //   >
+                //     <MoreVertIcon />
+                //   </button>
+                //   <ul
+                //     className="dropdown-menu"
+                //     aria-labelledby="dropdownMenuButton2"
+                //   >
+                //     <li onClick={props.handleMute}>
+                //       {" "}
+                //       <NotificationsOffIcon /> Mute
+                //     </li>
+                //     <li
+                //       onClick={() =>
+                //         props.handleOptOut(
+                //           props.selecteduser.contact.phoneSubs == "opted-in"
+                //             ? "opted-out"
+                //             : "opted-in"
+                //         )
+                //       }
+                //     >
+                //       {props.selecteduser &&
+                //       props.selecteduser.contact &&
+                //       props.selecteduser.contact.phoneSubs == "opted-in" ? (
+                //         <WifiOffIcon />
+                //       ) : (
+                //         <WifiIcon />
+                //       )}
+                //       {props.selecteduser &&
+                //       props.selecteduser.contact &&
+                //       props.selecteduser.contact.phoneSubs == "opted-in"
+                //         ? "Opted Out"
+                //         : "Opted In"}
+                //     </li>
+                //     <li onClick={props.handleBlock}>
+                //       {" "}
+                //       <BlockIcon /> Block
+                //     </li>
+                //   </ul>
+                // </div>
+              }
             </div>
             <div className="chat-now">
               <TextChat
@@ -975,7 +1019,15 @@ const ChatBoot = (props) => {
           <div className="monthly-credit-use">
             <h1>Monthly Credit usage</h1>
             <div className="monthly-graph">
-              <Chart options={options} series={series} type="area" />
+              {
+                // <Chart options={options} series={series} type="area" />
+              }
+              <ReactApexChart
+                options={options}
+                series={series}
+                type="area"
+                height={350}
+              />
             </div>
             <div className="monthly-progressbar">
               <h2>Perfromance</h2>

@@ -15,7 +15,15 @@ import WifiIcon from "@material-ui/icons/Wifi";
 import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const VoiceChatBoot = (props) => {
   const userVoiceMessageList = () => {
@@ -64,79 +72,79 @@ const VoiceChatBoot = (props) => {
   };
   const data = [
     {
-      name: 'Page A',
-      uv:1500,
-    },
-    {
-      name: 'Page C',
-      uv: 1400,
-    },
-    {
-      name: 'Page B',
-      uv: 4000,
-    },
-    {
-      name: 'Page C',
-      uv: 1400,
-    },
-    {
-      name: 'Page D',
-      uv: 1800,
-    },
-    {
-      name: 'Page E',
-      uv: 1100,
-    },
-    {
-      name: 'Page F',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
-      uv: 1900,
-    },
-    {
-      name: 'Page G',
-      uv: 1600,
-    },
-    {
-      name: 'Page G',
-      uv: 1700,
-    },
-    {
-      name: 'Page G',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
-      uv: 1900,
-    },
-    {
-      name: 'Page G',
-      uv: 2100,
-    },
-    {
-      name: 'Page G',
+      name: "Page A",
       uv: 1500,
     },
     {
-      name: 'Page G',
-      uv: 1800,
-    },
-    {
-      name: 'Page G',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
+      name: "Page C",
       uv: 1400,
     },
     {
-      name: 'Page G',
+      name: "Page B",
+      uv: 4000,
+    },
+    {
+      name: "Page C",
+      uv: 1400,
+    },
+    {
+      name: "Page D",
+      uv: 1800,
+    },
+    {
+      name: "Page E",
       uv: 1100,
     },
     {
-      name: 'Page G',
+      name: "Page F",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1900,
+    },
+    {
+      name: "Page G",
+      uv: 1600,
+    },
+    {
+      name: "Page G",
+      uv: 1700,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1900,
+    },
+    {
+      name: "Page G",
+      uv: 2100,
+    },
+    {
+      name: "Page G",
+      uv: 1500,
+    },
+    {
+      name: "Page G",
+      uv: 1800,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1400,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
       uv: 1500,
     },
   ];
@@ -147,7 +155,7 @@ const VoiceChatBoot = (props) => {
           <div className="chat-list-filter">
             <form className="main-form">
               <div className="field-group flexFull searchField">
-                <input 
+                <input
                   type="text"
                   name="name"
                   className="form-control"
@@ -175,52 +183,54 @@ const VoiceChatBoot = (props) => {
                     props.selecteduser.contact.lastName
                   : ""}
               </h4>
-              <div className="header-action">
-                <button
-                  className="btn btn-more-option dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <MoreVertIcon />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton2"
-                >
-                  <li onClick={props.handleMute}>
-                    {" "}
-                    <NotificationsOffIcon /> Mute
-                  </li>
-                  <li
-                    onClick={() =>
-                      props.handleOptOut(
-                        props.selecteduser.contact.voiceSubs == "opted-in"
-                          ? "opted-out"
-                          : "opted-in"
-                      )
-                    }
-                  >
-                    {props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.voiceSubs == "opted-in" ? (
-                      <WifiOffIcon />
-                    ) : (
-                      <WifiIcon />
-                    )}
-                    {props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.voiceSubs == "opted-in"
-                      ? "Opted Out"
-                      : "Opted In"}
-                  </li>
-                  <li onClick={props.handleBlock}>
-                    {" "}
-                    <BlockIcon /> Block
-                  </li>
-                </ul>
-              </div>
+              {
+                // <div className="header-action">
+                //   <button
+                //     className="btn btn-more-option dropdown-toggle"
+                //     type="button"
+                //     id="dropdownMenuButton2"
+                //     data-bs-toggle="dropdown"
+                //     aria-expanded="false"
+                //   >
+                //     <MoreVertIcon />
+                //   </button>
+                //   <ul
+                //     className="dropdown-menu"
+                //     aria-labelledby="dropdownMenuButton2"
+                //   >
+                //     <li onClick={props.handleMute}>
+                //       {" "}
+                //       <NotificationsOffIcon /> Mute
+                //     </li>
+                //     <li
+                //       onClick={() =>
+                //         props.handleOptOut(
+                //           props.selecteduser.contact.voiceSubs == "opted-in"
+                //             ? "opted-out"
+                //             : "opted-in"
+                //         )
+                //       }
+                //     >
+                //       {props.selecteduser &&
+                //       props.selecteduser.contact &&
+                //       props.selecteduser.contact.voiceSubs == "opted-in" ? (
+                //         <WifiOffIcon />
+                //       ) : (
+                //         <WifiIcon />
+                //       )}
+                //       {props.selecteduser &&
+                //       props.selecteduser.contact &&
+                //       props.selecteduser.contact.voiceSubs == "opted-in"
+                //         ? "Opted Out"
+                //         : "Opted In"}
+                //     </li>
+                //     <li onClick={props.handleBlock}>
+                //       {" "}
+                //       <BlockIcon /> Block
+                //     </li>
+                //   </ul>
+                // </div>
+              }
             </div>
             <div className="chat-now">
               <VoiceRecordingChat
@@ -344,29 +354,27 @@ const VoiceChatBoot = (props) => {
                       props.isNewVoiceActive == false) ||
                     props.audioFileName !== null ? (
                       <>
-                             <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={()=>{
-                          props.handlePlay();
-                          return;
-                        }
-                          
-                        }
-                      >
-                        Play
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={
-                          props.audioFileName !== null
-                            ? props.handleSingleVoiceUpload
-                            : props.handleSendSingleContactVoice
-                        }
-                      >
-                        Send
-                      </button>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => {
+                            props.handlePlay();
+                            return;
+                          }}
+                        >
+                          Play
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={
+                            props.audioFileName !== null
+                              ? props.handleSingleVoiceUpload
+                              : props.handleSendSingleContactVoice
+                          }
+                        >
+                          Send
+                        </button>
                       </>
                     ) : (
                       <button
@@ -598,38 +606,52 @@ const VoiceChatBoot = (props) => {
               </li>
             </ul>
           </div>
-          
 
           {/* Monthly credit usage column start */}
-            <div className="monthly-credit-use">
-              <h1>Monthly Credit usage</h1>
-              <div className="monthly-graph">
-              <ResponsiveContainer width={'99%'} height={150}>
-              <AreaChart
-                width={310}
-                height={150}
-                data={data}
-                margin={{
-                  top: 5,
-                  right: 0,
-                  left: 0,
-                  bottom: 5,
-                }}
-              >
-              <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="15%" stopColor="#28dcbf" stopOpacity={0.7}/>
-                <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
-              </linearGradient>
-            </defs>
-            <Tooltip />
-                <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
-              </AreaChart>
+          <div className="monthly-credit-use">
+            <h1>Monthly Credit usage</h1>
+            <div className="monthly-graph">
+              <ResponsiveContainer width={"99%"} height={150}>
+                <AreaChart
+                  width={310}
+                  height={150}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 0,
+                    left: 0,
+                    bottom: 5,
+                  }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="15%"
+                        stopColor="#28dcbf"
+                        stopOpacity={0.7}
+                      />
+                      <stop
+                        offset="80%"
+                        stopColor="#41e3c926"
+                        stopOpacity={0.5}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    strokeWidth={4}
+                    dataKey="uv"
+                    stroke="#28dcbf"
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                  />
+                </AreaChart>
               </ResponsiveContainer>
-              </div>
             </div>
+          </div>
 
-            {/* Monthly credit usage column end */}
+          {/* Monthly credit usage column end */}
         </div>
       </div>
     </div>
