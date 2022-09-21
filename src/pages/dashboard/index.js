@@ -217,15 +217,15 @@ const Dashboard = (props) => {
   const voicelatestpercentage = 15;
 
   const textpercentage = 6;
+  const handleSubData=async()=>{
+    let res = await GetSubscriptionData();
+    if (res && res.data && res.status == 200) {
+      setSubData(res?.data?.data);
+    }
+  }
 
   useEffect(() => {
-    const handleGetData = async () => {
-      let res = await GetSubscriptionData();
-      if (res && res.data && res.status == 200) {
-        setSubData(res?.data?.data);
-      }
-    };
-    return () => handleGetData();
+    handleSubData()
   }, []);
 
   return (
@@ -311,14 +311,14 @@ const Dashboard = (props) => {
                       <span className="price-value">
                         <span className="month43">
                           {moment().format("MMMM")} .
-                        </span>{" "}
+                        </span>
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.email_cridit_used) || 0}
+                          Number(subData?.email_cridit_used) ||0}
                         /
                         {Number(subData?.email_cridit) +
                           Number(subData?.sms_cridit) +
-                          Number(subData?.voice_cridit) || 0}
+                          Number(subData?.voice_cridit) ||0 }
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -326,9 +326,6 @@ const Dashboard = (props) => {
                   <div className="value-graph">
                     <Currentgraph />
 
-                    {
-                      // <div id="dashboard-sparkline-carousel-3"></div>
-                    }
                   </div>
                   <div className="top-performance-field">
                     <h2>Credit Balance</h2>
