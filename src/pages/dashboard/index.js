@@ -350,7 +350,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small>{" "}
+                                  <small></small>
                                   {subData?.sms_cridit_used || 0}
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
