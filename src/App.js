@@ -215,15 +215,17 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
-        <Route
-          exact
-          path="/email"
-          element={
-            <IsAuthenticated>
-              <EmailPage />
-            </IsAuthenticated>
-          }
-        />
+        {
+          // <Route
+          //   exact
+          //   path="/email"
+          //   element={
+          //     <IsAuthenticated>
+          //       <EmailPage />
+          //     </IsAuthenticated>
+          //   }
+          // />
+        }
         <Route
           exact
           path="/search"
