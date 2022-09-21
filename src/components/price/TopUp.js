@@ -65,25 +65,67 @@ const TopUp = ({
     setIsEmail(false);
     setIsVoice(false);
   }, []);
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
-  let sms = [
-    {
-      quantity: 1000,
-      amount: 50,
-    },
-    {
-      quantity: 2500,
-      amount: 125,
-    },
-    {
-      quantity: 5000,
-      amount: 250,
-    },
-    {
-      quantity: 10000,
-      amount: 250,
-    },
-  ];
+  let sms = {
+    stater: [
+      {
+        quantity: 1000,
+        amount: 50,
+      },
+      {
+        quantity: 2500,
+        amount: 125,
+      },
+      {
+        quantity: 5000,
+        amount: 250,
+      },
+      {
+        quantity: 10000,
+        amount: 500,
+      },
+    ],
+    comunicator: [
+      {
+        quantity: 1000,
+        amount: 50,
+      },
+      {
+        quantity: 2500,
+        amount: 125,
+      },
+      {
+        quantity: 5000,
+        amount: 250,
+      },
+      {
+        quantity: 10000,
+        amount: 500,
+      },
+    ],
+    hyper: [
+      {
+        quantity: 1000,
+        amount: 50,
+      },
+      {
+        quantity: 2500,
+        amount: 125,
+      },
+      {
+        quantity: 5000,
+        amount: 250,
+      },
+      {
+        quantity: 10000,
+        amount: 500,
+      },
+    ],
+  };
+
   let email = [
     {
       quantity: 1000,
@@ -146,7 +188,6 @@ const TopUp = ({
             Top Up
           </Button>
         </div>
-
         <div className="subscribe-mbtn">
           <Button
             className={isSms ? "active" : null}
@@ -164,44 +205,47 @@ const TopUp = ({
               VoiceToggleClass();
             }}
           >
-            Voice
-          </Button>
-          <Button
-            className={isEmail ? "active" : null}
-            onClick={() => {
-              handleproduct("Email");
-              EmailToggleClass();
-            }}
-          >
-            Email
+            MMS
           </Button>
         </div>
+        {
+          // <h1 style={{ textAlign: "center" }}>{activeProduct}</h1>
+        }
 
-        <h1 style={{ textAlign: "center" }}>{activeProduct}</h1>
-        <div className="subscribe-list">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Credit quantity</th>
-                <th scope="col">Credit quantity</th>
-                <th scope="col">Select</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((i) => {
-                return (
-                  <tr>
-                    <td>{i.quantity}</td>
-                    <td>{i.amount}</td>
-                    <td>
-                      <Button>Buy</Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        {Object.keys(sms)?.map((q) => {
+          return (
+            <>
+              <h1 style={{ textAlign: "center" }}>
+                {capitalizeFirstLetter(q)}
+              </h1>
+
+              <div className="subscribe-list">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Volume</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Select</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sms[q]?.map((w) => {
+                      return (
+                        <tr>
+                          <td>{w.quantity}</td>
+                          <td>{w.amount}</td>
+                          <td>
+                            <Button>Buy</Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          );
+        })}
       </div>
     </div>
   );
