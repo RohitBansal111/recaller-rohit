@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState  , useEffect} from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -36,8 +36,10 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { GetSubscriptionData } from "../../api/plans";
 
 const EmailChatBoot = (props) => {
+  const [subData, setSubData] = useState({});
   const data = [
     {
       name: 'Page A',
@@ -204,6 +206,15 @@ const EmailChatBoot = (props) => {
       return uploadAdapter(loader);
     };
   }
+  useEffect(() => {
+    const handleGetData = async () => {
+      let res = await GetSubscriptionData();
+      if (res && res.data && res.status == 200) {
+        setSubData(res?.data?.data);
+      }
+    };
+    return () => handleGetData();
+  }, []);
 
   return (
     <div className="chatbox-warpper">
@@ -770,11 +781,11 @@ const EmailChatBoot = (props) => {
             <ul>
               <li>
                 <b>Credit used</b>
-                <span>$1900</span>
+                <span>${subData?.email_cridit_used||0}</span>
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>$75000</span>
+                <span>${subData?.email_cridit_remain||0}</span>
               </li>
             </ul>
           </div>

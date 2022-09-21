@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState , useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -26,7 +26,7 @@ import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 
 import Chart from "react-apexcharts";
-
+import { GetSubscriptionData } from "../../api/plans";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
 import CloseIcon from "@mui/icons-material/Close";
@@ -46,6 +46,7 @@ import {
 import VoiceProgressBar from "./ProgreeBar";
 
 const ChatBoot = (props) => {
+  const [subData, setSubData] = useState({});
   const data = [
     {
       name: "Page A",
@@ -220,6 +221,17 @@ const ChatBoot = (props) => {
     },
   ];
 
+
+  useEffect(() => {
+    const handleGetData = async () => {
+      let res = await GetSubscriptionData();
+      if (res && res.data && res.status == 200) {
+      
+        setSubData(res?.data?.data);
+      }
+    };
+    return () => handleGetData();
+  }, []);
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -774,11 +786,11 @@ const ChatBoot = (props) => {
             <ul>
               <li>
                 <b>Credit used</b>
-                <span>$1900</span>
+                <span>${subData.sms_cridit_used}</span>
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>$75000</span>
+                <span>${subData.sms_cridit_remain}</span>
               </li>
             </ul>
           </div>

@@ -44,6 +44,7 @@ import Lastgraph from "../../components/Dashboard/Lastgraph";
 import Yeargraph from "../../components/Dashboard/yeargraph";
 import moment from 'moment'
 const Dashboard = (props) => {
+  const toastId = React.useRef(null);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -150,7 +151,10 @@ const Dashboard = (props) => {
     if (iscampaignValid()) {
       const res = await addCompaignApi(data);
       if (res && res.data && res.data.status === 200) {
-        toast.success("Campaign Addedd");
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success("Campaign Added");
+        }
+
         handleCompaignClose(false);
         getContactCompaign();
       } else {
@@ -163,7 +167,13 @@ const Dashboard = (props) => {
   const handleEdit = async () => {
     const res = await updateCompaignApi(edit.value, data);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Edit Compaign");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Campaign updated successfully");
+      }
+
+      {
+        // toast.success("Campaign updated successfully");
+      }
       handleCompaignClose(false);
       getContactCompaign();
     } else {
@@ -299,11 +309,14 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">{moment().format('MMMM')} .</span>{" "}
+                        <span className="month43">
+                          {moment().format("MMMM")} .
+                        </span>{" "}
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
                           Number(subData?.email_cridit_used) || 0}
-                        /{Number(subData?.email_cridit) +
+                        /
+                        {Number(subData?.email_cridit) +
                           Number(subData?.sms_cridit) +
                           Number(subData?.voice_cridit) || 0}
                       </span>

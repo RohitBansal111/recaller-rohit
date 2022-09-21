@@ -87,7 +87,7 @@ const Signup = () => {
         formData = false;
         break;
       case data.password !== data.repeatPassword:
-        setErrors({ repeatPassword: "Repeat Password is required!" });
+        setErrors({ repeatPassword: "Those passwords didn't match.Try again" });
         formData = false;
         break;
       case !check:
