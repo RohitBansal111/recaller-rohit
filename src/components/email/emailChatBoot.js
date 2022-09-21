@@ -42,79 +42,79 @@ const EmailChatBoot = (props) => {
   const [subData, setSubData] = useState({});
   const data = [
     {
-      name: 'Page A',
-      uv:1500,
-    },
-    {
-      name: 'Page C',
-      uv: 1400,
-    },
-    {
-      name: 'Page B',
-      uv: 4000,
-    },
-    {
-      name: 'Page C',
-      uv: 1400,
-    },
-    {
-      name: 'Page D',
-      uv: 1800,
-    },
-    {
-      name: 'Page E',
-      uv: 1100,
-    },
-    {
-      name: 'Page F',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
-      uv: 1900,
-    },
-    {
-      name: 'Page G',
-      uv: 1600,
-    },
-    {
-      name: 'Page G',
-      uv: 1700,
-    },
-    {
-      name: 'Page G',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
-      uv: 1900,
-    },
-    {
-      name: 'Page G',
-      uv: 2100,
-    },
-    {
-      name: 'Page G',
+      name: "Page A",
       uv: 1500,
     },
     {
-      name: 'Page G',
-      uv: 1800,
-    },
-    {
-      name: 'Page G',
-      uv: 1100,
-    },
-    {
-      name: 'Page G',
+      name: "Page C",
       uv: 1400,
     },
     {
-      name: 'Page G',
+      name: "Page B",
+      uv: 4000,
+    },
+    {
+      name: "Page C",
+      uv: 1400,
+    },
+    {
+      name: "Page D",
+      uv: 1800,
+    },
+    {
+      name: "Page E",
       uv: 1100,
     },
     {
-      name: 'Page G',
+      name: "Page F",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1900,
+    },
+    {
+      name: "Page G",
+      uv: 1600,
+    },
+    {
+      name: "Page G",
+      uv: 1700,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1900,
+    },
+    {
+      name: "Page G",
+      uv: 2100,
+    },
+    {
+      name: "Page G",
+      uv: 1500,
+    },
+    {
+      name: "Page G",
+      uv: 1800,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
+      uv: 1400,
+    },
+    {
+      name: "Page G",
+      uv: 1100,
+    },
+    {
+      name: "Page G",
       uv: 1500,
     },
   ];
@@ -371,32 +371,34 @@ const EmailChatBoot = (props) => {
                               </div>
                             ) : (
                               <>
-                              <div className="field-group flexFull">
-                              {/* <label>Email Subject</label> */}
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Subject"
-                                name="subject"
-                                value={props.emailSubject}
-                                onChange={props.handleSubjectChange}
-                              />
-                              <span className="spanError">{props.errors.selected}</span>
-                            </div>
-                              <div className="attachedImage-box email-emailEditor">
-                                <CKEditor
-                                  editor={ClassicEditor}
-                                  data={`${props.sendEmailMessage}`}
-                                  onChange={(event, editor) => {
-                                    const data = editor.getData();
-                                    props.onHandleChange(data);
-                                  }}
-                                  config={{
-                                    extraPlugins: [uploadPlugin],
-                                  }}
-                                  editorLoaded={props.editorLoaded}
-                                />
-                              </div>
+                                <div className="field-group flexFull">
+                                  {/* <label>Email Subject</label> */}
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter Subject"
+                                    name="subject"
+                                    value={props.emailSubject}
+                                    onChange={props.handleSubjectChange}
+                                  />
+                                  <span className="spanError">
+                                    {props.errors.selected}
+                                  </span>
+                                </div>
+                                <div className="attachedImage-box email-emailEditor">
+                                  <CKEditor
+                                    editor={ClassicEditor}
+                                    data={`${props.sendEmailMessage}`}
+                                    onChange={(event, editor) => {
+                                      const data = editor.getData();
+                                      props.onHandleChange(data);
+                                    }}
+                                    config={{
+                                      extraPlugins: [uploadPlugin],
+                                    }}
+                                    editorLoaded={props.editorLoaded}
+                                  />
+                                </div>
                               </>
                             )}
                           </div>
@@ -790,37 +792,50 @@ const EmailChatBoot = (props) => {
             </ul>
           </div>
 
-
-
-            {/* Monthly credit usage column start */}
-            <div className="monthly-credit-use">
+          {/* Monthly credit usage column start */}
+          <div className="monthly-credit-use">
             <h1>Monthly Credit usage</h1>
             <div className="monthly-graph">
-            <ResponsiveContainer width={'99%'} height={150}>
-            <AreaChart
-              width={310}
-              height={150}
-              data={data}
-              margin={{
-                top: 5,
-                right: 0,
-                left: 0,
-                bottom: 5,
-              }}
-            >
-            <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="15%" stopColor="#28dcbf" stopOpacity={0.7}/>
-              <stop offset="80%" stopColor="#41e3c926" stopOpacity={0.5}/>
-            </linearGradient>
-          </defs>
-          <Tooltip />
-              <Area type="monotone" strokeWidth={4}  dataKey="uv" stroke="#28dcbf"   fillOpacity={1} fill="url(#colorUv)"/>
-            </AreaChart>
-            </ResponsiveContainer>
+              <ResponsiveContainer width={"99%"} height={150}>
+                <AreaChart
+                  width={310}
+                  height={150}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 0,
+                    left: 0,
+                    bottom: 5,
+                  }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="15%"
+                        stopColor="#28dcbf"
+                        stopOpacity={0.7}
+                      />
+                      <stop
+                        offset="80%"
+                        stopColor="#41e3c926"
+                        stopOpacity={0.5}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    strokeWidth={4}
+                    dataKey="uv"
+                    stroke="#28dcbf"
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </div>
- 
+
           {/* Monthly credit usage column end */}
         </div>
         <ScheduleMessageModal

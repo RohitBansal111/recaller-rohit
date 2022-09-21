@@ -383,6 +383,7 @@ const Import = () => {
 
   const handleJDChange = async (e) => {
     setErrors({});
+    console.log("qq", e.target.name);
     setInputValue(e.target.value);
     let value = e.target.value;
     if (value) {
@@ -469,6 +470,10 @@ const Import = () => {
   };
 
   const onhandleEditFilterChange = (e) => {
+    const value = e.target.value.replace(/[^\d]/, "");
+    if (+value < 0) {
+      setValue(value);
+    }
     if (e.target.name == "property") {
       setEditFilterValue({
         ...editFilterValue,

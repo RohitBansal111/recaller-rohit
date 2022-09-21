@@ -71,6 +71,11 @@ const CreateNewFilter = (props) => {
       );
     });
   };
+  const preventMinus = (e) => {
+    if (e.code === "Minus") {
+      e.preventDefault();
+    }
+  };
 
   return (
     <div className="create-filter">
@@ -146,10 +151,11 @@ const CreateNewFilter = (props) => {
                 props.rules == "Exactly" ? (
                   <>
                     <Input
+                      onKeyPress={preventMinus}
                       type="number"
                       name="val"
                       inputProps={{
-                        min: 1,
+                        min: 0,
                       }}
                       value={props.inputValue.val}
                       onChange={props.handleJDChange}

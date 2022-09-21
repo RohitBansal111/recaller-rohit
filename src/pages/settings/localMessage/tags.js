@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useEffect, useState } from "react";
 import CreateTagModal from "../../../components/settings/createTagModal";
 import ConversationTagsTable from "../../../components/settings/tags-table";
@@ -22,6 +24,7 @@ const ConversationTags = () => {
   const [openEditTagModal, setOpenEditTagModal] = useState(false);
   const [openDelTagModal, setOpenDelTagModal] = useState(false);
   const [errors, setErrors] = useState({});
+  const toastId = React.useRef(null);
 
   const isValid = () => {
     let formData = true;
@@ -102,7 +105,10 @@ const ConversationTags = () => {
   const handleEdit = async () => {
     let res = await updateTagsApi(addTags._id, addTags);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tag Edit Successfully");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Tag Updated Successfully");
+      }
+
       setOpenEditTagModal(false);
       getTags();
     }
@@ -122,62 +128,62 @@ const ConversationTags = () => {
     if (res && res.data && res.data.status === 200) {
       setOpenDelTagModal(false);
       getTags();
-      toast.success("Tag Deleted Successfully")
+      toast.success("Tag Deleted Successfully");
     }
   };
 
   return (
     <Layout>
-    <div className="content-page-layout">
-      <div className="page-header subheading-bar">
-        <div className="header-text">
-          <h1>Settings</h1>
-          <p>
-            {<Link to={"/settings"}>Settings</Link>}
-            <MdChevronRight />
-            {<Link to={"/settings/text"}>Text</Link>}
-            <MdChevronRight />
-            Conversation Tags
-          </p>
+      <div className="content-page-layout">
+        <div className="page-header subheading-bar">
+          <div className="header-text">
+            <h1>Settings</h1>
+            <p>
+              {<Link to={"/settings"}>Settings</Link>}
+              <MdChevronRight />
+              {<Link to={"/settings/text"}>Text</Link>}
+              <MdChevronRight />
+              Conversation Tags
+            </p>
+          </div>
+          <div className="header-action">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={openCTModal}
+            >
+              Create Tag
+            </button>
+          </div>
         </div>
-        <div className="header-action">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={openCTModal}
-          >
-            Create Tag
-          </button>
+        <div className="setting-page-main">
+          <ConversationTagsTable
+            tags={tags}
+            handleEditClick={handleEditClick}
+            openEditTagModal={openEditTagModal}
+            handleCloseETModal={handleCloseETModal}
+            handleEdit={handleEdit}
+            editTags={addTags}
+            handleChange={handleEditChange}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleDelModal={handleDelModal}
+            showDeleteTagModal={openDelTagModal}
+            handleDeleteTags={handleDeleteTags}
+            handleCloseDeleteModal={handleCloseDeleteModal}
+          />
         </div>
-      </div>
-      <div className="setting-page-main">
-        <ConversationTagsTable
-          tags={tags}
-          handleEditClick={handleEditClick}
-          openEditTagModal={openEditTagModal}
-          handleCloseETModal={handleCloseETModal}
-          handleEdit={handleEdit}
-          editTags={addTags}
-          handleChange={handleEditChange}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleDelModal={handleDelModal}
-          showDeleteTagModal={openDelTagModal}
-          handleDeleteTags={handleDeleteTags}
-          handleCloseDeleteModal={handleCloseDeleteModal}
+        <CreateTagModal
+          open={openCreateTagModal}
+          handleCloseCTModal={handleCloseCTModal}
+          handleChange={handleChange}
+          handleClick={handleClick}
+          addTags={addTags}
+          errors={errors}
         />
       </div>
-      <CreateTagModal
-        open={openCreateTagModal}
-        handleCloseCTModal={handleCloseCTModal}
-        handleChange={handleChange}
-        handleClick={handleClick}
-        addTags={addTags}
-        errors={errors}
-      />
-    </div>
     </Layout>
   );
 };

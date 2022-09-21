@@ -152,7 +152,7 @@ const ContactModal = (props) => {
             </div> */}
 
             <div className="field-group flexFull">
-              <label> Create Campaign </label>
+              <label> Campaign </label>
               <SelectCampaign
                 isClearable={true}
                 onChange={setSelectedCampaign}
@@ -172,9 +172,11 @@ const ContactModal = (props) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Dismiss
-          </Button>
+          {
+            // <Button variant="secondary" onClick={props.handleClose}>
+            //   Dismiss
+            // </Button>
+          }
           <LoadingButton
             loadingPosition="center"
             loading={props.loading}

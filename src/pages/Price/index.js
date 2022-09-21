@@ -66,12 +66,13 @@ const Price = () => {
   };
 
   const hnadleSub_Button = (sub_name, sub_price) => {
-    setData({
-      ...data,
-      amount: Number(sub_price) * 100,
-      name: sub_name,
-    });
-    setOpen(true);
+    // setData({
+    //   ...data,
+    //   amount: Number(sub_price) * 100,
+    //   name: sub_name,
+    // });
+    // setOpen(true);
+    console.log('un Comment Me ')
   };
   const handleClose = () => {
     setOpen(false);
@@ -137,14 +138,14 @@ const Price = () => {
                 className={annualisActive ? "active" : null}
                 onClick={annualtoggleClass}
               >
-                annual
+                Annual
               </Button>
-              <Button
+              {/* <Button
                 className={smsisActive ? "active" : null}
                 onClick={smstoggleClass}
               >
                 Top Up
-              </Button>
+              </Button> */}
             </div>
             <div className="subscribe-list">
               <Row>

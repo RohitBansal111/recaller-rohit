@@ -1,3 +1,5 @@
+import React from "react";
+
 import moment from "moment";
 import { createRef, useEffect, useRef, useState } from "react";
 import { Dropdown } from "react-bootstrap";
@@ -39,6 +41,7 @@ import date from "date-and-time";
 import Layout from "../../components/layout";
 
 const EmailPage = () => {
+  const toastId = React.useRef(null);
   var today = new Date();
   const curTime = today.getHours() + ":" + today.getMinutes();
 
@@ -378,8 +381,11 @@ const EmailPage = () => {
 
   const handleEdit = async () => {
     let res = await updateTagsApi(addTags._id, addTags);
+
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tag Edit Successfully");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Tag Updated Successfully");
+      }
       setOpenEditTagModal(false);
       getTags();
     }
@@ -644,7 +650,7 @@ const EmailPage = () => {
     if (res && res.data && res.data.status === 200) {
       setSendEmailMessage("");
       //email subject make empty
-      setEmailSubject('')
+      setEmailSubject("");
       scrollToBottom();
       setLoading(false);
       setSchedule(false);
@@ -685,14 +691,13 @@ const EmailPage = () => {
   };
 
   const handleConDataEdit = async () => {
-    console.log("edit data :::",editContact)
+    console.log("edit data :::", editContact);
     const editData = {
       firstName: editContact.firstName,
       lastName: editContact.lastName,
       phoneSubs: editContact.phoneSubs,
       emailSubs: editContact.emailSubs,
-      compaign:editContact.compaign?editContact.compaign:''
-      
+      compaign: editContact.compaign ? editContact.compaign : "",
     };
     const res = await updateContactApi(editContact._id, editData);
     if (res && res.data && res.data.status === 200) {
@@ -1059,7 +1064,7 @@ const EmailPage = () => {
       setLoading(true);
       let contactid = bulkSelected.value;
       const obj = {
-        subject:emailSubject,
+        subject: emailSubject,
         message: emailMessage,
         compaignId: contactid,
         schedule: schedule ? true : false,
@@ -1102,8 +1107,8 @@ const EmailPage = () => {
 
   return (
     <Layout>
-    <div className="content-page-layout text-page-content">
-      {/* <div className="page-header justify-flex-end">
+      <div className="content-page-layout text-page-content">
+        {/* <div className="page-header justify-flex-end">
         <button
           type="button"
           className="btn btn-medium btn-primary"
@@ -1112,86 +1117,170 @@ const EmailPage = () => {
           New Email
         </button>
       </div> */}
-      <div className="page-header justify-flex-end">
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="success"
-            id="dropdown-basic"
-            className="btn btn-medium btn-primary"
-          >
-            New Email
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={handleNewMessage}>
-              Individual Email Message
-            </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
-              Bulk Campaign Message
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-      <div className="text-main-section">
-        <EmailChatBoot
-          openManageTagModal={openManageTagModal}
-          openCreateTagModal={openCreateTagModal}
-          onClick={handleManageTag}
-          handleCloseCTModal={handleCloseCTModal}
-          handleCloseManageModal={handleCloseManageModal}
-          addTags={addTags}
-          handleChange={handleChange}
-          handleClick={handleClick}
-          handleCMModal={handleCMModal}
-          openEditTagModal={openEditTagModal}
-          handleCloseETModal={handleCloseETModal}
-          handleEditChange={handleEditChange}
-          handleEdit={handleEdit}
-          editTags={addTags}
-          tags={tags}
-          handleEditClick={handleEditClick}
-          handleDelModal={handleDelModal}
-          openDelTagModal={openDelTagModal}
-          handleDeleteTags={handleDeleteTags}
-          handleCloseDeleteModal={handleCloseDeleteModal}
-          handleSelectedTagItems={handleSelectedTagItems}
-          newAray={selectedTags}
-          handleSelectDel={handleSelectDel}
-          conversationTags={conversationTags}
+        <div className="page-header justify-flex-end">
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              className="btn btn-medium btn-primary"
+            >
+              New Email
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#" onClick={handleNewMessage}>
+                Individual Email Message
+              </Dropdown.Item>
+              <Dropdown.Item href="#" onClick={handleBulkMessageModal}>
+                Bulk Campaign Message
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="text-main-section">
+          <EmailChatBoot
+            openManageTagModal={openManageTagModal}
+            openCreateTagModal={openCreateTagModal}
+            onClick={handleManageTag}
+            handleCloseCTModal={handleCloseCTModal}
+            handleCloseManageModal={handleCloseManageModal}
+            addTags={addTags}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            handleCMModal={handleCMModal}
+            openEditTagModal={openEditTagModal}
+            handleCloseETModal={handleCloseETModal}
+            handleEditChange={handleEditChange}
+            handleEdit={handleEdit}
+            editTags={addTags}
+            tags={tags}
+            handleEditClick={handleEditClick}
+            handleDelModal={handleDelModal}
+            openDelTagModal={openDelTagModal}
+            handleDeleteTags={handleDeleteTags}
+            handleCloseDeleteModal={handleCloseDeleteModal}
+            handleSelectedTagItems={handleSelectedTagItems}
+            newAray={selectedTags}
+            handleSelectDel={handleSelectDel}
+            conversationTags={conversationTags}
+            errors={errors}
+            emailMessageList={emailMessageList}
+            openChatClick={openChatClick}
+            selecteduser={selecteduser}
+            emailChatData={emailChatMessages}
+            sendEmailMessage={sendEmailMessage}
+            onHandleChange={onHandleChange}
+            onHandleClick={onHandleClick}
+            editContactName={editContactName}
+            handleEditUserName={handleEditUserName}
+            editCName={editCName}
+            openContactModal={openContactModal}
+            handleCloseContactModal={handleCloseContactModal}
+            editContact={editContact}
+            handleEditContactChange={handleEditContactChange}
+            handleConDataEdit={handleConDataEdit}
+            handleContactEditModal={handleContactEditModal}
+            searchValue={searchState}
+            handleSearchChange={(e) => setSearchState(e.target.value)}
+            handleUserNameEdit={handleUserNameEdit}
+            loading={loading}
+            handleBlock={handleBlock}
+            handleOptOut={handleOptOut}
+            handleMute={handleMute}
+            divRef={divRef}
+            showScheduleModal={showScheduleModal}
+            handleCloseSchedultModal={handleCloseSchedultModal}
+            showCreateTemplateModal={showCreateTemplateModal}
+            handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+            showManageeTemplateModal={showManageeTemplateModal}
+            handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+            handleScheduleModal={handleScheduleModal}
+            handleCreateTemplate={handleCreateTemplate}
+            handleManageTemplate={handleManageTemplate}
+            templateName={templateName}
+            handleTemplateName={handleTemplateName}
+            templateTags={templateTags}
+            handleTemplateTagChange={handleTemplateTagChange}
+            templateMessage={templateMessage}
+            handleTempMessageChange={handleTempMessageChange}
+            handleTemplateSubmit={handleTemplateSubmit}
+            templateData={templateData}
+            handleEmailTempTitleClick={handleEmailTempTitleClick}
+            handleSingleTempInsert={handleSingleTempInsert}
+            handleTempShowClick={handleTempShowClick}
+            templateDataState={templateDataState}
+            editmanageTemplate={editmanageTemplate}
+            handleEditTemplate={handleEditTemplate}
+            handleTempEditCancel={handleTempEditCancel}
+            editTempData={editTempData}
+            handleEditTempChange={handleEditTempChange}
+            handleTempEditSave={handleTempEditSave}
+            handleTempRemove={handleTempRemove}
+            templateEditTags={templateEditTags}
+            handleEditTemplateTagChange={handleEditTemplateTagChange}
+            replacefunc={replacefunc}
+            dateSelected={dateSelected}
+            handleDateChange={handleDateChange}
+            handleTempDelModal={handleTempDelModal}
+            handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+            showDeleteTempModal={deleteTempComfirmation}
+            handleChatBotEmojiOpen={handleChatBotEmojiOpen}
+            onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
+            onChatBotEmojiClick={onChatBotEmojiClick}
+            selectedImage={selectedImage}
+            handleScheduleSubmit={handleScheduleSubmit}
+            showReScheduleModal={showReScheduleModal}
+            handleCloseReSchedultModal={handleCloseReSchedultModal}
+            reScheduleData={reScheduleData}
+            handleReSchedule={handleReSchedule}
+            handleReSchaduleChange={handleReSchaduleChange}
+            handleReSubmit={handleReSubmit}
+            handleCancelReSchedultModal={handleCancelReSchedultModal}
+            cancelRescheDule={cancelRescheDule}
+            handleNoReSchedultModal={handleNoReSchedultModal}
+            handleDeleteReSchedultModal={handleDeleteReSchedultModal}
+            handleReSchaduleData={handleReSchaduleData}
+            scheduledData={scheduledData}
+            searchTemplateValue={searchTemplateValue}
+            handleSearchTempChange={(e) =>
+              setSearchTemplateValue(e.target.value)
+            }
+            CancelEmoji={CancelEmoji}
+            showReScheduleTitleModal={showReScheduleTitleModal}
+            handleCloseReSchedulTitle={handleCloseReSchedulTitle}
+            reScheduleTitle={reScheduleTitle}
+            handleReSchaduleTChange={handleReSchaduleTChange}
+            handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
+            handleReTitleSubmit={handleReTitleSubmit}
+            emailSubject={emailSubject}
+            handleSubjectChange={handleSubjectChange}
+          />
+        </div>
+        <EmailModal
+          open={openMessageModal}
+          handleCloseMessageModal={handleCloseMessageModal}
+          selected={selected}
+          options={rowsData}
+          handleSelectChange={handleSelectChange}
           errors={errors}
-          emailMessageList={emailMessageList}
-          openChatClick={openChatClick}
-          selecteduser={selecteduser}
-          emailChatData={emailChatMessages}
-          sendEmailMessage={sendEmailMessage}
-          onHandleChange={onHandleChange}
-          onHandleClick={onHandleClick}
-          editContactName={editContactName}
-          handleEditUserName={handleEditUserName}
-          editCName={editCName}
-          openContactModal={openContactModal}
-          handleCloseContactModal={handleCloseContactModal}
-          editContact={editContact}
-          handleEditContactChange={handleEditContactChange}
-          handleConDataEdit={handleConDataEdit}
-          handleContactEditModal={handleContactEditModal}
-          searchValue={searchState}
-          handleSearchChange={(e) => setSearchState(e.target.value)}
-          handleUserNameEdit={handleUserNameEdit}
+          emailMessage={emailMessage}
+          preview={preview}
+          handlePreview={handlePreview}
+          handleMessageChange={handleMessageChange}
+          sendMessageClick={sendMessageClick}
+          handleBackMessageModal={handleBackMessageModal}
           loading={loading}
-          handleBlock={handleBlock}
-          handleOptOut={handleOptOut}
-          handleMute={handleMute}
-          divRef={divRef}
           showScheduleModal={showScheduleModal}
           handleCloseSchedultModal={handleCloseSchedultModal}
           showCreateTemplateModal={showCreateTemplateModal}
           handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-          showManageeTemplateModal={showManageeTemplateModal}
-          handleCloseManageTemplateModal={handleCloseManageTemplateModal}
+          showManageeTemplateModal={showNewManageeTemplateModal}
+          handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
           handleScheduleModal={handleScheduleModal}
           handleCreateTemplate={handleCreateTemplate}
-          handleManageTemplate={handleManageTemplate}
+          handleManageTemplate={handleNewManageTemplate}
           templateName={templateName}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
           handleTemplateName={handleTemplateName}
           templateTags={templateTags}
           handleTemplateTagChange={handleTemplateTagChange}
@@ -1199,18 +1288,20 @@ const EmailPage = () => {
           handleTempMessageChange={handleTempMessageChange}
           handleTemplateSubmit={handleTemplateSubmit}
           templateData={templateData}
-          handleEmailTempTitleClick={handleEmailTempTitleClick}
-          handleSingleTempInsert={handleSingleTempInsert}
           handleTempShowClick={handleTempShowClick}
           templateDataState={templateDataState}
-          editmanageTemplate={editmanageTemplate}
+          handleTempInsert={handleTempInsert}
+          handleEmailTempTitleClick={handleNewTempTitleClick}
           handleEditTemplate={handleEditTemplate}
+          editmanageTemplate={editmanageTemplate}
           handleTempEditCancel={handleTempEditCancel}
           editTempData={editTempData}
           handleEditTempChange={handleEditTempChange}
           handleTempEditSave={handleTempEditSave}
           handleTempRemove={handleTempRemove}
           templateEditTags={templateEditTags}
+          searchValue={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
           handleEditTemplateTagChange={handleEditTemplateTagChange}
           replacefunc={replacefunc}
           dateSelected={dateSelected}
@@ -1218,175 +1309,91 @@ const EmailPage = () => {
           handleTempDelModal={handleTempDelModal}
           handleCloseDeleteTempModal={handleCloseDeleteTempModal}
           showDeleteTempModal={deleteTempComfirmation}
-          handleChatBotEmojiOpen={handleChatBotEmojiOpen}
-          onShowChatBotEmojiOpen={onShowChatBotEmojiOpen}
-          onChatBotEmojiClick={onChatBotEmojiClick}
-          selectedImage={selectedImage}
-          handleScheduleSubmit={handleScheduleSubmit}
-          showReScheduleModal={showReScheduleModal}
-          handleCloseReSchedultModal={handleCloseReSchedultModal}
-          reScheduleData={reScheduleData}
-          handleReSchedule={handleReSchedule}
-          handleReSchaduleChange={handleReSchaduleChange}
-          handleReSubmit={handleReSubmit}
-          handleCancelReSchedultModal={handleCancelReSchedultModal}
-          cancelRescheDule={cancelRescheDule}
-          handleNoReSchedultModal={handleNoReSchedultModal}
-          handleDeleteReSchedultModal={handleDeleteReSchedultModal}
-          handleReSchaduleData={handleReSchaduleData}
-          scheduledData={scheduledData}
-          searchTemplateValue={searchTemplateValue}
-          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
-          CancelEmoji={CancelEmoji}
-          showReScheduleTitleModal={showReScheduleTitleModal}
-          handleCloseReSchedulTitle={handleCloseReSchedulTitle}
-          reScheduleTitle={reScheduleTitle}
-          handleReSchaduleTChange={handleReSchaduleTChange}
-          handleDeleteRechaduletitleM={handleDeleteRechaduletitleM}
-          handleReTitleSubmit={handleReTitleSubmit}
+          handleEmojiOpen={handleEmojiOpen}
+          onShowEmojiOpen={onShowEmoji}
           emailSubject={emailSubject}
           handleSubjectChange={handleSubjectChange}
+          onEmojiClick={onEmojiClick}
+          savelistToMessageClick={savelistToMessageClick}
+          textRef={textref}
+          selecteduser={selecteduser}
+          editorLoaded={editorLoaded}
+          handleScheduleSubmit={handleScheduleSubmit}
+          scheduledData={scheduledData}
+          handleReSchaduleData={handleReSchaduleData}
+          CancelEmoji={CancelEmoji}
+        />
+        <BulkEmailMessageModal
+          open={openBulkMessageModal}
+          handleCloseMessageModal={handleCloseBulkMessageModal}
+          options={compaign}
+          handleSendBulkClick={handleSendBulkClick}
+          sendNewMessage={emailMessage}
+          handleMessageChange={handleMessageChange}
+          handleBulkSelectChange={handleBulkSelectChange}
+          selected={bulkSelected}
+          errors={errors}
+          emailMessage={emailMessage}
+          preview={preview}
+          handlePreview={handlePreview}
+          sendMessageClick={sendMessageClick}
+          handleBackMessageModal={handleBackMessageModal}
+          loading={loading}
+          showScheduleModal={showScheduleModal}
+          handleCloseSchedultModal={handleCloseSchedultModal}
+          showCreateTemplateModal={showCreateTemplateModal}
+          handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
+          showManageeTemplateModal={showNewManageeTemplateModal}
+          handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
+          handleScheduleModal={handleScheduleModal}
+          handleCreateTemplate={handleCreateTemplate}
+          handleManageTemplate={handleNewManageTemplate}
+          templateName={templateName}
+          searchTemplateValue={searchTemplateValue}
+          handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
+          handleTemplateName={handleTemplateName}
+          templateTags={templateTags}
+          handleTemplateTagChange={handleTemplateTagChange}
+          templateMessage={templateMessage}
+          handleTempMessageChange={handleTempMessageChange}
+          handleTemplateSubmit={handleTemplateSubmit}
+          templateData={templateData}
+          handleTempShowClick={handleTempShowClick}
+          templateDataState={templateDataState}
+          handleTempInsert={handleTempInsert}
+          handleEmailTempTitleClick={handleNewTempTitleClick}
+          handleEditTemplate={handleEditTemplate}
+          editmanageTemplate={editmanageTemplate}
+          handleTempEditCancel={handleTempEditCancel}
+          editTempData={editTempData}
+          handleEditTempChange={handleEditTempChange}
+          handleTempEditSave={handleTempEditSave}
+          handleTempRemove={handleTempRemove}
+          templateEditTags={templateEditTags}
+          searchValue={searchState}
+          handleSearchChange={(e) => setSearchState(e.target.value)}
+          handleEditTemplateTagChange={handleEditTemplateTagChange}
+          replacefunc={replacefunc}
+          dateSelected={dateSelected}
+          handleDateChange={handleDateChange}
+          handleTempDelModal={handleTempDelModal}
+          handleCloseDeleteTempModal={handleCloseDeleteTempModal}
+          showDeleteTempModal={deleteTempComfirmation}
+          handleEmojiOpen={handleEmojiOpen}
+          onShowEmojiOpen={onShowEmoji}
+          emailSubject={emailSubject}
+          handleSubjectChange={handleSubjectChange}
+          onEmojiClick={onEmojiClick}
+          savelistToMessageClick={savelistToMessageClick}
+          textRef={textref}
+          selecteduser={selecteduser}
+          editorLoaded={editorLoaded}
+          handleScheduleSubmit={handleScheduleSubmit}
+          scheduledData={scheduledData}
+          handleReSchaduleData={handleReSchaduleData}
+          CancelEmoji={CancelEmoji}
         />
       </div>
-      <EmailModal
-        open={openMessageModal}
-        handleCloseMessageModal={handleCloseMessageModal}
-        selected={selected}
-        options={rowsData}
-        handleSelectChange={handleSelectChange}
-        errors={errors}
-        emailMessage={emailMessage}
-        preview={preview}
-        handlePreview={handlePreview}
-        handleMessageChange={handleMessageChange}
-        sendMessageClick={sendMessageClick}
-        handleBackMessageModal={handleBackMessageModal}
-        loading={loading}
-        showScheduleModal={showScheduleModal}
-        handleCloseSchedultModal={handleCloseSchedultModal}
-        showCreateTemplateModal={showCreateTemplateModal}
-        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-        showManageeTemplateModal={showNewManageeTemplateModal}
-        handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
-        handleScheduleModal={handleScheduleModal}
-        handleCreateTemplate={handleCreateTemplate}
-        handleManageTemplate={handleNewManageTemplate}
-        templateName={templateName}
-        searchTemplateValue={searchTemplateValue}
-        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
-        handleTemplateName={handleTemplateName}
-        templateTags={templateTags}
-        handleTemplateTagChange={handleTemplateTagChange}
-        templateMessage={templateMessage}
-        handleTempMessageChange={handleTempMessageChange}
-        handleTemplateSubmit={handleTemplateSubmit}
-        templateData={templateData}
-        handleTempShowClick={handleTempShowClick}
-        templateDataState={templateDataState}
-        handleTempInsert={handleTempInsert}
-        handleEmailTempTitleClick={handleNewTempTitleClick}
-        handleEditTemplate={handleEditTemplate}
-        editmanageTemplate={editmanageTemplate}
-        handleTempEditCancel={handleTempEditCancel}
-        editTempData={editTempData}
-        handleEditTempChange={handleEditTempChange}
-        handleTempEditSave={handleTempEditSave}
-        handleTempRemove={handleTempRemove}
-        templateEditTags={templateEditTags}
-        searchValue={searchState}
-        handleSearchChange={(e) => setSearchState(e.target.value)}
-        handleEditTemplateTagChange={handleEditTemplateTagChange}
-        replacefunc={replacefunc}
-        dateSelected={dateSelected}
-        handleDateChange={handleDateChange}
-        handleTempDelModal={handleTempDelModal}
-        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
-        showDeleteTempModal={deleteTempComfirmation}
-        handleEmojiOpen={handleEmojiOpen}
-        onShowEmojiOpen={onShowEmoji}
-        emailSubject={emailSubject}
-        handleSubjectChange={handleSubjectChange}
-        onEmojiClick={onEmojiClick}
-        savelistToMessageClick={savelistToMessageClick}
-        textRef={textref}
-        selecteduser={selecteduser}
-        editorLoaded={editorLoaded}
-        handleScheduleSubmit={handleScheduleSubmit}
-        scheduledData={scheduledData}
-        handleReSchaduleData={handleReSchaduleData}
-        CancelEmoji={CancelEmoji}
-      />
-      <BulkEmailMessageModal
-        open={openBulkMessageModal}
-        handleCloseMessageModal={handleCloseBulkMessageModal}
-        options={compaign}
-        handleSendBulkClick={handleSendBulkClick}
-        sendNewMessage={emailMessage}
-        handleMessageChange={handleMessageChange}
-        handleBulkSelectChange={handleBulkSelectChange}
-        selected={bulkSelected}
-        errors={errors}
-        emailMessage={emailMessage}
-        preview={preview}
-        handlePreview={handlePreview}
-        sendMessageClick={sendMessageClick}
-        handleBackMessageModal={handleBackMessageModal}
-        loading={loading}
-        showScheduleModal={showScheduleModal}
-        handleCloseSchedultModal={handleCloseSchedultModal}
-        showCreateTemplateModal={showCreateTemplateModal}
-        handleCloseCreateTemplateModal={handleCloseCreateTemplateModal}
-        showManageeTemplateModal={showNewManageeTemplateModal}
-        handleCloseManageTemplateModal={handleNewCloseManageTemplateModal}
-        handleScheduleModal={handleScheduleModal}
-        handleCreateTemplate={handleCreateTemplate}
-        handleManageTemplate={handleNewManageTemplate}
-        templateName={templateName}
-        searchTemplateValue={searchTemplateValue}
-        handleSearchTempChange={(e) => setSearchTemplateValue(e.target.value)}
-        handleTemplateName={handleTemplateName}
-        templateTags={templateTags}
-        handleTemplateTagChange={handleTemplateTagChange}
-        templateMessage={templateMessage}
-        handleTempMessageChange={handleTempMessageChange}
-        handleTemplateSubmit={handleTemplateSubmit}
-        templateData={templateData}
-        handleTempShowClick={handleTempShowClick}
-        templateDataState={templateDataState}
-        handleTempInsert={handleTempInsert}
-        handleEmailTempTitleClick={handleNewTempTitleClick}
-        handleEditTemplate={handleEditTemplate}
-        editmanageTemplate={editmanageTemplate}
-        handleTempEditCancel={handleTempEditCancel}
-        editTempData={editTempData}
-        handleEditTempChange={handleEditTempChange}
-        handleTempEditSave={handleTempEditSave}
-        handleTempRemove={handleTempRemove}
-        templateEditTags={templateEditTags}
-        searchValue={searchState}
-        handleSearchChange={(e) => setSearchState(e.target.value)}
-        handleEditTemplateTagChange={handleEditTemplateTagChange}
-        replacefunc={replacefunc}
-        dateSelected={dateSelected}
-        handleDateChange={handleDateChange}
-        handleTempDelModal={handleTempDelModal}
-        handleCloseDeleteTempModal={handleCloseDeleteTempModal}
-        showDeleteTempModal={deleteTempComfirmation}
-        handleEmojiOpen={handleEmojiOpen}
-        onShowEmojiOpen={onShowEmoji}
-        emailSubject={emailSubject}
-        handleSubjectChange={handleSubjectChange}
-        onEmojiClick={onEmojiClick}
-        savelistToMessageClick={savelistToMessageClick}
-        textRef={textref}
-        selecteduser={selecteduser}
-        editorLoaded={editorLoaded}
-        handleScheduleSubmit={handleScheduleSubmit}
-        scheduledData={scheduledData}
-        handleReSchaduleData={handleReSchaduleData}
-        CancelEmoji={CancelEmoji}
-      />
-    </div>
     </Layout>
   );
 };

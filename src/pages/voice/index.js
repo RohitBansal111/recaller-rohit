@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -72,13 +73,14 @@ const Voice = () => {
   const [bulkSelected, setBulkSelected] = useState([]);
 
   const divRef = useRef(null);
+  const toastId = React.useRef(null);
 
   const handleOpenIndividual = () => {
     setIndividualOpen(true);
     setOpenMessageModal(false);
     stopTimer();
     setUploadOpen(false);
-    setIsShowLoading(false)
+    setIsShowLoading(false);
   };
 
   const handleOpenBulk = () => {
@@ -86,7 +88,7 @@ const Voice = () => {
     setOpenMessageModal(false);
     setUploadOpen(false);
     stopTimer();
-    setIsShowLoading(false)
+    setIsShowLoading(false);
   };
 
   const handleCloseBulkModal = () => {
@@ -94,14 +96,14 @@ const Voice = () => {
     setOpenMessageModal(false);
     stopTimer();
     setUploadOpen(false);
-    setIsShowLoading(false)
+    setIsShowLoading(false);
   };
 
   const handleCloseIndividual = () => {
     setIndividualOpen(false);
     setOpenMessageModal(false);
     stopTimer();
-    setIsShowLoading(false)
+    setIsShowLoading(false);
     setUploadOpen(false);
   };
 
@@ -239,7 +241,10 @@ const Voice = () => {
   const handleEdit = async () => {
     let res = await updateTagsApi(addTags._id, addTags);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tag Edit Successfully");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Tag Updated Successfully");
+      }
+
       setOpenEditTagModal(false);
       getTags();
     }
@@ -432,7 +437,7 @@ const Voice = () => {
             setOpenMessageModal(false);
             setSelected([]);
             setLoading(false);
-            setIsShowLoading(false)
+            setIsShowLoading(false);
             setBulkOpen(false);
             setPlaying(false);
             setIsNewVoiceActive(false);
@@ -673,7 +678,7 @@ const Voice = () => {
             getVoiceMessage();
             setLoading(false);
             setErrors({});
-            setIsShowLoading(false)
+            setIsShowLoading(false);
             setIndividualOpen(false);
             setBulkOpen(false);
           }
@@ -763,92 +768,92 @@ const Voice = () => {
 
   return (
     <Layout>
-    <div className="content-page-layout text-page-content">
-      <div className="page-header justify-flex-end">
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="success"
-            id="dropdown-basic"
-            className="btn btn-medium btn-primary"
-          >
-            New Voice
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={handleOpenIndividual}>
-              Individual Voice
-            </Dropdown.Item>
-            <Dropdown.Item onClick={handleOpenBulk}>
-              Bulk Campaign Voice
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-      <div className="text-main-section">
-        <VoiceChatBoot
-          openManageTagModal={openManageTagModal}
-          openCreateTagModal={openCreateTagModal}
-          onClick={handleManageTag}
-          handleCloseCTModal={handleCloseCTModal}
-          handleCloseManageModal={handleCloseManageModal}
-          addTags={addTags}
-          handleChange={handleChange}
-          handleClick={handleClick}
-          handleCMModal={handleCMModal}
-          openEditTagModal={openEditTagModal}
-          handleCloseETModal={handleCloseETModal}
-          handleEditChange={handleEditChange}
-          handleEdit={handleEdit}
-          editTags={addTags}
-          tags={tags}
-          handleEditClick={handleEditClick}
-          handleDelModal={handleDelModal}
-          openDelTagModal={openDelTagModal}
-          handleDeleteTags={handleDeleteTags}
-          handleCloseDeleteModal={handleCloseDeleteModal}
-          handleSelectedTagItems={handleSelectedTagItems}
-          newAray={selectedTags}
-          handleSelectDel={handleSelectDel}
-          conversationTags={conversationTags}
-          errors={errors}
-          searchValue={searchState}
-          handleSearchChange={(e) => setSearchState(e.target.value)}
-          minute={minute}
-          second={second}
-          startRecording={startRecording}
-          isActive={isActive}
-          loading={loading}
-          stopRecording={stopRecording}
-          setIsActive={setIsActive}
-          stopTimer={stopTimer}
-          contactVoiceList={voiceMessage}
-          voiceChatData={voiceChatData}
-          openChatClick={openChatClick}
-          selecteduser={selecteduser}
-          openContactModal={openContactModal}
-          handleConDataEdit={handleConDataEdit}
-          handleEditContactChange={handleEditContactChange}
-          handleCloseContactModal={handleCloseContactModal}
-          handleContactEditModal={handleContactEditModal}
-          editContact={editContact}
-          editContactName={editContactName}
-          editCName={editCName}
-          handleEditUserName={handleEditUserName}
-          handleUserNameEdit={handleUserNameEdit}
-          handleOptOut={handleOptOut}
-          divRef={divRef}
-          handleSendSingleContactVoice={handleSendSingleContactVoice}
-          isShowLoading={isShowLoading}
-          onSingleVoiceUploadChange={onSingleVoiceUploadChange}
-          audioFileName={audioFileName}
-          handleSingleVoiceUpload={handleSingleVoiceUpload}
-          clearUploadData={clearUploadData}
-          handleLoadMetadata={handleLoadMetadata}
-          isNewVoiceActive={isNewVoiceActive}
-          singleVref={singleVref}
-          handlePlay={handlePlay}
-        />
-      </div>
-      {/* <VoiceModal
+      <div className="content-page-layout text-page-content">
+        <div className="page-header justify-flex-end">
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              className="btn btn-medium btn-primary"
+            >
+              New Voice
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleOpenIndividual}>
+                Individual Voice
+              </Dropdown.Item>
+              <Dropdown.Item onClick={handleOpenBulk}>
+                Bulk Campaign Voice
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="text-main-section">
+          <VoiceChatBoot
+            openManageTagModal={openManageTagModal}
+            openCreateTagModal={openCreateTagModal}
+            onClick={handleManageTag}
+            handleCloseCTModal={handleCloseCTModal}
+            handleCloseManageModal={handleCloseManageModal}
+            addTags={addTags}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            handleCMModal={handleCMModal}
+            openEditTagModal={openEditTagModal}
+            handleCloseETModal={handleCloseETModal}
+            handleEditChange={handleEditChange}
+            handleEdit={handleEdit}
+            editTags={addTags}
+            tags={tags}
+            handleEditClick={handleEditClick}
+            handleDelModal={handleDelModal}
+            openDelTagModal={openDelTagModal}
+            handleDeleteTags={handleDeleteTags}
+            handleCloseDeleteModal={handleCloseDeleteModal}
+            handleSelectedTagItems={handleSelectedTagItems}
+            newAray={selectedTags}
+            handleSelectDel={handleSelectDel}
+            conversationTags={conversationTags}
+            errors={errors}
+            searchValue={searchState}
+            handleSearchChange={(e) => setSearchState(e.target.value)}
+            minute={minute}
+            second={second}
+            startRecording={startRecording}
+            isActive={isActive}
+            loading={loading}
+            stopRecording={stopRecording}
+            setIsActive={setIsActive}
+            stopTimer={stopTimer}
+            contactVoiceList={voiceMessage}
+            voiceChatData={voiceChatData}
+            openChatClick={openChatClick}
+            selecteduser={selecteduser}
+            openContactModal={openContactModal}
+            handleConDataEdit={handleConDataEdit}
+            handleEditContactChange={handleEditContactChange}
+            handleCloseContactModal={handleCloseContactModal}
+            handleContactEditModal={handleContactEditModal}
+            editContact={editContact}
+            editContactName={editContactName}
+            editCName={editCName}
+            handleEditUserName={handleEditUserName}
+            handleUserNameEdit={handleUserNameEdit}
+            handleOptOut={handleOptOut}
+            divRef={divRef}
+            handleSendSingleContactVoice={handleSendSingleContactVoice}
+            isShowLoading={isShowLoading}
+            onSingleVoiceUploadChange={onSingleVoiceUploadChange}
+            audioFileName={audioFileName}
+            handleSingleVoiceUpload={handleSingleVoiceUpload}
+            clearUploadData={clearUploadData}
+            handleLoadMetadata={handleLoadMetadata}
+            isNewVoiceActive={isNewVoiceActive}
+            singleVref={singleVref}
+            handlePlay={handlePlay}
+          />
+        </div>
+        {/* <VoiceModal
         // open={openMessageModal}
         handleCloseMessageModal={handleCloseMessageModal}
         handleSelectChange={handleSelectChange}
@@ -867,7 +872,7 @@ const Voice = () => {
         handlePlay={handlePlay}
         playing={playing}
       /> */}
-      {/* <VoiceUploadModal
+        {/* <VoiceUploadModal
         // uploadOpen={uploadOpen}
         handleCloseUploadModal={handleCloseUploadModal}
         options={rowsData}
@@ -881,74 +886,74 @@ const Voice = () => {
         clearUploading={clearUploading}
         voiceref={voiceref}
       /> */}
-      <IndividualVoice
-        individualOpen={individualOpen}
-        openMessageModal={openMessageModal}
-        handleIndividualCloseModal={handleCloseIndividual}
-        handleOpenUploadModal={handleOpenUploadModal}
-        handleNewMessage={handleNewMessage}
-        options={rowsData}
-        selected={selected}
-        uploadOpen={uploadOpen}
-        handleCloseUploadModal={handleCloseUploadModal}
-        handleSelectChange={handleSelectChange}
-        onVoiceUploadChange={onVoiceUploadChange}
-        onVoiveUpload={onVoiveUpload}
-        errors={errors}
-        loading={loading}
-        fileName={fileName}
-        clearUploading={clearUploading}
-        voiceref={voiceref}
-        open={openMessageModal}
-        handleCloseMessageModal={handleCloseMessageModal}
-        handleSendClick={handleSendClick}
-        minute={minute}
-        second={second}
-        isNewVoiceActive={isNewVoiceActive}
-        setIsNewVoiceActive={setIsNewVoiceActive}
-        startRecording={startRecording}
-        stopRecording={stopRecording}
-        stopTimer={stopTimer}
-        handlePlay={handlePlay}
-        playing={playing}
-        clearRecording={clearRecording}
-        clearUploadInput={clearUploadInput}
-      />
-      <BulkVoiceMessage
-        bulkOpen={bulkOpen}
-        handleCloseBulkModal={handleCloseBulkModal}
-        options={compaign}
-        openMessageModal={openMessageModal}
-        selected={bulkSelected}
-        handleBulkSelectChange={handleBulkSelectChange}
-        handleOpenUploadModal={handleOpenUploadModal}
-        handleNewMessage={handleNewMessage}
-        uploadOpen={uploadOpen}
-        handleCloseUploadModal={handleCloseUploadModal}
-        handleSelectChange={handleSelectChange}
-        onVoiceUploadChange={onVoiceUploadChange}
-        onVoiveUpload={onBulkVoiceUpload}
-        errors={errors}
-        loading={loading}
-        fileName={fileName}
-        clearUploading={clearUploading}
-        voiceref={voiceref}
-        open={openMessageModal}
-        handleCloseMessageModal={handleCloseMessageModal}
-        handleSendClick={handleBulkSendClick}
-        minute={minute}
-        second={second}
-        isNewVoiceActive={isNewVoiceActive}
-        setIsNewVoiceActive={setIsNewVoiceActive}
-        startRecording={startRecording}
-        stopRecording={stopRecording}
-        stopTimer={stopTimer}
-        handlePlay={handlePlay}
-        playing={playing}
-        clearRecording={clearRecording}
-        clearUploadInput={clearUploadInput}
-      />
-    </div>
+        <IndividualVoice
+          individualOpen={individualOpen}
+          openMessageModal={openMessageModal}
+          handleIndividualCloseModal={handleCloseIndividual}
+          handleOpenUploadModal={handleOpenUploadModal}
+          handleNewMessage={handleNewMessage}
+          options={rowsData}
+          selected={selected}
+          uploadOpen={uploadOpen}
+          handleCloseUploadModal={handleCloseUploadModal}
+          handleSelectChange={handleSelectChange}
+          onVoiceUploadChange={onVoiceUploadChange}
+          onVoiveUpload={onVoiveUpload}
+          errors={errors}
+          loading={loading}
+          fileName={fileName}
+          clearUploading={clearUploading}
+          voiceref={voiceref}
+          open={openMessageModal}
+          handleCloseMessageModal={handleCloseMessageModal}
+          handleSendClick={handleSendClick}
+          minute={minute}
+          second={second}
+          isNewVoiceActive={isNewVoiceActive}
+          setIsNewVoiceActive={setIsNewVoiceActive}
+          startRecording={startRecording}
+          stopRecording={stopRecording}
+          stopTimer={stopTimer}
+          handlePlay={handlePlay}
+          playing={playing}
+          clearRecording={clearRecording}
+          clearUploadInput={clearUploadInput}
+        />
+        <BulkVoiceMessage
+          bulkOpen={bulkOpen}
+          handleCloseBulkModal={handleCloseBulkModal}
+          options={compaign}
+          openMessageModal={openMessageModal}
+          selected={bulkSelected}
+          handleBulkSelectChange={handleBulkSelectChange}
+          handleOpenUploadModal={handleOpenUploadModal}
+          handleNewMessage={handleNewMessage}
+          uploadOpen={uploadOpen}
+          handleCloseUploadModal={handleCloseUploadModal}
+          handleSelectChange={handleSelectChange}
+          onVoiceUploadChange={onVoiceUploadChange}
+          onVoiveUpload={onBulkVoiceUpload}
+          errors={errors}
+          loading={loading}
+          fileName={fileName}
+          clearUploading={clearUploading}
+          voiceref={voiceref}
+          open={openMessageModal}
+          handleCloseMessageModal={handleCloseMessageModal}
+          handleSendClick={handleBulkSendClick}
+          minute={minute}
+          second={second}
+          isNewVoiceActive={isNewVoiceActive}
+          setIsNewVoiceActive={setIsNewVoiceActive}
+          startRecording={startRecording}
+          stopRecording={stopRecording}
+          stopTimer={stopTimer}
+          handlePlay={handlePlay}
+          playing={playing}
+          clearRecording={clearRecording}
+          clearUploadInput={clearUploadInput}
+        />
+      </div>
     </Layout>
   );
 };

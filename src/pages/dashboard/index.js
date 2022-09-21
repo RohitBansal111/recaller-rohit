@@ -42,7 +42,7 @@ import {
 import Currentgraph from "../../components/Dashboard/Currentgraph";
 import Lastgraph from "../../components/Dashboard/Lastgraph";
 import Yeargraph from "../../components/Dashboard/yeargraph";
-import moment from 'moment'
+import moment from "moment";
 const Dashboard = (props) => {
   const toastId = React.useRef(null);
   const navigate = useNavigate();
