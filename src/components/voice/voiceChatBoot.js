@@ -142,14 +142,14 @@ const VoiceChatBoot = (props) => {
       uv: 1500,
     },
   ];
+  const handleGetData = async () => {
+    let res = await GetSubscriptionData();
+    if (res && res.data && res.status == 200) {
+      setSubData(res?.data?.data);
+    }
+  };
   useEffect(() => {
-    const handleGetData = async () => {
-      let res = await GetSubscriptionData();
-      if (res && res.data && res.status == 200) {
-        setSubData(res?.data?.data);
-      }
-    };
-    return () => handleGetData();
+   handleGetData();
   }, []);
   return (
     <div className="chatbox-warpper">
