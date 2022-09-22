@@ -155,8 +155,8 @@ const MyAccount = () => {
     };
     Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
     Cookies.set("token", token, { expires: 1 });
-   // localStorage.removeItem("token");
-  //  localStorage.removeItem("userData");
+    // localStorage.removeItem("token");
+    //  localStorage.removeItem("userData");
     navigate("/Price-inner");
   };
 
@@ -169,7 +169,31 @@ const MyAccount = () => {
         <div className="content-page-layout myaccount-layout">
           <div className="page-header">
             <h1>My Account</h1>
+            <div className="">
+              <Button
+                variant="dark"
+                onClick={() =>
+                  handlereroute(
+                    addUser.firstName,
+                    addUser.lastName,
+                    addUser.email
+                  )
+                }
+              >
+                {" "}
+                Change Plan
+              </Button>
+              <Button
+                style={{ margin: "20px" }}
+                variant="dark"
+                onClick={handlePasswordShow}
+              >
+                {" "}
+                Change Password
+              </Button>
+            </div>
           </div>
+
           <div className="content-center-box">
             <div className="account-subheading">
               <h2>User Information</h2>
@@ -251,20 +275,20 @@ const MyAccount = () => {
                   <span className="spanError">{errors.companyName}</span>
                 </div>
 
-                <div className="field-group  flex2 currentplan">
-                  <div className="currentplan-field">
-                    <label>Current Plan</label>
-                    <input
-                      name="currentplan"
-                      type="text"
-                      className="form-control"
-                      placeholder="User Plan will Shown Here "
-                      value={`${capitalizeFirstLetter(addUser && addUser?.subscriptionPlan||'')} Plan`}
-                      disabled
-                    />
-                  </div>
+                <div className="field-group  flex2 ">
+                  <label>Current Plan</label>
+                  <input
+                    name="currentplan"
+                    type="text"
+                    className="form-control"
+                    placeholder="User Plan will Shown Here "
+                    value={`${capitalizeFirstLetter(
+                      (addUser && addUser?.subscriptionPlan) || ""
+                    )} Plan`}
+                    disabled
+                  />
 
-                  <span
+                  {/* <span
                     className="changeplan"
                     onClick={() =>
                       handlereroute(
@@ -275,7 +299,7 @@ const MyAccount = () => {
                     }
                   >
                     Change Plan
-                  </span>
+                  </span> */}
                 </div>
                 <div className="field-group  flex2 password-field">
                   {/* <div className="currentplan-field">
@@ -286,12 +310,12 @@ const MyAccount = () => {
                       className="form-control"
                     />
                   </div> */}
-                  <Button
+                  {/* <Button
                     className="change-password"
                     onClick={handlePasswordShow}
                   >
                     Change Password
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className="field-group btn-groups flexFull">
                   {/* <button type="button" className="btn btn-cancel">
