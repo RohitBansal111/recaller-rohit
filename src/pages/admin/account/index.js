@@ -7,7 +7,10 @@ import { userDetailApi, userUpdateApi } from "../../../api/user";
 import Layout from "../../../components/layout";
 import { loginAction } from "../../../redux/actions/loginAction";
 import ChangePasswordModal from "../../../models/Changepasswordmodal";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 const MyAccount = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -144,13 +147,53 @@ const MyAccount = () => {
       }
     }
   };
+  const handlereroute = (first, last, email) => {
+    let token = localStorage.getItem("token");
+    let dataSend = {
+      name: `${first} ${last}`,
+      email: email,
+    };
+    Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
+    Cookies.set("token", token, { expires: 1 });
+    // localStorage.removeItem("token");
+    //  localStorage.removeItem("userData");
+    navigate("/Price");
+  };
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div>
       <Layout>
         <div className="content-page-layout myaccount-layout">
           <div className="page-header">
             <h1>My Account</h1>
+            <div className="">
+              <Button
+                variant="dark"
+                onClick={() =>
+                  handlereroute(
+                    addUser.firstName,
+                    addUser.lastName,
+                    addUser.email
+                  )
+                }
+              >
+                {" "}
+                Change Plan
+              </Button>
+              <Button
+                style={{ margin: "20px" }}
+                variant="dark"
+                onClick={handlePasswordShow}
+              >
+                {" "}
+                Change Password
+              </Button>
+            </div>
           </div>
+
           <div className="content-center-box">
             <div className="account-subheading">
               <h2>User Information</h2>
@@ -232,20 +275,31 @@ const MyAccount = () => {
                   <span className="spanError">{errors.companyName}</span>
                 </div>
 
-                <div className="field-group  flex2 currentplan">
-                  <div className="currentplan-field">
-                    <label>Current Plan</label>
-                    <input
-                      name="currentplan"
-                      type="text"
-                      className="form-control"
-                      value="319"
-                      disabled
-                    />
-                  </div>
-                  <span className="changeplan">
-                    <Link to="/Price">Change Plan</Link>
-                  </span>
+                <div className="field-group  flex2 ">
+                  <label>Current Plan</label>
+                  <input
+                    name="currentplan"
+                    type="text"
+                    className="form-control"
+                    placeholder="User Plan will Shown Here "
+                    value={`${capitalizeFirstLetter(
+                      (addUser && addUser?.subscriptionPlan) || ""
+                    )} Plan`}
+                    disabled
+                  />
+
+                  {/* <span
+                    className="changeplan"
+                    onClick={() =>
+                      handlereroute(
+                        addUser.firstName,
+                        addUser.lastName,
+                        addUser.email
+                      )
+                    }
+                  >
+                    Change Plan
+                  </span> */}
                 </div>
                 <div className="field-group  flex2 password-field">
                   {/* <div className="currentplan-field">
@@ -256,12 +310,12 @@ const MyAccount = () => {
                       className="form-control"
                     />
                   </div> */}
-                  <Button
+                  {/* <Button
                     className="change-password"
                     onClick={handlePasswordShow}
                   >
                     Change Password
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className="field-group btn-groups flexFull">
                   {/* <button type="button" className="btn btn-cancel">

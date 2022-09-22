@@ -44,12 +44,12 @@ const Price = () => {
 
   const hnadleSub_Button = (sub_name, sub_price) => {
     
-    setData({
-      ...data,
-      amount: Number(sub_price) * 100,
-      name: sub_name,
-    });
-   setOpen(true);
+  //   setData({
+  //     ...data,
+  //     amount: Number(sub_price) * 100,
+  //     name: sub_name,
+  //   });
+  //  setOpen(true);
 
   };
   const handleClose = () => {
