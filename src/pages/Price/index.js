@@ -97,6 +97,10 @@ const Price = () => {
     }
   };
 
+
+
+  
+
   const handleGetData = async () => {
     let res = await getSubscription();
     if (res && res.data && res.status == 200) {
