@@ -28,22 +28,22 @@ const TopUp = ({
 }) => {
   const [isSms, setIsSms] = useState(false);
   const [isVoice, setIsVoice] = useState(false);
-  const [isEmail, setIsEmail] = useState(false);
+  const [isMMS, setIsMMS] = useState(false);
   const [data, setData] = useState([]);
   const [activeProduct, setActiveProduct] = useState("SMS");
 
   const SmsToggleClass = () => {
     setIsSms(true);
-    setIsEmail(false);
+    setIsMMS(false);
     setIsVoice(false);
   };
   const VoiceToggleClass = () => {
     setIsVoice(true);
-    setIsEmail(false);
+    setIsMMS(false);
     setIsSms(false);
   };
-  const EmailToggleClass = () => {
-    setIsEmail(true);
+  const MMSToggleClass = () => {
+    setIsMMS(true);
     setIsSms(false);
     setIsVoice(false);
   };
@@ -52,8 +52,8 @@ const TopUp = ({
     setActiveProduct(type);
     if (type == "SMS") {
       setData(sms);
-    } else if (type == "Email") {
-      setData(email);
+    } else if (type == "MMS") {
+      setData(mms);
     } else {
       setData(voice);
     }
@@ -62,7 +62,7 @@ const TopUp = ({
   useEffect(() => {
     handleproduct("SMS");
     setIsSms(true);
-    setIsEmail(false);
+    setIsMMS(false);
     setIsVoice(false);
   }, []);
   function capitalizeFirstLetter(string) {
@@ -70,90 +70,166 @@ const TopUp = ({
   }
 
   let sms = {
-    stater: [
+    "Valid for 180 days from purchase": [
       {
         quantity: 1000,
         amount: 50,
       },
       {
         quantity: 2500,
-        amount: 125,
+        amount: 113,
       },
       {
         quantity: 5000,
-        amount: 250,
+        amount: 200,
       },
       {
         quantity: 10000,
-        amount: 500,
+        amount: 400,
+      },
+
+      {
+        quantity: 25000,
+        amount: 750,
+      },
+      {
+        quantity: 50000,
+        amount: 1250,
+      },
+      {
+        quantity: 100000,
+        amount: 2200,
+      },
+      {
+        quantity: 250000,
+        amount: 5250,
       },
     ],
-    comunicator: [
+    // comunicator: [
+    //   {
+    //     quantity: 1000,
+    //     amount: 50,
+    //   },
+    //   {
+    //     quantity: 2500,
+    //     amount: 125,
+    //   },
+    //   {
+    //     quantity: 5000,
+    //     amount: 250,
+    //   },
+    //   {
+    //     quantity: 10000,
+    //     amount: 500,
+    //   },
+    // ],
+    // hyper: [
+    //   {
+    //     quantity: 1000,
+    //     amount: 50,
+    //   },
+    //   {
+    //     quantity: 2500,
+    //     amount: 125,
+    //   },
+    //   {
+    //     quantity: 5000,
+    //     amount: 250,
+    //   },
+    //   {
+    //     quantity: 10000,
+    //     amount: 500,
+    //   },
+    // ],
+  };
+
+  let mms = {
+    "Valid for 180 days from purchase": [
       {
         quantity: 1000,
-        amount: 50,
+        amount: 70,
       },
       {
         quantity: 2500,
-        amount: 125,
+        amount: 163,
       },
       {
         quantity: 5000,
-        amount: 250,
+        amount: 300,
       },
       {
         quantity: 10000,
-        amount: 500,
+        amount: 550,
       },
-    ],
-    hyper: [
+
       {
-        quantity: 1000,
-        amount: 50,
-      },
-      {
-        quantity: 2500,
-        amount: 125,
+        quantity: 25000,
+        amount: 1250,
       },
       {
-        quantity: 5000,
-        amount: 250,
+        quantity: 50000,
+        amount: 2250,
       },
       {
-        quantity: 10000,
-        amount: 500,
+        quantity: 100000,
+        amount: 4000,
+      },
+      {
+        quantity: 250000,
+        amount: 5250,
       },
     ],
   };
+  let voice = {
+    "Valid for 180 days from purchase": [
+      {
+        quantity: 1000,
+        amount: 60,
+      },
+      {
+        quantity: 2500,
+        amount: 145,
+      },
+      {
+        quantity: 5000,
+        amount: 275,
+      },
+      {
+        quantity: 12000,
+        amount: 360,
+      },
 
-  let email = [
-    {
-      quantity: 1000,
-      amount: 40,
-    },
-    {
-      quantity: 1000,
-      amount: 40,
-    },
-    {
-      quantity: 1000,
-      amount: 40,
-    },
-  ];
-  let voice = [
-    {
-      quantity: 1000,
-      amount: 30,
-    },
-    {
-      quantity: 1000,
-      amount: 400,
-    },
-    {
-      quantity: 1000,
-      amount: 4833,
-    },
-  ];
+      {
+        quantity: 25000,
+        amount: 875,
+      },
+      {
+        quantity: 60000,
+        amount: 1800,
+      },
+      {
+        quantity: 120000,
+        amount: 1800,
+      },
+      {
+        quantity: 120000,
+        amount: 3360,
+      },
+
+      {
+        quantity: 270000,
+        amount: 6480,
+      },
+      {
+        quantity: 500000,
+        amount: 9500,
+      },
+      {
+        quantity: 1000000,
+        amount: 14000,
+      },
+    ],
+  };
   return (
     <div className="form-page-layout subscribe-pricing-list">
       <div className="price-page-layout">
@@ -199,20 +275,29 @@ const TopUp = ({
             SMS
           </Button>
           <Button
+            className={isMMS ? "active" : null}
+            onClick={() => {
+              handleproduct("MMS");
+              MMSToggleClass();
+            }}
+          >
+            MMS
+          </Button>
+          <Button
             className={isVoice ? "active" : null}
             onClick={() => {
               handleproduct("Voice");
               VoiceToggleClass();
             }}
           >
-            MMS
+            Voice
           </Button>
         </div>
         {
           // <h1 style={{ textAlign: "center" }}>{activeProduct}</h1>
         }
 
-        {Object.keys(sms)?.map((q) => {
+        {Object.keys(data || {})?.map((q) => {
           return (
             <>
               <h1 style={{ textAlign: "center" }}>
@@ -229,11 +314,11 @@ const TopUp = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {sms[q]?.map((w) => {
+                    {data[q]?.map((w) => {
                       return (
                         <tr>
                           <td>{w.quantity}</td>
-                          <td>{w.amount}</td>
+                          <td>${w.amount}</td>
                           <td>
                             <Button>Buy</Button>
                           </td>
