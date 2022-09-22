@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 import Logo from "../../assets/images/logo.svg";
 import { loadStripe } from "@stripe/stripe-js";
-
+import {buyTopupPlan} from '../../api/plans'
 import {
   CardElement,
   Elements,
@@ -17,7 +17,9 @@ import {
 } from "@stripe/react-stripe-js";
 import Cookies from "js-cookie";
 import { Button, Row, Col, Modal } from "react-bootstrap";
-
+const stripePromise = loadStripe(
+  "pk_test_51JPsinAhUO0LEMorfVu3TFyzUWo3i1n7jowbZqsf0BI0cK9mL4Leg2p7Kz1J1L4J3Rn9FdnWAXTVnq586ECRbrUL00aTx3yEWY"
+);
 const TopUp = ({
   monthlytoggleClass,
   annualtoggleClass,
@@ -26,12 +28,20 @@ const TopUp = ({
   annualisActive,
   smsisActive,
 }) => {
+  const [open, setOpen] = useState(false);
   const [isSms, setIsSms] = useState(false);
   const [isVoice, setIsVoice] = useState(false);
   const [isMMS, setIsMMS] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [activeProduct, setActiveProduct] = useState("SMS");
 
+  const [dataStripe, setDataStripe] = useState({
+    type: "no data",
+    amount: 0,
+    description: "",
+    cridit: 0,
+  });
   const SmsToggleClass = () => {
     setIsSms(true);
     setIsMMS(false);
@@ -69,6 +79,9 @@ const TopUp = ({
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   let sms = {
     "Valid for 180 days from purchase": [
       {
@@ -105,42 +118,6 @@ const TopUp = ({
         amount: 5250,
       },
     ],
-    // comunicator: [
-    //   {
-    //     quantity: 1000,
-    //     amount: 50,
-    //   },
-    //   {
-    //     quantity: 2500,
-    //     amount: 125,
-    //   },
-    //   {
-    //     quantity: 5000,
-    //     amount: 250,
-    //   },
-    //   {
-    //     quantity: 10000,
-    //     amount: 500,
-    //   },
-    // ],
-    // hyper: [
-    //   {
-    //     quantity: 1000,
-    //     amount: 50,
-    //   },
-    //   {
-    //     quantity: 2500,
-    //     amount: 125,
-    //   },
-    //   {
-    //     quantity: 5000,
-    //     amount: 250,
-    //   },
-    //   {
-    //     quantity: 10000,
-    //     amount: 500,
-    //   },
-    // ],
   };
 
   let mms = {
@@ -230,109 +207,332 @@ const TopUp = ({
       },
     ],
   };
+
+  const handleBuyTopUp = async (price, criditNo) => {
+    setDataStripe({
+      ...dataStripe,
+      type: activeProduct,
+      amount: price,
+      description: `${activeProduct} TopUp recaller`,
+      cridit: criditNo,
+    });
+    setOpen(true);
+  };
+  const { type, amount, description, cridit } = dataStripe;
   return (
-    <div className="form-page-layout subscribe-pricing-list">
-      <div className="price-page-layout">
-        <div className="subscribe-price-headerbar">
-          <div className="headerbar">
-            <div className="logo">
-              <img src={Logo} alt="Recallr" />
+    <>
+      <Modal show={open} onHide={handleClose} backdrop="static" centered>
+        <Modal.Header>
+          <Modal.Title>{type} Topup</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Elements stripe={stripePromise}>
+            <CheckoutForm
+              type={type}
+              amount={amount}
+              description={description}
+              cridit={cridit}
+              handleClose={handleClose}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          </Elements>
+        </Modal.Body>
+      </Modal>
+      <div className="form-page-layout subscribe-pricing-list">
+        <div className="price-page-layout">
+          <div className="subscribe-price-headerbar">
+            <div className="headerbar">
+              <div className="logo">
+                <img src={Logo} alt="Recallr" />
+              </div>
+            </div>
+            <div className="header-title">
+              <h1>Select the package that best suits your needs</h1>
+              <p>Pay Monthly or save big with an annual Subscription</p>
             </div>
           </div>
-          <div className="header-title">
-            <h1>Select the package that best suits your needs</h1>
-            <p>Pay Monthly or save big with an annual Subscription</p>
+          <div className="subscribe-mbtn">
+            <Button
+              className={monthisActive ? "active" : null}
+              onClick={monthlytoggleClass}
+            >
+              Monthly
+            </Button>
+            <Button
+              className={annualisActive ? "active" : null}
+              onClick={annualtoggleClass}
+            >
+              Annual
+            </Button>
+            <Button
+              className={smsisActive ? "active" : null}
+              onClick={smstoggleClass}
+            >
+              Top Up
+            </Button>
           </div>
-        </div>
-        <div className="subscribe-mbtn">
-          <Button
-            className={monthisActive ? "active" : null}
-            onClick={monthlytoggleClass}
-          >
-            Monthly
-          </Button>
-          <Button
-            className={annualisActive ? "active" : null}
-            onClick={annualtoggleClass}
-          >
-            Annual
-          </Button>
-          <Button
-            className={smsisActive ? "active" : null}
-            onClick={smstoggleClass}
-          >
-            Top Up
-          </Button>
-        </div>
-        <div className="subscribe-mbtn">
-          <Button
-            className={isSms ? "active" : null}
-            onClick={() => {
-              handleproduct("SMS");
-              SmsToggleClass();
-            }}
-          >
-            SMS
-          </Button>
-          <Button
-            className={isMMS ? "active" : null}
-            onClick={() => {
-              handleproduct("MMS");
-              MMSToggleClass();
-            }}
-          >
-            MMS
-          </Button>
-          <Button
-            className={isVoice ? "active" : null}
-            onClick={() => {
-              handleproduct("Voice");
-              VoiceToggleClass();
-            }}
-          >
-            Voice
-          </Button>
-        </div>
-        {
-          // <h1 style={{ textAlign: "center" }}>{activeProduct}</h1>
-        }
+          <div className="subscribe-mbtn">
+            <Button
+              className={isSms ? "active" : null}
+              onClick={() => {
+                handleproduct("SMS");
+                SmsToggleClass();
+              }}
+            >
+              SMS
+            </Button>
+            <Button
+              className={isMMS ? "active" : null}
+              onClick={() => {
+                handleproduct("MMS");
+                MMSToggleClass();
+              }}
+            >
+              MMS
+            </Button>
+            <Button
+              className={isVoice ? "active" : null}
+              onClick={() => {
+                handleproduct("Voice");
+                VoiceToggleClass();
+              }}
+            >
+              Voice
+            </Button>
+          </div>
+          {
+            // <h1 style={{ textAlign: "center" }}>{activeProduct}</h1>
+          }
 
-        {Object.keys(data || {})?.map((q) => {
-          return (
-            <>
-              <h1 style={{ textAlign: "center" }}>
-                {capitalizeFirstLetter(q)}
-              </h1>
+          {Object.keys(data || {})?.map((q) => {
+            return (
+              <>
+                <h1 style={{ textAlign: "center" }}>
+                  {capitalizeFirstLetter(q)}
+                </h1>
 
-              <div className="subscribe-list">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Volume</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Select</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data[q]?.map((w) => {
-                      return (
-                        <tr>
-                          <td>{w.quantity}</td>
-                          <td>${w.amount}</td>
-                          <td>
-                            <Button>Buy</Button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </>
-          );
-        })}
+                <div className="subscribe-list">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Volume</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Select</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data[q]?.map((w) => {
+                        return (
+                          <tr>
+                            <td>{w.quantity}</td>
+                            <td>${w.amount}</td>
+                            <td>
+                              <Button
+                                onClick={() => {
+                                  handleBuyTopUp(w.amount, w.quantity);
+                                }}
+                              >
+                                Buy
+                              </Button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
+  );
+};
+
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      color: "#303238",
+      fontSize: "16px",
+      fontFamily: "sans-serif",
+      fontSmoothing: "antialiased",
+      "::placeholder": {
+        color: "gray",
+      },
+    },
+    invalid: {
+      color: "#e5424d",
+      ":focus": {
+        color: "#303238",
+      },
+    },
+  },
+};
+
+const CheckoutForm = ({
+  type,
+  amount,
+  description,
+  cridit,
+  handleClose,
+  loading,
+  setLoading,
+ 
+}) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const navigate = useNavigate();
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+  });
+  // const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      if (!stripe || !elements) {
+        // Stripe.js has not yet loaded.
+        // Make sure to disable form submission until Stripe.js has loaded.
+        return;
+      }
+      const card = elements.getElement(CardElement);
+      const result = await stripe.createToken(card);
+     
+      if (result.error) {
+        toast.error(result.error.message);
+        setLoading(false);
+      } else {
+
+        handleTopupBuy(result.token)
+       console.log(result.token)
+        // const { client_secret, status } = res.data;
+
+        // if (status === "requires_action") {
+        //   stripe.confirmCardPayment(client_secret).then(function (result) {
+        //     if (result.status == false) {
+        //       toast.error(result.error);
+
+        //       setLoading(false);
+        //       // Display error message in your UI.
+        //       // The card was declined (i.e. insufficient funds, card has expired, etc)
+        //     } else {
+        //       // Show a success message to your customer
+        //       toast.success(result.massage);
+        //       Cookies.remove("token");
+        //       handleClose();
+        //       setLoading(false);
+        //       navigate("/login");
+        //     }
+        //   });
+        // } else {
+        //   if (!res.status) {
+        //     toast.error(res.data.massage || "SomeThing Went Wrong");
+        //     setLoading(false);
+        //   } else {
+        //     toast.success(res.data.status);
+        //     handleClose();
+        //     setLoading(false);
+        //     navigate("/login");
+        //   }
+
+        //   // No additional information was needed
+        //   // Show a success message to your customer
+        // }
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error("SomeThing went wrong try again");
+      handleClose();
+      setLoading(false);
+    }
+  };
+
+  const handleTopupBuy=async(token)=>{
+   
+    try {
+      let dataAll = {
+        payment_method: token.id,
+        email: details.email,
+        name: details.name,
+        amount: amount,
+        type: type,
+        description: description,
+        cridit: cridit,
+      };
+       const res = await buyTopupPlan(dataAll);
+
+       const {status , massage ,chargeValue}=res.data
+      toast.success(massage);
+      handleClose();
+      setLoading(false);
+
+      
+    } catch (error) {
+      
+    }
+  }
+
+  useEffect(() => {
+    let userData = JSON.parse(localStorage.getItem("userData"));
+    setDetails({
+      ...details,
+      email: userData.email,
+      name: `${userData.firstName} ${userData.lastName}`,
+    });
+  }, []);
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="blankdiv">
+        <input
+          type="text"
+          value={details.name}
+          className="inputCssname"
+          placeholder="Enter Name"
+          onChange={(e) => {
+            setDetails({
+              ...details,
+              name: e.target.value,
+            });
+          }}
+        />
+        <input
+          type="text"
+          value={details.email}
+          className="inputCssemail"
+          placeholder="Enter Email"
+          onChange={(e) => {
+            setDetails({
+              ...details,
+              email: e.target.value,
+            });
+          }}
+        />
+      </div>
+
+      <CardElement options={CARD_ELEMENT_OPTIONS} />
+      <div className="divFordispa">
+        <button
+          type="submit"
+          disabled={!stripe || !elements || loading}
+          className="butnn"
+        >
+          {loading ? "Loading..." : "Pay"}
+        </button>
+        <button
+          type="button"
+          className="butnntwo"
+          disabled={loading}
+          onClick={() => handleClose()}
+        >
+          {loading ? "Loading..." : "Cancle"}
+        </button>
+      </div>
+    </form>
   );
 };
 

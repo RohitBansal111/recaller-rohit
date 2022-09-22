@@ -72,12 +72,12 @@ const Price = () => {
   };
 
   const hnadleSub_Button = (sub_name, sub_price) => {
-    // setData({
-    //   ...data,
-    //   amount: Number(sub_price) * 100,
-    //   name: sub_name,
-    // });
-    // setOpen(true);
+    setData({
+      ...data,
+      amount: Number(sub_price) * 100,
+      name: sub_name,
+    });
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -166,12 +166,12 @@ const Price = () => {
               >
                 Annual
               </Button>
-              <Button
+              {/* <Button
                 className={smsisActive ? "active" : null}
                 onClick={smstoggleClass}
               >
                 Top Up
-              </Button>
+              </Button> */}
             </div>
             <div className="subscribe-list">
               <Row>
@@ -208,9 +208,11 @@ const Price = () => {
                     <Col xs={2}>
                       <div className="card starter-price">
                         <div className="card-header">
-                          <div className="recm-title">
+                        {
+                            w=="communicator" &&<div className="recm-title">
                             <h1>Our Recommendation</h1>
                           </div>
+                          }
                           <div className="price-heading">
                             <h5 className="card-title">
                               {capitalizeFirstLetter(w)}
