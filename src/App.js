@@ -48,6 +48,7 @@ import EmailPage from "./pages/email";
 import EmailSetting from "./pages/settings/email";
 import EmailSender from "./pages/settings/email/email-sender";
 import Price from "./pages/Price";
+import PriceInner from './pages/Price/PriceInner'
 import { socket } from "./helper/socket";
 import { Notifications } from "react-push-notification";
 import ViewCompaign from "./pages/viewCompaign/ViewCompaign";
@@ -108,6 +109,15 @@ function App({ component: Component, ...rest }) {
           }
         />
         <Route path="/Price" element={<Price />} />
+        <Route
+          exact
+          path="/Price-inner"
+          element={
+            <IsAuthenticated>
+              <PriceInner />
+            </IsAuthenticated>
+          }
+        />
 
         <Route
           path="/forgot-password"

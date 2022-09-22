@@ -155,10 +155,14 @@ const MyAccount = () => {
     };
     Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
     Cookies.set("token", token, { expires: 1 });
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
-    navigate("/Price");
+   // localStorage.removeItem("token");
+  //  localStorage.removeItem("userData");
+    navigate("/Price-inner");
   };
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div>
       <Layout>
@@ -255,7 +259,7 @@ const MyAccount = () => {
                       type="text"
                       className="form-control"
                       placeholder="User Plan will Shown Here "
-                      value={`${addUser && addUser.subscriptionPlan} Plan`}
+                      value={`${capitalizeFirstLetter(addUser && addUser?.subscriptionPlan||'')} Plan`}
                       disabled
                     />
                   </div>

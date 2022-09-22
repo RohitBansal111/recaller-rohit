@@ -20,6 +20,7 @@ import { Button, Row, Col, Modal } from "react-bootstrap";
 import { CreateSubscription, CreateSubscriptionFree } from "../../api/plans";
 import TopUp from "../../components/price/TopUp";
 import {getSubscription} from '../../api/subscription'
+import Layout from "../../components/layout";
 const stripePromise = loadStripe(
   "pk_test_51JPsinAhUO0LEMorfVu3TFyzUWo3i1n7jowbZqsf0BI0cK9mL4Leg2p7Kz1J1L4J3Rn9FdnWAXTVnq586ECRbrUL00aTx3yEWY"
 );
@@ -118,6 +119,7 @@ const Price = () => {
   const { name, price } = data;
   return (
     <>
+    <Layout>
       <Modal show={open} onHide={handleClose} backdrop="static" centered>
         <Modal.Header>
           <Modal.Title>{name} Subscription</Modal.Title>
@@ -336,6 +338,7 @@ const Price = () => {
           />
         </>
       )}
+      </Layout>
     </>
   );
 };
