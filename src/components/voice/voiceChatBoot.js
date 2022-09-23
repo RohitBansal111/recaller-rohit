@@ -605,7 +605,7 @@ const VoiceChatBoot = (props) => {
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>${subData?.voice_cridit_remain||0}</span>
+                <span>${Number(subData?.voice_cridit_remain)+Number(subData?.voice_topup_val)||0}</span>
               </li>
             </ul>
           </div>

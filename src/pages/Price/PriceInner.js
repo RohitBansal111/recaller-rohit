@@ -19,14 +19,14 @@ import Cookies from "js-cookie";
 import { Button, Row, Col, Modal } from "react-bootstrap";
 import { CreateSubscription, CreateSubscriptionFree } from "../../api/plans";
 import TopUp from "../../components/price/TopUp";
-import {getSubscription} from '../../api/subscription'
+import { getSubscription } from "../../api/subscription";
 import Layout from "../../components/layout";
 const stripePromise = loadStripe(
   "pk_test_51JPsinAhUO0LEMorfVu3TFyzUWo3i1n7jowbZqsf0BI0cK9mL4Leg2p7Kz1J1L4J3Rn9FdnWAXTVnq586ECRbrUL00aTx3yEWY"
 );
 
 const Price = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [monthisActive, setmonthisActive] = useState(true);
   const [open, setOpen] = useState();
   const [loading, setLoading] = useState(false);
@@ -42,8 +42,9 @@ const Price = () => {
   const [isEmail, setIsEmail] = useState(false);
   const [isVoice, setIsVoice] = useState(false);
   const [tyeOfPage, settypeOfPage] = useState("sub");
-  const [subData, setSubData]=useState({})
-  const [typeCheck , setTypeCheck]=useState('monthly')
+  const [subData, setSubData] = useState({});
+  const [typeCheck, setTypeCheck] = useState("monthly");
+  const [userType, setUserType] = useState("");
 
   const monthlytoggleClass = () => {
     settypeOfPage("sub");
@@ -51,7 +52,7 @@ const Price = () => {
     setannualisActive(false);
     setsmsisActive(false);
     setType("month");
-    setTypeCheck("monthly")
+    setTypeCheck("monthly");
   };
   const annualtoggleClass = () => {
     setannualisActive(true);
@@ -59,17 +60,16 @@ const Price = () => {
     setsmsisActive(false);
     setType("year");
     settypeOfPage("sub");
-    setTypeCheck("yearly")
+    setTypeCheck("yearly");
   };
 
   const smstoggleClass = () => {
     settypeOfPage("topup");
-
     setmonthisActive(false);
     setannualisActive(false);
     setsmsisActive(true);
     setType("sms");
-    setTypeCheck("monthly")
+    setTypeCheck("monthly");
   };
 
   const hnadleSub_Button = (sub_name, sub_price) => {
@@ -101,25 +101,30 @@ const Price = () => {
   const handleGetData = async () => {
     let res = await getSubscription();
     if (res && res.data && res.status == 200) {
-      let data={
-        Sub_data:res?.data?.subData,
-        sub_price:res?.data?.subprice
-      }
+      let data = {
+        Sub_data: res?.data?.subData,
+        sub_price: res?.data?.subprice,
+      };
       setSubData(data);
     }
   };
-  useEffect(()=>{
-    handleGetData()
-  },[])
+  useEffect(() => {
+    //  setUserType(usercheck.paln);
+    handleGetData();
+  }, []);
+  let usercheck = JSON.parse(Cookies.get("userData"));
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   const { name, price } = data;
   return (
     <>
-    <Layout>
+      <Layout>
       <Modal show={open} onHide={handleClose} backdrop="static" centered>
         <Modal.Header>
           <Modal.Title>{name} Subscription</Modal.Title>
@@ -141,9 +146,12 @@ const Price = () => {
           <div className="price-page-layout">
             <div className="subscribe-price-headerbar">
               <div className="headerbar">
-              <div className="logo" onClick={()=>{
-                navigate('/')
-              }}>
+                <div
+                  className="logo"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
                   <img src={Logo} alt="Recallr" />
                 </div>
               </div>
@@ -169,7 +177,7 @@ const Price = () => {
                 className={smsisActive ? "active" : null}
                 onClick={smstoggleClass}
               >
-                Top Up
+                {usercheck?.plan == "free" ? "Solo Credits" : " Top Up"}
               </Button>
             </div>
             <div className="subscribe-list">
@@ -202,30 +210,44 @@ const Price = () => {
                     </div>
                   </div>
                 </Col>
-                {
-                  Object.keys(subData?.Sub_data ||{})?.map((w)=>{
-                    return (
-                      <Col xs={2}>
+                {Object.keys(subData?.Sub_data || {})?.map((w) => {
+                  return (
+                    <Col xs={2}>
                       <div className="card starter-price">
                         <div className="card-header">
-                          {console.log(w)}
+                          {w == "communicator" && (
+                            <div className="recm-title">
+                              <h1>Our Recommendation</h1>
+                            </div>
+                          )}
 
-                          {
-                            w=="communicator" &&<div className="recm-title">
-                            <h1>Our Recommendation</h1>
-                          </div>
-                          }
-                         
                           <div className="price-heading">
-                            <h5 className="card-title">{capitalizeFirstLetter(w)}</h5>
+                            <h5 className="card-title">
+                              {capitalizeFirstLetter(w)}
+                            </h5>
                             <div className="time-period">
                               <h6
-                            className={
-                              monthisActive || annualisActive ? "monthly active" : "monthly"
-                            }
-                          >
-                          <sup>{w == 'free'?'':'$' }</sup>{subData && subData?.sub_price && subData?.sub_price[w]&& subData?.sub_price[w][typeCheck] ||''}<small>{w == 'free'?'':typeCheck=='yearly' ? '/yr':'/mo'}</small>
-                          </h6>
+                                className={
+                                  monthisActive || annualisActive
+                                    ? "monthly active"
+                                    : "monthly"
+                                }
+                              >
+                                <sup>{w == "free" ? "" : "$"}</sup>
+                                
+                                {numberWithCommas(subData &&
+                                  subData?.sub_price &&
+                                  subData?.sub_price[w] &&
+                                  subData?.sub_price[w][typeCheck] ||
+                                  "") }
+                                <small>
+                                  {w == "free"
+                                    ? ""
+                                    : typeCheck == "yearly"
+                                    ? "/yr"
+                                    : "/mo"}
+                                </small>
+                              </h6>
                             </div>
                           </div>
                         </div>
@@ -233,20 +255,42 @@ const Price = () => {
                           <ul>
                             <li>
                               <span>
-                                {subData?.Sub_data[w]?.sms?<FiCheck />: <MdClose />}
+                                {subData?.Sub_data[w]?.sms ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
                               </span>
-                            </li>
-                            <li>
-                              <span> {subData?.Sub_data[w]?.sms_cridit==0?<MdClose />: subData?.Sub_data[w]?.sms_cridit}</span>
                             </li>
                             <li>
                               <span>
-                              {subData?.Sub_data[w]?.mms?<FiCheck />: <MdClose />}
+                                {" "}
+                                {subData?.Sub_data[w]?.sms_cridit == 0 ? (
+                                  <MdClose />
+                                ) : (
+                                  numberWithCommas(subData?.Sub_data[w]?.sms_cridit||'')
+                                )}
                               </span>
                             </li>
                             <li>
-                            <span> {subData?.Sub_data[w]?.mms_cridit==0?<MdClose />: subData?.Sub_data[w]?.mms_cridit}</span>
-
+                              <span>
+                                {subData?.Sub_data[w]?.mms ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
+                              </span>
+                            </li>
+                            <li>
+                              <span>
+                                {" "}
+                                {subData?.Sub_data[w]?.mms_cridit == 0 ? (
+                                  <MdClose />
+                                ) : (
+                                  numberWithCommas( subData?.Sub_data[w]?.mms_cridit||'')
+                                 
+                                )}
+                              </span>
                             </li>
                             {/* <li>
                               <span>
@@ -266,57 +310,104 @@ const Price = () => {
                               <span>500</span>
                             </li> */}
                             <li>
-                            <span> {subData?.Sub_data[w]?.text_keywords==0?<MdClose />: subData?.Sub_data[w]?.text_keywords}</span>
-
-                            </li>
-                            <li>
                               <span>
-                              {subData?.Sub_data[w]?.text_templates?<FiCheck />: <MdClose />}
-
+                                {" "}
+                                {subData?.Sub_data[w]?.text_keywords == 0 ? (
+                                  <MdClose />
+                                ) : (
+                                  numberWithCommas(subData?.Sub_data[w]?.text_keywords||'')
+                                  
+                                )}
                               </span>
                             </li>
                             <li>
                               <span>
-                              {subData?.Sub_data[w]?.crm?<FiCheck />: <MdClose />}
+                                {subData?.Sub_data[w]?.text_templates ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
                               </span>
                             </li>
                             <li>
                               <span>
-                              {subData?.Sub_data[w]?.chatbot?<FiCheck />: <MdClose />}
+                                {subData?.Sub_data[w]?.crm ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
                               </span>
                             </li>
                             <li>
                               <span>
-                              {subData?.Sub_data[w]?.search_engine?<FiCheck />: <MdClose />}
-                              </span>
-                            </li>
-                            <li>
-                            <span> {subData?.Sub_data[w]?.searches==0?<MdClose />: subData?.Sub_data[w]?.searches}</span>
-                            </li>
-                            <li>
-                              <span>
-                              {subData?.Sub_data[w]?.predictive?<FiCheck />: <MdClose />}
+                                {subData?.Sub_data[w]?.chatbot ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
                               </span>
                             </li>
                             <li>
                               <span>
-                              {subData?.Sub_data[w]?.widget?<FiCheck />: <MdClose />}
+                                {subData?.Sub_data[w]?.search_engine ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
                               </span>
                             </li>
                             <li>
                               <span>
-                              {subData?.Sub_data[w]?.crm_integration?<FiCheck />: <MdClose />}
+                                {" "}
+                                {subData?.Sub_data[w]?.searches == 0 ? (
+                                  <MdClose />
+                                ) : (
+                                  numberWithCommas(subData?.Sub_data[w]?.searches||'')
+                                 
+                                )}
+                              </span>
+                            </li>
+                            <li>
+                              <span>
+                                {subData?.Sub_data[w]?.predictive ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
+                              </span>
+                            </li>
+                            <li>
+                              <span>
+                                {subData?.Sub_data[w]?.widget ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
+                              </span>
+                            </li>
+                            <li>
+                              <span>
+                                {subData?.Sub_data[w]?.crm_integration ? (
+                                  <FiCheck />
+                                ) : (
+                                  <MdClose />
+                                )}
                               </span>
                             </li>
                           </ul>
                           <Button
                             onClick={() => {
-                              if(w=='free'){
-                                handleFreeData()
-                              }else{
-                                hnadleSub_Button(w, subData && subData?.sub_price && subData?.sub_price[w]&& subData?.sub_price[w][typeCheck]);
+                              if (w == "free") {
+                                handleFreeData();
+                              } else {
+                                hnadleSub_Button(
+                                  w,
+                                  subData &&
+                                    subData?.sub_price &&
+                                    subData?.sub_price[w] &&
+                                    subData?.sub_price[w][typeCheck]
+                                );
                               }
-                            
                             }}
                           >
                             Get Started
@@ -324,9 +415,8 @@ const Price = () => {
                         </div>
                       </div>
                     </Col>
-                    )
-                  })
-                }
+                  );
+                })}
               </Row>
             </div>
           </div>
@@ -456,9 +546,9 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
     const userData = JSON.parse(Cookies.get("userData"));
     setDetails({
       ...details,
-      name:userData.name,
+      name: userData.name,
       email: userData.email,
-    })
+    });
   }, []);
 
   return (

@@ -120,6 +120,7 @@ const TextPage = () => {
   const [searchTemplateValue, setSearchTemplateValue] = useState("");
   const [compaign, setCompaigns] = useState([]);
   const [countData, setCountData] = useState();
+  const [checkBtn, setCheckBtn] = useState(false);
 
   const divRef = useRef(null);
 
@@ -1211,6 +1212,17 @@ const TextPage = () => {
       setCountData(data_value);
     }
   };
+  useEffect(() => {
+    let check = false;
+    if (selectedImageData !== null) {
+      check = true;
+    } else if (sendMessage !== "") {
+      check = true;
+    } else {
+      check = false;
+    }
+    setCheckBtn(check);
+  }, [selectedImageData, sendMessage]);
 
   return (
     <Layout>
@@ -1245,6 +1257,7 @@ const TextPage = () => {
         </div>
         <div className="text-main-section">
           <ChatBoot
+            checkBtn={checkBtn}
             selecteduser={selecteduser}
             replacefunc={replacefunc}
             openManageTagModal={openManageTagModal}

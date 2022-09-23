@@ -147,11 +147,12 @@ const MyAccount = () => {
       }
     }
   };
-  const handlereroute = (first, last, email) => {
+  const handlereroute = (first, last, email,plan) => {
     let token = localStorage.getItem("token");
     let dataSend = {
       name: `${first} ${last}`,
       email: email,
+      paln:plan
     };
     Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
     Cookies.set("token", token, { expires: 1 });
@@ -159,7 +160,6 @@ const MyAccount = () => {
     //  localStorage.removeItem("userData");
     navigate("/Price-inner");
   };
-
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -176,7 +176,9 @@ const MyAccount = () => {
                   handlereroute(
                     addUser.firstName,
                     addUser.lastName,
-                    addUser.email
+                    addUser.email,
+                    addUser.subscriptionPlan
+
                   )
                 }
               >

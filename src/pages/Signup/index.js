@@ -103,12 +103,12 @@ const Signup = () => {
     e.preventDefault();
     if (isValid()) {
       const res = await signup(data);
-
       if (res && res.data && res.data.status === 200) {
         toast.success("Register successful!");
         let dataSend = {
           name: `${res.data.response.firstName} ${res.data.response.lastName}`,
           email: res.data.response.email,
+          plan:"free"
         };
         Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
         Cookies.set("token", res?.data?.response.jwt, { expires: 1 });

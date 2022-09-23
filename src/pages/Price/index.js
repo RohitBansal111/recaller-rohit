@@ -20,6 +20,7 @@ import { Button, Row, Col, Modal } from "react-bootstrap";
 import { CreateSubscription, CreateSubscriptionFree } from "../../api/plans";
 import TopUp from "../../components/price/TopUp";
 import { getSubscription } from "../../api/subscription";
+import Layout from "../../components/layout";
 const stripePromise = loadStripe(
   "pk_test_51JPsinAhUO0LEMorfVu3TFyzUWo3i1n7jowbZqsf0BI0cK9mL4Leg2p7Kz1J1L4J3Rn9FdnWAXTVnq586ECRbrUL00aTx3yEWY"
 );
@@ -43,6 +44,7 @@ const Price = () => {
   const [tyeOfPage, settypeOfPage] = useState("sub");
   const [subData, setSubData] = useState({});
   const [typeCheck, setTypeCheck] = useState("monthly");
+  const [userType, setUserType] = useState("");
 
   const monthlytoggleClass = () => {
     settypeOfPage("sub");
@@ -63,7 +65,6 @@ const Price = () => {
 
   const smstoggleClass = () => {
     settypeOfPage("topup");
-
     setmonthisActive(false);
     setannualisActive(false);
     setsmsisActive(true);
@@ -97,10 +98,6 @@ const Price = () => {
     }
   };
 
-
-
-  
-
   const handleGetData = async () => {
     let res = await getSubscription();
     if (res && res.data && res.status == 200) {
@@ -112,16 +109,22 @@ const Price = () => {
     }
   };
   useEffect(() => {
+    //  setUserType(usercheck.paln);
     handleGetData();
   }, []);
+  let usercheck = JSON.parse(Cookies.get("userData"));
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   const { name, price } = data;
   return (
     <>
+    
       <Modal show={open} onHide={handleClose} backdrop="static" centered>
         <Modal.Header>
           <Modal.Title>{name} Subscription</Modal.Title>
@@ -170,12 +173,12 @@ const Price = () => {
               >
                 Annual
               </Button>
-              {/* <Button
+              <Button
                 className={smsisActive ? "active" : null}
                 onClick={smstoggleClass}
               >
-                Top Up
-              </Button> */}
+                {usercheck?.plan == "free" ? "Solo Credits" : " Top Up"}
+              </Button>
             </div>
             <div className="subscribe-list">
               <Row>
@@ -212,11 +215,12 @@ const Price = () => {
                     <Col xs={2}>
                       <div className="card starter-price">
                         <div className="card-header">
-                        {
-                            w=="communicator" &&<div className="recm-title">
-                            <h1>Our Recommendation</h1>
-                          </div>
-                          }
+                          {w == "communicator" && (
+                            <div className="recm-title">
+                              <h1>Our Recommendation</h1>
+                            </div>
+                          )}
+
                           <div className="price-heading">
                             <h5 className="card-title">
                               {capitalizeFirstLetter(w)}
@@ -230,11 +234,12 @@ const Price = () => {
                                 }
                               >
                                 <sup>{w == "free" ? "" : "$"}</sup>
-                                {(subData &&
+                                
+                                {numberWithCommas(subData &&
                                   subData?.sub_price &&
                                   subData?.sub_price[w] &&
-                                  subData?.sub_price[w][typeCheck]) ||
-                                  ""}
+                                  subData?.sub_price[w][typeCheck] ||
+                                  "") }
                                 <small>
                                   {w == "free"
                                     ? ""
@@ -263,7 +268,7 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.sms_cridit == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  subData?.Sub_data[w]?.sms_cridit
+                                  numberWithCommas(subData?.Sub_data[w]?.sms_cridit||'')
                                 )}
                               </span>
                             </li>
@@ -282,7 +287,8 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.mms_cridit == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  subData?.Sub_data[w]?.mms_cridit
+                                  numberWithCommas( subData?.Sub_data[w]?.mms_cridit||'')
+                                 
                                 )}
                               </span>
                             </li>
@@ -309,7 +315,8 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.text_keywords == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  subData?.Sub_data[w]?.text_keywords
+                                  numberWithCommas(subData?.Sub_data[w]?.text_keywords||'')
+                                  
                                 )}
                               </span>
                             </li>
@@ -355,7 +362,8 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.searches == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  subData?.Sub_data[w]?.searches
+                                  numberWithCommas(subData?.Sub_data[w]?.searches||'')
+                                 
                                 )}
                               </span>
                             </li>
@@ -425,6 +433,7 @@ const Price = () => {
           />
         </>
       )}
+     
     </>
   );
 };

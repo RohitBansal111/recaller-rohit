@@ -15,6 +15,20 @@ const getSubscription = async (data) => {
     return { data: err.response.data };
   }
 };
+const getTopUp = async (data) => {
+  try {
+   
+    const result = await axios.get(
+      `${process.env.REACT_APP_API_URL}/sub/topup`,
+      data
+    );
+    if (result) {
+      return result;
+    }
+  } catch (err) {
+    return { data: err.response.data };
+  }
+};
 
 
-export { getSubscription };
+export { getSubscription ,getTopUp};

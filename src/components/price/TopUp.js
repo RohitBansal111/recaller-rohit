@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 import Logo from "../../assets/images/logo.svg";
 import { loadStripe } from "@stripe/stripe-js";
-import {buyTopupPlan} from '../../api/plans'
+import { buyTopupPlan } from "../../api/plans";
+import { getTopUp } from "../../api/subscription";
 import {
   CardElement,
   Elements,
@@ -35,7 +36,8 @@ const TopUp = ({
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeProduct, setActiveProduct] = useState("SMS");
-
+  const [userType, setUserType] = useState("sub");
+  const [ApiData, setapiData] = useState({});
   const [dataStripe, setDataStripe] = useState({
     type: "no data",
     amount: 0,
@@ -61,20 +63,14 @@ const TopUp = ({
   const handleproduct = (type) => {
     setActiveProduct(type);
     if (type == "SMS") {
-      setData(sms);
+      setData(ApiData[type]);
     } else if (type == "MMS") {
-      setData(mms);
+      setData(ApiData[type]);
     } else {
-      setData(voice);
+      setData(ApiData[type]);
     }
   };
 
-  useEffect(() => {
-    handleproduct("SMS");
-    setIsSms(true);
-    setIsMMS(false);
-    setIsVoice(false);
-  }, []);
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -186,10 +182,6 @@ const TopUp = ({
       },
       {
         quantity: 120000,
-        amount: 1800,
-      },
-      {
-        quantity: 120000,
         amount: 3360,
       },
 
@@ -218,12 +210,41 @@ const TopUp = ({
     });
     setOpen(true);
   };
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  const handleGetData = async () => {
+    let res = await getTopUp();
+    if (res && res.data && res.status == 200) {
+      console.log(res.data.data);
+      setapiData(res.data.data);
+      handleproduct("SMS")
+      setData(res.data.data.SMS)
+    }
+  };
+  useEffect(() => {
+    //  setUserType(usercheck.paln);
+    handleGetData();
+  }, []);
+
+  useEffect(() => {
+    handleproduct("SMS");
+    setIsSms(true);
+    setIsMMS(false);
+    setIsVoice(false);
+  }, []);
+
+  let usercheck = JSON.parse(Cookies.get("userData"));
   const { type, amount, description, cridit } = dataStripe;
+
   return (
     <>
       <Modal show={open} onHide={handleClose} backdrop="static" centered>
         <Modal.Header>
-          <Modal.Title>{type} Topup</Modal.Title>
+          <Modal.Title>
+            {type} {usercheck?.plan == "free" ? "Solo Credits" : "Topup"}{" "}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Elements stripe={stripePromise}>
@@ -269,7 +290,7 @@ const TopUp = ({
               className={smsisActive ? "active" : null}
               onClick={smstoggleClass}
             >
-              Top Up
+              {usercheck?.plan == "free" ? "Solo Credits" : "Top Up"}
             </Button>
           </div>
           <div className="subscribe-mbtn">
@@ -325,8 +346,8 @@ const TopUp = ({
                       {data[q]?.map((w) => {
                         return (
                           <tr>
-                            <td>{w.quantity}</td>
-                            <td>${w.amount}</td>
+                            <td>{numberWithCommas(w.quantity)}</td>
+                            <td>${numberWithCommas(w.amount)}</td>
                             <td>
                               <Button
                                 onClick={() => {
@@ -379,7 +400,6 @@ const CheckoutForm = ({
   handleClose,
   loading,
   setLoading,
- 
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -401,14 +421,13 @@ const CheckoutForm = ({
       }
       const card = elements.getElement(CardElement);
       const result = await stripe.createToken(card);
-     
+
       if (result.error) {
         toast.error(result.error.message);
         setLoading(false);
       } else {
-
-        handleTopupBuy(result.token)
-       console.log(result.token)
+        handleTopupBuy(result.token);
+        console.log(result.token);
         // const { client_secret, status } = res.data;
 
         // if (status === "requires_action") {
@@ -444,15 +463,14 @@ const CheckoutForm = ({
         // }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error("SomeThing went wrong try again");
       handleClose();
       setLoading(false);
     }
   };
 
-  const handleTopupBuy=async(token)=>{
-   
+  const handleTopupBuy = async (token) => {
     try {
       let dataAll = {
         payment_method: token.id,
@@ -463,18 +481,14 @@ const CheckoutForm = ({
         description: description,
         cridit: cridit,
       };
-       const res = await buyTopupPlan(dataAll);
+      const res = await buyTopupPlan(dataAll);
 
-       const {status , massage ,chargeValue}=res.data
+      const { status, massage, chargeValue } = res.data;
       toast.success(massage);
       handleClose();
       setLoading(false);
-
-      
-    } catch (error) {
-      
-    }
-  }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem("userData"));

@@ -231,6 +231,7 @@ const ChatBoot = (props) => {
   useEffect(() => {
     handleGetData();
   }, []);
+  
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -534,11 +535,11 @@ const ChatBoot = (props) => {
                             loading={props.loading}
                             style={{
                               cursor:
-                                props.sendMessage == 0
+                                !props.checkBtn
                                   ? "not-allowed"
                                   : "pointer",
                             }}
-                            disabled={!props.sendMessage ? true : false}
+                            disabled={!props.checkBtn ? true : false}
                             onClick={props.onHandleClick}
                             className="btn-primary-outline"
                             variant="outlined"
@@ -785,11 +786,11 @@ const ChatBoot = (props) => {
             <ul>
               <li>
                 <b>Credit used</b>
-                <span>${subData.sms_cridit_used}</span>
+                <span>${subData.sms_cridit_used ||0}</span>
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>${subData.sms_cridit_remain}</span>
+                <span>${Number(subData.sms_cridit_remain)+Number(subData.sms_topup_val)}</span>
               </li>
             </ul>
           </div>

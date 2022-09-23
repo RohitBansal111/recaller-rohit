@@ -84,20 +84,16 @@ const Dashboard = (props) => {
       });
       setCompaigns(data);
     }
-    // console.log("togglessss", res.label);
   };
   const viewContactCompaign = async (item) => {
-    console.log(item, "kkkkkkkkkkkkk");
     let res = await contactCompaignApi(item.value);
     if (res && res.data && res.data.status === 200) {
-      console.log(res.data.data, "res.data.data");
       let compaignId = res.data.data._id;
       setView(compaignId);
       // setshowAddCompaign(true);
       setViewCompaign(true);
       navigate(`/ViewCompaign/${item.value}`);
     }
-    console.log("view contactCompaign", res);
   };
   const handleCompaignShow = () => {
     setshowAddCompaign(true);
@@ -113,7 +109,6 @@ const Dashboard = (props) => {
     setErrors("");
   };
   const handleChange = (e) => {
-    console.log("data::::", { ...data, [e.target.name]: e.target.value });
     if (e.target.name == "toggle")
       setData({
         ...data,
@@ -125,9 +120,6 @@ const Dashboard = (props) => {
     }
   };
   const handleEditClick = (data) => {
-    console.log(data.label, "data");
-    console.log(data.toggle, "togglehandle click");
-
     // setCamData(data.label);
     setData({ ...data, name: data.label, toggle: data.toggle });
     setEdit(data);
@@ -180,7 +172,6 @@ const Dashboard = (props) => {
       toast.error(res.data.message);
     }
     setCamData("");
-    console.log(edit.label, "label");
   };
 
   const handleDelete = async (data) => {
@@ -217,15 +208,15 @@ const Dashboard = (props) => {
   const voicelatestpercentage = 15;
 
   const textpercentage = 6;
-  const handleSubData=async()=>{
+  const handleSubData = async () => {
     let res = await GetSubscriptionData();
     if (res && res.data && res.status == 200) {
       setSubData(res?.data?.data);
     }
-  }
+  };
 
   useEffect(() => {
-    handleSubData()
+    handleSubData();
   }, []);
 
   return (
@@ -233,11 +224,9 @@ const Dashboard = (props) => {
       <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>
-            {console.log(userDataa)}
             Welcome To Your Recallr Dashboard{" "}
             <span> {userDataa ? userDataa.companyName : ""} </span>
           </h1>
-          {console.log(userDataa.companyName, "companyName")}
         </div>
         <div className="dahboard-performace-card-box">
           <div className="performance-card">
@@ -312,20 +301,23 @@ const Dashboard = (props) => {
                         <span className="month43">
                           {moment().format("MMMM")} .
                         </span>
+                        {console.log("qqq", subData)}
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.email_cridit_used) ||0}
+                          Number(subData?.mms_cridit_used) || 0}
                         /
-                        {Number(subData?.email_cridit) +
+                        {Number(subData?.mms_cridit) +
                           Number(subData?.sms_cridit) +
-                          Number(subData?.voice_cridit) ||0 }
+                          Number(subData?.voice_cridit) +
+                          Number(subData?.mms_topup_val) +
+                          Number(subData?.sms_topup_val) +
+                          Number(subData?.voice_topup_val) || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
                   </div>
                   <div className="value-graph">
                     <Currentgraph />
-
                   </div>
                   <div className="top-performance-field">
                     <h2>Credit Balance</h2>
@@ -388,7 +380,7 @@ const Dashboard = (props) => {
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
-                                    <h4>Email</h4>
+                                    <h4>MMS</h4>
                                     <span>Credits Deployed</span>
                                   </div>
                                 </div>
@@ -396,7 +388,7 @@ const Dashboard = (props) => {
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
                                   <small></small>{" "}
-                                  {subData?.email_cridit_used || 0}
+                                  {subData?.mms_cridit_used || 0}
                                   <span className="active-performance zero">
                                     <i className="fa-solid fa-circle-dot"></i>
                                   </span>
