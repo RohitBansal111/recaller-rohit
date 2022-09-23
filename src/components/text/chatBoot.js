@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -47,6 +47,7 @@ import VoiceProgressBar from "./ProgreeBar";
 
 const ChatBoot = (props) => {
   const [subData, setSubData] = useState({});
+  const [typeSelect, setTypeSelect] = useState("sms");
   const data = [
     {
       name: "Page A",
@@ -223,7 +224,6 @@ const ChatBoot = (props) => {
   const handleGetData = async () => {
     let res = await GetSubscriptionData();
     if (res && res.data && res.status == 200) {
-    
       setSubData(res?.data?.data);
     }
   };
@@ -231,7 +231,7 @@ const ChatBoot = (props) => {
   useEffect(() => {
     handleGetData();
   }, []);
-  
+
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -534,10 +534,9 @@ const ChatBoot = (props) => {
                             loadingPosition="center"
                             loading={props.loading}
                             style={{
-                              cursor:
-                                !props.checkBtn
-                                  ? "not-allowed"
-                                  : "pointer",
+                              cursor: !props.checkBtn
+                                ? "not-allowed"
+                                : "pointer",
                             }}
                             disabled={!props.checkBtn ? true : false}
                             onClick={props.onHandleClick}
@@ -782,15 +781,32 @@ const ChatBoot = (props) => {
           }
 
           <div className="monthly-balance-box">
-            <h4>Monthly Balance</h4>
+            <select 
+              value={typeSelect}
+              onChange={(e) => {
+                setTypeSelect(e.target.value);
+              }}
+            >
+              <option value="sms">SMS</option>
+              <option value="mms">MMS</option>
+            </select>
+          </div>
+          <div className="monthly-balance-box">
+            <h4>Monthly {typeSelect=='sms'?"SMS":"MMS"} Balance</h4>
             <ul>
+              {console.log(subData)}
               <li>
-                <b>Credit used</b>
-                <span>${subData.sms_cridit_used ||0}</span>
+                <b> {typeSelect=='sms'?"SMS ":"MMS "} Credit used</b>
+                <span>$ {typeSelect=='sms'?subData.sms_cridit_used || 0:subData.mms_cridit_used || 0}</span>
               </li>
               <li>
-                <b>Credit balance</b>
-                <span>${Number(subData.sms_cridit_remain)+Number(subData.sms_topup_val)}</span>
+                <b>{typeSelect=='sms'?"SMS ":"MMS "} Credit balance</b>
+                <span>
+                  ${typeSelect=='sms'? Number(subData.sms_cridit_remain) +
+                    Number(subData.sms_topup_val) || 0:Number(subData.mms_cridit_remain) +
+                    Number(subData.mms_topup_val) || 0}
+                 
+                </span>
               </li>
             </ul>
           </div>
