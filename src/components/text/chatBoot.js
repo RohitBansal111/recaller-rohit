@@ -706,6 +706,7 @@ const ChatBoot = (props) => {
           }
 
           {/* Monthly credit usage column start */}
+
           <div className="monthly-credit-use">
             <h1>
               Text Credits Deployed:745{" "}
