@@ -344,7 +344,8 @@ input[type="number"] {
 
       .field-group {
         .link-router {
-          color: $Active-color;
+          // color: $Active-color;
+          color: #343a40;
           text-decoration: none;
           font-size: 14px;
         }
@@ -407,7 +408,7 @@ input[type="number"] {
     margin: 0px;
 
     a {
-      color: #655beb;
+      color: #343a40;
       font-weight: bold;
     }
   }
@@ -881,4 +882,9 @@ div {
       width: 120px;
     }
   }
+}
+.logo-login {
+  justify-content: center;
+  display: flex;
+  background-image: linear-gradient(135deg, #27dcbf 0%, #655beb 100%);
 }

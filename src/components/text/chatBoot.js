@@ -24,7 +24,6 @@ import CreateTemplateModal from "../../models/CreateTemplateModal";
 import ManageTemplateModal from "../../models/ManageTemplateModal";
 import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
-import { BsChevronRight } from "react-icons/bs";
 import Chart from "react-apexcharts";
 import { GetSubscriptionData } from "../../api/plans";
 import ReactApexChart from "react-apexcharts";
@@ -35,6 +34,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 
 import ProgressBar from "react-bootstrap/ProgressBar";
+
+import { BsChevronRight } from "react-icons/bs";
 
 import {
   AreaChart,

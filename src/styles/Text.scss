@@ -733,11 +733,12 @@
       text-align: left;
       .chat-ui-box {
         padding: 10px;
-        border-radius: 6px;
+        // border-radius: 6px;
         border-width: 2px;
         border-style: solid;
         display: inline-block;
         pre {
+          color: #36ddbf;
           font-size: 13px;
           margin-bottom: 0px;
           p {
@@ -760,9 +761,9 @@
         &.user {
           background-color: #e9f4f2;
           border-color: transparent;
-          border-radius: 30px;
-          border-top-left-radius: 30px;
-          border-top-right-radius: 0.35rem;
+          //  border-radius: 30px;
+          //  border-top-left-radius: 30px;
+          //  border-top-right-radius: 0.35rem;
           margin-bottom: 2px;
           display: inline-block;
           position: relative;
