@@ -681,9 +681,71 @@ const ChatBoot = (props) => {
               )}
             </ul>
           </div>
-          {!props.selecteduser ? (
-            ""
-          ) : (
+          {!props.selecteduser ? "" : ""}
+
+          {
+            // <div className="monthly-balance-box">
+            //   <h4>Monthly Balance</h4>
+            //   {<VoiceProgressBar />}
+            //   {
+            //     // <ul>
+            //     //   <li>
+            //     //     <b>Credit used</b>
+            //     //     <span>$1900</span>
+            //     //   </li>
+            //     //   <li>
+            //     //     <b>Credit balance</b>
+            //     //     <span>$75000</span>
+            //     //   </li>
+            //     // </ul>
+            //   }
+            // </div>
+          }
+
+          {/* Monthly credit usage column start */}
+          <div className="monthly-credit-use">
+            <h1>
+              Text Credits Deployed:745{" "}
+              <button className="downarrow">
+                <BsChevronRight />
+              </button>
+            </h1>
+
+            <div className="monthly-graph">
+              {
+                // <Chart options={options} series={series} type="area" />
+              }
+              <ReactApexChart
+                options={options}
+                series={series}
+                type="area"
+                height={350}
+              />
+            </div>
+            <div className="monthly-progressbar">
+              <h2>Text Performance</h2>
+              <div className="mn-progressbar">
+                <div className="progressbar-field delfield">
+                  <div className="voice-heading">
+                    <h4>65%</h4>
+                  </div>
+                  <ProgressBar now={65} />
+                  <div className="voice-value">
+                    <h5>Delivered</h5>
+                  </div>
+                </div>
+                <div className="progressbar-field flfield">
+                  <div className="voice-heading">
+                    <h4>22%</h4>
+                  </div>
+                  <ProgressBar now={40} />
+                  <div className="voice-value">
+                    <h5>Failed</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="conversation-tags">
               <h4>Conversation Tags</h4>
               <div className="dropdown">
@@ -750,6 +812,7 @@ const ChatBoot = (props) => {
                     </button>
                   </li>
                 </ul>
+
                 <ConversationTagModal
                   open={props.openManageTagModal}
                   handleCloseManageModal={props.handleCloseManageModal}
@@ -774,14 +837,14 @@ const ChatBoot = (props) => {
                 />
               </div>
             </div>
-          )}
+          </div>
 
           {
             // <VoiceProgressBar />
           }
 
           <div className="monthly-balance-box">
-            <select 
+            <select
               value={typeSelect}
               onChange={(e) => {
                 setTypeSelect(e.target.value);
@@ -792,20 +855,27 @@ const ChatBoot = (props) => {
             </select>
           </div>
           <div className="monthly-balance-box">
-            <h4>Monthly {typeSelect=='sms'?"SMS":"MMS"} Balance</h4>
+            <h4>Monthly {typeSelect == "sms" ? "SMS" : "MMS"} Balance</h4>
             <ul>
               {console.log(subData)}
               <li>
-                <b> {typeSelect=='sms'?"SMS ":"MMS "} Credit used</b>
-                <span>$ {typeSelect=='sms'?subData.sms_cridit_used || 0:subData.mms_cridit_used || 0}</span>
+                <b> {typeSelect == "sms" ? "SMS " : "MMS "} Credit used</b>
+                <span>
+                  ${" "}
+                  {typeSelect == "sms"
+                    ? subData.sms_cridit_used || 0
+                    : subData.mms_cridit_used || 0}
+                </span>
               </li>
               <li>
-                <b>{typeSelect=='sms'?"SMS ":"MMS "} Credit balance</b>
+                <b>{typeSelect == "sms" ? "SMS " : "MMS "} Credit balance</b>
                 <span>
-                  ${typeSelect=='sms'? Number(subData.sms_cridit_remain) +
-                    Number(subData.sms_topup_val) || 0:Number(subData.mms_cridit_remain) +
-                    Number(subData.mms_topup_val) || 0}
-                 
+                  $
+                  {typeSelect == "sms"
+                    ? Number(subData.sms_cridit_remain) +
+                        Number(subData.sms_topup_val) || 0
+                    : Number(subData.mms_cridit_remain) +
+                        Number(subData.mms_topup_val) || 0}
                 </span>
               </li>
             </ul>
