@@ -112,7 +112,7 @@ const Price = () => {
     //  setUserType(usercheck.paln);
     handleGetData();
   }, []);
-  let usercheck = JSON.parse(Cookies.get("userData"));
+  let usercheck = JSON.parse(Cookies?.get("userData") ?Cookies?.get("userData"):{plan:"free"} );
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
