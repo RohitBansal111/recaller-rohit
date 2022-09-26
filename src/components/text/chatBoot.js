@@ -34,6 +34,9 @@ import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 
 import ProgressBar from "react-bootstrap/ProgressBar";
 
+import { BsChevronRight } from "react-icons/bs";
+import ReactApexChart from "react-apexcharts";
+
 import {
   AreaChart,
   Area,
@@ -839,91 +842,7 @@ const ChatBoot = (props) => {
             </div>
           </div>
 
-          {
-            // <VoiceProgressBar />
-          }
-
-          <div className="monthly-balance-box">
-            <select
-              value={typeSelect}
-              onChange={(e) => {
-                setTypeSelect(e.target.value);
-              }}
-            >
-              <option value="sms">SMS</option>
-              <option value="mms">MMS</option>
-            </select>
-          </div>
-          <div className="monthly-balance-box">
-            <h4>Monthly {typeSelect == "sms" ? "SMS" : "MMS"} Balance</h4>
-            <ul>
-              {console.log(subData)}
-              <li>
-                <b> {typeSelect == "sms" ? "SMS " : "MMS "} Credit used</b>
-                <span>
-                  ${" "}
-                  {typeSelect == "sms"
-                    ? subData.sms_cridit_used || 0
-                    : subData.mms_cridit_used || 0}
-                </span>
-              </li>
-              <li>
-                <b>{typeSelect == "sms" ? "SMS " : "MMS "} Credit balance</b>
-                <span>
-                  $
-                  {typeSelect == "sms"
-                    ? Number(subData.sms_cridit_remain) +
-                        Number(subData.sms_topup_val) || 0
-                    : Number(subData.mms_cridit_remain) +
-                        Number(subData.mms_topup_val) || 0}
-                </span>
-              </li>
-            </ul>
-          </div>
-
           {/* Monthly credit usage column start */}
-          <div className="monthly-credit-use">
-            <h1>Monthly Credit usage</h1>
-            <div className="monthly-graph">
-              <ResponsiveContainer width={"99%"} height={150}>
-                <AreaChart
-                  width={310}
-                  height={150}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 0,
-                    left: 0,
-                    bottom: 5,
-                  }}
-                >
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="15%"
-                        stopColor="#28dcbf"
-                        stopOpacity={0.7}
-                      />
-                      <stop
-                        offset="80%"
-                        stopColor="#41e3c926"
-                        stopOpacity={0.5}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    strokeWidth={4}
-                    dataKey="uv"
-                    stroke="#28dcbf"
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
 
           {/* Monthly credit usage column start */}
 
