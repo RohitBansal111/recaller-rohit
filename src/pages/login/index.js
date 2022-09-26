@@ -5,11 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userLoginApi } from "../../api/user";
 import { loginAction } from "../../redux/actions/loginAction";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
+import Logo from "../../assets/images/logo.svg";
 
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const [data, setData] = useState({});
@@ -60,15 +60,15 @@ const Login = () => {
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.success("Login Successful");
         }
-        if(res.data.data.subscription_status){
-       dispatch(loginAction(res.data.data));
-       localStorage.setItem("token", res.data.data.jwt);
-       localStorage.setItem("userData", JSON.stringify(res.data.data));
-       Cookies.remove('token')
-       Cookies.remove('userData')
-       navigate(`/`);
-        }else{
-          Cookies.set('token', res.data.data.jwt , { expires: 1 })
+        if (res.data.data.subscription_status) {
+          dispatch(loginAction(res.data.data));
+          localStorage.setItem("token", res.data.data.jwt);
+          localStorage.setItem("userData", JSON.stringify(res.data.data));
+          Cookies.remove("token");
+          Cookies.remove("userData");
+          navigate(`/`);
+        } else {
+          Cookies.set("token", res.data.data.jwt, { expires: 1 });
           navigate(`/price`);
         }
       } else {
@@ -78,87 +78,92 @@ const Login = () => {
   };
 
   return (
-    <div className="form-page-layout">
-      <div className="center-form-box login-form-box">
-        <div className="heading">
-          <h2>Welcome,</h2>
-          <p>
-            Please <b>sign in</b> to your account below.
-          </p>
-        </div>
-        <form className="main-form" onSubmit={handleSubmit}>
-          <div className="form-body">
-            <div className="field-group flexFull">
-              <label htmlFor="name"> Email Address </label>
-              <input
-                name="email"
-                type="email"
-                className="form-control"
-                placeholder="Enter email address"
-                onChange={handleChange}
-                value={data.email}
-              />
-              <span className="spanError">{errors.email}</span>
-            </div>
-            <div className="field-group flexFull">
-              <label htmlFor="name"> Password </label>
-
-              <div className="passowrd-field-wrap">
-                <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  className="form-control"
-                  placeholder="Enter password"
-                  onChange={handleChange}
-                  value={data.password}
-                />
-                <div
-                  className={
-                    showPassword
-                      ? "show-password-icons showPsw"
-                      : "show-password-icons"
-                  }
-                >
-                  <RemoveRedEyeIcon onClick={handleHidePassword} />
-                  <VisibilityOffIcon onClick={handleHidePassword} />
-                </div>
-              </div>
-
-              <span className="spanError">{errors.password}</span>
-            </div>
-            <div className="field-group login-forget-password">
-              <label>
-                <input
-                  id="checkbox"
-                  name="checkbox"
-                  checked={check}
-                  // value={data.checkbox}
-                  onChange={() => setCheck(!check)}
-                  type="checkbox"
-                />
-                <span>Keep me logged in</span>
-                <span className="spanError">{errors.checkbox}</span>
-              </label>
-            </div>
-            <div className="field-group account-field">
-              <h1>
-                No account? <Link to="/Signup">Sign up now</Link>
-              </h1>
-            </div>
-          </div>
-          <div className="field-group flexFull submit-btn">
-            <div className="forget-password">
-              <Link to="/forgot-password" className="link-router">
-                Recover Password
-              </Link>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Login to Dashboard
-            </button>
-          </div>
-        </form>
+    <>
+      <div className="logo-login">
+        <img src={Logo} alt="Recallr" />
       </div>
-    </div>
+      <div className="form-page-layout">
+        <div className="center-form-box login-form-box">
+          <div className="heading">
+            <h2>Welcome,</h2>
+            <p>
+              Please <b>sign in</b> to your account below.
+            </p>
+          </div>
+          <form className="main-form" onSubmit={handleSubmit}>
+            <div className="form-body">
+              <div className="field-group flexFull">
+                <label htmlFor="name"> Email Address </label>
+                <input
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  placeholder="Enter email address"
+                  onChange={handleChange}
+                  value={data.email}
+                />
+                <span className="spanError">{errors.email}</span>
+              </div>
+              <div className="field-group flexFull">
+                <label htmlFor="name"> Password </label>
+
+                <div className="passowrd-field-wrap">
+                  <input
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className="form-control"
+                    placeholder="Enter password"
+                    onChange={handleChange}
+                    value={data.password}
+                  />
+                  <div
+                    className={
+                      showPassword
+                        ? "show-password-icons showPsw"
+                        : "show-password-icons"
+                    }
+                  >
+                    <RemoveRedEyeIcon onClick={handleHidePassword} />
+                    <VisibilityOffIcon onClick={handleHidePassword} />
+                  </div>
+                </div>
+
+                <span className="spanError">{errors.password}</span>
+              </div>
+              <div className="field-group login-forget-password">
+                <label>
+                  <input
+                    id="checkbox"
+                    name="checkbox"
+                    checked={check}
+                    // value={data.checkbox}
+                    onChange={() => setCheck(!check)}
+                    type="checkbox"
+                  />
+                  <span>Keep me logged in</span>
+                  <span className="spanError">{errors.checkbox}</span>
+                </label>
+              </div>
+              <div className="field-group account-field">
+                <h1>
+                  No account? <Link to="/Signup">Sign up now</Link>
+                </h1>
+              </div>
+            </div>
+            <div className="field-group flexFull submit-btn">
+              <div className="forget-password">
+                <Link to="/forgot-password" className="link-router">
+                  Recover Password
+                </Link>
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Login to Dashboard
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
   );
 };
 
