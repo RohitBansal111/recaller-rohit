@@ -163,6 +163,7 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
+        
         <Route
           exact
           path="/ViewCompaign/:id"

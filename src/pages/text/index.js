@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import MessageModal from "../../components/text/messageModal";
 import ChatBoot from "../../components/text/chatBoot";
@@ -44,6 +45,7 @@ import Layout from "../../components/layout";
 import ProgressBar from "../../components/text/ProgreeBar";
 
 const TextPage = () => {
+  const toastId = React.useRef(null);
   var today = new Date();
   const curTime = today.getHours() + ":" + today.getMinutes();
 
@@ -393,7 +395,12 @@ const TextPage = () => {
     if (isTagValid()) {
       let res = await addTagsApi(addTags);
       if (res && res.data && res.data.status === 200) {
-        toast.success("Tag Added Successfully");
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success("Tag Added Successfully");
+        }
+        {
+          // toast.success("Tag Added Successfully");
+        }
         setOpenCreateTagModal(false);
         setaddTags({});
         getTags();
@@ -447,7 +454,12 @@ const TextPage = () => {
   const handleEdit = async () => {
     let res = await updateTagsApi(addTags._id, addTags);
     if (res && res.data && res.data.status === 200) {
-      toast.success("Tag Edit Successfully");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Tag Edit Successfully");
+      }
+      {
+        // toast.success("Tag Edit Successfully");
+      }
       setOpenEditTagModal(false);
       getTags();
     }
@@ -465,8 +477,18 @@ const TextPage = () => {
   const handleDeleteTags = async () => {
     const res = await deleteTagApi(deleteTags._id);
     if (res && res.data && res.data.status === 200) {
+      if (!toast.isActive(toastId.current)) {
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success("Tag Deleted Successfully");
+        }
+        {
+          // toastId.current = toast.success("Tag Deleted Successfully");
+        }
+      }
       setOpenDelTagModal(false);
-      toast.success("Tag Deleted Successfully");
+      {
+        // toast.success("Tag Deleted Successfully");
+      }
       getTags();
     }
   };
@@ -614,7 +636,12 @@ const TextPage = () => {
       // if (estTime >= 8 && estTime <= 20) {
       let res = await sendMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
-        toast.success(" Message sent Successfully");
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success("Message sent Successfully");
+        }
+        {
+          // toast.success(" Message sent Successfully");
+        }
         setOpenMessageModal(false);
         setSelected([]);
         setSelectedImage(null);
@@ -658,7 +685,12 @@ const TextPage = () => {
       // if (today >= 8 && today <= 20) {
       let res = await sendBulkMessageApi(obj);
       if (res && res.data && res.data.status === 200) {
-        toast.success(" Message sent Successfully");
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success("Message sent Successfully");
+        }
+        {
+          // toast.success(" Message sent Successfully");
+        }
         setOpenMessageModal(false);
         setOpenBulkMessageModal(false);
         setSelected([]);
@@ -814,8 +846,11 @@ const TextPage = () => {
       editData.compaign = selectedCampaign;
     }
     const res = await updateContactApi(editContact._id, editData);
+
     if (res && res.data && res.data.status === 200) {
-      toast.success("Contact Updated Successfully");
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success("Contact Updated Successfully");
+      }
       setOpenContactModal(false);
       getMessage(false, true);
       selecteduser.contact.firstName = editContact.firstName;
@@ -836,9 +871,16 @@ const TextPage = () => {
     };
     const res = await updateContactApi(selecteduser._id, editData);
     if (res && res.data && res.data.status === 200) {
-      toast.success(
-        `${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`
-      );
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success(
+          `${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`
+        );
+      }
+      {
+        // toast.success(
+        //   `${type == "opted-in" ? "Opted In" : "Opted Out"} Successfully`
+        // );
+      }
       getMessage(false, true);
       selecteduser.contact.phoneSubs = type;
       setSelecteduser(selecteduser);
@@ -908,7 +950,12 @@ const TextPage = () => {
       setLoading(true);
       let res = await sendTemplate(obj);
       if (res && res.data && res.data.status == 200) {
-        toast.success(res.data.message);
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success(res.data.message);
+        }
+        {
+          // toast.success(res.data.message);
+        }
         setShowCreateTemplateModal(false);
         setTemplateTags(null);
         setTemplateName("");
@@ -975,13 +1022,18 @@ const TextPage = () => {
   const handleTempEditSave = async () => {
     const res = await updateTemplate(templateDataState._id, editTempData);
     if (res && res.data && res.data.status == 200) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success(res.data.message);
+      }
       templateDataState.title = editTempData.title;
       templateDataState.message = editTempData.message;
       let x = replacefunc(templateDataState.message);
       templateDataState.message = x;
       setTemplateDataState(templateDataState);
       seteditmanageTemplate(false);
-      toast.success(res.data.message);
+      {
+        // toast.success(res.data.message);
+      }
     } else {
       toast.error(res.data.message);
     }
@@ -999,7 +1051,12 @@ const TextPage = () => {
   const handleTempRemove = async () => {
     const res = await deleteTemplate(templateDataState._id);
     if (res && res.data && res.data.status == 200) {
-      toast.success(res.data.message);
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success(res.data.message);
+      }
+      {
+        // toast.success(res.data.message);
+      }
       getTemplate();
       setDeleteTempComfirmation(false);
     } else {
@@ -1135,7 +1192,12 @@ const TextPage = () => {
     } else {
       const res = await reScheduleMessageApi(data);
       if (res && res.data && res.data.status === 200) {
-        toast.success(res.data.message);
+        if (!toast.isActive(toastId.current)) {
+          toastId.current = toast.success(res.data.message);
+        }
+        {
+          // toast.success(res.data.message);
+        }
         getMessage();
         setShowReScheduleModal(false);
         setCancelRescheDule(false);
@@ -1155,7 +1217,12 @@ const TextPage = () => {
   const handleDeleteReSchedultModal = async () => {
     const res = await deleteReScheduleMessageApi(reScheduleItem.message_id);
     if (res && res.data && res.data.status === 200) {
-      toast.success(res.data.message);
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.success(res.data.message);
+      }
+      {
+        // toast.success(res.data.message);
+      }
       getMessage();
       setShowReScheduleModal(false);
     }

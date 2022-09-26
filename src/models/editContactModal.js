@@ -124,6 +124,7 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
               onChange={setSelectedCampaign}
               options={compaigns}
               value={selectedCampaign}
+              
             />
             <span className="spanError">{props?.errors?.bulkSelected}</span>
 

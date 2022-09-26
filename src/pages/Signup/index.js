@@ -52,6 +52,9 @@ const Signup = () => {
 
   const isValid = () => {
     const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+    const passwordRegex = new RegExp(
+      "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+    );
     let formData = true;
     switch (true) {
       case !data.firstName:
@@ -84,6 +87,13 @@ const Signup = () => {
         break;
       case !data.password:
         setErrors({ password: "Password is required!" });
+        formData = false;
+        break;
+      case data.password && !passwordRegex.test(data.password):
+        setErrors({
+          password:
+            ".At least one upper case('A-Z'),At least one lower case English letter('a-z'),At least one digit(0-9),At least one special character,('#?!@$%^&*-'),Minimum eight in length (8)",
+        });
         formData = false;
         break;
       case data.password !== data.repeatPassword:

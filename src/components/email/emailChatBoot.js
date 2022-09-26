@@ -252,52 +252,54 @@ const EmailChatBoot = (props) => {
                     props.selecteduser.contact.lastName
                   : ""}
               </h4>
-              <div className="header-action">
-                <button
-                  className="btn btn-more-option dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <MoreVertIcon />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton2"
-                >
-                  <li onClick={props.handleMute}>
-                    {" "}
-                    <NotificationsOffIcon /> Mute
-                  </li>
-                  <li
-                    onClick={() =>
-                      props.handleOptOut(
-                        props.selecteduser.contact.emailSubs == "opted-in"
-                          ? "opted-out"
-                          : "opted-in"
-                      )
-                    }
-                  >
-                    {props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.emailSubs == "opted-in" ? (
-                      <WifiOffIcon />
-                    ) : (
-                      <WifiIcon />
-                    )}
-                    {props.selecteduser &&
-                    props.selecteduser.contact &&
-                    props.selecteduser.contact.emailSubs == "opted-in"
-                      ? "Opted Out"
-                      : "Opted In"}
-                  </li>
-                  <li onClick={props.handleBlock}>
-                    {" "}
-                    <BlockIcon /> Block
-                  </li>
-                </ul>
-              </div>
+              {
+                // <div className="header-action">
+                //   <button
+                //     className="btn btn-more-option dropdown-toggle"
+                //     type="button"
+                //     id="dropdownMenuButton2"
+                //     data-bs-toggle="dropdown"
+                //     aria-expanded="false"
+                //   >
+                //     <MoreVertIcon />
+                //   </button>
+                //   <ul
+                //     className="dropdown-menu"
+                //     aria-labelledby="dropdownMenuButton2"
+                //   >
+                //     <li onClick={props.handleMute}>
+                //       {" "}
+                //       <NotificationsOffIcon /> Mute
+                //     </li>
+                //     <li
+                //       onClick={() =>
+                //         props.handleOptOut(
+                //           props.selecteduser.contact.emailSubs == "opted-in"
+                //             ? "opted-out"
+                //             : "opted-in"
+                //         )
+                //       }
+                //     >
+                //       {props.selecteduser &&
+                //       props.selecteduser.contact &&
+                //       props.selecteduser.contact.emailSubs == "opted-in" ? (
+                //         <WifiOffIcon />
+                //       ) : (
+                //         <WifiIcon />
+                //       )}
+                //       {props.selecteduser &&
+                //       props.selecteduser.contact &&
+                //       props.selecteduser.contact.emailSubs == "opted-in"
+                //         ? "Opted Out"
+                //         : "Opted In"}
+                //     </li>
+                //     <li onClick={props.handleBlock}>
+                //       {" "}
+                //       <BlockIcon /> Block
+                //     </li>
+                //   </ul>
+                // </div>
+              }
             </div>
             <div className="chat-now">
               <EmailChatText
