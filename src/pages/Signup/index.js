@@ -92,12 +92,15 @@ const Signup = () => {
       case data.password && !passwordRegex.test(data.password):
         setErrors({
           password:
-            ".At least one upper case('A-Z'),At least one lower case English letter('a-z'),At least one digit(0-9),At least one special character,('#?!@$%^&*-'),Minimum eight in length (8)",
+            "Minimum eight characters, at least one letter, one number and one special character",
+          // "At least one upper case('A-Z'), At least one lower case English letter('a-z'),At least one digit(0-9),At least one special character,('#?!@$%^&*-'),Minimum eight in length (8)",
         });
         formData = false;
         break;
       case data.password !== data.repeatPassword:
-        setErrors({ repeatPassword: "Those passwords didn't match.Try again" });
+        setErrors({
+          repeatPassword: "Password and confirm password does not match.",
+        });
         formData = false;
         break;
       case !check:
@@ -118,7 +121,7 @@ const Signup = () => {
         let dataSend = {
           name: `${res.data.response.firstName} ${res.data.response.lastName}`,
           email: res.data.response.email,
-          plan:"free"
+          plan: "free",
         };
         Cookies.set("userData", JSON.stringify(dataSend), { expires: 1 });
         Cookies.set("token", res?.data?.response.jwt, { expires: 1 });

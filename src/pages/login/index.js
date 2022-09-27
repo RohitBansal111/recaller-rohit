@@ -79,9 +79,9 @@ const Login = () => {
 
   return (
     <>
-      <div className="logo-login">
+      {/* <div className="logo-login">
         <img src={Logo} alt="Recallr" />
-      </div>
+      </div> */}
       <div className="form-page-layout">
         <div className="center-form-box login-form-box">
           <div className="heading">
