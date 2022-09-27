@@ -774,7 +774,8 @@ const Voice = () => {
             <Dropdown.Toggle
               variant="success"
               id="dropdown-basic"
-              className="btn btn-medium btn-primary"
+              // className="btn btn-medium btn-primary"
+              className="btn btn-medium btn-primary-dashboard"
             >
               New Voice
             </Dropdown.Toggle>

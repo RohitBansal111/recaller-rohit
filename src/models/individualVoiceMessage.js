@@ -127,10 +127,10 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
                 {props.isNewVoiceActive == true
                   ? "Stop"
                   : props.second == 0
-                  ? "Press & Recording"
+                  ? "Press & Record"
                   : props.isNewVoiceActive == false
                   ? "Play"
-                  : "Press & Recording"}
+                  : "Press & Record"}
               </button>
             </div>
             <button

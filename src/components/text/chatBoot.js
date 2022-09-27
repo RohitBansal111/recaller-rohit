@@ -1003,7 +1003,8 @@ const ChatBoot = (props) => {
           {/* Monthly credit usage column start */}
           <div className="monthly-credit-use">
             <h1>
-              Text Credits Deployed:745{" "}
+              Text Credits Deployed
+              <div style={{ color: "#797979", fontSize: "16px" }}>745</div>{" "}
               <button className="downarrow">
                 <BsChevronRight />
               </button>

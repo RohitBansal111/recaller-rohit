@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -200,7 +200,7 @@ const VoiceChatBoot = (props) => {
     }
   };
   useEffect(() => {
-   handleGetData();
+    handleGetData();
   }, []);
   return (
     <div className="chatbox-warpper">
@@ -433,7 +433,7 @@ const VoiceChatBoot = (props) => {
                     ) : (
                       <button
                         type="button"
-                        className="btn btn-primary"
+                        className="btn-primary-voice"
                         onClick={() => {
                           if (
                             !props.isActive &&
@@ -448,16 +448,16 @@ const VoiceChatBoot = (props) => {
                       >
                         <MicIcon className="mr-2" />
                         {props.second == 0
-                          ? "Press & Recording"
+                          ? "Press & Record"
                           : props.isActive == true
                           ? "Stop"
                           : props.audioFileName == null
-                          ? "Press & Recording"
+                          ? "Press & Record"
                           : props.isNewVoiceActive == true
-                          ? "Press & Recording"
+                          ? "Press & Record"
                             ? props.isNewVoiceActive == false
-                            : "Press & Recording"
-                          : "Press & Recording"}
+                            : "Press & Record"
+                          : "Press & Record"}
                       </button>
                     )}
                   </>
@@ -556,7 +556,8 @@ const VoiceChatBoot = (props) => {
           {!props.selecteduser ? "" : ""}
           <div className="monthly-credit-use">
             <h1>
-              Voice Credits Deployed:745{" "}
+              Voice Credits Deployed
+              <div style={{ color: "#797979", fontSize: "16px" }}>745</div>{" "}
               <button className="downarrow">
                 <BsChevronRight />
               </button>

@@ -1,4 +1,4 @@
-import React, { useState  , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
@@ -35,7 +35,15 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { GetSubscriptionData } from "../../api/plans";
 
 const EmailChatBoot = (props) => {
@@ -324,7 +332,7 @@ const EmailChatBoot = (props) => {
                   <span></span> 0.04
                 </h4>
                 <button type="button" className="btn btn-primary">
-                  <MicIcon className="mr-2" /> Press & Recording
+                  <MicIcon className="mr-2" /> Press & Record
                 </button>
               </div>
             )}
@@ -785,11 +793,11 @@ const EmailChatBoot = (props) => {
             <ul>
               <li>
                 <b>Credit used</b>
-                <span>${subData?.email_cridit_used||0}</span>
+                <span>${subData?.email_cridit_used || 0}</span>
               </li>
               <li>
                 <b>Credit balance</b>
-                <span>${subData?.email_cridit_remain||0}</span>
+                <span>${subData?.email_cridit_remain || 0}</span>
               </li>
             </ul>
           </div>
