@@ -35,7 +35,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import ReScheduleTitleModal from "../../models/reScheduleMsgTitle";
 
 import ProgressBar from "react-bootstrap/ProgressBar";
-
+import moment from "moment";
+import { VoiceSMSGraph } from "../../api/graph";
 import { BsChevronRight } from "react-icons/bs";
 
 import {
@@ -53,6 +54,7 @@ const ChatBoot = (props) => {
   const [subData, setSubData] = useState({});
   const [typeSelect, setTypeSelect] = useState("sms");
   const [substatus, setSubstatus] = useState({});
+  const [dataseries, setDataSeries] = useState([]);
   const data = [
     {
       name: "Page A",
@@ -573,8 +575,33 @@ const ChatBoot = (props) => {
       });
     }
   };
+  const handleGetData = async () => {
+    let res = await VoiceSMSGraph();
+    if (res && res.data) {
+      let smsarra=[]
+      console.log('ww', res?.data?.sms)
+      
+      let datasend = Object.keys(res?.data?.sms)?.map((w) => {
+        smsarra.push(res?.data?.sms[w])
+      });
+      const smsSeriess = [
+        {
+          name: "Text",
+          data: smsarra,
+        },
+        {
+          name: "Voice",
+          data: [0],
+        },
+      ];
+      setDataSeries(smsSeriess);
+    }
+  };
+
+;
 
   useEffect(() => {
+    handleGetData()
     handleSubData();
     handleSubDataSMS();
   }, []);
@@ -593,6 +620,9 @@ const ChatBoot = (props) => {
                   value={props.searchValue}
                   onChange={props.handleSearchChange}
                 />
+                {
+                  console.log('ww',dataseries)
+                }
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
                 </div>
@@ -1068,7 +1098,7 @@ const ChatBoot = (props) => {
               }
               <ReactApexChart
                 options={options}
-                series={series}
+                series={dataseries || [0]}
                 type="area"
                 height={350}
               />

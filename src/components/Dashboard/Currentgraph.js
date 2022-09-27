@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
@@ -8,45 +8,71 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import moment from "moment";
+import { currentGraph } from "../../api/graph";
 const datacurrentGraph = [
   {
     name: "1 Sep",
-    uv: 700,
+    uv: 10,
   },
   {
     name: "2 Sep",
-    uv: 400,
+    uv: 20,
   },
   {
     name: "3 Sep",
-    uv: 800,
+    uv: 80,
   },
   {
     name: "4 Sep",
-    uv: 500,
+    uv: 50,
   },
   {
     name: "5 Sep",
-    uv: 900,
+    uv: 90,
   },
   {
     name: "6 Sep",
-    uv: 500,
+    uv: 50,
   },
   {
     name: "7 Sep",
-    uv: 990,
+    uv: 90,
   },
 ];
 const Currentgraph = () => {
+  const [data, setData] = useState([]);
+  const handleGetData = async () => {
+    var date = new Date();
+    const startOfMonth = moment().startOf("month").format("YYYY-MM-DD hh:mm");
+    const endOfMonth = moment().endOf("month").format("YYYY-MM-DD hh:mm");
+    let endMonth = moment(new Date(endOfMonth)).format("DD");
+    let res = await currentGraph();
+    if (res && res.data) {
+      let datasend = Object.keys(res?.data?.data)?.map((w) => {
+        let data = {
+          name: w,
+          uv: res.data?.data[w],
+        };
+
+        return data;
+      });
+      setData(datasend);
+    }
+  };
+
+  useEffect(() => {
+    //  setUserType(usercheck.paln);
+    handleGetData();
+  }, []);
+
   return (
     <div>
-      {" "}
       <ResponsiveContainer width={"99.9%"} height={250}>
         <AreaChart
           width={310}
           height={250}
-          data={datacurrentGraph}
+          data={data || []}
           margin={{
             top: 5,
             right: 0,
