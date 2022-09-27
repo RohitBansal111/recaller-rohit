@@ -3,32 +3,47 @@ import SearchDataTable from "../../components/search/table";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { getSearch } from "../../api/search";
 import Layout from "../../components/layout";
+import { toast } from "react-toastify";
 
 const Search = () => {
   const [search, setSearch] = useState({});
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [table, setTable] = useState(false);
+  const toastId = React.useRef(null);
 
   const getSearchResults = async () => {
-    let q =
-      search.productName +
-      " " +
-      search.prooductSku +
-      " " +
-      search.productCompany +
-      " recall";
-    const res = await getSearch(q);
+    console.log(search);
+    if (Object.keys(search).length == 0) {
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.error("Please select atleast one field");
+      }
+    } else {
+      let q =
+        search.productName +
+        " " +
+        search.prooductSku +
+        " " +
+        search.productCompany +
+        "";
+      const res = await getSearch(q);
 
-    if (res && res.data && res.data.status === 200) {
-      setSearchData(res.data.data.organic_results);
-      setLoading(false);
+      if (res && res.data && res.data.status === 200) {
+        setSearchData(res.data.data.organic_results);
+        setLoading(false);
+      }
     }
   };
   const handleChange = (e) => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
 
+  const resetForm = () => {
+    // search.productName = "";
+    // search.prooductSku = "";
+    // search.productCompany = "";
+    setSearch("");
+  };
   return (
     <Layout>
       <div className="content-page-layout">
@@ -86,6 +101,15 @@ const Search = () => {
                   variant="contained"
                 >
                   Send to search
+                </LoadingButton>
+              </div>
+              <div className="field-group">
+                <LoadingButton
+                  type="reset"
+                  className="btn btn-primary"
+                  onClick={resetForm}
+                >
+                  Reset
                 </LoadingButton>
               </div>
             </form>
