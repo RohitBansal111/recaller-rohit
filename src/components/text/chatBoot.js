@@ -26,6 +26,7 @@ import Picker from "emoji-picker-react";
 import LockIcon from "@material-ui/icons/Lock";
 import Chart from "react-apexcharts";
 import { GetSubscriptionData } from "../../api/plans";
+import { getSMSStatus } from "../../api/subscription";
 import ReactApexChart from "react-apexcharts";
 
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -51,6 +52,7 @@ import VoiceProgressBar from "./ProgreeBar";
 const ChatBoot = (props) => {
   const [subData, setSubData] = useState({});
   const [typeSelect, setTypeSelect] = useState("sms");
+  const [substatus, setSubstatus] = useState({});
   const data = [
     {
       name: "Page A",
@@ -528,6 +530,54 @@ const ChatBoot = (props) => {
     //   },
     // ];
   }
+
+  const handleSubData = async () => {
+    let res = await GetSubscriptionData();
+    if (res && res.data && res.status == 200) {
+      setSubData(res?.data?.data);
+    }
+  };
+  function percentage(partialValue, totalValue) {
+    return (100 * partialValue) / totalValue;
+  }
+  const handleSubDataSMS = async () => {
+    let res = await getSMSStatus();
+
+    if (res && res.data && res.status == 200) {
+      let smsTotel =
+        Number(res?.data.massage?.deliver) +
+        Number(res?.data.massage?.failed) +
+        Number(res?.data.massage?.queued);
+      let smsdeleverd = Number(res?.data.massage?.deliver);
+      let smsFaild =
+        Number(res?.data.massage?.failed) + Number(res?.data.massage?.queued);
+
+      let mmsTotel =
+        Number(res?.data.mms?.deliver) +
+        Number(res?.data.mms?.failed) +
+        Number(res?.data.mms?.queued);
+      let mmsdeleverd = Number(res?.data.mms?.deliver);
+      let mmsFaild =
+        Number(res?.data.mms?.failed) + Number(res?.data.mms?.queued);
+      // setSubData(res?.data?.data);
+      setSubstatus({
+        ...substatus,
+        sms: {
+          deliver: percentage(smsdeleverd, smsTotel).toFixed(1),
+          failed: percentage(smsFaild, smsTotel).toFixed(1),
+        },
+        mms: {
+          deliver: percentage(mmsdeleverd, mmsTotel).toFixed(1),
+          failed: percentage(mmsFaild, mmsTotel).toFixed(1),
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleSubData();
+    handleSubDataSMS();
+  }, []);
   return (
     <div className="chatbox-warpper">
       <div className="inner-chatbox-area">
@@ -1004,7 +1054,9 @@ const ChatBoot = (props) => {
           <div className="monthly-credit-use">
             <h1>
               Text Credits Deployed
-              <div style={{ color: "#797979", fontSize: "16px" }}>745</div>{" "}
+              <div style={{ color: "#797979", fontSize: "16px" }}>
+                {Number(subData?.sms_cridit) + Number(subData?.sms_topup_val)}
+              </div>{" "}
               <button className="downarrow">
                 <BsChevronRight />
               </button>
@@ -1026,7 +1078,7 @@ const ChatBoot = (props) => {
               <div className="mn-progressbar">
                 <div className="progressbar-field delfield">
                   <div className="voice-heading">
-                    <h4>65%</h4>
+                    <h4>{substatus?.sms?.deliver || 0}%</h4>
                   </div>
                   <ProgressBar now={65} />
                   <div className="voice-value">
@@ -1035,7 +1087,7 @@ const ChatBoot = (props) => {
                 </div>
                 <div className="progressbar-field flfield">
                   <div className="voice-heading">
-                    <h4>22%</h4>
+                    <h4>{substatus?.sms?.failed || 0}%</h4>
                   </div>
                   <ProgressBar now={40} />
                   <div className="voice-value">

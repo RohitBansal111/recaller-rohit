@@ -16,6 +16,7 @@ import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import { GetSubscriptionData } from "../../api/plans";
+import {getVoiceStatus} from '../../api/subscription'
 import ReactApexChart from "react-apexcharts";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsChevronRight } from "react-icons/bs";
@@ -32,6 +33,7 @@ import {
 
 const VoiceChatBoot = (props) => {
   const [subData, setSubData] = useState({});
+  const [substatus, setSubstatus] = useState({});
   const userVoiceMessageList = () => {
     let filtered = [];
     filtered =
@@ -199,8 +201,26 @@ const VoiceChatBoot = (props) => {
       setSubData(res?.data?.data);
     }
   };
+  function percentage(partialValue, totalValue) {
+    return (100 * partialValue) / totalValue;
+  }
+  const handleSubDataVoice = async () => {
+    let res = await getVoiceStatus();
+    if (res && res.data && res.status == 200) {
+      let Totel =
+        Number(res?.data?.deliver) +
+        Number(res?.data?.failed) 
+      setSubstatus({
+        ...substatus,
+        deliver: percentage(res?.data?.deliver, Totel).toFixed(1),
+        failed: percentage(res?.data?.failed, Totel).toFixed(1),
+      
+      });
+    }
+  };
   useEffect(() => {
     handleGetData();
+    handleSubDataVoice()
   }, []);
   return (
     <div className="chatbox-warpper">
@@ -557,7 +577,7 @@ const VoiceChatBoot = (props) => {
           <div className="monthly-credit-use">
             <h1>
               Voice Credits Deployed
-              <div style={{ color: "#797979", fontSize: "16px" }}>745</div>{" "}
+              <div style={{ color: "#797979", fontSize: "16px" }}>{Number(subData?.voice_cridit)+Number(subData?.voice_topup_val)||0}</div>{" "}
               <button className="downarrow">
                 <BsChevronRight />
               </button>
@@ -579,7 +599,7 @@ const VoiceChatBoot = (props) => {
               <div className="mn-progressbar">
                 <div className="progressbar-field delfield">
                   <div className="voice-heading">
-                    <h4>65%</h4>
+                    <h4>{substatus?.deliver ||0}%</h4>
                   </div>
                   <ProgressBar now={65} />
                   <div className="voice-value">
@@ -588,7 +608,7 @@ const VoiceChatBoot = (props) => {
                 </div>
                 <div className="progressbar-field flfield">
                   <div className="voice-heading">
-                    <h4>22%</h4>
+                  <h4>{substatus?.failed ||0}%</h4>
                   </div>
                   <ProgressBar now={40} />
                   <div className="voice-value">

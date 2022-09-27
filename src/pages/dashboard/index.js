@@ -304,14 +304,14 @@ const Dashboard = (props) => {
                         {console.log("qqq", subData)}
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.mms_cridit_used) || 0}
+                          Number(subData?.mms_cridit_used) -Number(subData?.mms_cridit_used) || 0}
                         /
                         {Number(subData?.mms_cridit) +
                           Number(subData?.sms_cridit) +
                           Number(subData?.voice_cridit) +
                           Number(subData?.mms_topup_val) +
                           Number(subData?.sms_topup_val) +
-                          Number(subData?.voice_topup_val) || 0}
+                          Number(subData?.voice_topup_val) -Number(subData?.mms_cridit) - Number(subData?.mms_topup_val)|| 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -372,7 +372,7 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          <li>
+                          {/* <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
@@ -395,7 +395,7 @@ const Dashboard = (props) => {
                                 </span>
                               </div>
                             </div>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                     </div>
