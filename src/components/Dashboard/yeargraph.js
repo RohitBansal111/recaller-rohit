@@ -10,52 +10,20 @@ import {
 } from "recharts";
 const datayearGraph = [
   {
-    name: "Jan",
-    uv: 1500,
-  },
-  {
-    name: "Feb",
-    uv: 1400,
-  },
-  {
-    name: "Mar",
-    uv: 3000,
-  },
-  {
-    name: "Apr",
-    uv: 2400,
-  },
-  {
-    name: "May",
-    uv: 1800,
-  },
-  {
-    name: "Jun",
-    uv: 1100,
-  },
-  {
-    name: "Jul",
-    uv: 1100,
-  },
-  {
-    name: "Aug",
-    uv: 1600,
-  },
-  {
     name: "Sep",
-    uv: 1700,
+    uv: 1000,
   },
   {
     name: "Oct",
-    uv: 1100,
+    uv: 1500,
   },
   {
     name: "Nov",
-    uv: 1900,
+    uv: 800,
   },
   {
     name: "Dec",
-    uv: 2100,
+    uv: 2000,
   },
 ];
 const Yeargraph = () => {
