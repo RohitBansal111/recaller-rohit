@@ -37,6 +37,7 @@ const VoiceChatBoot = (props) => {
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
   const [dataOption , setDataOption]=useState([])
+  const [check, setCheck]=useState(false)
   const userVoiceMessageList = () => {
     let filtered = [];
     filtered =
@@ -224,7 +225,7 @@ const VoiceChatBoot = (props) => {
 
   const handleGetDatamain = async () => {
     let res = await VoiceSMSGraph();
-    if (res && res.data) {
+    if (res && res.data && res.data.status==200) {
       let smsarra=[]
       const smsSeriess = [
         {
@@ -239,6 +240,7 @@ const VoiceChatBoot = (props) => {
       options.xaxis.data=res.data?.smsData?.option
       setDataOption(options)
       setDataSeries(smsSeriess);
+      setCheck(true)
     }
     
   };
@@ -613,13 +615,21 @@ const VoiceChatBoot = (props) => {
               {
                 // <Chart options={options} series={series} type="area" />
               }
-              <ReactApexChart
-                options={dataOption || options}
-                series={dataseries ||series }
+              {
+                check? <ReactApexChart
+                options={dataOption }
+                series={dataseries  }
                 type="area"
                 height={350}
-              />
-              
+              />: <ReactApexChart
+              options={ options}
+              series={series }
+              type="area"
+              height={350}
+            />
+              }
+             
+
             </div>
             <div className="monthly-progressbar">
               <h2>Voice Performance</h2>
