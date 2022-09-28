@@ -55,6 +55,7 @@ const ChatBoot = (props) => {
   const [typeSelect, setTypeSelect] = useState("sms");
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
+  const [dataOption , setDataOption]=useState([])
   const data = [
     {
       name: "Page A",
@@ -579,21 +580,18 @@ const ChatBoot = (props) => {
     let res = await VoiceSMSGraph();
     if (res && res.data) {
       let smsarra=[]
-      console.log('ww', res?.data?.sms)
-      
-      let datasend = Object.keys(res?.data?.sms)?.map((w) => {
-        smsarra.push(res?.data?.sms[w])
-      });
       const smsSeriess = [
         {
           name: "Text",
-          data: smsarra,
+          data: res?.data?.smsData?.series ||[0],
         },
         {
           name: "Voice",
-          data: [0],
+          data:res?.data?.voiceData?.series||[0],
         },
       ];
+      options.xaxis.data=res.data?.smsData?.option
+      setDataOption(options)
       setDataSeries(smsSeriess);
     }
   };
@@ -620,9 +618,7 @@ const ChatBoot = (props) => {
                   value={props.searchValue}
                   onChange={props.handleSearchChange}
                 />
-                {
-                  console.log('ww',dataseries)
-                }
+               
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
                 </div>
@@ -1097,8 +1093,8 @@ const ChatBoot = (props) => {
                 // <Chart options={options} series={series} type="area" />
               }
               <ReactApexChart
-                options={options}
-                series={dataseries || [0]}
+                options={dataOption || options}
+                series={dataseries || series}
                 type="area"
                 height={350}
               />
