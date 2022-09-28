@@ -10,127 +10,127 @@ import {
 } from "recharts";
 const datalastGraph = [
   {
-    name: "1 jul",
+    name: "1 Aug",
     uv: 1500,
   },
   {
-    name: "2 jul",
+    name: "2 Aug",
     uv: 1400,
   },
   {
-    name: "3 jul",
+    name: "3 Aug",
     uv: 2400,
   },
   {
-    name: "4 jul",
+    name: "4 Aug",
     uv: 1800,
   },
   {
-    name: "5 jul",
+    name: "5 Aug",
     uv: 1100,
   },
   {
-    name: "6 jul",
+    name: "6 Aug",
     uv: 1800,
   },
   {
-    name: "7 jul",
+    name: "7 Aug",
     uv: 1100,
   },
   {
-    name: "8 jul",
+    name: "8 Aug",
     uv: 1600,
   },
   {
-    name: "9 jul",
+    name: "9 Aug",
     uv: 1900,
   },
   {
-    name: "10 jul",
+    name: "10 Aug",
     uv: 1400,
   },
   {
-    name: "11 jul",
+    name: "11 Aug",
     uv: 2200,
   },
   {
-    name: "12 jul",
+    name: "12 Aug",
     uv: 1600,
   },
   {
-    name: "13 jul",
+    name: "13 Aug",
     uv: 1900,
   },
   {
-    name: "14 jul",
+    name: "14 Aug",
     uv: 1300,
   },
   {
-    name: "15 jul",
+    name: "15 Aug",
     uv: 1000,
   },
   {
-    name: "16 jul",
+    name: "16 Aug",
     uv: 1400,
   },
   {
-    name: "17 jul",
+    name: "17 Aug",
     uv: 1700,
   },
   {
-    name: "18 jul",
+    name: "18 Aug",
     uv: 1100,
   },
   {
-    name: "19 jul",
+    name: "19 Aug",
     uv: 1500,
   },
   {
-    name: "20 jul",
+    name: "20 Aug",
     uv: 1600,
   },
   {
-    name: "21 jul",
+    name: "21 Aug",
     uv: 1100,
   },
   {
-    name: "22 jul",
+    name: "22 Aug",
     uv: 2300,
   },
   {
-    name: "23 jul",
+    name: "23 Aug",
     uv: 2000,
   },
   {
-    name: "24 jul",
+    name: "24 Aug",
     uv: 1700,
   },
   {
-    name: "25 jul",
+    name: "25 Aug",
     uv: 1300,
   },
   {
-    name: "26 jul",
+    name: "26 Aug",
     uv: 1600,
   },
   {
-    name: "27 jul",
+    name: "27 Aug",
     uv: 1800,
   },
   {
-    name: "28 jul",
+    name: "28 Aug",
     uv: 2200,
   },
   {
-    name: "29 jul",
+    name: "29 Aug",
     uv: 1200,
   },
   {
-    name: "30 jul",
+    name: "30 Aug",
     uv: 1800,
   },
   {
-    name: "31 jul",
+    name: "31 Aug",
     uv: 2300,
   },
 ];

@@ -15,7 +15,7 @@
 }
 
 .btn-primary-dashboard {
-  background-color: #343a40 !important;
+  background-color: #343941 !important;
   color: $Theme-white;
   height: auto;
   padding: 10px 25px !important;
@@ -23,6 +23,19 @@
 }
 .btn-primary-voice {
   // background-color: #da1212;
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+}
+
+.btn-primary-voice-bulk {
+  background-color: #e60065;
+  height: auto;
+  padding: 10px 25px !important;
+  border-radius: 20px !important;
+}
+.btn-primary-voice-send {
+  background-color: #343941;
   height: auto;
   padding: 10px 25px !important;
   border-radius: 20px !important;

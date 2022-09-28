@@ -5,10 +5,9 @@ import { dateSince } from "../../helper/dateFunction";
 import { timeAgo } from "../../helper/timerFuntion";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import ReScheduleMessageModal from "../../models/reScheduleMsg";
-import {Tooltip} from '@mui/material';
+import { Tooltip } from "@mui/material";
 import axios from "axios";
-import moment from 'moment'
-
+import moment from "moment";
 
 const TextChat = (props) => {
   const userData = useSelector((state) => state.Login.userData);
@@ -16,8 +15,6 @@ const TextChat = (props) => {
   var today = new Date();
   var dddd = new Date().toISOString().substring(0, 10);
   var ssss = today.getHours() + ":" + today.getMinutes();
-
-  
 
   return (
     <ScrollToBottom className="middle-chat-screen">
@@ -36,23 +33,20 @@ const TextChat = (props) => {
                         ? "user chat-ui-box"
                         : "client chat-ui-box"
                     }
-                  >         
+                  >
                     {item.sheduled == true &&
                     new Date(item.sheduleDate) >= today ? (
                       <div className="scheduletext">
-                       
-                         <Tooltip title={`Schedule Date and Time is  ${moment(new Date(item?.sheduleDate)).format('MMMM Do YYYY, h:mm:ss a')}`}>
-                        <button
-                          type="button"
+                        <Tooltip
+                          title={`Schedule Date and Time is  ${moment(
+                            new Date(item?.sheduleDate)
+                          ).format("MMMM Do YYYY, h:mm:ss a")}`}
                         >
-                         
-                         
-                          <ScheduleIcon />
-                        </button>
+                          <button type="button">
+                            <ScheduleIcon />
+                          </button>
                         </Tooltip>
 
-
-                
                         <pre>{item.message.trim()}</pre>
                       </div>
                     ) : (
@@ -68,23 +62,29 @@ const TextChat = (props) => {
                   </div>
                   <span>
                     <b>
-
-                    
-                      {item.sender === 1 && "user chat-ui-box"
-                        ? <>{item.status ?item.status.charAt(0).toUpperCase() + item.status.slice(1)+'  ':userData.firstName + " " + userData.lastName + " "}</>
-
-                        : "" || (item.sender === 2 && "client chat-ui-box")
-                        ? props.selecteduser.contact.firstName +
-                          " " +
-                          props.selecteduser.contact.lastName +
-                          " "
-                        : ""}
+                      {item.sender === 1 && "user chat-ui-box" ? (
+                        <>
+                          {item.status
+                            ? item.status.charAt(0).toUpperCase() +
+                              item.status.slice(1) +
+                              "  "
+                            : userData.firstName +
+                              " " +
+                              userData.lastName +
+                              " "}
+                        </>
+                      ) : "" || (item.sender === 2 && "client chat-ui-box") ? (
+                        props.selecteduser.contact.firstName +
+                        " " +
+                        props.selecteduser.contact.lastName +
+                        " "
+                      ) : (
+                        ""
+                      )}
                     </b>
-
 
                     {timeAgo(item.updatedAt)}
                   </span>
-                  
                 </li>
               </>
             ))

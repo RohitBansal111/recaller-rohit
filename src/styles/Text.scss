@@ -731,6 +731,7 @@
       font-size: 13px;
       word-break: break-word;
       text-align: left;
+
       .chat-ui-box {
         padding: 10px;
         // border-radius: 6px;
@@ -738,7 +739,7 @@
         border-style: solid;
         display: inline-block;
         pre {
-          color: #000;
+          color: #36ddbf;
           font-size: 13px;
           margin-bottom: 0px;
           p {
@@ -746,12 +747,16 @@
           }
         }
         &.client {
+          color: #000 !important;
           border-color: #dedede;
           background-color: $Theme-white;
           text-align: left;
           & + span {
             text-align: left;
             padding-left: 4px;
+          }
+          pre {
+            color: #000;
           }
           p {
             margin-top: 0px;
@@ -873,7 +878,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background-color: red;
+      background-color: #e60065;
       margin-right: 6px;
     }
   }
