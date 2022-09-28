@@ -55,7 +55,7 @@ const ChatBoot = (props) => {
   const [typeSelect, setTypeSelect] = useState("sms");
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
-  const [dataOption , setDataOption]=useState([])
+  const [dataOption, setDataOption] = useState([]);
   const data = [
     {
       name: "Page A",
@@ -579,27 +579,25 @@ const ChatBoot = (props) => {
   const handleGetData = async () => {
     let res = await VoiceSMSGraph();
     if (res && res.data) {
-      let smsarra=[]
+      let smsarra = [];
       const smsSeriess = [
         {
           name: "Text",
-          data: res?.data?.smsData?.series ||[0],
+          data: res?.data?.smsData?.series || [0],
         },
         {
           name: "Voice",
-          data:res?.data?.voiceData?.series||[0],
+          data: res?.data?.voiceData?.series || [0],
         },
       ];
-      options.xaxis.data=res.data?.smsData?.option
-      setDataOption(options)
+      options.xaxis.data = res?.data?.smsData?.option || options.xaxis.data;
+      setDataOption(options);
       setDataSeries(smsSeriess);
     }
   };
 
-;
-
   useEffect(() => {
-    handleGetData()
+    handleGetData();
     handleSubData();
     handleSubDataSMS();
   }, []);
@@ -618,7 +616,7 @@ const ChatBoot = (props) => {
                   value={props.searchValue}
                   onChange={props.handleSearchChange}
                 />
-               
+
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
                 </div>
