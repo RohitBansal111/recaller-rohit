@@ -970,3 +970,11 @@ body {
     }
   }
 }
+.field-group {
+  button {
+    box-shadow: none !important;
+  }
+}
+.upload-voicemodal .field-group + .field-group button + button {
+  background: #343941 !important;
+}
