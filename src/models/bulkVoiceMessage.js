@@ -157,7 +157,7 @@ const BulkVoiceMessage = ({ open, handleCloseMessageModal, ...props }) => {
           {props.fileName && props.fileName.name ? (
             <LoadingButton
               type="button"
-              loadingPosition="center"  
+              loadingPosition="center"
               loading={props.loading}
               onClick={props.onVoiveUpload}
               className="btn btn-primary"
