@@ -36,6 +36,7 @@ const VoiceChatBoot = (props) => {
   const [subData, setSubData] = useState({});
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
+  const [dataOption , setDataOption]=useState([])
   const userVoiceMessageList = () => {
     let filtered = [];
     filtered =
@@ -224,24 +225,22 @@ const VoiceChatBoot = (props) => {
   const handleGetDatamain = async () => {
     let res = await VoiceSMSGraph();
     if (res && res.data) {
-      let voicearra=[]
-      console.log('ww', Object.keys(res?.data?.voice))
-      
-      let datasend = Object.keys(res?.data?.voice)?.map((w) => {
-        voicearra.push(res?.data?.voice[w])
-      });
+      let smsarra=[]
       const smsSeriess = [
         {
           name: "Text",
-          data: [0],
+          data: res?.data?.smsData?.series ||[0],
         },
         {
           name: "Voice",
-          data: voicearra,
+          data:res?.data?.voiceData?.series||[0],
         },
       ];
+      options.xaxis.data=res.data?.smsData?.option
+      setDataOption(options)
       setDataSeries(smsSeriess);
     }
+    
   };
 
   useEffect(() => {
@@ -615,8 +614,8 @@ const VoiceChatBoot = (props) => {
                 // <Chart options={options} series={series} type="area" />
               }
               <ReactApexChart
-                options={options}
-                series={series ||[]}
+                options={dataOption || options}
+                series={dataseries ||series }
                 type="area"
                 height={350}
               />
