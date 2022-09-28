@@ -598,7 +598,7 @@ const VoiceChatBoot = (props) => {
             </ul>
           </div>
           {!props.selecteduser ? "" : ""}
-          <div className="monthly-set" style={{ width: "160%" }}>
+          <div className="monthly-set" style={{ width: "100%" }}>
             <div className="monthly-credit-use">
               <h1>
                 Voice Credits Deployed
@@ -615,7 +615,8 @@ const VoiceChatBoot = (props) => {
                 {
                   // <Chart options={options} series={series} type="area" />
                 }
-                {check ? (
+                {/* check */}
+                {false ? (
                   <ReactApexChart
                     options={dataOption}
                     series={dataseries}

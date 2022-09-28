@@ -143,8 +143,8 @@ const ChatBoot = (props) => {
       data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
     {
-      name: "Voice",
-      data: [0],
+      name: "MMS",
+      data:[10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
   ];
 
@@ -590,10 +590,10 @@ const ChatBoot = (props) => {
           name: "Text",
           data: res?.data?.smsData?.series || [0],
         },
-        // {
-        //   name: "Voice",
-        //   data: res?.data?.voiceData?.series || [0],
-        // },
+        {
+          name: "MMS",
+          data: res?.data?.mmsData?.series || [0],
+        },
       ];
 
       options.xaxis.data = res?.data?.smsData?.option;
@@ -1093,12 +1093,13 @@ const ChatBoot = (props) => {
               </button>
             </h1>
 
-            <div className="monthly-set" style={{ width: "160%" }}>
+            <div className="monthly-set" style={{ width: "100%" }}>
               <div className="monthly-graph">
                 {
                   // <Chart options={options} series={series} type="area" />
                 }
-                {check ? (
+                {/* check */}
+                {false ? (
                   <ReactApexChart
                     options={dataOption}
                     series={dataseries}
