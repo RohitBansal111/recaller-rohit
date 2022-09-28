@@ -147,11 +147,14 @@ const ChatBoot = (props) => {
       data: [0],
     },
   ];
+  const dynamicWidth = data.length * 100;
+  const chartWidth = dynamicWidth < window.innerWidth ? "100%" : dynamicWidth;
   const options = {
     colors: ["#28dcbf", "#f7b924"],
     chart: {
-      height: 350,
-      type: "area",
+      width: chartWidth,
+      type: "bar",
+      height: 650,
       toolbar: {
         show: false,
       },
@@ -589,10 +592,10 @@ const ChatBoot = (props) => {
           name: "Text",
           data: res?.data?.smsData?.series || [0],
         },
-        {
-          name: "Voice",
-          data: res?.data?.voiceData?.series || [0],
-        },
+        // {
+        //   name: "Voice",
+        //   data: res?.data?.voiceData?.series || [0],
+        // },
       ];
 
       options.xaxis.data = res?.data?.smsData?.option;

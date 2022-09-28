@@ -165,10 +165,10 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
           ) : (
             <LoadingButton
               type="button"
-              loadingPosition="center"  
+              loadingPosition="center"
               loading={props.loading}
               onClick={props.handleSendClick}
-              className=" btn btn-primary-voice-send "
+              className="btn btn-primary"
               variant="contained"
             >
               Send
