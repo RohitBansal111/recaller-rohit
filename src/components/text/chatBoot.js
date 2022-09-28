@@ -55,8 +55,9 @@ const ChatBoot = (props) => {
   const [typeSelect, setTypeSelect] = useState("sms");
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
-  const [dataOption , setDataOption]=useState([])
-  const [check, setCheck]=useState(false)
+
+  const [dataOption, setDataOption] = useState([]);
+  const [check, setCheck] = useState(false);
   const data = [
     {
       name: "Page A",
@@ -146,11 +147,14 @@ const ChatBoot = (props) => {
       data: [0],
     },
   ];
+  const dynamicWidth = data.length * 100;
+  const chartWidth = dynamicWidth < window.innerWidth ? "100%" : dynamicWidth;
   const options = {
     colors: ["#28dcbf", "#f7b924"],
     chart: {
-      height: 350,
-      type: "area",
+      width: chartWidth,
+      type: "bar",
+      height: 650,
       toolbar: {
         show: false,
       },
@@ -579,30 +583,30 @@ const ChatBoot = (props) => {
   };
   const handleGetData = async () => {
     let res = await VoiceSMSGraph();
-    console.log('ww',res.data)
-    if (res && res.data && res.data.status==200) {
-      let smsarra=[]
+
+    console.log("ww", res.data);
+    if (res && res.data && res.data.status == 200) {
+      let smsarra = [];
       const smsSeriess = [
         {
           name: "Text",
-          data: res?.data?.smsData?.series ||[0],
+          data: res?.data?.smsData?.series || [0],
         },
-        {
-          name: "Voice",
-          data:res?.data?.voiceData?.series||[0],
-        },
+        // {
+        //   name: "Voice",
+        //   data: res?.data?.voiceData?.series || [0],
+        // },
       ];
-      options.xaxis.data=res?.data?.smsData?.option
-      setDataOption(options)
+
+      options.xaxis.data = res?.data?.smsData?.option;
+      setDataOption(options);
       setDataSeries(smsSeriess);
-      setCheck(true)
+      setCheck(true);
     }
   };
 
-;
-
   useEffect(() => {
-    handleGetData()
+    handleGetData();
     handleSubData();
     handleSubDataSMS();
   }, []);
@@ -621,7 +625,7 @@ const ChatBoot = (props) => {
                   value={props.searchValue}
                   onChange={props.handleSearchChange}
                 />
-               
+
                 <div className="search-field">
                   {props.searchValue && <SearchIcon />}
                 </div>
