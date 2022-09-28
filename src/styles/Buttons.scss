@@ -40,6 +40,13 @@
   padding: 10px 25px !important;
   border-radius: 20px !important;
 }
+.indvoicebtn {
+  button {
+    & + button {
+      background: #343941 !important;
+    }
+  }
+}
 .btn-primary-outline {
   background-color: $Theme-white;
   color: $AddSubmitButton-color;

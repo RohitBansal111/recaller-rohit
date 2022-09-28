@@ -147,12 +147,10 @@ const ChatBoot = (props) => {
       data: [0],
     },
   ];
-  const dynamicWidth = data.length * 100;
-  const chartWidth = dynamicWidth < window.innerWidth ? "100%" : dynamicWidth;
+
   const options = {
     colors: ["#28dcbf", "#f7b924"],
     chart: {
-      width: chartWidth,
       type: "bar",
       height: 650,
       toolbar: {
