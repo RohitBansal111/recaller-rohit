@@ -360,11 +360,13 @@ span.spanError {
       height: 50px;
 
       &.active {
-        color: $Active-color;
+        // color: $Active-color;
+        color: #343941;
         font-weight: 500;
         border: none;
         background-color: transparent;
-        border-bottom: 2px solid $Active-color;
+        // border-bottom: 2px solid $Active-color;
+        border-bottom: 2px solid black;
       }
 
       &:focus {
@@ -902,7 +904,7 @@ body {
     top: -5px;
     padding: 3px 3px !important;
     border: none !important;
-    background-color: #ff0000 !important;
+    background-color: #e60065 !important;
     line-height: 0px;
     width: 20px;
     height: 20px;
@@ -939,37 +941,32 @@ body {
   }
 }
 
-
-
-
 // Login
-.passowrd-field-wrap{
+.passowrd-field-wrap {
   position: relative;
-  .show-password-icons{
+  .show-password-icons {
     position: absolute;
     right: 15px;
     top: 8px;
-    svg{
+    svg {
       cursor: pointer;
-      &:nth-child(1){
+      &:nth-child(1) {
         display: none;
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         display: block;
       }
     }
-    &.showPsw{
-      svg{
+    &.showPsw {
+      svg {
         cursor: pointer;
-        &:nth-child(2){
+        &:nth-child(2) {
           display: none;
         }
-        &:nth-child(1){
+        &:nth-child(1) {
           display: block;
         }
       }
     }
   }
 }
-
-
