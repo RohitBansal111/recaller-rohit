@@ -598,151 +598,153 @@ const VoiceChatBoot = (props) => {
             </ul>
           </div>
           {!props.selecteduser ? "" : ""}
-          <div className="monthly-credit-use">
-            <h1>
-              Voice Credits Deployed
-              <div style={{ color: "#797979", fontSize: "16px" }}>
-                {Number(subData?.voice_cridit) +
-                  Number(subData?.voice_topup_val) || 0}
-              </div>{" "}
-              <button className="downarrow">
-                <BsChevronRight />
-              </button>
-            </h1>
+          <div className="monthly-set" style={{ width: "140%" }}>
+            <div className="monthly-credit-use">
+              <h1>
+                Voice Credits Deployed
+                <div style={{ color: "#797979", fontSize: "16px" }}>
+                  {Number(subData?.voice_cridit) +
+                    Number(subData?.voice_topup_val) || 0}
+                </div>{" "}
+                <button className="downarrow">
+                  <BsChevronRight />
+                </button>
+              </h1>
 
-            <div className="monthly-graph">
-              {
-                // <Chart options={options} series={series} type="area" />
-              }
-              {check ? (
-                <ReactApexChart
-                  options={dataOption}
-                  series={dataseries}
-                  type="area"
-                  height={350}
-                />
-              ) : (
-                <ReactApexChart
-                  options={options}
-                  series={series}
-                  type="area"
-                  height={350}
-                />
-              )}
-            </div>
-            <div className="monthly-progressbar">
-              <h2>Voice Performance</h2>
-              <div className="mn-progressbar">
-                <div className="progressbar-field delfield">
-                  <div className="voice-heading">
-                    <h4>{substatus?.deliver || 0}%</h4>
+              <div className="monthly-graph">
+                {
+                  // <Chart options={options} series={series} type="area" />
+                }
+                {check ? (
+                  <ReactApexChart
+                    options={dataOption}
+                    series={dataseries}
+                    type="area"
+                    height={350}
+                  />
+                ) : (
+                  <ReactApexChart
+                    options={options}
+                    series={series}
+                    type="area"
+                    height={350}
+                  />
+                )}
+              </div>
+              <div className="monthly-progressbar">
+                <h2>Voice Performance</h2>
+                <div className="mn-progressbar">
+                  <div className="progressbar-field delfield">
+                    <div className="voice-heading">
+                      <h4>{substatus?.deliver || 0}%</h4>
+                    </div>
+                    <ProgressBar now={65} />
+                    <div className="voice-value">
+                      <h5>Delivered</h5>
+                    </div>
                   </div>
-                  <ProgressBar now={65} />
-                  <div className="voice-value">
-                    <h5>Delivered</h5>
-                  </div>
-                </div>
-                <div className="progressbar-field flfield">
-                  <div className="voice-heading">
-                    <h4>{substatus?.failed || 0}%</h4>
-                  </div>
-                  <ProgressBar now={40} />
-                  <div className="voice-value">
-                    <h5>Failed</h5>
+                  <div className="progressbar-field flfield">
+                    <div className="voice-heading">
+                      <h4>{substatus?.failed || 0}%</h4>
+                    </div>
+                    <ProgressBar now={40} />
+                    <div className="voice-value">
+                      <h5>Failed</h5>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="conversation-tags">
-              <h4>Conversation Tags</h4>
-              <div className="dropdown">
-                <button
-                  className="btn btn-addd-tag dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <AddIcon /> Add Tags
-                </button>
-                <div className="dynamic-tags">
-                  <ul>
-                    {props.newAray
-                      ? props.newAray.map((item) => (
-                          <li
-                            style={{
-                              borderColor: item.color,
-                              color: item.color,
-                            }}
-                          >
-                            {item.name}{" "}
-                            <span
-                              className="remove-tag"
-                              style={{ color: item.color }}
-                              onClick={() => props.handleSelectDel(item)}
+              <div className="conversation-tags">
+                <h4>Conversation Tags</h4>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-addd-tag dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <AddIcon /> Add Tags
+                  </button>
+                  <div className="dynamic-tags">
+                    <ul>
+                      {props.newAray
+                        ? props.newAray.map((item) => (
+                            <li
+                              style={{
+                                borderColor: item.color,
+                                color: item.color,
+                              }}
                             >
-                              ✕
+                              {item.name}{" "}
+                              <span
+                                className="remove-tag"
+                                style={{ color: item.color }}
+                                onClick={() => props.handleSelectDel(item)}
+                              >
+                                ✕
+                              </span>
+                            </li>
+                          ))
+                        : []}
+                    </ul>
+                  </div>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                    style={{ overflowY: "scroll", height: " 220px" }}
+                  >
+                    {props.conversationTags
+                      ? props.conversationTags.map((item, index) => (
+                          <li
+                            style={{ borderColor: item.color }}
+                            onClick={() =>
+                              props.handleSelectedTagItems(item, index)
+                            }
+                          >
+                            <span style={{ color: item.color }}>
+                              <LocalOfferIcon style={{ fill: item.color }} />
+                              {item.name}
                             </span>
                           </li>
                         ))
                       : []}
+
+                    <li>
+                      <button
+                        type="button"
+                        onClick={props.onClick}
+                        className="btn link-bttn"
+                      >
+                        Manage Tags
+                      </button>
+                    </li>
                   </ul>
+
+                  <ConversationTagModal
+                    open={props.openManageTagModal}
+                    handleCloseManageModal={props.handleCloseManageModal}
+                    openCTM={props.openCreateTagModal}
+                    handleCloseCTModal={props.handleCloseCTModal}
+                    addTags={props.addTags}
+                    handleChange={props.handleChange}
+                    handleClick={props.handleClick}
+                    handleCMModal={props.handleCMModal}
+                    openEditTagModal={props.openEditTagModal}
+                    handleCloseETModal={props.handleCloseETModal}
+                    handleEditChange={props.handleEditChange}
+                    handleEdit={props.handleEdit}
+                    editTags={props.editTags}
+                    tags={props.tags}
+                    handleEditTag={props.handleEditClick}
+                    handleDelModal={props.handleDelModal}
+                    showDeleteTagModal={props.openDelTagModal}
+                    handleDeleteTags={props.handleDeleteTags}
+                    handleCloseDeleteModal={props.handleCloseDeleteModal}
+                    errors={props.errors}
+                  />
                 </div>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                  style={{ overflowY: "scroll", height: " 220px" }}
-                >
-                  {props.conversationTags
-                    ? props.conversationTags.map((item, index) => (
-                        <li
-                          style={{ borderColor: item.color }}
-                          onClick={() =>
-                            props.handleSelectedTagItems(item, index)
-                          }
-                        >
-                          <span style={{ color: item.color }}>
-                            <LocalOfferIcon style={{ fill: item.color }} />
-                            {item.name}
-                          </span>
-                        </li>
-                      ))
-                    : []}
-
-                  <li>
-                    <button
-                      type="button"
-                      onClick={props.onClick}
-                      className="btn link-bttn"
-                    >
-                      Manage Tags
-                    </button>
-                  </li>
-                </ul>
-
-                <ConversationTagModal
-                  open={props.openManageTagModal}
-                  handleCloseManageModal={props.handleCloseManageModal}
-                  openCTM={props.openCreateTagModal}
-                  handleCloseCTModal={props.handleCloseCTModal}
-                  addTags={props.addTags}
-                  handleChange={props.handleChange}
-                  handleClick={props.handleClick}
-                  handleCMModal={props.handleCMModal}
-                  openEditTagModal={props.openEditTagModal}
-                  handleCloseETModal={props.handleCloseETModal}
-                  handleEditChange={props.handleEditChange}
-                  handleEdit={props.handleEdit}
-                  editTags={props.editTags}
-                  tags={props.tags}
-                  handleEditTag={props.handleEditClick}
-                  handleDelModal={props.handleDelModal}
-                  showDeleteTagModal={props.openDelTagModal}
-                  handleDeleteTags={props.handleDeleteTags}
-                  handleCloseDeleteModal={props.handleCloseDeleteModal}
-                  errors={props.errors}
-                />
               </div>
             </div>
           </div>

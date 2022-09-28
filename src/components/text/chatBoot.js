@@ -1093,26 +1093,29 @@ const ChatBoot = (props) => {
               </button>
             </h1>
 
-            <div className="monthly-graph">
-              {
-                // <Chart options={options} series={series} type="area" />
-              }
-              {check ? (
-                <ReactApexChart
-                  options={dataOption}
-                  series={dataseries}
-                  type="area"
-                  height={350}
-                />
-              ) : (
-                <ReactApexChart
-                  options={options}
-                  series={series}
-                  type="area"
-                  height={350}
-                />
-              )}
+            <div className="monthly-set" style={{ width: "140%" }}>
+              <div className="monthly-graph">
+                {
+                  // <Chart options={options} series={series} type="area" />
+                }
+                {check ? (
+                  <ReactApexChart
+                    options={dataOption}
+                    series={dataseries}
+                    type="area"
+                    height={350}
+                  />
+                ) : (
+                  <ReactApexChart
+                    options={options}
+                    series={series}
+                    type="area"
+                    height={350}
+                  />
+                )}
+              </div>
             </div>
+
             <div className="monthly-progressbar">
               <h2>Text Performance</h2>
               <div className="mn-progressbar">
