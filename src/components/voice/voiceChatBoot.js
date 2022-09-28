@@ -16,7 +16,7 @@ import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
 import LockIcon from "@material-ui/icons/Lock";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import { GetSubscriptionData } from "../../api/plans";
-import {getVoiceStatus} from '../../api/subscription'
+import { getVoiceStatus } from "../../api/subscription";
 import ReactApexChart from "react-apexcharts";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsChevronRight } from "react-icons/bs";
@@ -36,7 +36,8 @@ const VoiceChatBoot = (props) => {
   const [subData, setSubData] = useState({});
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
-  const [dataOption , setDataOption]=useState([])
+  const [dataOption, setDataOption] = useState([]);
+  const [check, setCheck] = useState(false);
   const userVoiceMessageList = () => {
     let filtered = [];
     filtered =
@@ -210,43 +211,40 @@ const VoiceChatBoot = (props) => {
   const handleSubDataVoice = async () => {
     let res = await getVoiceStatus();
     if (res && res.data && res.status == 200) {
-      let Totel =
-        Number(res?.data?.deliver) +
-        Number(res?.data?.failed) 
+      let Totel = Number(res?.data?.deliver) + Number(res?.data?.failed);
       setSubstatus({
         ...substatus,
         deliver: percentage(res?.data?.deliver, Totel).toFixed(1),
         failed: percentage(res?.data?.failed, Totel).toFixed(1),
-      
       });
     }
   };
 
   const handleGetDatamain = async () => {
     let res = await VoiceSMSGraph();
-    if (res && res.data) {
-      let smsarra=[]
+    if (res && res.data && res.data.status == 200) {
+      let smsarra = [];
       const smsSeriess = [
         {
           name: "Text",
-          data: res?.data?.smsData?.series ||[0],
+          data: res?.data?.smsData?.series || [0],
         },
         {
           name: "Voice",
-          data:res?.data?.voiceData?.series||[0],
+          data: res?.data?.voiceData?.series || [0],
         },
       ];
-      options.xaxis.data=res.data?.smsData?.option
-      setDataOption(options)
+      options.xaxis.data = res.data?.smsData?.option;
+      setDataOption(options);
       setDataSeries(smsSeriess);
+      setCheck(true);
     }
-    
   };
 
   useEffect(() => {
     handleGetDatamain();
     handleSubDataVoice();
-    handleGetData()
+    handleGetData();
   }, []);
   return (
     <div className="chatbox-warpper">
@@ -603,7 +601,10 @@ const VoiceChatBoot = (props) => {
           <div className="monthly-credit-use">
             <h1>
               Voice Credits Deployed
-              <div style={{ color: "#797979", fontSize: "16px" }}>{Number(subData?.voice_cridit)+Number(subData?.voice_topup_val)||0}</div>{" "}
+              <div style={{ color: "#797979", fontSize: "16px" }}>
+                {Number(subData?.voice_cridit) +
+                  Number(subData?.voice_topup_val) || 0}
+              </div>{" "}
               <button className="downarrow">
                 <BsChevronRight />
               </button>
@@ -613,20 +614,28 @@ const VoiceChatBoot = (props) => {
               {
                 // <Chart options={options} series={series} type="area" />
               }
-              <ReactApexChart
-                options={dataOption || options}
-                series={dataseries ||series }
-                type="area"
-                height={350}
-              />
-              
+              {check ? (
+                <ReactApexChart
+                  options={dataOption}
+                  series={dataseries}
+                  type="area"
+                  height={350}
+                />
+              ) : (
+                <ReactApexChart
+                  options={options}
+                  series={series}
+                  type="area"
+                  height={350}
+                />
+              )}
             </div>
             <div className="monthly-progressbar">
               <h2>Voice Performance</h2>
               <div className="mn-progressbar">
                 <div className="progressbar-field delfield">
                   <div className="voice-heading">
-                    <h4>{substatus?.deliver ||0}%</h4>
+                    <h4>{substatus?.deliver || 0}%</h4>
                   </div>
                   <ProgressBar now={65} />
                   <div className="voice-value">
@@ -635,7 +644,7 @@ const VoiceChatBoot = (props) => {
                 </div>
                 <div className="progressbar-field flfield">
                   <div className="voice-heading">
-                  <h4>{substatus?.failed ||0}%</h4>
+                    <h4>{substatus?.failed || 0}%</h4>
                   </div>
                   <ProgressBar now={40} />
                   <div className="voice-value">

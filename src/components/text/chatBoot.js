@@ -55,7 +55,9 @@ const ChatBoot = (props) => {
   const [typeSelect, setTypeSelect] = useState("sms");
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
+
   const [dataOption, setDataOption] = useState([]);
+  const [check, setCheck] = useState(false);
   const data = [
     {
       name: "Page A",
@@ -578,7 +580,9 @@ const ChatBoot = (props) => {
   };
   const handleGetData = async () => {
     let res = await VoiceSMSGraph();
-    if (res && res.data) {
+
+    console.log("ww", res.data);
+    if (res && res.data && res.data.status == 200) {
       let smsarra = [];
       const smsSeriess = [
         {
@@ -590,9 +594,11 @@ const ChatBoot = (props) => {
           data: res?.data?.voiceData?.series || [0],
         },
       ];
-      options.xaxis.data = res?.data?.smsData?.option || options.xaxis.data;
+
+      options.xaxis.data = res?.data?.smsData?.option;
       setDataOption(options);
       setDataSeries(smsSeriess);
+      setCheck(true);
     }
   };
 
@@ -1090,12 +1096,21 @@ const ChatBoot = (props) => {
               {
                 // <Chart options={options} series={series} type="area" />
               }
-              <ReactApexChart
-                options={dataOption || options}
-                series={dataseries || series}
-                type="area"
-                height={350}
-              />
+              {check ? (
+                <ReactApexChart
+                  options={dataOption}
+                  series={dataseries}
+                  type="area"
+                  height={350}
+                />
+              ) : (
+                <ReactApexChart
+                  options={options}
+                  series={series}
+                  type="area"
+                  height={350}
+                />
+              )}
             </div>
             <div className="monthly-progressbar">
               <h2>Text Performance</h2>
