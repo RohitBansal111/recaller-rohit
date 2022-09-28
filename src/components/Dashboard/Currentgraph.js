@@ -49,15 +49,7 @@ const Currentgraph = () => {
     let endMonth = moment(new Date(endOfMonth)).format("DD");
     let res = await currentGraph();
     if (res && res.data) {
-      let datasend = Object.keys(res?.data?.data)?.map((w) => {
-        let data = {
-          name: w,
-          uv: res.data?.data[w],
-        };
-
-        return data;
-      });
-      setData(datasend);
+      setData(res?.data?.data);
     }
   };
 
