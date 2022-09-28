@@ -12,6 +12,7 @@ import Detail from "./pages/Detail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./components/layout";
 import "react-responsive-modal/styles.css";
+
 import "material-icons/iconfont/material-icons.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
