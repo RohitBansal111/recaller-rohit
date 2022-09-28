@@ -619,6 +619,7 @@ const VoiceChatBoot = (props) => {
                 type="area"
                 height={350}
               />
+              
             </div>
             <div className="monthly-progressbar">
               <h2>Voice Performance</h2>
