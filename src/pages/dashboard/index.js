@@ -476,7 +476,7 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          <li>
+                          {/* <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
@@ -498,7 +498,7 @@ const Dashboard = (props) => {
                                 </span>
                               </div>
                             </div>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                     </div>
@@ -579,7 +579,7 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          <li>
+                          {/* <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
@@ -601,7 +601,7 @@ const Dashboard = (props) => {
                                 </span>
                               </div>
                             </div>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                     </div>

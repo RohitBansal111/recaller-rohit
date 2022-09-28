@@ -20,7 +20,8 @@ import {getVoiceStatus} from '../../api/subscription'
 import ReactApexChart from "react-apexcharts";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsChevronRight } from "react-icons/bs";
-
+import moment from "moment";
+import { VoiceSMSGraph } from "../../api/graph";
 import {
   AreaChart,
   Area,
@@ -34,6 +35,7 @@ import {
 const VoiceChatBoot = (props) => {
   const [subData, setSubData] = useState({});
   const [substatus, setSubstatus] = useState({});
+  const [dataseries, setDataSeries] = useState([]);
   const userVoiceMessageList = () => {
     let filtered = [];
     filtered =
@@ -81,7 +83,7 @@ const VoiceChatBoot = (props) => {
   const series = [
     {
       name: "Voice",
-      data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
+      data: [1, 3, 4, 6, 3, 1, 0, 2, 4],
     },
     {
       name: "Text",
@@ -218,9 +220,34 @@ const VoiceChatBoot = (props) => {
       });
     }
   };
+
+  const handleGetDatamain = async () => {
+    let res = await VoiceSMSGraph();
+    if (res && res.data) {
+      let voicearra=[]
+      console.log('ww', Object.keys(res?.data?.voice))
+      
+      let datasend = Object.keys(res?.data?.voice)?.map((w) => {
+        voicearra.push(res?.data?.voice[w])
+      });
+      const smsSeriess = [
+        {
+          name: "Text",
+          data: [0],
+        },
+        {
+          name: "Voice",
+          data: voicearra,
+        },
+      ];
+      setDataSeries(smsSeriess);
+    }
+  };
+
   useEffect(() => {
-    handleGetData();
-    handleSubDataVoice()
+    handleGetDatamain();
+    handleSubDataVoice();
+    handleGetData()
   }, []);
   return (
     <div className="chatbox-warpper">
@@ -589,7 +616,7 @@ const VoiceChatBoot = (props) => {
               }
               <ReactApexChart
                 options={options}
-                series={series}
+                series={series ||[]}
                 type="area"
                 height={350}
               />
