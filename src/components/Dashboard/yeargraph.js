@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { yearGraph } from "../../api/graph";
 const datayearGraph = [
   {
     name: "Sep",
@@ -27,13 +28,24 @@ const datayearGraph = [
   },
 ];
 const Yeargraph = () => {
+  const [data, setData] = useState([]);
+  const handleGetData = async () => {
+    let res = await yearGraph();
+    if (res && res.data) {
+      setData(res?.data?.data);
+    }
+  };
+
+  useEffect(() => {
+    handleGetData();
+  }, []);
   return (
     <div>
       <ResponsiveContainer width={"99.9%"} height={250}>
         <AreaChart
           width={310}
           height={250}
-          data={datayearGraph}
+          data={data || datayearGraph}
           margin={{
             top: 5,
             right: 0,

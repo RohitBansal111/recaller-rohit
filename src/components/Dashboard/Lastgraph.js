@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { lastGraph } from "../../api/graph";
 const datalastGraph = [
   {
     name: "1 Aug",
@@ -135,13 +136,25 @@ const datalastGraph = [
   },
 ];
 const Lastgraph = () => {
+  const [data, setData] = useState([]);
+  const handleGetData = async () => {
+    let res = await lastGraph();
+    if (res && res.data) {
+      setData(res?.data?.data);
+    }
+  };
+
+  useEffect(() => {
+   
+    handleGetData();
+  }, []);
   return (
     <div className="lastmonth-value">
       <ResponsiveContainer width={"99.9%"} height={250}>
         <AreaChart
           width={1800}
           height={250}
-          data={datalastGraph}
+          data={data || datalastGraph}
           margin={{
             top: 5,
             right: 0,

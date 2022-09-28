@@ -43,10 +43,6 @@ const datacurrentGraph = [
 const Currentgraph = () => {
   const [data, setData] = useState([]);
   const handleGetData = async () => {
-    var date = new Date();
-    const startOfMonth = moment().startOf("month").format("YYYY-MM-DD hh:mm");
-    const endOfMonth = moment().endOf("month").format("YYYY-MM-DD hh:mm");
-    let endMonth = moment(new Date(endOfMonth)).format("DD");
     let res = await currentGraph();
     if (res && res.data) {
       setData(res?.data?.data);
@@ -54,7 +50,6 @@ const Currentgraph = () => {
   };
 
   useEffect(() => {
-    //  setUserType(usercheck.paln);
     handleGetData();
   }, []);
 
@@ -64,7 +59,7 @@ const Currentgraph = () => {
         <AreaChart
           width={310}
           height={250}
-          data={data || []}
+          data={data || datacurrentGraph}
           margin={{
             top: 5,
             right: 0,

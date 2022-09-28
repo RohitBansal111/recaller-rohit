@@ -1095,8 +1095,9 @@ const ChatBoot = (props) => {
               {
                 // <Chart options={options} series={series} type="area" />
               }
+              {/* check */}
               {
-                check?<ReactApexChart
+                false?<ReactApexChart
                 options={dataOption}
                 series={ dataseries}
                 type="area"

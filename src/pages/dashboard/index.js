@@ -60,7 +60,7 @@ const Dashboard = (props) => {
   const [checked, setChecked] = useState(false);
   const [view, setView] = useState();
   const [subData, setSubData] = useState({});
-
+  const [allData, setAllData] = useState({});
   const userDataa = useSelector((state) => state.Login.userData);
 
   useEffect(() => {
@@ -211,6 +211,7 @@ const Dashboard = (props) => {
   const handleSubData = async () => {
     let res = await GetSubscriptionData();
     if (res && res.data && res.status == 200) {
+      setAllData(res.data.graph)
       setSubData(res?.data?.data);
     }
   };
@@ -301,17 +302,19 @@ const Dashboard = (props) => {
                         <span className="month43">
                           {moment().format("MMMM")} .
                         </span>
-                        {console.log("qqq", subData)}
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.mms_cridit_used) -Number(subData?.mms_cridit_used) || 0}
+                          Number(subData?.mms_cridit_used) -
+                          Number(subData?.mms_cridit_used) || 0}
                         /
                         {Number(subData?.mms_cridit) +
                           Number(subData?.sms_cridit) +
                           Number(subData?.voice_cridit) +
                           Number(subData?.mms_topup_val) +
                           Number(subData?.sms_topup_val) +
-                          Number(subData?.voice_topup_val) -Number(subData?.mms_cridit) - Number(subData?.mms_topup_val)|| 0}
+                          Number(subData?.voice_topup_val) -
+                          Number(subData?.mms_cridit) -
+                          Number(subData?.mms_topup_val) || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -416,7 +419,8 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                        <span className="month43">August. </span> 59/1000
+                       
+                        <span className="month43">{allData?.last_month?.month || ''} </span> {allData?.last_month?.cridit_used || 0}/ {allData?.last_month?.cridit_totel || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -445,7 +449,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 152
+                                  <small></small>  {subData?.sms_cridit_used || 0}
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -468,7 +472,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 25
+                                  <small></small>  {subData?.voice_cridit_used || 0}
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -519,7 +523,7 @@ const Dashboard = (props) => {
                       <BsFillRecordCircleFill />
                     </span> */}
                       <span className="price-value">
-                        <span className="month43">2022. </span> 2250/3000
+                      <span className="month43">{allData?.year?.year || ''} </span> {allData?.year?.cridit_used || 0}/ {allData?.year?.cridit_totel || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -548,7 +552,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 152
+                                  <small></small>  {subData?.sms_cridit_used || 0}
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -571,7 +575,7 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small> 25
+                                  <small></small>  {subData?.voice_cridit_used || 0}
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>

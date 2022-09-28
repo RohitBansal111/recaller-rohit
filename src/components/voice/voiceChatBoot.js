@@ -609,12 +609,9 @@ const VoiceChatBoot = (props) => {
                 <BsChevronRight />
               </button>
             </h1>
-
             <div className="monthly-graph">
-              {
-                // <Chart options={options} series={series} type="area" />
-              }
-              {check ? (
+            {/* check */}
+              {false ? (
                 <ReactApexChart
                   options={dataOption}
                   series={dataseries}
