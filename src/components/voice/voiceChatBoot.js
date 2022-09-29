@@ -87,10 +87,10 @@ const VoiceChatBoot = (props) => {
       name: "Voice",
       data: [1, 3, 4, 6, 3, 1, 0, 2, 4],
     },
-    {
-      name: "Text",
-      data: [0],
-    },
+    // {
+    //   name: "Text",
+    //   data: [0],
+    // },
   ];
   const options = {
     colors: ["#f7b924", "#28dcbf"],
@@ -225,10 +225,10 @@ const VoiceChatBoot = (props) => {
     if (res && res.data && res.data.status == 200) {
       let smsarra = [];
       const smsSeriess = [
-        {
-          name: "Text",
-          data: res?.data?.smsData?.series || [0],
-        },
+        // {
+        //   name: "Text",
+        //   data: res?.data?.smsData?.series || [0],
+        // },
         {
           name: "Voice",
           data: res?.data?.voiceData?.series || [0],
@@ -610,27 +610,28 @@ const VoiceChatBoot = (props) => {
                   <BsChevronRight />
                 </button>
               </h1>
-
-              <div className="monthly-graph">
-                {
-                  // <Chart options={options} series={series} type="area" />
-                }
-                {/* check */}
-                {false ? (
-                  <ReactApexChart
-                    options={dataOption}
-                    series={dataseries}
-                    type="area"
-                    height={350}
-                  />
-                ) : (
-                  <ReactApexChart
-                    options={options}
-                    series={series}
-                    type="area"
-                    height={350}
-                  />
-                )}
+              <div className="monthly-set" style={{ width: "140%" }}>
+                <div className="monthly-graph">
+                  {
+                    // <Chart options={options} series={series} type="area" />
+                  }
+                  {/* check */}
+                  {false ? (
+                    <ReactApexChart
+                      options={dataOption}
+                      series={dataseries}
+                      type="area"
+                      height={350}
+                    />
+                  ) : (
+                    <ReactApexChart
+                      options={options}
+                      series={series}
+                      type="area"
+                      height={350}
+                    />
+                  )}
+                </div>
               </div>
               <div className="monthly-progressbar">
                 <h2>Voice Performance</h2>
