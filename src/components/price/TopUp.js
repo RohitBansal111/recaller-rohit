@@ -219,8 +219,8 @@ const TopUp = ({
     if (res && res.data && res.status == 200) {
       console.log(res.data.data);
       setapiData(res.data.data);
-      handleproduct("SMS")
-      setData(res.data.data.SMS)
+      handleproduct("SMS");
+      setData(res.data.data.SMS);
     }
   };
   useEffect(() => {
@@ -329,9 +329,14 @@ const TopUp = ({
           {Object.keys(data || {})?.map((q) => {
             return (
               <>
-                <h1 style={{ textAlign: "center" }}>
+                <h6
+                  style={{
+                    textAlign: "center",
+                    marginLeft: "30%",
+                  }}
+                >
                   {capitalizeFirstLetter(q)}
-                </h1>
+                </h6>
 
                 <div className="subscribe-list">
                   <table class="table">

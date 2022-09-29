@@ -125,174 +125,179 @@ const Price = () => {
   return (
     <>
       <Layout>
-      <Modal show={open} onHide={handleClose} backdrop="static" centered>
-        <Modal.Header>
-          <Modal.Title>{name} Subscription</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Elements stripe={stripePromise}>
-            <CheckoutForm
-              planName={name}
-              handleClose={handleClose}
-              type={type}
-              loading={loading}
-              setLoading={setLoading}
-            />
-          </Elements>
-        </Modal.Body>
-      </Modal>
-      {tyeOfPage == "sub" ? (
-        <div className="form-page-layout subscribe-pricing-list">
-          <div className="price-page-layout">
-            <div className="subscribe-price-headerbar">
-              <div className="headerbar">
-                <div
-                  className="logo"
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  <img src={Logo} alt="Recallr" />
+        <Modal show={open} onHide={handleClose} backdrop="static" centered>
+          <Modal.Header>
+            <Modal.Title>{name} Subscription</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Elements stripe={stripePromise}>
+              <CheckoutForm
+                planName={name}
+                handleClose={handleClose}
+                type={type}
+                loading={loading}
+                setLoading={setLoading}
+              />
+            </Elements>
+          </Modal.Body>
+        </Modal>
+        {tyeOfPage == "sub" ? (
+          <div className="form-page-layout subscribe-pricing-list">
+            <div className="price-page-layout">
+              <div className="subscribe-price-headerbar">
+                <div className="headerbar">
+                  <div
+                    className="logo"
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    <img src={Logo} alt="Recallr" />
+                  </div>
+                </div>
+                <div className="header-title">
+                  <h1>Select the package that best suits your needs</h1>
+                  <p>Pay Monthly or save big with an annual Subscription</p>
                 </div>
               </div>
-              <div className="header-title">
-                <h1>Select the package that best suits your needs</h1>
-                <p>Pay Monthly or save big with an annual Subscription</p>
+              <div className="subscribe-mbtn">
+                <Button
+                  className={monthisActive ? "active" : null}
+                  onClick={monthlytoggleClass}
+                >
+                  Monthly
+                </Button>
+                <Button
+                  className={annualisActive ? "active" : null}
+                  onClick={annualtoggleClass}
+                >
+                  Annual
+                </Button>
+                <Button
+                  className={smsisActive ? "active" : null}
+                  onClick={smstoggleClass}
+                >
+                  {usercheck?.plan == "free" ? "Solo Credits" : " Top Up"}
+                </Button>
               </div>
-            </div>
-            <div className="subscribe-mbtn">
-              <Button
-                className={monthisActive ? "active" : null}
-                onClick={monthlytoggleClass}
-              >
-                Monthly
-              </Button>
-              <Button
-                className={annualisActive ? "active" : null}
-                onClick={annualtoggleClass}
-              >
-                Annual
-              </Button>
-              {/* <Button
-                className={smsisActive ? "active" : null}
-                onClick={smstoggleClass}
-              >
-                {usercheck?.plan == "free" ? "Solo Credits" : " Top Up"}
-              </Button> */}
-            </div>
-            <div className="subscribe-list">
-              <Row>
-                <Col xs={4}>
-                  <div className="card pricing-list">
-                    <div className="card-header">
-                      <div className="price-heading"></div>
-                    </div>
-                    <div className="card-body">
-                      <ul>
-                        <li>SMS</li>
-                        <li>SMS Credits p/m</li>
-                        <li>MMS</li>
-                        <li>MMS Credits p/m</li>
-                        <li>Text Templates</li>
-                        <li>Text Keywords</li>
-                        {/* <li>Email</li>
+              <div className="subscribe-list">
+                <Row>
+                  <Col xs={4}>
+                    <div className="card pricing-list">
+                      <div className="card-header">
+                        <div className="price-heading"></div>
+                      </div>
+                      <div className="card-body">
+                        <ul>
+                          <li>SMS</li>
+                          <li>SMS Credits p/m</li>
+                          <li>MMS</li>
+                          <li>MMS Credits p/m</li>
+                          <li>Text Templates</li>
+                          <li>Text Keywords</li>
+                          {/* <li>Email</li>
                         <li>Email Credits</li>
                         <li>Email Keywords</li>
                         <li>Email Templates</li> */}
-                        <li>CRM</li>
-                        <li>Custom AI Chatbot</li>
-                        <li>Recall Search Engine</li>
-                        <li>3 Recallr Searches P/M</li>
-                        <li>Recallr Predictive AI</li>
-                        <li>Widget</li>
-                        <li>CRM Integration</li>
-                      </ul>
+                          <li>CRM</li>
+                          <li>Custom AI Chatbot</li>
+                          <li>Recall Search Engine</li>
+                          <li>3 Recallr Searches P/M</li>
+                          <li>Recallr Predictive AI</li>
+                          <li>Widget</li>
+                          <li>CRM Integration</li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-                {Object.keys(subData?.Sub_data || {})?.map((w) => {
-                  return (
-                    <Col xs={2}>
-                      <div className="card starter-price">
-                        <div className="card-header">
-                          {w == "communicator" && (
-                            <div className="recm-title">
-                              <h1>Our Recommendation</h1>
-                            </div>
-                          )}
+                  </Col>
+                  {Object.keys(subData?.Sub_data || {})?.map((w) => {
+                    return (
+                      <Col xs={2}>
+                        <div className="card starter-price">
+                          <div className="card-header">
+                            {w == "communicator" && (
+                              <div className="recm-title">
+                                <h1>Our Recommendation</h1>
+                              </div>
+                            )}
 
-                          <div className="price-heading">
-                            <h5 className="card-title">
-                              {capitalizeFirstLetter(w)}
-                            </h5>
-                            <div className="time-period">
-                              <h6
-                                className={
-                                  monthisActive || annualisActive
-                                    ? "monthly active"
-                                    : "monthly"
-                                }
-                              >
-                                <sup>{w == "free" ? "" : "$"}</sup>
-                                
-                                {numberWithCommas(subData &&
-                                  subData?.sub_price &&
-                                  subData?.sub_price[w] &&
-                                  subData?.sub_price[w][typeCheck] ||
-                                  "") }
-                                <small>
-                                  {w == "free"
-                                    ? ""
-                                    : typeCheck == "yearly"
-                                    ? "/yr"
-                                    : "/mo"}
-                                </small>
-                              </h6>
+                            <div className="price-heading">
+                              <h5 className="card-title">
+                                {capitalizeFirstLetter(w)}
+                              </h5>
+                              <div className="time-period">
+                                <h6
+                                  className={
+                                    monthisActive || annualisActive
+                                      ? "monthly active"
+                                      : "monthly"
+                                  }
+                                >
+                                  <sup>{w == "free" ? "" : "$"}</sup>
+
+                                  {numberWithCommas(
+                                    (subData &&
+                                      subData?.sub_price &&
+                                      subData?.sub_price[w] &&
+                                      subData?.sub_price[w][typeCheck]) ||
+                                      ""
+                                  )}
+                                  <small>
+                                    {w == "free"
+                                      ? ""
+                                      : typeCheck == "yearly"
+                                      ? "/yr"
+                                      : "/mo"}
+                                  </small>
+                                </h6>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="card-body">
-                          <ul>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.sms ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {" "}
-                                {subData?.Sub_data[w]?.sms_cridit == 0 ? (
-                                  <MdClose />
-                                ) : (
-                                  numberWithCommas(subData?.Sub_data[w]?.sms_cridit||'')
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.mms ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {" "}
-                                {subData?.Sub_data[w]?.mms_cridit == 0 ? (
-                                  <MdClose />
-                                ) : (
-                                  numberWithCommas( subData?.Sub_data[w]?.mms_cridit||'')
-                                 
-                                )}
-                              </span>
-                            </li>
-                            {/* <li>
+                          <div className="card-body">
+                            <ul>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.sms ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {" "}
+                                  {subData?.Sub_data[w]?.sms_cridit == 0 ? (
+                                    <MdClose />
+                                  ) : (
+                                    numberWithCommas(
+                                      subData?.Sub_data[w]?.sms_cridit || ""
+                                    )
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.mms ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {" "}
+                                  {subData?.Sub_data[w]?.mms_cridit == 0 ? (
+                                    <MdClose />
+                                  ) : (
+                                    numberWithCommas(
+                                      subData?.Sub_data[w]?.mms_cridit || ""
+                                    )
+                                  )}
+                                </span>
+                              </li>
+                              {/* <li>
                               <span>
                               {subData?.Sub_data[w]?.mms?<FiCheck />: <MdClose />}
 
@@ -309,130 +314,132 @@ const Price = () => {
                             <li>
                               <span>500</span>
                             </li> */}
-                            <li>
-                              <span>
-                                {" "}
-                                {subData?.Sub_data[w]?.text_keywords == 0 ? (
-                                  <MdClose />
-                                ) : (
-                                  numberWithCommas(subData?.Sub_data[w]?.text_keywords||'')
-                                  
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.text_templates ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.crm ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.chatbot ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.search_engine ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {" "}
-                                {subData?.Sub_data[w]?.searches == 0 ? (
-                                  <MdClose />
-                                ) : (
-                                  numberWithCommas(subData?.Sub_data[w]?.searches||'')
-                                 
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.predictive ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.widget ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                            <li>
-                              <span>
-                                {subData?.Sub_data[w]?.crm_integration ? (
-                                  <FiCheck />
-                                ) : (
-                                  <MdClose />
-                                )}
-                              </span>
-                            </li>
-                          </ul>
-                          <Button
-                            onClick={() => {
-                              if (w == "free") {
-                                handleFreeData();
-                              } else {
-                                hnadleSub_Button(
-                                  w,
-                                  subData &&
-                                    subData?.sub_price &&
-                                    subData?.sub_price[w] &&
-                                    subData?.sub_price[w][typeCheck]
-                                );
-                              }
-                            }}
-                          >
-                            Get Started
-                          </Button>
+                              <li>
+                                <span>
+                                  {" "}
+                                  {subData?.Sub_data[w]?.text_keywords == 0 ? (
+                                    <MdClose />
+                                  ) : (
+                                    numberWithCommas(
+                                      subData?.Sub_data[w]?.text_keywords || ""
+                                    )
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.text_templates ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.crm ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.chatbot ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.search_engine ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {" "}
+                                  {subData?.Sub_data[w]?.searches == 0 ? (
+                                    <MdClose />
+                                  ) : (
+                                    numberWithCommas(
+                                      subData?.Sub_data[w]?.searches || ""
+                                    )
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.predictive ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.widget ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                              <li>
+                                <span>
+                                  {subData?.Sub_data[w]?.crm_integration ? (
+                                    <FiCheck />
+                                  ) : (
+                                    <MdClose />
+                                  )}
+                                </span>
+                              </li>
+                            </ul>
+                            <Button
+                              onClick={() => {
+                                if (w == "free") {
+                                  handleFreeData();
+                                } else {
+                                  hnadleSub_Button(
+                                    w,
+                                    subData &&
+                                      subData?.sub_price &&
+                                      subData?.sub_price[w] &&
+                                      subData?.sub_price[w][typeCheck]
+                                  );
+                                }
+                              }}
+                            >
+                              Get Started
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                  );
-                })}
-              </Row>
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <>
-          <TopUp
-            monthlytoggleClass={monthlytoggleClass}
-            smstoggleClass={smstoggleClass}
-            monthisActive={monthisActive}
-            annualisActive={annualisActive}
-            smsisActive={smsisActive}
-            annualtoggleClass={annualtoggleClass}
-          />
-        </>
-      )}
+        ) : (
+          <>
+            <TopUp
+              monthlytoggleClass={monthlytoggleClass}
+              smstoggleClass={smstoggleClass}
+              monthisActive={monthisActive}
+              annualisActive={annualisActive}
+              smsisActive={smsisActive}
+              annualtoggleClass={annualtoggleClass}
+            />
+          </>
+        )}
       </Layout>
     </>
   );

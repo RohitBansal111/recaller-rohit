@@ -142,10 +142,10 @@ const ChatBoot = (props) => {
       name: "Text",
       data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
-    {
-      name: "MMS",
-      data:[10, 100, 31, 65, 35, 55, 32, 50, 45],
-    },
+    // {
+    //   name: "MMS",
+    //   data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
+    // },
   ];
 
   const options = {
@@ -1093,13 +1093,13 @@ const ChatBoot = (props) => {
               </button>
             </h1>
 
-            <div className="monthly-set" style={{ width: "100%" }}>
+            <div className="monthly-set" style={{ width: "140%" }}>
               <div className="monthly-graph">
                 {
                   // <Chart options={options} series={series} type="area" />
                 }
                 {/* check */}
-                {false ? (
+                {check ? (
                   <ReactApexChart
                     options={dataOption}
                     series={dataseries}
