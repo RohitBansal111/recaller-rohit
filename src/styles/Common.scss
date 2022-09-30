@@ -991,3 +991,7 @@ body {
 .chart {
   overflow: auto;
 }
+
+.select-tags-styles div div div + div div:first-child svg {
+  display: none;
+}
