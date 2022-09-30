@@ -581,8 +581,6 @@ const ChatBoot = (props) => {
   };
   const handleGetData = async () => {
     let res = await VoiceSMSGraph();
-
-    console.log("ww", res.data);
     if (res && res.data && res.data.status == 200) {
       let smsarra = [];
       const smsSeriess = [
