@@ -122,13 +122,15 @@ const Sidebar = () => {
                 {SideNavMenu.map((item, index) => {
                   return (
                     <li key={index}>
-                      <NavLink
-                        className={location === location.path ? "active" : ""}
+                      <Link
+                        className={`menuitem ${
+                          location === location.path ? "active" : ""
+                        }`}
                         to={item.path}
                       >
                         <div className="media-avtar">{item.menuIcon}</div>
                         <span> {item.menuTitle} </span>
-                      </NavLink>
+                      </Link>
                     </li>
                   );
                 })}

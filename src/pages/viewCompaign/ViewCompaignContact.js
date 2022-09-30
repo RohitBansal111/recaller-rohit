@@ -577,27 +577,29 @@ const ViewCompaignContact = () => {
 
   return (
     <Layout>
-      <h2> Campaign Name :-{compaignContact.name}</h2>
-
       <div className="page-header justify-flex-end">
-        {/* <h1>Imported Contacts</h1> */}
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="success"
-            id="dropdown-basic"
-            className="btn btn-medium btn-primary"
-          >
-            Add Contacts
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={handleUploadShow}>
-              Upload Spreadsheet
-            </Dropdown.Item>
-            <Dropdown.Item href="#" onClick={handleShow}>
-              Manual Entry
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <div className="layout-headerbar">
+          <h2> Campaign Name :-{compaignContact.name}</h2>
+          <div className="dropdown">
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="success"
+                id="dropdown-basic"
+                className="btn btn-medium btn-primary"
+              >
+                Add Contacts
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#" onClick={handleUploadShow}>
+                  Upload Spreadsheet
+                </Dropdown.Item>
+                <Dropdown.Item href="#" onClick={handleShow}>
+                  Manual Entry
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </div>
       </div>
       <div className="filter-by-option">
         <h3>Filter By:</h3>
