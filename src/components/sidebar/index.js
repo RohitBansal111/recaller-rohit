@@ -113,7 +113,6 @@ const Sidebar = () => {
                 ) : (
                   <img src={smlogo} className="mobilelogo" alt="logo" />
                 )}
-                ATBBGeuWnPCEGURHc9eNeem3k6pZFE02C7E5
                 <button className="menubtn" onClick={menuToggle}>
                   {menuCollapse ? <MdMenu /> : <MdClose />}
                 </button>
