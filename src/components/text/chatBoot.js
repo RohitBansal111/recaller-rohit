@@ -142,10 +142,10 @@ const ChatBoot = (props) => {
       name: "Text",
       data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
-    // {
-    //   name: "MMS",
-    //   data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
-    // },
+    {
+      name: "MMS",
+      data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
+    },
   ];
 
   const options = {
@@ -590,10 +590,10 @@ const ChatBoot = (props) => {
           name: "Text",
           data: res?.data?.smsData?.series || [0],
         },
-        // {
-        //   name: "MMS",
-        //   data: res?.data?.mmsData?.series || [0],
-        // },
+        {
+          name: "MMS",
+          data: res?.data?.mmsData?.series || [0],
+        },
       ];
 
       options.xaxis.data = res?.data?.smsData?.option;
