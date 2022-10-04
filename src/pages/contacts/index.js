@@ -212,6 +212,7 @@ const Import = () => {
   };
 
   const getData = async () => {
+    setIsLoading(true);
     let res = await getContactApi();
     if (res && res.data && res.data.status === 200) {
       console.log("campaign data:::", res.data.data);
@@ -219,6 +220,7 @@ const Import = () => {
       setTotalRowsData(res.data.data.length);
     }
     getContactCompaign();
+    setIsLoading(false);
   };
 
   useEffect(() => {
