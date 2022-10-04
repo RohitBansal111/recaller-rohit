@@ -91,3 +91,75 @@
     pointer-events: all !important;
   }
 }
+.addplan-popup{
+  .modal-content{
+    .modal-header{
+      justify-content: center;
+      .modal-title{
+        font-size: 22px;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+.price-detail-popup{
+  .blankdiv{
+    input{
+      margin-bottom: 10px;
+      outline: none;
+      box-shadow: none;
+      height: 40px;
+    }
+  }
+  .StripeElement{
+    height: 40px;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    div{
+     top: 4px;
+    }
+  }
+  .divFordispa{
+    text-align: center;
+    margin-top: 10px;
+    .paybtn{
+      background-color: #36ddbf;
+      color: #fff;
+      width: auto;
+      padding: 10px 20px;
+      height: auto;
+      margin: 10px;
+      border-radius: 30px;
+      min-width: 120px;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      text-transform: capitalize;
+      border: none;
+    }
+    .canclebtn{
+      width: auto;
+      padding: 10px 20px;
+      height: auto;
+      margin: 10px;
+      border-radius: 30px;
+      min-width: 120px;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      text-transform: capitalize;
+      border: none;
+      color: #747474;
+      background: #e5e5e5;
+    }
+  }
+}

@@ -73,14 +73,12 @@ const Price = () => {
   };
 
   const hnadleSub_Button = (sub_name, sub_price) => {
-    
     setData({
       ...data,
       amount: Number(sub_price) * 100,
       name: sub_name,
     });
-   setOpen(true);
-
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -114,7 +112,9 @@ const Price = () => {
     //  setUserType(usercheck.paln);
     handleGetData();
   }, []);
-  let usercheck = JSON.parse(Cookies?.get("userData") ?Cookies?.get("userData"):{plan:"free"} );
+  let usercheck = JSON.parse(
+    Cookies?.get("userData") ? Cookies?.get("userData") : { plan: "free" }
+  );
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -126,7 +126,6 @@ const Price = () => {
   const { name, price } = data;
   return (
     <>
-    
       <Modal show={open} onHide={handleClose} backdrop="static" centered>
         <Modal.Header>
           <Modal.Title>{name} Subscription</Modal.Title>
@@ -236,12 +235,14 @@ const Price = () => {
                                 }
                               >
                                 <sup>{w == "free" ? "" : "$"}</sup>
-                                
-                                {numberWithCommas(subData &&
-                                  subData?.sub_price &&
-                                  subData?.sub_price[w] &&
-                                  subData?.sub_price[w][typeCheck] ||
-                                  "") }
+
+                                {numberWithCommas(
+                                  (subData &&
+                                    subData?.sub_price &&
+                                    subData?.sub_price[w] &&
+                                    subData?.sub_price[w][typeCheck]) ||
+                                    ""
+                                )}
                                 <small>
                                   {w == "free"
                                     ? ""
@@ -270,7 +271,9 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.sms_cridit == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  numberWithCommas(subData?.Sub_data[w]?.sms_cridit||'')
+                                  numberWithCommas(
+                                    subData?.Sub_data[w]?.sms_cridit || ""
+                                  )
                                 )}
                               </span>
                             </li>
@@ -289,8 +292,9 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.mms_cridit == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  numberWithCommas( subData?.Sub_data[w]?.mms_cridit||'')
-                                 
+                                  numberWithCommas(
+                                    subData?.Sub_data[w]?.mms_cridit || ""
+                                  )
                                 )}
                               </span>
                             </li>
@@ -317,8 +321,9 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.text_keywords == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  numberWithCommas(subData?.Sub_data[w]?.text_keywords||'')
-                                  
+                                  numberWithCommas(
+                                    subData?.Sub_data[w]?.text_keywords || ""
+                                  )
                                 )}
                               </span>
                             </li>
@@ -364,8 +369,9 @@ const Price = () => {
                                 {subData?.Sub_data[w]?.searches == 0 ? (
                                   <MdClose />
                                 ) : (
-                                  numberWithCommas(subData?.Sub_data[w]?.searches||'')
-                                 
+                                  numberWithCommas(
+                                    subData?.Sub_data[w]?.searches || ""
+                                  )
                                 )}
                               </span>
                             </li>
@@ -435,7 +441,6 @@ const Price = () => {
           />
         </>
       )}
-     
     </>
   );
 };
@@ -559,7 +564,7 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
         <input
           type="text"
           value={details.name}
-          className="inputCssname"
+          className="inputCssname form-control"
           placeholder="Enter Name"
           onChange={(e) => {
             setDetails({
@@ -571,7 +576,7 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
         <input
           type="text"
           value={details.email}
-          className="inputCssemail"
+          className="inputCssemail form-control"
           placeholder="Enter Email"
           onChange={(e) => {
             setDetails({
