@@ -497,11 +497,21 @@ const CheckoutForm = ({
 
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem("userData"));
-    setDetails({
-      ...details,
-      email: userData.email,
-      name: `${userData.firstName} ${userData.lastName}`,
-    });
+    const userDataCookies = JSON.parse(Cookies.get("userData"));
+    if (userDataCookies !== null) {
+      setDetails({
+        ...details,
+        name: userDataCookies.name,
+        email: userDataCookies.email,
+      });
+    }
+    if (userData !== null) {
+      setDetails({
+        ...details,
+        email: userData.email,
+        name: `${userData.firstName} ${userData.lastName}`,
+      });
+    }
   }, []);
 
   return (
