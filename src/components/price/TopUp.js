@@ -510,7 +510,7 @@ const CheckoutForm = ({
         <input
           type="text"
           value={details.name}
-          className="inputCssname"
+          className="inputCssname form-control"
           placeholder="Enter Name"
           onChange={(e) => {
             setDetails({
@@ -522,7 +522,7 @@ const CheckoutForm = ({
         <input
           type="text"
           value={details.email}
-          className="inputCssemail"
+          className="inputCssemail form-control"
           placeholder="Enter Email"
           onChange={(e) => {
             setDetails({
