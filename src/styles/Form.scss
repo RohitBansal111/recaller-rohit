@@ -282,6 +282,7 @@ input[type="number"] {
   justify-content: center;
   align-items: center;
   padding: 0px 15px;
+  flex-wrap: wrap;
   background-image: rgba(0, 0, 0, 0.01);
 
   @media (max-width: 370px) {
@@ -884,7 +885,13 @@ div {
   }
 }
 .logo-login {
-  margin-top: 20px;
+  margin-top: 0px;
   justify-content: center;
   display: flex;
+  width: 100%;
+  margin-bottom: 50px;
+  img {
+    max-width: 400px;
+    width: 100%;
+  }
 }

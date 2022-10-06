@@ -28,7 +28,7 @@ import {
 import { GetSubscriptionData } from "../../api/plans";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-
+import MMS from "../../../src/assets/icons/MMS-Icon.svg";
 import {
   AreaChart,
   Area,
@@ -211,7 +211,7 @@ const Dashboard = (props) => {
   const handleSubData = async () => {
     let res = await GetSubscriptionData();
     if (res && res.data && res.status == 200) {
-      setAllData(res.data.graph)
+      setAllData(res.data.graph);
       setSubData(res?.data?.data);
     }
   };
@@ -300,7 +300,7 @@ const Dashboard = (props) => {
                       </span> */}
                       <span className="price-value">
                         <span className="month43">
-                          {moment().format("MMMM")} .
+                          {moment().format("MMMM")}
                         </span>
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
@@ -375,11 +375,11 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          {/* <li>
+                          <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <EmailIcon />
+                                  <img src={MMS} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -398,7 +398,7 @@ const Dashboard = (props) => {
                                 </span>
                               </div>
                             </div>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -419,8 +419,11 @@ const Dashboard = (props) => {
                         <BsFillRecordCircleFill />
                       </span> */}
                       <span className="price-value">
-                       
-                        <span className="month43">{allData?.last_month?.month || ''} </span> {allData?.last_month?.cridit_used || 0}/ {allData?.last_month?.cridit_totel || 0}
+                        <span className="month43">
+                          {allData?.last_month?.month || ""}{" "}
+                        </span>{" "}
+                        {allData?.last_month?.cridit_used || 0}/{" "}
+                        {allData?.last_month?.cridit_totel || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -449,7 +452,8 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small>  {subData?.sms_cridit_used || 0}
+                                  <small></small>{" "}
+                                  {subData?.sms_cridit_used || 0}
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -472,7 +476,8 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small>  {subData?.voice_cridit_used || 0}
+                                  <small></small>{" "}
+                                  {subData?.voice_cridit_used || 0}
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -523,7 +528,11 @@ const Dashboard = (props) => {
                       <BsFillRecordCircleFill />
                     </span> */}
                       <span className="price-value">
-                      <span className="month43">{allData?.year?.year || ''} </span> {allData?.year?.cridit_used || 0}/ {allData?.year?.cridit_totel || 0}
+                        <span className="month43">
+                          {allData?.year?.year || ""}{" "}
+                        </span>{" "}
+                        {allData?.year?.cridit_used || 0}/{" "}
+                        {allData?.year?.cridit_totel || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -552,7 +561,8 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small>  {subData?.sms_cridit_used || 0}
+                                  <small></small>{" "}
+                                  {subData?.sms_cridit_used || 0}
                                   <span className="active-performance profit">
                                     <KeyboardArrowDownIcon />
                                   </span>
@@ -575,7 +585,8 @@ const Dashboard = (props) => {
                               </div>
                               <div className="pfield-content-right">
                                 <span>
-                                  <small></small>  {subData?.voice_cridit_used || 0}
+                                  <small></small>{" "}
+                                  {subData?.voice_cridit_used || 0}
                                   <span className="active-performance loss">
                                     <KeyboardArrowDownIcon />
                                   </span>
