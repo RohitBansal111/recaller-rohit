@@ -41,7 +41,6 @@ const ChatBoot = (props) => {
       name: "Voice",
       data: [10, 100, 31, 65, 35, 55, 32, 50, 45],
     },
-   
   ];
 
   const options = {
@@ -229,8 +228,8 @@ const ChatBoot = (props) => {
   };
 
   useEffect(() => {
-    if(window.location.pathname =='/voice'){
-      setTypeCheck("voice")
+    if (window.location.pathname == "/voice") {
+      setTypeCheck("voice");
     }
     handleGetData();
     handleSubData();
@@ -278,7 +277,7 @@ const ChatBoot = (props) => {
             style={{
               color: "#797979",
               fontSize: "16px",
-              marginRight: "26%",
+              marginRight: "24%",
             }}
           >
             {typeCheck == "sms"
@@ -319,7 +318,9 @@ const ChatBoot = (props) => {
             ) : (
               <ReactApexChart
                 options={options}
-                series={window.location.pathname == "/text" ?series:seriesvoice}
+                series={
+                  window.location.pathname == "/text" ? series : seriesvoice
+                }
                 type="area"
                 height={350}
               />
