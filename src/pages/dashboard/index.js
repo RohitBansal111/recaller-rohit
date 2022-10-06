@@ -304,7 +304,6 @@ const Dashboard = (props) => {
                         </span>
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.mms_cridit_used) -
                           Number(subData?.mms_cridit_used) || 0}
                         /
                         {Number(subData?.mms_cridit) +
@@ -312,9 +311,7 @@ const Dashboard = (props) => {
                           Number(subData?.voice_cridit) +
                           Number(subData?.mms_topup_val) +
                           Number(subData?.sms_topup_val) +
-                          Number(subData?.voice_topup_val) -
-                          Number(subData?.mms_cridit) -
-                          Number(subData?.mms_topup_val) || 0}
+                          Number(subData?.voice_topup_val) || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -485,7 +482,7 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          {/* <li>
+                          <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
@@ -493,21 +490,21 @@ const Dashboard = (props) => {
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
-                                    <h4>Email</h4>
+                                    <h4>MMS</h4>
                                     <span>Credits Deployed</span>
                                   </div>
                                 </div>
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-                                  <small></small> 252
+                                  <small></small> {subData?.mms_cridit_used || 0}
                                   <span className="active-performance zero">
                                     <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
                             </div>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -594,7 +591,7 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          {/* <li>
+                          <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
@@ -602,21 +599,21 @@ const Dashboard = (props) => {
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
-                                    <h4>Email</h4>
+                                    <h4>MMS</h4>
                                     <span>Credits Deployed</span>
                                   </div>
                                 </div>
                               </div>
                               <div className="pfield-content-right">
                                 <span className="d-flex align-items-center">
-                                  <small></small> 252
+                                  <small></small> {subData?.mms_cridit_used || 0}
                                   <span className="active-performance zero">
                                     <i className="fa-solid fa-circle-dot"></i>
                                   </span>
                                 </span>
                               </div>
                             </div>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                     </div>

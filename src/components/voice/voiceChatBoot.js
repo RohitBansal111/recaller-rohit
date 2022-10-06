@@ -22,6 +22,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsChevronRight } from "react-icons/bs";
 import moment from "moment";
 import { VoiceSMSGraph } from "../../api/graph";
+import OneForAllGraph from '../../components/MainGraph/oneGraph'
 import {
   AreaChart,
   Area,
@@ -600,45 +601,11 @@ const VoiceChatBoot = (props) => {
           {!props.selecteduser ? "" : ""}
           <div className="monthly-set" style={{ width: "100%" }}>
             <div className="monthly-credit-use">
-              <h1>
-                Voice Credits Deployed
-                <div
-                  style={{
-                    color: "#797979",
-                    fontSize: "16px",
-                    marginRight: "24%",
-                  }}
-                >
-                  {Number(subData?.voice_cridit) +
-                    Number(subData?.voice_topup_val) || 0}
-                </div>{" "}
-                <button className="downarrow">
-                  <BsChevronRight />
-                </button>
-              </h1>
-              <div className="monthly-set" style={{ width: "140%" }}>
-                <div className="monthly-graph">
-                  {
-                    // <Chart options={options} series={series} type="area" />
-                  }
-                  {/* check */}
-                  {false ? (
-                    <ReactApexChart
-                      options={dataOption}
-                      series={dataseries}
-                      type="area"
-                      height={350}
-                    />
-                  ) : (
-                    <ReactApexChart
-                      options={options}
-                      series={series}
-                      type="area"
-                      height={350}
-                    />
-                  )}
-                </div>
-              </div>
+
+
+            <OneForAllGraph />
+
+
               <div className="monthly-progressbar">
                 <h2>Voice Performance</h2>
                 <div className="mn-progressbar">
@@ -646,7 +613,7 @@ const VoiceChatBoot = (props) => {
                     <div className="voice-heading">
                       <h4>{substatus?.deliver || 0}%</h4>
                     </div>
-                    <ProgressBar now={65} />
+                    <ProgressBar now={substatus?.deliver || 0} />
                     <div className="voice-value">
                       <h5>Delivered</h5>
                     </div>
@@ -655,7 +622,7 @@ const VoiceChatBoot = (props) => {
                     <div className="voice-heading">
                       <h4>{substatus?.failed || 0}%</h4>
                     </div>
-                    <ProgressBar now={40} />
+                    <ProgressBar now={substatus?.failed || 0} />
                     <div className="voice-value">
                       <h5>Failed</h5>
                     </div>
