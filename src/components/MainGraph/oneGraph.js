@@ -229,7 +229,9 @@ const ChatBoot = (props) => {
   };
 
   useEffect(() => {
-    console.log("qq", window.location.pathname);
+    if(window.location.pathname =='/voice'){
+      setTypeCheck("voice")
+    }
     handleGetData();
     handleSubData();
     handleSubDataSMS();
