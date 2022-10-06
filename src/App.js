@@ -2,7 +2,6 @@ import "./styles/Main.scss";
 import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
-  
   Navigate,
   Route,
   Routes,
@@ -50,7 +49,7 @@ import EmailPage from "./pages/email";
 import EmailSetting from "./pages/settings/email";
 import EmailSender from "./pages/settings/email/email-sender";
 import Price from "./pages/Price";
-import PriceInner from './pages/Price/PriceInner'
+import PriceInner from "./pages/Price/PriceInner";
 import { socket } from "./helper/socket";
 import { Notifications } from "react-push-notification";
 import ViewCompaign from "./pages/viewCompaign/ViewCompaign";
@@ -164,7 +163,7 @@ function App({ component: Component, ...rest }) {
             </IsAuthenticated>
           }
         />
-        
+
         <Route
           exact
           path="/ViewCompaign/:id"

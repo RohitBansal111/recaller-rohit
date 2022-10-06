@@ -606,7 +606,7 @@ const VoiceChatBoot = (props) => {
                   style={{
                     color: "#797979",
                     fontSize: "16px",
-                    marginRight: "27%",
+                    marginRight: "24%",
                   }}
                 >
                   {Number(subData?.voice_cridit) +
