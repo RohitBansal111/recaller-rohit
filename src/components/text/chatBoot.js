@@ -1121,15 +1121,18 @@ const ChatBoot = (props) => {
                   />
                 )}
               </div>
-
-              <select name="text-performance" id="cars">
-                <option value="text">Text</option>
-                <option value="mms">MMS</option>
-              </select>
             </div>
 
             <div className="monthly-progressbar">
-              <h2>Text Performance</h2>
+              <div className="mp-heading">
+                <h2>Text Performance</h2>
+                <div className="monthly-performance">
+                  <select name="text-performance">
+                    <option value="text">Text</option>
+                    <option value="mms">MMS</option>
+                  </select>
+                </div>
+              </div>
               <div className="mn-progressbar">
                 <div className="progressbar-field delfield">
                   <div className="voice-heading">

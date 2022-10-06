@@ -995,3 +995,18 @@ body {
 .select-tags-styles div div div + div div:first-child svg {
   display: none;
 }
+.mp-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 20px;
+  h2 {
+    margin-bottom: 0px !important;
+  }
+  select {
+    margin-left: 10px;
+    border: 1px solid #797979;
+    padding: 3px 5px;
+    border-radius: 4px;
+  }
+}
