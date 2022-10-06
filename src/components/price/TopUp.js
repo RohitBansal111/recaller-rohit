@@ -497,11 +497,21 @@ const CheckoutForm = ({
 
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem("userData"));
-    setDetails({
-      ...details,
-      email: userData.email,
-      name: `${userData.firstName} ${userData.lastName}`,
-    });
+    const userDataCookies = JSON.parse(Cookies.get("userData"));
+    if (userDataCookies !== null) {
+      setDetails({
+        ...details,
+        name: userDataCookies.name,
+        email: userDataCookies.email,
+      });
+    }
+    if (userData !== null) {
+      setDetails({
+        ...details,
+        email: userData.email,
+        name: `${userData.firstName} ${userData.lastName}`,
+      });
+    }
   }, []);
 
   return (
@@ -510,7 +520,7 @@ const CheckoutForm = ({
         <input
           type="text"
           value={details.name}
-          className="inputCssname"
+          className="inputCssname form-control"
           placeholder="Enter Name"
           onChange={(e) => {
             setDetails({
@@ -522,7 +532,7 @@ const CheckoutForm = ({
         <input
           type="text"
           value={details.email}
-          className="inputCssemail"
+          className="inputCssemail form-control"
           placeholder="Enter Email"
           onChange={(e) => {
             setDetails({
