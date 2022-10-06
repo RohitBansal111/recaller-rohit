@@ -87,10 +87,10 @@ const VoiceChatBoot = (props) => {
       name: "Voice",
       data: [1, 3, 4, 6, 3, 1, 0, 2, 4],
     },
-    {
-      name: "Text",
-      data: [0],
-    },
+    // {
+    //   name: "Text",
+    //   data: [0],
+    // },
   ];
   const options = {
     colors: ["#f7b924", "#28dcbf"],
@@ -602,7 +602,13 @@ const VoiceChatBoot = (props) => {
             <div className="monthly-credit-use">
               <h1>
                 Voice Credits Deployed
-                <div style={{ color: "#797979", fontSize: "16px" }}>
+                <div
+                  style={{
+                    color: "#797979",
+                    fontSize: "16px",
+                    marginRight: "24%",
+                  }}
+                >
                   {Number(subData?.voice_cridit) +
                     Number(subData?.voice_topup_val) || 0}
                 </div>{" "}

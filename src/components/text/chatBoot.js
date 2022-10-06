@@ -1083,7 +1083,13 @@ const ChatBoot = (props) => {
           <div className="monthly-credit-use">
             <h1>
               Text Credits Deployed
-              <div style={{ color: "#797979", fontSize: "16px" }}>
+              <div
+                style={{
+                  color: "#797979",
+                  fontSize: "16px",
+                  marginRight: "26%",
+                }}
+              >
                 {Number(subData?.sms_cridit) + Number(subData?.sms_topup_val)}
               </div>{" "}
               <button className="downarrow">
@@ -1116,7 +1122,15 @@ const ChatBoot = (props) => {
             </div>
 
             <div className="monthly-progressbar">
-              <h2>Text Performance</h2>
+              <div className="mp-heading">
+                <h2>Text Performance</h2>
+                <div className="monthly-performance">
+                  <select name="text-performance">
+                    <option value="text">Text</option>
+                    <option value="mms">MMS</option>
+                  </select>
+                </div>
+              </div>
               <div className="mn-progressbar">
                 <div className="progressbar-field delfield">
                   <div className="voice-heading">

@@ -32,6 +32,7 @@ import LoaderPic from "./../../assets/images/loader.gif";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Button } from "@material-ui/core";
 
+import { ColorRing } from "react-loader-spinner";
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -500,24 +501,49 @@ export default function EnhancedTable(props) {
                   onRequestSort={props.handleRequestSort}
                   rowCount={rowsData && rowsData.length}
                 />
-                <TableBody>
-                  {/* {props.isLoading ? (
+
+                {props.isLoading ? (
+                  <TableBody>
+                    <tr className="spinner-contact">
+                      <td className="text-center" colSpan={8}>
+                        <ColorRing
+                          visible={true}
+                          height="80"
+                          width="80"
+                          ariaLabel="blocks-loading"
+                          wrapperStyle={{}}
+                          wrapperClass="blocks-wrapper"
+                          colors={[
+                            "#36ddbf",
+                            "#36ddbf",
+                            "#36ddbf",
+                            "#36ddbf",
+                            "#36ddbf",
+                          ]}
+                        />
+                      </td>
+                    </tr>
+                  </TableBody>
+                ) : (
+                  <TableBody>
+                    {/* {props.isLoading ? (
                     // <div className="circular-loading">
                       <CircularProgress color="inherit" />
                     // </div>
                   ) : ( */}
-                  <> {loadContacts()}</>
-                  {/* )} */}
-                  {props.emptyRows > 0 && (
-                    <TableRow
-                      style={{
-                        height: (props.dense ? 33 : 53) * props.emptyRows,
-                      }}
-                    >
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
+                    <> {loadContacts()}</>
+                    {/* )} */}
+                    {props.emptyRows > 0 && (
+                      <TableRow
+                        style={{
+                          height: (props.dense ? 33 : 53) * props.emptyRows,
+                        }}
+                      >
+                        <TableCell colSpan={6} />
+                      </TableRow>
+                    )}
+                  </TableBody>
+                )}
               </Table>
             </TableContainer>
             <TablePagination

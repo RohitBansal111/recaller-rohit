@@ -110,7 +110,7 @@ const IndividualVoice = ({ open, handleCloseMessageModal, ...props }) => {
               </div>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn-primary-voice-inbuild"
                 onClick={() => {
                   if (!props.isNewVoiceActive && props.second > 0) {
                     props.handlePlay();

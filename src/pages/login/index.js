@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { userLoginApi } from "../../api/user";
 import { loginAction } from "../../redux/actions/loginAction";
 import Cookies from "js-cookie";
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/Recallr-Logo.svg";
 
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -79,88 +79,90 @@ const Login = () => {
 
   return (
     <>
-      <div className="logo-login">
-        <img src={Logo} alt="Recallr" style={{ marginTop: "20px" }} />
-      </div>
       <div className="form-page-layout">
-        <div className="center-form-box login-form-box">
-          <div className="heading">
-            <h2>Welcome,</h2>
-            <p>
-              Please <b>sign in</b> to your account below.
-            </p>
+        <div className="login__form">
+          <div className="logo-login">
+            <img src={Logo} alt="Recallr" style={{ marginTop: "20px" }} />
           </div>
-          <form className="main-form" onSubmit={handleSubmit}>
-            <div className="form-body">
-              <div className="field-group flexFull">
-                <label htmlFor="name"> Email Address </label>
-                <input
-                  name="email"
-                  type="email"
-                  className="form-control"
-                  placeholder="Enter email address"
-                  onChange={handleChange}
-                  value={data.email}
-                />
-                <span className="spanError">{errors.email}</span>
-              </div>
-              <div className="field-group flexFull">
-                <label htmlFor="name"> Password </label>
-
-                <div className="passowrd-field-wrap">
+          <div className="center-form-box login-form-box">
+            <div className="heading">
+              <h2>Welcome,</h2>
+              <p>
+                Please <b>sign in</b> to your account below.
+              </p>
+            </div>
+            <form className="main-form" onSubmit={handleSubmit}>
+              <div className="form-body">
+                <div className="field-group flexFull">
+                  <label htmlFor="name"> Email Address </label>
                   <input
-                    name="password"
-                    type={showPassword ? "text" : "password"}
+                    name="email"
+                    type="email"
                     className="form-control"
-                    placeholder="Enter password"
+                    placeholder="Enter email address"
                     onChange={handleChange}
-                    value={data.password}
+                    value={data.email}
                   />
-                  <div
-                    className={
-                      showPassword
-                        ? "show-password-icons showPsw"
-                        : "show-password-icons"
-                    }
-                  >
-                    <RemoveRedEyeIcon onClick={handleHidePassword} />
-                    <VisibilityOffIcon onClick={handleHidePassword} />
-                  </div>
+                  <span className="spanError">{errors.email}</span>
                 </div>
+                <div className="field-group flexFull">
+                  <label htmlFor="name"> Password </label>
 
-                <span className="spanError">{errors.password}</span>
+                  <div className="passowrd-field-wrap">
+                    <input
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      className="form-control"
+                      placeholder="Enter password"
+                      onChange={handleChange}
+                      value={data.password}
+                    />
+                    <div
+                      className={
+                        showPassword
+                          ? "show-password-icons showPsw"
+                          : "show-password-icons"
+                      }
+                    >
+                      <RemoveRedEyeIcon onClick={handleHidePassword} />
+                      <VisibilityOffIcon onClick={handleHidePassword} />
+                    </div>
+                  </div>
+
+                  <span className="spanError">{errors.password}</span>
+                </div>
+                <div className="field-group login-forget-password">
+                  <label>
+                    <input
+                      id="checkbox"
+                      name="checkbox"
+                      checked={check}
+                      // value={data.checkbox}
+                      onChange={() => setCheck(!check)}
+                      type="checkbox"
+                    />
+                    <span>Keep me logged in</span>
+                    <span className="spanError">{errors.checkbox}</span>
+                  </label>
+                </div>
+                <div className="field-group account-field">
+                  <h1>
+                    No account? <Link to="/Signup">Sign up now</Link>
+                  </h1>
+                </div>
               </div>
-              <div className="field-group login-forget-password">
-                <label>
-                  <input
-                    id="checkbox"
-                    name="checkbox"
-                    checked={check}
-                    // value={data.checkbox}
-                    onChange={() => setCheck(!check)}
-                    type="checkbox"
-                  />
-                  <span>Keep me logged in</span>
-                  <span className="spanError">{errors.checkbox}</span>
-                </label>
+              <div className="field-group flexFull submit-btn">
+                <div className="forget-password">
+                  <Link to="/forgot-password" className="link-router">
+                    Recover Password
+                  </Link>
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Login to Dashboard
+                </button>
               </div>
-              <div className="field-group account-field">
-                <h1>
-                  No account? <Link to="/Signup">Sign up now</Link>
-                </h1>
-              </div>
-            </div>
-            <div className="field-group flexFull submit-btn">
-              <div className="forget-password">
-                <Link to="/forgot-password" className="link-router">
-                  Recover Password
-                </Link>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Login to Dashboard
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </>
