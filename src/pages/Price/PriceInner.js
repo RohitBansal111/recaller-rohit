@@ -609,7 +609,7 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
             disabled={loading}
             onClick={() => handleClose()}
           >
-            {loading ? "Loading..." : "Cancle"}
+            {loading ? "Loading..." : "cancel"}
           </button>
         </div>
       </form>
