@@ -277,7 +277,8 @@ const ChatBoot = (props) => {
             style={{
               color: "#797979",
               fontSize: "16px",
-              marginRight: "24%",
+              marginRight: "30%",
+              marginBottom: "5%",
             }}
           >
             {typeCheck == "sms"
