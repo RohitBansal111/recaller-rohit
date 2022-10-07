@@ -74,7 +74,7 @@ const Currentgraph = () => {
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis padding={{ left: 50, right: 50 }} dataKey="name" />
+          <XAxis padding={{ left: 40, right: 40 }} dataKey="name" />
           <YAxis />
           <Tooltip />
           <Area

@@ -145,7 +145,6 @@ const Lastgraph = () => {
   };
 
   useEffect(() => {
-   
     handleGetData();
   }, []);
   return (
@@ -169,7 +168,7 @@ const Lastgraph = () => {
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis padding={{ left: 20, right: 20 }} dataKey="name" />
           <YAxis />
           <Tooltip />
           <Area
