@@ -22,7 +22,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsChevronRight } from "react-icons/bs";
 import moment from "moment";
 import { VoiceSMSGraph } from "../../api/graph";
-import OneForAllGraph from '../../components/MainGraph/oneGraph'
+import OneForAllGraph from "../../components/MainGraph/oneGraph";
 import {
   AreaChart,
   Area,
@@ -601,11 +601,7 @@ const VoiceChatBoot = (props) => {
           {!props.selecteduser ? "" : ""}
           <div className="monthly-set" style={{ width: "100%" }}>
             <div className="monthly-credit-use">
-
-
-            <OneForAllGraph />
-
-
+              <OneForAllGraph />
               <div className="monthly-progressbar">
                 <h2>Voice Performance</h2>
                 <div className="mn-progressbar">
