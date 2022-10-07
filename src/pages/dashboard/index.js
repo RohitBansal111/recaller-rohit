@@ -28,7 +28,10 @@ import {
 import { GetSubscriptionData } from "../../api/plans";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import Text from "../../../src/assets/icons/Text-Icon.svg";
+import Voice from "../../../src/assets/icons/Voice-Icon.svg";
 import MMS from "../../../src/assets/icons/MMS-Icon.svg";
+
 import {
   AreaChart,
   Area,
@@ -304,7 +307,6 @@ const Dashboard = (props) => {
                         </span>
                         {Number(subData?.sms_cridit_used) +
                           Number(subData?.voice_cridit_used) +
-                          Number(subData?.mms_cridit_used) -
                           Number(subData?.mms_cridit_used) || 0}
                         /
                         {Number(subData?.mms_cridit) +
@@ -312,9 +314,7 @@ const Dashboard = (props) => {
                           Number(subData?.voice_cridit) +
                           Number(subData?.mms_topup_val) +
                           Number(subData?.sms_topup_val) +
-                          Number(subData?.voice_topup_val) -
-                          Number(subData?.mms_cridit) -
-                          Number(subData?.mms_topup_val) || 0}
+                          Number(subData?.voice_topup_val) || 0}
                       </span>
                       <span className="text2">Credits Deployed</span>
                     </div>
@@ -331,7 +331,7 @@ const Dashboard = (props) => {
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <TextIcon />
+                                  <img src={Text} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -355,7 +355,7 @@ const Dashboard = (props) => {
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <VoiceIcon />
+                                  <img src={Voice} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -441,7 +441,7 @@ const Dashboard = (props) => {
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <TextIcon />
+                                  <img src={Text} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -465,7 +465,7 @@ const Dashboard = (props) => {
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <VoiceIcon />
+                                  <img src={Voice} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -485,15 +485,15 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          {/* <li>
+                          <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <EmailIcon />
+                                  <img src={MMS} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
-                                    <h4>Email</h4>
+                                    <h4>MMS</h4>
                                     <span>Credits Deployed</span>
                                   </div>
                                 </div>
@@ -507,7 +507,7 @@ const Dashboard = (props) => {
                                 </span>
                               </div>
                             </div>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -550,7 +550,7 @@ const Dashboard = (props) => {
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <TextIcon />
+                                  <img src={Text} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -574,7 +574,7 @@ const Dashboard = (props) => {
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <VoiceIcon />
+                                  <img src={Voice} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
@@ -594,15 +594,15 @@ const Dashboard = (props) => {
                               </div>
                             </div>
                           </li>
-                          {/* <li>
+                          <li>
                             <div className="pfield-content-wrapper">
                               <div className="pfield-progressbar">
                                 <div className="progress-circle-wrapper">
-                                  <EmailIcon />
+                                  <img src={MMS} style={{ width: "80%" }} />
                                 </div>
                                 <div className="pfield-content-left">
                                   <div className="pfield-heading">
-                                    <h4>Email</h4>
+                                    <h4>MMS</h4>
                                     <span>Credits Deployed</span>
                                   </div>
                                 </div>
@@ -616,7 +616,7 @@ const Dashboard = (props) => {
                                 </span>
                               </div>
                             </div>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                     </div>
