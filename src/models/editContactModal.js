@@ -14,6 +14,7 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
       ? props.editContact.compaignId.name
       : "",
   });
+  const [show, setShow]=useState(false)
 
   useEffect(() => {
     getContactCompaign();
@@ -126,7 +127,12 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
               value={selectedCampaign}
               
             />
-            <span className="spanError">{props?.errors?.bulkSelected}</span>
+            {console.log('qq',selectedCampaign)}
+
+            {
+              show && <span className="spanError">Please Select Campaign</span>
+            }
+           
 
             {/* <div className="foem-field-inner">
             <input
@@ -143,7 +149,9 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             <button
               type="button"
               className="btn btn-cancel me-3"
-              onClick={() => handleCloseContactModal()}
+              onClick={() => {
+                setShow(false);
+                handleCloseContactModal()}}
             >
               {" "}
               Dismiss{" "}
@@ -151,11 +159,22 @@ const EditContactModal = ({ open, handleCloseContactModal, ...props }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={(e) =>
-                props.handleConDataEdit(
-                  e,
-                  selectedCampaign ? selectedCampaign.value : ""
-                )
+              onClick={(e) =>{
+                console.log('qq',selectedCampaign)
+                if (
+                  selectedCampaign.value == "" &&
+                  selectedCampaign.label == ""
+                ) {
+                  setShow(true);
+                } else {
+                  setShow(false);
+
+                  props.handleConDataEdit(
+                    e,
+                    selectedCampaign ? selectedCampaign.value : ""
+                  )
+                }
+               }
               }
             >
               {" "}

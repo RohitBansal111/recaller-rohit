@@ -573,6 +573,7 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
             value={details.name}
             className="inputCssname  form-control"
             placeholder="Enter Name"
+            disabled={true}
             onChange={(e) => {
               setDetails({
                 ...details,
@@ -585,6 +586,7 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
             value={details.email}
             className="inputCssemail form-control"
             placeholder="Enter Email"
+            disabled={true}
             onChange={(e) => {
               setDetails({
                 ...details,
