@@ -575,6 +575,8 @@ const CheckoutForm = ({ planName, handleClose, type, loading, setLoading }) => {
               });
             }}
           />
+
+          
           <input
             type="text"
             value={details.email}
