@@ -574,7 +574,7 @@ const Import = () => {
           <Dropdown.Toggle
             variant="success"
             id="dropdown-basic"
-            className="btn btn-medium btn-primary"
+            className="btn btn-primary-dashboard"
           >
             Add Contacts
           </Dropdown.Toggle>

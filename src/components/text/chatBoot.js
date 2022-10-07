@@ -38,7 +38,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import moment from "moment";
 import { VoiceSMSGraph } from "../../api/graph";
 import { BsChevronRight } from "react-icons/bs";
-import OneGraphForAll from '../../components/MainGraph/oneGraph'
+import OneGraphForAll from "../../components/MainGraph/oneGraph";
 
 import {
   AreaChart,
@@ -56,7 +56,7 @@ const ChatBoot = (props) => {
   const [typeSelect, setTypeSelect] = useState("sms");
   const [substatus, setSubstatus] = useState({});
   const [dataseries, setDataSeries] = useState([]);
-  const [selcetVal , setSelectVal]=useState('text')
+  const [selcetVal, setSelectVal] = useState("text");
 
   const [dataOption, setDataOption] = useState([]);
   const [check, setCheck] = useState(false);
@@ -1083,15 +1083,18 @@ const ChatBoot = (props) => {
 
           {/* Monthly credit usage column start */}
           <div className="monthly-credit-use">
-          <OneGraphForAll />
+            <OneGraphForAll />
 
             <div className="monthly-progressbar">
               <div className="mp-heading">
-                <h2>Text Performance</h2>
+                <h2>Performance</h2>
                 <div className="monthly-performance">
-                  <select name="text-performance" onChange={(e)=>{
-                    setSelectVal(e.target.value)
-                  }}>
+                  <select
+                    name="text-performance"
+                    onChange={(e) => {
+                      setSelectVal(e.target.value);
+                    }}
+                  >
                     <option value="text">Text</option>
                     <option value="mms">MMS</option>
                   </select>
@@ -1100,19 +1103,40 @@ const ChatBoot = (props) => {
               <div className="mn-progressbar">
                 <div className="progressbar-field delfield">
                   <div className="voice-heading">
-                    
-                    <h4>{selcetVal =='text'?substatus?.sms?.deliver || 0 :substatus?.mms?.deliver || 0 }%</h4>
+                    <h4>
+                      {selcetVal == "text"
+                        ? substatus?.sms?.deliver || 0
+                        : substatus?.mms?.deliver || 0}
+                      %
+                    </h4>
                   </div>
-                  <ProgressBar now={selcetVal =='text'?substatus?.sms?.deliver || 0 :substatus?.mms?.deliver || 0 } />
+                  <ProgressBar
+                    now={
+                      selcetVal == "text"
+                        ? substatus?.sms?.deliver || 0
+                        : substatus?.mms?.deliver || 0
+                    }
+                  />
                   <div className="voice-value">
                     <h5>Delivered</h5>
                   </div>
                 </div>
                 <div className="progressbar-field flfield">
                   <div className="voice-heading">
-                    <h4>{ selcetVal =='text' ?substatus?.sms?.failed || 0 :substatus?.mms?.failed || 0}%</h4>
+                    <h4>
+                      {selcetVal == "text"
+                        ? substatus?.sms?.failed || 0
+                        : substatus?.mms?.failed || 0}
+                      %
+                    </h4>
                   </div>
-                  <ProgressBar now={selcetVal =='text' ?substatus?.sms?.failed || 0 :substatus?.mms?.failed || 0} />
+                  <ProgressBar
+                    now={
+                      selcetVal == "text"
+                        ? substatus?.sms?.failed || 0
+                        : substatus?.mms?.failed || 0
+                    }
+                  />
                   <div className="voice-value">
                     <h5>Failed</h5>
                   </div>

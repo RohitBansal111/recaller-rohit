@@ -272,12 +272,12 @@ const ChatBoot = (props) => {
       {/* Monthly credit usage column start */}
       <div className="monthly-credit-use">
         <h1>
-          {typeCheck == "sms" ? "Text And MMS" : "Voice"} Credits Deployed
+          {typeCheck == "sms" ? "Text" : "Voice"} Credits Deployed
           <div
             style={{
               color: "#797979",
               fontSize: "16px",
-              marginRight: "30%",
+              marginRight: "103px",
               marginBottom: "0%",
             }}
           >
