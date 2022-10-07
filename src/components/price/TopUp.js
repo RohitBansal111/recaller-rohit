@@ -515,53 +515,57 @@ const CheckoutForm = ({
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="blankdiv">
-        <input
-          type="text"
-          value={details.name}
-          className="inputCssname form-control"
-          placeholder="Enter Name"
-          onChange={(e) => {
-            setDetails({
-              ...details,
-              name: e.target.value,
-            });
-          }}
-        />
-        <input
-          type="text"
-          value={details.email}
-          className="inputCssemail form-control"
-          placeholder="Enter Email"
-          onChange={(e) => {
-            setDetails({
-              ...details,
-              email: e.target.value,
-            });
-          }}
-        />
-      </div>
+    <div className="price-detail-popup">
+      <form onSubmit={handleSubmit}>
+        <div className="blankdiv">
+          <input
+            type="text"
+            value={details.name}
+            className="inputCssname form-control"
+            placeholder="Enter Name"
+            disabled={true}
+            onChange={(e) => {
+              setDetails({
+                ...details,
+                name: e.target.value,
+              });
+            }}
+          />
+          <input
+            type="text"
+            value={details.email}
+            className="inputCssemail form-control"
+            placeholder="Enter Email"
+            disabled={true}
+            onChange={(e) => {
+              setDetails({
+                ...details,
+                email: e.target.value,
+              });
+            }}
+          />
+        </div>
 
-      <CardElement options={CARD_ELEMENT_OPTIONS} />
-      <div className="divFordispa">
-        <button
-          type="submit"
-          disabled={!stripe || !elements || loading}
-          className="butnn"
-        >
-          {loading ? "Loading..." : "Pay"}
-        </button>
-        <button
-          type="button"
-          className="butnntwo"
-          disabled={loading}
-          onClick={() => handleClose()}
-        >
-          {loading ? "Loading..." : "Cancle"}
-        </button>
-      </div>
-    </form>
+        <CardElement options={CARD_ELEMENT_OPTIONS} />
+        <div className="divFordispa">
+          <button
+            type="submit"
+            disabled={!stripe || !elements || loading}
+            className="paybtn butnn"
+          >
+            {loading ? "Loading..." : "Pay"}
+          </button>
+          <button
+            type="button"
+            className="canclebtn butnntwo"
+            disabled={loading}
+            onClick={() => handleClose()}
+          >
+            {loading ? "Loading..." : "Cancle"}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

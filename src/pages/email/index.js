@@ -1060,7 +1060,7 @@ const EmailPage = () => {
   };
 
   const handleSendBulkClick = async () => {
-    if (isBulkValid()) {
+    if (!isBulkValid()) {
       setLoading(true);
       let contactid = bulkSelected.value;
       const obj = {
